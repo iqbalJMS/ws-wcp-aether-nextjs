@@ -293,6 +293,7 @@ const config: Config = {
         "gray-04": "#A3A3A3",
         "light-02": "#EAEBEB",
         "light-08": "#777777",
+        "red-01": "#c70740",
       },
     },
   },

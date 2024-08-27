@@ -37,9 +37,9 @@ type T_ImageProps = Omit<
 
 export default function Image(prop: T_ImageProps) {
   const { src } = prop;
-  let newSrc = `/web/kartukredit/${src}`;
+  let newSrc = `${src}`;
   if (!src) {
-    newSrc = `/web/kartukredit/images/no-image.png`;
+    newSrc = `images/no-image.png`;
   }
   if (typeof src === "string") {
     if (prop.extern) {
