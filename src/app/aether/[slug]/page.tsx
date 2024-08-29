@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function PageAether() {
-  return <div>PageAether</div>;
+  return <div>Page Aether</div>;
 }
