@@ -6,7 +6,7 @@ import GlobalHeader from "@/lib/element/global/global.header";
 // import { Locale } from "@/i18n-config";
 // import GlobalFooter from "@/lib/global/components/global.footer";
 // import GlobalHeader from "@/lib/global/components/global.header";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import React from "react";
 
 export default function CE_Wrapper({
@@ -24,9 +24,9 @@ export default function CE_Wrapper({
         params={{ lang: locales ?? "id" }}
         dictionary={dictionary?.navbar}
       /> */}
-      <GlobalHeader /> 
+      <GlobalHeader />
       {children}
-      <GlobalFooter/>
+      <GlobalFooter />
     </>
   );
 }
