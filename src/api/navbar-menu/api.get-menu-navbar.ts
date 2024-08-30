@@ -1,40 +1,18 @@
 "use server";
 
+import { get } from "../common/fetch";
 import { T_ResponseGetNavbarMenu } from "./api.get-menu-navbar.type";
 
-// TODO: kindly remove when API is ready
-const ABSTRACTION_RESPONSE_DATA = {
-  data: [
-    { id: 1, title: "Home", link: "/" },
-    {
-      id: 2,
-      title: "About",
-      link: "/about",
-    },
-    {
-      id: 3,
-      title: "Kontak",
-      link: "/contact",
-    },
-  ],
-};
-
-export async function API_GetNavbarMenu({
-  // TODO: used as a param - integration API
-  // eslint-disable-next-line no-unused-vars
-  lang,
-}: {
+export async function API_GetNavbarMenu({}: // TODO: parsing lang as params API
+// lang,
+{
   lang: string;
 }): Promise<T_ResponseGetNavbarMenu> {
   try {
-    const response: T_ResponseGetNavbarMenu = await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          data: ABSTRACTION_RESPONSE_DATA.data,
-        });
-      }, 500);
-    });
-
+    const response: T_ResponseGetNavbarMenu = await get(
+      "/menu-items/social-media?_format=json"
+    );
+    console.log("this is a response, ", response);
     return response;
   } catch (error) {
     console.error("An error occurred during Get Navbar Menu:", error);

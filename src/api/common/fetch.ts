@@ -1,79 +1,75 @@
-import { T_HttpRequestOptions, T_HttpResponse } from "./fetch.type";
+"use server";
 
-const defaultHeaders: HeadersInit = {
+import { T_FetchOptions } from "./fetch.type";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || "";
+
+const DEFAULT_HEADERS: HeadersInit = {
   "Content-Type": "application/json",
 };
 
-async function handleResponse<T>(
-  response: Response
-): Promise<T_HttpResponse<T>> {
-  const contentType = response.headers.get("Content-Type");
-  const isJson = contentType?.includes("application/json");
-  const data = isJson ? await response.json() : await response.text();
+async function fetchData<T>(
+  endpoint: string,
+  options: T_FetchOptions = {}
+): Promise<T> {
+  const url = `${API_BASE_URL}${endpoint}`;
 
-  if (!response.ok) {
-    const errorMessage = `Error ${response.status}: ${response.statusText}`;
-    throw new Error(errorMessage + (isJson ? JSON.stringify(data) : data));
-  }
-
-  return { status: response.status, data };
-}
-
-async function api<TResponse, TBody = any>(
-  url: string,
-  {
-    method = "GET",
-    headers = {},
-    body,
-    signal,
-  }: T_HttpRequestOptions<TBody> = {}
-): Promise<T_HttpResponse<TResponse>> {
   const response = await fetch(url, {
-    method,
-    headers: { ...defaultHeaders, ...headers },
-    body: body ? JSON.stringify(body) : undefined,
-    signal,
+    ...options,
+    headers: {
+      ...DEFAULT_HEADERS,
+      ...options.headers,
+    },
+    body: options?.body ? JSON.stringify(options.body) : null,
   });
 
-  return handleResponse<TResponse>(response);
+  const contentType = response.headers.get("content-type");
+
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    if (response.status === 403) {
+      console.error("403 Forbidden: ", errorResponse.message);
+    }
+
+    throw new Error(
+      `Ups something went wrong, status: ${response.status ?? ""} - ${
+        errorResponse.message ?? ""
+      }, please reload`
+    );
+  }
+
+  if (contentType && contentType.includes("application/json")) {
+    return response.json();
+  } else {
+    throw new Error("Unexpected response type");
+  }
+}
+export async function get<T>(
+  endpoint: string,
+  headers?: Record<string, string>
+): Promise<T> {
+  return fetchData<T>(endpoint, { method: "GET", headers });
 }
 
-export const get = <TResponse>({
-  url,
-  options,
-}: {
-  url: string;
-  options?: T_HttpRequestOptions;
-}): Promise<T_HttpResponse<TResponse>> =>
-  api<TResponse>(url, { ...options, method: "GET" });
+export async function post<T>(
+  endpoint: string,
+  body: any,
+  headers?: Record<string, string>
+): Promise<T> {
+  return fetchData<T>(endpoint, { method: "POST", headers, body });
+}
 
-export const post = <TResponse, TBody = any>({
-  url,
-  body,
-  options,
-}: {
-  url: string;
-  body: TBody;
-  options?: T_HttpRequestOptions;
-}): Promise<T_HttpResponse<TResponse>> =>
-  api<TResponse, TBody>(url, { ...options, method: "POST", body });
+export async function put<T>(
+  endpoint: string,
+  body: any,
+  headers?: Record<string, string>
+): Promise<T> {
+  return fetchData<T>(endpoint, { method: "PUT", headers, body });
+}
 
-export const put = <TResponse, TBody = any>({
-  url,
-  body,
-  options,
-}: {
-  url: string;
-  body: TBody;
-  options?: T_HttpRequestOptions;
-}): Promise<T_HttpResponse<TResponse>> =>
-  api<TResponse, TBody>(url, { ...options, method: "PUT", body });
-
-export const del = <TResponse>({
-  url,
-  options,
-}: {
-  url: string;
-  options?: T_HttpRequestOptions;
-}): Promise<T_HttpResponse<TResponse>> =>
-  api<TResponse>(url, { ...options, method: "DELETE" });
+export async function del<T>(
+  endpoint: string,
+  headers?: Record<string, string>
+): Promise<T> {
+  return fetchData<T>(endpoint, { method: "DELETE", headers });
+}
