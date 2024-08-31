@@ -1,6 +1,6 @@
 // import { ACT_GetNavbarMenu } from "./$action/action.get.navbar-menu";
 
-export default function AetherLayout({
+export default async function AetherLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
