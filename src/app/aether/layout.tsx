@@ -1,12 +1,12 @@
-// import { ACT_GetNavbarMenu } from "./$action/action.get.navbar-menu";
+import { ACT_GetNavbarMenu } from "./$action/action.get.navbar-menu";
 
 export default async function AetherLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  //TODO:  waiting for component navbar
-  // const data = await ACT_GetNavbarMenu({ lang: "en" });
+  // eslint-disable-next-line no-unused-vars
+  const data = await ACT_GetNavbarMenu({ lang: "en" });
 
   return (
     <>
