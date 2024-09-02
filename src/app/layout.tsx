@@ -7,8 +7,9 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
+
 export const metadata: Metadata = {
-  title: "BRI - CC | Homepage",
+  title: "Home BRI - Melayani setulus hati",
 };
 
 export default function RootLayout({
@@ -18,9 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
-        <main>{children}</main>
-      </body>
+      <body className={poppins.className}>{children}</body>
     </html>
   );
 }

@@ -1,0 +1,10 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-unused-expressions": "error",
+    "no-useless-return": "error",
+    "react/react-in-jsx-scope": "off",
+    "no-console": "off"
+  }
+}
