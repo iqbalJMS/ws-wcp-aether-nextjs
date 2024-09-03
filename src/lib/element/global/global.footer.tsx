@@ -1,3 +1,5 @@
+"use server";
+
 import { LIST_TERMS } from "@/app/$action/constants";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,7 +24,7 @@ const RowElement = ({ description, label }: T_RowElementProps) => {
       <h1 className="text-blue-01 lg:mb-5 mb-2 font-semibold lg:text-xl text-lg">
         {label}
       </h1>
-      {description?.map(({ className, name, icon, url, extern }) => (
+      {description?.map(({ className, name, icon, url }) => (
         <Link
           href={url ?? "/"}
           key={name}
@@ -53,7 +55,7 @@ function TermsAllReservedElement() {
 
         <div className="items-center mt-6 lg:mt-0">
           <div className="flex flex-wrap justify-center items-center">
-            {LIST_TERMS?.map(({ extern, url, value }, index) => (
+            {LIST_TERMS?.map(({ url, value }, index) => (
               <div key={index}>
                 <Link href={url} className="text-sm font-light text-white">
                   {value}
@@ -70,7 +72,7 @@ function TermsAllReservedElement() {
   );
 }
 
-export default function GlobalFooter() {
+export default async function GlobalFooter() {
   return (
     <footer className="pt-6 lg:pt-11 shadow-[0_-4px_4px_-2px_rgba(0,0,0,0.1)]">
       <div className="lg:container text-center lg:text-left lg:mb-6">

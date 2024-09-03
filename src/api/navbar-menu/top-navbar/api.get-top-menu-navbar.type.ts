@@ -1,4 +1,4 @@
-export type T_ResponseGetNavbarMenu = Array<{
+export type T_ResponseGetTopMenuNavbar = Array<{
   key: string;
   title: string;
   uri: string;
@@ -8,4 +8,5 @@ export type T_ResponseGetNavbarMenu = Array<{
   expanded: boolean;
   enabled: boolean;
   options: Array<any>;
+  icon?: string;
 }>;

@@ -1,18 +1,21 @@
-import { ACT_GetNavbarMenu } from "./$action/action.get.navbar-menu";
+import GlobalFooter from "@/lib/element/global/global.footer";
+import { ACT_GetTopMenuNavbar } from "./$action/action.get.top-menu-navbar";
+import GlobalHeader from "@/lib/element/global/global.header";
+import React from "react";
 
 export default async function AetherLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // eslint-disable-next-line no-unused-vars
-  const data = await ACT_GetNavbarMenu({ lang: "en" });
-
+  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: "en" });
+  // const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: "en" });
+  console.log({ listHeaderTop });
   return (
-    <>
-      {/* TODO: waiting for component Navbar */}
+    <React.Fragment>
+      <GlobalHeader headerBottom={[]} headerTop={listHeaderTop} />
       {children}
-      {/* TODO: waiting for component Footer */}
-    </>
+      <GlobalFooter />
+    </React.Fragment>
   );
 }
