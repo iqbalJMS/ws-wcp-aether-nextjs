@@ -1,6 +1,6 @@
 "use server";
 
-import { get } from "../common/fetch";
+import { get } from "@/api/common/fetch";
 import { T_ResponseGetNavbarMenu } from "./api.get-menu-navbar.type";
 
 export async function API_GetNavbarMenu({
