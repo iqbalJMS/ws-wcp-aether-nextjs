@@ -1,3 +1,5 @@
+"use server";
+
 import { LIST_TERMS } from "@/app/$action/constants";
 import Image from "next/image";
 import Link from "next/link";
@@ -70,7 +72,7 @@ function TermsAllReservedElement() {
   );
 }
 
-export default function GlobalFooter() {
+export default async function GlobalFooter() {
   return (
     <footer className="pt-6 lg:pt-11 shadow-[0_-4px_4px_-2px_rgba(0,0,0,0.1)]">
       <div className="lg:container text-center lg:text-left lg:mb-6">

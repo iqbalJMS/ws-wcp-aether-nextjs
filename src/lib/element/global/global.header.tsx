@@ -2,92 +2,68 @@
 
 import useScrollActive from "@/lib/hook/useScroll";
 import Image from "./image";
+import { T_ResponseGetTopMenuNavbar } from "@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type";
 
-export default function GlobalHeader() {
+export default function GlobalHeader({
+  headerTop,
+}: // headerBottom,
+{
+  headerTop: T_ResponseGetTopMenuNavbar;
+  headerBottom: T_ResponseGetTopMenuNavbar;
+}) {
   const isScrolling = useScrollActive();
-  const headerTops = [
-    {
-      title: "Promosi",
-      icon: "tag",
-      link: "/",
-    },
-    {
-      title: "Simulasi Keuangan",
-      icon: "calculator",
-      link: "/",
-    },
-    {
-      title: "Lokasi",
-      icon: "location",
-      link: "/",
-    },
-    {
-      title: "Bantuan",
-      icon: "help",
-      link: "/",
-    },
-    {
-      title: "Cari",
-      icon: "search",
-      link: "/",
-    },
-    {
-      title: "PPID",
-      icon: "document",
-      link: "/",
-    },
-  ];
-  const headerBottoms = [
-    {
-      title: "INDIVIDU",
-      subs: [
-        {
-          title: "Simpanan",
-          items: [
-            {
-              title: "Tabungan",
-            },
-          ],
-        },
-        {
-          title: "Simpanan",
-          items: [
-            {
-              title: "Tabungan",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      title: "INDIVIDU2",
-      subs: [
-        {
-          title: "Simpanan2",
-          items: [
-            {
-              title: "Tabungan2",
-            },
-          ],
-        },
-        {
-          title: "Simpanan2",
-          items: [
-            {
-              title: "Tabungan2",
-            },
-          ],
-        },
-      ],
-    },
-  ];
+
+  // const headerBottoms = [
+  //   {
+  //     title: "INDIVIDU",
+  //     subs: [
+  //       {
+  //         title: "Simpanan",
+  //         items: [
+  //           {
+  //             title: "Tabungan",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         title: "Simpanan",
+  //         items: [
+  //           {
+  //             title: "Tabungan",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: "INDIVIDU2",
+  //     subs: [
+  //       {
+  //         title: "Simpanan2",
+  //         items: [
+  //           {
+  //             title: "Tabungan2",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         title: "Simpanan2",
+  //         items: [
+  //           {
+  //             title: "Tabungan2",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // ];
   return (
     <>
       <header className={`${isScrolling ? "shadow-md" : "shadow-md"} relative`}>
         <div className="container py-5 ">
           <div className="flex items-center gap-5 justify-end mb-5">
             <div className="flex items-center gap-8">
-              {headerTops.map((header, index) => {
+              {headerTop.map((header, index) => {
                 return (
                   <div key={index}>
                     <div className="flex items-center">
@@ -125,7 +101,7 @@ export default function GlobalHeader() {
             </div>
             <div>
               <div className="flex items-center gap-10 ">
-                {headerBottoms.map((headerBottom, index) => {
+                {/* {headerBottom.map((headerBottom, index) => {
                   return (
                     <div
                       key={index}
@@ -174,7 +150,7 @@ export default function GlobalHeader() {
                       </div>
                     </div>
                   );
-                })}
+                })} */}
               </div>
             </div>
           </div>
