@@ -27,6 +27,7 @@ export async function SE_IconMain({
       link: 'https://bri.co.id'
     },
   ]
+  console.log(cookiesName)
   // const check = await SFN_CookieIcon(cookiesName, icons)
   // check.set()
   return (
