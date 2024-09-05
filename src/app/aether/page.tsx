@@ -1,6 +1,7 @@
 "use client";
-
+/*eslint no-restricted-imports: ["error", "fs"]*/
 import React from "react";
+import { CE_BannerMain } from "../$element/client.banner.main";
 // TODO: Waiting for widget content from drupal
 // import { COMPONENT_MAP_WIDGET, T_FieldComponent, T_Widget } from "./$constant";
 
@@ -53,6 +54,7 @@ export default function PageAether() {
           <Component {...props} />
         </React.Fragment>
       ))} */}
+      <CE_BannerMain />
     </React.Fragment>
   );
 }

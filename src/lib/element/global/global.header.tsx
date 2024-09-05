@@ -16,7 +16,7 @@ export default function GlobalHeader({
 
   return (
     <>
-      <header className={`${isScrolling ? "shadow-md" : "shadow-md"} relative`}>
+      <header className={`${isScrolling ? "shadow-md" : "shadow-md"} relative z-50`}>
         <div className="container py-5 ">
           <div className="flex items-center gap-5 justify-end mb-5">
             <div className="flex items-center gap-8">
