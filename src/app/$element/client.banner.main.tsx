@@ -89,7 +89,7 @@ export function CE_BannerMain() {
 
   return (
     <>
-      <div className="overflow-hidden relative">
+      <div className="overflow-hidden relative pb-5">
         <div 
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
@@ -154,7 +154,7 @@ export function CE_BannerMain() {
             ))}
           </div>
         </div>
-        <div className="w-full h-full absolute top-4 left-4 bg-black rounded-br-[14rem] overflow-hidden bg-opacity-10 z-0"></div>
+        <div className="w-full h-[50rem] absolute top-4 left-0 bg-black rounded-br-[14rem] overflow-hidden bg-opacity-10 z-0"></div>
       </div>
     </>
   );

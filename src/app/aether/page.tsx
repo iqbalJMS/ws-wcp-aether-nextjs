@@ -1,11 +1,13 @@
-"use client";
+"use server";
 /*eslint no-restricted-imports: ["error", "fs"]*/
 import React from "react";
 import { CE_BannerMain } from "../$element/client.banner.main";
+import { SE_IconMain } from "../$element/server.icon.main";
 // TODO: Waiting for widget content from drupal
 // import { COMPONENT_MAP_WIDGET, T_FieldComponent, T_Widget } from "./$constant";
 
-export default function PageAether() {
+export default async function PageAether() {
+  
   // const data = {
   // TODO: temporary abstraction
   // waiting for endpoint node
@@ -55,6 +57,7 @@ export default function PageAether() {
         </React.Fragment>
       ))} */}
       <CE_BannerMain />
+      <SE_IconMain  cookiesName="home" />
     </React.Fragment>
   );
 }
