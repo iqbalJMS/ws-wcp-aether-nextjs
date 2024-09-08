@@ -1,7 +1,6 @@
 "use client";
 
 import * as Linx from "next/link";
-import { useSearchParams } from "next/navigation";
 import React, { AnchorHTMLAttributes, RefAttributes } from "react";
 
 type T_LinkProps = Linx.LinkProps &
@@ -17,7 +16,6 @@ type T_LinkProps = Linx.LinkProps &
 const wildcard = ["http://", "https://"];
 
 export default function Link(prop: T_LinkProps) {
-  const locales = useSearchParams().get("lang") ?? "id";
   const { href = "#" } = prop;
 
   if (!href) {
@@ -39,7 +37,7 @@ export default function Link(prop: T_LinkProps) {
 
   const isWildcard = wildcard.some((prefix) => href.startsWith(prefix));
   if (!isWildcard) {
-    newHref = `${href}?lang=${locales}`;
+    newHref = href;
   }
 
   if (prop.extern) {

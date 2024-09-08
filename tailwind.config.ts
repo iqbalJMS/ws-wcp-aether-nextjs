@@ -1,9 +1,12 @@
+import clamp from "./src/lib/functions/global/clamp";
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/lib/element/global/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/lib/functions/global/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -21,7 +24,12 @@ const config: Config = {
 
     extend: {
       screens: {
-        mdmax: { max: '768px' },
+        "1025-only": { max: "1024px" },
+        "1025": "1025px",
+        "1367": "1367px",
+        mdmax: { max: "768px" },
+        hoverable: { raw: "(hover: hover)" },
+        unhoverable: { raw: "(hover: none)" },
       },
       fontSize: {
         // heading s
@@ -297,7 +305,68 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addComponents, matchUtilities }) => {
+      addComponents({
+        ".body": {
+          fontSize: clamp({
+            minValue: 14,
+            maxValue: 16,
+            minViewport: 430,
+            maxViewport: 1440,
+          }),
+        },
+        ".wrapper-space": {
+          "--wrapper-space": "0.75rem",
+          "@media (min-width:1025px)": {
+            "--wrapper-space": clamp({
+              minValue: 960,
+              maxValue: 1500,
+              minViewport: 1024,
+              maxViewport: 1600,
+            }),
+          },
+        },
+        ".wrapper": {
+          "--wrapper-space": "0.75rem",
+          paddingInline: "var(--wrapper-space)",
+          width: "100%",
+          marginInline: "auto",
+          "@media (min-width:1025px)": {
+            "--wrapper-space": clamp({
+              minValue: 960,
+              maxValue: 1500,
+              minViewport: 1024,
+              maxViewport: 1600,
+            }),
+            maxWidth: "var(--wrapper-space)",
+            paddingInline: "0rem",
+          },
+        },
+      });
+      matchUtilities(
+        {
+          "w-clamp": (size) => {
+            const [minValue, maxValue, minViewport, maxViewport] = size
+              .split(" ")
+              .map(Number);
+            return {
+              width: clamp({ minValue, maxValue, minViewport, maxViewport }),
+            };
+          },
+          "text-clamp": (size) => {
+            const [minValue, maxValue, minViewport, maxViewport] = size
+              .split(" ")
+              .map(Number);
+            return {
+              fontSize: clamp({ minValue, maxValue, minViewport, maxViewport }),
+            };
+          },
+        },
+        { values: { none: "0 0 0 0" } }
+      );
+    }),
+  ],
 };
 
 export default config;
