@@ -32,8 +32,7 @@ async function fetchData<T>(
     }
 
     throw new Error(
-      `Ups something went wrong, status: ${response.status ?? ""} - ${
-        errorResponse.message ?? ""
+      `Ups something went wrong, status: ${response.status ?? ""} - ${errorResponse.message ?? ""
       }, please reload`
     );
   }
