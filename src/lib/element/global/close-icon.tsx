@@ -1,6 +1,5 @@
 import { T_Icon } from "@/lib/element/client/icon";
 
-
 export function CloseIcon({
   width = 24,
   height = 24,

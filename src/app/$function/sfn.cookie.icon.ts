@@ -1,9 +1,7 @@
 "use server"
- 
+
 import { cookies } from 'next/headers'
 import { T_IconList } from '@/app/$action/constants'
- 
-
 
 export async function SFN_CookieIcon(
     name: string,
@@ -13,7 +11,7 @@ export async function SFN_CookieIcon(
         cookies().set(name, JSON.stringify(list))
     }
     const get = () => {
-        const cookie = cookies().get(name) 
+        const cookie = cookies().get(name)
         return cookie
     }
     return {

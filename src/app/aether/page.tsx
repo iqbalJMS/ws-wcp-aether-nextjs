@@ -3,11 +3,13 @@
 import React from "react";
 import { CE_BannerMain } from "../$element/client.banner.main";
 import { SE_IconMain } from "../$element/server.icon.main";
+import CE_HelpContent from "../$element/client.help.content";
+import SE_WhyUsContent from "../$element/server.why-us.content";
+import SE_SubscriberContent from "../$element/server.subscriber.content";
 // TODO: Waiting for widget content from drupal
 // import { COMPONENT_MAP_WIDGET, T_FieldComponent, T_Widget } from "./$constant";
 
 export default async function PageAether() {
-  
   // const data = {
   // TODO: temporary abstraction
   // waiting for endpoint node
@@ -57,7 +59,60 @@ export default async function PageAether() {
         </React.Fragment>
       ))} */}
       <CE_BannerMain />
-      <SE_IconMain  cookiesName="home" />
+      <CE_HelpContent
+        list_items={[
+          {
+            title: "Membuka Tabungan",
+            value: "https://bri.co.id/web/tabungan#",
+          },
+          {
+            title: "Membuka Deposito",
+            value: "https://bri.co.id/web/deposito#",
+          },
+        ]}
+      />
+      <SE_IconMain cookiesName="home" />
+      <SE_WhyUsContent
+        title={"Mengapa memilih BRI"}
+        subtitle={
+          "Melayani lebih dari 128 tahun, Bank BRI senantiasa memberikan kemudahan dan kecepatan dalam merespon berbagai kebutuhan nasabah dengan didukung oleh layanan perbankan yang prima."
+        }
+        textLink={"CARI TAHU LEBIH LANJUT TENTANG BRI"}
+        list_items={[
+          {
+            image: "/images/why-us/kredit.png",
+            title: "Cepat",
+            description:
+              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
+          },
+          {
+            image: "/images/why-us/kredit.png",
+            title: "Cepat",
+            description:
+              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
+          },
+          {
+            image: "/images/why-us/kredit.png",
+            title: "Cepat",
+            description:
+              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
+          },
+          {
+            image: "/images/why-us/kredit.png",
+            title: "Cepat",
+            description:
+              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
+          },
+          {
+            image: "/images/why-us/kredit.png",
+            title: "Cepat",
+            description:
+              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
+          },
+        ]}
+        bg_image={"/images/why-us/bg-image.jpg"}
+      />
+      <SE_SubscriberContent bg_image="images/subscriber/subscribe-backg.png" />
     </React.Fragment>
   );
 }

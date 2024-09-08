@@ -1,0 +1,63 @@
+export default function CE_SubscriberForm() {
+  return (
+    <div className="md:flex relative">
+      <div
+        style={{
+          backgroundImage: `url(${"/images/subscriber/mail.png"})`,
+          backgroundSize: "cover",
+        }}
+        className="bg-no-repeat md:w-20 md:h-36 w-11 h-20 absolute mdmax:right-0 mdmax:-top-24 md:-mt-8"
+      ></div>
+      <form action="">
+        <div className="flex items-start md:pl-28">
+          <div className="flex-auto mdmax:w-24 w-full">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Masukkan alamat email"
+              className="w-full md:py-4 px-4 py-2 mb-4 bg-[#f59a22]/30 placeholder:text-orange-01 placeholder:font-semibold"
+            />
+            <div className="flex items-center gap-4 text-xs text-gray-500 font-light">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="promo"
+                  id="promo"
+                  className="w-4 h-4 checked:accent-orange-01"
+                />
+                <label htmlFor="promo">Promo</label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="berita"
+                  id="berita"
+                  className="w-4 h-4 rounded-lg checked:accent-orange-01"
+                />
+                <label htmlFor="berita">Berita</label>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="produk"
+                  id="produk"
+                  className="w-4 h-4 rounded-lg checked:accent-orange-01"
+                />
+                <label htmlFor="produk">Produk</label>
+              </div>
+            </div>
+          </div>
+          <div className="flex-none">
+            <button
+              type="submit"
+              className="bg-[#f59a22] uppercase text-white md:py-4 py-2 px-4 text-md"
+            >
+              Berlangganan
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+}
