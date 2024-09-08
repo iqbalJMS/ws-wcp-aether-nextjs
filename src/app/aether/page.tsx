@@ -23,14 +23,14 @@ export default async function PageAether() {
       {
         entity_bundle: [
           {
-            value: "icon_main",
+            value: "header",
           },
         ],
       },
       {
         entity_bundle: [
           {
-            value: "header",
+            value: "icon_main",
           },
         ],
       },
