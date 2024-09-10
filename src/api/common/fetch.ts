@@ -16,6 +16,9 @@ async function fetchData<T>(
 
   const response = await fetch(url, {
     ...options,
+    next: {
+      revalidate: 120,
+    },
     headers: {
       ...DEFAULT_HEADERS,
       ...options.headers,
@@ -32,7 +35,8 @@ async function fetchData<T>(
     }
 
     throw new Error(
-      `Ups something went wrong, status: ${response.status ?? ""} - ${errorResponse.message ?? ""
+      `Ups something went wrong, status: ${response.status ?? ""} - ${
+        errorResponse.message ?? ""
       }, please reload`
     );
   }

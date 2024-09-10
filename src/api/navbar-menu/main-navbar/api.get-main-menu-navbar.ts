@@ -11,7 +11,7 @@ export async function API_GetMainMenuNavbar({
 }): Promise<T_ResponseGetMainMenuNavbar> {
   try {
     const response: T_ResponseGetMainMenuNavbar = await get(
-      "/menu-items/main?_format=json"
+      "/bricc-api/menu-items/main?_format=json"
     );
 
     return response;

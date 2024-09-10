@@ -1,69 +1,50 @@
 import React from "react";
-import CE_SectionPromo from "@/app/aether/$element/promo/CE_SectionPromo";
 import { CE_BannerMain } from "@/app/$element/client.banner.main";
-import CE_HelpContent from "@/app/$element/client.help.content";
 import { SE_IconMain } from "@/app/$element/server.icon.main";
 import SE_WhyUsContent from "@/app/$element/server.why-us.content";
 import SE_SubscriberContent from "@/app/$element/server.subscriber.content";
-
-type T_ComponentPropsFunc<T> = (_component: T) => Record<string, any>;
-
-type T_ComponentMapWidget<T = any> = {
-  component: React.ComponentType<T>;
-  props: T_ComponentPropsFunc<T>;
-};
-
-export type T_FieldComponent = {
-  entity_bundle: Array<{ value: string }>;
-};
-
-export type T_Widget =
-  | "header"
-  | "banner"
-  | "help_content"
-  | "icon_main"
-  | "se_subscriber_content"
-  | "why_use_content";
+import CE_HelpContent from "@/app/$element/client.help.content";
+import { T_Slider } from "./types/widget/slider";
+import { T_ComponentMapWidget, T_Widget } from "./types";
+import { T_DropdownAction } from "./types/widget/dropdown-action";
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
-  header: {
-    component: CE_SectionPromo,
-    props: (_component) => {
-      return {};
-    },
-  },
-  banner: {
+  slider: {
     component: CE_BannerMain,
-    props: (_component) => {
-      return {};
-    },
-  },
-  help_content: {
-    component: CE_HelpContent,
-    props: (_component) => {
+    props: (_component: T_Slider) => {
       return {
-        list_items: [
-          {
-            title: "Membuka Tabungan",
-            value: "https://bri.co.id/web/tabungan#",
-          },
-          {
-            title: "Membuka Deposito",
-            value: "https://bri.co.id/web/deposito#",
-          },
-        ],
+        data: _component?.field_slider_items?.map((item) => {
+          return {
+            image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
+            title: item?.field_title?.[0]?.value,
+            desc: item?.field_content?.[0]?.value,
+            button: item?.field_primary_cta[0]?.title,
+          };
+        }),
       };
     },
   },
-  icon_main: {
+  dropdown_action: {
+    component: CE_HelpContent,
+    props: (_component: T_DropdownAction) => {
+      return {
+        title: _component?.field_title[0]?.value,
+        list_items: _component?.field_menu_list[0]?.field_links.map((item) => {
+          return {
+            title: item?.title,
+            value: item?.uri,
+          };
+        }),
+      };
+    },
+  },
+  personalized_shortcut: {
     component: SE_IconMain,
     props: (_component) => {
-      return {
-        cookiesName: "home",
-      };
+      return {};
     },
   },
-  why_use_content: {
+  section: {
     component: SE_WhyUsContent,
     props: (_component) => {
       return {
@@ -106,12 +87,24 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       };
     },
   },
-  se_subscriber_content: {
+  subscription: {
     component: SE_SubscriberContent,
     props: (_component) => {
       return {
         bg_image: "images/subscriber/subscribe-backg.png",
       };
+    },
+  },
+  image_slider: {
+    component: () => <h1 className="text-center my-20">waiting for UI</h1>,
+    props: (_component) => {
+      return {};
+    },
+  },
+  header: {
+    component: () => <h1 className="text-center my-20">waiting for UI</h1>,
+    props: (_component) => {
+      return {};
     },
   },
 };

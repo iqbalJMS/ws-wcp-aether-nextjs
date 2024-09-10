@@ -1,29 +1,13 @@
 "use server";
 
-// TODO: waiting for API drupal
-export async function API_GetSinglePage({
-  // eslint-disable-next-line no-unused-vars
-  lang,
-}: {
+import { get } from "@/api/common/fetch";
+
+export async function API_GetSinglePage({}: // lang,
+{
   lang: string;
 }): Promise<any> {
   try {
-    const response: any = await {
-      // TODO: temporary abstraction
-      data: [
-        {
-          description: "description",
-          entity_bundle: "header",
-          content: [
-            {
-              title: "title",
-              description: "description",
-            },
-          ],
-        },
-      ],
-    };
-
+    const response = await get("/node/15?_format=json_recursive");
     return response;
   } catch (error) {
     console.error("An error occurred during Get Single Page:", error);

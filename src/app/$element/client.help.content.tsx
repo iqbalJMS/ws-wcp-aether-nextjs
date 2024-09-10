@@ -9,9 +9,13 @@ import { T_InputSelectItem } from "@/lib/element/client/input";
 
 type T_HelpContentProps = {
   list_items: T_InputSelectItem[];
+  title: string;
 };
 
-export default function CE_HelpContent({ list_items }: T_HelpContentProps) {
+export default function CE_HelpContent({
+  title,
+  list_items,
+}: T_HelpContentProps) {
   const [selectedItem, setSelectedItem] = React.useState(list_items[0]);
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -26,7 +30,7 @@ export default function CE_HelpContent({ list_items }: T_HelpContentProps) {
       <div className="py-5 px-8 rounded-[1.8rem] shadow-md bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
         <div className="z-10 flex items-center w-full gap-4">
           <h2 className="font-bold md:text-xl text-md text-red-500 flex-none w-fit">
-            SAYA INGIN:
+            {title}:
           </h2>
           <div
             ref={dropdownRef}

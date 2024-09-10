@@ -11,8 +11,8 @@ type T_IconMainProps = {
 
 export async function SE_IconMain({
   maxListShow = 1,
-  cookiesName,
-}: T_IconMainProps) {
+}: // cookiesName,
+T_IconMainProps) {
   const icons: T_IconList[] = [
     {
       image: "icon-menu.png",
@@ -25,7 +25,7 @@ export async function SE_IconMain({
       link: "https://bri.co.id",
     },
   ];
-  console.log(cookiesName);
+
   // const check = await SFN_CookieIcon(cookiesName, icons)
   // check.set()
   return (

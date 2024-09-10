@@ -7,4 +7,12 @@ module.exports = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "admin-bri-corpsite.dev-kjt.id",
+      },
+    ],
+  },
 };

@@ -43,7 +43,7 @@ export default function Image(prop: T_ImageProps) {
   }
   if (typeof src === "string") {
     if (prop.extern) {
-      newSrc = src;
+      newSrc = `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${src}`;
     }
   }
   return <Imagex.default {...{ ...prop, src: newSrc }} />;

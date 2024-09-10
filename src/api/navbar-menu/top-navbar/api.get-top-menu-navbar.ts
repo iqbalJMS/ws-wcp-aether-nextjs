@@ -11,7 +11,7 @@ export async function API_GetTopMenuNavbar({
 }): Promise<T_ResponseGetTopMenuNavbar> {
   try {
     const response: T_ResponseGetTopMenuNavbar = await get(
-      "/menu-items/top-navigation?_format=json"
+      "/bricc-api/menu-items/top-navigation?_format=json"
     );
 
     return response;

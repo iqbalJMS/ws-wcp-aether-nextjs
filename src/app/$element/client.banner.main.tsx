@@ -4,24 +4,16 @@ import ButtonSecondary from "@/lib/element/global/button.secondary";
 import Image from "@/lib/element/global/image";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 
-export function CE_BannerMain() {
-  const banners = [
-    {
-      image: "banner.jpg",
-      title: "Title Dummy 01",
-      desc: "Desc Dummy 01",
-      button: "Open",
-      link: "https://bri.co.id",
-    },
-    {
-      image: "banner01.jpg",
-      title: "Title Dummy 02",
-      desc: "Desc Dummy 02",
-      button: "Open",
-      link: "https://bri.co.id",
-    },
-  ];
-
+export function CE_BannerMain({
+  data,
+}: {
+  data: Array<{
+    image: string;
+    title: string;
+    desc: string;
+    button: string;
+  }>;
+}) {
   const [index, setIndex] = useState(0);
 
   const [isDragging, setIsDragging] = useState(false);
@@ -32,22 +24,22 @@ export function CE_BannerMain() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) =>
-        prevIndex === banners.length - 1 ? 0 : prevIndex + 1
+        prevIndex === data?.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [banners.length]);
+  }, [data?.length]);
 
   const goToNext = () => {
     setIndex((prevIndex) =>
-      prevIndex === banners.length - 1 ? 0 : prevIndex + 1
+      prevIndex === data?.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const goToPrevious = () => {
     setIndex((prevIndex) =>
-      prevIndex === 0 ? banners.length - 1 : prevIndex - 1
+      prevIndex === 0 ? data?.length - 1 : prevIndex - 1
     );
   };
 
@@ -96,7 +88,7 @@ export function CE_BannerMain() {
           ref={sliderRef}
           className="overflow-hidden relative rounded-br-[14rem] h-[50rem] z-10"
         >
-          {banners.map((bannerItem, bannerIndex) => {
+          {data?.map((bannerItem, bannerIndex: number) => {
             return (
               <div
                 key={bannerIndex}
@@ -108,7 +100,8 @@ export function CE_BannerMain() {
               >
                 <div className=" overflow-hidden w-full h-full relative ">
                   <Image
-                    src={`/images/dummy/${bannerItem.image}`}
+                    extern
+                    src={bannerItem.image}
                     alt="image"
                     width={1920}
                     height={1080}
@@ -144,7 +137,7 @@ export function CE_BannerMain() {
         </div>
         <div className="absolute top-1/2 transform -translate-y-1/2 z-30 right-[12rem] ">
           <div className="-mt-10">
-            {banners.map((_, bannerIndex) => (
+            {data?.map((_: any, bannerIndex: number) => (
               <div
                 key={bannerIndex}
                 className={`
