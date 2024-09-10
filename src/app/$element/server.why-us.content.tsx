@@ -21,11 +21,16 @@ export default function SE_WhyUsContent({
   list_items,
   bg_image,
 }: T_WhyUsContentProps) {
+  const backgroundImg = bg_image
+    ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${bg_image}`
+    : "";
   return (
     <section
       className="w-full bg-no-repeat pt-20 pb-12"
       style={{
-        backgroundImage: `url(${bg_image || "images/why-us/bg-image.jpg"})`,
+        backgroundImage: `url(${
+          backgroundImg || "images/why-us/bg-image.jpg"
+        })`,
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}

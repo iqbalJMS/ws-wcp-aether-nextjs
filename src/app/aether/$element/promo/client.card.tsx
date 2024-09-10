@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { T_CardProps } from "@/app/aether/$element/types/promo";
-import CE_Image from "./CE_Image";
+import CE_Image from "./client.image";
 
 export default function CE_Card(props: T_CardProps) {
   const { className, content, idx } = props;

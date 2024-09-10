@@ -17,7 +17,7 @@ import useMediaQuery from "@/lib/hook/useMediaQuery";
 import debounce from "@/lib/functions/global/debounce";
 import useMutationObserver from "@/lib/hook/useMutationObserver";
 import Draggable from "@/lib/element/global/draggable";
-import SE_Card from "./CE_Card";
+import SE_Card from "./client.card";
 import useIntersectionObserver from "@/lib/hook/useIntersectionObserver";
 import {
   T_ImperativeProps,

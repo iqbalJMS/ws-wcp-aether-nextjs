@@ -3,9 +3,9 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { DUMMY_DATA } from "@/app/aether/$constant/abstraction";
-import CE_Tab from "./CE_Tab";
-import { CE_Buttons, CE_ButtonsIdx } from "./CE_Navigations";
-import { CE_TabViewForwardRef } from "./CE_TabView";
+import CE_Tab from "./client.tab";
+import { CE_Buttons, CE_ButtonsIdx } from "./client.navigation";
+import { CE_TabViewForwardRef } from "./client.tab-view";
 import { T_ImperativeProps } from "@/app/aether/$element/types/promo";
 
 export type TabViewImperativeProps = T_ImperativeProps;

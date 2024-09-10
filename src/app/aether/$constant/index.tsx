@@ -7,6 +7,7 @@ import CE_HelpContent from "@/app/$element/client.help.content";
 import { T_Slider } from "./types/widget/slider";
 import { T_ComponentMapWidget, T_Widget } from "./types";
 import { T_DropdownAction } from "./types/widget/dropdown-action";
+import { T_Section } from "./types/widget/section";
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   slider: {
@@ -46,44 +47,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   section: {
     component: SE_WhyUsContent,
-    props: (_component) => {
+    props: (_component: T_Section) => {
       return {
-        title: "Mengapa memilih BRI",
-        subtitle:
-          "Melayani lebih dari 128 tahun, Bank BRI senantiasa memberikan kemudahan dan kecepatan dalam merespon berbagai kebutuhan nasabah dengan didukung oleh layanan perbankan yang prima.",
-        list_items: [
-          {
-            image: "/images/why-us/kredit.png",
-            title: "Cepat",
-            description:
-              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
-          },
-          {
-            image: "/images/why-us/kredit.png",
-            title: "Cepat",
-            description:
-              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
-          },
-          {
-            image: "/images/why-us/kredit.png",
-            title: "Cepat",
-            description:
-              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
-          },
-          {
-            image: "/images/why-us/kredit.png",
-            title: "Cepat",
-            description:
-              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
-          },
-          {
-            image: "/images/why-us/kredit.png",
-            title: "Cepat",
-            description:
-              "Melayani lebih cepat dan efisien dalam proses transaksi, khususnya untuk nasabah yang ingin melakukan transaksi.",
-          },
-        ],
-        bg_image: "/images/why-us/bg-image.jpg",
+        title: _component?.field_formatted_title[0]?.value,
+        subtitle: _component?.field_content[0]?.value,
+        list_items: _component?.field_column?.map((item) => {
+          return {
+            image: item?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+            text: item?.field_content[0]?.value,
+          };
+        }),
+
+        bg_image: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
       };
     },
   },

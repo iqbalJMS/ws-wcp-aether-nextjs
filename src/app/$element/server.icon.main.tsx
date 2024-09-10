@@ -26,11 +26,7 @@ T_IconMainProps) {
     },
   ];
 
-  // const check = await SFN_CookieIcon(cookiesName, icons)
-  // check.set()
-  return (
-    <>
-      <CE_IconMain list={icons} maxListShow={maxListShow} />
-    </>
-  );
+  // const check = await SFN_CookieIcon(cookiesName, icons);
+  // check.set();
+  return <CE_IconMain list={icons} maxListShow={maxListShow} />;
 }
