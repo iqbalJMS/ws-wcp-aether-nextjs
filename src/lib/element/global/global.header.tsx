@@ -8,19 +8,21 @@ import { T_ResponseGetMainMenuNavbar } from "@/api/navbar-menu/main-navbar/api.g
 export default function GlobalHeader({
   headerTop,
   headerBottom,
+  variant = 'transparent'
 }: {
   headerTop: T_ResponseGetTopMenuNavbar;
   headerBottom: T_ResponseGetMainMenuNavbar;
+  variant: 'transparent' | 'no-transparent'
 }) {
   const isScrolling = useScrollActive();
 
   return (
     <>
       <header
-        className={`${isScrolling ? "shadow-md" : "shadow-md"} relative z-50`}
+        className={`${isScrolling ? "bg-white shadow-md" : ""} z-50 fixed w-full ${variant === 'transparent' ? '' : 'bg-white'}`}
       >
         <div className="container py-5 ">
-          <div className="flex items-center gap-5 justify-end mb-5">
+          <div className={`flex items-center gap-5 justify-end mb-5 ${isScrolling ? 'hidden' : ''}`}>
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
                 return (
@@ -28,25 +30,26 @@ export default function GlobalHeader({
                     <div className="flex items-center">
                       {header.icon && (
                         <Image
-                          src={`/images/headers/${header.icon}.svg`}
+                          extern
+                          src={`${header.icon}`}
                           width={18}
                           height={18}
                           alt={`icon-${header.icon}`}
                           className="w-3 h-3 mr-2"
                         />
                       )}
-                      <div className="text-sm">{header.title}</div>
+                      <div className={`text-sm ${variant === 'transparent' ? 'text-white' : ''}`}>{header.title}</div>
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div>|</div>
+            <div className={`${variant === 'transparent' ? 'text-white' : ''}`}>|</div>
             <div className="flex items-center gap-5 text-sm">
-              <div className="px-2 py-1 border border-orange-01 rounded-md">
+              <div className={`px-2 py-1 border border-orange-01 rounded-md ${variant === 'transparent' ? 'text-white' : ''}`}>
                 ID
               </div>
-              <div>EN</div>
+              <div className={`${variant === 'transparent' ? 'text-white' : ''}`}>EN</div>
             </div>
           </div>
           <div className="flex items-end justify-between ">
@@ -56,6 +59,7 @@ export default function GlobalHeader({
                 src="/images/headers/logo-bri.png"
                 width={128}
                 height={53}
+                className={`${isScrolling ? '' : 'filter brightness-0 invert'} `}
               />
             </div>
             <div>
@@ -66,20 +70,25 @@ export default function GlobalHeader({
                       key={index}
                       className="pb-2 group border-b-4 border-transparent hover:border-red-01 "
                     >
-                      <div className="text-lg font-semibold cursor-pointer">
+                      <div className={`
+                        text-[1rem] font-semibold cursor-pointer uppercase relative 
+                        
+                        ${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white' : ''}
+                        `}>
                         {headerBottom?.title}
+                        <div className="bg-white w-5 h-5 absolute top-[230%] left-1/2 transform -translate-x-1/2 rotate-45 invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-200"></div>
                       </div>
-                      <div className="absolute left-0 w-full  hidden group-hover:block pt-10 ">
-                        <div className="bg-white border">
+                      <div className="absolute left-0 w-full invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-300 pt-10">
+                        <div className="bg-white">
                           <div className="container py-5">
-                            <div className="text-2xl mb-3 font-bold">
+                            <div className="text-[1.5rem] mb-4 font-medium">
                               {headerBottom?.title}
                             </div>
-                            <div className="flex ">
+                            <div className="flex">
                               {headerBottom?.below?.map((subItem, subIndex) => {
                                 return (
                                   <div key={subIndex} className="mr-40">
-                                    <div className="text-red-01 font-semibold">
+                                    <div className="text-red-01 font-semibold mb-2">
                                       {subItem?.title}
                                     </div>
                                     <div>
@@ -87,14 +96,14 @@ export default function GlobalHeader({
                                         (item, itemIndex) => {
                                           return (
                                             <div key={itemIndex}>
-                                              <div className="flex items-center">
+                                              <div className="flex items-center justify-between">
                                                 {item.title}
                                                 <Image
                                                   src={`/images/headers/arrow-right.svg`}
                                                   width={18}
                                                   height={18}
                                                   alt={`icon-arrow-right`}
-                                                  className="w-3 h-3 mr-2"
+                                                  className="w-3 h-3 ml-4"
                                                 />
                                               </div>
                                             </div>
