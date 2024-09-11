@@ -2,6 +2,7 @@
 
 import ButtonSecondary from "@/lib/element/global/button.secondary";
 import Image from "@/lib/element/global/image";
+import { parseHTMLToReact } from "@/lib/functions/global/htmlParser";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 
 export function CE_BannerMain({
@@ -24,7 +25,7 @@ export function CE_BannerMain({
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) =>
-        prevIndex === data?.length - 1 ? 0 : prevIndex + 1
+        prevIndex === data?.length - 1 ? 0 : prevIndex + 1,
       );
     }, 3000);
 
@@ -33,13 +34,13 @@ export function CE_BannerMain({
 
   const goToNext = () => {
     setIndex((prevIndex) =>
-      prevIndex === data?.length - 1 ? 0 : prevIndex + 1
+      prevIndex === data?.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
   const goToPrevious = () => {
     setIndex((prevIndex) =>
-      prevIndex === 0 ? data?.length - 1 : prevIndex - 1
+      prevIndex === 0 ? data?.length - 1 : prevIndex - 1,
     );
   };
 
@@ -110,13 +111,17 @@ export function CE_BannerMain({
                   <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30"></div>
                   <div className="absolute top-1/2 transform -translate-y-1/2 z-30 left-[12rem]">
                     <div>
-                      <div className="text-[5rem] font-bold text-white">
-                        {bannerItem.title}
-                      </div>
-                      <div className="text-[3rem] font-bold text-white">
-                        {bannerItem.desc}
-                      </div>
-                      {bannerItem.button && (
+                      {bannerItem?.title && (
+                        <div className="text-[5rem] font-bold text-white">
+                          {parseHTMLToReact(bannerItem?.title)}
+                        </div>
+                      )}
+                      {bannerItem?.desc && (
+                        <div className="text-[3rem] font-bold text-white">
+                          {parseHTMLToReact(bannerItem?.desc)}
+                        </div>
+                      )}
+                      {bannerItem?.button && (
                         <div>
                           <ButtonSecondary
                             size="lg"
@@ -124,7 +129,7 @@ export function CE_BannerMain({
                             rounded="full"
                             className="px-20"
                           >
-                            {bannerItem.button}
+                            {bannerItem?.button}
                           </ButtonSecondary>
                         </div>
                       )}

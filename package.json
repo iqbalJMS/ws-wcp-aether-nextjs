@@ -12,10 +12,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "purger": "node server/cache-purger.js",
+    "format": "prettier --check --write src",
+    "checker": "node server/fs-checker.js",
     "dragon": "node server/dragon-runner.js",
+    "obfuscate": "next build; node server/obfuscator.js",
+    "purger": "node server/cache-purger.js",
     "dev:concurrent": "concurrently \"npm:dev -- --port 1223\" \"npm:dragon\"",
-    "prod:concurrent": "concurrently \"npm:start -- --port 5000\" \"npm:dragon\" \"npm:purger\"",
+    "prod:concurrent": "concurrently \"npm:start -- --port 1223\" \"npm:dragon\" \"npm:purger\"",
     "prepare": "husky"
   },
   "dependencies": {
@@ -34,11 +37,16 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "concurrently": "^9.0.0",
     "elastic-apm-node": "^4.5.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.5",
+    "javascript-obfuscator": "^4.1.1",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

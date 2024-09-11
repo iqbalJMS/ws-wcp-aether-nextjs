@@ -11,11 +11,12 @@ export async function API_GetTopMenuNavbar({
 }): Promise<T_ResponseGetTopMenuNavbar> {
   try {
     const response: T_ResponseGetTopMenuNavbar = await get(
-      "/bricc-api/menu-items/top-navigation?_format=json"
+      "/bricc-api/menu-items/top-navigation?_format=json",
     );
 
     return response;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("An error occurred during Get Top Menu Navbar:", error);
     return [];
   }

@@ -32,7 +32,7 @@ export const LIST_TERMS = [
 ];
 
 export type T_IconList = {
-  image: string
-  title: string
-  link: string
-}
+  image: string;
+  title: string;
+  link: string;
+};

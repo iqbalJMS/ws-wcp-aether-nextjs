@@ -10,6 +10,7 @@ export async function API_GetSinglePage({ }: // lang,
     const response = await get("/node/15?_format=json_recursive");
     return response;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("An error occurred during Get Single Page:", error);
     return [];
   }

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const useOnClickOutside = (
   ref: React.RefObject<HTMLElement>,
   // eslint-disable-next-line no-unused-vars
-  handler: (event: MouseEvent | TouchEvent) => void
+  handler: (event: MouseEvent | TouchEvent) => void,
 ) => {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
