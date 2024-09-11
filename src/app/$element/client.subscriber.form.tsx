@@ -1,6 +1,6 @@
 export default function CE_SubscriberForm() {
   return (
-    <div className="md:flex relative">
+    <div className="md:flex relative md:w-[42%] w-full">
       <div
         style={{
           backgroundImage: `url(${"/images/subscriber/mail.png"})`,
@@ -8,7 +8,7 @@ export default function CE_SubscriberForm() {
         }}
         className="bg-no-repeat md:w-20 md:h-36 w-11 h-20 absolute mdmax:right-0 mdmax:-top-24 md:-mt-8"
       ></div>
-      <form action="">
+      <form action="" className="w-full">
         <div className="flex items-start md:pl-28">
           <div className="flex-auto mdmax:w-24 w-full">
             <input

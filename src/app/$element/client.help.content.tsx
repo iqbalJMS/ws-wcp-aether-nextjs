@@ -30,14 +30,14 @@ export default function CE_HelpContent({
       <div className="py-5 px-8 rounded-[1.8rem] shadow-md bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
         <div className="z-10 flex items-center w-full gap-4">
           <h2 className="font-bold md:text-xl text-md text-red-500 flex-none w-fit">
-            {title}:
+            {title.toUpperCase()}:
           </h2>
           <div
             ref={dropdownRef}
             onClick={() => setIsOpen((prev) => !prev)}
             className="flex items-center cursor-pointer w-full border-b-2 pb-1"
           >
-            <div className="md:text-xl text-md w-full font-semibold">
+            <div className="md:text-xl text-md w-full font-medium">
               {selectedItem ? selectedItem?.title : ""}
             </div>
             <div>

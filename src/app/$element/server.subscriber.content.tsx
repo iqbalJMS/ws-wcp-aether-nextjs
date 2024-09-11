@@ -19,7 +19,7 @@ export default function SE_SubscriberContent({
         <div className="relative md:h-96 h-72 md:w-[60%] w-full">
           <div
             style={{
-              backgroundImage: `url(${backgroundImg || "/images/subscriber/subscribe-backg.png"})`,
+              backgroundImage: `url(${backgroundImg})`,
               backgroundSize: "cover",
             }}
             className="bg-no-repeat w-full h-full absolute mdmax:-left-12 z-[2]"
