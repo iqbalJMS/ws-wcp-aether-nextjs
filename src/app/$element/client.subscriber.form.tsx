@@ -16,7 +16,7 @@ export default function CE_SubscriberForm() {
               name="email"
               id="email"
               placeholder="Masukkan alamat email"
-              className="w-full md:py-4 px-4 py-2 mb-4 bg-[#f59a22]/30 placeholder:text-orange-01 placeholder:font-semibold"
+              className="w-full md:py-4 px-4 py-2 mb-4 bg-[#f59a22]/30 placeholder:text-orange-01 placeholder:font-light placeholder:text-sm"
             />
             <div className="flex items-center gap-4 text-xs text-gray-500 font-light">
               <div className="flex items-center gap-2">
@@ -51,7 +51,7 @@ export default function CE_SubscriberForm() {
           <div className="flex-none">
             <button
               type="submit"
-              className="bg-[#f59a22] uppercase text-white md:py-4 py-2 px-4 text-md"
+              className="bg-[#f59a22] uppercase text-white md:py-4 py-2 px-4 text-sm"
             >
               Berlangganan
             </button>
