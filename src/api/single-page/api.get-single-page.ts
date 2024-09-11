@@ -2,10 +2,10 @@
 
 import { get } from "@/api/common/fetch";
 
-export async function API_GetSinglePage({}: // lang,
-{
-  lang: string;
-}): Promise<any> {
+export async function API_GetSinglePage({ }: // lang,
+  {
+    lang: string;
+  }): Promise<any> {
   try {
     const response = await get("/node/15?_format=json_recursive");
     return response;
