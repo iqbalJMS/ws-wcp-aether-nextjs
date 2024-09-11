@@ -10,7 +10,7 @@ export default async function PageAether() {
   const data = await ACT_GetSinglePage({ lang: "en" });
 
   const components = data?.field_components
-    .map((component: T_FieldComponent) => {
+    ?.map((component: T_FieldComponent) => {
       const entityBundle = component?.entity_bundle?.[0]?.value as T_Widget;
       const componentConfig = COMPONENT_MAP_WIDGET[entityBundle];
       if (componentConfig) {

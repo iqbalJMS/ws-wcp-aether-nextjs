@@ -8,6 +8,7 @@ import { T_Slider } from "./types/widget/slider";
 import { T_ComponentMapWidget, T_Widget } from "./types";
 import { T_DropdownAction } from "./types/widget/dropdown-action";
 import { T_Section } from "./types/widget/section";
+import { T_Subscription } from "./types/widget/subscription";
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   slider: {
@@ -51,22 +52,24 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       return {
         title: _component?.field_formatted_title[0]?.value,
         subtitle: _component?.field_content[0]?.value,
-        list_items: _component?.field_column?.map((item) => {
+        listItems: _component?.field_column?.map((item) => {
           return {
             image: item?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
             text: item?.field_content[0]?.value,
           };
         }),
-
-        bg_image: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+        textLink: _component?.field_primary_cta[0]?.title,
+        navigationLink: _component?.field_primary_cta[0]?.uri,
+        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
       };
     },
   },
   subscription: {
     component: SE_SubscriberContent,
-    props: (_component) => {
+    props: (_component: T_Subscription) => {
       return {
-        bg_image: "images/subscriber/subscribe-backg.png",
+        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+        description: _component?.field_content[0]?.value,
       };
     },
   },

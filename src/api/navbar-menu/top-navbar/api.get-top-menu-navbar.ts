@@ -16,6 +16,7 @@ export async function API_GetTopMenuNavbar({
 
     return response;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error("An error occurred during Get Top Menu Navbar:", error);
     return [];
   }

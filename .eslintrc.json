@@ -5,7 +5,7 @@
     "no-unused-expressions": "error",
     "no-useless-return": "error",
     "react/react-in-jsx-scope": "off",
-    "no-console": "off",
+    "no-console": "error",
     "no-restricted-imports": [
       "error",
       {
