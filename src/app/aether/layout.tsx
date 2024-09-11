@@ -19,7 +19,7 @@ export default async function AetherLayout({
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: "en" });
   return (
     <React.Fragment>
-      <GlobalHeader headerBottom={listHeaderBottom} headerTop={listHeaderTop} />
+      <GlobalHeader variant="transparent" headerBottom={listHeaderBottom} headerTop={listHeaderTop} />
       {children}
       <GlobalFooter
         main_footer={listMainFooter}

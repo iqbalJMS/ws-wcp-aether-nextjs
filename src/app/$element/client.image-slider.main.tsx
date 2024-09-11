@@ -1,9 +1,7 @@
 "use client";
 
-// import ButtonSecondary from "@/lib/element/global/button.secondary";
 import Image from "@/lib/element/global/image";
 import Link from "@/lib/element/global/link";
-// import { parseHTMLToReact } from "@/lib/functions/global/htmlParser";
 import {  useEffect, useRef, useState } from "react";
 
 export function CE_ImageSliderMain({
@@ -78,9 +76,6 @@ export function CE_ImageSliderMain({
         <div
           ref={sliderRef}
           className={`flex transition-transform duration-500 ease-in-out transform-gpu`}
-          style={{
-            // width: `${(totalSlides * 3 / slidesToShow) * 100}%`,
-          }}
         >
           {[
             ...data,
@@ -95,6 +90,7 @@ export function CE_ImageSliderMain({
               <div className="w-full h-40 border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
                 <Link href={slide.link} target="_blank">
                   <Image 
+                    extern
                     src={slide.image} 
                     width={400} 
                     height={400} 

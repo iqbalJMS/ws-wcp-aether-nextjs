@@ -38,14 +38,14 @@ export default function GlobalHeader({
                           className="w-3 h-3 mr-2"
                         />
                       )}
-                      <div className={`text-sm ${variant === 'transparent' ? 'text-white' : ''}`}>{header.title}</div>
+                      <div className={`text-[0.813rem] font-light ${variant === 'transparent' ? 'text-white' : ''}`}>{header.title}</div>
                     </div>
                   </div>
                 );
               })}
             </div>
             <div className={`${variant === 'transparent' ? 'text-white' : ''}`}>|</div>
-            <div className="flex items-center gap-5 text-sm">
+            <div className="flex items-center gap-5 text-[0.813rem] font-light">
               <div className={`px-2 py-1 border border-orange-01 rounded-md ${variant === 'transparent' ? 'text-white' : ''}`}>
                 ID
               </div>
@@ -71,7 +71,7 @@ export default function GlobalHeader({
                       className="pb-2 group border-b-4 border-transparent hover:border-red-01 "
                     >
                       <div className={`
-                        text-[1rem] font-semibold cursor-pointer uppercase relative 
+                        text-sm font-normal cursor-pointer uppercase relative 
                         
                         ${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white' : ''}
                         `}>

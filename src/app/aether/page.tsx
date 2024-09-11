@@ -5,7 +5,6 @@ import { COMPONENT_MAP_WIDGET } from "./$constant";
 import { ACT_GetSinglePage } from "./$action/action.get.single-page";
 import { T_FieldComponent } from "@/api/single-page/api.get-single-page.type";
 import { T_Widget } from "./$constant/types";
-import { CE_ImageSliderMain } from "@/app/$element/client.image-slider.main";
 
 export default async function PageAether() {
   const data = await ACT_GetSinglePage({ lang: "en" });
@@ -33,52 +32,9 @@ export default async function PageAether() {
     <React.Fragment>
       {components?.map(({ Component, props }, key) => (
         <React.Fragment key={key}>
-          
           <Component {...props} />
         </React.Fragment>
       ))}
-      <CE_ImageSliderMain 
-        data={
-          [
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-            {
-              image: '/images/dummy/branch.jpg',
-              link: 'https://bri.co.id'
-            },
-          ]}
-        title="Anak Perusahaan"
-      />
     </React.Fragment>
   );
 }

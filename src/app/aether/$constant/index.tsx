@@ -9,6 +9,8 @@ import { T_ComponentMapWidget, T_Widget } from "./types";
 import { T_DropdownAction } from "./types/widget/dropdown-action";
 import { T_Section } from "./types/widget/section";
 import { T_Subscription } from "./types/widget/subscription";
+import { CE_ImageSliderMain } from "@/app/$element/client.image-slider.main";
+import { T_ImageSlider } from "./types/widget/image-slider";
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   slider: {
@@ -74,13 +76,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   image_slider: {
-    component: () => <h1 className="text-center my-20">waiting for UI</h1>,
-    props: (_component) => {
-      return {};
+    component: CE_ImageSliderMain,
+    props: (_component: T_ImageSlider) => {
+      return {
+        title: _component?.field_title[0]?.value,
+        data:   _component.field_image_slider_items?.map((item) => {
+          return {
+            link: item?.field_primary_cta[0]?.uri,
+            image:  item?.field_image[0].field_media_image[0]?.uri[0]?.url,
+          }
+        })
+      };
     },
   },
   header: {
-    component: () => <h1 className="text-center my-20">waiting for UI</h1>,
+    component: () => <></>,
     props: (_component) => {
       return {};
     },
