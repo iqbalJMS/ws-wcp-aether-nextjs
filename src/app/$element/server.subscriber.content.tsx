@@ -10,15 +10,16 @@ export default function SE_SubscriberContent({
   bgImage,
   description,
 }: T_SubscriberContentProps) {
+  const backgroundImg = bgImage
+    ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${bgImage}`
+    : "";
   return (
     <section className="py-24">
       <div className="container md:flex items-center">
         <div className="relative md:h-96 h-72 md:w-[60%] w-full">
           <div
             style={{
-              backgroundImage: `url(${
-                bgImage || "images/subscriber/subscribe-backg.png"
-              })`,
+              backgroundImage: `url(${backgroundImg || "/images/subscriber/subscribe-backg.png"})`,
               backgroundSize: "cover",
             }}
             className="bg-no-repeat w-full h-full absolute mdmax:-left-12 z-[2]"
