@@ -11,7 +11,7 @@ const DEFAULT_HEADERS: HeadersInit = {
 
 async function fetchData<T>(
   endpoint: string,
-  options: T_FetchOptions = {}
+  options: T_FetchOptions = {},
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
 
@@ -38,7 +38,7 @@ async function fetchData<T>(
     throw new Error(
       `Ups something went wrong, status: ${response.status ?? ""} - ${
         errorResponse.message ?? ""
-      }, please reload`
+      }, please reload`,
     );
   }
 
@@ -50,7 +50,7 @@ async function fetchData<T>(
 }
 export async function get<T>(
   endpoint: string,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ): Promise<T> {
   return fetchData<T>(endpoint, { method: "GET", headers });
 }
@@ -58,7 +58,7 @@ export async function get<T>(
 export async function post<T>(
   endpoint: string,
   body: any,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ): Promise<T> {
   return fetchData<T>(endpoint, { method: "POST", headers, body });
 }
@@ -66,14 +66,14 @@ export async function post<T>(
 export async function put<T>(
   endpoint: string,
   body: any,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ): Promise<T> {
   return fetchData<T>(endpoint, { method: "PUT", headers, body });
 }
 
 export async function del<T>(
   endpoint: string,
-  headers?: Record<string, string>
+  headers?: Record<string, string>,
 ): Promise<T> {
   return fetchData<T>(endpoint, { method: "DELETE", headers });
 }

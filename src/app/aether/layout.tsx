@@ -5,7 +5,6 @@ import React from "react";
 import { ACT_GetMainMenuNavbar } from "./$action/action.get.main-menu-navbar";
 import GlobalHeader from "@/lib/element/global/global.header";
 
-
 export default async function AetherLayout({
   children,
 }: Readonly<{

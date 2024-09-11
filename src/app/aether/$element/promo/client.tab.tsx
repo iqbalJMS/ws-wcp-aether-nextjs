@@ -35,7 +35,7 @@ export default function CE_Tab(props: T_TabProps) {
     if (isDragging.current) return;
     const target = e.target as HTMLButtonElement;
     const targetAttribute = document.querySelector(
-      attributeTargetId
+      attributeTargetId,
     ) as HTMLElement;
     targetAttribute.dataset[activeAttr] = n.toString();
 
@@ -45,10 +45,10 @@ export default function CE_Tab(props: T_TabProps) {
   function _snapToActive(target: HTMLButtonElement) {
     requestAnimationFrame(() => {
       const container = document.getElementById(
-        "tab-draggable-container"
+        "tab-draggable-container",
       ) as HTMLDivElement;
       const { offsetWidth: wDragger } = document.getElementById(
-        "tab-draggable-dragger"
+        "tab-draggable-dragger",
       ) as HTMLDivElement;
       const { paddingLeft: pLContainer, width: wContainer } =
         getComputedStyle(container);

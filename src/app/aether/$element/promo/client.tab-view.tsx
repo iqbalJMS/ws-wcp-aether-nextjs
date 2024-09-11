@@ -57,15 +57,15 @@ function TabView(props: T_TabViewProps, ref: any) {
   }
   function _snapToActive(
     idx: number | null | "+1" | "-1" = null,
-    offset: number = 8
+    offset: number = 8,
   ) {
     requestAnimationFrame(() => {
       const target = document.getElementById(attributeTargetId) as HTMLElement;
       const container = document.getElementById(
-        "tab-view-draggable-container"
+        "tab-view-draggable-container",
       ) as HTMLDivElement;
       const { offsetWidth: wDragger } = document.getElementById(
-        "tab-view-draggable-dragger"
+        "tab-view-draggable-dragger",
       ) as HTMLDivElement;
       const draggerEl = dragger.current as HTMLDivElement;
       const intersectingChildren = draggerEl.querySelectorAll(".intersecting");
@@ -81,7 +81,7 @@ function TabView(props: T_TabViewProps, ref: any) {
 
           return ratio > acc.ratio ? { ratio, el, idx, offsetLeft } : acc;
         },
-        { ratio: 0, el: intersectingChildren[0], idx: 0, offsetLeft: 0 }
+        { ratio: 0, el: intersectingChildren[0], idx: 0, offsetLeft: 0 },
       );
 
       if (idx !== null) {
@@ -169,7 +169,7 @@ function TabView(props: T_TabViewProps, ref: any) {
           setRootMargin(
             `0% -${parseFloat(paddingRight) + 20}px 0% -${
               parseFloat(paddingLeft) + 20
-            }px`
+            }px`,
           );
         }
       });
@@ -199,7 +199,7 @@ function TabView(props: T_TabViewProps, ref: any) {
       rootMargin,
       root: container.current,
       threshold: Array.from({ length: 11 }, (_, i) =>
-        parseFloat((i * 0.1).toFixed(2))
+        parseFloat((i * 0.1).toFixed(2)),
       ),
     },
     deps: [rootMargin, activeSet],

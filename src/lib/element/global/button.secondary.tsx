@@ -28,13 +28,13 @@ const ButtonSecondary: FC<T_ButtonProps> = ({
   const buttonSize = useMemo(() => {
     switch (size) {
       case "sm":
-        return `px-5 h-6 text-xs ${rounded === 'full' ? 'rounded-full' : 'rounded-md'}`;
+        return `px-5 h-6 text-xs ${rounded === "full" ? "rounded-full" : "rounded-md"}`;
       case "md":
-        return `px-8 h-10 text-base ${rounded === 'full' ? 'rounded-full' : 'rounded-md'}`;
+        return `px-8 h-10 text-base ${rounded === "full" ? "rounded-full" : "rounded-md"}`;
       case "lg":
-        return `px-8 h-14 text-xl mdmax:px-5 mdmax:h-10 mdmax:text-base ${rounded === 'full' ? 'rounded-full' : 'rounded-md'}`;
+        return `px-8 h-14 text-xl mdmax:px-5 mdmax:h-10 mdmax:text-base ${rounded === "full" ? "rounded-full" : "rounded-md"}`;
       case "xl":
-        return `px-8 h-20 text-2xl mdmax:px-5 mdmax:h-10 mdmax:text-base ${rounded === 'full' ? 'rounded-full' : 'rounded-md'}`;
+        return `px-8 h-20 text-2xl mdmax:px-5 mdmax:h-10 mdmax:text-base ${rounded === "full" ? "rounded-full" : "rounded-md"}`;
       default:
         return "";
     }

@@ -25,7 +25,7 @@ export function CE_BannerMain({
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) =>
-        prevIndex === data?.length - 1 ? 0 : prevIndex + 1
+        prevIndex === data?.length - 1 ? 0 : prevIndex + 1,
       );
     }, 3000);
 
@@ -34,13 +34,13 @@ export function CE_BannerMain({
 
   const goToNext = () => {
     setIndex((prevIndex) =>
-      prevIndex === data?.length - 1 ? 0 : prevIndex + 1
+      prevIndex === data?.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
   const goToPrevious = () => {
     setIndex((prevIndex) =>
-      prevIndex === 0 ? data?.length - 1 : prevIndex - 1
+      prevIndex === 0 ? data?.length - 1 : prevIndex - 1,
     );
   };
 

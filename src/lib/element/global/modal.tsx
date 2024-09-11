@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CloseIcon } from "./close-icon";
 
-
 type T_ModalProps = {
   setOpen: (_active: boolean) => void;
   open: boolean;
