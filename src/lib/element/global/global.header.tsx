@@ -4,6 +4,9 @@ import useScrollActive from "@/lib/hook/useScroll";
 import Image from "./image";
 import { T_ResponseGetTopMenuNavbar } from "@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type";
 import { T_ResponseGetMainMenuNavbar } from "@/api/navbar-menu/main-navbar/api.get-main-menu-navbar.type";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+const LIST_LANGUAGES = ["ID", "EN"];
 
 export default function GlobalHeader({
   headerTop,
@@ -14,7 +17,21 @@ export default function GlobalHeader({
   headerBottom: T_ResponseGetMainMenuNavbar;
   variant: 'transparent' | 'no-transparent'
 }) {
+  const pathname = usePathname();
+  const currentLanguage = useSearchParams().get("lang")
+  const router = useRouter();
   const isScrolling = useScrollActive();
+
+  const onSwitchLanguages =(language: string) => {
+      if (currentLanguage !== language) {
+        const queryParams = new URLSearchParams({
+          lang: language,
+        }).toString();
+
+        router.push(`${pathname}?${queryParams}`);
+        router.refresh();
+      }
+    }
 
   return (
     <>
@@ -46,10 +63,22 @@ export default function GlobalHeader({
             </div>
             <div className={`${variant === 'transparent' ? 'text-white' : ''}`}>|</div>
             <div className="flex items-center gap-5 text-[0.813rem] font-light">
-              <div className={`px-2 py-1 border border-orange-01 rounded-md ${variant === 'transparent' ? 'text-white' : ''}`}>
-                ID
-              </div>
-              <div className={`${variant === 'transparent' ? 'text-white' : ''}`}>EN</div>
+           
+               {LIST_LANGUAGES.map((label) => (
+                  <button
+                    key={label}
+                    onClick={() => onSwitchLanguages(label.toLowerCase())}
+                    className={`text-xs p-1 px-2 rounded-md 
+                      ${variant === 'transparent' ? 'text-white' : ''}
+                      ${
+                      (currentLanguage ?? "id")?.includes(label.toLowerCase())
+                        ? "border border-orange-01"
+                        : ""
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
             </div>
           </div>
           <div className="flex items-end justify-between ">
