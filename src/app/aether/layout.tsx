@@ -9,8 +9,8 @@ import { ACT_GetMainMenuFooter } from "./$action/action.get.main-footer";
 import { ACT_GetBottomMenuFooter } from "./$action/action.get.bottom-footer";
 
 export const metadata: Metadata = {
-  title: 'Home - Bank BRI | Melayani Dengan Setulus Hati',
-}
+  title: "Home - Bank BRI | Melayani Dengan Setulus Hati",
+};
 
 export default async function AetherLayout({
   children,
@@ -24,7 +24,11 @@ export default async function AetherLayout({
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: "en" });
   return (
     <React.Fragment>
-      <GlobalHeader variant="transparent" headerBottom={listHeaderBottom} headerTop={listHeaderTop} />
+      <GlobalHeader
+        variant="transparent"
+        headerBottom={listHeaderBottom}
+        headerTop={listHeaderTop}
+      />
       {children}
       <GlobalFooter
         main_footer={listMainFooter}

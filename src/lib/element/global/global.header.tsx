@@ -11,35 +11,37 @@ const LIST_LANGUAGES = ["ID", "EN"];
 export default function GlobalHeader({
   headerTop,
   headerBottom,
-  variant = 'transparent'
+  variant = "transparent",
 }: {
   headerTop: T_ResponseGetTopMenuNavbar;
   headerBottom: T_ResponseGetMainMenuNavbar;
-  variant: 'transparent' | 'no-transparent'
+  variant: "transparent" | "no-transparent";
 }) {
   const pathname = usePathname();
-  const currentLanguage = useSearchParams().get("lang")
+  const currentLanguage = useSearchParams().get("lang");
   const router = useRouter();
   const isScrolling = useScrollActive();
 
-  const onSwitchLanguages =(language: string) => {
-      if (currentLanguage !== language) {
-        const queryParams = new URLSearchParams({
-          lang: language,
-        }).toString();
+  const onSwitchLanguages = (language: string) => {
+    if (currentLanguage !== language) {
+      const queryParams = new URLSearchParams({
+        lang: language,
+      }).toString();
 
-        router.push(`${pathname}?${queryParams}`);
-        router.refresh();
-      }
+      router.push(`${pathname}?${queryParams}`);
+      router.refresh();
     }
+  };
 
   return (
     <>
       <header
-        className={`${isScrolling ? "bg-white shadow-md" : ""} z-50 fixed w-full ${variant === 'transparent' ? '' : 'bg-white'}`}
+        className={`${isScrolling ? "bg-white shadow-md" : ""} z-50 fixed w-full ${variant === "transparent" ? "" : "bg-white"}`}
       >
         <div className="container py-5 ">
-          <div className={`flex items-center gap-5 justify-end mb-5 ${isScrolling ? 'hidden' : ''}`}>
+          <div
+            className={`flex items-center gap-5 justify-end mb-5 ${isScrolling ? "hidden" : ""}`}
+          >
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
                 return (
@@ -55,30 +57,35 @@ export default function GlobalHeader({
                           className="w-3 h-3 mr-2"
                         />
                       )}
-                      <div className={`text-[0.813rem] font-light ${variant === 'transparent' ? 'text-white' : ''}`}>{header.title}</div>
+                      <div
+                        className={`text-[0.813rem] font-light ${variant === "transparent" ? "text-white" : ""}`}
+                      >
+                        {header.title}
+                      </div>
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div className={`${variant === 'transparent' ? 'text-white' : ''}`}>|</div>
+            <div className={`${variant === "transparent" ? "text-white" : ""}`}>
+              |
+            </div>
             <div className="flex items-center gap-5 text-[0.813rem] font-light">
-           
-               {LIST_LANGUAGES.map((label) => (
-                  <button
-                    key={label}
-                    onClick={() => onSwitchLanguages(label.toLowerCase())}
-                    className={`text-xs p-1 px-2 rounded-md 
-                      ${variant === 'transparent' ? 'text-white' : ''}
+              {LIST_LANGUAGES.map((label) => (
+                <button
+                  key={label}
+                  onClick={() => onSwitchLanguages(label.toLowerCase())}
+                  className={`text-xs p-1 px-2 rounded-md 
+                      ${variant === "transparent" ? "text-white" : ""}
                       ${
-                      (currentLanguage ?? "id")?.includes(label.toLowerCase())
-                        ? "border border-orange-01"
-                        : ""
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
+                        (currentLanguage ?? "id")?.includes(label.toLowerCase())
+                          ? "border border-orange-01"
+                          : ""
+                      }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
           </div>
           <div className="flex items-end justify-between ">
@@ -88,7 +95,7 @@ export default function GlobalHeader({
                 src="/images/headers/logo-bri.png"
                 width={128}
                 height={53}
-                className={`${isScrolling ? '' : 'filter brightness-0 invert'} `}
+                className={`${isScrolling ? "" : "filter brightness-0 invert"} `}
               />
             </div>
             <div>
@@ -99,11 +106,13 @@ export default function GlobalHeader({
                       key={index}
                       className="pb-2 group border-b-4 border-transparent hover:border-red-01 "
                     >
-                      <div className={`
+                      <div
+                        className={`
                         text-sm font-normal cursor-pointer uppercase relative 
                         
-                        ${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white' : ''}
-                        `}>
+                        ${isScrolling ? "text-black" : variant === "transparent" ? "text-white" : ""}
+                        `}
+                      >
                         {headerBottom?.title}
                         <div className="bg-white w-5 h-5 absolute top-[230%] left-1/2 transform -translate-x-1/2 rotate-45 invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-200"></div>
                       </div>

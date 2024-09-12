@@ -80,12 +80,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     props: (_component: T_ImageSlider) => {
       return {
         title: _component?.field_title[0]?.value,
-        data:   _component.field_image_slider_items?.map((item) => {
+        data: _component.field_image_slider_items?.map((item) => {
           return {
             link: item?.field_primary_cta[0]?.uri,
-            image:  item?.field_image[0].field_media_image[0]?.uri[0]?.url,
-          }
-        })
+            image: item?.field_image[0].field_media_image[0]?.uri[0]?.url,
+          };
+        }),
       };
     },
   },
