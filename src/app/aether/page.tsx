@@ -9,11 +9,10 @@ import { Locale } from "@/i18n-config";
 import ScrollToTop from "@/lib/element/global/scroll.top";
 
 export default async function PageAether({
-  searchParams
+  searchParams,
 }: {
   searchParams: { lang: Locale };
 }) {
-
   const data = await ACT_GetSinglePage({ lang: searchParams?.lang });
 
   const components = data?.field_components
@@ -34,7 +33,7 @@ export default async function PageAether({
     Component: React.ComponentType<any>;
     props: Record<string, any>;
   }>;
-  
+
   return (
     <React.Fragment>
       {components?.map(({ Component, props }, key) => (
