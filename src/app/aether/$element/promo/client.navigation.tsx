@@ -1,39 +1,39 @@
-"use client";
+'use client';
 
-import type { MouseEvent } from "react";
-import { useState } from "react";
-import { motion } from "framer-motion";
-import useMutationObserver from "@/lib/hook/useMutationObserver";
+import type { MouseEvent } from 'react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import useMutationObserver from '@/lib/hook/useMutationObserver';
 import {
   T_ButtonProps,
   T_ButtonsIdxProps,
   T_ButtonsProps,
-} from "@/app/aether/$element/types/promo";
+} from '@/app/aether/$element/types/promo';
 
 export function CE_Buttons(props: T_ButtonsProps) {
   const { attributeTargetId, tabViewController, attributeName, className } =
     props;
   const { range } = attributeName;
-  const [state, setState] = useState<"prev" | "next" | "both">("next");
+  const [state, setState] = useState<'prev' | 'next' | 'both'>('next');
 
   function _onClick(e: MouseEvent<HTMLButtonElement>) {
     const target = e.target as HTMLButtonElement;
     const isDisabled =
-      (target.id === "right" && state === "prev") ||
-      (target.id === "left" && state === "next");
+      (target.id === 'right' && state === 'prev') ||
+      (target.id === 'left' && state === 'next');
 
     if (isDisabled) {
       e.preventDefault();
       return;
     }
 
-    tabViewController.current?.snapTo(target.id === "right" ? "+1" : "-1");
+    tabViewController.current?.snapTo(target.id === 'right' ? '+1' : '-1');
   }
   function _setRange(mutation: MutationRecord) {
     requestAnimationFrame(() => {
       const { dataset } = mutation.target as HTMLDivElement;
 
-      setState(dataset[range] as "prev" | "next" | "both");
+      setState(dataset[range] as 'prev' | 'next' | 'both');
     });
   }
 
@@ -46,12 +46,12 @@ export function CE_Buttons(props: T_ButtonsProps) {
   });
 
   return (
-    <div className={["flex items-center gap-5", className].join(" ")}>
-      <Button id="left" disabled={state === "next"} onClick={_onClick}>
-        {"<"}
+    <div className={['flex items-center gap-5', className].join(' ')}>
+      <Button id="left" disabled={state === 'next'} onClick={_onClick}>
+        {'<'}
       </Button>
-      <Button id="right" disabled={state === "prev"} onClick={_onClick}>
-        {">"}
+      <Button id="right" disabled={state === 'prev'} onClick={_onClick}>
+        {'>'}
       </Button>
     </div>
   );
@@ -108,7 +108,7 @@ export function CE_ButtonsIdx(props: T_ButtonsIdxProps) {
   });
 
   return (
-    <div className={["flex items-center gap-[0.625rem]", className].join(" ")}>
+    <div className={['flex items-center gap-[0.625rem]', className].join(' ')}>
       {Array.from({ length: state.length }).map((_, idx) => (
         <button
           key={idx}
@@ -135,9 +135,9 @@ function Button(props: T_ButtonProps) {
     <button
       {...restProps}
       className={[
-        "size-[3.75rem] grid place-content-center bg-red-700 text-white",
-        "disabled:opacity-50",
-      ].join(" ")}
+        'size-[3.75rem] grid place-content-center bg-red-700 text-white',
+        'disabled:opacity-50',
+      ].join(' ')}
     >
       {children}
     </button>

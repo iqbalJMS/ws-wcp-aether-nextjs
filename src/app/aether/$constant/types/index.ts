@@ -12,4 +12,5 @@ export type T_Widget =
   | "image_slider"
   | "subscription"
   | "header"
+  | "multi_tab"
   | "section";
