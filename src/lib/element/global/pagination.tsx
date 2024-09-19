@@ -2,12 +2,12 @@
 
 import React from 'react';
 
-interface PaginationProps {
+type T_PaginationProps = {
   currentPage: number;
   totalPages: number;
   variant: 'simple' | 'complex';
   onPageChange: (_page: number) => void;
-}
+};
 
 const PaginationButton: React.FC<{
   label: string | number;
@@ -24,7 +24,7 @@ const PaginationButton: React.FC<{
   </button>
 );
 
-const Pagination: React.FC<PaginationProps> = ({
+const Pagination: React.FC<T_PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
