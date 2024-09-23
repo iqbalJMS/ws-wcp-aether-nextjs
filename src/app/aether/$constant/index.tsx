@@ -1,16 +1,19 @@
-import React from "react";
-import { CE_BannerMain } from "@/app/$element/client.banner.main";
-import { SE_IconMain } from "@/app/$element/server.icon.main";
-import SE_WhyUsContent from "@/app/$element/server.why-us.content";
-import SE_SubscriberContent from "@/app/$element/server.subscriber.content";
-import CE_HelpContent from "@/app/$element/client.help.content";
-import { T_Slider } from "./types/widget/slider";
-import { T_ComponentMapWidget, T_Widget } from "./types";
-import { T_DropdownAction } from "./types/widget/dropdown-action";
-import { T_Section } from "./types/widget/section";
-import { T_Subscription } from "./types/widget/subscription";
-import { CE_ImageSliderMain } from "@/app/$element/client.image-slider.main";
-import { T_ImageSlider } from "./types/widget/image-slider";
+import React from 'react';
+import { CE_BannerMain } from '@/app/$element/client.banner.main';
+import { SE_IconMain } from '@/app/$element/server.icon.main';
+import SE_WhyUsContent from '@/app/$element/server.why-us.content';
+import SE_SubscriberContent from '@/app/$element/server.subscriber.content';
+import CE_HelpContent from '@/app/$element/client.help.content';
+import { T_Slider } from './types/widget/slider';
+import { T_ComponentMapWidget, T_Widget } from './types';
+import { T_DropdownAction } from './types/widget/dropdown-action';
+import { T_Section } from './types/widget/section';
+import { T_Subscription } from './types/widget/subscription';
+import { CE_ImageSliderMain } from '@/app/$element/client.image-slider.main';
+import { T_ImageSlider } from './types/widget/image-slider';
+import CE_SectionPromo from '@/app/aether/$element/promo/client.section-promo';
+import { dateFormatter } from '@/lib/functions/global/date-formatter';
+import { T_MultiTab } from './types/widget/multi_tab';
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   slider: {
@@ -93,6 +96,38 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: () => <></>,
     props: (_component) => {
       return {};
+    },
+  },
+  multi_tab: {
+    component: CE_SectionPromo,
+    props: (_component: T_MultiTab) => {
+      return {
+        title: _component?.field_title_custom[0]?.value,
+        listTab: _component?.field_tab?.map((item) => {
+          return {
+            group: {
+              title: item.field_title[0].value,
+              informationText:
+                item.field_paragraphs[0].field_title_custom[0].value,
+              showMore: {
+                title: item.field_primary_cta[0].title,
+                url: item.field_primary_cta[0].full_url,
+              },
+            },
+            contents: item.field_paragraphs[0]?.field_carousel_items?.map(
+              (items) => {
+                return {
+                  img: items.field_image[0].field_media_image[0].uri[0].url,
+                  title: items.field_title[0].value,
+                  date: `${dateFormatter(items?.field_datetime[0]?.value)} - ${dateFormatter(items?.field_datetime[0]?.end_value)}`,
+                  href: '#',
+                  description: items.field_content[0]?.value,
+                };
+              }
+            ),
+          };
+        }),
+      };
     },
   },
 };

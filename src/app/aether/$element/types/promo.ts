@@ -1,21 +1,21 @@
-import { DUMMY_DATA } from "@/app/aether/$constant/abstraction";
-import { ImageProps, StaticImageData } from "next/image";
+import { DUMMY_DATA } from '@/app/aether/$constant/abstraction';
+import { ImageProps, StaticImageData } from 'next/image';
 import type {
   ButtonHTMLAttributes,
   HTMLAttributes,
   MutableRefObject,
   ReactNode,
   RefObject,
-} from "react";
+} from 'react';
 
 export type T_CardProps = {
   idx?: number;
   className?: string;
-  content: (typeof DUMMY_DATA)[number]["contents"][number];
+  content: (typeof DUMMY_DATA)[number]['contents'][number];
 };
 
 export type T_ImperativeProps = {
-  snapTo: (_idx: number | null | "+1" | "-1") => void;
+  snapTo: (_idx: number | null | '+1' | '-1') => void;
 };
 
 export type T_ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
@@ -41,14 +41,31 @@ export type T_ButtonTabProps = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type T_TabProps = {
-  options: ReactNode[];
+  contents: Array<number>;
+  options: Array<{
+    title: string;
+    informationText: string;
+    showMore: {
+      title: string;
+      url: string;
+    };
+  }>;
   className?: string;
+  tabViewController: RefObject<T_ImperativeProps>;
   attributeTargetId: string;
   attributeName: { active: string };
 };
 
 export type T_TabViewProps = {
-  contents: (typeof DUMMY_DATA)[number]["contents"][];
+  contents: Array<
+    Array<{
+      img: string;
+      title: string;
+      date: string;
+      href: string;
+      description: string;
+    }>
+  >;
   className?: string;
   attributeTargetId: string;
   attributeName: {
@@ -63,4 +80,4 @@ export type T_ImageProps = {
   wrapper?: HTMLAttributes<HTMLDivElement>;
   src?: string | StaticImageData;
   alt?: string;
-} & Omit<ImageProps, "src" | "alt">;
+} & Omit<ImageProps, 'src' | 'alt'>;
