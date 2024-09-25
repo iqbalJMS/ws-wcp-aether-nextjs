@@ -8,6 +8,7 @@ type T_MenuItemBase = {
   expanded: boolean;
   enabled: boolean;
   options: Array<unknown>;
+  nid: string;
 };
 
 type T_Items = T_MenuItemBase & {
