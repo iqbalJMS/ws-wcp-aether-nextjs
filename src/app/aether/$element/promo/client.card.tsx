@@ -2,9 +2,14 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
 import { T_CardProps } from '@/app/aether/$element/types/promo';
-import CE_Image from './client.image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+
+const CE_Image = dynamic(() => import('./client.image'), {
+  ssr: false,
+});
 
 export default function CE_Card(props: T_CardProps) {
   const { className, content, idx } = props;

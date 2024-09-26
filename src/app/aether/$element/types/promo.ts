@@ -1,4 +1,3 @@
-import { DUMMY_DATA } from '@/app/aether/$constant/abstraction';
 import { ImageProps, StaticImageData } from 'next/image';
 import type {
   ButtonHTMLAttributes,
@@ -11,7 +10,9 @@ import type {
 export type T_CardProps = {
   idx?: number;
   className?: string;
-  content: (typeof DUMMY_DATA)[number]['contents'][number];
+  // fixme later
+  // @ts-ignore
+  content: any;
 };
 
 export type T_ImperativeProps = {

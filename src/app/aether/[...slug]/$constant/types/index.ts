@@ -1,0 +1,16 @@
+type T_ComponentPropsFunc<T> = (_component: T) => Record<string, any>;
+
+export type T_ComponentMapWidget<T = any> = {
+  component: React.ComponentType<T>;
+  props: T_ComponentPropsFunc<T>;
+};
+
+export type T_Widget =
+  | "slider"
+  | "dropdown_action"
+  | "personalized_shortcut"
+  | "image_slider"
+  | "subscription"
+  | "header"
+  | "multi_tab"
+  | "section";
