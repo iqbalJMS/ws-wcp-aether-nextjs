@@ -85,7 +85,8 @@ export function CE_KursValue() {
     )
 }
 
-export function CE_KursMain() {
+export function CE_KursMain({available_currency} : {available_currency: string[]}) {
+    // console.log(available_currency)
     const tabs = [
         {
             title: 'E-RATE',
@@ -102,6 +103,7 @@ export function CE_KursMain() {
 
     return (    
         <div className="container py-10">
+            {JSON.stringify(available_currency)}
             <div className="flex items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
                 <div>
                     <div className="text-2xl font-semibold mb-2">Kurs BRI</div>

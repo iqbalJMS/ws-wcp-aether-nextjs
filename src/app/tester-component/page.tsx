@@ -64,7 +64,7 @@ export default async function PageTester() {
   return (
     <React.Fragment>
       
-      <CE_KursMain />
+      
       <CE_BannerMain variant="04" 
         data={[
             {
@@ -74,6 +74,7 @@ export default async function PageTester() {
               button: ""
             }
           ]} />
+      <CE_KursMain />
       <CE_CarouselMain 
         variant="01" 
         data={dataDummy} 
