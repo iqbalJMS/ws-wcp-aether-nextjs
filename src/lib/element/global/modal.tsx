@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { CloseIcon } from "./close-icon";
+import React, { useEffect, useState } from 'react';
+import { CloseIcon } from './close-icon';
 
 type T_ModalProps = {
   setOpen: (_active: boolean) => void;
@@ -15,6 +15,7 @@ export default function Modal({
   onClose,
 }: T_ModalProps) {
   const [hasOpen, setHasOpen] = useState(false);
+
   useEffect(() => {
     if (open === false && hasOpen === true && onClose) {
       setHasOpen(false);
@@ -26,7 +27,7 @@ export default function Modal({
   }, [open]);
   return (
     <div
-      className={`${open ? "fixed" : "hidden"} top-0 left-0 z-50 w-full h-screen flex items-center justify-center `}
+      className={`${open ? 'fixed' : 'hidden'} top-0 left-0 z-50 w-full h-screen flex items-center justify-center `}
     >
       <div
         onClick={() => setOpen(false)}
