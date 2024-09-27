@@ -4,6 +4,7 @@ import { T_CarouselMainProps } from "@/app/$action/constants";
 import Image from "@/lib/element/global/image";
 import Link from "@/lib/element/global/link";
 import { parseHTMLToReact } from "@/lib/functions/global/htmlParser";
+import useScreenWidth from "@/lib/hook/useScreenWidth";
 import {  useState } from "react";
 
 
@@ -16,7 +17,8 @@ export function CE_CarouselVariant05({
   button
 }: Omit<T_CarouselMainProps, 'variant'>) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slidesToShow = 4;
+  const screenWidth = useScreenWidth()
+  const slidesToShow = screenWidth > 768 ? 4 : 2;
   const slidesToScroll = 1;
 
   const nextSlide = () => {
@@ -39,13 +41,13 @@ export function CE_CarouselVariant05({
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-xl mb-4">{parseHTMLToReact(description || '')}</div>
+              <div className="text-xl mdmax:text-sm mb-4">{parseHTMLToReact(description || '')}</div>
             </div>
             <div className="flex gap-2">
               <button
                 className={[
                   
-                  "w-10 h-10  text-white",
+                  "w-10 h-10 mdmax:w-8 mdmax:h-8  text-white",
                   currentSlide === 0 ? 'bg-red-100 cursor-default' : 'bg-red-01 cursor-pointer'
                 ].join(' ')}
                 onClick={prevSlide}
@@ -55,7 +57,7 @@ export function CE_CarouselVariant05({
               <button
                 className={[
                   
-                  "w-10 h-10  text-white",
+                  "w-10 h-10 mdmax:w-8 mdmax:h-8  text-white",
                   currentSlide < data.length - slidesToShow ? 'bg-red-01 cursor-pointer' : 'bg-red-100 cursor-default'
                 ].join(' ')}
                 onClick={nextSlide}
@@ -64,14 +66,14 @@ export function CE_CarouselVariant05({
               </button>
             </div>
           </div>
-          <div className="overflow-hidden p-5 relative mb-10">
+          <div className="overflow-hidden p-5 mdmax:p-2 relative mb-10">
             
             <div 
               className="flex  -mx-2 transition-all ease-in-out duration-300 relative z-0"
               style={{ transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` }}
             >
               {data.map((dataItem, index) => (
-                <div key={index} className="w-1/4 flex-none px-2">
+                <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem.button?.link || ''} target="_blank">
                     <div className="p-4 shadow-lg">
                       <div className="w-full h-[12rem] mb-2">

@@ -87,7 +87,7 @@ export function CE_BannerVariant02({
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
           ref={sliderRef}
-          className="overflow-hidden relative rounded-br-[14rem] h-[30rem] z-10"
+          className="overflow-hidden relative rounded-br-[14rem] h-[30rem] mdmax:h-[10rem] mdmax:rounded-br-[7rem] z-10"
         >
           {data?.map((bannerItem, bannerIndex: number) => {
             return (
@@ -109,15 +109,15 @@ export function CE_BannerVariant02({
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30"></div>
-                  <div className="absolute top-1/2 transform -translate-y-1/2 z-30 left-[12rem]">
+                  <div className="absolute top-1/2 transform -translate-y-1/2 z-30 left-[12rem] mdmax:left-5">
                     <div>
                       {bannerItem?.title && (
-                        <div className="text-[5rem] font-semibold text-white">
+                        <div className="text-[5rem] mdmax:text-3xl font-semibold text-white">
                           {parseHTMLToReact(bannerItem?.title)}
                         </div>
                       )}
                       {bannerItem?.desc && (
-                        <div className="text-[1rem] font-medium text-white">
+                        <div className="text-[1rem] mdmax:text-sm font-medium text-white">
                           {parseHTMLToReact(bannerItem?.desc)}
                         </div>
                       )}
@@ -141,16 +141,20 @@ export function CE_BannerVariant02({
           })}
         </div>
         {data.length > 1 && (
-          <div className="absolute top-1/2 transform -translate-y-1/2 z-30 right-[12rem] ">
-            <div className="-mt-10">
+          <div className={[
+            "absolute top-1/2 transform -translate-y-1/2 z-30 right-[12rem]", 
+            "mdmax:top-[initial] mdmax:bottom-2 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2"
+          ].join(' ')}>
+            <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2">
               {data?.map((_: any, bannerIndex: number) => (
                 <div
                   key={bannerIndex}
-                  className={`
-                    w-5 h-5 rounded-full bg-red-01 mb-3 
-                    ${bannerIndex === index ? "" : "bg-opacity-50"}
-                    cursor-pointer
-                  `}
+                  className={
+                    ["w-5 h-5 rounded-full bg-red-01 mb-3 ",
+                    "mdmax:w-4 mdmax:h-4",
+                    `${bannerIndex === index ? "" : "bg-opacity-50"}`,
+                    "cursor-pointer"].join(' ')
+                  }
                   onClick={() => {
                     setIndex(bannerIndex);
                   }}
@@ -160,7 +164,7 @@ export function CE_BannerVariant02({
           </div>
         )}
         
-        <div className="w-full h-[30rem] absolute top-4 left-0 bg-black rounded-br-[14rem] overflow-hidden bg-opacity-10 z-0"></div>
+        <div className="w-full h-[30rem] absolute top-4 left-0 bg-black rounded-br-[14rem] mdmax:h-[10rem] mdmax:rounded-br-[7rem] overflow-hidden bg-opacity-10 z-0"></div>
       </div>
     </>
   );
