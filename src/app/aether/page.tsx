@@ -12,20 +12,12 @@ import { T_CarouselMainProps } from '@/app/$action/constants';
 import { CE_ContentMain } from '@/app/$element/client.content.main';
 // import { CE_BannerMain } from "@/app/$element/client.banner.main";
 // import { CE_KursMain } from "@/app/$element/client.kurs.main";
-import React from 'react';
-import { COMPONENT_MAP_WIDGET } from './$constant';
-import { ACT_GetSinglePage } from './$action/action.get.single-page';
-import { T_FieldComponent } from '@/api/single-page/api.get-single-page.type';
-import { T_Widget } from './$constant/types';
-import { Locale } from '@/i18n-config';
-import ScrollToTop from '@/lib/element/global/scroll.top';
 
 export default async function PageAether({
   searchParams,
 }: {
   searchParams: { lang: Locale };
 }) {
-  const data = await ACT_GetSinglePage({ lang: searchParams?.lang });
   const dataDummy: T_CarouselMainProps['data'] = [
     {
       image: '/sites/default/files/images/1073-860x640.jpg',
