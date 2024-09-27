@@ -203,7 +203,7 @@ export default function GlobalHeader({
         
         <div className="container py-5 ">
           <div
-            className={`flex items-center gap-5 justify-end mb-5 ${isScrolling ? 'hidden' : ''}`}
+            className={`flex items-center gap-5 justify-end mb-5 mdmax:hidden ${isScrolling ? 'hidden' : ''}`}
           >
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
@@ -254,7 +254,7 @@ export default function GlobalHeader({
               ))}
             </div>
           </div>
-          <div className="flex items-end justify-between ">
+          <div className="flex items-end justify-between mdmax:hidden">
             <div>
               <Image
                 alt="logo-bri"

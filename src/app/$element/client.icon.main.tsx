@@ -39,10 +39,10 @@ function CE_IconMenu({
     >
       <div
         className={[
-          'w-14 h-14 inline-block mb-4',
+          'w-14 h-14  mb-4',
           `${variant === "main"
-              ? ""
-              : "rounded-full shadow-md flex items-center justify-center"}`
+              ? "inline-block"
+              : "rounded-full shadow-md inline-flex items-center justify-center"}`
           ].join(' ')
         }
       >
@@ -61,7 +61,7 @@ function CE_IconMenu({
       </div>
       {variant === "main" && (
         <>
-          <div className="uppercase text-base text-line-2 font-semibold h-[3rem]">{title}</div>
+          <div className="uppercase text-base text-line-2 font-semibold h-[3rem] mdmax:h-[1rem] mdmax:text-xs">{title}</div>
           {hover === "main" && (
             <div className="absolute bottom-0 left-0 w-full h-2 px-5">
               <div className="bg-red-01 w-full h-2 rounded-full transition-all ease-in-out duration-300 group-hover:opacity-100 opacity-0"></div>
@@ -97,12 +97,12 @@ export function CE_IconMain({ maxListShow = 1, list: initialList, cookiesName }:
   return (
     <>
       <div className="overflow-hidden relative py-10 container">
-        <div className="border-b-2 border-black border-opacity-50 px-[20rem]">
-          <div className="flex justify-center -mx-5 ">
+        <div className="border-b-2 border-black border-opacity-50 px-[20rem] mdmax:px-0">
+          <div className="flex justify-center -mx-5 mdmax:flex-wrap">
             {list.map((listItem, listIndex) => {
               return (
                 listItem.active && (
-                  <div className="w-1/5 flex-none">
+                  <div className="w-1/5 mdmax:w-1/2 flex-none">
                     <Link href={listItem.link} extern={listItem.externalLink} target={listItem.externalLink ? "_blank" : ""}>
                       <CE_IconMenu
                         key={listIndex}
@@ -115,7 +115,7 @@ export function CE_IconMain({ maxListShow = 1, list: initialList, cookiesName }:
               );
             })}
             {list.length > maxListShow && (
-              <div className="w-1/5 flex-none" onClick={() => setShowModal(true)}>
+              <div className="w-1/5 mdmax:w-1/2 flex-none" onClick={() => setShowModal(true)}>
                 <CE_IconMenu
                   image="/images/icon-menu/config.png"
                   variant="config"
@@ -126,17 +126,17 @@ export function CE_IconMain({ maxListShow = 1, list: initialList, cookiesName }:
         </div>
         <Modal open={showModal} setOpen={setShowModal}>
           <div>
-            <div className="text-center font-semibold text-xl mb-2">
-              Personalisasi Link Cepat {JSON.stringify(isMaxActiveList)}
+            <div className="text-center font-semibold text-xl mdmax:text-lg mb-2">
+              Personalisasi Link Cepat
             </div>
-            <div className="text-center  mb-4">
+            <div className="text-center mdmax:text-xs mb-4">
               Silakan dan pilih hingga {maxListShow} link cepat rutin perbankan
               favorit Anda.
             </div>
             <div className="flex justify-center flex-wrap -mx-2">
               {list.map((listItem, listIndex) => {
                 return (
-                  <div key={listIndex} className="w-1/4 px-2 mb-4 h-full">
+                  <div key={listIndex} className="w-1/4 mdmax:w-1/3 px-2 mb-4 h-full">
                     <div onClick={() => handleChooseMenu(listIndex)} className="relative">
                       <div className="absolute -top-2 -right-2 z-10">
                         {listItem.active ? 

@@ -4,6 +4,7 @@ import { T_CarouselMainProps } from "@/app/$action/constants";
 import Image from "@/lib/element/global/image";
 import Link from "@/lib/element/global/link";
 import { parseHTMLToReact } from "@/lib/functions/global/htmlParser";
+import useScreenWidth from "@/lib/hook/useScreenWidth";
 import {  useState } from "react";
 
 
@@ -15,7 +16,8 @@ export function CE_CarouselVariant02({
   button
 }: Omit<T_CarouselMainProps, 'variant'>) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slidesToShow = 4;
+  const screenWidth = useScreenWidth()
+  const slidesToShow = screenWidth > 768 ? 4 : 2;
   const slidesToScroll = 1;
 
   const nextSlide = () => {
@@ -36,11 +38,11 @@ export function CE_CarouselVariant02({
           <div className="text-center">
             <div className="text-3xl mb-4">{parseHTMLToReact(title || '')}</div>
           </div>
-          <div className="overflow-hidden p-5 relative mb-10">
+          <div className="overflow-hidden p-5 mdmax:p-2 relative mb-10">
             <button
               className={[
                 "absolute top-1/2 left-0 transform -translate-y-1/2 z-10",
-                "w-12 h-12  text-white",
+                "w-12 h-12 mdmax:w-8 mdmax:h-8  text-white",
                 currentSlide === 0 ? 'bg-red-100 cursor-default' : 'bg-red-01 cursor-pointer'
               ].join(' ')}
               onClick={prevSlide}
@@ -50,7 +52,7 @@ export function CE_CarouselVariant02({
             <button
               className={[
                 "absolute top-1/2 right-0 transform -translate-y-1/2 z-10",
-                "w-12 h-12  text-white",
+                "w-12 h-12 mdmax:w-8 mdmax:h-8  text-white",
                 currentSlide < data.length - slidesToShow ? 'bg-red-01 cursor-pointer' : 'bg-red-100 cursor-default'
               ].join(' ')}
               onClick={nextSlide}
@@ -62,9 +64,9 @@ export function CE_CarouselVariant02({
               style={{ transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` }}
             >
               {data.map((dataItem, index) => (
-                <div key={index} className="w-1/4 flex-none px-2">
+                <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem.button?.link || ''} target="_blank">
-                    <div className="p-4 shadow-lg">
+                    <div className="p-4 mdmax:p-2 shadow-lg">
                       <div className="w-full h-[12rem] mb-2">
                         <Image
                           extern={true}

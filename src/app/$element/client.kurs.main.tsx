@@ -35,8 +35,8 @@ export function CE_KursValue() {
     ]
     const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '')
     return (
-        <div className="flex -mx-10">
-            <div className="w-1/2 px-10">
+        <div className="flex mdmax:flex-wrap -mx-10">
+            <div className="w-1/2 flex-none mdmax:w-full px-10">
                 <Table<DataItem> 
                     headers={[
                         { 
@@ -51,7 +51,7 @@ export function CE_KursValue() {
                     ]} 
                 list={data}  />
             </div>
-            <div className="w-1/2 px-10">
+            <div className="w-1/2 flex-none mdmax:w-full px-10">
                 <div>
                     <div className="text-lg uppercase text-blue-01 font-semibold border-b-2 border-blue-01 pb-2">Kalkulator</div>
                     <CE_TabMain 
@@ -62,7 +62,7 @@ export function CE_KursValue() {
                     />
                     <div className="mt-5">
                         <div className="flex items-center -mx-2 mb-5">
-                            <div className="w-[25%] flex-none px-2">
+                            <div className="w-[25%] mdmax:w-[50%] flex-none px-2">
                                 <InputSelect list={[]} value={''}/>
                             </div>
                             <div className="flex-1 px-2">
@@ -70,7 +70,7 @@ export function CE_KursValue() {
                             </div>
                         </div>
                         <div className="flex items-center -mx-2 mb-5">
-                            <div className="w-[25%] flex-none px-2">
+                            <div className="w-[25%] mdmax:w-[50%] flex-none px-2">
                                 <InputSelect list={[]} value={''}/>
                             </div>
                             <div className="flex-1 px-2">
@@ -103,14 +103,14 @@ export function CE_KursMain({available_currency} : {available_currency: string[]
 
     return (    
         <div className="container py-10">
-            {JSON.stringify(available_currency)}
-            <div className="flex items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
-                <div>
+            {/* {JSON.stringify(available_currency)} */}
+            <div className="flex mdmax:flex-col mdmax:items-start items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
+                <div className="mdmax:mb-2">
                     <div className="text-2xl font-semibold mb-2">Kurs BRI</div>
-                    <div className=" text-black font-medium text-opacity-30">* Terakhir diperbarui 23 Sep 2024 10:10 Untuk transaksi kurang dari eq. USD 2.500</div>
+                    <div className=" text-black font-medium mdmax:text-sm text-opacity-30">* Terakhir diperbarui 23 Sep 2024 10:10 Untuk transaksi kurang dari eq. USD 2.500</div>
                 </div>
                 <div>
-                    <Link className="text-blue-01 flex items-center" href={'/'}>LIHAT SELENGKAPNYA <span className="text-xl inline-block ml-2">{'  >'}</span></Link>
+                    <Link className="text-blue-01 flex items-center mdmax:text-sm" href={'/'}>LIHAT SELENGKAPNYA <span className="text-xl inline-block ml-2">{'  >'}</span></Link>
                 </div>
             </div>
             <div className="mb-10">
