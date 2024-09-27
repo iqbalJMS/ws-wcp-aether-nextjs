@@ -281,7 +281,7 @@ export default function GlobalHeader({
                         ${isScrolling ? "text-black" : variant === "transparent" ? "text-white" : ""}
                         `}
                       >
-                        {headerBottom?.title}
+                        {item?.title}
                         
                         <div className={`
                           invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-100
@@ -290,8 +290,7 @@ export default function GlobalHeader({
                           border-l-transparent border-r-transparent border-white
                           h-5 w-5`}>
                         </div>
-                        </Link>
-                      </div>
+                      </Link>
                       <div className="absolute left-0 w-full invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-300 pt-10">
                         <div className="bg-white">
                           <div className="container py-5">
