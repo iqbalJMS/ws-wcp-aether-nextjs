@@ -149,6 +149,7 @@ function TabView(props: T_TabViewProps, ref: any) {
     });
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useImperativeHandle(ref, _registerHandler, [isDesktop]);
   useLayoutEffect(() => {
     const debouncedOnResize = debounce(_onResize, 100);
@@ -186,6 +187,7 @@ function TabView(props: T_TabViewProps, ref: any) {
     return () => {
       window.removeEventListener('resize', debouncedOnResize);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDesktop]);
 
   useLayoutEffect(() => {
