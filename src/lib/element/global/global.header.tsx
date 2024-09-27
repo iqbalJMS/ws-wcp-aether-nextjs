@@ -77,7 +77,7 @@ export function Search({ active, setActive }: T_SearchProps) {
               Tidak dapat menemukan{' '}
               <span className="text-red-01">apa yang kalian cari?</span>
             </div>
-            <div className='mdmax:text-xs'>
+            <div className="mdmax:text-xs">
               Carilah jawaban pada{' '}
               <Link
                 className="underline font-semibold"
@@ -284,7 +284,7 @@ export default function GlobalHeader({
                 <div>
                   <LoginButton />
                 </div>
-                <div onClick={()=>setActiveMenu(true)}>
+                <div onClick={() => setActiveMenu(true)}>
                   <svg
                     className="w-7 h-7"
                     width="32"
@@ -304,10 +304,15 @@ export default function GlobalHeader({
         <div
           className={[
             'container py-5 mdmax:p-0 mdmax:fixed mdmax:w-full mdmax:h-screen mdmax:top-0 mdmax:z-50 mdmax:ease-in-out mdmax:transition-all mdmax:duration-300',
-            activeMenu ? 'mdmax:visible mdmax:opacity-100' : 'mdmax:invisible mdmax:opacity-0'
+            activeMenu
+              ? 'mdmax:visible mdmax:opacity-100'
+              : 'mdmax:invisible mdmax:opacity-0',
           ].join(' ')}
         >
-          <div onClick={() => setActiveMenu(false)} className="mdmax:block hidden bg-black bg-opacity-80 absolute top-0 left-0 w-full h-screen"></div>
+          <div
+            onClick={() => setActiveMenu(false)}
+            className="mdmax:block hidden bg-black bg-opacity-80 absolute top-0 left-0 w-full h-screen"
+          ></div>
           <div className="mdmax:bg-white mdmax:w-[80%] mdmax:relative mdmax:z-20 mdmax:flex mdmax:flex-col-reverse mdmax:h-full mdmax:items-start mdmax:justify-end mdmax:p-5 mdmax:pt-10">
             <div
               className="absolute top-7 right-7 mdmax:top-2 mdmax:right-2 hidden mdmax:block"
