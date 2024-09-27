@@ -102,6 +102,7 @@ export default function CE_Tab(props: T_TabProps) {
       window.removeEventListener('resize', debouncedOnResize);
       clearTimeout(timeout.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

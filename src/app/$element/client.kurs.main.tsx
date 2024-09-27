@@ -85,7 +85,7 @@ export function CE_KursValue() {
     )
 }
 
-export function CE_KursMain({available_currency} : {available_currency: string[]}) {
+export function CE_KursMain({_available_currency} : {available_currency: string[]}) {
     // console.log(available_currency)
     const tabs = [
         {
