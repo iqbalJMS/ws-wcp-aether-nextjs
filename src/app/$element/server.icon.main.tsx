@@ -1,8 +1,12 @@
 "use server";
 
+import { ACT_GetPersonalizeMenu } from "@/app/$action/action.get.personalize-menu";
 import { CE_IconMain } from "./client.icon.main";
 import { T_IconList } from "@/app/$action/constants";
+
 // import { SFN_CookieIcon } from "@/app/$function/sfn.cookie.icon";
+// import { ACT_SetPersonalizeMenu } from "@/app/$action/action.set.personalize-menu";
+import { SFN_SetPersonalizedMenu } from "@/app/$function/sfn.set.personalized-menu";
 
 type T_IconMainProps = {
   maxListShow?: number;
@@ -10,23 +14,23 @@ type T_IconMainProps = {
 };
 
 export async function SE_IconMain({
-  maxListShow = 1,
+  maxListShow = 5,
+  cookiesName = '__persolized-menu'
 }: // cookiesName,
 T_IconMainProps) {
-  const icons: T_IconList[] = [
-    {
-      image: "icon-menu.png",
-      title: "Title Dummy 01",
-      link: "https://bri.co.id",
-    },
-    {
-      image: "icon-menu-02.png",
-      title: "Title Dummy 02",
-      link: "https://bri.co.id",
-    },
-  ];
-
-  // const check = await SFN_CookieIcon(cookiesName, icons);
-  // check.set();
-  return <CE_IconMain list={icons} maxListShow={maxListShow} />;
+  const cookies = await SFN_SetPersonalizedMenu('get', cookiesName)
+  const iconCookies: T_IconList[] = cookies ? JSON.parse(cookies) : []
+  const initialIcon = await ACT_GetPersonalizeMenu()
+  const icons: T_IconList[] = initialIcon.map((iconItem, index) => {
+    const iconCookie = iconCookies.find((item) => item.title === iconItem.title)
+    return {
+      title: iconItem.title,
+      link: iconItem.relative,
+      externalLink: Array.isArray(iconItem.options) ? false : iconItem.options.external,
+      image: '',
+      active: iconCookie ? iconCookie.active : (index < maxListShow ? true : false)
+    }
+  });
+  
+  return <CE_IconMain list={icons} maxListShow={maxListShow} cookiesName={cookiesName} />;
 }

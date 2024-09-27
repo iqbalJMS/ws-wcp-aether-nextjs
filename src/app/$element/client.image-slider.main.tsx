@@ -86,7 +86,7 @@ export function CE_ImageSliderMain({
               <div className="w-full h-40 border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
                 <Link href={slide.link} target="_blank">
                   <Image
-                    extern
+                    extern={true}
                     src={slide.image}
                     width={400}
                     height={400}

@@ -51,7 +51,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
         <div className="flex justify-start items-center gap-6">
           {socialMedia?.map(({ url, icon }, index) => (
             <Link
-              extern
+              extern={true}
               href={url ?? "/"}
               key={index}
               className="text-blue-02 flex items-center gap-2 lg:mb-3 mb-2 lg:text-sm text-sm justify-center lg:justify-start font-normal"

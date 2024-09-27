@@ -72,7 +72,7 @@ export function CE_CarouselVariant03({
                     <div className="shadow-lg relative rounded-md overflow-hidden">
                       <div className="w-full h-[18rem] ">
                         <Image
-                          extern
+                          extern={true}
                           src={dataItem.image}
                           alt="image"
                           width={400}

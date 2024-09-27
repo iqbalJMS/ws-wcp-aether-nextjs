@@ -215,7 +215,7 @@ export default function GlobalHeader({
                     >
                       {header.icon && (
                         <Image
-                          extern
+                          extern={true}
                           src={`${header.icon}`}
                           width={18}
                           height={18}

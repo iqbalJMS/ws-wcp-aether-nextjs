@@ -4,11 +4,12 @@ import React from "react";
 
 
 import ScrollToTop from "@/lib/element/global/scroll.top";
-import { CE_CarouselMain } from "@/app/$element/client.carousel.main";
 import { T_CarouselMainProps } from "@/app/$action/constants";
-import { CE_ContentMain } from "@/app/$element/client.content.main";
 import { CE_BannerMain } from "@/app/$element/client.banner.main";
-import { CE_KursMain } from "@/app/$element/client.kurs.main";
+import { SE_IconMain } from "@/app/$element/server.icon.main";
+import { CE_CarouselMain } from "@/app/$element/client.carousel.main";
+// import { CE_ContentMain } from "@/app/$element/client.content.main";
+// import { CE_KursMain } from "@/app/$element/client.kurs.main";
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -74,12 +75,15 @@ export default async function PageTester() {
               button: ""
             }
           ]} />
-      <CE_KursMain />
+      <SE_IconMain cookiesName="__personlized-menu"  />
       <CE_CarouselMain 
         variant="01" 
         data={dataDummy} 
         title="Keuntungan"
       />
+      {/* <CE_KursMain /> */}
+      {/* <SE_IconMain cookiesName="asd" />
+      
       
       <CE_CarouselMain 
         variant="02" 
@@ -117,7 +121,7 @@ export default async function PageTester() {
       />
       <CE_ContentMain variant="01" data={dataDummy} title="Title"/>
       <CE_ContentMain variant="02" data={dataDummy}/>
-      <CE_ContentMain variant="03" data={dataDummy}/>
+      <CE_ContentMain variant="03" data={dataDummy}/> */}
       <ScrollToTop />
     </React.Fragment>
   );
