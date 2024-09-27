@@ -85,7 +85,8 @@ export function CE_KursValue() {
     )
 }
 
-export function CE_KursMain({_available_currency} : {available_currency: string[]}) {
+// eslint-disable-next-line no-unused-vars
+export function CE_KursMain({available_currency} : {available_currency: string[]}) {
     // console.log(available_currency)
     const tabs = [
         {
@@ -102,7 +103,7 @@ export function CE_KursMain({_available_currency} : {available_currency: string[
     const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '')
 
     return (    
-        <div className="container py-10">
+        <div className="container py-10 mdmax:overflow-hidden">
             {/* {JSON.stringify(available_currency)} */}
             <div className="flex mdmax:flex-col mdmax:items-start items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
                 <div className="mdmax:mb-2">

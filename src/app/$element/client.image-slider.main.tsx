@@ -2,6 +2,7 @@
 
 import Image from "@/lib/element/global/image";
 import Link from "@/lib/element/global/link";
+import useScreenWidth from "@/lib/hook/useScreenWidth";
 import { useEffect, useRef, useState } from "react";
 
 export function CE_ImageSliderMain({
@@ -16,7 +17,9 @@ export function CE_ImageSliderMain({
 }) {
   const [currentIndex, setCurrentIndex] = useState<number>(data.length);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
-  const slidesToShow = 5;
+  const screenWidth = useScreenWidth()
+  const slidesToShow = screenWidth > 768 ? 5 : 3;
+  
   const slidesToScroll = 1;
   const totalSlides = data.length;
   const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -70,7 +73,7 @@ export function CE_ImageSliderMain({
   };
 
   return (
-    <div className="container py-40">
+    <div className="container py-40 mdmax:py-10">
       <div className="text-2xl text-center font-semibold mb-10">{title}</div>
       <div className="relative w-full overflow-hidden">
         <div
@@ -80,10 +83,10 @@ export function CE_ImageSliderMain({
           {[...data, ...data, ...data].map((slide, index) => (
             <div
               key={index}
-              className={`flex-shrink-0 w-1/5 flex justify-center items-center p-2 transition-transform ${getSlideClass(index)}`}
+              className={`flex-shrink-0 w-1/5 mdmax:w-1/3 flex justify-center items-center p-2 transition-transform ${getSlideClass(index)}`}
               style={{ minWidth: `${100 / slidesToShow}%` }}
             >
-              <div className="w-full h-40 border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
+              <div className="w-full h-40 mdmax:h-[5rem] border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
                 <Link href={slide.link} target="_blank">
                   <Image
                     extern={true}
