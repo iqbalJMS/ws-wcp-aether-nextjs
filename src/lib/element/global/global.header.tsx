@@ -280,7 +280,7 @@ export default function GlobalHeader({
                     >
                       {header.icon && (
                         <Image
-                          extern
+                          extern={true}
                           src={`${header.icon}`}
                           width={18}
                           height={18}
@@ -347,6 +347,7 @@ export default function GlobalHeader({
                         `}
                       >
                         {item?.title}
+
                         <div
                           className={`
                           invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-100

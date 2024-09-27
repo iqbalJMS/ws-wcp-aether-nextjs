@@ -74,7 +74,6 @@ export default async function PageAether({
   const components = data?.field_components
     ?.map((component: T_FieldComponent) => {
       const entityBundle = component?.entity_bundle?.[0]?.value as T_Widget;
-
       const componentConfig = COMPONENT_MAP_WIDGET[entityBundle];
       if (componentConfig) {
         const { component: Component, props } = componentConfig;
@@ -90,7 +89,7 @@ export default async function PageAether({
     Component: React.ComponentType<any>;
     props: Record<string, any>;
   }>;
-
+  // console.log(components)
   return (
     <React.Fragment>
       {components?.map(({ Component, props }, key) => (

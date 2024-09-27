@@ -101,7 +101,7 @@ export function CE_BannerVariant04({
               >
                 <div className=" overflow-hidden w-full h-full relative ">
                   <Image
-                    extern
+                    extern={true}
                     src={bannerItem.image}
                     alt="image"
                     width={1920}

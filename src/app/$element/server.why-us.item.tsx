@@ -14,7 +14,7 @@ export default async function SE_WhyUsItem({ list_item }: T_WhyUsItemProps) {
     <div className="flex gap-4">
       <div className="md:w-1/4">
         <Image
-          extern
+          extern={true}
           src={list_item.image}
           alt="image"
           width={0}

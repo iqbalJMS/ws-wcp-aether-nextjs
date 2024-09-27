@@ -13,4 +13,5 @@ export type T_Widget =
   | "subscription"
   | "header"
   | "multi_tab"
-  | "section";
+  | "section"
+  | "kurs";

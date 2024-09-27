@@ -14,8 +14,18 @@ import { T_ImageSlider } from './types/widget/image-slider';
 import CE_SectionPromo from '@/app/aether/$element/promo/client.section-promo';
 import { dateFormatter } from '@/lib/functions/global/date-formatter';
 import { T_MultiTab } from './types/widget/multi_tab';
+import { CE_KursMain } from '@/app/$element/client.kurs.main';
+import { T_Kurs } from './types/widget/kurs';
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
+  kurs: {
+    component: CE_KursMain,
+    props: (_component: T_Kurs) => {
+      return {
+        available_currency: _component.data.available_currency
+      }
+    }
+  },
   slider: {
     component: CE_BannerMain,
     props: (_component: T_Slider) => {
