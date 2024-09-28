@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react';
 
-
-import { T_InputSelectItem, T_InputState } from "@/lib/element/client/input";
-import { T_Icon } from "@/lib/element/client/icon";
-import useOnClickOutside from "@/lib/hook/useOnClickOutside";
+import { T_InputSelectItem, T_InputState } from '@/lib/element/client/input';
+import { T_Icon } from '@/lib/element/client/icon';
+import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 
 export function ArrowDownIcon({ width = 16, height = 9, className }: T_Icon) {
   return (
@@ -25,7 +24,6 @@ export function ArrowDownIcon({ width = 16, height = 9, className }: T_Icon) {
   );
 }
 
-
 export type T_InputSelectOnChange =
   | T_InputSelectItem
   | (T_InputSelectItem | undefined)[]
@@ -46,18 +44,18 @@ type T_InputSelectProps = {
 const InputSelect: React.FC<T_InputSelectProps> = ({
   value,
   list,
-  state = "init",
+  state = 'init',
   disabled = false,
   multiple = false,
-  placeholder = "",
+  placeholder = '',
   withFilter = true,
   onChange,
 }) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [dropdownActive, setDropdownActive] = useState(false);
-  const [filterText, setFilterText] = useState("");
+  const [filterText, setFilterText] = useState('');
   const [selectedItems, setSelectedItems] = useState<(string | number)[]>(
-    Array.isArray(value) ? value : [],
+    Array.isArray(value) ? value : []
   );
 
   const selectedItem = list?.find((item) => item.value === value);
@@ -78,7 +76,7 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
   };
 
   const newList = list?.filter((item) =>
-    item.title.toLowerCase().includes(filterText.toLowerCase()),
+    item.title.toLowerCase().includes(filterText.toLowerCase())
   );
   useOnClickOutside(elementRef, () => setDropdownActive(false));
 
@@ -93,19 +91,19 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
     <div ref={elementRef} className="relative">
       <div
         className={`px-4 h-12  bg-white border flex items-center justify-between rounded-md ${
-          !disabled ? "cursor-pointer" : ""
+          !disabled ? 'cursor-pointer' : ''
         } ${
           dropdownActive
-            ? "border-blue-01 border-opacity-50 ring-4 ring-light-02 ring-opacity-30"
-            : state === "error"
-              ? "border-red-500"
-              : "border-black border-opacity-10"
+            ? 'border-blue-01 border-opacity-50 ring-4 ring-light-02 ring-opacity-30'
+            : state === 'error'
+              ? 'border-red-500'
+              : 'border-black border-opacity-10'
         }`}
         onClick={() => !disabled && setDropdownActive(!dropdownActive)}
       >
         {!multiple ? (
           <div
-            className={`mr-4 text-base mdmax:text-sm text-line-1 ${selectedItem ? "" : "text-black text-opacity-40 font-light"}`}
+            className={`mr-4 text-base mdmax:text-sm text-line-1 ${selectedItem ? '' : 'text-black text-opacity-40 font-light'}`}
           >
             {selectedItem ? selectedItem?.title : placeholder}
           </div>
@@ -138,7 +136,7 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
         <div>
           <ArrowDownIcon
             className={`transition-all duration-300 ease-out text-black text-opacity-50  
-                        ${dropdownActive ? "transform rotate-180" : ""}`}
+                        ${dropdownActive ? 'transform rotate-180' : ''}`}
           />
         </div>
       </div>
@@ -154,7 +152,7 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
                 value={filterText}
                 onChange={(e) => setFilterText(e.target.value)}
                 onKeyUp={(e) =>
-                  e.key === "Enter" &&
+                  e.key === 'Enter' &&
                   newList &&
                   newList[0] &&
                   handleChoose(newList[0])
@@ -169,20 +167,20 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
                   <div
                     className={`px-4 py-2 rounded-md ${
                       !item.disabled
-                        ? "cursor-pointer hover:bg-blue-02 hover:bg-opacity-5"
-                        : ""
+                        ? 'cursor-pointer hover:bg-blue-02 hover:bg-opacity-5'
+                        : ''
                     }`}
                     onClick={() => !item.disabled && handleChoose(item)}
                   >
                     <div
                       className={`${
                         multiple && selectedItems.includes(item.value)
-                          ? "font-medium text-blue-02"
+                          ? 'font-medium text-blue-02'
                           : !multiple && selectedItem === item
-                            ? "font-medium text-blue-02"
+                            ? 'font-medium text-blue-02'
                             : !item.disabled
-                              ? ""
-                              : "text-black text-opacity-50"
+                              ? ''
+                              : 'text-black text-opacity-50'
                       }`}
                     >
                       {item.title}

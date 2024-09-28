@@ -240,7 +240,7 @@ function TabView(props: T_TabViewProps, ref: any) {
             idx={idx}
             content={content}
             key={`${activeSet}-${content?.toString()}-${idx}`}
-            className="flex-shrink-0 w-[17rem] min-w-[242px] tab-view-card"
+            className="flex-shrink-0 w-[17rem] min-w-[275px] tab-view-card"
           />
         ))}
       </AnimatePresence>

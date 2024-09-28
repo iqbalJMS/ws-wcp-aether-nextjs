@@ -12,7 +12,6 @@ import { T_Subscription } from './types/widget/subscription';
 import { CE_ImageSliderMain } from '@/app/$element/client.image-slider.main';
 import { T_ImageSlider } from './types/widget/image-slider';
 import CE_SectionPromo from '@/app/aether/$element/promo/client.section-promo';
-import { dateFormatter } from '@/lib/functions/global/date-formatter';
 import { T_MultiTab } from './types/widget/multi_tab';
 import { CE_KursMain } from '@/app/$element/client.kurs.main';
 import { T_Kurs } from './types/widget/kurs';
@@ -22,9 +21,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
       return {
-        available_currency: _component.data.available_currency
-      }
-    }
+        listTable: _component.data,
+        listCurrency: _component.field_currency,
+        availableCurrency: _component.available_currency,
+      };
+    },
   },
   slider: {
     component: CE_BannerMain,
@@ -46,7 +47,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     props: (_component: T_DropdownAction) => {
       return {
         title: _component?.field_title[0]?.value,
-        list_items: _component?.field_menu_list[0]?.field_links.map((item) => {
+        listItems: _component?.field_menu_list[0]?.field_links.map((item) => {
           return {
             title: item?.title,
             value: item?.uri,
@@ -129,8 +130,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 return {
                   img: items.field_image[0].field_media_image[0].uri[0].url,
                   title: items.field_title[0].value,
-                  date: `${dateFormatter(items?.field_datetime[0]?.value)} - ${dateFormatter(items?.field_datetime[0]?.end_value)}`,
-                  href: '#',
+                  date: items.field_simple_text[0].value,
+                  href: items.field_primary_cta[0].full_url,
                   description: items.field_content[0]?.value,
                 };
               }
