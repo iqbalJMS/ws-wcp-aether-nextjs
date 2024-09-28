@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import mergeRefs from "merge-refs";
-import { tv } from "tailwind-variants";
-import { useRef, type MouseEvent } from "react";
-import { motion } from "framer-motion";
+import mergeRefs from 'merge-refs';
+import { tv } from 'tailwind-variants';
+import { useRef, type MouseEvent } from 'react';
+import { motion } from 'framer-motion';
 
-import type { HTMLMotionProps } from "framer-motion";
-import type { RefObject } from "react";
+import type { HTMLMotionProps } from 'framer-motion';
+import type { RefObject } from 'react';
 
 export const DRAGGABLE_STYLES = tv({
   slots: {
-    container: "w-full overflow-hidden relative",
-    wrapper: "",
-    dragger: "w-max cursor-grab",
+    container: 'w-full overflow-hidden relative',
+    wrapper: '',
+    dragger: 'w-max cursor-grab',
   },
 });
 
@@ -25,7 +25,7 @@ export type DraggableProps = {
     wrapper?: RefObject<HTMLDivElement>;
     dragger?: RefObject<HTMLDivElement>;
   };
-  draggerProps?: Partial<Omit<HTMLMotionProps<"div">, "children">>;
+  draggerProps?: Partial<Omit<HTMLMotionProps<'div'>, 'children'>>;
 };
 
 export default function Draggable(props: DraggableProps) {
@@ -45,20 +45,20 @@ export default function Draggable(props: DraggableProps) {
     const draggable = document.getElementById(`${name}-draggable-dragger`);
 
     switch (event) {
-      case "mousedown":
+      case 'mousedown':
         states.current.mouseHold = true;
-        draggable?.classList.add("cursor-grabbing");
+        draggable?.classList.add('cursor-grabbing');
         break;
-      case "mouseup":
+      case 'mouseup':
         states.current.mouseRelease = true;
-        draggable?.classList.remove("cursor-grabbing");
+        draggable?.classList.remove('cursor-grabbing');
         break;
-      case "mouseleave":
+      case 'mouseleave':
         states.current.mouseLeave = true;
         break;
-      case "mouseenter":
+      case 'mouseenter':
         if (!states.current.mouseRelease && states.current.mouseLeave) {
-          draggable?.classList.remove("cursor-grabbing");
+          draggable?.classList.remove('cursor-grabbing');
         }
 
         states.current.mouseHold = false;

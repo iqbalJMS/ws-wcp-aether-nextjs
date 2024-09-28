@@ -43,7 +43,7 @@ export default function CE_SectionPromo({
       id="section"
       className={[
         'flex flex-col justify-between gap-7 1025:flex-row 1025:gap-10 items-center',
-        'group/section',
+        'group/section lg:py-12 py-8',
       ].join(' ')}
     >
       <div
