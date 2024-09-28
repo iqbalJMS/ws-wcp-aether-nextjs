@@ -6,6 +6,8 @@ type T_FieldParagraph = Array<{
     field_title: Array<{ value: string }>;
     field_datetime: Array<{ value: string; end_value: string }>;
     field_content: Array<{ value: string }>;
+    field_simple_text: Array<{ value: string }>;
+    field_primary_cta: Array<{ full_url: string }>;
   }>;
   field_title_custom: Array<{ value: string }>;
 }>;

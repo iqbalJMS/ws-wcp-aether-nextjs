@@ -33,10 +33,10 @@ export default async function PageAether({
       return null;
     })
     .filter(Boolean) as Array<{
-      Component: React.ComponentType<any>;
-      props: Record<string, any>;
-    }>;
-  // console.log(components)
+    Component: React.ComponentType<any>;
+    props: Record<string, any>;
+  }>;
+
   return (
     <React.Fragment>
       {components?.map(({ Component, props }, key) => (
@@ -44,7 +44,7 @@ export default async function PageAether({
           <Component {...props} />
         </React.Fragment>
       ))}
-      
+
       <ScrollToTop />
     </React.Fragment>
   );

@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { ArrowDownIcon } from "@/lib/element/global/arrow-down-icon";
-import Link from "next/link";
-import React, { useRef } from "react";
-import SE_HelpSectionSelect from "./server.help.select";
-import useOnClickOutside from "@/lib/hook/useOnClickOutside";
-import { T_InputSelectItem } from "@/lib/element/client/input";
+import { ArrowDownIcon } from '@/lib/element/global/arrow-down-icon';
+import Link from 'next/link';
+import React, { useRef } from 'react';
+import SE_HelpSectionSelect from './server.help.select';
+import useOnClickOutside from '@/lib/hook/useOnClickOutside';
+import { T_InputSelectItem } from '@/lib/element/client/input';
 
 type T_HelpContentProps = {
-  list_items: T_InputSelectItem[];
+  listItems: T_InputSelectItem[];
   title: string;
 };
 
 export default function CE_HelpContent({
   title,
-  list_items,
+  listItems,
 }: T_HelpContentProps) {
-  const [selectedItem, setSelectedItem] = React.useState(list_items[0]);
+  const [selectedItem, setSelectedItem] = React.useState(listItems[0]);
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -38,12 +38,12 @@ export default function CE_HelpContent({
             className="flex items-center cursor-pointer w-full border-b-2 pb-1"
           >
             <div className="md:text-xl text-md w-full font-normal">
-              {selectedItem ? selectedItem?.title : ""}
+              {selectedItem ? selectedItem?.title : ''}
             </div>
             <div>
               <ArrowDownIcon
                 className={`transition-all duration-300 ease-out ${
-                  isOpen ? "transform rotate-180" : ""
+                  isOpen ? 'transform rotate-180' : ''
                 }`}
               />
             </div>
@@ -54,7 +54,7 @@ export default function CE_HelpContent({
             <button
               disabled={isOpen}
               className={`font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-full ${
-                isOpen ? "bg-gray-400" : "bg-orange-400 hover:bg-orange-500"
+                isOpen ? 'bg-gray-400' : 'bg-orange-400 hover:bg-orange-500'
               }`}
             >
               BANTUAN
@@ -63,7 +63,7 @@ export default function CE_HelpContent({
         </div>
       </div>
       <SE_HelpSectionSelect
-        list={list_items}
+        list={listItems}
         open={isOpen}
         onChange={setSelectedItem}
         setOpen={setIsOpen}
