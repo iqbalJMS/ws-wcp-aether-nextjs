@@ -39,7 +39,7 @@ function CE_IconMenu({
     >
       <div
         className={[
-          'w-14 h-14  mb-4',
+          'w-14 h-14 mdmax:w-10 mdmax:h-10 mb-4',
           `${
             variant === 'main'
               ? 'inline-block'
@@ -48,6 +48,7 @@ function CE_IconMenu({
         ].join(' ')}
       >
         <Image
+          extern={variant === 'config' ? false : true}
           src={image}
           alt="image"
           width={200}
@@ -115,7 +116,7 @@ export function CE_IconMain({
                     >
                       <CE_IconMenu
                         key={listIndex}
-                        image={`/images/dummy/${listItem.image}`}
+                        image={`${listItem.image}`}
                         title={listItem.title}
                       />
                     </Link>
@@ -190,7 +191,7 @@ export function CE_IconMain({
                       <div className="relative z-0">
                         <CE_IconMenu
                           key={listIndex}
-                          image={`/images/dummy/${listItem.image}`}
+                          image={`${listItem.image}`}
                           title={listItem.title}
                           hover="selected"
                         />

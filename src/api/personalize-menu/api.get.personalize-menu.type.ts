@@ -1,6 +1,7 @@
 export type T_PersonalizeMenu = {
   key: string
   title: string
+  icon: string
   uri: string
   alias?: string
   relative: string

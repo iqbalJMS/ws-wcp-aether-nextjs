@@ -7,8 +7,8 @@ import { T_CarouselMainProps } from '@/app/$action/constants';
 import { CE_BannerMain } from '@/app/$element/client.banner.main';
 import { SE_IconMain } from '@/app/$element/server.icon.main';
 import { CE_CarouselMain } from '@/app/$element/client.carousel.main';
-// import { CE_ContentMain } from "@/app/$element/client.content.main";
-// import { CE_KursMain } from "@/app/$element/client.kurs.main";
+import { CE_ContentMain } from '@/app/$element/client.content.main';
+import { CE_KursMain } from '@/app/$element/client.kurs.main';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -63,8 +63,65 @@ export default async function PageTester() {
   return (
     <React.Fragment>
       <CE_BannerMain
+        variant="01"
+        data={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Banner slider 1',
+            desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+            button: '',
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Banner slider 1',
+            desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+            button: '',
+          },
+        ]}
+      />
+      <CE_BannerMain
+        variant="02"
+        data={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Banner slider 1',
+            desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+            button: '',
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Banner slider 1',
+            desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+            button: '',
+          },
+        ]}
+      />
+      <CE_BannerMain
+        variant="03"
+        data={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Banner slider 1',
+            desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+            button: '',
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Banner slider 1',
+            desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+            button: '',
+          },
+        ]}
+      />
+      <CE_BannerMain
         variant="04"
         data={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Banner slider 1',
+            desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+            button: '',
+          },
           {
             image: '/sites/default/files/images/1073-860x640.jpg',
             title: 'Banner slider 1',
@@ -74,56 +131,42 @@ export default async function PageTester() {
         ]}
       />
       <SE_IconMain cookiesName="__personlized-menu" />
+      <CE_KursMain available_currency={[]} />
       <CE_CarouselMain variant="01" data={dataDummy} title="Keuntungan" />
-      <div className="container">
-        {/* <VideoPlayerVariant2
-          title="Profil Perusahaan"
-          description="Bank Rakyat Indonesia (BR1) adalah salah satu bank milik pemerintah yang terbesar di Indonesia. Bank Rakyat Indonesia (BRI) didirikan di Purwokerto, Jawa Tengah oleh Raden Bei Aria Wirjaatmadja tanggal 16 Desember"
-          linkUrl="https://bri.co.id/video"
-          videoUrl="tgbNymZ7vqY?playlist=tgbNymZ7vqY&loop=1"
-        /> */}
-      </div>
-      {/* <CE_KursMain /> */}
-      {/* <SE_IconMain cookiesName="asd" />
-      
-      
-      <CE_CarouselMain 
-        variant="02" 
-        data={dataDummy} 
+
+      <CE_CarouselMain
+        variant="02"
+        data={dataDummy}
         title="Promosi Baru KPR BRI"
         button={{
           link: 'https://bri.co.id',
-          name: 'Temukan Promosi Lainnya'
+          name: 'Temukan Promosi Lainnya',
         }}
       />
-      <CE_CarouselMain 
-        variant="03" 
-        data={dataDummy} 
-        title="Keuntungan"
-      />
-      <CE_CarouselMain 
-        variant="04" 
-        data={dataDummy} 
+      <CE_CarouselMain variant="03" data={dataDummy} title="Keuntungan" />
+      <CE_CarouselMain
+        variant="04"
+        data={dataDummy}
         title="Keuntungan"
         description="Keuntungan Description"
         button={{
           link: 'https://bri.co.id',
-          name: 'Lainnya'
+          name: 'Lainnya',
         }}
       />
-      <CE_CarouselMain 
-        variant="05" 
-        data={dataDummy} 
+      <CE_CarouselMain
+        variant="05"
+        data={dataDummy}
         title="Keuntungan"
         description="Keuntungan Description"
         button={{
           link: 'https://bri.co.id',
-          name: 'Lainnya'
+          name: 'Lainnya',
         }}
       />
-      <CE_ContentMain variant="01" data={dataDummy} title="Title"/>
-      <CE_ContentMain variant="02" data={dataDummy}/>
-      <CE_ContentMain variant="03" data={dataDummy}/> */}
+      <CE_ContentMain variant="01" data={dataDummy} title="Title" />
+      <CE_ContentMain variant="02" data={dataDummy} />
+      <CE_ContentMain variant="03" data={dataDummy} />
       <ScrollToTop />
     </React.Fragment>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use client';
 
 import Link from '@/lib/element/global/link';
@@ -6,36 +7,21 @@ import { CE_TabMain } from './client.tab.main';
 import Table from '@/lib/element/global/table';
 import InputSelect from '@/lib/element/global/input.select';
 import InputText from '@/lib/element/global/input.text';
-import { T_Kurs } from '@/app/aether/$constant/types/widget/kurs';
 // import InputSlider from "@/lib/element/global/input.slider";
 
-type T_Props = {
-  listTable: T_Kurs['data'];
-  listCurrency: T_Kurs['field_currency'];
-  availableCurrency: T_Kurs['available_currency'];
-};
+interface DataItem {
+  id: string;
+  name: string;
+  age: number;
+  position: string;
+}
 
-export function CE_KursValue({
-  listTable,
-  listCurrency,
-  // TODO kindly removed it if unused
-  // availableCurrency,
-}: T_Props) {
-  const data = listTable?.map((item) => {
-    return {
-      id: item.currency,
-      name: item.currency,
-      age: item.buyRateERate,
-      position: item.sellRateERate,
-    };
-  });
-  const dataCurrencySelected = listCurrency.map((item) => {
-    return {
-      title: item.value,
-      value: item.value,
-    };
-  });
-
+export function CE_KursValue() {
+  const data: DataItem[] = [
+    { id: '1', name: 'John Doe', age: 30, position: 'Developer' },
+    { id: '2', name: 'Jane Smith', age: 28, position: 'Designer' },
+    { id: '3', name: 'Alice Johnson', age: 35, position: 'Manager' },
+  ];
   const tabs = [
     {
       title: 'BELI',
@@ -48,13 +34,11 @@ export function CE_KursValue({
       slug: 'jual',
     },
   ];
-
   const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '');
-
   return (
-    <div className="flex -mx-10">
-      <div className="w-1/2 px-10">
-        <Table
+    <div className="flex mdmax:flex-wrap -mx-10">
+      <div className="w-1/2 flex-none mdmax:w-full px-10">
+        <Table<DataItem>
           headers={[
             {
               title: 'Kurs',
@@ -69,7 +53,7 @@ export function CE_KursValue({
           list={data}
         />
       </div>
-      <div className="w-1/2 px-10">
+      <div className="w-1/2 flex-none mdmax:w-full px-10">
         <div>
           <div className="text-lg uppercase text-blue-01 font-semibold border-b-2 border-blue-01 pb-2">
             Kalkulator
@@ -82,26 +66,20 @@ export function CE_KursValue({
           />
           <div className="mt-5">
             <div className="flex items-center -mx-2 mb-5">
-              <div className="w-[25%] flex-none px-2">
-                <InputSelect
-                  list={dataCurrencySelected}
-                  value={dataCurrencySelected?.[0]?.value}
-                />
+              <div className="w-[25%] mdmax:w-[50%] flex-none px-2">
+                <InputSelect list={[]} value={''} />
               </div>
               <div className="flex-1 px-2">
                 <InputText
-                  value=""
+                  value={''}
                   type="number"
                   placeholder="Masukan Nominal"
                 />
               </div>
             </div>
             <div className="flex items-center -mx-2 mb-5">
-              <div className="w-[25%] flex-none px-2">
-                <InputSelect
-                  list={dataCurrencySelected}
-                  value={dataCurrencySelected?.[1]?.value}
-                />
+              <div className="w-[25%] mdmax:w-[50%] flex-none px-2">
+                <InputSelect list={[]} value={''} />
               </div>
               <div className="flex-1 px-2">
                 <div className="text-blue-01 px-4">0</div>
@@ -115,11 +93,13 @@ export function CE_KursValue({
   );
 }
 
+// eslint-disable-next-line no-unused-vars
 export function CE_KursMain({
-  listTable,
-  listCurrency,
-  availableCurrency,
-}: T_Props) {
+  available_currency,
+}: {
+  available_currency: string[];
+}) {
+  // console.log(available_currency)
   const tabs = [
     {
       title: 'E-RATE',
@@ -137,17 +117,21 @@ export function CE_KursMain({
   const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '');
 
   return (
-    <div className="container py-10">
-      <div className="flex items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
-        <div>
+    <div className="container py-10 mdmax:overflow-hidden">
+      {/* {JSON.stringify(available_currency)} */}
+      <div className="flex mdmax:flex-col mdmax:items-start items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
+        <div className="mdmax:mb-2">
           <div className="text-2xl font-semibold mb-2">Kurs BRI</div>
-          <div className=" text-black font-medium text-opacity-30">
+          <div className=" text-black font-medium mdmax:text-sm text-opacity-30">
             * Terakhir diperbarui 23 Sep 2024 10:10 Untuk transaksi kurang dari
             eq. USD 2.500
           </div>
         </div>
         <div>
-          <Link className="text-blue-01 flex items-center" href={'/'}>
+          <Link
+            className="text-blue-01 flex items-center mdmax:text-sm"
+            href={'/'}
+          >
             LIHAT SELENGKAPNYA{' '}
             <span className="text-xl inline-block ml-2">{'  >'}</span>
           </Link>
@@ -161,11 +145,7 @@ export function CE_KursMain({
         />
       </div>
       <div>
-        <CE_KursValue
-          listTable={listTable}
-          listCurrency={listCurrency}
-          availableCurrency={availableCurrency}
-        />
+        <CE_KursValue />
       </div>
     </div>
   );
