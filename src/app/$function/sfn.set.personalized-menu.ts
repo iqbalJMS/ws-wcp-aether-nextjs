@@ -26,7 +26,7 @@ export async function SFN_SetPersonalizedMenu(
         return await Dragon.get(keyGet);
       }
       break;
-    
+
   }
-  
+
 }
