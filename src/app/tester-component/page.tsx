@@ -123,7 +123,7 @@ export default async function PageTester() {
       />
       <CE_ContentMain variant="01" data={dataDummy} title="Title"/>
       <CE_ContentMain variant="02" data={dataDummy}/>
-      <CE_ContentMain variant="03" data={dataDummy}/>
+      <CE_ContentMain variant="03" data={dataDummy}/> */}
       <ScrollToTop />
     </React.Fragment>
   );
