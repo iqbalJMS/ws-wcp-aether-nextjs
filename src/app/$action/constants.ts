@@ -26,6 +26,7 @@ export type T_CarouselMainProps = {
   }>;
   variant: '01' | '02' | '03' | '04' | '05';
 }
+
 export type T_ContentMainProps = {
   title?: string
   data: Array<{
