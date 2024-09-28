@@ -30,7 +30,7 @@ export function CE_TabMain({ list, value, onChange, variant = 'border' } : T_Tab
                             ].join(' ')
                         }>
                         <div className={[
-                            'text-xl font-medium  inline-flex items-center', 
+                            'text-xl mdmax:text-sm font-medium inline-flex items-center', 
                             `${item.slug === value ? 
                                 variant === 'full' ? 'text-white' : 'text-blue-01' : 
                                 'text-gray-500 group-hover:text-blue-01'}`

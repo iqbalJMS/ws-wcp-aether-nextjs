@@ -89,7 +89,7 @@ export default async function PageAether({
     Component: React.ComponentType<any>;
     props: Record<string, any>;
   }>;
-  // console.log(components)
+
   return (
     <React.Fragment>
       {components?.map(({ Component, props }, key) => (
@@ -97,51 +97,7 @@ export default async function PageAether({
           <Component {...props} />
         </React.Fragment>
       ))}
-      {/* <CE_KursMain /> */}
-      {/* <CE_BannerMain variant="04" 
-        data={[
-            {
-              image: "/sites/default/files/images/1073-860x640.jpg",
-              title: "Banner slider 1",
-              desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
-              button: ""
-            }
-          ]} /> */}
-      <CE_CarouselMain variant="01" data={dataDummy} title="Keuntungan" />
 
-      <CE_CarouselMain
-        variant="02"
-        data={dataDummy}
-        title="Promosi Baru KPR BRI"
-        button={{
-          link: 'https://bri.co.id',
-          name: 'Temukan Promosi Lainnya',
-        }}
-      />
-      <CE_CarouselMain variant="03" data={dataDummy} title="Keuntungan" />
-      <CE_CarouselMain
-        variant="04"
-        data={dataDummy}
-        title="Keuntungan"
-        description="Keuntungan Description"
-        button={{
-          link: 'https://bri.co.id',
-          name: 'Lainnya',
-        }}
-      />
-      <CE_CarouselMain
-        variant="05"
-        data={dataDummy}
-        title="Keuntungan"
-        description="Keuntungan Description"
-        button={{
-          link: 'https://bri.co.id',
-          name: 'Lainnya',
-        }}
-      />
-      <CE_ContentMain variant="01" data={dataDummy} title="Title" />
-      <CE_ContentMain variant="02" data={dataDummy} />
-      <CE_ContentMain variant="03" data={dataDummy} />
       <ScrollToTop />
     </React.Fragment>
   );

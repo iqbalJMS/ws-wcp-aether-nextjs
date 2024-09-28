@@ -19,7 +19,7 @@ export function CE_ContentVariant03({
         <div className="container">
           <div className="flex flex-wrap items-center justify-center -mx-2">
             {data.map((dataItem, index) => (
-              <div key={index} className="w-1/4 flex-none px-2 mb-4">
+              <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
                 <Link href={dataItem.button?.link || ''} target="_blank">
                   <div className="text-center bg-black bg-opacity-5 rounded-md py-2 pt-4">
                     <div className="w-10 h-10 inline-block">

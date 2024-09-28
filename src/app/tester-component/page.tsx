@@ -8,8 +8,8 @@ import { T_CarouselMainProps } from "@/app/$action/constants";
 import { CE_BannerMain } from "@/app/$element/client.banner.main";
 import { SE_IconMain } from "@/app/$element/server.icon.main";
 import { CE_CarouselMain } from "@/app/$element/client.carousel.main";
-// import { CE_ContentMain } from "@/app/$element/client.content.main";
-// import { CE_KursMain } from "@/app/$element/client.kurs.main";
+import { CE_ContentMain } from "@/app/$element/client.content.main";
+import { CE_KursMain } from "@/app/$element/client.kurs.main";
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -65,7 +65,48 @@ export default async function PageTester() {
   return (
     <React.Fragment>
       
-      
+      <CE_BannerMain variant="01" data={[
+            {
+              image: "/sites/default/files/images/1073-860x640.jpg",
+              title: "Banner slider 1",
+              desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
+              button: ""
+            },
+            {
+              image: "/sites/default/files/images/1073-860x640.jpg",
+              title: "Banner slider 1",
+              desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
+              button: ""
+            },
+          ]} />
+      <CE_BannerMain variant="02" data={[
+            {
+              image: "/sites/default/files/images/1073-860x640.jpg",
+              title: "Banner slider 1",
+              desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
+              button: ""
+            },
+            {
+              image: "/sites/default/files/images/1073-860x640.jpg",
+              title: "Banner slider 1",
+              desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
+              button: ""
+            },
+          ]} />
+      <CE_BannerMain variant="03" data={[
+            {
+              image: "/sites/default/files/images/1073-860x640.jpg",
+              title: "Banner slider 1",
+              desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
+              button: ""
+            },
+            {
+              image: "/sites/default/files/images/1073-860x640.jpg",
+              title: "Banner slider 1",
+              desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
+              button: ""
+            },
+          ]} />
       <CE_BannerMain variant="04" 
         data={[
             {
@@ -73,16 +114,21 @@ export default async function PageTester() {
               title: "Banner slider 1",
               desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
               button: ""
-            }
+            },
+            {
+              image: "/sites/default/files/images/1073-860x640.jpg",
+              title: "Banner slider 1",
+              desc: "<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>",
+              button: ""
+            },
           ]} />
       <SE_IconMain cookiesName="__personlized-menu"  />
+      <CE_KursMain  available_currency={[]}/>
       <CE_CarouselMain 
         variant="01" 
         data={dataDummy} 
         title="Keuntungan"
       />
-      {/* <CE_KursMain /> */}
-      {/* <SE_IconMain cookiesName="asd" />
       
       
       <CE_CarouselMain 
@@ -121,7 +167,7 @@ export default async function PageTester() {
       />
       <CE_ContentMain variant="01" data={dataDummy} title="Title"/>
       <CE_ContentMain variant="02" data={dataDummy}/>
-      <CE_ContentMain variant="03" data={dataDummy}/> */}
+      <CE_ContentMain variant="03" data={dataDummy}/>
       <ScrollToTop />
     </React.Fragment>
   );

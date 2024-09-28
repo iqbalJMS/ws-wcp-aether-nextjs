@@ -39,11 +39,11 @@ function CE_IconMenu({
     >
       <div
         className={[
-          'w-14 h-14 inline-block mb-4',
+          'w-14 h-14  mb-4',
           `${
             variant === 'main'
-              ? ''
-              : 'rounded-full shadow-md flex items-center justify-center'
+              ? 'inline-block'
+              : 'rounded-full shadow-md inline-flex items-center justify-center'
           }`,
         ].join(' ')}
       >
@@ -60,7 +60,7 @@ function CE_IconMenu({
       </div>
       {variant === 'main' && (
         <>
-          <div className="uppercase text-base text-line-2 font-semibold h-[3rem]">
+          <div className="uppercase text-base text-line-2 font-semibold h-[3rem] mdmax:h-[1rem] mdmax:text-xs">
             {title}
           </div>
           {hover === 'main' && (
@@ -102,12 +102,12 @@ export function CE_IconMain({
   return (
     <>
       <div className="overflow-hidden relative py-10 container">
-        <div className="border-b-2 border-black border-opacity-50 px-[20rem]">
-          <div className="flex justify-center -mx-5 ">
+        <div className="border-b-2 border-black border-opacity-50 px-[20rem] mdmax:px-0">
+          <div className="flex justify-center -mx-5 mdmax:flex-wrap">
             {list.map((listItem, listIndex) => {
               return (
                 listItem.active && (
-                  <div className="w-1/5 flex-none">
+                  <div className="w-1/5 mdmax:w-1/2 flex-none">
                     <Link
                       href={listItem.link}
                       extern={listItem.externalLink}
@@ -125,7 +125,7 @@ export function CE_IconMain({
             })}
             {list.length > maxListShow && (
               <div
-                className="w-1/5 flex-none"
+                className="w-1/5 mdmax:w-1/2 flex-none"
                 onClick={() => setShowModal(true)}
               >
                 <CE_IconMenu
@@ -138,17 +138,20 @@ export function CE_IconMain({
         </div>
         <Modal open={showModal} setOpen={setShowModal}>
           <div>
-            <div className="text-center font-semibold text-xl mb-2">
-              Personalisasi Link Cepat {JSON.stringify(isMaxActiveList)}
+            <div className="text-center font-semibold text-xl mdmax:text-lg mb-2">
+              Personalisasi Link Cepat
             </div>
-            <div className="text-center  mb-4">
+            <div className="text-center mdmax:text-xs mb-4">
               Silakan dan pilih hingga {maxListShow} link cepat rutin perbankan
               favorit Anda.
             </div>
             <div className="flex justify-center flex-wrap -mx-2">
               {list.map((listItem, listIndex) => {
                 return (
-                  <div key={listIndex} className="w-1/4 px-2 mb-4 h-full">
+                  <div
+                    key={listIndex}
+                    className="w-1/4 mdmax:w-1/3 px-2 mb-4 h-full"
+                  >
                     <div
                       onClick={() => handleChooseMenu(listIndex)}
                       className="relative"
