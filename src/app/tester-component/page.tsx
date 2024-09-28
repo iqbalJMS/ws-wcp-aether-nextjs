@@ -9,6 +9,21 @@ import { SE_IconMain } from '@/app/$element/server.icon.main';
 import { CE_CarouselMain } from '@/app/$element/client.carousel.main';
 import { CE_ContentMain } from '@/app/$element/client.content.main';
 import { CE_KursMain } from '@/app/$element/client.kurs.main';
+import { CE_CardVariant01 } from '@/app/$element/client.card.variant01';
+import { CE_CardVariant02 } from '@/app/$element/client.card.variant02';
+import { CE_CardVariant03 } from '@/app/$element/client.card.variant03';
+import { CE_CardVariant04 } from '@/app/$element/client.card.variant04';
+import { CE_CardVariant05 } from '@/app/$element/client.card.variant05';
+import { CE_CardVariant06 } from '@/app/$element/client.card.variant06';
+import { CE_CardVariant07 } from '@/app/$element/client.card.variant07';
+import { CE_CardVariant08 } from '@/app/$element/client.card.variant08';
+import { CE_CardVariant09 } from '@/app/$element/client.card.variant09';
+import { CE_CardVariant10 } from '@/app/$element/client.card.variant10';
+import { CE_CardVariant11 } from '@/app/$element/client.card.variant11';
+import { CE_CardVariant12 } from '@/app/$element/client.card.variant12';
+import { CE_CardVariant13 } from '@/app/$element/client.card.variant13';
+import { CE_CardVariant14 } from '@/app/$element/client.card.variant14';
+import { CE_CardVariant15 } from '@/app/$element/client.card.variant15';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -167,6 +182,472 @@ export default async function PageTester() {
       <CE_ContentMain variant="01" data={dataDummy} title="Title" />
       <CE_ContentMain variant="02" data={dataDummy} />
       <CE_ContentMain variant="03" data={dataDummy} />
+      <CE_CardVariant01
+        data={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            buttons: [
+              {
+                link: 'https://bri.co.id',
+                title: 'Selengkapnya',
+                extern: true,
+              },
+              {
+                link: 'https://bri.co.id',
+                title: 'Selengkapnya',
+                extern: true,
+              },
+            ],
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            buttons: [
+              {
+                link: 'https://bri.co.id',
+                title: 'Selengkapnya',
+                extern: true,
+              },
+            ],
+          },
+        ]}
+      />
+      <CE_CardVariant02
+        data={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum the contera ascentdant kornoy',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum the contera ascentdant kornoy',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum the contera ascentdant kornoy',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+        ]}
+      />
+      <CE_CardVariant03
+        data={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            buttons: [
+              {
+                link: 'https://bri.co.id',
+                title: 'Selengkapnya',
+                extern: true,
+              },
+              {
+                link: 'https://bri.co.id',
+                title: 'Selengkapnya',
+                extern: true,
+              },
+            ],
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            buttons: [
+              {
+                link: 'https://bri.co.id',
+                title: 'Selengkapnya',
+                extern: true,
+              },
+            ],
+          },
+        ]}
+      />
+      <CE_CardVariant04
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+            subDescription:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            button: {
+              link: 'https://bri.co.id',
+              image: '/sites/default/files/images/1073-860x640.jpg',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+            subDescription:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            button: {
+              link: 'https://bri.co.id',
+              image: '/sites/default/files/images/1073-860x640.jpg',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+            subDescription:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            button: {
+              link: 'https://bri.co.id',
+              image: '/sites/default/files/images/1073-860x640.jpg',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+            subDescription:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            button: {
+              link: 'https://bri.co.id',
+              image: '/sites/default/files/images/1073-860x640.jpg',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+        ]}
+      />
+      <CE_CardVariant05
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+          },
+          {
+            title: 'Lorem Ipsum',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+          },
+          {
+            title: 'Lorem Ipsum',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+          },
+        ]}
+      />
+      <CE_CardVariant06
+        title="Lorem Ipsum"
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+          },
+          {
+            title: 'Lorem Ipsum',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+          },
+          {
+            title: 'Lorem Ipsum',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+          },
+        ]}
+      />
+      <CE_CardVariant07
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem Ipsum is simply dummy',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem Ipsum is simply dummy',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem Ipsum is simply dummy',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+        ]}
+      />
+      <CE_CardVariant08
+        title="Lorem Ipsum"
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+        ]}
+      />
+      <CE_CardVariant09
+        data={[
+          {
+            title: 'Lorem Ipsum',
+
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            button: {
+              image: '/sites/default/files/images/1073-860x640.jpg',
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            button: {
+              image: '/sites/default/files/images/1073-860x640.jpg',
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            button: {
+              image: '/sites/default/files/images/1073-860x640.jpg',
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+        ]}
+      />
+      <CE_CardVariant10
+        title="Lorem Ipsum"
+        description="Lorem Ipsum is simply dummy text of the printing"
+      />
+      <CE_CardVariant11
+        title="Lorem Ipsum"
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            description: 'Lorem Ipsum is simply dummy text of the printing',
+          },
+          {
+            title: 'Lorem Ipsum',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            description: 'Lorem Ipsum is simply dummy text of the printing',
+          },
+          {
+            title: 'Lorem Ipsum',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            description: 'Lorem Ipsum is simply dummy text of the printing',
+          },
+        ]}
+      />
+      <CE_CardVariant12
+        data={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum the contera ascentdant kornoy',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum the contera ascentdant kornoy',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum the contera ascentdant kornoy',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+        ]}
+      />
+      <CE_CardVariant13
+        title="Lorem Ipsum"
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            description: 'Lorem Ipsum is simply dummy text of the printing',
+            address: '',
+            contactInformation: {
+              fax: '123',
+              telephone: '123',
+              website: 'https://bri.co.id',
+            },
+            subTitle: 'BRI SE',
+          },
+          {
+            title: 'Lorem Ipsum',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            description: 'Lorem Ipsum is simply dummy text of the printing',
+            address: '',
+            contactInformation: {
+              fax: '123',
+              telephone: '123',
+              website: 'https://bri.co.id',
+            },
+            subTitle: 'BRI SE',
+          },
+        ]}
+      />
+      <CE_CardVariant14
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem Ipsum is simply dummy',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem Ipsum is simply dummy',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            subTitle: 'Lorem Ipsum is simply dummy',
+            description:
+              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+        ]}
+      />
+      <CE_CardVariant15
+        title={'Lorem Ipsum'}
+        button={{
+          link: 'https://bri.co.id',
+          title: 'Selengkapnya',
+          extern: true,
+        }}
+        data={[
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+          { image: '/sites/default/files/images/1073-860x640.jpg' },
+        ]}
+      />
       <ScrollToTop />
     </React.Fragment>
   );

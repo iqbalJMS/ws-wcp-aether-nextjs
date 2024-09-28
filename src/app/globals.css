@@ -77,3 +77,16 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
 }
+
+
+.overflow-custom::-webkit-scrollbar-track {
+  @apply bg-blue-01 bg-opacity-10  rounded-sm;
+}
+
+.overflow-custom::-webkit-scrollbar {
+  @apply bg-blue-01 bg-opacity-10 w-1 rounded-sm;
+}
+
+.overflow-custom::-webkit-scrollbar-thumb {
+  @apply bg-blue-01 border-2 border-blue-01 rounded-sm;
+}
