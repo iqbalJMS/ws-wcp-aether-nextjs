@@ -5,7 +5,7 @@ import { CE_BannerVariant02 } from './client.banner.variant02';
 import { CE_BannerVariant03 } from './client.banner.variant03';
 import { CE_BannerVariant04 } from './client.banner.variant04';
 
-export function CE_BannerMain({
+const CE_BannerMain = ({
   data,
   variant = '01',
 }: {
@@ -16,7 +16,7 @@ export function CE_BannerMain({
     button: string;
   }>;
   variant: '01' | '02' | '03' | '04' | '05';
-}) {
+}) => {
   return (
     <>
       {variant === '01' && <CE_BannerVariant01 data={data} />}
@@ -25,4 +25,6 @@ export function CE_BannerMain({
       {variant === '04' && <CE_BannerVariant04 data={data} />}
     </>
   );
-}
+};
+
+export default CE_BannerMain;

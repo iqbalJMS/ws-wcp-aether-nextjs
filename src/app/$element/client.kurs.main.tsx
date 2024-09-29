@@ -15,7 +15,7 @@ type T_Props = {
   availableCurrency: T_Kurs['available_currency'];
 };
 
-export function CE_KursValue({
+function CE_KursValue({
   listTable,
   listCurrency,
   // TODO kindly removed it if unused
@@ -115,11 +115,11 @@ export function CE_KursValue({
   );
 }
 
-export function CE_KursMain({
+const CE_KursMain = ({
   listTable,
   listCurrency,
   availableCurrency,
-}: T_Props) {
+}: T_Props) => {
   const tabs = [
     {
       title: 'E-RATE',
@@ -170,4 +170,6 @@ export function CE_KursMain({
       </div>
     </div>
   );
-}
+};
+
+export default CE_KursMain;

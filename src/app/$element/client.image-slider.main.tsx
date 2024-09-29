@@ -5,7 +5,7 @@ import Link from '@/lib/element/global/link';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useEffect, useRef, useState } from 'react';
 
-export function CE_ImageSliderMain({
+const CE_ImageSliderMain = ({
   data,
   title,
 }: {
@@ -14,7 +14,7 @@ export function CE_ImageSliderMain({
     link: string;
   }>;
   title: string;
-}) {
+}) => {
   const [currentIndex, setCurrentIndex] = useState<number>(data.length);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const screenWidth = useScreenWidth();
@@ -116,4 +116,6 @@ export function CE_ImageSliderMain({
       </div>
     </div>
   );
-}
+};
+
+export default CE_ImageSliderMain;
