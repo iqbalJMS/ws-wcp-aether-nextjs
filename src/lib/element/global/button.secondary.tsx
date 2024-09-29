@@ -1,12 +1,12 @@
-import { FC, ReactNode, useMemo } from "react";
+import { FC, ReactNode, useMemo } from 'react';
 
 type T_ButtonSecondaryProps = {
-  state?: "init" | "loading" | "success";
-  variant?: "background" | "border";
+  state?: 'init' | 'loading' | 'success';
+  variant?: 'background' | 'border';
   color?: string;
   className?: string;
-  size?: "sm" | "md" | "lg" | "xl";
-  rounded?: "full" | "not-full";
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  rounded?: 'full' | 'not-full';
   disabled?: boolean;
   children?: ReactNode;
 };
@@ -15,11 +15,11 @@ type T_ButtonProps = T_ButtonSecondaryProps &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const ButtonSecondary: FC<T_ButtonProps> = ({
-  state = "init",
-  variant = "background",
-  color = "black",
-  size = "md",
-  rounded = "not-full",
+  state = 'init',
+  variant = 'background',
+  color = 'black',
+  size = 'md',
+  rounded = 'not-full',
   disabled = false,
   children,
   className,
@@ -27,59 +27,59 @@ const ButtonSecondary: FC<T_ButtonProps> = ({
 }) => {
   const buttonSize = useMemo(() => {
     switch (size) {
-      case "sm":
-        return `px-5 h-6 text-xs ${rounded === "full" ? "rounded-full" : "rounded-md"}`;
-      case "md":
-        return `px-8 h-10 text-base ${rounded === "full" ? "rounded-full" : "rounded-md"}`;
-      case "lg":
-        return `px-8 h-14 text-xl mdmax:px-5 mdmax:h-10 mdmax:text-base ${rounded === "full" ? "rounded-full" : "rounded-md"}`;
-      case "xl":
-        return `px-8 h-20 text-2xl mdmax:px-5 mdmax:h-10 mdmax:text-base ${rounded === "full" ? "rounded-full" : "rounded-md"}`;
+      case 'sm':
+        return `px-5 h-6 text-xs ${rounded === 'full' ? 'rounded-full' : 'rounded-md'}`;
+      case 'md':
+        return `px-8 h-10 text-base mdmax:h-8 mdmax:text-sm mdmax:px-4 ${rounded === 'full' ? 'rounded-full' : 'rounded-md'}`;
+      case 'lg':
+        return `px-8 h-14 text-xl mdmax:px-5 mdmax:h-10 mdmax:text-base ${rounded === 'full' ? 'rounded-full' : 'rounded-md'}`;
+      case 'xl':
+        return `px-8 h-20 text-2xl mdmax:px-5 mdmax:h-10 mdmax:text-base ${rounded === 'full' ? 'rounded-full' : 'rounded-md'}`;
       default:
-        return "";
+        return '';
     }
   }, [size, rounded]);
 
   const buttonTextColor = useMemo(() => {
     switch (color) {
-      case "white":
-        return "green02";
+      case 'white':
+        return 'green02';
       default:
-        return "white";
+        return 'white';
     }
   }, [color]);
 
   const buttonClasses = [
-    "font-medium relative overflow-hidden group inline-flex items-center justify-center",
+    'font-medium relative overflow-hidden group inline-flex items-center justify-center',
     `focus:ring-4 focus:ring-${color} focus:ring-opacity-20`,
     buttonSize,
-    state === "init" && variant === "background" && !disabled
+    state === 'init' && variant === 'background' && !disabled
       ? `bg-${color} text-${buttonTextColor}`
-      : "",
-    state === "init" && variant === "border" && !disabled
+      : '',
+    state === 'init' && variant === 'border' && !disabled
       ? `border border-${color} text-${color} hover:bg-${color} hover:text-${buttonTextColor}`
-      : "",
-    state !== "init" || disabled
-      ? "bg-black bg-opacity-10 text-black text-opacity-10"
-      : "",
-    state !== "loading" && state !== "success" ? "cursor-pointer" : "",
+      : '',
+    state !== 'init' || disabled
+      ? 'bg-black bg-opacity-10 text-black text-opacity-10'
+      : '',
+    state !== 'loading' && state !== 'success' ? 'cursor-pointer' : '',
     `${className}`,
-  ].join(" ");
+  ].join(' ');
 
   return (
     <button
       className={buttonClasses}
-      disabled={state !== "init" || disabled}
+      disabled={state !== 'init' || disabled}
       {...buttonProps}
     >
       <div
         className={[
-          "absolute top-0 w-full h-full bg-green-500 transition-all ease-in-out duration-300 z-0",
-          state === "success" ? "left-0 rounded-0" : "-left-full rounded-r-20",
-        ].join(" ")}
+          'absolute top-0 w-full h-full bg-green-500 transition-all ease-in-out duration-300 z-0',
+          state === 'success' ? 'left-0 rounded-0' : '-left-full rounded-r-20',
+        ].join(' ')}
       ></div>
       <div className="relative z-10 font-semibold tracking-wide inline-flex items-center gap-10">
-        {state === "init" && children}
+        {state === 'init' && children}
         {/* {state === 'loading' && (
           <Icon name="pajamas:redo" className="text-white animate-spin h-1/2" />
         )}
