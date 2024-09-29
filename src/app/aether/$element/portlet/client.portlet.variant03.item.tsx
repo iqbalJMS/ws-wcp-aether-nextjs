@@ -11,7 +11,7 @@ export default async function SE_PortletVariant01Item({
       <div className="md:w-1/4">
         <Image
           extern={true}
-          src={list_item.image}
+          src={list_item.image ?? '/images/no-image.png'}
           alt="image"
           width={0}
           height={0}

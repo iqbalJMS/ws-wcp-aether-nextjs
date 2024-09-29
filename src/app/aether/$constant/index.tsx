@@ -171,4 +171,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       };
     },
   },
+  two_column: {
+    component: () => <></>,
+    props: (_component) => {
+      return {};
+    },
+  },
 };
