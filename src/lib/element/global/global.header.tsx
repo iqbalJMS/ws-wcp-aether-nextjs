@@ -8,7 +8,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import Link from './link';
-import { CE_TabMain } from '@/app/$element/client.tab.main';
+import { Tabs } from './tabs';
 import { CloseIcon } from './close-icon';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
@@ -60,7 +60,7 @@ export function Search({ active, setActive }: T_SearchProps) {
           </div>
         </div>
         <div>
-          <CE_TabMain
+          <Tabs
             list={[
               { title: 'PRODUK', slug: 'pro' },
               { title: 'BERITA', slug: 'ber' },

@@ -6,7 +6,6 @@ export type T_IconList = {
   active: boolean
 };
 
-
 export type T_CarouselMainProps = {
   title?: string
   description?: string
@@ -19,20 +18,21 @@ export type T_CarouselMainProps = {
     title: string;
     desc: string;
     subDesc?: string;
-    button?:  {
+    button?: {
       name: string
       link: string
     };
   }>;
   variant: '01' | '02' | '03' | '04' | '05';
 }
+
 export type T_ContentMainProps = {
   title?: string
   data: Array<{
     image: string;
     title: string;
     desc: string;
-    button?:  {
+    button?: {
       name: string
       link: string
     };

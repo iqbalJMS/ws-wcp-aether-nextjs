@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "@/lib/element/global/image";
-import Link from "@/lib/element/global/link";
-import useScreenWidth from "@/lib/hook/useScreenWidth";
-import { useEffect, useRef, useState } from "react";
+import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
+import useScreenWidth from '@/lib/hook/useScreenWidth';
+import { useEffect, useRef, useState } from 'react';
 
 export function CE_ImageSliderMain({
   data,
@@ -17,9 +17,9 @@ export function CE_ImageSliderMain({
 }) {
   const [currentIndex, setCurrentIndex] = useState<number>(data.length);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
-  const screenWidth = useScreenWidth()
+  const screenWidth = useScreenWidth();
   const slidesToShow = screenWidth > 768 ? 5 : 3;
-  
+
   const slidesToScroll = 1;
   const totalSlides = data.length;
   const sliderRef = useRef<HTMLDivElement | null>(null);
@@ -46,11 +46,11 @@ export function CE_ImageSliderMain({
         // Handle the loop when we reach the cloned slides
         if (currentIndex >= totalSlides * 2) {
           setCurrentIndex(totalSlides);
-          sliderRef.current!.style.transition = "none";
+          sliderRef.current!.style.transition = 'none';
           sliderRef.current!.style.transform = `translateX(-${(100 / slidesToShow) * totalSlides}%)`;
         } else if (currentIndex < totalSlides) {
           setCurrentIndex(totalSlides + (currentIndex % totalSlides));
-          sliderRef.current!.style.transition = "none";
+          sliderRef.current!.style.transition = 'none';
           sliderRef.current!.style.transform = `translateX(-${(100 / slidesToShow) * totalSlides}%)`;
         }
       }, 500); // match this duration with your CSS transition duration
@@ -60,7 +60,7 @@ export function CE_ImageSliderMain({
   }, [isTransitioning, currentIndex, totalSlides, slidesToShow]);
 
   useEffect(() => {
-    sliderRef.current!.style.transition = "transform 0.5s ease-in-out";
+    sliderRef.current!.style.transition = 'transform 0.5s ease-in-out';
     sliderRef.current!.style.transform = `translateX(-${(100 / slidesToShow) * currentIndex}%)`;
   }, [currentIndex, slidesToShow]);
 
@@ -68,8 +68,8 @@ export function CE_ImageSliderMain({
     const middleIndex = currentIndex + Math.floor(slidesToShow / 2);
     const actualIndex = index % totalSlides;
     return actualIndex === middleIndex % totalSlides
-      ? "scale-100 z-10"
-      : "scale-100 z-0 opacity-50";
+      ? 'scale-100 z-10'
+      : 'scale-100 z-0 opacity-50';
   };
 
   return (

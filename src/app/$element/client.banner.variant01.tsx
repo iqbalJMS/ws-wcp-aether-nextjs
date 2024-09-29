@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import ButtonSecondary from "@/lib/element/global/button.secondary";
-import Image from "@/lib/element/global/image";
-import { parseHTMLToReact } from "@/lib/functions/global/htmlParser";
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import ButtonSecondary from '@/lib/element/global/button.secondary';
+import Image from '@/lib/element/global/image';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 
 export function CE_BannerVariant01({
-  data
+  data,
 }: {
   data: Array<{
     image: string;
@@ -25,7 +25,7 @@ export function CE_BannerVariant01({
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) =>
-        prevIndex === data?.length - 1 ? 0 : prevIndex + 1,
+        prevIndex === data?.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
 
@@ -34,13 +34,13 @@ export function CE_BannerVariant01({
 
   const goToNext = () => {
     setIndex((prevIndex) =>
-      prevIndex === data?.length - 1 ? 0 : prevIndex + 1,
+      prevIndex === data?.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const goToPrevious = () => {
     setIndex((prevIndex) =>
-      prevIndex === 0 ? data?.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? data?.length - 1 : prevIndex - 1
     );
   };
 
@@ -96,7 +96,7 @@ export function CE_BannerVariant01({
                 className={`
                   absolute w-full h-full top-0 left-0
                   transition-all ease-in-out duration-500
-                  ${bannerIndex === index ? "" : "opacity-0"}
+                  ${bannerIndex === index ? '' : 'opacity-0'}
                   `}
               >
                 <div className=" overflow-hidden w-full h-full relative ">
@@ -141,20 +141,22 @@ export function CE_BannerVariant01({
           })}
         </div>
         {data.length > 1 && (
-          <div className={[
-            "absolute top-1/2 transform -translate-y-1/2 z-30 right-[12rem]", 
-            "mdmax:top-[initial] mdmax:bottom-10 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2"
-          ].join(' ')}>
+          <div
+            className={[
+              'absolute top-1/2 transform -translate-y-1/2 z-30 right-[12rem]',
+              'mdmax:top-[initial] mdmax:bottom-10 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2',
+            ].join(' ')}
+          >
             <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2">
               {data?.map((_: any, bannerIndex: number) => (
                 <div
                   key={bannerIndex}
-                  className={
-                    ["w-5 h-5 rounded-full bg-red-01 mb-3 ",
-                    "mdmax:w-4 mdmax:h-4",
-                    `${bannerIndex === index ? "" : "bg-opacity-50"}`,
-                    "cursor-pointer"].join(' ')
-                  }
+                  className={[
+                    'w-5 h-5 rounded-full bg-red-01 mb-3 ',
+                    'mdmax:w-4 mdmax:h-4',
+                    `${bannerIndex === index ? '' : 'bg-opacity-50'}`,
+                    'cursor-pointer',
+                  ].join(' ')}
                   onClick={() => {
                     setIndex(bannerIndex);
                   }}
