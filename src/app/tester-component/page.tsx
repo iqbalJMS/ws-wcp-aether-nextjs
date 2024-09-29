@@ -4,11 +4,11 @@ import React from 'react';
 
 import ScrollToTop from '@/lib/element/global/scroll.top';
 import { T_CarouselMainProps } from '@/app/$action/constants';
-import { CE_BannerMain } from '@/app/$element/client.banner.main';
-import { SE_IconMain } from '@/app/$element/server.icon.main';
+import CE_BannerMain from '@/app/$element/client.banner.main';
+import SE_IconMain from '@/app/$element/server.icon.main';
 import { CE_CarouselMain } from '@/app/$element/client.carousel.main';
 import { CE_ContentMain } from '@/app/$element/client.content.main';
-import { CE_KursMain } from '@/app/$element/client.kurs.main';
+import CE_KursMain from '@/app/$element/client.kurs.main';
 import { CE_CardVariant01 } from '@/app/$element/client.card.variant01';
 import { CE_CardVariant02 } from '@/app/$element/client.card.variant02';
 import { CE_CardVariant03 } from '@/app/$element/client.card.variant03';
