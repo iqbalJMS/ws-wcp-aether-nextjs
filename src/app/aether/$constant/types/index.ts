@@ -14,4 +14,5 @@ export type T_Widget =
   | "header"
   | "multi_tab"
   | "section"
-  | "kurs";
+  | "kurs"
+  | "bbri_stock_market";

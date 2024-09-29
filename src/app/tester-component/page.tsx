@@ -24,6 +24,9 @@ import { CE_CardVariant12 } from '@/app/$element/client.card.variant12';
 import { CE_CardVariant13 } from '@/app/$element/client.card.variant13';
 import { CE_CardVariant14 } from '@/app/$element/client.card.variant14';
 import { CE_CardVariant15 } from '@/app/$element/client.card.variant15';
+import SE_PortletMain from '@/app/aether/$element/portlet/server.portlet.main';
+import Accordion from '@/lib/element/global/accordion';
+import Image from '@/lib/element/global/image';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -146,7 +149,7 @@ export default async function PageTester() {
         ]}
       />
       <SE_IconMain cookiesName="__personlized-menu" />
-      <CE_KursMain available_currency={[]} />
+      <CE_KursMain availableCurrency={[]} listCurrency={[]} listTable={[]} />
       <CE_CarouselMain variant="01" data={dataDummy} title="Keuntungan" />
 
       <CE_CarouselMain
@@ -648,6 +651,140 @@ export default async function PageTester() {
           { image: '/sites/default/files/images/1073-860x640.jpg' },
         ]}
       />
+      <SE_PortletMain
+        variant="03"
+        headerAlignment="left"
+        imageContentAlignment="right"
+        // title="Yo"
+        listItems={[
+          {
+            text: '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, omnis illo consectetur expedita similique voluptates adipisci iste modi corporis quod vitae ut ex non eum minus eos nemo repellat dolorem magni error repudiandae. Maxime animi accusantium voluptates sit ad voluptatibus, ex aliquid molestias aspernatur consequatur consectetur accusamus temporibus culpa adipisci.</p>',
+            description: 'test',
+            title: 'test',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+          },
+        ]}
+        bgImage="/sites/default/files/images/whybanking.jpg"
+        imageContent="/sites/default/files/images/promo-carousel-01.jpeg"
+        // imageTitle="/sites/default/files/images/1073-860x640.jpg"
+      />
+      <div className="py-4 container">
+        <Accordion
+          renderTitle={
+            <p className="text-l-bold text-left font-medium leading-8">
+              Laporan
+            </p>
+          }
+          isOpen
+          renderContent={
+            <CE_CardVariant11
+              title="Lorem Ipsum"
+              data={[
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+              ]}
+            />
+          }
+        />
+      </div>
+      <div className="py-4">
+        <Accordion
+          variant="full"
+          renderTitle={
+            <p className="text-l-bold text-left font-medium leading-8">
+              Laporan
+            </p>
+          }
+          isOpen
+          renderContent={
+            <CE_CardVariant11
+              title="Lorem Ipsum"
+              data={[
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+              ]}
+            />
+          }
+        />
+      </div>
+      <div className="py-4 container">
+        <Accordion
+          variant="rounded"
+          renderTitle={
+            <>
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/sites/default/files/images/1073-860x640.jpg"
+                  width={40}
+                  height={40}
+                  alt="image"
+                  extern={true}
+                  className="rounded-md"
+                />
+                <p className="text-xl-semibold text-left leading-8">Laporan</p>
+              </div>
+            </>
+          }
+          isOpen
+          renderContent={
+            <CE_CardVariant11
+              title="Lorem Ipsum"
+              data={[
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+              ]}
+            />
+          }
+        />
+      </div>
       <ScrollToTop />
     </React.Fragment>
   );

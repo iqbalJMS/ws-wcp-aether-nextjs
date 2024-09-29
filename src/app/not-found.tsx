@@ -1,6 +1,6 @@
-import Image from "@/lib/element/global/image";
-import Link from "@/lib/element/global/link";
-import React from "react";
+import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
+import React from 'react';
 
 export default function NotFoundPage() {
   return (

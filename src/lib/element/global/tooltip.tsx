@@ -1,11 +1,11 @@
 'use client';
 
-type T_TooltipMainProps = {
+type T_TooltipProps = {
   description: string;
 };
-export function CE_TooltipMain({ description }: T_TooltipMainProps) {
+export function Tooltip({ description }: T_TooltipProps) {
   return (
-    <div className="relative group">
+    <div className="relative group/tooltip">
       <div>
         <svg className="w-5 h-5" width="32" height="32" viewBox="0 0 256 256">
           <path
@@ -14,7 +14,7 @@ export function CE_TooltipMain({ description }: T_TooltipMainProps) {
           />
         </svg>
       </div>
-      <div className="invisible group-hover:visible absolute font-normal text-xs p-2 rounded-md bg-opacity-80 bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black w-[20rem] text-white">
+      <div className="invisible group-hover/tooltip:visible absolute font-normal text-xs p-2 rounded-md bg-opacity-80 bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black w-[20rem] text-white">
         {description}
       </div>
     </div>

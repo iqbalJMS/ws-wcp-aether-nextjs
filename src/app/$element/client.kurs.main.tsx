@@ -2,7 +2,7 @@
 
 import Link from '@/lib/element/global/link';
 import { useState } from 'react';
-import { CE_TabMain } from './client.tab.main';
+import { Tabs } from '@/lib/element/global/tabs';
 import Table from '@/lib/element/global/table';
 import InputSelect from '@/lib/element/global/input.select';
 import InputText from '@/lib/element/global/input.text';
@@ -74,7 +74,7 @@ export function CE_KursValue({
           <div className="text-lg uppercase text-blue-01 font-semibold border-b-2 border-blue-01 pb-2">
             Kalkulator
           </div>
-          <CE_TabMain
+          <Tabs
             list={tabs}
             value={tabValue}
             onChange={(value) => setTabValue(value)}
@@ -154,10 +154,11 @@ export function CE_KursMain({
         </div>
       </div>
       <div className="mb-10">
-        <CE_TabMain
+        <Tabs
           list={tabs}
           value={tabValue}
           onChange={(value) => setTabValue(value)}
+          variant="border-arrow"
         />
       </div>
       <div>

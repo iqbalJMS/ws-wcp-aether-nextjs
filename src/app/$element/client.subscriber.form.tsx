@@ -3,8 +3,8 @@ export default function CE_SubscriberForm() {
     <div className="md:flex relative md:w-[42%] w-full">
       <div
         style={{
-          backgroundImage: `url(${"/images/subscriber/mail.png"})`,
-          backgroundSize: "cover",
+          backgroundImage: `url(${'/images/subscriber/mail.png'})`,
+          backgroundSize: 'cover',
         }}
         className="bg-no-repeat md:w-20 md:h-36 w-11 h-20 absolute mdmax:right-0 mdmax:-top-24 md:-mt-8"
       ></div>

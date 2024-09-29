@@ -44,7 +44,6 @@ export default async function PageAether({
           <Component {...props} />
         </React.Fragment>
       ))}
-
       <ScrollToTop />
     </React.Fragment>
   );

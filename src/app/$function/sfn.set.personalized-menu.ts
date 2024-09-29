@@ -5,9 +5,6 @@ import { generateUniqueKey } from "@/lib/functions/global/key";
 import { Dragon } from "@strix/server";
 import { T_IconList } from "@/app/$action/constants";
 
-
-
-
 export async function SFN_SetPersonalizedMenu(
   type: 'set' | 'get',
   cookiesName: string,
@@ -26,7 +23,7 @@ export async function SFN_SetPersonalizedMenu(
         return await Dragon.get(keyGet);
       }
       break;
-    
+
   }
-  
+
 }
