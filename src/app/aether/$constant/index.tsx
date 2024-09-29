@@ -15,8 +15,26 @@ import { T_MultiTab } from './types/widget/multi_tab';
 import { CE_KursMain } from '@/app/$element/client.kurs.main';
 import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
+import CE_InfoSahamMain from '@/app/$element/client.info-saham.main';
+import { T_InfoSaham } from './types/widget/info-saham';
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
+  bbri_stock_market: {
+    component: CE_InfoSahamMain,
+    props: (_component: T_InfoSaham) => {
+      return {
+        stockId: _component.data.stockId,
+        lastUpdate: _component.data.lastUpdated,
+        buyPrice: _component.data.buyPrice,
+        cumulativeVol: _component.data.cumulativeVol,
+        low: _component.data.low,
+        high: _component.data.high,
+        low52WKS: _component.data.low52WKS,
+        high52WKS: _component.data.high52WKS,
+        percentChange: _component.data.percentChange,
+      };
+    },
+  },
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {

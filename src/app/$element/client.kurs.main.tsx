@@ -74,7 +74,7 @@ export function CE_KursValue({
           <div className="text-lg uppercase text-blue-01 font-semibold border-b-2 border-blue-01 pb-2">
             Kalkulator
           </div>
-          <CE_TabMain
+          <Tabs
             list={tabs}
             value={tabValue}
             onChange={(value) => setTabValue(value)}
