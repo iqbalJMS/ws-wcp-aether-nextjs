@@ -1,22 +1,46 @@
-import { CE_BannerMain } from '@/app/$element/client.banner.main';
-import { SE_IconMain } from '@/app/$element/server.icon.main';
-import SE_PortletMain from '@/app/aether/$element/portlet/server.portlet.main';
-import SE_SubscriberContent from '@/app/$element/server.subscriber.content';
-import SE_FormMain from '@/app/aether/$element/form/server.form.main';
+import dynamic from 'next/dynamic';
 import { T_Slider } from './types/widget/slider';
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DropdownAction } from './types/widget/dropdown-action';
 import { T_Section } from './types/widget/section';
 import { T_Subscription } from './types/widget/subscription';
-import { CE_ImageSliderMain } from '@/app/$element/client.image-slider.main';
 import { T_ImageSlider } from './types/widget/image-slider';
-import CE_SectionPromo from '@/app/aether/$element/promo/client.section-promo';
 import { T_MultiTab } from './types/widget/multi_tab';
-import { CE_KursMain } from '@/app/$element/client.kurs.main';
 import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
-import CE_InfoSahamMain from '@/app/$element/client.info-saham.main';
 import { T_InfoSaham } from './types/widget/info-saham';
+
+const SE_SubscriberContent = dynamic(
+  () => import('@/app/$element/server.subscriber.content')
+);
+
+const SE_PortletMain = dynamic(
+  () => import('@/app/aether/$element/portlet/server.portlet.main')
+);
+
+const SE_IconMain = dynamic(() => import('@/app/$element/server.icon.main'));
+
+const CE_InfoSahamMain = dynamic(
+  () => import('@/app/$element/client.info-saham.main')
+);
+
+const CE_ImageSliderMain = dynamic(
+  () => import('@/app/$element/client.image-slider.main')
+);
+
+const CE_HelpContent = dynamic(
+  () => import('@/app/$element/client.help.content')
+);
+
+const CE_KursMain = dynamic(() => import('@/app/$element/client.kurs.main'));
+
+const CE_BannerMain = dynamic(
+  () => import('@/app/$element/client.banner.main')
+);
+
+const CE_SectionPromo = dynamic(
+  () => import('@/app/aether/$element/promo/client.section-promo')
+);
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   bbri_stock_market: {
@@ -170,6 +194,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         }),
       };
+    },
+  },
+  two_column: {
+    component: () => <></>,
+    props: (_component) => {
+      return {};
     },
   },
 };

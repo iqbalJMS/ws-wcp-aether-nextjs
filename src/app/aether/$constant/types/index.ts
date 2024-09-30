@@ -6,13 +6,14 @@ export type T_ComponentMapWidget<T = any> = {
 };
 
 export type T_Widget =
-  | "slider"
-  | "dropdown_action"
-  | "personalized_shortcut"
-  | "image_slider"
-  | "subscription"
-  | "header"
-  | "multi_tab"
-  | "section"
-  | "kurs"
-  | "bbri_stock_market";
+  | 'slider'
+  | 'dropdown_action'
+  | 'personalized_shortcut'
+  | 'image_slider'
+  | 'subscription'
+  | 'header'
+  | 'multi_tab'
+  | 'section'
+  | 'kurs'
+  | 'two_column'
+  | 'bbri_stock_market';

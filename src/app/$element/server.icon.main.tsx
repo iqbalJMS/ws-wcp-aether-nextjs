@@ -13,7 +13,7 @@ type T_IconMainProps = {
   cookiesName: string;
 };
 
-export async function SE_IconMain({
+export default async function SE_IconMain({
   maxListShow = 5,
   cookiesName = '__persolized-menu',
 }: // cookiesName,

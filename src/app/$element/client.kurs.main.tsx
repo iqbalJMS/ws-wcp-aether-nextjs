@@ -7,26 +7,22 @@ import Table from '@/lib/element/global/table';
 import InputSelect from '@/lib/element/global/input.select';
 import InputText from '@/lib/element/global/input.text';
 import { T_Kurs } from '@/app/aether/$constant/types/widget/kurs';
-// import InputSlider from "@/lib/element/global/input.slider";
 
 type T_Props = {
   listTable: T_Kurs['data'];
   listCurrency: T_Kurs['field_currency'];
   availableCurrency: T_Kurs['available_currency'];
+  tabActive?: string;
 };
 
-export function CE_KursValue({
-  listTable,
-  listCurrency,
-  // TODO kindly removed it if unused
-  // availableCurrency,
-}: T_Props) {
+function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
+  const isERate = tabActive === 'e-rate';
   const data = listTable?.map((item) => {
     return {
       id: item.currency,
       name: item.currency,
-      age: item.buyRateERate,
-      position: item.sellRateERate,
+      age: isERate ? item.buyRateERate : item.buyRateCounter,
+      position: isERate ? item.sellRateERate : item.sellRateCounter,
     };
   });
   const dataCurrencySelected = listCurrency.map((item) => {
@@ -115,11 +111,11 @@ export function CE_KursValue({
   );
 }
 
-export function CE_KursMain({
+const CE_KursMain = ({
   listTable,
   listCurrency,
   availableCurrency,
-}: T_Props) {
+}: T_Props) => {
   const tabs = [
     {
       title: 'E-RATE',
@@ -163,6 +159,7 @@ export function CE_KursMain({
       </div>
       <div>
         <CE_KursValue
+          tabActive={tabValue}
           listTable={listTable}
           listCurrency={listCurrency}
           availableCurrency={availableCurrency}
@@ -170,4 +167,6 @@ export function CE_KursMain({
       </div>
     </div>
   );
-}
+};
+
+export default CE_KursMain;
