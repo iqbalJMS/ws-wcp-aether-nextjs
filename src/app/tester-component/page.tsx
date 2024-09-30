@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import SE_FormMain from '@/app/aether/$element/form/server.form.main';
 import ScrollToTop from '@/lib/element/global/scroll.top';
 import { T_CarouselMainProps } from '@/app/$action/constants';
 import { CE_BannerMain } from '@/app/$element/client.banner.main';
@@ -27,6 +28,7 @@ import { CE_CardVariant15 } from '@/app/$element/client.card.variant15';
 import SE_PortletMain from '@/app/aether/$element/portlet/server.portlet.main';
 import Accordion from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
+import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -148,7 +150,24 @@ export default async function PageTester() {
           },
         ]}
       />
+      <SE_FormMain
+        placeholder="Search..."
+        listItems={[
+          { title: 'Open Deposit', value: '#' },
+          { title: 'Open Deposit', value: '#' },
+        ]}
+        dropdownType="input-text"
+        variant="01"
+      />
       <SE_IconMain cookiesName="__personlized-menu" />
+      <SE_WysiwygMain
+        variant="01"
+        title="Laris Manis, Ini 9 Tips Mudah Jualan Online Buat Pemula"
+        createdAt="Rabu, 11 September 2024 | 14:43"
+        // buttonText="Bagikan"
+        imageContent="/sites/default/files/images/1073-860x640.jpg"
+        content="<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>"
+      />
       <CE_KursMain availableCurrency={[]} listCurrency={[]} listTable={[]} />
       <CE_CarouselMain variant="01" data={dataDummy} title="Keuntungan" />
 
@@ -705,7 +724,7 @@ export default async function PageTester() {
       </div>
       <div className="py-4">
         <Accordion
-          variant="full"
+          variant="full-border"
           renderTitle={
             <p className="text-l-bold text-left font-medium leading-8">
               Laporan
@@ -756,6 +775,40 @@ export default async function PageTester() {
                 <p className="text-xl-semibold text-left leading-8">Laporan</p>
               </div>
             </>
+          }
+          isOpen
+          renderContent={
+            <CE_CardVariant11
+              title="Lorem Ipsum"
+              data={[
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  title: 'Lorem Ipsum',
+                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  description:
+                    'Lorem Ipsum is simply dummy text of the printing',
+                },
+              ]}
+            />
+          }
+        />
+      </div>
+      <div className="py-4 container">
+        <Accordion
+          variant="full"
+          renderTitle={
+            <p className="text-xl-semibold text-left leading-8">Laporan</p>
           }
           isOpen
           renderContent={

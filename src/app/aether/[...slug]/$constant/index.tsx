@@ -2,7 +2,7 @@ import { CE_BannerMain } from '@/app/$element/client.banner.main';
 import { SE_IconMain } from '@/app/$element/server.icon.main';
 import SE_PortletMain from '@/app/aether/$element/portlet/server.portlet.main';
 import SE_SubscriberContent from '@/app/$element/server.subscriber.content';
-import CE_HelpContent from '@/app/$element/client.help.content';
+import SE_FormMain from '@/app/aether/$element/form/server.form.main';
 import { T_Slider } from './types/widget/slider';
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DropdownAction } from './types/widget/dropdown-action';
@@ -32,7 +32,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   dropdown_action: {
-    component: CE_HelpContent,
+    component: SE_FormMain,
     props: (_component: T_DropdownAction) => {
       return {
         title: _component?.field_title[0]?.value,
@@ -42,6 +42,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             value: item?.uri,
           };
         }),
+        variant: '01',
       };
     },
   },

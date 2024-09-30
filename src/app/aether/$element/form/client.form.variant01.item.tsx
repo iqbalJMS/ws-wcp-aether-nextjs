@@ -1,18 +1,19 @@
-import { T_InputSelectItem } from "@/lib/element/client/input";
+'use client';
+import { T_InputSelectItem } from '@/lib/element/client/input';
 
-type T_HelpSectionSelectProps = {
+type T_FormVariant01ItemProps = {
   open: boolean;
   list: T_InputSelectItem[];
   setOpen: (_active: boolean) => void;
   onChange: (_item: T_InputSelectItem) => void;
 };
 
-export default function SE_HelpSelect({
+export default function CE_FormVariant01Item({
   open,
   list,
   setOpen,
   onChange,
-}: T_HelpSectionSelectProps) {
+}: T_FormVariant01ItemProps) {
   const handleChoose = (item: T_InputSelectItem) => {
     onChange?.(item);
     setOpen(false);

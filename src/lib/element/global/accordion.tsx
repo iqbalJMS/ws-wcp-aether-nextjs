@@ -8,7 +8,7 @@ type T_AccordionProps = {
   renderContent: React.ReactNode;
   renderTitle: React.ReactNode;
   isOpen?: boolean;
-  variant?: 'full' | 'rounded';
+  variant?: 'full' | 'full-border' | 'rounded';
 };
 
 export default function Accordion({
@@ -27,24 +27,26 @@ export default function Accordion({
     <section
       className={`${variant == 'rounded' ? 'shadow-lg rounded-[40px] px-4 py-4 border' : ''}`}
     >
-      <div className={`${variant == 'full' ? 'border-b' : ''}`}>
-        <div className={`${variant == 'full' ? 'container' : ''}`}>
+      <div
+        className={`${variant == 'full-border' ? 'border-b' : variant == 'full' ? 'rounded-lg bg-blue-01 px-4 py-4 text-white' : ''}`}
+      >
+        <div className={`${variant == 'full-border' ? 'container' : ''}`}>
           <button
             onClick={() => setAccordionOpen(!accordionOpen)}
-            className={`${variant == 'full' || variant == 'rounded' ? 'border-none' : 'border-b'} ${styles.buttonContainer}`}
+            className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' ? 'border-none' : 'border-b'} ${styles.buttonContainer}`}
           >
             <div className="w-full">{renderTitle}</div>
 
             {accordionOpen ? (
               <ChevronUpIcon
-                className="stroke-blue-02"
+                className={`${variant == 'full' ? 'stroke-white' : 'stroke-blue-02'}`}
                 width={36}
                 height={36}
                 strokeWidth="2"
               />
             ) : (
               <ChevronRightIcon
-                className="stroke-blue-02"
+                className={`${variant == 'full' ? 'stroke-white' : 'stroke-blue-02'}`}
                 width={36}
                 height={36}
                 strokeWidth="2"
