@@ -28,8 +28,8 @@ const CE_ImageSliderMain = dynamic(
   () => import('@/app/$element/client.image-slider.main')
 );
 
-const CE_HelpContent = dynamic(
-  () => import('@/app/$element/client.help.content')
+const SE_FormMain = dynamic(
+  () => import('@/app/aether/$element/form/server.form.main')
 );
 
 const CE_KursMain = dynamic(() => import('@/app/$element/client.kurs.main'));
