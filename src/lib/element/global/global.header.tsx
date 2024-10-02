@@ -401,7 +401,7 @@ export default function GlobalHeader({
                   />
                 </Link>
               </div>
-              <div className="mdmax:w-full bg-white">
+              <div className="mdmax:w-full">
                 <div className="flex mdmax:flex-col mdmax:items-start items-center gap-10 mdmax:gap-0 ">
                   {headerBottom?.map((item, index) => {
                     return (
