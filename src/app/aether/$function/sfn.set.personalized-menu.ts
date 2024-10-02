@@ -3,7 +3,7 @@
 import { getSecureCookie, setSecureCookie } from "@/lib/functions/global/cookies";
 import { generateUniqueKey } from "@/lib/functions/global/key";
 import { Dragon } from "@strix/server";
-import { T_IconList } from "@/app/$action/constants";
+import { T_IconList } from "@/app/aether/$constant/types";
 
 export async function SFN_SetPersonalizedMenu(
   type: 'set' | 'get',

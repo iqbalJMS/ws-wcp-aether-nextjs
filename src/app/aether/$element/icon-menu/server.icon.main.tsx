@@ -1,12 +1,9 @@
 'use server';
 
-import { ACT_GetPersonalizeMenu } from '@/app/$action/action.get.personalize-menu';
+import { ACT_GetPersonalizeMenu } from '@/app/aether/$action/action.get.personalize-menu';
 import { CE_IconMain } from './client.icon.main';
-import { T_IconList } from '@/app/$action/constants';
-
-// import { SFN_CookieIcon } from "@/app/$function/sfn.cookie.icon";
-// import { ACT_SetPersonalizeMenu } from "@/app/$action/action.set.personalize-menu";
-import { SFN_SetPersonalizedMenu } from '@/app/$function/sfn.set.personalized-menu';
+import { SFN_SetPersonalizedMenu } from '@/app/aether/$function/sfn.set.personalized-menu';
+import { T_IconList } from '@/app/aether/$constant/types';
 
 type T_IconMainProps = {
   maxListShow?: number;
@@ -16,8 +13,7 @@ type T_IconMainProps = {
 export default async function SE_IconMain({
   maxListShow = 5,
   cookiesName = '__persolized-menu',
-}: // cookiesName,
-T_IconMainProps) {
+}: T_IconMainProps) {
   const cookies = await SFN_SetPersonalizedMenu('get', cookiesName);
   const iconCookies: T_IconList[] = cookies ? JSON.parse(cookies) : [];
   const initialIcon = await ACT_GetPersonalizeMenu();

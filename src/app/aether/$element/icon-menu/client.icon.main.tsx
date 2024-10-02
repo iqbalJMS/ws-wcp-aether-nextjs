@@ -3,9 +3,10 @@
 import Image from '@/lib/element/global/image';
 import Modal from '@/lib/element/global/modal';
 import { useMemo, useState } from 'react';
-import { T_IconList } from '@/app/$action/constants';
+import { T_IconList } from '@/app/aether/$constant/types';
 import Link from '@/lib/element/global/link';
-import { SFN_SetPersonalizedMenu } from '@/app/$function/sfn.set.personalized-menu';
+import { SFN_SetPersonalizedMenu } from '@/app/aether/$function/sfn.set.personalized-menu';
+
 
 type T_IconMainProps = {
   maxListShow?: number;

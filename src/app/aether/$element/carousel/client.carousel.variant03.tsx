@@ -1,20 +1,20 @@
 'use client';
 
-import { T_CarouselMainProps } from '@/app/$action/constants';
+import { T_CarouselMainProps } from '@/app/aether/$constant/types';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useState } from 'react';
 
-export function CE_CarouselVariant01({
+export function CE_CarouselVariant03({
   title,
   button,
   data,
 }: Omit<T_CarouselMainProps, 'variant'>) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const screenWidth = useScreenWidth();
-  const slidesToShow = screenWidth > 768 ? 4 : 2;
+  const slidesToShow = screenWidth > 768 ? 3 : 2;
   const slidesToScroll = 1;
 
   const nextSlide = () => {
@@ -31,9 +31,11 @@ export function CE_CarouselVariant01({
   return (
     <>
       <div className="py-20 container">
-        <div className="flex mdmax:flex-wrap items-center">
+        <div className="flex items-center mdmax:flex-wrap">
           <div className="w-[20%] mdmax:w-full flex-none">
-            <div className="text-2xl font-semibold mb-4">{title}</div>
+            {title && (
+              <div className="text-2xl font-semibold mb-4">{title}</div>
+            )}
             <div className="flex items-center gap-5 mdmax:gap-1">
               <button
                 className={[
@@ -60,25 +62,25 @@ export function CE_CarouselVariant01({
             </div>
             {button && (
               <Link href={button?.link} target="_blank">
-                <div className="inline-flex gap-2 items-center text-blue-01 mt-4">
+                <div className="inline-flex gap-2 items-center text-blue-01">
                   {parseHTMLToReact(button?.name || '')}{' '}
                   <span className="text-xs">&#10095;</span>
                 </div>
               </Link>
             )}
           </div>
-          <div className="overflow-hidden mdmax:w-full mdmax:flex-none p-5 mdmax:p-1">
+          <div className="overflow-hidden p-5 mdmax:p-2">
             <div
-              className="flex -mx-2 transition-all ease-in-out duration-300"
+              className="flex  -mx-2 transition-all ease-in-out duration-300"
               style={{
                 transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`,
               }}
             >
               {data.map((dataItem, index) => (
-                <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
+                <div key={index} className="w-1/3 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem.button?.link || ''} target="_blank">
-                    <div className="p-4 mdmax:p-2 shadow-lg">
-                      <div className="w-full h-[12rem] mb-2">
+                    <div className="shadow-lg relative rounded-md overflow-hidden">
+                      <div className="w-full h-[18rem] ">
                         <Image
                           extern={true}
                           src={dataItem.image}
@@ -88,15 +90,11 @@ export function CE_CarouselVariant01({
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div>
-                        <div className=" text-red-01 font-semibold mb-2">
+                      <div className="absolute z-10 top-0 left-0 bg-black bg-opacity-20 w-full h-full"></div>
+                      <div className="absolute z-20 bottom-0 left-0 p-4">
+                        <div className=" text-white text-2xl font-semibold text-line-2">
                           {parseHTMLToReact(dataItem.title)}
                         </div>
-                        {dataItem.desc && (
-                          <div className="text-xs h-[4rem] overflow-auto">
-                            {parseHTMLToReact(dataItem.desc)}
-                          </div>
-                        )}
                       </div>
                     </div>
                   </Link>
