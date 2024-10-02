@@ -1,6 +1,6 @@
 'use client';
 
-import { T_ContentMainProps } from '@/app/$action/constants';
+import { T_ContentMainProps } from '@/app/aether/$constant/types';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 
