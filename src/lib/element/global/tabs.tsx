@@ -47,7 +47,7 @@ export function Tabs({
                 }`,
               ].join(' ')}
             >
-              <div className="mr-2">{item.title}</div>
+              <div className="mr-2 mdmax:text-sm">{item.title}</div>
               {item.information && <Tooltip description={item.information} />}
             </div>
             {variant === 'border-arrow' && (
@@ -60,11 +60,12 @@ export function Tabs({
                 ].join(' ')}
               >
                 <div
-                  className={`
-                                    absolute top-[100%] left-1/2 transform -translate-x-1/2 
-                                    border-l-[0.5rem] border-r-[0.5rem] border-t-[0.5rem] 
-                                    border-l-transparent border-r-transparent border-blue-01
-                                    h-1 w-1`}
+                  className={[
+                    'absolute top-[100%] left-1/2 transform -translate-x-1/2 ',
+                    'border-l-[0.5rem] border-r-[0.5rem] border-t-[0.5rem] ',
+                    'border-l-transparent border-r-transparent border-blue-01',
+                    'h-1 w-1',
+                  ].join(' ')}
                 ></div>
               </div>
             )}

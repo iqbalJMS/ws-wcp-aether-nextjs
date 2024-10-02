@@ -48,8 +48,8 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
   const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '');
 
   return (
-    <div className="flex -mx-10">
-      <div className="w-1/2 px-10">
+    <div className="flex mdmax:flex-wrap -mx-10">
+      <div className="w-1/2 mdmax:w-full px-10">
         <Table
           headers={[
             {
@@ -65,7 +65,7 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
           list={data}
         />
       </div>
-      <div className="w-1/2 px-10">
+      <div className="w-1/2 mdmax:w-full px-10">
         <div>
           <div className="text-lg uppercase text-blue-01 font-semibold border-b-2 border-blue-01 pb-2">
             Kalkulator
@@ -78,7 +78,7 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
           />
           <div className="mt-5">
             <div className="flex items-center -mx-2 mb-5">
-              <div className="w-[25%] flex-none px-2">
+              <div className="w-[25%] mdmax:w-[40%] flex-none px-2">
                 <InputSelect
                   list={dataCurrencySelected}
                   value={dataCurrencySelected?.[0]?.value}
@@ -93,7 +93,7 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
               </div>
             </div>
             <div className="flex items-center -mx-2 mb-5">
-              <div className="w-[25%] flex-none px-2">
+              <div className="w-[25%] mdmax:w-[40%] flex-none px-2">
                 <InputSelect
                   list={dataCurrencySelected}
                   value={dataCurrencySelected?.[1]?.value}
@@ -134,10 +134,10 @@ const CE_KursMain = ({
 
   return (
     <div className="container py-10">
-      <div className="flex items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
-        <div>
+      <div className="flex mdmax:flex-col mdmax:items-start items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
+        <div className='mdmax:mb-5'> 
           <div className="text-2xl font-semibold mb-2">Kurs BRI</div>
-          <div className=" text-black font-medium text-opacity-30">
+          <div className=" text-black mdmax:text-sm  font-medium text-opacity-30">
             * Terakhir diperbarui 23 Sep 2024 10:10 Untuk transaksi kurang dari
             eq. USD 2.500
           </div>
