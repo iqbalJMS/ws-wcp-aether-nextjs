@@ -90,3 +90,11 @@ input[type="range"]::-webkit-slider-thumb {
 .overflow-custom::-webkit-scrollbar-thumb {
   @apply bg-blue-01 border-2 border-blue-01 rounded-sm;
 }
+
+
+.simulation-tnc ul {
+  @apply list-disc ml-5
+}
+.simulation-tnc div {
+  @apply font-medium
+}

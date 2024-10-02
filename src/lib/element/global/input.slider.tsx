@@ -1,11 +1,11 @@
 // components/GradientSlider.tsx
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 
 interface GradientSliderProps {
   min: number;
   max: number;
   step?: number;
-  defaultValue?: number;
+  value?: number;
   onChange?: (_value: number) => void;
 }
 
@@ -13,14 +13,15 @@ const InputSlider: React.FC<GradientSliderProps> = ({
   min,
   max,
   step = 1,
-  defaultValue = min,
+  value: defaultValue = min,
   onChange,
 }) => {
-  const [value, setValue] = useState<number>(defaultValue);
-
+  
+  const value = useMemo(() => {
+    return defaultValue
+  }, [defaultValue])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
-    setValue(newValue);
     if (onChange) onChange(newValue);
   };
 
@@ -37,12 +38,11 @@ const InputSlider: React.FC<GradientSliderProps> = ({
         step={step}
         value={value}
         onChange={handleChange}
-        // className="w-full h-2  rounded-lg cursor-pointer focus:outline-none"
         style={{
           background: `linear-gradient(90deg, #c70740 ${getBackgroundSize()}, #e0e0e0 0%)`,
         }}
       />
-      <span className="mt-2 text-lg">{value}</span>
+      {/* <span className="mt-2 text-lg">{value}</span> */}
     </div>
   );
 };

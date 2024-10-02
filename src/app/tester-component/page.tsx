@@ -29,6 +29,7 @@ import Accordion from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
 import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
 import { T_CarouselMainProps } from '@/app/aether/$constant/types';
+import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -79,6 +80,36 @@ export default async function PageTester() {
       subDesc: '20 Jan 2024',
     },
   ];
+
+  const simulations = [
+    {
+      title: 'Cicilan KPR',
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+      variant: 'kpr',
+    },
+    {
+      title: 'Cicilan Kendaraan',
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+      variant: 'car',
+    },
+    {
+      title: 'Cicilan Briguna',
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+      variant: 'briguna',
+    },
+  ];
+
+  // const simulationTabs = simulations.slice(0, 3).map((item) => {
+  //   return {
+  //     title: item.title,
+  //     variant: item.variant,
+  //   };
+  // });
+
+  // const [simulation, setSimulation] = useState(simulations.at(0));
 
   return (
     <React.Fragment>
@@ -838,6 +869,26 @@ export default async function PageTester() {
           }
         />
       </div>
+
+      <CE_SimulationMain
+        type="tab"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'kpr'}
+        tabs={simulations}
+      />
+
       <ScrollToTop />
     </React.Fragment>
   );

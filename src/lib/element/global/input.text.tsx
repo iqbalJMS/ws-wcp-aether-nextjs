@@ -19,8 +19,8 @@ type T_InputTextProps = {
 
 function useFormat() {
   const number = {
-    decimal: (value: number) => value,
-    value: (value: string) => parseFloat(value),
+    decimal: (value: number) => new Intl.NumberFormat('en-US').format(value),
+    value: (value: string) => value.toString().replace(/,/g, ""),
   };
 
   return { number };
@@ -85,7 +85,7 @@ export default function InputText({
         }`}
       >
         {leftSlot || leftText ? (
-          <div className="flex items-center justify-center mr-10 h-full text-black02 text-15 leading-15 whitespace-nowrap">
+          <div className="flex items-center justify-center mr-2 h-full text-black02 text-15 leading-15 whitespace-nowrap">
             {leftSlot}
             {leftText}
           </div>
@@ -103,7 +103,7 @@ export default function InputText({
           onInput={handleInput}
         />
         {rightSlot || rightText ? (
-          <div className="flex items-center justify-center ml-10 h-full text-black02 text-opacity-90 text-15 whitespace-nowrap">
+          <div className="flex items-center justify-center ml-2 h-full text-black02 text-opacity-90 text-15 whitespace-nowrap">
             {rightSlot}
             {rightText}
           </div>
