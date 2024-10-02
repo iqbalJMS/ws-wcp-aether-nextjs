@@ -270,7 +270,7 @@ export default function GlobalHeader({
       >
         <div className="container hidden mdmax:block py-4">
           <div className="flex items-center justify-between">
-            <div className="w-[5rem]">
+            <Link href={'/'} className="w-[5rem]">
               <Image
                 alt="logo-bri"
                 src="/images/headers/logo-bri.png"
@@ -278,7 +278,7 @@ export default function GlobalHeader({
                 height={53}
                 className="w-full object-contain"
               />
-            </div>
+            </Link>
             <div>
               <div className="flex items-center gap-2">
                 <div>
@@ -391,15 +391,17 @@ export default function GlobalHeader({
             </div>
             <div className="flex items-end justify-between mdmax:border-b mdmax:border-black mdmax:w-full mdmax:pb-5 mdmax:mb-5">
               <div className="mdmax:hidden">
-                <Image
-                  alt="logo-bri"
-                  src="/images/headers/logo-bri.png"
-                  width={128}
-                  height={53}
-                  className={`${isScrolling ? '' : 'filter brightness-0 invert'} `}
-                />
+                <Link href="/">
+                  <Image
+                    alt="logo-bri"
+                    src="/images/headers/logo-bri.png"
+                    width={128}
+                    height={53}
+                    className={`${isScrolling ? '' : 'filter brightness-0 invert'} `}
+                  />
+                </Link>
               </div>
-              <div className="mdmax:w-full">
+              <div className="mdmax:w-full bg-white">
                 <div className="flex mdmax:flex-col mdmax:items-start items-center gap-10 mdmax:gap-0 ">
                   {headerBottom?.map((item, index) => {
                     return (
@@ -446,7 +448,12 @@ export default function GlobalHeader({
                                           (item, itemIndex) => {
                                             return (
                                               <div key={itemIndex}>
-                                                <div className="flex items-center justify-between">
+                                                <Link
+                                                  href={`/aether/${item.nid}/${item.title
+                                                    ?.toLowerCase()
+                                                    .replaceAll(' ', '-')}`}
+                                                  className="flex items-center justify-between"
+                                                >
                                                   {item.title}
                                                   <Image
                                                     src={`/images/headers/arrow-right.svg`}
@@ -455,7 +462,7 @@ export default function GlobalHeader({
                                                     alt={`icon-arrow-right`}
                                                     className="w-3 h-3 ml-4"
                                                   />
-                                                </div>
+                                                </Link>
                                               </div>
                                             );
                                           }

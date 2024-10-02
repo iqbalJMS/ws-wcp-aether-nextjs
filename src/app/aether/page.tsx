@@ -15,7 +15,7 @@ export default async function PageAether({
 }) {
   const data = await ACT_GetSinglePage({
     lang: searchParams?.lang,
-    node: '15',
+    alias: 'home',
   });
 
   const components = data?.field_components
