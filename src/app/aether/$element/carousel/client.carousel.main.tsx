@@ -1,6 +1,6 @@
 'use client';
 
-import { T_CarouselMainProps } from '@/app/$action/constants';
+import { T_CarouselMainProps } from '@/app/aether/$constant/types';
 import { CE_CarouselVariant01 } from './client.carousel.variant01';
 import { CE_CarouselVariant02 } from './client.carousel.variant02';
 import { CE_CarouselVariant03 } from './client.carousel.variant03';

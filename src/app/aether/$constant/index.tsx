@@ -18,25 +18,78 @@ const SE_PortletMain = dynamic(
   () => import('@/app/aether/$element/portlet/server.portlet.main')
 );
 
-const SE_IconMain = dynamic(() => import('@/app/$element/server.icon.main'));
+const SE_IconMain = dynamic(() => import('@/app/aether/$element/icon-menu/server.icon.main'));
 
 const CE_InfoSahamMain = dynamic(
   () => import('@/app/$element/client.info-saham.main')
 );
 
 const CE_ImageSliderMain = dynamic(
-  () => import('@/app/$element/client.image-slider.main')
+  () => import('@/app/aether/$element/image-slider/client.image-slider.main')
 );
 
 const SE_FormMain = dynamic(
   () => import('@/app/aether/$element/form/server.form.main')
 );
 
-const CE_KursMain = dynamic(() => import('@/app/$element/client.kurs.main'));
+const CE_KursMain = dynamic(() => import('@/app/aether/$element/kurs/client.kurs.main'));
 
 const CE_BannerMain = dynamic(
-  () => import('@/app/$element/client.banner.main')
+  () => import('@/app/aether/$element/banner/client.banner.main')
 );
+
+// const CE_ContentMain = dynamic(
+//   () => import('@/app/aether/$element/content/client.content.main')
+// );
+// const CE_CarouselMain = dynamic(
+//   () => import('@/app/aether/$element/carousel/client.carousel.main')
+// );
+// const CE_CardVariant01 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant01')
+// );
+// const CE_CardVariant02 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant02')
+// );
+// const CE_CardVariant03 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant03')
+// );
+// const CE_CardVariant04 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant04')
+// );
+// const CE_CardVariant05 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant05')
+// );
+// const CE_CardVariant06 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant06')
+// );
+// const CE_CardVariant07 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant07')
+// );
+// const CE_CardVariant08 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant08')
+// );
+// const CE_CardVariant09 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant09')
+// );
+// const CE_CardVariant10 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant10')
+// );
+// const CE_CardVariant11 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant11')
+// );
+// const CE_CardVariant12 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant12')
+// );
+// const CE_CardVariant13 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant13')
+// );
+// const CE_CardVariant14 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant14')
+// );
+// const CE_CardVariant15 = dynamic(
+//   () => import('@/app/aether/$element/card/client.card.variant15')
+// );
+
 
 const CE_SectionPromo = dynamic(
   () => import('@/app/aether/$element/promo/client.section-promo')
