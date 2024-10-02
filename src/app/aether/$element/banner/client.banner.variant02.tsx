@@ -109,8 +109,8 @@ export function CE_BannerVariant02({
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30"></div>
-                  <div className="absolute top-1/2 transform -translate-y-1/2 z-30 left-[12rem] mdmax:left-5">
-                    <div>
+                  <div className="absolute top-1/2 transform -translate-y-1/2 z-30 left-0 w-full">
+                    <div className="container">
                       {bannerItem?.title && (
                         <div className="text-[5rem] mdmax:text-3xl font-semibold text-white">
                           {parseHTMLToReact(bannerItem?.title)}
@@ -143,25 +143,27 @@ export function CE_BannerVariant02({
         {data.length > 1 && (
           <div
             className={[
-              'absolute top-1/2 transform -translate-y-1/2 z-30 right-[12rem]',
-              'mdmax:top-[initial] mdmax:bottom-2 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2',
+              'absolute top-1/2 transform -translate-y-1/2 z-30 right-0 w-full',
+              'mdmax:top-[initial] mdmax:bottom-2 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2 mdmax:w-[initial]',
             ].join(' ')}
           >
-            <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2">
-              {data?.map((_: any, bannerIndex: number) => (
-                <div
-                  key={bannerIndex}
-                  className={[
-                    'w-5 h-5 rounded-full bg-red-01 mb-3 ',
-                    'mdmax:w-4 mdmax:h-4',
-                    `${bannerIndex === index ? '' : 'bg-opacity-50'}`,
-                    'cursor-pointer',
-                  ].join(' ')}
-                  onClick={() => {
-                    setIndex(bannerIndex);
-                  }}
-                />
-              ))}
+            <div className='container  text-right'>
+              <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2 inline-block">
+                {data?.map((_: any, bannerIndex: number) => (
+                  <div
+                    key={bannerIndex}
+                    className={[
+                      'w-5 h-5 rounded-full bg-red-01 mb-3 ',
+                      'mdmax:w-4 mdmax:h-4',
+                      `${bannerIndex === index ? '' : 'bg-opacity-50'}`,
+                      'cursor-pointer',
+                    ].join(' ')}
+                    onClick={() => {
+                      setIndex(bannerIndex);
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         )}
