@@ -30,7 +30,7 @@ import Image from '@/lib/element/global/image';
 import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
 import { T_CarouselMainProps } from '@/app/aether/$constant/types';
 import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
-import { CE_CardVariant16 } from '../aether/$element/card/client.card.variant16';
+import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [

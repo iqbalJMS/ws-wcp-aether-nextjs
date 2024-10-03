@@ -457,7 +457,7 @@ export default function GlobalHeader({
                                   return (
                                     <div key={subIndex} className="px-5">
                                       <Link href={`/aether/${item.nid}`}>
-                                        <div className="text-red-01 font-semibold text-xs mb-2">
+                                        <div className="text-red-01 font-semibold text-sm mb-2">
                                           {subItem?.title}
                                         </div>
                                       </Link>
@@ -475,7 +475,7 @@ export default function GlobalHeader({
                                                     .replaceAll(' ', '-')}`}
                                                 >
                                                   <div className="flex items-center justify-between w-full">
-                                                    <div className="text-xs flex-1">
+                                                    <div className="text-sm flex-1">
                                                       {item.title}
                                                     </div>
                                                     <Image
