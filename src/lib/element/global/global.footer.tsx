@@ -40,6 +40,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
             <Image
               src={`/images/footers/${icon}.svg`}
               width={18}
+              extern
               height={18}
               alt={`icon-${icon}`}
             />

@@ -10,6 +10,7 @@ import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
+import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
 
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
 
@@ -285,9 +286,29 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   staircase_cards: {
-    component: () => <></>,
+    component: CE_CardVariant16,
     props: (_component) => {
-      return {};
+      return {
+        data: _component?.field_cards?.map(
+          (item: {
+            field_title: { value: string }[];
+            field_content: { value: string }[];
+            field_image: { field_media_image: { uri: { url: string }[] }[] }[];
+            field_primary_cta: { title: string; full_url: string }[];
+          }) => {
+            return {
+              title: item.field_title[0]?.value,
+              description: item.field_content[0]?.value,
+              image: item.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+              button: {
+                link: item.field_primary_cta[0]?.full_url,
+                title: item.field_primary_cta[0]?.title,
+                extern: false,
+              },
+            };
+          }
+        ),
+      };
     },
   },
 };
