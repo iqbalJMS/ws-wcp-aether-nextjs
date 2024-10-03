@@ -3,7 +3,7 @@
 
 import { T_FetchOptions } from './fetch.type';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
+const API_BASE_URL = process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || 'https://admin-bri-corpsite.dev-kjt.id';
 
 const DEFAULT_HEADERS: HeadersInit = {
   'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ async function fetchData<T>(
   options: T_FetchOptions = {}
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
-
+  
   const response = await fetch(url, {
     ...options,
     next: {
@@ -38,7 +38,7 @@ async function fetchData<T>(
     throw new Error(
       `Ups something went wrong, status: ${response.status ?? ''} - ${
         errorResponse.message ?? ''
-      }, please reload`
+      }, please reload - ${url} ${options.method} ${JSON.stringify(options.body)}`
     );
   }
 
