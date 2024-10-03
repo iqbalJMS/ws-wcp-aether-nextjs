@@ -7,7 +7,6 @@ import { T_IconList } from '@/app/aether/$constant/types';
 import Link from '@/lib/element/global/link';
 import { SFN_SetPersonalizedMenu } from '@/app/aether/$function/sfn.set.personalized-menu';
 
-
 type T_IconMainProps = {
   maxListShow?: number;
   list: T_IconList[];
@@ -49,7 +48,7 @@ function CE_IconMenu({
         ].join(' ')}
       >
         <Image
-          extern={variant === 'config' ? false : true}
+          extern={variant === 'config' ? true : false}
           src={image}
           alt="image"
           width={200}

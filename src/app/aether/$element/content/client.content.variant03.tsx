@@ -21,7 +21,7 @@ export function CE_ContentVariant03({
                   <div className="text-center bg-black bg-opacity-5 rounded-md py-2 pt-4">
                     <div className="w-10 h-10 inline-block">
                       <Image
-                        extern={true}
+                        extern={false}
                         src={dataItem.image}
                         alt="image"
                         width={400}

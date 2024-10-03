@@ -12,6 +12,9 @@ import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
 
+const PromoCards = dynamic(
+  () => import('@/app/aether/$element/portlet/client.portlet.variant04')
+);
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
 
 const SE_SubscriberContent = dynamic(
@@ -257,21 +260,25 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   two_column: {
-    component: () => <></>,
+    component: PromoCards,
     props: (_component) => {
       return {
-        imagePosition: _component.field_second_column[0]?.field_image
-          ? 'let'
-          : 'right',
-        headerAlignment: 'left',
-        imageTitle: '',
-        imageContentAlignment: 'right',
-        title: '',
-        subtitle: _component.field_first_column[0].field_content?.[0]?.value,
-        textLink: '',
-        imageContent:
-          'https://craftypixels.com/placeholder-image/800x200/29bd00/fff&text=Woohoo!',
-        variant: '03',
+        title: 'title',
+        description: 'description',
+        linkText: 'linkText',
+        imageUrl: !!_component.field_second_column[0]?.field_image,
+        // imagePosition: _component.field_second_column[0]?.field_image
+        //   ? 'let'
+        //   : 'right',
+        // headerAlignment: 'left',
+        // imageTitle: '',
+        // imageContentAlignment: 'right',
+        // title: '',
+        // subtitle: _component.field_first_column[0].field_content?.[0]?.value,
+        // textLink: '',
+        // imageContent:
+        //   'https://craftypixels.com/placeholder-image/800x200/29bd00/fff&text=Woohoo!',
+        // variant: '03',
       };
     },
   },

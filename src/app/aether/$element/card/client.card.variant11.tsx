@@ -26,10 +26,10 @@ export function CE_CardVariant11({ title, data }: T_CardVariant11Props) {
                 key={index}
                 className="w-1/3 mdmax:w-full flex-none px-5 mb-10"
               >
-                <div className='px-10 text-center hover:shadow-md p-5 rounded-xl'>
-                  <div className='w-[5rem] mb-5 inline-block'>
+                <div className="px-10 text-center hover:shadow-md p-5 rounded-xl">
+                  <div className="w-[5rem] mb-5 inline-block">
                     <Image
-                      extern={true}
+                      extern={false}
                       src={item.image}
                       alt="image"
                       width={1920}
@@ -43,7 +43,6 @@ export function CE_CardVariant11({ title, data }: T_CardVariant11Props) {
                   <div className="text-sm text-black text-opacity-50 text-center">
                     {parseHTMLToReact(item.description)}
                   </div>
-                  
                 </div>
               </div>
             );

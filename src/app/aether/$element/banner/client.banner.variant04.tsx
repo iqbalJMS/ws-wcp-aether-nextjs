@@ -101,7 +101,7 @@ export function CE_BannerVariant04({
               >
                 <div className=" overflow-hidden w-full h-full relative ">
                   <Image
-                    extern={true}
+                    extern={false}
                     src={bannerItem.image}
                     alt="image"
                     width={1920}
@@ -147,7 +147,7 @@ export function CE_BannerVariant04({
               'mdmax:top-[initial] mdmax:bottom-[-0.95rem] mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2 mdmax:w-[initial]',
             ].join(' ')}
           >
-            <div className='container  text-right'>
+            <div className="container  text-right">
               <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2 inline-block">
                 {data?.map((_: any, bannerIndex: number) => (
                   <div

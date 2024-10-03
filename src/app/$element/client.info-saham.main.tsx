@@ -97,7 +97,7 @@ export default function CE_InfoSahamMain({
               >
                 {social_media?.map(({ url, icon }, index) => (
                   <Link
-                    extern={true}
+                    extern={false}
                     href={url ?? '/'}
                     key={index}
                     className="text-blue-02 flex items-center gap-2 lg:mb-3 mb-2 lg:text-sm text-sm justify-center lg:justify-start font-normal"

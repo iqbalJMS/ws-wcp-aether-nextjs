@@ -26,7 +26,7 @@ export default async function SE_WysiwygVariant01({
       )}
       <div className="w-full h-full rounded-xl overflow-hidden my-5 inline-block">
         <Image
-          extern={true}
+          extern={false}
           src={imageContent}
           alt="image"
           width={1920}

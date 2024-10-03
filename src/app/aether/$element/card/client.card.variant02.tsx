@@ -30,7 +30,7 @@ export function CE_CardVariant02({ data }: T_CardVariant02Props) {
                 <div className="bg-white px-10 pb-10 pt-20 shadow-lg rounded-br-[5rem]">
                   <div className="w-[7rem] h-[7rem] mb-10">
                     <Image
-                      extern={true}
+                      extern={false}
                       src={item.image}
                       alt="image"
                       width={1920}

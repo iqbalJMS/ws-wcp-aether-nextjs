@@ -53,7 +53,7 @@ export function CE_CardVariant04({ data }: T_CardVariant04Props) {
                         <div className="inline-flex items-center text-red-01 group-hover:text-white">
                           <div className="w-5 h-5 mr-2">
                             <Image
-                              extern={true}
+                              extern={false}
                               src={item.button.image}
                               alt="image"
                               width={1920}

@@ -89,7 +89,7 @@ const CE_ImageSliderMain = ({
               <div className="w-full h-40 mdmax:h-[5rem] border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
                 <Link href={slide.link} target="_blank">
                   <Image
-                    extern={true}
+                    extern={false}
                     src={slide.image}
                     width={400}
                     height={400}

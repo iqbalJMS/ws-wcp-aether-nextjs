@@ -30,7 +30,7 @@ export function CE_CardVariant07({ data }: T_CardVariant07Props) {
                   <div className="w-[40%] mdmax:w-full flex-none">
                     <div className="w-full h-[17rem] rounded-br-[5rem] overflow-hidden">
                       <Image
-                        extern={true}
+                        extern={false}
                         src={item.image}
                         alt="image"
                         width={1920}

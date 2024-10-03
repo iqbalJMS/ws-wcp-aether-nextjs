@@ -62,7 +62,7 @@ export default async function SE_PortletVariant03({
               <div className="flex gap-4 py-12 md:flex-row flex-col">
                 <div className="w-full h-[20rem] rounded-xl overflow-hidden mb-5 inline-block">
                   <Image
-                    extern={true}
+                    extern={false}
                     src={imageContent}
                     alt="image"
                     width={1920}
@@ -85,7 +85,7 @@ export default async function SE_PortletVariant03({
                 </div>
                 <div className="w-full h-[20rem] rounded-xl overflow-hidden mb-5 inline-block">
                   <Image
-                    extern={true}
+                    extern={false}
                     src={imageContent}
                     alt="image"
                     width={1920}
