@@ -54,7 +54,7 @@ export function CE_CardVariant03({ data }: T_CardVariant03Props) {
                   </div>
                   <div className="w-full h-full relative z-0">
                     <Image
-                      extern={true}
+                      extern={false}
                       src={item.image}
                       alt="image"
                       width={1920}

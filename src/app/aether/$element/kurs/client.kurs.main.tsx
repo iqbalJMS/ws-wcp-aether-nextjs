@@ -1,12 +1,20 @@
 'use client';
 
 import Link from '@/lib/element/global/link';
-import { useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { Tabs } from '@/lib/element/global/tabs';
 import Table from '@/lib/element/global/table';
 import InputSelect from '@/lib/element/global/input.select';
 import InputText from '@/lib/element/global/input.text';
 import { T_Kurs } from '@/app/aether/$constant/types/widget/kurs';
+import useForm from '@/lib/hook/useForm';
+import {
+  CFN_GetKurs,
+  CFN_MapToKursPayload,
+  CFN_ValidateGetKursFields,
+  T_GetKurs,
+} from '@/app/aether/$function/cfn.get.kurs';
+
 
 type T_Props = {
   listTable: T_Kurs['data'];
@@ -16,6 +24,7 @@ type T_Props = {
 };
 
 function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
+  const [pending, transiting] = useTransition();
   const isERate = tabActive === 'e-rate';
   const data = listTable?.map((item) => {
     return {
@@ -36,16 +45,59 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
     {
       title: 'BELI',
       information: 'Kamu akan menjual valas ke BRI',
-      slug: 'buy',
+      slug: 'Beli',
     },
     {
       title: 'JUAL',
       information: 'Kamu akan membeli valas dari BRI',
-      slug: 'jual',
+      slug: 'Jual',
     },
   ];
 
-  const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '');
+  const [tabValue, setTabValue] = useState<T_GetKurs['calcType']>(
+    (tabs.at(0)?.slug as T_GetKurs['calcType']) || 'Beli'
+  );
+  const { form, setForm, onFieldChange, validateForm } = useForm<T_GetKurs, T_GetKurs>(
+    CFN_MapToKursPayload({
+      amount: 0,
+      calcType: tabValue,
+      fromCurrency: dataCurrencySelected.at(0)?.value || '',
+      toCurrency: dataCurrencySelected.at(1)?.value || '',
+      type: 'buy',
+    }),
+    CFN_ValidateGetKursFields
+  );
+
+  const handleCalculation = () => {
+    if (pending) {
+      return;
+    }
+    const isValid = validateForm();
+    if (isValid) {
+      CFN_GetKurs(transiting, form)
+    }
+  }
+
+  useEffect(() => {
+    handleCalculation()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.amount, form.type])
+  useEffect(() => {
+    if (isERate) {
+      if (tabValue === 'Beli') {
+        setForm({...form, type: 'buyRate'})
+      } else {
+        setForm({...form, type: 'sellRate'})
+      }
+    } else {
+      if (tabValue === 'Beli') {
+        setForm({...form, type: 'buy'})
+      } else {
+        setForm({...form, type: 'sell'})
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tabValue, isERate])
 
   return (
     <div className="flex mdmax:flex-wrap -mx-10">
@@ -77,10 +129,14 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
               title: 'Jual',
               field: 'sell',
               callback: (item) => {
-                return <span>{new Intl.NumberFormat('en-US', {
-                  minimumFractionDigits: 0,
-                  maximumFractionDigits: 2,
-                }).format(item.sell)}</span>;
+                return (
+                  <span>
+                    {new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    }).format(item.sell)}
+                  </span>
+                );
               },
             },
           ]}
@@ -95,7 +151,7 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
           <Tabs
             list={tabs}
             value={tabValue}
-            onChange={(value) => setTabValue(value)}
+            onChange={(value) => setTabValue(value as T_GetKurs['calcType'])}
             variant="full"
           />
           <div className="mt-5">
@@ -103,14 +159,23 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
               <div className="w-[25%] mdmax:w-[40%] flex-none px-2">
                 <InputSelect
                   list={dataCurrencySelected}
-                  value={dataCurrencySelected?.[0]?.value}
+                  value={form.fromCurrency}
+                  onChange={(value) =>
+                    onFieldChange(
+                      'fromCurrency',
+                      (Array.isArray(value)
+                        ? value.at(0)?.value
+                        : value?.value) || ''
+                    )
+                  }
                 />
               </div>
               <div className="flex-1 px-2">
                 <InputText
-                  value=""
+                  value={form.amount}
                   type="number"
                   placeholder="Masukan Nominal"
+                  onChange={(value) => onFieldChange('amount', parseInt(value.toString()))}
                 />
               </div>
             </div>
@@ -118,12 +183,19 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
               <div className="w-[25%] mdmax:w-[40%] flex-none px-2">
                 <InputSelect
                   list={dataCurrencySelected}
-                  value={dataCurrencySelected?.[1]?.value}
+                  value={form.toCurrency}
+                  onChange={(value) =>
+                    onFieldChange(
+                      'toCurrency',
+                      (Array.isArray(value)
+                        ? value.at(0)?.value
+                        : value?.value) || ''
+                    )
+                  }
                 />
               </div>
               <div className="flex-1 px-2">
                 <div className="text-blue-01 px-4">0</div>
-                {/* <InputSlider max={10} min={0}/> */}
               </div>
             </div>
           </div>

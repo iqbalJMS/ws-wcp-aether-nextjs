@@ -21,7 +21,7 @@ export function CE_ContentVariant01({
                 <div className="flex items-center">
                   <div className="w-10 h-10 mr-5">
                     <Image
-                      extern={true}
+                      extern={false}
                       src={dataItem.image}
                       alt="image"
                       width={400}

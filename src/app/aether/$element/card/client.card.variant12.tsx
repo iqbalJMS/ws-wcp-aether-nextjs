@@ -30,7 +30,7 @@ export function CE_CardVariant12({ data }: T_CardVariant12Props) {
                 <div className="bg-white  shadow-lg rounded-br-[5rem] overflow-hidden">
                   <div className="w-full h-[20rem] ">
                     <Image
-                      extern={true}
+                      extern={false}
                       src={item.image}
                       alt="image"
                       width={1920}
@@ -38,9 +38,8 @@ export function CE_CardVariant12({ data }: T_CardVariant12Props) {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className='p-5 px-10 relative overflow-hidden'>
-                    <div className='w-[15rem] h-[10rem] bg-blue-01 absolute -bottom-[6rem] -right-[4rem] transform rotate-[-30deg] z-0' 
-                    ></div>
+                  <div className="p-5 px-10 relative overflow-hidden">
+                    <div className="w-[15rem] h-[10rem] bg-blue-01 absolute -bottom-[6rem] -right-[4rem] transform rotate-[-30deg] z-0"></div>
                     <div className="text-xl font-medium text-center  mb-2">
                       {item.title}
                     </div>
@@ -53,7 +52,7 @@ export function CE_CardVariant12({ data }: T_CardVariant12Props) {
                         extern={item.button.extern}
                         target={item.button.extern ? '_blank' : ''}
                       >
-                        <div className='text-white text-xs inline-block transform rotate-[-30deg] pl-5'>
+                        <div className="text-white text-xs inline-block transform rotate-[-30deg] pl-5">
                           {item.button.title}
                         </div>
                       </Link>

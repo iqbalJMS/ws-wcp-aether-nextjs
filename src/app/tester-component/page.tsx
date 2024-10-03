@@ -30,8 +30,12 @@ import { CE_CardVariant11 } from '@/app/aether/$element/card/client.card.variant
 // import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
 // import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
 import Image from '@/lib/element/global/image';
-// import ImageViewer from '@/lib/element/global/image.viewer';
-import Accordion from '@/lib/element/global/accordion';
+import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
+import { T_CarouselMainProps } from '@/app/aether/$constant/types';
+import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
+import ImageViewer from '@/lib/element/global/image.viewer';
+import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
+import InfoCards from '@/app/aether/$element/portlet/client.portlet.variant04';
 
 export default async function PageTester() {
   // const dataDummy: T_CarouselMainProps['data'] = [
@@ -884,7 +888,7 @@ export default async function PageTester() {
                   width={40}
                   height={40}
                   alt="image"
-                  extern={true}
+                  extern={false}
                   className="rounded-md"
                 />
                 <p className="text-xl-semibold text-left leading-8">Laporan</p>
@@ -981,7 +985,9 @@ export default async function PageTester() {
           alt="Organizational Structure"
           className="mx-auto"
         />
-      </div> */}
+      </div>
+
+      <InfoCards />
       <ScrollToTop />
     </React.Fragment>
   );

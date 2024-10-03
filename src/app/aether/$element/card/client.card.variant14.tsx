@@ -25,13 +25,16 @@ export function CE_CardVariant14({ data }: T_CardVariant14Props) {
         <div className="flex flex-wrap -mx-5">
           {data.map((item, index) => {
             return (
-              <div key={index} className="w-1/3 mdmax:w-full flex-none px-5 mb-10">
+              <div
+                key={index}
+                className="w-1/3 mdmax:w-full flex-none px-5 mb-10"
+              >
                 <div className=" bg-white shadow-xl rounded-br-[5rem] relative overflow-hidden">
-                <div className="w-full absolute h-full  bg-orange-01 bg-opacity-50 top-0 left-0 z-10"/>
+                  <div className="w-full absolute h-full  bg-orange-01 bg-opacity-50 top-0 left-0 z-10" />
                   <div className="w-full absolute h-full  z-0">
                     <div className="w-full  h-full overflow-hidden">
                       <Image
-                        extern={true}
+                        extern={false}
                         src={item.image}
                         alt="image"
                         width={1920}

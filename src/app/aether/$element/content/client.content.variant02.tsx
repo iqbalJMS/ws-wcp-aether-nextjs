@@ -21,7 +21,7 @@ export function CE_ContentVariant02({
                   <div className="text-center">
                     <div className="w-10 h-10 inline-block">
                       <Image
-                        extern={true}
+                        extern={false}
                         src={dataItem.image}
                         alt="image"
                         width={400}

@@ -61,7 +61,7 @@ const CE_SimulationMain = ({
             <div className="mb-10">
               {simulation && (
                 <Image
-                  extern={true}
+                  extern={false}
                   src={simulation.image}
                   alt="background"
                   width={1920}
@@ -75,9 +75,9 @@ const CE_SimulationMain = ({
             </div>
           </div>
           <div className="w-1/2 flex-none px-20">
-            <div className='-mt-20'>
+            <div className="-mt-20">
               <div className="text-right mb-10">
-                {simulation?.variant} {' '}
+                {simulation?.variant}{' '}
                 <Link
                   href={button.link}
                   extern={button.extern}
@@ -111,7 +111,8 @@ const CE_SimulationMain = ({
                 <div className="flex items-center justify-between">
                   <div className="flex-none">
                     <div className="text-black text-opacity-50 font-medium text-lg">
-                    Tertarik mengajukan {simulation && simulation.title}?<br/> Kunjungi cabang terdekat kami.
+                      Tertarik mengajukan {simulation && simulation.title}?
+                      <br /> Kunjungi cabang terdekat kami.
                     </div>
                   </div>
                   <div>

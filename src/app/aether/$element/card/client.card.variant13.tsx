@@ -37,7 +37,7 @@ export function CE_CardVariant13({ title, data }: T_CardVariant13Props) {
                 <div className="">
                   <div className="w-full h-[20rem] rounded-xl overflow-hidden mb-5 inline-block">
                     <Image
-                      extern={true}
+                      extern={false}
                       src={item.image}
                       alt="image"
                       width={1920}
@@ -55,28 +55,34 @@ export function CE_CardVariant13({ title, data }: T_CardVariant13Props) {
                     <div className="text-sm text-black text-opacity-50  mb-5">
                       {parseHTMLToReact(item.description)}
                     </div>
-                    <div className='mb-10'>
-                      <div className='text-sm mb-1'>Alamat</div>
+                    <div className="mb-10">
+                      <div className="text-sm mb-1">Alamat</div>
                       <div className="text-sm text-black text-opacity-50">
                         {parseHTMLToReact(item.description)}
                       </div>
                     </div>
                     <div>
-                      <div className='text-sm mb-1'>Kotak Informasi</div>
-                      <div className='flex items-center text-sm'>
-                        <div className='w-[20%] flex-none text-black text-opacity-50'>Telepon</div>
+                      <div className="text-sm mb-1">Kotak Informasi</div>
+                      <div className="flex items-center text-sm">
+                        <div className="w-[20%] flex-none text-black text-opacity-50">
+                          Telepon
+                        </div>
                         <div className="text-sm  text-center">
                           {parseHTMLToReact(item.contactInformation.telephone)}
                         </div>
                       </div>
-                      <div className='flex items-center text-sm'>
-                        <div className='w-[20%] flex-none text-black text-opacity-50'>Fax</div>
+                      <div className="flex items-center text-sm">
+                        <div className="w-[20%] flex-none text-black text-opacity-50">
+                          Fax
+                        </div>
                         <div className="text-sm  text-center">
                           {parseHTMLToReact(item.contactInformation.fax)}
                         </div>
                       </div>
-                      <div className='flex items-center text-sm'>
-                        <div className='w-[20%] flex-none text-black text-opacity-50'>Website</div>
+                      <div className="flex items-center text-sm">
+                        <div className="w-[20%] flex-none text-black text-opacity-50">
+                          Website
+                        </div>
                         <div className="text-sm text-blue-01 underline text-center">
                           <Link
                             href={item.contactInformation.website}
