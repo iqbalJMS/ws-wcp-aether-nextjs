@@ -206,7 +206,7 @@ export function LoginButton() {
               className="w-full bg-white mb-2 px-5 py-4 rounded-3xl"
             >
               <Link href={loginItem.link} target="_blank">
-                <div className={`flex items-center  text-${loginItem.color}`}>
+                <div className={` flex items-center  ${loginItem.color === 'orange-01' ? 'text-orange-01' : 'text-green-500'}`}>
                   <div className="mr-2">
                     <svg
                       className="w-6 h-6"
@@ -407,7 +407,11 @@ export default function GlobalHeader({
                     return (
                       <div
                         key={index}
-                        className="pb-2 mdmax:pb-0 group border-b-4 border-transparent hover:border-red-01 "
+                        className={[
+                          "pb-2 mdmax:pb-0 border-b-4 border-transparent hover:border-red-01 ",
+                          item.below?.length ? 'group' : '',
+                          
+                        ].join(' ')}
                       >
                         <Link
                           href={`/aether/${item.nid}/${item.title
@@ -433,35 +437,48 @@ export default function GlobalHeader({
                         <div className="absolute left-0 w-full invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-300 pt-10">
                           <div className="bg-white">
                             <div className="container py-5">
-                              <div className="text-[1.5rem] mb-4 font-medium">
-                                {item?.title}
-                              </div>
-                              <div className="flex">
+                              <Link
+                                href={`/aether/${item.nid}/${item.title
+                                  ?.toLowerCase()
+                                  .replaceAll(' ', '-')}`}
+                              >
+                                <div className="text-[1.5rem] mb-4 font-medium">
+                                  {item?.title}
+                                </div>
+                              </Link>
+                              <div className="flex -mx-5">
                                 {item?.below?.map((subItem, subIndex) => {
                                   return (
-                                    <div key={subIndex} className="mr-40">
-                                      <div className="text-red-01 font-semibold mb-2">
-                                        {subItem?.title}
-                                      </div>
+                                    <div key={subIndex} className="px-5">
+                                      <Link
+                                        href={`/aether/${item.nid}`}
+                                      >
+                                        <div className="text-red-01 font-semibold text-xs mb-2">
+                                          {subItem?.title}
+                                        </div>
+                                      </Link>
                                       <div>
                                         {subItem?.below?.map(
                                           (item, itemIndex) => {
                                             return (
-                                              <div key={itemIndex}>
+                                              <div key={itemIndex} className='flex-1'>
                                                 <Link
                                                   href={`/aether/${item.nid}/${item.title
                                                     ?.toLowerCase()
                                                     .replaceAll(' ', '-')}`}
-                                                  className="flex items-center justify-between"
                                                 >
-                                                  {item.title}
-                                                  <Image
-                                                    src={`/images/headers/arrow-right.svg`}
-                                                    width={18}
-                                                    height={18}
-                                                    alt={`icon-arrow-right`}
-                                                    className="w-3 h-3 ml-4"
-                                                  />
+                                                  <div className="flex items-center justify-between w-full">
+                                                    <div className="text-xs flex-1">
+                                                      {item.title}
+                                                    </div>
+                                                    <Image
+                                                      src={`/images/headers/arrow-right.svg`}
+                                                      width={18}
+                                                      height={18}
+                                                      alt={`icon-arrow-right`}
+                                                      className="w-3 h-3 ml-4"
+                                                    />
+                                                  </div>
                                                 </Link>
                                               </div>
                                             );
