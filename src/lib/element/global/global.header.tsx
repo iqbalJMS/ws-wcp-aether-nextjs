@@ -206,7 +206,9 @@ export function LoginButton() {
               className="w-full bg-white mb-2 px-5 py-4 rounded-3xl"
             >
               <Link href={loginItem.link} target="_blank">
-                <div className={` flex items-center  ${loginItem.color === 'orange-01' ? 'text-orange-01' : 'text-green-500'}`}>
+                <div
+                  className={` flex items-center  ${loginItem.color === 'orange-01' ? 'text-orange-01' : 'text-green-500'}`}
+                >
                   <div className="mr-2">
                     <svg
                       className="w-6 h-6"
@@ -345,7 +347,12 @@ export default function GlobalHeader({
                             width={18}
                             height={18}
                             alt={`icon-${header.icon}`}
-                            className="w-3 h-3 mr-2 filter brightness-0 invert mdmax:filter-none"
+                            className={[
+                              'w-3 h-3 mr-2 mdmax:filter-none',
+                              variant === 'no-transparent'
+                                ? ''
+                                : 'filter brightness-0 invert',
+                            ].join(' ')}
                           />
                         )}
                         <div
@@ -397,20 +404,19 @@ export default function GlobalHeader({
                     src="/images/headers/logo-bri.png"
                     width={128}
                     height={53}
-                    className={`${isScrolling ? '' : 'filter brightness-0 invert'} `}
+                    className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
                   />
                 </Link>
               </div>
-              <div className="mdmax:w-full mdmax:bg-white">
+              <div className="mdmax:w-full mdmax:bg-white ">
                 <div className="flex mdmax:flex-col mdmax:items-start items-center gap-10 mdmax:gap-0 ">
                   {headerBottom?.map((item, index) => {
                     return (
                       <div
                         key={index}
                         className={[
-                          "pb-2 mdmax:pb-0 border-b-4 border-transparent hover:border-red-01 ",
+                          'pb-2 mdmax:pb-0 border-b-4 border-transparent hover:border-red-01 ',
                           item.below?.length ? 'group' : '',
-                          
                         ].join(' ')}
                       >
                         <Link
@@ -450,9 +456,7 @@ export default function GlobalHeader({
                                 {item?.below?.map((subItem, subIndex) => {
                                   return (
                                     <div key={subIndex} className="px-5">
-                                      <Link
-                                        href={`/aether/${item.nid}`}
-                                      >
+                                      <Link href={`/aether/${item.nid}`}>
                                         <div className="text-red-01 font-semibold text-xs mb-2">
                                           {subItem?.title}
                                         </div>
@@ -461,7 +465,10 @@ export default function GlobalHeader({
                                         {subItem?.below?.map(
                                           (item, itemIndex) => {
                                             return (
-                                              <div key={itemIndex} className='flex-1'>
+                                              <div
+                                                key={itemIndex}
+                                                className="flex-1"
+                                              >
                                                 <Link
                                                   href={`/aether/${item.nid}/${item.title
                                                     ?.toLowerCase()
