@@ -398,7 +398,7 @@ export default function GlobalHeader({
             </div>
             <div className="flex items-end justify-between mdmax:border-b mdmax:border-black mdmax:w-full mdmax:pb-5 mdmax:mb-5">
               <div className="mdmax:hidden">
-                <Link href="/">
+                <Link className="!text-gray-500" href="/">
                   <Image
                     alt="logo-bri"
                     src="/images/headers/logo-bri.png"
@@ -420,7 +420,7 @@ export default function GlobalHeader({
                         ].join(' ')}
                       >
                         <Link
-                          href={`/aether/${item.nid}/${item.title
+                          href={`/aether/${item.title
                             ?.toLowerCase()
                             .replaceAll(' ', '-')}`}
                           className={[
@@ -470,7 +470,7 @@ export default function GlobalHeader({
                                                 className="flex-1"
                                               >
                                                 <Link
-                                                  href={`/aether/${item.nid}/${item.title
+                                                  href={`/aether/${item.title
                                                     ?.toLowerCase()
                                                     .replaceAll(' ', '-')}`}
                                                 >

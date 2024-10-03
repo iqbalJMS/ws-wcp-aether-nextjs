@@ -1,10 +1,10 @@
-"use server";
+'use server';
 
-import React from "react";
-import Image from "./image";
-import Link from "./link";
-import { T_ResponseGetMainFooterMenu } from "@/api/footer/main-footer/api.get-main-footer.type";
-import { T_ResponseGetBottomFooterMenu } from "@/api/footer/bottom-footer/api.get-bottom-footer.type";
+import React from 'react';
+import Image from './image';
+import Link from './link';
+import { T_ResponseGetMainFooterMenu } from '@/api/footer/main-footer/api.get-main-footer.type';
+import { T_ResponseGetBottomFooterMenu } from '@/api/footer/bottom-footer/api.get-bottom-footer.type';
 
 type T_FooterProps = {
   main_footer: T_ResponseGetMainFooterMenu;
@@ -32,7 +32,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
       {description?.map(({ className, name, icon, url, extern }) => (
         <Link
           extern={extern}
-          href={url ?? "/"}
+          href={url ?? '/'}
           key={name}
           className={`px-0 flex items-center gap-2 lg:mb-3 mb-2 lg:text-sm text-sm justify-start font-normal ${className}`}
         >
@@ -52,7 +52,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
           {socialMedia?.map(({ url, icon }, index) => (
             <Link
               extern={true}
-              href={url ?? "/"}
+              href={url ?? '/'}
               key={index}
               className="text-blue-02 flex items-center gap-2 lg:mb-3 mb-2 lg:text-sm text-sm justify-center lg:justify-start font-normal"
             >
@@ -123,7 +123,7 @@ export default async function GlobalFooter({
           {main_footer?.data?.map((list_item, index) => (
             <div className="lg:col-span-2 col-span-1 lg:mb-0 mb-4" key={index}>
               <RowElement
-                label={String(list_item?.title ?? "")}
+                label={String(list_item?.title ?? '')}
                 socialMedia={list_item?.social_media ?? []}
                 description={list_item?.list ?? []}
               />

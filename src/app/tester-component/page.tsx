@@ -30,6 +30,7 @@ import Image from '@/lib/element/global/image';
 import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
 import { T_CarouselMainProps } from '@/app/aether/$constant/types';
 import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
+import ImageViewer from '@/lib/element/global/image.viewer';
 import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
 
 export default async function PageTester() {
@@ -928,6 +929,14 @@ export default async function PageTester() {
         tabs={simulations}
       />
 
+      <div className="container mx-auto p-8">
+        <h1 className="text-3xl font-bold mb-6">Image Viewer</h1>
+        <ImageViewer
+          src="/images/dummy/banner.jpg"
+          alt="Organizational Structure"
+          className="mx-auto"
+        />
+      </div>
       <ScrollToTop />
     </React.Fragment>
   );

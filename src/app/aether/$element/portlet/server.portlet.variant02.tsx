@@ -19,7 +19,7 @@ export default async function SE_PortletVariant02({
     <div>
       <div className="relative bg-transparent lg:min-h-[25.75rem] mx-auto w-full ">
         <div
-          className="relative h-[25.75rem] lg:mb-[3.125rem] w-full overflow-hidden bg-cover before:absolute before:left-0 before:top-0 before:w-full before:h-full before:bg-gradient-to-b before:from-black before:to-[#014a94] before:opacity-40"
+          className="relative h-[25.75rem] lg:mb-[2.125rem] w-full overflow-hidden bg-cover before:absolute before:left-0 before:top-0 before:w-full before:h-full before:bg-gradient-to-b before:from-black before:to-[#014a94] before:opacity-40"
           style={{
             backgroundImage: `url(${background ?? '/images/no-image.png'})`,
             backgroundSize: 'cover',

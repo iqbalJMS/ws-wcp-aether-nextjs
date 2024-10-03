@@ -19,7 +19,7 @@ export default async function SE_PortletVariant01({
     : '';
   return (
     <section
-      className="w-full bg-no-repeat pt-20 pb-12"
+      className="component-portlet-01 w-full bg-no-repeat pt-20 pb-12"
       style={{
         backgroundImage: `url(${
           backgroundImg || 'images/why-us/bg-image.jpg'
@@ -35,7 +35,7 @@ export default async function SE_PortletVariant01({
           </div>
         )}
         {subtitle && (
-          <div className="text-[#627d92] font-normal md:text-xl text-lg md:max-w-4xl leading-8 mdmax:text-center">
+          <div className="md:max-w-4xl space-y-5">
             {parseHTMLToReact(subtitle)}
           </div>
         )}
