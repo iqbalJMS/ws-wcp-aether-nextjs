@@ -1,13 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-
-type T_BreadcrumbProps = {
-  paths: { name: string; href: string }[];
-};
+import { T_BreadcrumbProps } from '@/app/aether/$constant/types/widget/breadcrumb';
 
 const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths }) => {
   return (
-    <nav className="flex" aria-label="Breadcrumb">
+    <nav
+      className="flex justify-center items-center border-b border-gray-400 pb-6"
+      aria-label="Breadcrumb"
+    >
       <ol className="inline-flex items-center space-x-1 md:space-x-3">
         {paths.map((path, index) => (
           <li key={index} className="inline-flex items-center">

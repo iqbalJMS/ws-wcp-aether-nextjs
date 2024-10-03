@@ -15,48 +15,50 @@ export type T_Widget =
   | 'multi_tab'
   | 'section'
   | 'kurs'
+  | 'staircase_cards'
+  | 'breadcrumb'
+  | 'kurs'
   | 'two_column'
   | 'bbri_stock_market';
 
+export type T_IconList = {
+  image: string;
+  title: string;
+  link: string;
+  externalLink: boolean;
+  active: boolean;
+};
 
-  export type T_IconList = {
+export type T_CarouselMainProps = {
+  title?: string;
+  description?: string;
+  button?: {
+    name: string;
+    link: string;
+  };
+  data: Array<{
     image: string;
     title: string;
-    link: string;
-    externalLink: boolean;
-    active: boolean
-  };
-  
-  export type T_CarouselMainProps = {
-    title?: string
-    description?: string
+    desc: string;
+    subDesc?: string;
     button?: {
-      name: string
-      link: string
-    }
-    data: Array<{
-      image: string;
-      title: string;
-      desc: string;
-      subDesc?: string;
-      button?: {
-        name: string
-        link: string
-      };
-    }>;
-    variant: '01' | '02' | '03' | '04' | '05';
-  }
-  
-  export type T_ContentMainProps = {
-    title?: string
-    data: Array<{
-      image: string;
-      title: string;
-      desc: string;
-      button?: {
-        name: string
-        link: string
-      };
-    }>;
-    variant: '01' | '02' | '03' | '04' | '05';
-  }
+      name: string;
+      link: string;
+    };
+  }>;
+  variant: '01' | '02' | '03' | '04' | '05';
+};
+
+export type T_ContentMainProps = {
+  title?: string;
+  data: Array<{
+    image: string;
+    title: string;
+    desc: string;
+    button?: {
+      name: string;
+      link: string;
+    };
+  }>;
+  variant: '01' | '02' | '03' | '04' | '05';
+};

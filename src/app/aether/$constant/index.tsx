@@ -9,6 +9,10 @@ import { T_MultiTab } from './types/widget/multi_tab';
 import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
+import { T_DataBreadCrumb } from './types/widget/breadcrumb';
+import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
+
+const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
 
 const SE_SubscriberContent = dynamic(
   () => import('@/app/$element/server.subscriber.content')
@@ -18,7 +22,9 @@ const SE_PortletMain = dynamic(
   () => import('@/app/aether/$element/portlet/server.portlet.main')
 );
 
-const SE_IconMain = dynamic(() => import('@/app/aether/$element/icon-menu/server.icon.main'));
+const SE_IconMain = dynamic(
+  () => import('@/app/aether/$element/icon-menu/server.icon.main')
+);
 
 const CE_InfoSahamMain = dynamic(
   () => import('@/app/$element/client.info-saham.main')
@@ -32,7 +38,9 @@ const SE_FormMain = dynamic(
   () => import('@/app/aether/$element/form/server.form.main')
 );
 
-const CE_KursMain = dynamic(() => import('@/app/aether/$element/kurs/client.kurs.main'));
+const CE_KursMain = dynamic(
+  () => import('@/app/aether/$element/kurs/client.kurs.main')
+);
 
 const CE_BannerMain = dynamic(
   () => import('@/app/aether/$element/banner/client.banner.main')
@@ -89,7 +97,6 @@ const CE_BannerMain = dynamic(
 // const CE_CardVariant15 = dynamic(
 //   () => import('@/app/aether/$element/card/client.card.variant15')
 // );
-
 
 const CE_SectionPromo = dynamic(
   () => import('@/app/aether/$element/promo/client.section-promo')
@@ -252,7 +259,59 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   two_column: {
     component: () => <></>,
     props: (_component) => {
-      return {};
+      return {
+        imagePosition: _component.field_second_column[0]?.field_image
+          ? 'let'
+          : 'right',
+        headerAlignment: 'left',
+        imageTitle: '',
+        imageContentAlignment: 'right',
+        title: '',
+        subtitle: _component.field_first_column[0].field_content?.[0]?.value,
+        textLink: '',
+        imageContent:
+          'https://craftypixels.com/placeholder-image/800x200/29bd00/fff&text=Woohoo!',
+        variant: '03',
+      };
+    },
+  },
+  breadcrumb: {
+    component: Breadcrumb,
+    props: (_component: T_DataBreadCrumb) => {
+      return {
+        paths: _component?.data.map((item) => {
+          return {
+            name: item.title,
+            href: item.url,
+          };
+        }),
+      };
+    },
+  },
+  staircase_cards: {
+    component: CE_CardVariant16,
+    props: (_component) => {
+      return {
+        data: _component?.field_cards?.map(
+          (item: {
+            field_title: { value: string }[];
+            field_content: { value: string }[];
+            field_image: { field_media_image: { uri: { url: string }[] }[] }[];
+            field_primary_cta: { title: string; full_url: string }[];
+          }) => {
+            return {
+              title: item.field_title[0]?.value,
+              description: item.field_content[0]?.value,
+              image: item.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+              button: {
+                link: item.field_primary_cta[0]?.full_url,
+                title: item.field_primary_cta[0]?.title,
+                extern: false,
+              },
+            };
+          }
+        ),
+      };
     },
   },
 };
