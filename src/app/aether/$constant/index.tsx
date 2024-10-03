@@ -257,9 +257,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   two_column: {
-    component: SE_PortletMain,
+    component: () => <></>,
     props: (_component) => {
       return {
+        imagePosition: _component.field_second_column[0]?.field_image
+          ? 'let'
+          : 'right',
         headerAlignment: 'left',
         imageTitle: '',
         imageContentAlignment: 'right',
