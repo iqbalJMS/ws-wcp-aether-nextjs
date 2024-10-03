@@ -277,6 +277,7 @@ export default function GlobalHeader({
                 alt="logo-bri"
                 src="/images/headers/logo-bri.png"
                 width={128}
+                extern={false}
                 height={53}
                 className="w-full object-contain"
               />
@@ -342,7 +343,7 @@ export default function GlobalHeader({
                       >
                         {header.icon && (
                           <Image
-                            extern={true}
+                            extern={false}
                             src={`${header.icon}`}
                             width={18}
                             height={18}
@@ -403,6 +404,7 @@ export default function GlobalHeader({
                     alt="logo-bri"
                     src="/images/headers/logo-bri.png"
                     width={128}
+                    extern
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
                   />
@@ -482,6 +484,7 @@ export default function GlobalHeader({
                                                       src={`/images/headers/arrow-right.svg`}
                                                       width={18}
                                                       height={18}
+                                                      extern
                                                       alt={`icon-arrow-right`}
                                                       className="w-3 h-3 ml-4"
                                                     />

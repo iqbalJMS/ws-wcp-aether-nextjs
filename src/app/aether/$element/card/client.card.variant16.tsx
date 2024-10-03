@@ -34,12 +34,12 @@ export function CE_CardVariant16({ title, data }: T_CardVariant16Props) {
               <div
                 key={index}
                 className="w-1/4 mdmax:w-full flex-none px-5 mb-10 mdmax:!mt-0"
-                style={{ marginTop: `${index * 5} rem` }}
+                style={{ marginTop: `${index * 5}rem` }}
               >
                 <div>
                   <div className="h-[20rem] mb-5">
                     <Image
-                      extern={true}
+                      extern={false}
                       src={item.image}
                       alt="image"
                       width={1920}
@@ -64,7 +64,7 @@ export function CE_CardVariant16({ title, data }: T_CardVariant16Props) {
                       extern={item.button.extern}
                       target={item.button.extern ? '_blank' : ''}
                     >
-                      <div className="inline-block text-blue-01 text-base">
+                      <div className="inline-block uppercase text-blue-01 text-xs">
                         {item.button.title} &#10095;
                       </div>
                     </Link>

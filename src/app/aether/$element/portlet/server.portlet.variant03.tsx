@@ -49,7 +49,6 @@ export default async function SE_PortletVariant03({
               </div>
             )
           )}
-
           {subtitle && (
             <div className="mdmax:text-center">
               {parseHTMLToReact(subtitle)}

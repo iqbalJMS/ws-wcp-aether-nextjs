@@ -10,6 +10,10 @@ import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
+<<<<<<< HEAD
+=======
+import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
+>>>>>>> 0339a2db17db778bfa602b93920a97c2ed301a24
 
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
 
@@ -287,7 +291,59 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   staircase_cards: {
     component: () => <></>,
     props: (_component) => {
-      return {};
+      return {
+        imagePosition: _component.field_second_column[0]?.field_image
+          ? 'let'
+          : 'right',
+        headerAlignment: 'left',
+        imageTitle: '',
+        imageContentAlignment: 'right',
+        title: '',
+        subtitle: _component.field_first_column[0].field_content?.[0]?.value,
+        textLink: '',
+        imageContent:
+          'https://craftypixels.com/placeholder-image/800x200/29bd00/fff&text=Woohoo!',
+        variant: '03',
+      };
+    },
+  },
+  breadcrumb: {
+    component: Breadcrumb,
+    props: (_component: T_DataBreadCrumb) => {
+      return {
+        paths: _component?.data.map((item) => {
+          return {
+            name: item.title,
+            href: item.url,
+          };
+        }),
+      };
+    },
+  },
+  staircase_cards: {
+    component: CE_CardVariant16,
+    props: (_component) => {
+      return {
+        data: _component?.field_cards?.map(
+          (item: {
+            field_title: { value: string }[];
+            field_content: { value: string }[];
+            field_image: { field_media_image: { uri: { url: string }[] }[] }[];
+            field_primary_cta: { title: string; full_url: string }[];
+          }) => {
+            return {
+              title: item.field_title[0]?.value,
+              description: item.field_content[0]?.value,
+              image: item.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+              button: {
+                link: item.field_primary_cta[0]?.full_url,
+                title: item.field_primary_cta[0]?.title,
+                extern: false,
+              },
+            };
+          }
+        ),
+      };
     },
   },
 };
