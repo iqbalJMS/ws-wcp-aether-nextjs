@@ -30,7 +30,7 @@ import Image from '@/lib/element/global/image';
 import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
 import { T_CarouselMainProps } from '@/app/aether/$constant/types';
 import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
-import ImageViewer from '@/lib/element/global/image.viewer';
+import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -484,6 +484,41 @@ export default async function PageTester() {
       />
       <CE_CardVariant08
         title="Lorem Ipsum "
+        data={[
+          {
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum asdasdasd',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum asdasdasd',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+          {
+            title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum asdasdasd',
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            button: {
+              link: 'https://bri.co.id',
+              title: 'Selengkapnya',
+              extern: true,
+            },
+          },
+        ]}
+      />
+      <CE_CardVariant16
+        title="Card Variant 16"
         data={[
           {
             title: 'Lorem Ipsum',
