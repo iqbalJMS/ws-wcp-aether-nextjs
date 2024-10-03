@@ -482,10 +482,11 @@ export default async function PageTester() {
         ]}
       />
       <CE_CardVariant08
-        title="Lorem Ipsum"
+        title="Lorem Ipsum "
         data={[
           {
             title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum asdasdasd',
             image: '/sites/default/files/images/1073-860x640.jpg',
             button: {
               link: 'https://bri.co.id',
@@ -495,6 +496,7 @@ export default async function PageTester() {
           },
           {
             title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum asdasdasd',
             image: '/sites/default/files/images/1073-860x640.jpg',
             button: {
               link: 'https://bri.co.id',
@@ -504,6 +506,7 @@ export default async function PageTester() {
           },
           {
             title: 'Lorem Ipsum',
+            description: 'Lorem Ipsum asdasdasd',
             image: '/sites/default/files/images/1073-860x640.jpg',
             button: {
               link: 'https://bri.co.id',

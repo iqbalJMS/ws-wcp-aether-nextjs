@@ -8,6 +8,7 @@ type T_CardVariant08Props = {
   title: string;
   data: {
     title: string;
+    description: string;
     image: string;
     button: {
       title: string;
@@ -21,9 +22,9 @@ export function CE_CardVariant08({ title, data }: T_CardVariant08Props) {
   return (
     <>
       <div className="py-10 container overflow-hidden">
-        <div className="text-center mb-10">
-          <div className="text-3xl font-semibold ">{title}</div>
-        </div>
+        
+          {title && (<div className="text-center mb-10"><div className="text-3xl font-semibold ">{title}</div></div>)}
+        
         <div className="flex flex-wrap justify-center -mx-5">
           {data.map((item, index) => {
             return (
@@ -42,9 +43,13 @@ export function CE_CardVariant08({ title, data }: T_CardVariant08Props) {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="text-lg font-semibold mb-10 text-center">
+                  {item.title && (<div className="text-lg font-semibold mb-2 text-center">
                     {parseHTMLToReact(item.title)}
-                  </div>
+                  </div>)}
+                  {item.description && (<div className="text-base mb-10 text-center">
+                    {parseHTMLToReact(item.description)}
+                  </div>)}
+                  
                   <div className="text-center">
                     <Link
                       href={item.button.link}
