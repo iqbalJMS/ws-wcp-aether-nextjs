@@ -29,9 +29,9 @@ export default async function SE_PortletVariant03({
         backgroundSize: 'cover',
       }}
     >
-      <div className="container">
+      <div className="container grid lg:grid-cols-2">
         <div
-          className={`flex flex-column ${headerAlignment === 'left' ? 'justify-start mdmax:justify-center' : headerAlignment === 'right' ? 'justify-end mdmax:justify-center' : 'justify-center'}`}
+          className={`flex col-span-1 flex-col justify-center ${headerAlignment === 'left' ? 'justify-start mdmax:justify-center' : headerAlignment === 'right' ? 'justify-end mdmax:justify-center' : 'justify-center'}`}
         >
           {imageTitle ? (
             <div className="flex gap-2 items-center">
@@ -51,12 +51,12 @@ export default async function SE_PortletVariant03({
           )}
 
           {subtitle && (
-            <div className="text-[#627d92] font-normal md:text-xl text-lg md:max-w-4xl leading-8 mdmax:text-center">
+            <div className="mdmax:text-center">
               {parseHTMLToReact(subtitle)}
             </div>
           )}
         </div>
-        <div>
+        <div className="col-span-1">
           {imageContent ? (
             imageContentAlignment === 'left' ? (
               <div className="flex gap-4 py-12 md:flex-row flex-col">
