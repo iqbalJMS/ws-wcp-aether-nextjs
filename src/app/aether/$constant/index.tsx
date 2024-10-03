@@ -12,7 +12,7 @@ import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
 
-const PromoCards = dynamic(
+const CE_PromoCard = dynamic(
   () => import('@/app/aether/$element/portlet/client.portlet.variant04')
 );
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
@@ -260,25 +260,33 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   two_column: {
-    component: PromoCards,
+    component: CE_PromoCard,
     props: (_component) => {
+      const hasImageFirstColumn =
+        !!_component.field_first_column?.[0]?.field_image;
+      const hasImageSecondColumn =
+        !!_component.field_second_column?.[0]?.field_image;
+      const imageUrl = hasImageFirstColumn
+        ? _component.field_first_column[0]?.field_image?.[0]
+            .field_media_image?.[0]?.uri?.[0]?.url
+        : hasImageSecondColumn
+          ? _component.field_second_column[0]?.field_image?.[0]
+              .field_media_image?.[0]?.uri?.[0]?.url
+          : '';
+      const hasFirstContent =
+        !!_component.field_first_column?.[0]?.field_content;
+      const hasSecondContent =
+        !!_component.field_second_column?.[0]?.field_content;
+      const contentLeft = hasFirstContent
+        ? _component.field_first_column[0].field_content?.[0]?.value
+        : hasSecondContent
+          ? _component.field_second_column[0].field_content?.[0]?.value
+          : '';
+
       return {
-        title: 'title',
-        description: 'description',
-        linkText: 'linkText',
-        imageUrl: !!_component.field_second_column[0]?.field_image,
-        // imagePosition: _component.field_second_column[0]?.field_image
-        //   ? 'let'
-        //   : 'right',
-        // headerAlignment: 'left',
-        // imageTitle: '',
-        // imageContentAlignment: 'right',
-        // title: '',
-        // subtitle: _component.field_first_column[0].field_content?.[0]?.value,
-        // textLink: '',
-        // imageContent:
-        //   'https://craftypixels.com/placeholder-image/800x200/29bd00/fff&text=Woohoo!',
-        // variant: '03',
+        description: contentLeft,
+        reverse: hasImageFirstColumn,
+        imageUrl: imageUrl,
       };
     },
   },
