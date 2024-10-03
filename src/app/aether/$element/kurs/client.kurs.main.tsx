@@ -21,8 +21,8 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
     return {
       id: item.currency,
       name: item.currency,
-      age: isERate ? item.buyRateERate : item.buyRateCounter,
-      position: isERate ? item.sellRateERate : item.sellRateCounter,
+      buy: isERate ? item.buyRateERate : item.buyRateCounter,
+      sell: isERate ? item.sellRateERate : item.sellRateCounter,
     };
   });
   const dataCurrencySelected = listCurrency.map((item) => {
@@ -59,8 +59,30 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
                 return <span>{item.name}</span>;
               },
             },
-            { title: 'Beli', field: 'age' },
-            { title: 'Jual', field: 'position' },
+            {
+              title: 'Beli',
+              field: 'buy',
+              callback: (item) => {
+                return (
+                  <span>
+                    {new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    }).format(item.buy)}
+                  </span>
+                );
+              },
+            },
+            {
+              title: 'Jual',
+              field: 'sell',
+              callback: (item) => {
+                return <span>{new Intl.NumberFormat('en-US', {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                }).format(item.sell)}</span>;
+              },
+            },
           ]}
           list={data}
         />
@@ -135,7 +157,7 @@ const CE_KursMain = ({
   return (
     <div className="container py-10">
       <div className="flex mdmax:flex-col mdmax:items-start items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
-        <div className='mdmax:mb-5'> 
+        <div className="mdmax:mb-5">
           <div className="text-2xl font-semibold mb-2">Kurs BRI</div>
           <div className=" text-black mdmax:text-sm  font-medium text-opacity-30">
             * Terakhir diperbarui 23 Sep 2024 10:10 Untuk transaksi kurang dari
