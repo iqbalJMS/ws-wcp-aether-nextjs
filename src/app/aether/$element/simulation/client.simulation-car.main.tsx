@@ -14,6 +14,8 @@ import {
   T_CreateSimulationCar,
 } from '@/app/aether/$function/cfn.create.simulation-car';
 
+type T_Object = { [key: string]: number };
+
 const CE_SimulationCarMain = () => {
   const [isResult, setIsResult] = useState(false);
   const [formDisabled, setFormDisabled] = useState({
@@ -25,11 +27,11 @@ const CE_SimulationCarMain = () => {
     T_CreateSimulationCar
   >(
     CFN_MapToSimulationCarPayload({
-      carStatus: '',
+      carStatus: 'baru',
       dp: 0,
       dpIDR: 0,
       otrPrice: 0,
-      period: 0,
+      period: 1,
       principalDebt: 0,
       rate: 0,
     }),
@@ -39,37 +41,14 @@ const CE_SimulationCarMain = () => {
   const handleSubmit = () => {
     setIsResult(true);
   };
+  const handleCalculation = () => {
+    const dpValues: T_Object = { baru: 25, bekas: 30 };
+    const rateValues: T_Object = { 1: 4.99, 2: 5.5, 3: 6.1, 4: 6.65 };
 
-  useEffect(() => {
-    let dp = 0;
-    let rate = 0;
+    let dp = dpValues[form.carStatus] || 0;
+    let rate = rateValues[form.period] || 0;
     let dpIDR = 0;
     let principalDebt = 0;
-    switch (form.carStatus) {
-      case 'baru':
-        dp = 25;
-        break;
-      case 'bekas':
-        dp = 30;
-        break;
-
-      default:
-        break;
-    }
-    switch (form.period) {
-      case 1:
-        rate = 4.99;
-        break;
-      case 2:
-        rate = 5.5;
-        break;
-      case 3:
-        rate = 6.1;
-        break;
-      case 4:
-        rate = 6.65;
-        break;
-    }
 
     if (form.otrPrice !== 0 && dp !== 0) {
       dpIDR = form.otrPrice * (dp / 100);
@@ -82,6 +61,14 @@ const CE_SimulationCarMain = () => {
       principalDebt: principalDebt,
       rate: rate,
     });
+  };
+  useEffect(() => {
+    handleCalculation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    handleCalculation();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.otrPrice, form.carStatus, form.period]);

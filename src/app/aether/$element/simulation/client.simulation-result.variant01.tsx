@@ -31,7 +31,7 @@ const CE_SimulationResultVariant01 = ({
                   <div className="text-xl text-center uppercase">
                     {valueItem.label}
                   </div>
-                  <div className="text-[4rem] text-center text-blue-01 font-semibold">
+                  <div className="text-[3rem] text-center text-blue-01 font-semibold">
                     Rp.{' '}
                     {new Intl.NumberFormat('en-US', {
                       minimumFractionDigits: 2,

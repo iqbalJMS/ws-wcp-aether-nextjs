@@ -7,6 +7,7 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useMemo, useState } from 'react';
 import CE_SimulationKPRMain from './client.simulation-kpr.main';
 import CE_SimulationCarMain from './client.simulation-car.main';
+import CE_SimulationBRIGunaMain from './client.simulation-briguna.main';
 
 type T_SimulationMainProps = {
   type: 'tab' | 'page';
@@ -51,7 +52,7 @@ const CE_SimulationMain = ({
           alt="background"
           width={1920}
           height={980}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-right-bottom"
         />
       </div>
       <div className="relative z-10 container py-20">
@@ -76,7 +77,7 @@ const CE_SimulationMain = ({
           <div className="w-1/2 flex-none px-20">
             <div className='-mt-20'>
               <div className="text-right mb-10">
-                {simulation?.variant}
+                {simulation?.variant} {' '}
                 <Link
                   href={button.link}
                   extern={button.extern}
@@ -105,6 +106,7 @@ const CE_SimulationMain = ({
                 <div className=" mb-10">
                   {variant === 'kpr' && <CE_SimulationKPRMain />}
                   {variant === 'car' && <CE_SimulationCarMain />}
+                  {variant === 'briguna' && <CE_SimulationBRIGunaMain />}
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex-none">
