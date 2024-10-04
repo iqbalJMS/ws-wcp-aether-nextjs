@@ -10,10 +10,6 @@ import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
-<<<<<<< HEAD
-=======
-import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
->>>>>>> 0339a2db17db778bfa602b93920a97c2ed301a24
 
 const PromoCards = dynamic(
   () => import('@/app/aether/$element/portlet/client.portlet.variant04')
@@ -103,6 +99,10 @@ const CE_BannerMain = dynamic(
 // const CE_CardVariant15 = dynamic(
 //   () => import('@/app/aether/$element/card/client.card.variant15')
 // );
+
+const CE_CardVariant16 = dynamic(
+  () => import('@/app/aether/$element/card/client.card.variant16')
+);
 
 const CE_SectionPromo = dynamic(
   () => import('@/app/aether/$element/promo/client.section-promo')

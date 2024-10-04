@@ -30,12 +30,9 @@ import { CE_CardVariant11 } from '@/app/aether/$element/card/client.card.variant
 // import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
 // import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
 import Image from '@/lib/element/global/image';
-import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
-import { T_CarouselMainProps } from '@/app/aether/$constant/types';
-import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
-import ImageViewer from '@/lib/element/global/image.viewer';
-import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
-import InfoCards from '@/app/aether/$element/portlet/client.portlet.variant04';
+// import ImageViewer from '@/lib/element/global/image.viewer';
+// import InfoCards from '@/app/aether/$element/portlet/client.portlet.variant04';
+import Accordion from '@/lib/element/global/accordion';
 
 export default async function PageTester() {
   // const dataDummy: T_CarouselMainProps['data'] = [
@@ -985,9 +982,9 @@ export default async function PageTester() {
           alt="Organizational Structure"
           className="mx-auto"
         />
-      </div>
+      </div> */}
 
-      <InfoCards />
+      {/* <InfoCards /> */}
       <ScrollToTop />
     </React.Fragment>
   );
