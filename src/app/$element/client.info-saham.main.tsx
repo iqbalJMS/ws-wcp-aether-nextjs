@@ -89,6 +89,7 @@ export default function CE_InfoSahamMain({
                   src="/images/icon-menu/config.png"
                   width={20}
                   height={20}
+                  extern={true}
                   alt="Share Stock BBRI"
                 />
               </div>
@@ -97,7 +98,7 @@ export default function CE_InfoSahamMain({
               >
                 {social_media?.map(({ url, icon }, index) => (
                   <Link
-                    extern={false}
+                    extern={true}
                     href={url ?? '/'}
                     key={index}
                     className="text-blue-02 flex items-center gap-2 lg:mb-3 mb-2 lg:text-sm text-sm justify-center lg:justify-start font-normal"
@@ -106,7 +107,7 @@ export default function CE_InfoSahamMain({
                       <Image
                         src={`images/footers/${icon}.svg`}
                         width={18}
-                        extern={false}
+                        extern={true}
                         height={18}
                         alt={`icon-${icon}`}
                       />

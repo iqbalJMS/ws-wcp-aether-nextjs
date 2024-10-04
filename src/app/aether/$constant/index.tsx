@@ -231,13 +231,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_SectionPromo,
     props: (_component: T_MultiTab) => {
       return {
-        title: _component?.field_title_custom[0]?.value,
+        title: _component?.field_title_custom?.[0]?.value,
         listTab: _component?.field_tab?.map((item) => {
           return {
             group: {
-              title: item.field_title[0].value,
+              title: item.field_title?.[0].value,
               informationText:
-                item.field_paragraphs[0].field_title_custom[0].value,
+                item.field_paragraphs[0].field_title_custom?.[0].value,
               showMore: {
                 title: item.field_primary_cta[0].title,
                 url: item.field_primary_cta[0].full_url,

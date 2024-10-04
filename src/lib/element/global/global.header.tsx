@@ -446,7 +446,7 @@ export default function GlobalHeader({
                           <div className="bg-white">
                             <div className="container py-5">
                               <Link
-                                href={`/aether/${item.nid}/${item.title
+                                href={`/aether/${item.title
                                   ?.toLowerCase()
                                   .replaceAll(' ', '-')}`}
                               >
@@ -458,7 +458,11 @@ export default function GlobalHeader({
                                 {item?.below?.map((subItem, subIndex) => {
                                   return (
                                     <div key={subIndex} className="px-5">
-                                      <Link href={`/aether/${item.nid}`}>
+                                      <Link
+                                        href={`/aether/${subItem.title
+                                          ?.toLowerCase()
+                                          .replaceAll(' ', '-')}`}
+                                      >
                                         <div className="text-red-01 font-semibold text-sm mb-2">
                                           {subItem?.title}
                                         </div>
