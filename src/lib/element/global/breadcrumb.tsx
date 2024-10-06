@@ -9,11 +9,11 @@ const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths }) => {
       aria-label="Breadcrumb"
     >
       <ol className="inline-flex items-center space-x-1 md:space-x-3">
-        {paths.map((path, index) => (
+        {paths?.map((path, index) => (
           <li key={index} className="inline-flex items-center">
-            {index !== paths.length - 1 ? (
+            {index !== paths?.length - 1 ? (
               <Link
-                href={path.href ?? '/'}
+                href={path?.href ?? '/'}
                 className="inline-flex items-center uppercase font-light text-sm  text-gray-700 hover:text-blue-700"
               >
                 {path.name}

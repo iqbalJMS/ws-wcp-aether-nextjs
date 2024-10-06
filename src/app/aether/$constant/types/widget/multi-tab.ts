@@ -9,10 +9,11 @@ type T_FieldParagraph = Array<{
     field_simple_text: Array<{ value: string }>;
     field_primary_cta: Array<{ full_url: string }>;
   }>;
-  field_title_custom: Array<{ value: string }>;
+  field_title_custom?: Array<{ value: string }>;
 }>;
 
 export type T_MultiTab = {
+  field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
   field_title_custom: Array<{ value: string }>;
   field_tab: Array<{
     value: string;

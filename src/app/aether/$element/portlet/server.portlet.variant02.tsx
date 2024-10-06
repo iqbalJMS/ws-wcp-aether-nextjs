@@ -49,7 +49,7 @@ export default async function SE_PortletVariant02({
                 className={`flex ${hasCenterWidget ? 'w-full justify-center' : ''} gap-4`}
               >
                 {buttonItems.map(({ buttonText, buttonLink }, index) => (
-                  <Link href={buttonLink ?? ''} extern key={index}>
+                  <Link href={buttonLink ?? '/'} extern={false} key={index}>
                     <button className="font-semibold px-20 capitalize text-sm bg-orange-01 hover:bg-orange-01/90 lg:rounded-xl rounded-lg py-4 text-white">
                       {buttonText}
                     </button>

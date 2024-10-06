@@ -4,12 +4,13 @@ import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DropdownAction } from './types/widget/dropdown-action';
 import { T_Section } from './types/widget/section';
 import { T_Subscription } from './types/widget/subscription';
-import { T_MultiTab } from './types/widget/multi_tab';
+import { T_MultiTab } from './types/widget/multi-tab';
 import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { WIDGET_VARIANT } from './variables';
+import { T_FieldItem, T_StaircaseCards } from './types/widget/staircase-cards';
 
 const CE_PromoCard = dynamic(
   () => import('@/app/aether/$element/portlet/client.portlet.variant04')
@@ -52,6 +53,10 @@ const CE_BannerMain = dynamic(
 );
 const CE_CardVariant02 = dynamic(
   () => import('@/app/aether/$element/card/client.card.variant02')
+);
+
+const CE_SectionPromo = dynamic(
+  () => import('@/app/aether/$element/promo/client.section-promo')
 );
 
 // const CE_ContentMain = dynamic(
@@ -103,24 +108,20 @@ const CE_CardVariant02 = dynamic(
 //   () => import('@/app/aether/$element/card/client.card.variant15')
 // );
 
-const CE_SectionPromo = dynamic(
-  () => import('@/app/aether/$element/promo/client.section-promo')
-);
-
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   bbri_stock_market: {
     component: CE_InfoSahamMain,
     props: (_component: T_InfoSaham) => {
       return {
-        stockId: _component.data.stockId,
-        lastUpdate: _component.data.lastUpdated,
-        buyPrice: _component.data.buyPrice,
-        cumulativeVol: _component.data.cumulativeVol,
-        low: _component.data.low,
-        high: _component.data.high,
-        low52WKS: _component.data.low52WKS,
-        high52WKS: _component.data.high52WKS,
-        percentChange: _component.data.percentChange,
+        stockId: _component?.data?.stockId,
+        lastUpdate: _component?.data?.lastUpdated,
+        buyPrice: _component?.data?.buyPrice,
+        cumulativeVol: _component?.data?.cumulativeVol,
+        low: _component?.data?.low,
+        high: _component?.data?.high,
+        low52WKS: _component?.data?.low52WKS,
+        high52WKS: _component?.data?.high52WKS,
+        percentChange: _component?.data?.percentChange,
       };
     },
   },
@@ -128,9 +129,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
       return {
-        listTable: _component.data,
-        listCurrency: _component.field_currency,
-        availableCurrency: _component.available_currency,
+        listTable: _component?.data,
+        listCurrency: _component?.field_currency,
+        availableCurrency: _component?.available_currency,
       };
     },
   },
@@ -230,13 +231,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant:
               _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
-            title: _component?.field_column?.[0].field_title[0].value,
+            title: _component?.field_column?.[0].field_title?.[0]?.value,
             data: _component?.field_column?.[0]?.field_image_slider_items?.map(
               (item) => {
                 return {
                   link: item?.field_primary_cta?.[0]?.uri,
                   image:
-                    item?.field_image?.[0].field_media_image[0]?.uri[0]?.url,
+                    item?.field_image?.[0].field_media_image?.[0]?.uri[0]?.url,
                 };
               }
             ),
@@ -249,7 +250,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               return {
                 image:
                   item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
-                title: item?.field_title[0].value,
+                title: item?.field_title?.[0]?.value,
                 description: item?.field_content?.[0]?.value,
                 button: {
                   // TODO waiting data from drupal
@@ -301,27 +302,32 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   multi_tab: {
     component: CE_SectionPromo,
     props: (_component: T_MultiTab) => {
+      // TODO waiting for UI compoennt for other variant multi tab
+      // const findVariantStyle =
+      //   _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+
       return {
         title: _component?.field_title_custom?.[0]?.value,
         listTab: _component?.field_tab?.map((item) => {
           return {
             group: {
-              title: item.field_title?.[0].value,
+              title: item?.field_title?.[0]?.value,
               informationText:
-                item.field_paragraphs[0].field_title_custom?.[0].value,
+                item?.field_paragraphs?.[0]?.field_title_custom?.[0]?.value,
               showMore: {
-                title: item.field_primary_cta[0].title,
-                url: item.field_primary_cta[0].full_url,
+                title: item?.field_primary_cta?.[0]?.title,
+                url: item?.field_primary_cta?.[0]?.full_url,
               },
             },
-            contents: item.field_paragraphs[0]?.field_carousel_items?.map(
+            contents: item?.field_paragraphs?.[0]?.field_carousel_items?.map(
               (items) => {
                 return {
-                  img: items.field_image[0].field_media_image[0].uri[0].url,
-                  title: items.field_title[0].value,
-                  date: items.field_simple_text[0].value,
-                  href: items.field_primary_cta[0].full_url,
-                  description: items.field_content[0]?.value,
+                  img: items?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                    ?.url,
+                  title: items?.field_title?.[0]?.value,
+                  date: items?.field_simple_text?.[0]?.value,
+                  href: items?.field_primary_cta?.[0]?.full_url,
+                  description: items?.field_content?.[0]?.value,
                 };
               }
             ),
@@ -334,24 +340,24 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_PromoCard,
     props: (_component) => {
       const hasImageFirstColumn =
-        !!_component.field_first_column?.[0]?.field_image;
+        !!_component?.field_first_column?.[0]?.field_image;
       const hasImageSecondColumn =
-        !!_component.field_second_column?.[0]?.field_image;
+        !!_component?.field_second_column?.[0]?.field_image;
       const imageUrl = hasImageFirstColumn
-        ? _component.field_first_column[0]?.field_image?.[0]
+        ? _component?.field_first_column?.[0]?.field_image?.[0]
             .field_media_image?.[0]?.uri?.[0]?.url
         : hasImageSecondColumn
-          ? _component.field_second_column[0]?.field_image?.[0]
+          ? _component?.field_second_column?.[0]?.field_image?.[0]
               .field_media_image?.[0]?.uri?.[0]?.url
           : '';
       const hasFirstContent =
-        !!_component.field_first_column?.[0]?.field_content;
+        !!_component?.field_first_column?.[0]?.field_content;
       const hasSecondContent =
-        !!_component.field_second_column?.[0]?.field_content;
+        !!_component?.field_second_column?.[0]?.field_content;
       const contentLeft = hasFirstContent
-        ? _component.field_first_column[0].field_content?.[0]?.value
+        ? _component?.field_first_column?.[0]?.field_content?.[0]?.value
         : hasSecondContent
-          ? _component.field_second_column[0].field_content?.[0]?.value
+          ? _component?.field_second_column?.[0].field_content?.[0]?.value
           : '';
 
       return {
@@ -365,10 +371,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: Breadcrumb,
     props: (_component: T_DataBreadCrumb) => {
       return {
-        paths: _component?.data.map((item) => {
+        paths: _component?.data?.map((item) => {
           return {
-            name: item.title,
-            href: item.url,
+            name: item?.title,
+            href: item?.url,
           };
         }),
       };
@@ -376,27 +382,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   staircase_cards: {
     component: CE_CardVariant16,
-    props: (_component) => {
+    props: (_component: T_StaircaseCards) => {
       return {
-        data: _component?.field_cards?.map(
-          (item: {
-            field_title: { value: string }[];
-            field_content: { value: string }[];
-            field_image: { field_media_image: { uri: { url: string }[] }[] }[];
-            field_primary_cta: { title: string; full_url: string }[];
-          }) => {
-            return {
-              title: item.field_title[0]?.value,
-              description: item.field_content[0]?.value,
-              image: item.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-              button: {
-                link: item.field_primary_cta[0]?.full_url,
-                title: item.field_primary_cta[0]?.title,
-                extern: false,
-              },
-            };
-          }
-        ),
+        data: _component?.field_cards?.map((item: T_FieldItem) => {
+          return {
+            title: item?.field_title?.[0]?.value,
+            description: item?.field_content?.[0]?.value,
+            image:
+              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+            button: {
+              link: item?.field_primary_cta?.[0]?.full_url,
+              title: item?.field_primary_cta?.[0]?.title,
+              extern: false,
+            },
+          };
+        }),
       };
     },
   },

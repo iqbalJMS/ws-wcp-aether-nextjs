@@ -237,7 +237,7 @@ function TabView(props: T_TabViewProps, ref: any) {
       }}
     >
       <AnimatePresence initial={false}>
-        {contents[activeSet].map((content, idx) => (
+        {contents?.[activeSet]?.map((content, idx) => (
           <SE_Card
             idx={idx}
             content={content}
