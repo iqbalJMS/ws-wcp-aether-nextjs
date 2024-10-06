@@ -4,16 +4,20 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import React from 'react';
 import { T_PortletProps } from '@/app/aether/$element/types/portlet';
+import { WIDGET_VARIANT } from '@/app/aether/$constant/variables';
 
 export default async function SE_PortletVariant02({
   title,
   subtitle,
   buttonItems,
   bgImage,
+  variantWidget,
 }: Omit<T_PortletProps, 'variant'>) {
   const background = bgImage
     ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}/${bgImage}`
     : '';
+
+  const hasCenterWidget = variantWidget === WIDGET_VARIANT.variant04;
 
   return (
     <div>
@@ -25,7 +29,9 @@ export default async function SE_PortletVariant02({
             backgroundSize: 'cover',
           }}
         >
-          <div className="absolute h-full flex flex-col pl-12 justify-center">
+          <div
+            className={`absolute ${hasCenterWidget ? 'w-full' : ''} h-full flex flex-col pl-12 justify-center`}
+          >
             <div className="mb-3 max-w-[34.125rem]">
               {title && (
                 <div className="text-white text-[1.75rem] font-semibold mb-3">
@@ -39,7 +45,9 @@ export default async function SE_PortletVariant02({
               )}
             </div>
             {buttonItems && (
-              <div className="flex gap-4">
+              <div
+                className={`flex ${hasCenterWidget ? 'w-full justify-center' : ''} gap-4`}
+              >
                 {buttonItems.map(({ buttonText, buttonLink }, index) => (
                   <Link href={buttonLink ?? ''} extern key={index}>
                     <button className="font-semibold px-20 capitalize text-sm bg-orange-01 hover:bg-orange-01/90 lg:rounded-xl rounded-lg py-4 text-white">

@@ -18,6 +18,7 @@ export default async function SE_PortletMain({
   bgImage,
   navigationLink,
   buttonItems,
+  variantWidget,
   variant = '01',
 }: T_PortletProps) {
   return (
@@ -35,6 +36,7 @@ export default async function SE_PortletMain({
       {variant === '02' && (
         <SE_PortletVariant02
           title={title}
+          variantWidget={variantWidget}
           subtitle={subtitle}
           bgImage={bgImage}
           buttonItems={buttonItems}
