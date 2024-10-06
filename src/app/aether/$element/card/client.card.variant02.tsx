@@ -2,6 +2,7 @@
 
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant02Props = {
   data: {
@@ -16,7 +17,7 @@ type T_CardVariant02Props = {
   }[];
 };
 
-export function CE_CardVariant02({ data }: T_CardVariant02Props) {
+export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
   return (
     <>
       <div className=" py-10 container">
@@ -28,23 +29,27 @@ export function CE_CardVariant02({ data }: T_CardVariant02Props) {
                 className="w-1/3 mdmax:w-full flex-none px-5 mb-10"
               >
                 <div className="bg-white px-10 pb-10 pt-20 shadow-lg rounded-br-[5rem]">
-                  <div className="w-[7rem] h-[7rem] mb-10">
+                  <div className="w-full h-[7.5rem] mb-10">
                     <Image
                       extern={false}
                       src={item.image}
                       alt="image"
                       width={1920}
                       height={1080}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div>
-                    <div className="text-xl font-medium text-blue-02 mb-2">
-                      {item.title}
-                    </div>
-                    <div className="mb-5 text-base text-blue-01 h-[4.5rem] overflow-auto overflow-custom">
-                      {item.description}
-                    </div>
+                    {item.title && (
+                      <div className="text-xl font-medium text-blue-02 mb-2">
+                        {parseHTMLToReact(item.title)}
+                      </div>
+                    )}
+                    {item.description && (
+                      <div className="mb-5 text-base text-blue-01 h-[4.5rem] overflow-auto overflow-custom">
+                        {parseHTMLToReact(item.description)}
+                      </div>
+                    )}
                     <div className="text-right">
                       <Link
                         href={item.button.link}

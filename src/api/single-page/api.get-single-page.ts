@@ -1,6 +1,7 @@
 'use server';
 
 import { get } from '@/api/common/fetch';
+import { redirect } from 'next/navigation';
 
 export async function API_GetSinglePage({
   lang,
@@ -17,6 +18,6 @@ export async function API_GetSinglePage({
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('An error occurred during Get Single Page:', error);
-    return [];
+    redirect('/404');
   }
 }

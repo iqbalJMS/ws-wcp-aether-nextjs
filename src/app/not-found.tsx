@@ -19,7 +19,12 @@ export default async function NotFoundPage() {
       <div className="flex h-[100vh] items-center justify-center">
         <div className="flex lg:flex-row flex-col items-center">
           <div className="relative object-contain lg:w-[600px] lg:h-[400px] w-[320px] min-w-[320px] h-[240px]">
-            <Image src="/images/not-found.png" fill alt="img-not-found" />
+            <Image
+              extern={true}
+              src="/images/not-found.png"
+              fill
+              alt="img-not-found"
+            />
           </div>
 
           <div className="lg:mt-0 mt-6">

@@ -10,7 +10,7 @@ import { CE_CarouselMain } from '@/app/aether/$element/carousel/client.carousel.
 import { CE_ContentMain } from '@/app/aether/$element/content/client.content.main';
 import CE_KursMain from '@/app/aether/$element/kurs/client.kurs.main';
 import { CE_CardVariant01 } from '@/app/aether/$element/card/client.card.variant01';
-import { CE_CardVariant02 } from '@/app/aether/$element/card/client.card.variant02';
+import CE_CardVariant02 from '@/app/aether/$element/card/client.card.variant02';
 import { CE_CardVariant03 } from '@/app/aether/$element/card/client.card.variant03';
 import { CE_CardVariant04 } from '@/app/aether/$element/card/client.card.variant04';
 import { CE_CardVariant05 } from '@/app/aether/$element/card/client.card.variant05';
@@ -31,7 +31,7 @@ import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
 import { T_CarouselMainProps } from '@/app/aether/$constant/types';
 import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
 import ImageViewer from '@/lib/element/global/image.viewer';
-import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
+import CE_CardVariant16 from '@/app/aether/$element/card/client.card.variant16';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
