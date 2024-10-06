@@ -13,9 +13,7 @@ import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 const CE_PromoCard = dynamic(
   () => import('@/app/aether/$element/portlet/client.portlet.variant04')
 );
-const CE_CardVariant16 = dynamic(
-  () => import('@/app/aether/$element/card/client.card.variant16')
-);
+
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
 
 const SE_SubscriberContent = dynamic(
@@ -162,7 +160,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               listItems={props?.[0].listItems}
               navigationLink={props?.[0].navigationLink}
               bgImage={props?.[0].bgImage}
-              variant="01"
             />
           );
         case 'div_grid_card_01':
@@ -234,32 +231,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         default:
           return null;
       }
-    },
-  },
-  subscription: {
-    component: SE_SubscriberContent,
-    props: (_component: T_Subscription) => {
-      return {
-        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-        description: _component?.field_content[0]?.value,
-      };
-    },
-  },
-  header: {
-    component: SE_PortletMain,
-    props: (_component: T_Header) => {
-      return {
-        title: _component?.field_title[0]?.value,
-        subtitle: _component?.field_content[0]?.value,
-        buttonItems: _component?.field_primary_cta?.map((item) => {
-          return {
-            buttonText: item?.title,
-            buttonLink: item?.uri,
-          };
-        }),
-        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-        variant: '02',
-      };
     },
   },
   multi_tab: {
@@ -346,24 +317,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             value: item?.uri,
           };
         }),
-      };
-    },
-  },
-  section: {
-    component: SE_PortletMain,
-    props: (_component: T_Section) => {
-      return {
-        title: _component?.field_formatted_title[0]?.value,
-        subtitle: _component?.field_content[0]?.value,
-        listItems: _component?.field_column?.map((item) => {
-          return {
-            image: item?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-            text: item?.field_content[0]?.value,
-          };
-        }),
-        textLink: _component?.field_primary_cta[0]?.title,
-        navigationLink: _component?.field_primary_cta[0]?.uri,
-        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
       };
     },
   },

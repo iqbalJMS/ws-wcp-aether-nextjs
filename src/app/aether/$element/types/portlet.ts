@@ -12,7 +12,7 @@ export type T_PortletProps = {
   bgImage?: string;
   headerAlignment?: 'left' | 'center' | 'right';
   imageContentAlignment?: 'left' | 'center' | 'right';
-  variant: '01' | '02' | '03';
+  variant?: '01' | '02' | '03';
   listItems?: Array<{
     image?: string;
     text: string;
