@@ -5,26 +5,32 @@ import { T_InputSelectItem } from '@/lib/element/client/input';
 import CE_FormVariant01 from './client.form.variant01';
 
 type T_FormMainProps = {
-  listItems: T_InputSelectItem[];
   title?: string;
-  dropdownType?: 'input-text';
-  variant?: '01' | '02';
+  imageAtTitle?: string;
   placeholder?: string;
+  dropdownType?: 'input-text';
+  buttonText?: string;
+  listItems: T_InputSelectItem[];
+  variant?: '01' | '02';
 };
 export default async function SE_FormMain({
   title,
-  dropdownType,
+  imageAtTitle,
   placeholder,
-  variant,
+  dropdownType,
+  buttonText,
   listItems,
+  variant = '01',
 }: T_FormMainProps) {
   return (
     <>
       {variant === '01' && (
         <CE_FormVariant01
           title={title}
-          dropdownType={dropdownType}
+          imageAtTitle={imageAtTitle}
           placeholder={placeholder}
+          dropdownType={dropdownType}
+          buttonText={buttonText}
           listItems={listItems}
         />
       )}

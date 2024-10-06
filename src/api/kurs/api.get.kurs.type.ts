@@ -5,12 +5,10 @@ export type T_Kurs = {
   postSellRateCounterCalculator?: string
 };
 
-
 export type T_KursRequest = {
   amount: number
   type: 'buy' | 'sell' | 'buyRate' | 'sellRate'
   calcType: 'Beli' | 'Jual'
   fromCurrency: string
   toCurrency: string
-
 }

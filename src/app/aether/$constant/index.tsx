@@ -10,15 +10,13 @@ import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { WIDGET_VARIANT } from './variables';
-import { T_FieldItem, T_StaircaseCards } from './types/widget/staircase-cards';
+import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { Tabs } from '@/lib/element/global/tabs';
 
 const CE_PromoCard = dynamic(
   () => import('@/app/aether/$element/portlet/client.portlet.variant04')
 );
-const CE_CardVariant16 = dynamic(
-  () => import('@/app/aether/$element/card/client.card.variant16')
-);
+
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
 
 const SE_SubscriberContent = dynamic(
@@ -109,23 +107,11 @@ const CE_SectionPromo = dynamic(
 //   () => import('@/app/aether/$element/card/client.card.variant15')
 // );
 
+const CE_CardVariant16 = dynamic(
+  () => import('@/app/aether/$element/card/client.card.variant16')
+);
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
-  bbri_stock_market: {
-    component: CE_InfoSahamMain,
-    props: (_component: T_InfoSaham) => {
-      return {
-        stockId: _component?.data?.stockId,
-        lastUpdate: _component?.data?.lastUpdated,
-        buyPrice: _component?.data?.buyPrice,
-        cumulativeVol: _component?.data?.cumulativeVol,
-        low: _component?.data?.low,
-        high: _component?.data?.high,
-        low52WKS: _component?.data?.low52WKS,
-        high52WKS: _component?.data?.high52WKS,
-        percentChange: _component?.data?.percentChange,
-      };
-    },
-  },
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
@@ -382,37 +368,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       }
     },
   },
-  two_column: {
-    component: CE_PromoCard,
-    props: (_component) => {
-      const hasImageFirstColumn =
-        !!_component?.field_first_column?.[0]?.field_image;
-      const hasImageSecondColumn =
-        !!_component?.field_second_column?.[0]?.field_image;
-      const imageUrl = hasImageFirstColumn
-        ? _component?.field_first_column?.[0]?.field_image?.[0]
-            .field_media_image?.[0]?.uri?.[0]?.url
-        : hasImageSecondColumn
-          ? _component?.field_second_column?.[0]?.field_image?.[0]
-              .field_media_image?.[0]?.uri?.[0]?.url
-          : '';
-      const hasFirstContent =
-        !!_component?.field_first_column?.[0]?.field_content;
-      const hasSecondContent =
-        !!_component?.field_second_column?.[0]?.field_content;
-      const contentLeft = hasFirstContent
-        ? _component?.field_first_column?.[0]?.field_content?.[0]?.value
-        : hasSecondContent
-          ? _component?.field_second_column?.[0].field_content?.[0]?.value
-          : '';
-
-      return {
-        description: contentLeft,
-        reverse: hasImageFirstColumn,
-        imageUrl: imageUrl,
-      };
-    },
-  },
   breadcrumb: {
     component: Breadcrumb,
     props: (_component: T_DataBreadCrumb) => {
@@ -430,19 +385,64 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_CardVariant16,
     props: (_component: T_StaircaseCards) => {
       return {
-        data: _component?.field_cards?.map((item: T_FieldItem) => {
-          return {
-            title: item?.field_title?.[0]?.value,
-            description: item?.field_content?.[0]?.value,
-            image:
-              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
-            button: {
-              link: item?.field_primary_cta?.[0]?.full_url,
-              title: item?.field_primary_cta?.[0]?.title,
-              extern: false,
-            },
-          };
-        }),
+        data: _component?.field_cards?.map(
+          (item: {
+            field_title: { value: string }[];
+            field_content: { value: string }[];
+            field_image: { field_media_image: { uri: { url: string }[] }[] }[];
+            field_primary_cta: { title: string; full_url: string }[];
+          }) => {
+            return {
+              title: item.field_title[0]?.value,
+              description: item.field_content[0]?.value,
+              image: item.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+              button: {
+                link: item.field_primary_cta[0]?.full_url,
+                title: item.field_primary_cta[0]?.title,
+                extern: false,
+              },
+            };
+          }
+        ),
+      };
+    },
+  },
+  bbri_stock_market: {
+    component: CE_InfoSahamMain,
+    props: (_component: T_InfoSaham) => {
+      return {
+        data: _component?.data,
+      };
+    },
+  },
+  two_column: {
+    component: CE_PromoCard,
+    props: (_component) => {
+      const hasImageFirstColumn =
+        !!_component.field_first_column?.[0]?.field_image;
+      const hasImageSecondColumn =
+        !!_component.field_second_column?.[0]?.field_image;
+      const imageUrl = hasImageFirstColumn
+        ? _component.field_first_column[0]?.field_image?.[0]
+            .field_media_image?.[0]?.uri?.[0]?.url
+        : hasImageSecondColumn
+          ? _component.field_second_column[0]?.field_image?.[0]
+              .field_media_image?.[0]?.uri?.[0]?.url
+          : '';
+      const hasFirstContent =
+        !!_component.field_first_column?.[0]?.field_content;
+      const hasSecondContent =
+        !!_component.field_second_column?.[0]?.field_content;
+      const contentLeft = hasFirstContent
+        ? _component.field_first_column[0].field_content?.[0]?.value
+        : hasSecondContent
+          ? _component.field_second_column[0].field_content?.[0]?.value
+          : '';
+
+      return {
+        description: contentLeft,
+        reverse: hasImageFirstColumn,
+        imageUrl: imageUrl,
       };
     },
   },

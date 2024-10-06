@@ -1,4 +1,4 @@
-type T_Data = {
+export type T_DataSaham = {
   buyPrice: string;
   cumulativeVol: string;
   high: string;
@@ -11,5 +11,5 @@ type T_Data = {
 };
 
 export type T_InfoSaham = {
-  data: T_Data
+  data: T_DataSaham
 };

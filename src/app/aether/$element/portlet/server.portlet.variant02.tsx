@@ -12,6 +12,7 @@ export default async function SE_PortletVariant02({
   buttonItems,
   bgImage,
   variantWidget,
+  variantLayout,
 }: Omit<T_PortletProps, 'variant'>) {
   const background = bgImage
     ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}/${bgImage}`
@@ -20,46 +21,50 @@ export default async function SE_PortletVariant02({
   const hasCenterWidget = variantWidget === WIDGET_VARIANT.variant04;
 
   return (
-    <div>
-      <div className="relative bg-transparent lg:min-h-[25.75rem] mx-auto w-full ">
+    <section className="relative">
+      <div
+        className={`relative h-[20rem] w-full bg-cover bg-no-repeat ${variantLayout === 'rounded-corners' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''} -z-[2]`}
+        style={{
+          backgroundImage: `url(${background ?? '/images/no-image.png'})`,
+          backgroundSize: 'cover',
+        }}
+      >
         <div
-          className="relative h-[25.75rem] lg:mb-[2.125rem] w-full overflow-hidden bg-cover before:absolute before:left-0 before:top-0 before:w-full before:h-full before:bg-gradient-to-b before:from-black before:to-[#014a94] before:opacity-40"
-          style={{
-            backgroundImage: `url(${background ?? '/images/no-image.png'})`,
-            backgroundSize: 'cover',
-          }}
+          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b from-black to-[#014a94] opacity-40 -z-[1] ${variantLayout === 'rounded-corners' ? 'rounded-br-[18rem] mdmax:rounded-br-[7rem]' : ''}`}
+        ></div>
+        <div
+          className={`${hasCenterWidget ? 'items-center' : ''} container mx-auto flex flex-col items-start justify-center h-full`}
         >
-          <div
-            className={`absolute ${hasCenterWidget ? 'w-full' : ''} h-full flex flex-col pl-12 justify-center`}
-          >
-            <div className="mb-3 max-w-[34.125rem]">
-              {title && (
-                <div className="text-white text-[1.75rem] font-semibold mb-3">
-                  {parseHTMLToReact(title)}
-                </div>
-              )}
-              {subtitle && (
-                <div className="text-white font-normal text-2xl leading-9">
-                  {parseHTMLToReact(subtitle)}
-                </div>
-              )}
-            </div>
-            {buttonItems && (
-              <div
-                className={`flex ${hasCenterWidget ? 'w-full justify-center' : ''} gap-4`}
-              >
-                {buttonItems.map(({ buttonText, buttonLink }, index) => (
-                  <Link href={buttonLink ?? '/'} extern={false} key={index}>
-                    <button className="font-semibold px-20 capitalize text-sm bg-orange-01 hover:bg-orange-01/90 lg:rounded-xl rounded-lg py-4 text-white">
-                      {buttonText}
-                    </button>
-                  </Link>
-                ))}
+          <div className="max-w-[34.125rem]">
+            {title && (
+              <div className="text-white text-[1.75rem] font-semibold mb-3">
+                {parseHTMLToReact(title)}
+              </div>
+            )}
+            {subtitle && (
+              <div className="text-white font-normal text-xl leading-9">
+                {parseHTMLToReact(subtitle)}
               </div>
             )}
           </div>
+          {buttonItems && (
+            <div
+              className={`flex ${hasCenterWidget ? 'justify-center' : ''} items-center gap-4 justify-start`}
+            >
+              {buttonItems.map(({ buttonText, buttonLink }, index) => (
+                <Link href={buttonLink ?? ''} extern key={index}>
+                  <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
+                    {buttonText}
+                  </button>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-    </div>
+      <div
+        className={`absolute left-0 top-0 w-full h-full bg-gray-300 mt-6 -z-[3] ${variantLayout === 'rounded-corners' ? 'rounded-br-[18rem] mdmax:rounded-br-[7rem]' : ''}`}
+      ></div>
+    </section>
   );
 }

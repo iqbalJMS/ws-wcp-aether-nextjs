@@ -7,19 +7,20 @@ import SE_PortletVariant02 from './server.portlet.variant02';
 import SE_PortletVariant03 from './server.portlet.variant03';
 
 export default async function SE_PortletMain({
-  headerAlignment,
-  imageContent,
-  imageTitle,
-  imageContentAlignment,
   title,
   subtitle,
+  headerAlignment,
+  imageContentAlignment,
+  imageAtTitle,
+  imageAtContent,
   textLink,
-  listItems,
-  bgImage,
   navigationLink,
   buttonItems,
+  bgImage,
   variantWidget,
+  variantLayout,
   variant = '01',
+  listItems,
 }: T_PortletProps) {
   return (
     <>
@@ -28,30 +29,31 @@ export default async function SE_PortletMain({
           title={title}
           subtitle={subtitle}
           textLink={textLink}
-          listItems={listItems}
-          bgImage={bgImage}
           navigationLink={navigationLink}
+          bgImage={bgImage}
+          listItems={listItems}
         />
       )}
       {variant === '02' && (
         <SE_PortletVariant02
           title={title}
           variantWidget={variantWidget}
+          variantLayout={variantLayout}
           subtitle={subtitle}
-          bgImage={bgImage}
           buttonItems={buttonItems}
+          bgImage={bgImage}
         />
       )}
       {variant === '03' && (
         <SE_PortletVariant03
-          headerAlignment={headerAlignment}
-          imageContentAlignment={imageContentAlignment}
           title={title}
           subtitle={subtitle}
-          listItems={listItems}
+          imageAtTitle={imageAtTitle}
+          imageAtContent={imageAtContent}
           bgImage={bgImage}
-          imageContent={imageContent}
-          imageTitle={imageTitle}
+          headerAlignment={headerAlignment}
+          imageContentAlignment={imageContentAlignment}
+          listItems={listItems}
         />
       )}
     </>
