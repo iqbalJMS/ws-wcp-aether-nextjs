@@ -32,15 +32,25 @@ type FieldPrimaryCTA = {
   options: any[];
 };
 
+type FieldImageItem = {
+  field_media_image: Array<{ uri: Array<{ url: string }> }>;
+};
+
 export type T_Section = {
-  field_content: HtmlContent[];
-  field_formatted_title: HtmlContent[];
-  field_image: FieldImage[];
-  field_margin_left: { value: string }[];
-  field_note: any[];
-  field_primary_cta: FieldPrimaryCTA[];
-  field_column: Array<{
-    field_image: any;
-    field_content: any;
+  field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
+  field_content?: HtmlContent[];
+  field_formatted_title?: HtmlContent[];
+  field_image?: FieldImage[];
+  field_margin_left?: { value: string }[];
+  field_note?: any[];
+  field_primary_cta?: FieldPrimaryCTA[];
+  field_column?: Array<{
+    field_image?: any;
+    field_content?: any;
+    field_title?: any;
+    field_image_slider_items?: Array<{
+      field_image?: Array<FieldImageItem>;
+      field_primary_cta?: Array<{ uri: string }>;
+    }>;
   }>;
 };

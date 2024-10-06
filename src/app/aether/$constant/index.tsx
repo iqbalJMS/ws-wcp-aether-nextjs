@@ -4,7 +4,6 @@ import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DropdownAction } from './types/widget/dropdown-action';
 import { T_Section } from './types/widget/section';
 import { T_Subscription } from './types/widget/subscription';
-import { T_ImageSlider } from './types/widget/image-slider';
 import { T_MultiTab } from './types/widget/multi_tab';
 import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
@@ -13,6 +12,9 @@ import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 
 const CE_PromoCard = dynamic(
   () => import('@/app/aether/$element/portlet/client.portlet.variant04')
+);
+const CE_CardVariant16 = dynamic(
+  () => import('@/app/aether/$element/card/client.card.variant16')
 );
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
 
@@ -47,6 +49,9 @@ const CE_KursMain = dynamic(
 const CE_BannerMain = dynamic(
   () => import('@/app/aether/$element/banner/client.banner.main')
 );
+const CE_CardVariant02 = dynamic(
+  () => import('@/app/aether/$element/card/client.card.variant02')
+);
 
 // const CE_ContentMain = dynamic(
 //   () => import('@/app/aether/$element/content/client.content.main')
@@ -56,9 +61,6 @@ const CE_BannerMain = dynamic(
 // );
 // const CE_CardVariant01 = dynamic(
 //   () => import('@/app/aether/$element/card/client.card.variant01')
-// );
-// const CE_CardVariant02 = dynamic(
-//   () => import('@/app/aether/$element/card/client.card.variant02')
 // );
 // const CE_CardVariant03 = dynamic(
 //   () => import('@/app/aether/$element/card/client.card.variant03')
@@ -140,17 +142,123 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       return {};
     },
   },
-  image_slider: {
-    component: CE_ImageSliderMain,
-    props: (_component: T_ImageSlider) => {
+  section: {
+    component: (...props) => {
+      const findVariantStyle = props?.[0]?.variant;
+
+      switch (findVariantStyle) {
+        case 'carousel_01':
+          return (
+            <CE_ImageSliderMain
+              data={props?.[0]?.data}
+              title={props?.[0]?.title}
+            />
+          );
+        case 'div_why_us':
+          return (
+            <SE_PortletMain
+              title={props?.[0].title}
+              subtitle={props?.[0].subtitle}
+              listItems={props?.[0].listItems}
+              navigationLink={props?.[0].navigationLink}
+              bgImage={props?.[0].bgImage}
+              variant="01"
+            />
+          );
+        case 'div_grid_card_01':
+          return <CE_CardVariant02 data={props?.[0]?.data} />;
+        default:
+          return null;
+      }
+    },
+    // @ts-expect-error
+    // fixme later
+    props: (_component: T_Section) => {
+      const findVariantStyle =
+        _component?.field_web_variant_styles?.[0].field_key?.[0]?.value;
+
+      switch (findVariantStyle) {
+        case 'div_why_us':
+          return {
+            title: _component?.field_formatted_title?.[0]?.value,
+            subtitle: _component?.field_content?.[0]?.value,
+            listItems: _component?.field_column?.map((item) => {
+              return {
+                image:
+                  item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                text: item?.field_content?.[0]?.value,
+              };
+            }),
+            textLink: _component?.field_primary_cta?.[0]?.title,
+            navigationLink: _component?.field_primary_cta?.[0]?.uri,
+            bgImage:
+              _component?.field_image?.[0]?.field_media_image[0]?.uri[0]?.url,
+            variant:
+              _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
+          };
+        case 'carousel_01':
+          return {
+            variant:
+              _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
+            title: _component?.field_column?.[0].field_title[0].value,
+            data: _component?.field_column?.[0]?.field_image_slider_items?.map(
+              (item) => {
+                return {
+                  link: item?.field_primary_cta?.[0]?.uri,
+                  image:
+                    item?.field_image?.[0].field_media_image[0]?.uri[0]?.url,
+                };
+              }
+            ),
+          };
+        case 'div_grid_card_01':
+          return {
+            variant:
+              _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
+            data: _component?.field_column?.map((item) => {
+              return {
+                image:
+                  item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                title: item?.field_title[0].value,
+                description: item?.field_content?.[0]?.value,
+                button: {
+                  // TODO waiting data from drupal
+                  link: 'https://bri.co.id',
+                  title: 'Selengkapnya',
+                  extern: true,
+                },
+              };
+            }),
+          };
+
+        default:
+          return null;
+      }
+    },
+  },
+  subscription: {
+    component: SE_SubscriberContent,
+    props: (_component: T_Subscription) => {
+      return {
+        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+        description: _component?.field_content[0]?.value,
+      };
+    },
+  },
+  header: {
+    component: SE_PortletMain,
+    props: (_component: T_Header) => {
       return {
         title: _component?.field_title[0]?.value,
-        data: _component.field_image_slider_items?.map((item) => {
+        subtitle: _component?.field_content[0]?.value,
+        buttonItems: _component?.field_primary_cta?.map((item) => {
           return {
-            link: item?.field_primary_cta[0]?.uri,
-            image: item?.field_image[0].field_media_image[0]?.uri[0]?.url,
+            buttonText: item?.title,
+            buttonLink: item?.uri,
           };
         }),
+        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+        variant: '02',
       };
     },
   },

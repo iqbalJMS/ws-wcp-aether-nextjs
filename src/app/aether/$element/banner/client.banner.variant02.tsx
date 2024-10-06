@@ -140,7 +140,7 @@ export function CE_BannerVariant02({
             );
           })}
         </div>
-        {data.length > 1 && (
+        {data?.length > 1 && (
           <div
             className={[
               'absolute top-1/2 transform -translate-y-1/2 z-30 right-0 w-full',

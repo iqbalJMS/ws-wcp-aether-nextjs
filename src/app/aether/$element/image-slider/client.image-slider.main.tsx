@@ -15,13 +15,13 @@ const CE_ImageSliderMain = ({
   }>;
   title: string;
 }) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(data.length);
+  const [currentIndex, setCurrentIndex] = useState<number>(data?.length);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const screenWidth = useScreenWidth();
   const slidesToShow = screenWidth > 768 ? 5 : 3;
 
   const slidesToScroll = 1;
-  const totalSlides = data.length;
+  const totalSlides = data?.length;
   const sliderRef = useRef<HTMLDivElement | null>(null);
 
   const goToNext = () => {
@@ -80,17 +80,17 @@ const CE_ImageSliderMain = ({
           ref={sliderRef}
           className={`flex transition-transform duration-500 ease-in-out transform-gpu`}
         >
-          {[...data, ...data, ...data].map((slide, index) => (
+          {[...data, ...data, ...data]?.map((slide, index) => (
             <div
               key={index}
               className={`flex-shrink-0 w-1/5 mdmax:w-1/3 flex justify-center items-center p-2 transition-transform ${getSlideClass(index)}`}
               style={{ minWidth: `${100 / slidesToShow}%` }}
             >
               <div className="w-full h-40 mdmax:h-[5rem] border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
-                <Link href={slide.link} target="_blank">
+                <Link href={slide?.link} target="_blank">
                   <Image
                     extern={false}
-                    src={slide.image}
+                    src={slide?.image}
                     width={400}
                     height={400}
                     className="w-full h-full object-contain"
