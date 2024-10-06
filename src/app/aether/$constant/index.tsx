@@ -10,7 +10,7 @@ import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { WIDGET_VARIANT } from './variables';
-import { T_FieldItem, T_StaircaseCards } from './types/widget/staircase-cards';
+import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { Tabs } from '@/lib/element/global/tabs';
 
 const CE_PromoCard = dynamic(
@@ -109,10 +109,6 @@ const CE_SectionPromo = dynamic(
 
 const CE_CardVariant16 = dynamic(
   () => import('@/app/aether/$element/card/client.card.variant16')
-);
-
-const CE_SectionPromo = dynamic(
-  () => import('@/app/aether/$element/promo/client.section-promo')
 );
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {

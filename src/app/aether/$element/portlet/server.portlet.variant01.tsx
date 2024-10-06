@@ -1,6 +1,5 @@
 'use server';
 
-import Link from 'next/link';
 import SE_PortletItem from './server.portlet.item';
 import { ArrowDownIcon } from '@/lib/element/global/arrow-down-icon';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';

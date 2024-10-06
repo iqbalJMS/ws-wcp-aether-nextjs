@@ -770,8 +770,8 @@ export default async function PageTester() {
       {/* Portlet Variant 02 */}
       <SE_PortletMain
         variant="02"
-        title="."
-        // subtitle="Karena BRI itu merupakan Bank di Indonesia yang paling terbaik"
+        title="Mengapa BRI?"
+        subtitle="Karena BRI itu merupakan Bank di Indonesia yang paling terbaik"
         bgImage="/sites/default/files/images/whybanking.jpg"
         buttonItems={[
           {
@@ -779,6 +779,7 @@ export default async function PageTester() {
             buttonText: 'Unduh',
           },
         ]}
+        variantLayout="rounded-corners"
       />
       {/* Portlet Variant 03 */}
       <SE_PortletMain
@@ -986,16 +987,6 @@ export default async function PageTester() {
 
       {/* <InfoCards /> */}
       <ScrollToTop />
-
-      <Tabs
-        // onChange={(e) => alert('daskdsa')}
-        list={[
-          { title: 'TABUNGAN', slug: 'TABUNGAN', information: '' },
-          { title: 'DEPOSITO', slug: 'DEPOSITO', information: '' },
-        ]}
-        value="TABUNGAN"
-        variant="border"
-      />
     </React.Fragment>
   );
 }
