@@ -9,6 +9,7 @@ import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
+import { WIDGET_VARIANT } from './variables';
 
 const CE_PromoCard = dynamic(
   () => import('@/app/aether/$element/portlet/client.portlet.variant04')
@@ -134,6 +135,23 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       };
     },
   },
+  dropdown_action: {
+    component: SE_FormMain,
+    props: (_component: T_DropdownAction) => {
+      return {
+        title: _component?.field_title?.[0]?.value,
+        listItems: _component?.field_menu_list?.[0]?.field_links?.map(
+          (item) => {
+            return {
+              title: item?.title,
+              value: item?.uri,
+            };
+          }
+        ),
+        variant: '01',
+      };
+    },
+  },
   personalized_shortcut: {
     component: SE_IconMain,
     props: (_component) => {
@@ -145,24 +163,25 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const findVariantStyle = props?.[0]?.variant;
 
       switch (findVariantStyle) {
-        case 'carousel_01':
+        case WIDGET_VARIANT.variant01:
           return (
             <CE_ImageSliderMain
               data={props?.[0]?.data}
               title={props?.[0]?.title}
             />
           );
-        case 'div_why_us':
+        case WIDGET_VARIANT.variant02:
           return (
             <SE_PortletMain
-              title={props?.[0].title}
-              subtitle={props?.[0].subtitle}
-              listItems={props?.[0].listItems}
-              navigationLink={props?.[0].navigationLink}
-              bgImage={props?.[0].bgImage}
+              title={props?.[0]?.title}
+              subtitle={props?.[0]?.subtitle}
+              listItems={props?.[0]?.listItems}
+              navigationLink={props?.[0]?.navigationLink}
+              bgImage={props?.[0]?.bgImage}
+              variant="01"
             />
           );
-        case 'div_grid_card_01':
+        case WIDGET_VARIANT.variant03:
           return <CE_CardVariant02 data={props?.[0]?.data} />;
         default:
           return null;
@@ -175,7 +194,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_web_variant_styles?.[0].field_key?.[0]?.value;
 
       switch (findVariantStyle) {
-        case 'div_why_us':
+        case WIDGET_VARIANT.variant02:
           return {
             title: _component?.field_formatted_title?.[0]?.value,
             subtitle: _component?.field_content?.[0]?.value,
@@ -193,7 +212,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant:
               _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
           };
-        case 'carousel_01':
+        case WIDGET_VARIANT.variant01:
           return {
             variant:
               _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
@@ -208,7 +227,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               }
             ),
           };
-        case 'div_grid_card_01':
+        case WIDGET_VARIANT.variant03:
           return {
             variant:
               _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
@@ -231,6 +250,38 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         default:
           return null;
       }
+    },
+  },
+  subscription: {
+    component: SE_SubscriberContent,
+    props: (_component: T_Subscription) => {
+      return {
+        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+        description: _component?.field_content[0]?.value,
+      };
+    },
+  },
+  header: {
+    component: SE_PortletMain,
+    props: (_component: T_Header) => {
+      const findVariantStyle =
+        _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+
+      return {
+        title: _component?.field_title?.[0]?.value,
+        subtitle: _component?.field_content?.[0]?.value,
+        buttonItems: _component?.field_primary_cta?.map((item) => {
+          return {
+            buttonText: item?.title,
+            buttonLink: item?.uri,
+          };
+        }),
+
+        bgImage:
+          _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
+        variant: '02',
+        variantWidget: findVariantStyle,
+      };
     },
   },
   multi_tab: {

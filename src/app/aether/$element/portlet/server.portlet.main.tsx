@@ -14,9 +14,7 @@ export default async function SE_PortletMain({
   textLink,
   navigationLink,
   buttonItems,
-  bgImage,
-  imageContentAlignment,
-  headerAlignment,
+  variantWidget,
   variant = '01',
   listItems,
 }: T_PortletProps) {
@@ -35,6 +33,7 @@ export default async function SE_PortletMain({
       {variant === '02' && (
         <SE_PortletVariant02
           title={title}
+          variantWidget={variantWidget}
           subtitle={subtitle}
           buttonItems={buttonItems}
           bgImage={bgImage}
