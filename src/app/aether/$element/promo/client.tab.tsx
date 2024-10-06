@@ -9,8 +9,8 @@ import {
   T_ButtonTabProps,
   T_TabProps,
 } from '@/app/aether/$element/types/promo';
-import Link from 'next/link';
 import { CE_Buttons } from './client.navigation';
+import Link from '@/lib/element/global/link';
 
 export default function CE_Tab(props: T_TabProps) {
   const {
@@ -135,6 +135,7 @@ export default function CE_Tab(props: T_TabProps) {
         {options?.[current]?.informationText}
       </div>
       <Link
+        extern={false}
         href={options?.[current]?.showMore?.url}
         className={[
           'uppercase flex items-center mb-7 w-max text-blue-700 font-medium',

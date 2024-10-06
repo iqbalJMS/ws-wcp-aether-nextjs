@@ -463,7 +463,7 @@ export default function GlobalHeader({
                                           ?.toLowerCase()
                                           .replaceAll(' ', '-')}`}
                                       >
-                                        <div className="text-red-01 font-semibold text-sm mb-2">
+                                        <div className="text-red-01 font-semibold text-sm mb-3">
                                           {subItem?.title}
                                         </div>
                                       </Link>
@@ -480,7 +480,7 @@ export default function GlobalHeader({
                                                     ?.toLowerCase()
                                                     .replaceAll(' ', '-')}`}
                                                 >
-                                                  <div className="flex items-center justify-between w-full">
+                                                  <div className="flex items-center justify-between w-full mb-2">
                                                     <div className="text-sm flex-1">
                                                       {item.title}
                                                     </div>

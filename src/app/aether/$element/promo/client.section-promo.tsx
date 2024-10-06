@@ -39,7 +39,7 @@ export default function CE_SectionPromo({
       data-active="0"
       data-range="next"
       data-active-range="0"
-      data-range-length={listTab[0].contents.length}
+      data-range-length={listTab?.[0]?.contents?.length}
       id="section"
       className={[
         'flex flex-col justify-between gap-7 1025:flex-row 1025:gap-10 items-center',
@@ -64,8 +64,8 @@ export default function CE_SectionPromo({
         )}
         <CE_Tab
           tabViewController={tabView}
-          options={listTab.map((data) => data.group)}
-          contents={listTab?.map((data) => data.contents.length)}
+          options={listTab?.map((data) => data?.group)}
+          contents={listTab?.map((data) => data?.contents?.length)}
           attributeTargetId="section"
           attributeName={{ active: 'active' }}
           className="wrapper-space 1025-only:mx-auto 1025-only:px-[var(--wrapper-space)]"
@@ -73,7 +73,7 @@ export default function CE_SectionPromo({
       </div>
       <CE_TabViewForwardRef
         ref={tabView}
-        contents={listTab.map((data) => data.contents)}
+        contents={listTab?.map((data) => data?.contents)}
         attributeTargetId="section"
         attributeName={{
           active: 'active',

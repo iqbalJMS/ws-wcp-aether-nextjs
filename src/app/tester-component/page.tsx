@@ -986,6 +986,16 @@ export default async function PageTester() {
 
       {/* <InfoCards /> */}
       <ScrollToTop />
+
+      <Tabs
+        // onChange={(e) => alert('daskdsa')}
+        list={[
+          { title: 'TABUNGAN', slug: 'TABUNGAN', information: '' },
+          { title: 'DEPOSITO', slug: 'DEPOSITO', information: '' },
+        ]}
+        value="TABUNGAN"
+        variant="border"
+      />
     </React.Fragment>
   );
 }

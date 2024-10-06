@@ -5,6 +5,7 @@ import SE_PortletItem from './server.portlet.item';
 import { ArrowDownIcon } from '@/lib/element/global/arrow-down-icon';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { T_PortletProps } from '@/app/aether/$element/types/portlet';
+import Link from '@/lib/element/global/link';
 
 export default async function SE_PortletVariant01({
   title,
@@ -50,6 +51,7 @@ export default async function SE_PortletVariant01({
             <Link
               className="text-blue-02 mdmax:text-sm font-bold flex items-center"
               href={navigationLink ?? '/'}
+              extern={false}
             >
               {textLink}
               <ArrowDownIcon className="-rotate-90 ml-2" />

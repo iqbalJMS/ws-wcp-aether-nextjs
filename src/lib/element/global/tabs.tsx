@@ -8,8 +8,8 @@ type T_TabsProps = {
     information?: string;
     slug: string;
   }[];
-  value: string;
-  onChange: (_value: string) => void;
+  value?: string;
+  onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
 };
 export function Tabs({
@@ -20,15 +20,15 @@ export function Tabs({
 }: T_TabsProps) {
   return (
     <div className="flex">
-      {list.map((item, index) => {
+      {list?.map((item, index) => {
         return (
           <div
             key={index}
-            onClick={() => onChange(item.slug)}
+            onClick={() => onChange?.(item?.slug)}
             className={[
               `flex-1 border-b cursor-pointer relative group/tab text-center`,
               variant === 'full' ? 'py-3 ' : 'pb-3 ',
-              item.slug === value
+              item?.slug === value
                 ? variant === 'full'
                   ? 'bg-blue-01'
                   : ''
@@ -39,7 +39,7 @@ export function Tabs({
               className={[
                 'text-xl font-medium  inline-flex items-center',
                 `${
-                  item.slug === value
+                  item?.slug === value
                     ? variant === 'full'
                       ? 'text-white'
                       : 'text-blue-01'
@@ -47,15 +47,15 @@ export function Tabs({
                 }`,
               ].join(' ')}
             >
-              <div className="mr-2 mdmax:text-sm">{item.title}</div>
-              {item.information && <Tooltip description={item.information} />}
+              <div className="mr-2 mdmax:text-sm uppercase">{item?.title}</div>
+              {item?.information && <Tooltip description={item?.information} />}
             </div>
             {variant === 'border-arrow' && (
               <div
                 className={[
                   'absolute bottom-0 left-0',
                   'w-full h-[.2rem] bg-blue-01',
-                  item.slug === value ? 'visible' : 'invisible',
+                  item?.slug === value ? 'visible' : 'invisible',
                   'group-hover/tab:visible',
                 ].join(' ')}
               >
@@ -74,7 +74,7 @@ export function Tabs({
                 className={[
                   'absolute bottom-0 left-0',
                   'w-full h-[.2rem] bg-blue-01',
-                  item.slug === value ? 'visible' : 'invisible',
+                  item?.slug === value ? 'visible' : 'invisible',
                   'group-hover/tab:visible',
                 ].join(' ')}
               ></div>

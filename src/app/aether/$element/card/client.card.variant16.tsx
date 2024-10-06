@@ -32,7 +32,7 @@ export default function CE_CardVariant16({
         )}
 
         <div className="flex flex-wrap justify-center -mx-5">
-          {data.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <div
                 key={index}
@@ -43,7 +43,7 @@ export default function CE_CardVariant16({
                   <div className="h-[20rem] mb-5">
                     <Image
                       extern={false}
-                      src={item.image}
+                      src={item?.image}
                       alt="image"
                       width={1920}
                       height={1080}
@@ -63,12 +63,12 @@ export default function CE_CardVariant16({
 
                   <div className="">
                     <Link
-                      href={item.button.link}
-                      extern={item.button.extern}
-                      target={item.button.extern ? '_blank' : ''}
+                      href={item?.button?.link ?? '/'}
+                      extern={item?.button?.extern}
+                      target={!item?.button?.extern ? '_blank' : ''}
                     >
                       <div className="inline-block uppercase text-blue-01 text-xs">
-                        {item.button.title} &#10095;
+                        {item?.button?.title} &#10095;
                       </div>
                     </Link>
                   </div>

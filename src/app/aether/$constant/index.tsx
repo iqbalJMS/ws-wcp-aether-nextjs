@@ -4,12 +4,14 @@ import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DropdownAction } from './types/widget/dropdown-action';
 import { T_Section } from './types/widget/section';
 import { T_Subscription } from './types/widget/subscription';
-import { T_MultiTab } from './types/widget/multi_tab';
+import { T_MultiTab } from './types/widget/multi-tab';
 import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { WIDGET_VARIANT } from './variables';
+import { T_FieldItem, T_StaircaseCards } from './types/widget/staircase-cards';
+import { Tabs } from '@/lib/element/global/tabs';
 
 const CE_PromoCard = dynamic(
   () => import('@/app/aether/$element/portlet/client.portlet.variant04')
@@ -50,6 +52,10 @@ const CE_BannerMain = dynamic(
 );
 const CE_CardVariant02 = dynamic(
   () => import('@/app/aether/$element/card/client.card.variant02')
+);
+
+const CE_SectionPromo = dynamic(
+  () => import('@/app/aether/$element/promo/client.section-promo')
 );
 
 // const CE_ContentMain = dynamic(
@@ -114,9 +120,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
       return {
-        listTable: _component.data,
-        listCurrency: _component.field_currency,
-        availableCurrency: _component.available_currency,
+        listTable: _component?.data,
+        listCurrency: _component?.field_currency,
+        availableCurrency: _component?.available_currency,
       };
     },
   },
@@ -216,13 +222,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant:
               _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
-            title: _component?.field_column?.[0].field_title[0].value,
+            title: _component?.field_column?.[0].field_title?.[0]?.value,
             data: _component?.field_column?.[0]?.field_image_slider_items?.map(
               (item) => {
                 return {
                   link: item?.field_primary_cta?.[0]?.uri,
                   image:
-                    item?.field_image?.[0].field_media_image[0]?.uri[0]?.url,
+                    item?.field_image?.[0].field_media_image?.[0]?.uri[0]?.url,
                 };
               }
             ),
@@ -235,7 +241,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               return {
                 image:
                   item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
-                title: item?.field_title[0].value,
+                title: item?.field_title?.[0]?.value,
                 description: item?.field_content?.[0]?.value,
                 button: {
                   // TODO waiting data from drupal
@@ -285,45 +291,95 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   multi_tab: {
-    component: CE_SectionPromo,
+    component: (...props) => {
+      switch (props?.[0]?.variant) {
+        case WIDGET_VARIANT.variant05:
+          return (
+            <div className="container mb-16">
+              {props?.[0]?.title && (
+                <h1 className="text-4xl mb-16 font-semibold">
+                  {props?.[0]?.title}
+                </h1>
+              )}
+              <Tabs value="TABUNGAN" list={props?.[0]?.list} />
+            </div>
+          );
+        case WIDGET_VARIANT.variant03:
+          return (
+            <CE_SectionPromo
+              title={props?.[0]?.title}
+              listTab={props?.[0]?.listTab}
+            />
+          );
+
+        default:
+          return null;
+      }
+    },
+    // @ts-expect-error
+    // fixme later
     props: (_component: T_MultiTab) => {
-      return {
-        title: _component?.field_title_custom?.[0]?.value,
-        listTab: _component?.field_tab?.map((item) => {
+      const findVariantStyle =
+        _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+
+      switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant05:
           return {
-            group: {
-              title: item.field_title?.[0].value,
-              informationText:
-                item.field_paragraphs[0].field_title_custom?.[0].value,
-              showMore: {
-                title: item.field_primary_cta[0].title,
-                url: item.field_primary_cta[0].full_url,
-              },
-            },
-            contents: item.field_paragraphs[0]?.field_carousel_items?.map(
-              (items) => {
-                return {
-                  img: items.field_image[0].field_media_image[0].uri[0].url,
-                  title: items.field_title[0].value,
-                  date: items.field_simple_text[0].value,
-                  href: items.field_primary_cta[0].full_url,
-                  description: items.field_content[0]?.value,
-                };
-              }
-            ),
+            title: _component?.field_title_custom?.[0]?.value,
+            variant: findVariantStyle,
+            list: _component?.field_tab?.map((item) => {
+              return {
+                title: item?.field_title?.[0]?.value,
+                slug: item?.field_title?.[0]?.value,
+                children: item?.field_paragraphs?.[0]?.field_column,
+              };
+            }),
           };
-        }),
-      };
+        case WIDGET_VARIANT.variant06:
+          return {
+            title: _component?.field_title_custom?.[0]?.value,
+            listTab: _component?.field_tab?.map((item) => {
+              return {
+                group: {
+                  title: item?.field_title?.[0]?.value,
+                  informationText:
+                    item?.field_paragraphs?.[0]?.field_title_custom?.[0]?.value,
+                  showMore: {
+                    title: item?.field_primary_cta?.[0]?.title,
+                    url: item?.field_primary_cta?.[0]?.full_url,
+                  },
+                },
+                contents:
+                  item?.field_paragraphs?.[0]?.field_carousel_items?.map(
+                    (items) => {
+                      return {
+                        img: items?.field_image?.[0]?.field_media_image?.[0]
+                          ?.uri?.[0]?.url,
+                        title: items?.field_title?.[0]?.value,
+                        date: items?.field_simple_text?.[0]?.value,
+                        href: items?.field_primary_cta?.[0]?.full_url,
+                        description: items?.field_content?.[0]?.value,
+                      };
+                    }
+                  ),
+              };
+            }),
+            variant: findVariantStyle,
+          };
+
+        default:
+          return null;
+      }
     },
   },
   breadcrumb: {
     component: Breadcrumb,
     props: (_component: T_DataBreadCrumb) => {
       return {
-        paths: _component?.data.map((item) => {
+        paths: _component?.data?.map((item) => {
           return {
-            name: item.title,
-            href: item.url,
+            name: item?.title,
+            href: item?.url,
           };
         }),
       };
@@ -331,7 +387,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   staircase_cards: {
     component: CE_CardVariant16,
-    props: (_component) => {
+    props: (_component: T_StaircaseCards) => {
       return {
         data: _component?.field_cards?.map(
           (item: {
