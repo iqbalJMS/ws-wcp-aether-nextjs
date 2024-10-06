@@ -32,6 +32,7 @@ import { T_CarouselMainProps } from '@/app/aether/$constant/types';
 import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
 import ImageViewer from '@/lib/element/global/image.viewer';
 import CE_CardVariant16 from '@/app/aether/$element/card/client.card.variant16';
+import { Tabs } from '@/lib/element/global/tabs';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -939,6 +940,16 @@ export default async function PageTester() {
       </div>
 
       <ScrollToTop />
+
+      <Tabs
+        // onChange={(e) => alert('daskdsa')}
+        list={[
+          { title: 'TABUNGAN', slug: 'TABUNGAN', information: '' },
+          { title: 'DEPOSITO', slug: 'DEPOSITO', information: '' },
+        ]}
+        value="TABUNGAN"
+        variant="border"
+      />
     </React.Fragment>
   );
 }
