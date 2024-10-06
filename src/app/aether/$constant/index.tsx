@@ -109,22 +109,6 @@ const CE_SectionPromo = dynamic(
 );
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
-  bbri_stock_market: {
-    component: CE_InfoSahamMain,
-    props: (_component: T_InfoSaham) => {
-      return {
-        stockId: _component.data.stockId,
-        lastUpdate: _component.data.lastUpdated,
-        buyPrice: _component.data.buyPrice,
-        cumulativeVol: _component.data.cumulativeVol,
-        low: _component.data.low,
-        high: _component.data.high,
-        low52WKS: _component.data.low52WKS,
-        high52WKS: _component.data.high52WKS,
-        percentChange: _component.data.percentChange,
-      };
-    },
-  },
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
@@ -150,53 +134,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       };
     },
   },
-  dropdown_action: {
-    component: SE_FormMain,
-    props: (_component: T_DropdownAction) => {
-      return {
-        title: _component?.field_title[0]?.value,
-        listItems: _component?.field_menu_list[0]?.field_links.map((item) => {
-          return {
-            title: item?.title,
-            value: item?.uri,
-          };
-        }),
-        variant: '01',
-      };
-    },
-  },
   personalized_shortcut: {
     component: SE_IconMain,
     props: (_component) => {
       return {};
-    },
-  },
-  section: {
-    component: SE_PortletMain,
-    props: (_component: T_Section) => {
-      return {
-        title: _component?.field_formatted_title[0]?.value,
-        subtitle: _component?.field_content[0]?.value,
-        listItems: _component?.field_column?.map((item) => {
-          return {
-            image: item?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-            text: item?.field_content[0]?.value,
-          };
-        }),
-        textLink: _component?.field_primary_cta[0]?.title,
-        navigationLink: _component?.field_primary_cta[0]?.uri,
-        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-        variant: '01',
-      };
-    },
-  },
-  subscription: {
-    component: SE_SubscriberContent,
-    props: (_component: T_Subscription) => {
-      return {
-        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-        description: _component?.field_content[0]?.value,
-      };
     },
   },
   image_slider: {
@@ -210,23 +151,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             image: item?.field_image[0].field_media_image[0]?.uri[0]?.url,
           };
         }),
-      };
-    },
-  },
-  header: {
-    component: SE_PortletMain,
-    props: (_component: T_Header) => {
-      return {
-        title: _component?.field_title[0]?.value,
-        subtitle: _component?.field_content[0]?.value,
-        buttonItems: _component?.field_primary_cta?.map((item) => {
-          return {
-            buttonText: item?.title,
-            buttonLink: item?.uri,
-          };
-        }),
-        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-        variant: '02',
       };
     },
   },
@@ -259,37 +183,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             ),
           };
         }),
-      };
-    },
-  },
-  two_column: {
-    component: CE_PromoCard,
-    props: (_component) => {
-      const hasImageFirstColumn =
-        !!_component.field_first_column?.[0]?.field_image;
-      const hasImageSecondColumn =
-        !!_component.field_second_column?.[0]?.field_image;
-      const imageUrl = hasImageFirstColumn
-        ? _component.field_first_column[0]?.field_image?.[0]
-            .field_media_image?.[0]?.uri?.[0]?.url
-        : hasImageSecondColumn
-          ? _component.field_second_column[0]?.field_image?.[0]
-              .field_media_image?.[0]?.uri?.[0]?.url
-          : '';
-      const hasFirstContent =
-        !!_component.field_first_column?.[0]?.field_content;
-      const hasSecondContent =
-        !!_component.field_second_column?.[0]?.field_content;
-      const contentLeft = hasFirstContent
-        ? _component.field_first_column[0].field_content?.[0]?.value
-        : hasSecondContent
-          ? _component.field_second_column[0].field_content?.[0]?.value
-          : '';
-
-      return {
-        description: contentLeft,
-        reverse: hasImageFirstColumn,
-        imageUrl: imageUrl,
       };
     },
   },
@@ -329,6 +222,105 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             };
           }
         ),
+      };
+    },
+  },
+
+  /* ---- KRISNA COMPONENT */
+  dropdown_action: {
+    component: SE_FormMain,
+    props: (_component: T_DropdownAction) => {
+      return {
+        title: _component?.field_title[0]?.value,
+        listItems: _component?.field_menu_list[0]?.field_links.map((item) => {
+          return {
+            title: item?.title,
+            value: item?.uri,
+          };
+        }),
+      };
+    },
+  },
+  section: {
+    component: SE_PortletMain,
+    props: (_component: T_Section) => {
+      return {
+        title: _component?.field_formatted_title[0]?.value,
+        subtitle: _component?.field_content[0]?.value,
+        listItems: _component?.field_column?.map((item) => {
+          return {
+            image: item?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+            text: item?.field_content[0]?.value,
+          };
+        }),
+        textLink: _component?.field_primary_cta[0]?.title,
+        navigationLink: _component?.field_primary_cta[0]?.uri,
+        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+      };
+    },
+  },
+  bbri_stock_market: {
+    component: CE_InfoSahamMain,
+    props: (_component: T_InfoSaham) => {
+      return {
+        data: _component?.data,
+      };
+    },
+  },
+  subscription: {
+    component: SE_SubscriberContent,
+    props: (_component: T_Subscription) => {
+      return {
+        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+        description: _component?.field_content[0]?.value,
+      };
+    },
+  },
+  header: {
+    component: SE_PortletMain,
+    props: (_component: T_Header) => {
+      return {
+        title: _component?.field_title[0]?.value,
+        subtitle: _component?.field_content[0]?.value,
+        buttonItems: _component?.field_primary_cta?.map((item) => {
+          return {
+            buttonText: item?.title,
+            buttonLink: item?.uri,
+          };
+        }),
+        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
+        variant: '02',
+      };
+    },
+  },
+  two_column: {
+    component: CE_PromoCard,
+    props: (_component) => {
+      const hasImageFirstColumn =
+        !!_component.field_first_column?.[0]?.field_image;
+      const hasImageSecondColumn =
+        !!_component.field_second_column?.[0]?.field_image;
+      const imageUrl = hasImageFirstColumn
+        ? _component.field_first_column[0]?.field_image?.[0]
+            .field_media_image?.[0]?.uri?.[0]?.url
+        : hasImageSecondColumn
+          ? _component.field_second_column[0]?.field_image?.[0]
+              .field_media_image?.[0]?.uri?.[0]?.url
+          : '';
+      const hasFirstContent =
+        !!_component.field_first_column?.[0]?.field_content;
+      const hasSecondContent =
+        !!_component.field_second_column?.[0]?.field_content;
+      const contentLeft = hasFirstContent
+        ? _component.field_first_column[0].field_content?.[0]?.value
+        : hasSecondContent
+          ? _component.field_second_column[0].field_content?.[0]?.value
+          : '';
+
+      return {
+        description: contentLeft,
+        reverse: hasImageFirstColumn,
+        imageUrl: imageUrl,
       };
     },
   },

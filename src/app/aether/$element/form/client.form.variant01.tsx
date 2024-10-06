@@ -10,17 +10,19 @@ import Image from '@/lib/element/global/image';
 
 type T_FormVariant01Props = {
   title?: string;
-  imageTitle?: string;
+  imageAtTitle?: string;
   placeholder?: string;
   dropdownType?: 'input-text';
+  buttonText?: string;
   listItems: T_InputSelectItem[];
 };
 
 export default function CE_FormVariant01({
   title,
-  imageTitle,
+  imageAtTitle,
   placeholder,
   dropdownType,
+  buttonText,
   listItems,
 }: T_FormVariant01Props) {
   const [selectedItem, setSelectedItem] = React.useState(listItems[0]);
@@ -30,29 +32,29 @@ export default function CE_FormVariant01({
   useOnClickOutside(dropdownRef, () => setIsOpen(false));
 
   return (
-    <section className="container px-20">
+    <section className="container md:px-20 px-5">
       <div className="w-[90%] relative z-10 mx-auto -mt-24" ref={dropdownRef}>
-        <div className="py-5 px-8 rounded-[1.8rem] shadow-md bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
+        <div className="py-5 px-8 rounded-[1.8rem] shadow-lg bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
           <div className="z-10 flex items-center w-full gap-4">
-            {imageTitle && title ? (
+            {imageAtTitle && title ? (
               <div className="flex items-center gap-2">
                 <Image
                   width={30}
                   height={30}
                   alt="Icon Menu"
-                  src={imageTitle}
+                  src={imageAtTitle}
                   extern
                 />{' '}
                 <h2 className="font-bold md:text-xl text-md text-red-500 flex-none w-fit">
                   {title.toUpperCase()}:
                 </h2>
               </div>
-            ) : imageTitle ? (
+            ) : imageAtTitle ? (
               <Image
                 width={30}
                 height={30}
                 alt="Icon Menu"
-                src={imageTitle}
+                src={imageAtTitle}
                 extern
               />
             ) : (
@@ -99,7 +101,7 @@ export default function CE_FormVariant01({
                   isOpen ? 'bg-gray-400' : 'bg-orange-400 hover:bg-orange-500'
                 }`}
               >
-                BANTUAN
+                {buttonText?.toUpperCase() ?? 'BANTUAN'}
               </button>
             </Link>
           </div>
