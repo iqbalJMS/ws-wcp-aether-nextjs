@@ -9,12 +9,16 @@ import SE_PortletVariant03 from './server.portlet.variant03';
 export default async function SE_PortletMain({
   title,
   subtitle,
+  headerAlignment,
+  imageContentAlignment,
   imageAtTitle,
   imageAtContent,
   textLink,
   navigationLink,
   buttonItems,
+  bgImage,
   variantWidget,
+  variantLayout,
   variant = '01',
   listItems,
 }: T_PortletProps) {
@@ -34,6 +38,7 @@ export default async function SE_PortletMain({
         <SE_PortletVariant02
           title={title}
           variantWidget={variantWidget}
+          variantLayout={variantLayout}
           subtitle={subtitle}
           buttonItems={buttonItems}
           bgImage={bgImage}

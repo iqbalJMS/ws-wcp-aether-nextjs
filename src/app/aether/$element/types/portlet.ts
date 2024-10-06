@@ -1,6 +1,5 @@
 export type T_PortletProps = {
   bgImage: string;
-  variantWidget?: string;
   title?: string;
   subtitle?: string;
   imageAtTitle?: string
@@ -11,11 +10,11 @@ export type T_PortletProps = {
     buttonText?: string;
     buttonLink?: string;
   }>;
-  imageContent?: string;
-  imageTitle?: string;
   headerAlignment?: 'left' | 'center' | 'right';
   imageContentAlignment?: 'left' | 'center' | 'right';
+  variantWidget?: string;
   variant?: '01' | '02' | '03';
+  variantLayout?: 'rounded-corners' | 'square' | 'full';
   listItems?: Array<{
     image?: string;
     text: string;

@@ -355,53 +355,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       };
     },
   },
-
-  /* ---- KRISNA COMPONENT */
-  dropdown_action: {
-    component: SE_FormMain,
-    props: (_component: T_DropdownAction) => {
-      return {
-        title: _component?.field_title[0]?.value,
-        listItems: _component?.field_menu_list[0]?.field_links.map((item) => {
-          return {
-            title: item?.title,
-            value: item?.uri,
-          };
-        }),
-      };
-    },
-  },
   bbri_stock_market: {
     component: CE_InfoSahamMain,
     props: (_component: T_InfoSaham) => {
       return {
         data: _component?.data,
-      };
-    },
-  },
-  subscription: {
-    component: SE_SubscriberContent,
-    props: (_component: T_Subscription) => {
-      return {
-        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-        description: _component?.field_content[0]?.value,
-      };
-    },
-  },
-  header: {
-    component: SE_PortletMain,
-    props: (_component: T_Header) => {
-      return {
-        title: _component?.field_title[0]?.value,
-        subtitle: _component?.field_content[0]?.value,
-        buttonItems: _component?.field_primary_cta?.map((item) => {
-          return {
-            buttonText: item?.title,
-            buttonLink: item?.uri,
-          };
-        }),
-        bgImage: _component?.field_image[0]?.field_media_image[0]?.uri[0]?.url,
-        variant: '02',
       };
     },
   },
