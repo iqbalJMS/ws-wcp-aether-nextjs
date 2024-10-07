@@ -23,17 +23,17 @@ export default async function SE_PortletVariant02({
   return (
     <section className="relative">
       <div
-        className={`relative h-[20rem] w-full bg-cover bg-no-repeat ${variantLayout === 'rounded-corners' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''} -z-[2]`}
+        className={`relative h-[20rem] w-full bg-cover bg-no-repeat ${variantLayout === 'rounded-corners' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
         style={{
           backgroundImage: `url(${background ?? '/images/no-image.png'})`,
           backgroundSize: 'cover',
         }}
       >
         <div
-          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b from-black to-[#014a94] opacity-40 -z-[1] ${variantLayout === 'rounded-corners' ? 'rounded-br-[18rem] mdmax:rounded-br-[7rem]' : ''}`}
+          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b from-black to-[#014a94] opacity-40 ${variantLayout === 'rounded-corners' ? 'rounded-br-[18rem] mdmax:rounded-br-[7rem]' : ''}`}
         ></div>
         <div
-          className={`${hasCenterWidget ? 'items-center' : ''} container mx-auto flex flex-col items-start justify-center h-full`}
+          className={`${hasCenterWidget ? 'items-center' : ''} container mx-auto flex flex-col items-start justify-center h-full relative z-10`}
         >
           <div className="max-w-[34.125rem]">
             {title && (
@@ -62,9 +62,11 @@ export default async function SE_PortletVariant02({
           )}
         </div>
       </div>
-      <div
-        className={`absolute left-0 top-0 w-full h-full bg-gray-300 mt-6 -z-[3] ${variantLayout === 'rounded-corners' ? 'rounded-br-[18rem] mdmax:rounded-br-[7rem]' : ''}`}
-      ></div>
+      {variantLayout == 'rounded-corners' && (
+        <div
+          className={`absolute left-0 top-0 w-full h-full bg-gray-300 mt-6 -z-10 ${variantLayout === 'rounded-corners' ? 'rounded-br-[18rem] mdmax:rounded-br-[7rem]' : ''}`}
+        ></div>
+      )}
     </section>
   );
 }
