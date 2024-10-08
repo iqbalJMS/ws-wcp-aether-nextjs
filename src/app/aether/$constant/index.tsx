@@ -185,6 +185,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant03:
           return <CE_CardVariant02 data={props?.[0]?.data} />;
+        case WIDGET_VARIANT.variant07:
+          return (
+            <div className="h-[10rem] w-full flex justify-center items-center">
+              -
+            </div>
+          );
+        case WIDGET_VARIANT.variant08:
+          return (
+            <div className="h-[10rem] w-full flex justify-center items-center">
+              -
+            </div>
+          );
         default:
           return null;
       }
@@ -195,7 +207,22 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0].field_key?.[0]?.value;
 
+      // console.log({ findVariantStyle });
       switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant01:
+          return {
+            variant: findVariantStyle,
+            title: _component?.field_column?.[0].field_title?.[0]?.value,
+            data: _component?.field_column?.[0]?.field_image_slider_items?.map(
+              (item) => {
+                return {
+                  link: item?.field_primary_cta?.[0]?.uri,
+                  image:
+                    item?.field_image?.[0].field_media_image?.[0]?.uri[0]?.url,
+                };
+              }
+            ),
+          };
         case WIDGET_VARIANT.variant02:
           return {
             title: _component?.field_formatted_title?.[0]?.value,
@@ -211,28 +238,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             navigationLink: _component?.field_primary_cta?.[0]?.uri,
             bgImage:
               _component?.field_image?.[0]?.field_media_image[0]?.uri[0]?.url,
-            variant:
-              _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
-          };
-        case WIDGET_VARIANT.variant01:
-          return {
-            variant:
-              _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
-            title: _component?.field_column?.[0].field_title?.[0]?.value,
-            data: _component?.field_column?.[0]?.field_image_slider_items?.map(
-              (item) => {
-                return {
-                  link: item?.field_primary_cta?.[0]?.uri,
-                  image:
-                    item?.field_image?.[0].field_media_image?.[0]?.uri[0]?.url,
-                };
-              }
-            ),
+            variant: findVariantStyle,
           };
         case WIDGET_VARIANT.variant03:
           return {
-            variant:
-              _component?.field_web_variant_styles?.[0].field_key?.[0]?.value,
+            variant: findVariantStyle,
             data: _component?.field_column?.map((item) => {
               return {
                 image:
@@ -248,7 +258,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               };
             }),
           };
-
+        case WIDGET_VARIANT.variant07:
+          return {
+            variant: findVariantStyle,
+          };
+        case WIDGET_VARIANT.variant08:
+          return {
+            variant: findVariantStyle,
+          };
         default:
           return null;
       }
