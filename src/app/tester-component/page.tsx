@@ -30,6 +30,7 @@ import { CE_CardVariant15 } from '@/app/aether/$element/card/client.card.variant
 import { T_CarouselMainProps } from '@/app/aether/$constant/types';
 import CE_CardVariant16 from '@/app/aether/$element/card/client.card.variant16';
 import Accordion from '@/lib/element/global/accordion';
+import ImageViewer from '@/lib/element/global/image.viewer';
 // import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
 // import ImageViewer from '@/lib/element/global/image.viewer';
 // import InfoCards from '@/app/aether/$element/portlet/client.portlet.variant04';
@@ -990,6 +991,9 @@ export default async function PageTester() {
       </div> */}
 
       {/* <InfoCards /> */}
+      <div className="aspect-video overflow-hidden border border-gray-500">
+        <ImageViewer />
+      </div>
       <ScrollToTop />
     </React.Fragment>
   );
