@@ -26,14 +26,14 @@ export default function CE_CardVariant17({ data }: T_CardVariant17Props) {
   const [tab, setTab] = useState(data.at(0)?.title);
   const list = useMemo(() => {
     return data.find((item) => item.title === tab);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab]) 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
   return (
     <>
       <div className=" py-10 container">
-        <div className='mb-5'>
+        <div className="mb-5">
           <Tabs
-            list={data.map((item) => {
+            list={data?.map((item) => {
               return {
                 title: item.title,
                 slug: item.title,
