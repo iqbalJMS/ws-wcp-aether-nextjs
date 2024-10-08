@@ -770,7 +770,20 @@ export default async function PageTester() {
             buttonText: 'Unduh',
           },
         ]}
-        variantLayout="rounded-corners"
+        variantLayout="rounded_corneer"
+      />
+      <SE_PortletMain
+        variant="02"
+        title="Mengapa BRI?"
+        subtitle="Karena BRI itu merupakan Bank di Indonesia yang paling terbaik"
+        bgImage="/sites/default/files/images/whybanking.jpg"
+        buttonItems={[
+          {
+            buttonLink: 'https://bri.co.id',
+            buttonText: 'Unduh',
+          },
+        ]}
+        variantLayout="large"
       />
       {/* Portlet Variant 03 */}
       <SE_PortletMain
