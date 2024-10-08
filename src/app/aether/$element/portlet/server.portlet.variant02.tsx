@@ -23,19 +23,19 @@ export default async function SE_PortletVariant02({
   return (
     <section className="relative">
       <div
-        className={`relative h-[20rem] w-full bg-cover bg-no-repeat ${variantLayout === 'rounded-corners' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
+        className={`relative w-full bg-cover bg-no-repeat ${variantLayout === 'rounded-corners' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''} ${variantLayout === 'header-large' ? 'md:h-[40rem] h-[20rem]' : 'max-h-[20rem]'}`}
         style={{
           backgroundImage: `url(${background ?? '/web/guest/images/no-image.png'})`,
           backgroundSize: 'cover',
         }}
       >
         <div
-          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b from-black to-[#014a94] opacity-40 ${variantLayout === 'rounded-corners' ? 'rounded-br-[18rem] mdmax:rounded-br-[7rem]' : ''}`}
+          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b from-black to-[#014a94] opacity-40 ${variantLayout === 'rounded-corners' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
         ></div>
         <div
           className={`${hasCenterWidget ? 'items-center' : ''} container mx-auto flex flex-col items-start justify-center h-full relative z-10`}
         >
-          <div className="max-w-[34.125rem]">
+          <div className="w-full mb-3">
             {title && (
               <div className="text-white text-[1.75rem] font-semibold mb-3">
                 {parseHTMLToReact(title)}
@@ -64,7 +64,7 @@ export default async function SE_PortletVariant02({
       </div>
       {variantLayout == 'rounded-corners' && (
         <div
-          className={`absolute left-0 top-0 w-full h-full bg-gray-300 mt-6 -z-10 ${variantLayout === 'rounded-corners' ? 'rounded-br-[18rem] mdmax:rounded-br-[7rem]' : ''}`}
+          className={`absolute left-0 top-0 w-full h-full bg-gray-300 mt-6 -z-10 ${variantLayout === 'rounded-corners' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
         ></div>
       )}
     </section>

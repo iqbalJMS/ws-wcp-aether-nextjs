@@ -14,7 +14,7 @@ export type T_PortletProps = {
   imageContentAlignment?: 'left' | 'center' | 'right';
   variantWidget?: string;
   variant?: '01' | '02' | '03';
-  variantLayout?: 'rounded-corners' | 'square' | 'full';
+  variantLayout?: 'rounded-corners' | 'square' | 'full' | 'header-large';
   listItems?: Array<{
     image?: string;
     text: string;

@@ -7,6 +7,12 @@ import { T_FieldComponent } from '@/api/single-page/api.get-single-page.type';
 import { T_Widget } from './$constant/types';
 import { Locale } from '@/i18n-config';
 import ScrollToTop from '@/lib/element/global/scroll.top';
+import { ACT_GetTopMenuNavbar } from './$action/action.get.top-menu-navbar';
+import { ACT_GetMainMenuNavbar } from './$action/action.get.main-menu-navbar';
+import { ACT_GetMainMenuFooter } from './$action/action.get.main-footer';
+import { ACT_GetBottomMenuFooter } from './$action/action.get.bottom-footer';
+import GlobalHeader from '@/lib/element/global/global.header';
+import GlobalFooter from '@/lib/element/global/global.footer';
 
 export default async function PageAether({
   searchParams,
@@ -38,13 +44,27 @@ export default async function PageAether({
     props: Record<string, any>;
   }>;
 
+  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
+  const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en' });
+  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
+  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
+
   return (
     <React.Fragment>
+      <GlobalHeader
+        variant="transparent"
+        headerBottom={listHeaderBottom}
+        headerTop={listHeaderTop}
+      />
       {components?.map(({ Component, props }, key) => (
         <React.Fragment key={key}>
           <Component {...props} />
         </React.Fragment>
       ))}
+      <GlobalFooter
+        main_footer={listMainFooter}
+        bottom_footer={listBottomFooter}
+      />
       <ScrollToTop />
     </React.Fragment>
   );
