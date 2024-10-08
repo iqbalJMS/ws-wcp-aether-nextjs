@@ -284,7 +284,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         variant: '02',
         variantLayout: _component.field_header_style?.[0].value,
         variantWidget: findVariantStyle,
-        // variantLayout: 'header-large',
       };
     },
   },

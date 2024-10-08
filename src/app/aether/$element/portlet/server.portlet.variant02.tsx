@@ -23,7 +23,7 @@ export default async function SE_PortletVariant02({
   return (
     <section className="relative">
       <div
-        className={`relative w-full bg-cover bg-no-repeat ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''} ${variantLayout === 'header-large' ? 'md:h-[40rem] h-[20rem]' : 'max-h-[20rem]'}`}
+        className={`relative w-full bg-cover bg-no-repeat ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''} ${variantLayout === 'large' ? 'md:h-[40rem] h-[20rem]' : 'max-h-[20rem]'}`}
         style={{
           backgroundImage: `url(${background ?? '/web/guest/images/no-image.png'})`,
           backgroundSize: 'cover',
