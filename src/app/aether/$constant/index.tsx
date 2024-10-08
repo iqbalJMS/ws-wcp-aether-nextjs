@@ -283,6 +283,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
         variant: '02',
         variantWidget: findVariantStyle,
+        // variantLayout: 'rounded-corners',
       };
     },
   },
