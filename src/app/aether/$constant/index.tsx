@@ -282,6 +282,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         bgImage:
           _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
         variant: '02',
+        variantLayout: _component.field_header_style?.[0].value,
         variantWidget: findVariantStyle,
         // variantLayout: 'header-large',
       };
@@ -321,6 +322,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 children: item?.field_paragraphs?.[0]?.field_column?.map(
                   (item) => {
                     return {
+                      variant: item?.field_icon_cta_style?.[0]?.value,
                       title: item?.field_title?.[0]?.value,
                       description: item?.field_content?.[0].value,
                       image:

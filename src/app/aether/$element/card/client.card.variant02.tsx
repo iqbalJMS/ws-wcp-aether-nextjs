@@ -6,6 +6,7 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant02Props = {
   data: {
+    variant: string;
     title: string;
     image: string;
     description: string;
@@ -29,14 +30,16 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
                 className="w-1/3 mdmax:w-full flex-none px-5 mb-10"
               >
                 <div className="bg-white px-10 pb-10 pt-20 shadow-lg rounded-br-[5rem]">
-                  <div className="w-full h-[7.5rem] mb-10">
+                  <div
+                    className={`mb-10 ${item?.variant?.includes('with_blue_hover') ? 'w-[6.25rem] h-[6.25rem]' : 'w-full h-[7.5rem]'}`}
+                  >
                     <Image
                       extern={false}
                       src={item?.image}
                       alt="image"
                       width={1920}
                       height={1080}
-                      className="w-full h-full object-cover"
+                      className={`${item?.variant?.includes('with_blue_hover') ? 'object-contain' : 'object-cover'}`}
                     />
                   </div>
                   <div>

@@ -2,7 +2,7 @@ export type T_PortletProps = {
   bgImage: string;
   title?: string;
   subtitle?: string;
-  imageAtTitle?: string
+  imageAtTitle?: string;
   imageAtContent?: string;
   textLink?: string;
   navigationLink?: string;
@@ -14,7 +14,7 @@ export type T_PortletProps = {
   imageContentAlignment?: 'left' | 'center' | 'right';
   variantWidget?: string;
   variant?: '01' | '02' | '03';
-  variantLayout?: 'rounded-corners' | 'square' | 'full' | 'header-large';
+  variantLayout?: 'rounded_corneer' | 'square' | 'full' | 'header-large';
   listItems?: Array<{
     image?: string;
     text: string;
