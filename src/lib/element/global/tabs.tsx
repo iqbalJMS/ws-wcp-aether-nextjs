@@ -9,7 +9,7 @@ type T_TabsProps = {
     title: string;
     information?: string;
     slug: string;
-    children: Array<any>;
+    children?: Array<any>;
   }[];
   value?: string;
   title?: string;
