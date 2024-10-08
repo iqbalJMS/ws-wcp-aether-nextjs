@@ -6,7 +6,7 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant02Props = {
   data: {
-    variant: string;
+    variant?: string;
     title: string;
     image: string;
     description: string;

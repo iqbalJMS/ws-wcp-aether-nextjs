@@ -770,7 +770,7 @@ export default async function PageTester() {
             buttonText: 'Unduh',
           },
         ]}
-        variantLayout="rounded-corners"
+        variantLayout="rounded_corneer"
       />
       {/* Portlet Variant 03 */}
       <SE_PortletMain
