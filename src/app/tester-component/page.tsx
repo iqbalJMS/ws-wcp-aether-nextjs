@@ -4,85 +4,85 @@ import React from 'react';
 
 import SE_FormMain from '@/app/aether/$element/form/server.form.main';
 import SE_PortletMain from '@/app/aether/$element/portlet/server.portlet.main';
-// import SE_WysiwygMain from ''@/app/web/guest/$element/wysiwyg/server.wysiwyg.main';
+import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
 import ScrollToTop from '@/lib/element/global/scroll.top';
 import CE_BannerMain from '@/app/aether/$element/banner/client.banner.main';
 import SE_IconMain from '@/app/aether/$element/icon-menu/server.icon.main';
-// import { CE_CarouselMain } from ''@/app/web/guest/$element/carousel/client.carousel.main';
-// import { CE_ContentMain } from ''@/app/web/guest/$element/content/client.content.main';
-// import CE_KursMain from ''@/app/web/guest/$element/kurs/client.kurs.main';
-// import { CE_CardVariant01 } from ''@/app/web/guest/$element/card/client.card.variant01';
-// import { CE_CardVariant02 } from ''@/app/web/guest/$element/card/client.card.variant02';
-// import { CE_CardVariant03 } from ''@/app/web/guest/$element/card/client.card.variant03';
-// import { CE_CardVariant04 } from ''@/app/web/guest/$element/card/client.card.variant04';
-// import { CE_CardVariant05 } from ''@/app/web/guest/$element/card/client.card.variant05';
-// import { CE_CardVariant06 } from ''@/app/web/guest/$element/card/client.card.variant06';
-// import { CE_CardVariant07 } from ''@/app/web/guest/$element/card/client.card.variant07';
-// import { CE_CardVariant08 } from ''@/app/web/guest/$element/card/client.card.variant08';
-// import { CE_CardVariant09 } from ''@/app/web/guest/$element/card/client.card.variant09';
-// import { CE_CardVariant10 } from ''@/app/web/guest/$element/card/client.card.variant10';
-import { CE_CardVariant11 } from '@/app/aether/$element/card/client.card.variant11';
-// import { CE_CardVariant12 } from ''@/app/web/guest/$element/card/client.card.variant12';
-// import { CE_CardVariant13 } from ''@/app/web/guest/$element/card/client.card.variant13';
-// import { CE_CardVariant14 } from ''@/app/web/guest/$element/card/client.card.variant14';
-// import { CE_CardVariant15 } from ''@/app/web/guest/$element/card/client.card.variant15';
-// import { T_CarouselMainProps } from ''@/app/web/guest/$constant/types';
-// import CE_SimulationMain from ''@/app/web/guest/$element/simulation/client.simulation.main';
-// import { CE_CardVariant16 } from ''@/app/web/guest/$element/card/client.card.variant16';
+import { CE_CarouselMain } from '@/app/aether/$element/carousel/client.carousel.main';
+import { CE_ContentMain } from '@/app/aether/$element/content/client.content.main';
+import CE_KursMain from '@/app/aether/$element/kurs/client.kurs.main';
 import Image from '@/lib/element/global/image';
-// import ImageViewer from '@/lib/element/global/image.viewer';
-// import InfoCards from ''@/app/web/guest/$element/portlet/client.portlet.variant04';
+import { CE_CardVariant01 } from '@/app/aether/$element/card/client.card.variant01';
+import CE_CardVariant02 from '@/app/aether/$element/card/client.card.variant02';
+import { CE_CardVariant03 } from '@/app/aether/$element/card/client.card.variant03';
+import { CE_CardVariant04 } from '@/app/aether/$element/card/client.card.variant04';
+import { CE_CardVariant05 } from '@/app/aether/$element/card/client.card.variant05';
+import { CE_CardVariant06 } from '@/app/aether/$element/card/client.card.variant06';
+import { CE_CardVariant07 } from '@/app/aether/$element/card/client.card.variant07';
+import { CE_CardVariant08 } from '@/app/aether/$element/card/client.card.variant08';
+import { CE_CardVariant09 } from '@/app/aether/$element/card/client.card.variant09';
+import { CE_CardVariant10 } from '@/app/aether/$element/card/client.card.variant10';
+import { CE_CardVariant11 } from '@/app/aether/$element/card/client.card.variant11';
+import { CE_CardVariant12 } from '@/app/aether/$element/card/client.card.variant12';
+import { CE_CardVariant13 } from '@/app/aether/$element/card/client.card.variant13';
+import { CE_CardVariant14 } from '@/app/aether/$element/card/client.card.variant14';
+import { CE_CardVariant15 } from '@/app/aether/$element/card/client.card.variant15';
+import { T_CarouselMainProps } from '@/app/aether/$constant/types';
+import CE_CardVariant16 from '@/app/aether/$element/card/client.card.variant16';
 import Accordion from '@/lib/element/global/accordion';
+// import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
+// import ImageViewer from '@/lib/element/global/image.viewer';
+// import InfoCards from '@/app/aether/$element/portlet/client.portlet.variant04';
 
 export default async function PageTester() {
-  // const dataDummy: T_CarouselMainProps['data'] = [
-  //   {
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     title: 'Banner slider 1',
-  //     desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
-  //     subDesc: '20 Jan 2024',
-  //     button: {
-  //       name: 'asd',
-  //       link: 'https://bri.co.id',
-  //     },
-  //   },
-  //   {
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     title: 'Banner slider 1',
-  //     desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
-  //     subDesc: '20 Jan 2024',
-  //   },
-  //   {
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     title: 'Banner slider 1',
-  //     desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
-  //     subDesc: '20 Jan 2024',
-  //   },
-  //   {
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     title: 'Banner slider 1',
-  //     desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
-  //     subDesc: '20 Jan 2024',
-  //   },
-  //   {
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     title: 'Banner slider 1',
-  //     desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
-  //     subDesc: '20 Jan 2024',
-  //   },
-  //   {
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     title: 'Banner slider 1',
-  //     desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
-  //     subDesc: '20 Jan 2024',
-  //   },
-  //   {
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     title: 'Banner slider 1',
-  //     desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
-  //     subDesc: '20 Jan 2024',
-  //   },
-  // ];
+  const dataDummy: T_CarouselMainProps['data'] = [
+    {
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      title: 'Banner slider 1',
+      desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+      subDesc: '20 Jan 2024',
+      button: {
+        name: 'asd',
+        link: 'https://bri.co.id',
+      },
+    },
+    {
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      title: 'Banner slider 1',
+      desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+      subDesc: '20 Jan 2024',
+    },
+    {
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      title: 'Banner slider 1',
+      desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+      subDesc: '20 Jan 2024',
+    },
+    {
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      title: 'Banner slider 1',
+      desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+      subDesc: '20 Jan 2024',
+    },
+    {
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      title: 'Banner slider 1',
+      desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+      subDesc: '20 Jan 2024',
+    },
+    {
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      title: 'Banner slider 1',
+      desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+      subDesc: '20 Jan 2024',
+    },
+    {
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      title: 'Banner slider 1',
+      desc: '<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>',
+      subDesc: '20 Jan 2024',
+    },
+  ];
 
   // const simulations = [
   //   {
@@ -105,18 +105,9 @@ export default async function PageTester() {
   //   },
   // ];
 
-  // const simulationTabs = simulations.slice(0, 3).map((item) => {
-  //   return {
-  //     title: item.title,
-  //     variant: item.variant,
-  //   };
-  // });
-
-  // const [simulation, setSimulation] = useState(simulations.at(0));
-
   return (
     <React.Fragment>
-      {/* <CE_BannerMain
+      <CE_BannerMain
         variant="01"
         data={[
           {
@@ -132,7 +123,7 @@ export default async function PageTester() {
             button: '',
           },
         ]}
-      /> */}
+      />
       <CE_BannerMain
         variant="02"
         data={[
@@ -150,7 +141,7 @@ export default async function PageTester() {
           },
         ]}
       />
-      {/* <CE_BannerMain
+      <CE_BannerMain
         variant="03"
         data={[
           {
@@ -166,8 +157,8 @@ export default async function PageTester() {
             button: '',
           },
         ]}
-      /> */}
-      {/* <CE_BannerMain
+      />
+      <CE_BannerMain
         variant="04"
         data={[
           {
@@ -183,7 +174,7 @@ export default async function PageTester() {
             button: '',
           },
         ]}
-      /> */}
+      />
       <SE_FormMain
         placeholder="Search..."
         title="Saya ingin"
@@ -196,18 +187,18 @@ export default async function PageTester() {
         variant="01"
       />
       <SE_IconMain cookiesName="__personlized-menu" />
-      {/* <SE_WysiwygMain
+      <SE_WysiwygMain
         variant="01"
         title="Laris Manis, Ini 9 Tips Mudah Jualan Online Buat Pemula"
         createdAt="Rabu, 11 September 2024 | 14:43"
         // buttonText="Bagikan"
         imageContent="/sites/default/files/images/1073-860x640.jpg"
         content="<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>"
-      /> */}
-      {/* <CE_KursMain availableCurrency={[]} listCurrency={[]} listTable={[]} /> */}
-      {/* <CE_CarouselMain variant="01" data={dataDummy} title="Keuntungan" /> */}
+      />
+      <CE_KursMain availableCurrency={[]} listCurrency={[]} listTable={[]} />
+      <CE_CarouselMain variant="01" data={dataDummy} title="Keuntungan" />
 
-      {/* <CE_CarouselMain
+      <CE_CarouselMain
         variant="02"
         data={dataDummy}
         title="Promosi Baru KPR BRI"
@@ -215,9 +206,9 @@ export default async function PageTester() {
           link: 'https://bri.co.id',
           name: 'Temukan Promosi Lainnya',
         }}
-      /> */}
-      {/* <CE_CarouselMain variant="03" data={dataDummy} title="Keuntungan" /> */}
-      {/* <CE_CarouselMain
+      />
+      <CE_CarouselMain variant="03" data={dataDummy} title="Keuntungan" />
+      <CE_CarouselMain
         variant="04"
         data={dataDummy}
         title="Keuntungan"
@@ -226,8 +217,8 @@ export default async function PageTester() {
           link: 'https://bri.co.id',
           name: 'Lainnya',
         }}
-      /> */}
-      {/* <CE_CarouselMain
+      />
+      <CE_CarouselMain
         variant="05"
         data={dataDummy}
         title="Keuntungan"
@@ -236,11 +227,11 @@ export default async function PageTester() {
           link: 'https://bri.co.id',
           name: 'Lainnya',
         }}
-      /> */}
-      {/* <CE_ContentMain variant="01" data={dataDummy} title="Title" /> */}
-      {/* <CE_ContentMain variant="02" data={dataDummy} /> */}
-      {/* <CE_ContentMain variant="03" data={dataDummy} /> */}
-      {/* <CE_CardVariant01
+      />
+      <CE_ContentMain variant="01" data={dataDummy} title="Title" />
+      <CE_ContentMain variant="02" data={dataDummy} />
+      <CE_ContentMain variant="03" data={dataDummy} />
+      <CE_CardVariant01
         data={[
           {
             image: '/sites/default/files/images/1073-860x640.jpg',
@@ -270,8 +261,8 @@ export default async function PageTester() {
             ],
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant02
+      />
+      <CE_CardVariant02
         data={[
           {
             image: '/sites/default/files/images/1073-860x640.jpg',
@@ -315,8 +306,8 @@ export default async function PageTester() {
             },
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant03
+      />
+      <CE_CardVariant03
         data={[
           {
             image: '/sites/default/files/images/1073-860x640.jpg',
@@ -346,8 +337,8 @@ export default async function PageTester() {
             ],
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant04
+      />
+      <CE_CardVariant04
         data={[
           {
             title: 'Lorem Ipsum',
@@ -406,8 +397,8 @@ export default async function PageTester() {
             },
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant05
+      />
+      <CE_CardVariant05
         data={[
           {
             title: 'Lorem Ipsum',
@@ -425,8 +416,8 @@ export default async function PageTester() {
               'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant06
+      />
+      <CE_CardVariant06
         title="Lorem Ipsum"
         data={[
           {
@@ -445,8 +436,8 @@ export default async function PageTester() {
               'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant07
+      />
+      <CE_CardVariant07
         data={[
           {
             title: 'Lorem Ipsum',
@@ -485,8 +476,8 @@ export default async function PageTester() {
             },
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant08
+      />
+      <CE_CardVariant08
         title="Lorem Ipsum "
         data={[
           {
@@ -520,8 +511,8 @@ export default async function PageTester() {
             },
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant16
+      />
+      <CE_CardVariant16
         title="Card Variant 16"
         data={[
           {
@@ -555,8 +546,8 @@ export default async function PageTester() {
             },
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant09
+      />
+      <CE_CardVariant09
         data={[
           {
             title: 'Lorem Ipsum',
@@ -595,12 +586,12 @@ export default async function PageTester() {
             },
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant10
+      />
+      <CE_CardVariant10
         title="Lorem Ipsum"
         description="Lorem Ipsum is simply dummy text of the printing"
-      /> */}
-      {/* <CE_CardVariant11
+      />
+      <CE_CardVariant11
         title="Lorem Ipsum"
         data={[
           {
@@ -619,8 +610,8 @@ export default async function PageTester() {
             description: 'Lorem Ipsum is simply dummy text of the printing',
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant12
+      />
+      <CE_CardVariant12
         data={[
           {
             image: '/sites/default/files/images/1073-860x640.jpg',
@@ -653,8 +644,8 @@ export default async function PageTester() {
             },
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant13
+      />
+      <CE_CardVariant13
         title="Lorem Ipsum"
         data={[
           {
@@ -682,8 +673,8 @@ export default async function PageTester() {
             subTitle: 'BRI SE',
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant14
+      />
+      <CE_CardVariant14
         data={[
           {
             title: 'Lorem Ipsum',
@@ -722,8 +713,8 @@ export default async function PageTester() {
             },
           },
         ]}
-      /> */}
-      {/* <CE_CardVariant15
+      />
+      <CE_CardVariant15
         title={'Lorem Ipsum'}
         button={{
           link: 'https://bri.co.id',
@@ -743,7 +734,7 @@ export default async function PageTester() {
           { image: '/sites/default/files/images/1073-860x640.jpg' },
           { image: '/sites/default/files/images/1073-860x640.jpg' },
         ]}
-      /> */}
+      />
       {/* Portlet Variant 01 */}
       <SE_PortletMain
         variant="01"

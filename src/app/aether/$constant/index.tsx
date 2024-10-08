@@ -290,16 +290,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: (...props) => {
       switch (props?.[0]?.variant) {
         case WIDGET_VARIANT.variant05:
-          return (
-            <div className="container mb-16">
-              {props?.[0]?.title && (
-                <h1 className="text-4xl mb-16 font-semibold">
-                  {props?.[0]?.title}
-                </h1>
-              )}
-              <Tabs value="TABUNGAN" list={props?.[0]?.list} />
-            </div>
-          );
+          return <Tabs title={props?.[0]?.title} list={props?.[0]?.list} />;
         case WIDGET_VARIANT.variant03:
           return (
             <CE_SectionPromo
@@ -317,7 +308,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     props: (_component: T_MultiTab) => {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
-
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant05:
           return {
@@ -327,7 +317,22 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               return {
                 title: item?.field_title?.[0]?.value,
                 slug: item?.field_title?.[0]?.value,
-                children: item?.field_paragraphs?.[0]?.field_column,
+                children: item?.field_paragraphs?.[0]?.field_column?.map(
+                  (item) => {
+                    return {
+                      title: item?.field_title?.[0]?.value,
+                      description: item?.field_content?.[0].value,
+                      image:
+                        item?.field_image?.[0]?.field_media_image?.[0].uri?.[0]
+                          ?.url,
+                      button: {
+                        title: item?.field_primary_cta?.[0]?.title,
+                        link: item?.field_primary_cta?.[0]?.url,
+                        extern: false,
+                      },
+                    };
+                  }
+                ),
               };
             }),
           };
@@ -362,7 +367,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             }),
             variant: findVariantStyle,
           };
-
         default:
           return null;
       }
