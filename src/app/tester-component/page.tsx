@@ -4,34 +4,34 @@ import React from 'react';
 
 import SE_FormMain from '@/app/aether/$element/form/server.form.main';
 import SE_PortletMain from '@/app/aether/$element/portlet/server.portlet.main';
-// import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
+// import SE_WysiwygMain from ''@/app/web/guest/$element/wysiwyg/server.wysiwyg.main';
 import ScrollToTop from '@/lib/element/global/scroll.top';
 import CE_BannerMain from '@/app/aether/$element/banner/client.banner.main';
 import SE_IconMain from '@/app/aether/$element/icon-menu/server.icon.main';
-// import { CE_CarouselMain } from '@/app/aether/$element/carousel/client.carousel.main';
-// import { CE_ContentMain } from '@/app/aether/$element/content/client.content.main';
-// import CE_KursMain from '@/app/aether/$element/kurs/client.kurs.main';
-// import { CE_CardVariant01 } from '@/app/aether/$element/card/client.card.variant01';
-// import { CE_CardVariant02 } from '@/app/aether/$element/card/client.card.variant02';
-// import { CE_CardVariant03 } from '@/app/aether/$element/card/client.card.variant03';
-// import { CE_CardVariant04 } from '@/app/aether/$element/card/client.card.variant04';
-// import { CE_CardVariant05 } from '@/app/aether/$element/card/client.card.variant05';
-// import { CE_CardVariant06 } from '@/app/aether/$element/card/client.card.variant06';
-// import { CE_CardVariant07 } from '@/app/aether/$element/card/client.card.variant07';
-// import { CE_CardVariant08 } from '@/app/aether/$element/card/client.card.variant08';
-// import { CE_CardVariant09 } from '@/app/aether/$element/card/client.card.variant09';
-// import { CE_CardVariant10 } from '@/app/aether/$element/card/client.card.variant10';
+// import { CE_CarouselMain } from ''@/app/web/guest/$element/carousel/client.carousel.main';
+// import { CE_ContentMain } from ''@/app/web/guest/$element/content/client.content.main';
+// import CE_KursMain from ''@/app/web/guest/$element/kurs/client.kurs.main';
+// import { CE_CardVariant01 } from ''@/app/web/guest/$element/card/client.card.variant01';
+// import { CE_CardVariant02 } from ''@/app/web/guest/$element/card/client.card.variant02';
+// import { CE_CardVariant03 } from ''@/app/web/guest/$element/card/client.card.variant03';
+// import { CE_CardVariant04 } from ''@/app/web/guest/$element/card/client.card.variant04';
+// import { CE_CardVariant05 } from ''@/app/web/guest/$element/card/client.card.variant05';
+// import { CE_CardVariant06 } from ''@/app/web/guest/$element/card/client.card.variant06';
+// import { CE_CardVariant07 } from ''@/app/web/guest/$element/card/client.card.variant07';
+// import { CE_CardVariant08 } from ''@/app/web/guest/$element/card/client.card.variant08';
+// import { CE_CardVariant09 } from ''@/app/web/guest/$element/card/client.card.variant09';
+// import { CE_CardVariant10 } from ''@/app/web/guest/$element/card/client.card.variant10';
 import { CE_CardVariant11 } from '@/app/aether/$element/card/client.card.variant11';
-// import { CE_CardVariant12 } from '@/app/aether/$element/card/client.card.variant12';
-// import { CE_CardVariant13 } from '@/app/aether/$element/card/client.card.variant13';
-// import { CE_CardVariant14 } from '@/app/aether/$element/card/client.card.variant14';
-// import { CE_CardVariant15 } from '@/app/aether/$element/card/client.card.variant15';
-// import { T_CarouselMainProps } from '@/app/aether/$constant/types';
-// import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
-// import { CE_CardVariant16 } from '@/app/aether/$element/card/client.card.variant16';
+// import { CE_CardVariant12 } from ''@/app/web/guest/$element/card/client.card.variant12';
+// import { CE_CardVariant13 } from ''@/app/web/guest/$element/card/client.card.variant13';
+// import { CE_CardVariant14 } from ''@/app/web/guest/$element/card/client.card.variant14';
+// import { CE_CardVariant15 } from ''@/app/web/guest/$element/card/client.card.variant15';
+// import { T_CarouselMainProps } from ''@/app/web/guest/$constant/types';
+// import CE_SimulationMain from ''@/app/web/guest/$element/simulation/client.simulation.main';
+// import { CE_CardVariant16 } from ''@/app/web/guest/$element/card/client.card.variant16';
 import Image from '@/lib/element/global/image';
 // import ImageViewer from '@/lib/element/global/image.viewer';
-// import InfoCards from '@/app/aether/$element/portlet/client.portlet.variant04';
+// import InfoCards from ''@/app/web/guest/$element/portlet/client.portlet.variant04';
 import Accordion from '@/lib/element/global/accordion';
 
 export default async function PageTester() {
@@ -751,15 +751,15 @@ export default async function PageTester() {
         subtitle="Melayani lebih dari 128 tahun, Bank BRI senantiasa memberikan kemudahan dan kecepatan dalam merespon berbagai kebutuhan nasabah dengan didukung oleh layanan perbankan yang prima."
         listItems={[
           {
-            image: '/images/why-us/kredit.png',
+            image: '/web/guest/images/why-us/kredit.png',
             text: '<h3><strong>Produk Lengkap</strong></h3><p>Produk dan Layanan Bank BRI lengkap dan beragam untuk semua segmen sesuai kebutuhan nasabah</p>',
           },
           {
-            image: '/images/why-us/kredit.png',
+            image: '/web/guest/images/why-us/kredit.png',
             text: '<h3><strong>Produk Lengkap</strong></h3><p>Produk dan Layanan Bank BRI lengkap dan beragam untuk semua segmen sesuai kebutuhan nasabah</p>',
           },
           {
-            image: '/images/why-us/kredit.png',
+            image: '/web/guest/images/why-us/kredit.png',
             text: '<h3><strong>Produk Lengkap</strong></h3><p>Produk dan Layanan Bank BRI lengkap dan beragam untuk semua segmen sesuai kebutuhan nasabah</p>',
           },
         ]}

@@ -39,17 +39,14 @@ export default function Image(prop: T_ImageProps) {
   const { src } = prop;
   let newSrc = `${src}`;
   if (!src) {
-    newSrc = `/images/no-image.png`;
+    newSrc = `/web/guest/images/no-image.png`;
   }
   if (typeof src === 'string') {
     if (prop.extern) {
       newSrc = src;
     } else {
       newSrc = `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${src}`;
-      // newSrc = src;
     }
-    // else {
-    // }
   }
   return <Imagex.default {...{ ...prop, src: newSrc }} />;
 }

@@ -1,4 +1,10 @@
+const PUBLIC_SUBDIR = '/web/guest';
+const SOURCE_PATH = '/web/guest';
+
 module.exports = {
+  basePath: SOURCE_PATH,
+  assetPrefix: PUBLIC_SUBDIR,
+  reactStrictMode: true,
   async rewrites() {
     return [
       {

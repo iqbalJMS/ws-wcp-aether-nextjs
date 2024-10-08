@@ -24,7 +24,9 @@ export default async function SE_PortletVariant03({
       className="w-full bg-no-repeat pt-20 pb-12"
       style={{
         backgroundImage: `url(${
-          bgImage ? (backgroundImg ?? '/images/why-us/bg-image.jpg') : ''
+          bgImage
+            ? (backgroundImg ?? '/web/guest/images/why-us/bg-image.jpg')
+            : ''
         })`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',

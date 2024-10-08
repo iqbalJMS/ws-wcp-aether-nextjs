@@ -48,7 +48,7 @@ const CE_SimulationMain = ({
     <div className="relative overflow-hidden">
       <div className="w-[50%] h-full absolute top-0 left-0">
         <Image
-          src={'/images/simulation/bg.png'}
+          src={'/web/guest/images/simulation/bg.png'}
           alt="background"
           width={1920}
           height={980}

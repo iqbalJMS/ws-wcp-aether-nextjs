@@ -275,9 +275,9 @@ export default function GlobalHeader({
             <Link href={'/'} className="w-[5rem]">
               <Image
                 alt="logo-bri"
-                src="/images/headers/logo-bri.png"
+                src="/web/guest/aether/images/headers/logo-bri.png"
                 width={128}
-                extern={false}
+                extern
                 height={53}
                 className="w-full object-contain"
               />
@@ -402,7 +402,7 @@ export default function GlobalHeader({
                 <Link className="!text-gray-500" href="/">
                   <Image
                     alt="logo-bri"
-                    src="/images/headers/logo-bri.png"
+                    src="/web/guest/images/headers/logo-bri.png"
                     width={128}
                     extern
                     height={53}
@@ -485,7 +485,7 @@ export default function GlobalHeader({
                                                       {item.title}
                                                     </div>
                                                     <Image
-                                                      src={`/images/headers/arrow-right.svg`}
+                                                      src={`/web/guest/images/headers/arrow-right.svg`}
                                                       width={18}
                                                       height={18}
                                                       extern

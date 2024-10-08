@@ -137,7 +137,7 @@ const CE_SimulationBRIGunaMain = () => {
                     <InputSlider
                       min={0}
                       max={25}
-                      step={.01}
+                      step={0.01}
                       value={form.rate}
                       onChange={(value) => onFieldChange('rate', value)}
                     />

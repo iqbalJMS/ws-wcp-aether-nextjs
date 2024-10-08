@@ -21,7 +21,7 @@ export default async function NotFoundPage() {
           <div className="relative object-contain lg:w-[600px] lg:h-[400px] w-[320px] min-w-[320px] h-[240px]">
             <Image
               extern={true}
-              src="/images/not-found.png"
+              src="/web/guest/images/not-found.png"
               fill
               alt="img-not-found"
             />

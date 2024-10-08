@@ -25,7 +25,7 @@ export default async function SE_PortletVariant02({
       <div
         className={`relative h-[20rem] w-full bg-cover bg-no-repeat ${variantLayout === 'rounded-corners' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
         style={{
-          backgroundImage: `url(${background ?? '/images/no-image.png'})`,
+          backgroundImage: `url(${background ?? '/web/guest/images/no-image.png'})`,
           backgroundSize: 'cover',
         }}
       >

@@ -78,7 +78,7 @@ export default function CE_InfoSahamMain({
                 {data.stockId}
                 <Image
                   className="ml-2"
-                  src="/images/icon-menu/config.png"
+                  src="/web/guest/images/icon-menu/config.png"
                   width={20}
                   height={20}
                   extern={true}

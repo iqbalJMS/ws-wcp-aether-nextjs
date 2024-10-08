@@ -130,7 +130,7 @@ export function CE_IconMain({
                 onClick={() => setShowModal(true)}
               >
                 <CE_IconMenu
-                  image="/images/icon-menu/config.png"
+                  image="/web/guest/images/icon-menu/config.png"
                   variant="config"
                 />
               </div>

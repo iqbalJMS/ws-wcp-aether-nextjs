@@ -5,7 +5,7 @@ import { T_BreadcrumbProps } from '@/app/aether/$constant/types/widget/breadcrum
 const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths }) => {
   return (
     <nav
-      className="flex justify-center items-center border-b border-gray-400 pb-6"
+      className="flex justify-center items-center border-b border-gray-400 py-6"
       aria-label="Breadcrumb"
     >
       <ol className="inline-flex items-center space-x-1 md:space-x-3">

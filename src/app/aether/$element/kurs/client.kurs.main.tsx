@@ -15,7 +15,6 @@ import {
   T_GetKurs,
 } from '@/app/aether/$function/cfn.get.kurs';
 
-
 type T_Props = {
   listTable: T_Kurs['data'];
   listCurrency: T_Kurs['field_currency'];
@@ -57,7 +56,10 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
   const [tabValue, setTabValue] = useState<T_GetKurs['calcType']>(
     (tabs.at(0)?.slug as T_GetKurs['calcType']) || 'Beli'
   );
-  const { form, setForm, onFieldChange, validateForm } = useForm<T_GetKurs, T_GetKurs>(
+  const { form, setForm, onFieldChange, validateForm } = useForm<
+    T_GetKurs,
+    T_GetKurs
+  >(
     CFN_MapToKursPayload({
       amount: 0,
       calcType: tabValue,
@@ -74,30 +76,30 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
     }
     const isValid = validateForm();
     if (isValid) {
-      CFN_GetKurs(transiting, form)
+      CFN_GetKurs(transiting, form);
     }
-  }
+  };
 
   useEffect(() => {
-    handleCalculation()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.amount, form.type])
+    handleCalculation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.amount, form.type]);
   useEffect(() => {
     if (isERate) {
       if (tabValue === 'Beli') {
-        setForm({...form, type: 'buyRate'})
+        setForm({ ...form, type: 'buyRate' });
       } else {
-        setForm({...form, type: 'sellRate'})
+        setForm({ ...form, type: 'sellRate' });
       }
     } else {
       if (tabValue === 'Beli') {
-        setForm({...form, type: 'buy'})
+        setForm({ ...form, type: 'buy' });
       } else {
-        setForm({...form, type: 'sell'})
+        setForm({ ...form, type: 'sell' });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabValue, isERate])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tabValue, isERate]);
 
   return (
     <div className="flex mdmax:flex-wrap -mx-10">
@@ -175,7 +177,9 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
                   value={form.amount}
                   type="number"
                   placeholder="Masukan Nominal"
-                  onChange={(value) => onFieldChange('amount', parseInt(value.toString()))}
+                  onChange={(value) =>
+                    onFieldChange('amount', parseInt(value.toString()))
+                  }
                 />
               </div>
             </div>
