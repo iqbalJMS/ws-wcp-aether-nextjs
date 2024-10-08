@@ -22,7 +22,7 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
     <>
       <div className=" py-10 container">
         <div className="flex flex-wrap -mx-5">
-          {data.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <div
                 key={index}
@@ -32,7 +32,7 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
                   <div className="w-full h-[7.5rem] mb-10">
                     <Image
                       extern={false}
-                      src={item.image}
+                      src={item?.image}
                       alt="image"
                       width={1920}
                       height={1080}
@@ -40,21 +40,21 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
                     />
                   </div>
                   <div>
-                    {item.title && (
+                    {item?.title && (
                       <div className="text-xl font-medium text-blue-02 mb-2">
-                        {parseHTMLToReact(item.title)}
+                        {parseHTMLToReact(item?.title)}
                       </div>
                     )}
-                    {item.description && (
+                    {item?.description && (
                       <div className="mb-5 text-base text-blue-01 h-[4.5rem] overflow-auto overflow-custom">
-                        {parseHTMLToReact(item.description)}
+                        {parseHTMLToReact(item?.description)}
                       </div>
                     )}
                     <div className="text-right">
                       <Link
-                        href={item.button.link}
-                        extern={item.button.extern}
-                        target={item.button.extern ? '_blank' : ''}
+                        href={item?.button?.link}
+                        extern={item?.button?.extern}
+                        target={item?.button?.extern ? '_blank' : ''}
                       >
                         <div className="w-10 h-10 rounded-full border border-blue-01 border-opacity-80 inline-flex items-center justify-center text-blue-01">
                           &#10095;
