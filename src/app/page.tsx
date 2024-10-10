@@ -24,6 +24,11 @@ export default async function PageAether({
     alias: 'home',
   });
 
+  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
+  const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en' });
+  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
+  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
+
   const components = data?.field_components
     ?.map((component: T_FieldComponent) => {
       const entityBundle = component?.entity_bundle?.[0]?.value as T_Widget;
@@ -43,11 +48,6 @@ export default async function PageAether({
     Component: React.ComponentType<any>;
     props: Record<string, any>;
   }>;
-
-  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
-  const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en' });
-  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
-  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
 
   return (
     <React.Fragment>

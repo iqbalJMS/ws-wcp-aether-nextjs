@@ -8,8 +8,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/web/guest',
-        destination: '/',
+        source: '/web/guest/:path*',
+        destination: '/:path*',
       },
     ];
   },
