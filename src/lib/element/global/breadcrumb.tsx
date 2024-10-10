@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { T_BreadcrumbProps } from '@/app/aether/$constant/types/widget/breadcrumb';
+import { T_BreadcrumbProps } from '@/app/(views)/$constant/types/widget/breadcrumb';
 
 const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths }) => {
   return (

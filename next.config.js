@@ -8,7 +8,7 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/aether',
+        source: '/web/guest',
         destination: '/',
       },
     ];

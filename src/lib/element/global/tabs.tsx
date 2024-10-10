@@ -2,7 +2,7 @@
 
 import { Tooltip } from './tooltip';
 import { useState } from 'react';
-import CE_CardVariant02 from '@/app/aether/$element/card/client.card.variant02';
+import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
 
 type T_TabsProps = {
   list: {

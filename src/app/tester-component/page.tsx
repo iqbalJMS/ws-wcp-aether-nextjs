@@ -2,38 +2,38 @@
 
 import React from 'react';
 
-import SE_FormMain from '@/app/aether/$element/form/server.form.main';
-import SE_PortletMain from '@/app/aether/$element/portlet/server.portlet.main';
-import SE_WysiwygMain from '@/app/aether/$element/wysiwyg/server.wysiwyg.main';
+import SE_FormMain from '@/app/(views)/$element/form/server.form.main';
+import SE_PortletMain from '@/app/(views)/$element/portlet/server.portlet.main';
+import SE_WysiwygMain from '@/app/(views)/$element/wysiwyg/server.wysiwyg.main';
 import ScrollToTop from '@/lib/element/global/scroll.top';
-import CE_BannerMain from '@/app/aether/$element/banner/client.banner.main';
-import SE_IconMain from '@/app/aether/$element/icon-menu/server.icon.main';
-import { CE_CarouselMain } from '@/app/aether/$element/carousel/client.carousel.main';
-import { CE_ContentMain } from '@/app/aether/$element/content/client.content.main';
-import CE_KursMain from '@/app/aether/$element/kurs/client.kurs.main';
+import CE_BannerMain from '@/app/(views)/$element/banner/client.banner.main';
+import SE_IconMain from '@/app/(views)/$element/icon-menu/server.icon.main';
+import { CE_CarouselMain } from '@/app/(views)/$element/carousel/client.carousel.main';
+import { CE_ContentMain } from '@/app/(views)/$element/content/client.content.main';
+import CE_KursMain from '@/app/(views)/$element/kurs/client.kurs.main';
 import Image from '@/lib/element/global/image';
-import { CE_CardVariant01 } from '@/app/aether/$element/card/client.card.variant01';
-import CE_CardVariant02 from '@/app/aether/$element/card/client.card.variant02';
-import { CE_CardVariant03 } from '@/app/aether/$element/card/client.card.variant03';
-import { CE_CardVariant04 } from '@/app/aether/$element/card/client.card.variant04';
-import { CE_CardVariant05 } from '@/app/aether/$element/card/client.card.variant05';
-import { CE_CardVariant06 } from '@/app/aether/$element/card/client.card.variant06';
-import { CE_CardVariant07 } from '@/app/aether/$element/card/client.card.variant07';
-import { CE_CardVariant08 } from '@/app/aether/$element/card/client.card.variant08';
-import { CE_CardVariant09 } from '@/app/aether/$element/card/client.card.variant09';
-import { CE_CardVariant10 } from '@/app/aether/$element/card/client.card.variant10';
-import { CE_CardVariant11 } from '@/app/aether/$element/card/client.card.variant11';
-import { CE_CardVariant12 } from '@/app/aether/$element/card/client.card.variant12';
-import { CE_CardVariant13 } from '@/app/aether/$element/card/client.card.variant13';
-import { CE_CardVariant14 } from '@/app/aether/$element/card/client.card.variant14';
-import { CE_CardVariant15 } from '@/app/aether/$element/card/client.card.variant15';
-import { T_CarouselMainProps } from '@/app/aether/$constant/types';
-import CE_CardVariant16 from '@/app/aether/$element/card/client.card.variant16';
+import { CE_CardVariant01 } from '@/app/(views)/$element/card/client.card.variant01';
+import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
+import { CE_CardVariant03 } from '@/app/(views)/$element/card/client.card.variant03';
+import { CE_CardVariant04 } from '@/app/(views)/$element/card/client.card.variant04';
+import { CE_CardVariant05 } from '@/app/(views)/$element/card/client.card.variant05';
+import { CE_CardVariant06 } from '@/app/(views)/$element/card/client.card.variant06';
+import { CE_CardVariant07 } from '@/app/(views)/$element/card/client.card.variant07';
+import { CE_CardVariant08 } from '@/app/(views)/$element/card/client.card.variant08';
+import { CE_CardVariant09 } from '@/app/(views)/$element/card/client.card.variant09';
+import { CE_CardVariant10 } from '@/app/(views)/$element/card/client.card.variant10';
+import { CE_CardVariant11 } from '@/app/(views)/$element/card/client.card.variant11';
+import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
+import { CE_CardVariant13 } from '@/app/(views)/$element/card/client.card.variant13';
+import { CE_CardVariant14 } from '@/app/(views)/$element/card/client.card.variant14';
+import { CE_CardVariant15 } from '@/app/(views)/$element/card/client.card.variant15';
+import { T_CarouselMainProps } from '@/app/(views)/$constant/types';
+import CE_CardVariant16 from '@/app/(views)/$element/card/client.card.variant16';
 import Accordion from '@/lib/element/global/accordion';
 import ImageViewer from '@/lib/element/global/image.viewer';
-// import CE_SimulationMain from '@/app/aether/$element/simulation/client.simulation.main';
+// import CE_SimulationMain from '@/app/$element/simulation/client.simulation.main';
 // import ImageViewer from '@/lib/element/global/image.viewer';
-// import InfoCards from '@/app/aether/$element/portlet/client.portlet.variant04';
+// import InfoCards from '@/app/$element/portlet/client.portlet.variant04';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [

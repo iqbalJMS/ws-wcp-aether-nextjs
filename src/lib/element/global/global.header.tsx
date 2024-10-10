@@ -275,7 +275,7 @@ export default function GlobalHeader({
             <Link href={'/'} className="w-[5rem]">
               <Image
                 alt="logo-bri"
-                src="/web/guest/aether/images/headers/logo-bri.png"
+                src="/web/guest/images/headers/logo-bri.png"
                 width={128}
                 extern
                 height={53}
@@ -422,7 +422,7 @@ export default function GlobalHeader({
                         ].join(' ')}
                       >
                         <Link
-                          href={`/aether/${item.title
+                          href={`/${item.title
                             ?.toLowerCase()
                             .replaceAll(' ', '-')}`}
                           className={[
@@ -446,7 +446,7 @@ export default function GlobalHeader({
                           <div className="bg-white">
                             <div className="container py-5">
                               <Link
-                                href={`/aether/${item.title
+                                href={`/${item.title
                                   ?.toLowerCase()
                                   .replaceAll(' ', '-')}`}
                               >
@@ -459,7 +459,7 @@ export default function GlobalHeader({
                                   return (
                                     <div key={subIndex} className="px-5">
                                       <Link
-                                        href={`/aether/${subItem.title
+                                        href={`/${subItem.title
                                           ?.toLowerCase()
                                           .replaceAll(' ', '-')}`}
                                       >
@@ -476,7 +476,7 @@ export default function GlobalHeader({
                                                 className="flex-1"
                                               >
                                                 <Link
-                                                  href={`/aether/${item.title
+                                                  href={`/${item.title
                                                     ?.toLowerCase()
                                                     .replaceAll(' ', '-')}`}
                                                 >
