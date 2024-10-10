@@ -8,3 +8,5 @@ export const WIDGET_VARIANT = {
   variant07: 'div_portlet_indent',
   variant08: 'div_portlet_01',
 };
+
+export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';

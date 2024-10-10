@@ -5,6 +5,7 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import React from 'react';
 import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
 import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 export default async function SE_PortletVariant02({
   title,
@@ -14,9 +15,7 @@ export default async function SE_PortletVariant02({
   variantWidget,
   variantLayout,
 }: Omit<T_PortletProps, 'variant'>) {
-  const background = bgImage
-    ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}/${bgImage}`
-    : '';
+  const background = bgImage ? `${API_BASE_URL}/${bgImage}` : '';
 
   const hasCenterWidget = variantWidget === WIDGET_VARIANT.variant04;
 

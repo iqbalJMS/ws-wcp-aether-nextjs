@@ -4,6 +4,7 @@ import SE_PortletVariant01Item from './server.portlet.item';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
 import Image from '@/lib/element/global/image';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 export default async function SE_PortletVariant03({
   title,
@@ -15,9 +16,7 @@ export default async function SE_PortletVariant03({
   bgImage,
   listItems,
 }: Omit<T_PortletProps, 'variant'>) {
-  const backgroundImg = bgImage
-    ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${bgImage}`
-    : '';
+  const backgroundImg = bgImage ? `${API_BASE_URL}${bgImage}` : '';
 
   return (
     <section

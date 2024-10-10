@@ -2,6 +2,7 @@
 
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from 'next/image';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 type T_PromoCardProps = {
   description: string;
@@ -33,7 +34,7 @@ const CE_PromoCard = ({
       {imageUrl && (
         <div className="flex-1 relative h-[450px]">
           <Image
-            src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}/${imageUrl}`}
+            src={`${API_BASE_URL}/${imageUrl}`}
             alt={description}
             fill
             className="object-cover w-full h-full"

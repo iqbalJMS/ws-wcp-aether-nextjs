@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 import { T_CardProps } from '@/app/(views)/$element/types/promo';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
@@ -15,7 +15,7 @@ export default function CE_Card(props: T_CardProps) {
   const { className, content, idx } = props;
 
   const modifiedSrc = !!props.content.img
-    ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}/${props.content.img}`
+    ? `${API_BASE_URL}/${props.content.img}`
     : '';
 
   return (

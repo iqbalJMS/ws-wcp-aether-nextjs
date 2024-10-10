@@ -1,5 +1,6 @@
-import { parseHTMLToReact } from "@/lib/functions/global/htmlParser";
-import CE_SubscriberForm from "./client.subscriber.form";
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import CE_SubscriberForm from './client.subscriber.form';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 type T_SubscriberContentProps = {
   bgImage?: string;
@@ -10,9 +11,7 @@ export default function SE_SubscriberContent({
   bgImage,
   description,
 }: T_SubscriberContentProps) {
-  const backgroundImg = bgImage
-    ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${bgImage}`
-    : "";
+  const backgroundImg = bgImage ? `${API_BASE_URL}${bgImage}` : '';
   return (
     <section className="py-24">
       <div className="container md:flex items-center">
@@ -20,12 +19,12 @@ export default function SE_SubscriberContent({
           <div
             style={{
               backgroundImage: `url(${backgroundImg})`,
-              backgroundSize: "cover",
+              backgroundSize: 'cover',
             }}
             className="bg-no-repeat w-full h-full absolute mdmax:-left-12 z-[2]"
           />
           <div className="absolute top-1/3 md:ml-56 ml-28 mt-4 md:text-3xl text-xl md:pr-16">
-            {parseHTMLToReact(description ?? "")}
+            {parseHTMLToReact(description ?? '')}
           </div>
         </div>
         <CE_SubscriberForm />
