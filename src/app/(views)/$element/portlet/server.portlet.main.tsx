@@ -21,6 +21,7 @@ export default async function SE_PortletMain({
   variantLayout,
   variant = '01',
   listItems,
+  marginLeft,
 }: T_PortletProps) {
   return (
     <>
@@ -28,6 +29,7 @@ export default async function SE_PortletMain({
         <SE_PortletVariant01
           title={title}
           subtitle={subtitle}
+          marginLeft={marginLeft}
           textLink={textLink}
           navigationLink={navigationLink}
           bgImage={bgImage}

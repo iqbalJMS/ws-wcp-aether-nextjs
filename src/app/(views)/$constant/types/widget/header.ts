@@ -1,4 +1,3 @@
-// todo
 type FieldTitle = { value: string };
 type FieldContent = { value: string };
 

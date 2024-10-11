@@ -23,7 +23,7 @@ type FieldImage = {
   default_langcode: any[];
   revision_translation_affected: any[];
   path: any[];
-  field_media_image: any[];
+  field_media_image: FieldImageItem['field_media_image'];
 };
 
 type FieldPrimaryCTA = {
@@ -45,8 +45,10 @@ export type T_Section = {
   field_note?: any[];
   field_primary_cta?: FieldPrimaryCTA[];
   field_column?: Array<{
-    field_image?: any;
+    field_image?: Array<FieldImageItem>;
+    field_primary_cta?: FieldPrimaryCTA[];
     field_content?: any;
+    field_alignment?: Array<{ value: string }>;
     field_title?: any;
     field_image_slider_items?: Array<{
       field_image?: Array<FieldImageItem>;

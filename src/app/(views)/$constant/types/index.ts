@@ -17,6 +17,7 @@ export type T_Widget =
   | 'kurs'
   | 'staircase_cards'
   | 'breadcrumb'
+  | 'image'
   | 'kurs'
   | 'two_column'
   | 'bbri_stock_market';

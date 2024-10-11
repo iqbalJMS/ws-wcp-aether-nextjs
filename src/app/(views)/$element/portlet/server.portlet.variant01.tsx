@@ -14,12 +14,13 @@ export default async function SE_PortletVariant01({
   navigationLink,
   bgImage,
   listItems,
+  marginLeft,
 }: Omit<T_PortletProps, 'variant'>) {
   const backgroundImg = bgImage ? `${API_BASE_URL}${bgImage}` : '';
 
   return (
     <section
-      className="component-portlet-01 w-full bg-no-repeat pt-20 pb-12"
+      className="component-portlet-01 w-full bg-no-repeat pt-20 pb-12 my-8"
       style={{
         backgroundImage: `url(${
           bgImage
@@ -41,7 +42,9 @@ export default async function SE_PortletVariant01({
             {parseHTMLToReact(subtitle)}
           </div>
         )}
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-8 py-12 md:max-w-4xl max-w-[90%]">
+        <div
+          className={`grid md:grid-cols-2 grid-cols-1 gap-8 py-12 md:max-w-4xl max-w-[90%] ${marginLeft?.includes('medium') ? 'lg:ml-12' : ''}`}
+        >
           {listItems?.map((item, index) => (
             <SE_PortletItem key={index} list_item={item} />
           ))}

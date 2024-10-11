@@ -10,6 +10,7 @@ export type T_PortletProps = {
     buttonText?: string;
     buttonLink?: string;
   }>;
+  marginLeft?: 'medium' | string;
   headerAlignment?: 'left' | 'center' | 'right';
   imageContentAlignment?: 'left' | 'center' | 'right';
   variantWidget?: string;

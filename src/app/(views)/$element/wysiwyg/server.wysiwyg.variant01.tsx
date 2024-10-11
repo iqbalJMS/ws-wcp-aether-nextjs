@@ -12,9 +12,9 @@ export default async function SE_WysiwygVariant01({
   content,
 }: Omit<T_WysiwygProps, 'variant'>) {
   return (
-    <section className="container">
-      <h1 className="font-bold text-3xl mb-4">{title}</h1>
-      <p className="text-sm text-gray-400">{createdAt}</p>
+    <section className="container my-8">
+      {title && <h1 className="font-bold text-3xl mb-4">{title}</h1>}
+      {createdAt && <p className="text-sm text-gray-400">{createdAt}</p>}
       {buttonText && (
         <div className="flex justify-end py-10">
           <button
@@ -27,14 +27,14 @@ export default async function SE_WysiwygVariant01({
       <div className="w-full h-full rounded-xl overflow-hidden my-5 inline-block">
         <Image
           extern={false}
-          src={imageContent}
+          src={imageContent ?? ''}
           alt="image"
           width={1920}
           height={1080}
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="w-full">{parseHTMLToReact(content)}</div>
+      {content && <div className="w-full">{parseHTMLToReact(content)}</div>}
     </section>
   );
 }

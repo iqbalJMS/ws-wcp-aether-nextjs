@@ -12,6 +12,7 @@ import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { WIDGET_VARIANT } from './variables';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { Tabs } from '@/lib/element/global/tabs';
+import { T_Image } from './types/widget/image';
 
 const CE_PromoCard = dynamic(
   () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
@@ -56,6 +57,10 @@ const CE_CardVariant02 = dynamic(
 
 const CE_SectionPromo = dynamic(
   () => import('@/app/(views)/$element/promo/client.section-promo')
+);
+
+const SE_WysiwygMain = dynamic(
+  () => import('@/app/(views)/$element/wysiwyg/server.wysiwyg.main')
 );
 
 // const CE_ContentMain = dynamic(
@@ -187,15 +192,54 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return <CE_CardVariant02 data={props?.[0]?.data} />;
         case WIDGET_VARIANT.variant07:
           return (
-            <div className="h-[10rem] w-full flex justify-center items-center">
-              -
-            </div>
+            <SE_PortletMain
+              title={props?.[0]?.field_formatted_title?.[0]?.value}
+              subtitle={props?.[0]?.field_content?.[0]?.value}
+              listItems={props?.[0].field_column?.map(
+                (item: { field_content: Array<{ value: string }> }) => {
+                  return {
+                    text: item?.field_content?.[0]?.value,
+                  };
+                }
+              )}
+              marginLeft="medium"
+              navigationLink={props?.[0]?.field_primary_cta?.[0]?.uri}
+              bgImage={
+                props?.[0]?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                  ?.url
+              }
+              variant="01"
+            />
           );
         case WIDGET_VARIANT.variant08:
           return (
-            <div className="h-[10rem] w-full flex justify-center items-center">
-              -
-            </div>
+            <SE_PortletMain
+              title={props?.[0]?.field_formatted_title?.[0]?.value}
+              subtitle={props?.[0]?.field_content?.[0]?.value}
+              listItems={props?.[0].field_column?.map(
+                (item: {
+                  field_content: Array<{
+                    value: string;
+                  }>;
+                  field_image: Array<{
+                    field_media_image: Array<{ uri: Array<{ url: string }> }>;
+                  }>;
+                }) => {
+                  return {
+                    image:
+                      item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                        ?.url,
+                    text: item?.field_content?.[0]?.value,
+                  };
+                }
+              )}
+              navigationLink={props?.[0]?.field_primary_cta?.[0]?.uri}
+              bgImage={
+                props?.[0]?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                  ?.url
+              }
+              variant="01"
+            />
           );
         default:
           return null;
@@ -207,7 +251,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0].field_key?.[0]?.value;
 
-      // console.log({ findVariantStyle });
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
           return {
@@ -249,10 +292,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
                 title: item?.field_title?.[0]?.value,
                 description: item?.field_content?.[0]?.value,
+                imagePosition: item?.field_alignment?.[0]?.value,
                 button: {
-                  // TODO waiting data from drupal
-                  link: 'https://bri.co.id',
-                  title: 'Selengkapnya',
+                  link: item?.field_primary_cta?.[0]?.uri,
+                  title: item?.field_primary_cta?.[0]?.title,
                   extern: true,
                 },
               };
@@ -261,10 +304,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant07:
           return {
             variant: findVariantStyle,
+            ..._component,
           };
         case WIDGET_VARIANT.variant08:
           return {
             variant: findVariantStyle,
+            ..._component,
           };
         default:
           return null;
@@ -326,6 +371,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     props: (_component: T_MultiTab) => {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant05:
           return {
@@ -338,7 +384,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 children: item?.field_paragraphs?.[0]?.field_column?.map(
                   (item) => {
                     return {
-                      variant: item?.field_icon_cta_style?.[0]?.value,
+                      imagePosition: item?.field_alignment?.[0]?.value,
                       title: item?.field_title?.[0]?.value,
                       description: item?.field_content?.[0].value,
                       image:
@@ -466,6 +512,17 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         description: contentLeft,
         reverse: hasImageFirstColumn,
         imageUrl: imageUrl,
+      };
+    },
+  },
+  image: {
+    component: (...props) => {
+      return <SE_WysiwygMain variant="01" imageContent={props?.[0]?.image} />;
+    },
+    props: (_component: T_Image) => {
+      return {
+        image:
+          _component?.field_image?.[0]?.field_media_image?.[0].uri?.[0].url,
       };
     },
   },

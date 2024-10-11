@@ -8,11 +8,11 @@ export default async function SE_PortletItem({
 }: T_PortletItemProps) {
   return (
     <div className="flex gap-4">
-      {list_item.image && (
+      {list_item?.image && (
         <div className="md:w-1/4">
           <Image
             extern={false}
-            src={list_item.image}
+            src={list_item?.image}
             alt="image"
             width={0}
             height={0}
@@ -21,7 +21,9 @@ export default async function SE_PortletItem({
           />
         </div>
       )}
-      <div className="w-full">{parseHTMLToReact(list_item.text ?? '')}</div>
+      {list_item?.text && (
+        <div className="w-full">{parseHTMLToReact(list_item?.text ?? '')}</div>
+      )}
     </div>
   );
 }
