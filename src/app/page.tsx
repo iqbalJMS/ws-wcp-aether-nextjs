@@ -21,7 +21,7 @@ export default async function PageAether({
 }) {
   const data = await ACT_GetSinglePage({
     lang: searchParams?.lang,
-    alias: 'home',
+    alias: 'homepage',
   });
 
   const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });

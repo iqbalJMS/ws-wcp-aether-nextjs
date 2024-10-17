@@ -22,6 +22,7 @@ export default async function SE_PortletMain({
   variant = '01',
   listItems,
   marginLeft,
+  column = '2',
 }: T_PortletProps) {
   return (
     <>
@@ -33,6 +34,7 @@ export default async function SE_PortletMain({
           textLink={textLink}
           navigationLink={navigationLink}
           bgImage={bgImage}
+          column={column}
           listItems={listItems}
         />
       )}

@@ -15,6 +15,7 @@ export default async function SE_PortletVariant01({
   bgImage,
   listItems,
   marginLeft,
+  column,
 }: Omit<T_PortletProps, 'variant'>) {
   const backgroundImg = bgImage ? `${API_BASE_URL}${bgImage}` : '';
 
@@ -43,7 +44,7 @@ export default async function SE_PortletVariant01({
           </div>
         )}
         <div
-          className={`grid md:grid-cols-2 grid-cols-1 gap-8 py-12 md:max-w-4xl max-w-[90%] ${marginLeft?.includes('medium') ? 'lg:ml-12' : ''}`}
+          className={`grid md:grid-cols-${column} grid-cols-1 gap-8 py-12 md:max-w-4xl ${marginLeft?.includes('medium') ? 'lg:ml-12' : ''}`}
         >
           {listItems?.map((item, index) => (
             <SE_PortletItem key={index} list_item={item} />
