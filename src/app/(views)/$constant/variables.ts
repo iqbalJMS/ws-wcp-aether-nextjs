@@ -7,6 +7,7 @@ export const WIDGET_VARIANT = {
   variant06: 'div_tab_card_02',
   variant07: 'div_portlet_indent',
   variant08: 'div_portlet_01',
+  variant09: 'div_card_02',
 };
 
 export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';

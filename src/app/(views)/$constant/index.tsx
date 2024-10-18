@@ -25,6 +25,10 @@ const SE_SubscriberContent = dynamic(
   () => import('@/app/(views)/$element/server.subscriber.content')
 );
 
+const CE_CarouselMain = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.main')
+);
+
 const SE_PortletMain = dynamic(
   () => import('@/app/(views)/$element/portlet/server.portlet.main')
 );
@@ -64,6 +68,10 @@ const SE_WysiwygMain = dynamic(
   () => import('@/app/(views)/$element/wysiwyg/server.wysiwyg.main')
 );
 
+const CE_CardVariant08 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant08')
+);
+
 // const CE_ContentMain = dynamic(
 //   () => import(''@/app/web/guest/$element/content/client.content.main')
 // );
@@ -88,9 +96,7 @@ const SE_WysiwygMain = dynamic(
 // const CE_CardVariant07 = dynamic(
 //   () => import(''@/app/web/guest/$element/card/client.card.variant07')
 // );
-// const CE_CardVariant08 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant08')
-// );
+
 // const CE_CardVariant09 = dynamic(
 //   () => import(''@/app/web/guest/$element/card/client.card.variant09')
 // );
@@ -129,18 +135,40 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   slider: {
-    component: CE_BannerMain,
+    component: (...props) => {
+      const findVariantStyle = props?.[0]?.variant;
+      const data = props?.[0]?.data;
+      switch (findVariantStyle) {
+        case 'header_curved':
+        default:
+          return <CE_BannerMain variant="01" data={data} />;
+      }
+    },
     props: (_component: T_Slider) => {
-      return {
-        data: _component?.field_slider_items?.map((item) => {
+      const findVariantStyle = _component?.field_slider_variant?.[0]?.value;
+      const data = _component?.field_slider_items?.map((item) => {
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
+        const title = item?.field_title?.[0]?.value;
+        const description = item?.field_content?.[0]?.value;
+        const button = item?.field_primary_cta[0]?.title;
+
+        return {
+          image: image,
+          title: title,
+          desc: description,
+          button: button,
+        };
+      });
+
+      switch (findVariantStyle) {
+        case 'header_curved':
+        default:
           return {
-            image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
-            title: item?.field_title?.[0]?.value,
-            desc: item?.field_content?.[0]?.value,
-            button: item?.field_primary_cta[0]?.title,
+            variant: findVariantStyle,
+            data: data,
           };
-        }),
-      };
+      }
     },
   },
   dropdown_action: {
@@ -239,6 +267,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               }
             />
           );
+        case WIDGET_VARIANT.variant09:
+          return <CE_CardVariant08 title={title} data={listItems} />;
         default:
           return null;
       }
@@ -253,7 +283,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title = _component?.field_formatted_title?.[0]?.value;
       const textLink = _component?.field_primary_cta?.[0]?.title;
       const backgroundImage =
-        _component?.field_image?.[0]?.field_media_image[0]?.uri[0]?.url;
+        _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
       const titleV01 = _component?.field_column?.[0].field_title?.[0]?.value;
       const dataV01 =
         _component?.field_column?.[0]?.field_image_slider_items?.map((item) => {
@@ -336,6 +366,24 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               };
             }),
             backgroundImage: backgroundImage,
+          };
+        case WIDGET_VARIANT.variant09:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: _component?.field_column?.map((item) => {
+              return {
+                title: item.field_title?.[0]?.value,
+                description: item?.field_content?.[0]?.value,
+                image:
+                  item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                button: {
+                  link: item?.field_primary_cta?.[0]?.uri,
+                  title: item?.field_primary_cta?.[0]?.title,
+                  extern: true,
+                },
+              };
+            }),
           };
         default:
           return null;
@@ -584,9 +632,42 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: ({ element }: { element: string }) => (
       <div className="container mx-auto my-6">{parseHTMLToReact(element)}</div>
     ),
-    props: (_component) => {
+    props: (_component: { field_content?: Array<{ value: string }> }) => {
       return {
         element: _component?.field_content?.[0]?.value,
+      };
+    },
+  },
+  carousel: {
+    component: (...props: Array<{ title?: string; data: Array<any> }>) => {
+      const title = props?.[0]?.title;
+      const data = props?.[0]?.data;
+
+      return <CE_CarouselMain variant="01" data={data} title={title} />;
+    },
+    props: (_component: {
+      field_carousel_items: Array<{
+        field_title: Array<{ value: string }>;
+        field_image: Array<{
+          field_media_image: Array<{ uri: Array<{ url: string }> }>;
+        }>;
+      }>;
+      field_title_custom: Array<{ value: string }>;
+      field_content: Array<{ value: string }>;
+    }) => {
+      const title = _component?.field_title_custom?.[0]?.value;
+      const data = _component?.field_carousel_items?.map((item) => {
+        const title = item?.field_title?.[0]?.value;
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        return {
+          image: image,
+          title: title,
+        };
+      });
+      return {
+        title: title,
+        data: data,
       };
     },
   },

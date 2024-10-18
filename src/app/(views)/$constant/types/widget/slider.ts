@@ -17,4 +17,5 @@ type T_EntityData = {
 
 export type T_Slider = {
   field_slider_items: Array<T_EntityData>;
+  field_slider_variant: Array<{ value: string }>;
 };
