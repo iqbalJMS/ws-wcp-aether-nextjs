@@ -7,7 +7,7 @@ import { CE_CarouselVariant03 } from './client.carousel.variant03';
 import { CE_CarouselVariant04 } from './client.carousel.variant04';
 import { CE_CarouselVariant05 } from './client.carousel.variant05';
 
-export function CE_CarouselMain({
+export default function CE_CarouselMain({
   data,
   title,
   button,

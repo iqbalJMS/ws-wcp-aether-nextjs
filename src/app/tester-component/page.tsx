@@ -8,7 +8,7 @@ import SE_WysiwygMain from '@/app/(views)/$element/wysiwyg/server.wysiwyg.main';
 import ScrollToTop from '@/lib/element/global/scroll.top';
 import CE_BannerMain from '@/app/(views)/$element/banner/client.banner.main';
 import SE_IconMain from '@/app/(views)/$element/icon-menu/server.icon.main';
-import { CE_CarouselMain } from '@/app/(views)/$element/carousel/client.carousel.main';
+import CE_CarouselMain from '@/app/(views)/$element/carousel/client.carousel.main';
 import { CE_ContentMain } from '@/app/(views)/$element/content/client.content.main';
 import CE_KursMain from '@/app/(views)/$element/kurs/client.kurs.main';
 import Image from '@/lib/element/global/image';
@@ -19,7 +19,7 @@ import { CE_CardVariant04 } from '@/app/(views)/$element/card/client.card.varian
 import { CE_CardVariant05 } from '@/app/(views)/$element/card/client.card.variant05';
 import { CE_CardVariant06 } from '@/app/(views)/$element/card/client.card.variant06';
 import { CE_CardVariant07 } from '@/app/(views)/$element/card/client.card.variant07';
-import { CE_CardVariant08 } from '@/app/(views)/$element/card/client.card.variant08';
+import CE_CardVariant08 from '@/app/(views)/$element/card/client.card.variant08';
 import { CE_CardVariant09 } from '@/app/(views)/$element/card/client.card.variant09';
 import { CE_CardVariant10 } from '@/app/(views)/$element/card/client.card.variant10';
 import { CE_CardVariant11 } from '@/app/(views)/$element/card/client.card.variant11';

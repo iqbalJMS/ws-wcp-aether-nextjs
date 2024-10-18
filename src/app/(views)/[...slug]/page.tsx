@@ -22,7 +22,7 @@ export default async function PageAetherDetail({
   const getNodeId = slug?.[0];
   const data = await ACT_GetSinglePage({
     lang: lang ?? 'en',
-    alias: getNodeId,
+    alias: getNodeId ?? '',
   });
 
   const components = data?.field_components

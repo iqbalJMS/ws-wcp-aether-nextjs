@@ -18,7 +18,7 @@ export function CE_CarouselVariant01({
   const slidesToScroll = 1;
 
   const nextSlide = () => {
-    if (currentSlide < data.length - slidesToShow) {
+    if (currentSlide < data?.length - slidesToShow) {
       setCurrentSlide(currentSlide + slidesToScroll);
     }
   };
@@ -49,7 +49,7 @@ export function CE_CarouselVariant01({
               <button
                 className={[
                   'w-12 h-12 mdmax:w-8 mdmax:h-8 bg-red-01 text-white',
-                  currentSlide < data.length - slidesToShow
+                  currentSlide < data?.length - slidesToShow
                     ? 'cursor-pointer '
                     : 'bg-opacity-10 cursor-default',
                 ].join(' ')}
@@ -74,14 +74,14 @@ export function CE_CarouselVariant01({
                 transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`,
               }}
             >
-              {data.map((dataItem, index) => (
+              {data?.map((dataItem, index) => (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
-                  <Link href={dataItem.button?.link || ''} target="_blank">
+                  <Link href={dataItem?.button?.link || ''} target="_blank">
                     <div className="p-4 mdmax:p-2 shadow-lg">
                       <div className="w-full h-[12rem] mb-2">
                         <Image
                           extern={false}
-                          src={dataItem.image}
+                          src={dataItem?.image}
                           alt="image"
                           width={400}
                           height={400}
@@ -90,11 +90,11 @@ export function CE_CarouselVariant01({
                       </div>
                       <div>
                         <div className=" text-red-01 font-semibold mb-2">
-                          {parseHTMLToReact(dataItem.title)}
+                          {parseHTMLToReact(dataItem?.title)}
                         </div>
-                        {dataItem.desc && (
+                        {dataItem?.desc && (
                           <div className="text-xs h-[4rem] overflow-auto">
-                            {parseHTMLToReact(dataItem.desc)}
+                            {parseHTMLToReact(dataItem?.desc)}
                           </div>
                         )}
                       </div>

@@ -18,13 +18,18 @@ type T_CardVariant08Props = {
   }[];
 };
 
-export function CE_CardVariant08({ title, data }: T_CardVariant08Props) {
+export default function CE_CardVariant08({
+  title,
+  data,
+}: T_CardVariant08Props) {
   return (
     <>
       <div className="py-10 container overflow-hidden">
         {title && (
           <div className="text-center mb-10">
-            <div className="text-3xl font-semibold ">{title}</div>
+            <div className="text-3xl font-semibold ">
+              {parseHTMLToReact(title)}
+            </div>
           </div>
         )}
 

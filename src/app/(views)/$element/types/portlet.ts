@@ -4,6 +4,7 @@ export type T_PortletProps = {
   subtitle?: string;
   imageAtTitle?: string;
   imageAtContent?: string;
+  column?: string;
   textLink?: string;
   navigationLink?: string;
   buttonItems?: Array<{
@@ -18,13 +19,15 @@ export type T_PortletProps = {
   variantLayout?: 'rounded_corneer' | 'square' | 'full' | 'large';
   listItems?: Array<{
     image?: string;
-    text: string;
+    text?: string;
+    title?: string;
   }>;
 };
 
 export type T_PortletItemProps = {
   list_item: {
+    title?: string;
     image?: string;
-    text: string;
+    text?: string;
   };
 };

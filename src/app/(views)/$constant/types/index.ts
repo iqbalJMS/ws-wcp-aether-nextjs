@@ -20,6 +20,7 @@ export type T_Widget =
   | 'image'
   | 'kurs'
   | 'two_column'
+  | 'rich_text'
   | 'bbri_stock_market';
 
 export type T_IconList = {

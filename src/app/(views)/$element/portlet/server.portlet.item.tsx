@@ -21,9 +21,15 @@ export default async function SE_PortletItem({
           />
         </div>
       )}
-      {list_item?.text && (
-        <div className="w-full">{parseHTMLToReact(list_item?.text ?? '')}</div>
-      )}
+      <div className="w-full flex-col">
+        {list_item?.title && (
+          <div className="text-xl font-semibold text-[#035094] mb-4">
+            {parseHTMLToReact(list_item?.title ?? '')}
+          </div>
+        )}
+
+        {list_item?.text && parseHTMLToReact(list_item?.text ?? '')}
+      </div>
     </div>
   );
 }
