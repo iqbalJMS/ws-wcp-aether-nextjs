@@ -1,39 +1,30 @@
 'use client';
+import { T_PostResponse } from '@/api/common/fetch.type';
+import { T_SimulationKPR, T_SimulationKPRRequest } from '@/api/simulation/kpr/api.get..simulation-kpr.type';
 import { validateMin } from '@/lib/functions/global/validation';
 /* eslint-disable no-unused-vars */
 
 import { Arrival, Call, Departure } from '@strix/client';
+import { ACT_GetSimulationKPR } from '@/app/(views)/$action/action.get.simulation-kpr';
 export type T_CreateSimulationKPR = {
   amountLoan: number;
   period: number;
   rate: number;
 };
 
-// export function CFN_CreatePersonalInfo(
-//   transit: Call,
-//   data: T_PersonalInfoForm,
-//   onSuccess: (
-//     result: T_CreatePersonalInfoResponse,
-//     form: T_CreatePersonalInfoRequest
-//   ) => void,
-//   onError: () => void,
-//   onLoading: (status: boolean) => void
-// ) {
-//   transit(async () => {
-//     onLoading(true);
-//     const payload: T_CreatePersonalInfoRequest =
-//       CFN_MapToPersonalInfoPayload(data);
-//     const dataEncrypted = Departure(payload);
-//     const actionResult = await ACT_CreatePersonalInfo(dataEncrypted);
-//     const result = Arrival<T_CreatePersonalInfoResponse>(actionResult);
-//     if (result) {
-//       onSuccess(result, data);
-//     } else {
-//       onError();
-//     }
-//     onLoading(false);
-//   });
-// }
+export function CFN_GetSimulationKPR(
+  transit: Call,
+  data: T_SimulationKPRRequest,
+  onSuccess?: (data: T_PostResponse<T_SimulationKPR> | undefined) => void
+) {
+  transit(async () => {
+    const actionResult = await ACT_GetSimulationKPR(data);
+    if (onSuccess) {
+      onSuccess(actionResult);
+    }
+  });
+}
+
 
 export function CFN_MapToSimulationKPRPayload(
   form: T_CreateSimulationKPR

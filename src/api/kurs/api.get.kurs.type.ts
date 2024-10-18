@@ -1,8 +1,8 @@
 export type T_Kurs = {
-  postBuyRateeRateCalculator?: string
-  postSellRateeRateCalculator?: string
-  postBuyRateCounterCalculator?: string
-  postSellRateCounterCalculator?: string
+  postBuyRateeRateCalculator?: number
+  postSellRateeRateCalculator?: number
+  postBuyRateCounterCalculator?: number
+  postSellRateCounterCalculator?: number
 };
 
 export type T_KursRequest = {

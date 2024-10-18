@@ -3,7 +3,9 @@
 
 import { T_FetchOptions } from './fetch.type';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || 'https://admin-bri-corpsite.dev-kjt.id';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT ||
+  'https://admin-bri-corpsite.dev-kjt.id';
 
 const DEFAULT_HEADERS: HeadersInit = {
   'Content-Type': 'application/json',
@@ -14,17 +16,16 @@ async function fetchData<T>(
   options: T_FetchOptions = {}
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
-  
   const response = await fetch(url, {
     ...options,
-    next: {
+    next: options.method !== 'POST' ? {
       revalidate: 120,
-    },
+    } : {},
     headers: {
-      ...DEFAULT_HEADERS,
+      ...(options.method !== 'POST' ? DEFAULT_HEADERS : {}),
       ...options.headers,
     },
-    body: options?.body ? JSON.stringify(options.body) : null,
+    body: options?.body ? (options.method !== 'POST' ? JSON.stringify(options.body) : options.body) : null,
   });
 
   const contentType = response.headers.get('content-type');
@@ -41,10 +42,10 @@ async function fetchData<T>(
       }, please reload - ${url} ${options.method} ${JSON.stringify(options.body)}`
     );
   }
-
   if (contentType && contentType.includes('application/json')) {
     return response.json();
   } else {
+    
     throw new Error('Unexpected response type');
   }
 }

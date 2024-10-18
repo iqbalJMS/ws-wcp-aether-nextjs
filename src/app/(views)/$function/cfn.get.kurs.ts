@@ -1,37 +1,25 @@
 'use client';
 
-import { T_KursRequest } from '@/api/kurs/api.get.kurs.type';
+import { T_Kurs, T_KursRequest } from '@/api/kurs/api.get.kurs.type';
 import { validateMin } from '@/lib/functions/global/validation';
 /* eslint-disable no-unused-vars */
 
 import { Arrival, Call, Departure } from '@strix/client';
 import { ACT_GetKurs } from '@/app/(views)/$action/action.get.kurs';
+import { T_PostResponse } from '@/api/common/fetch.type';
 export type T_GetKurs = T_KursRequest;
 
 export function CFN_GetKurs(
   transit: Call,
-  data: T_GetKurs
-  // onSuccess: (
-  //   result: T_CreatePersonalInfoResponse,
-  //   form: T_CreatePersonalInfoRequest
-  // ) => void,
-  // onError: () => void,
-  // onLoading: (status: boolean) => void
+  data: T_GetKurs,
+  onSuccess?: (data: T_PostResponse<T_Kurs> | undefined) => void
 ) {
   transit(async () => {
-    // onLoading(true);
     const payload = CFN_MapToKursPayload(data);
-    const dataEncrypted = Departure(payload);
     const actionResult = await ACT_GetKurs(payload);
-    // console.log(payload)
-    // console.log(actionResult)
-    // const result = Arrival<T_CreatePersonalInfoResponse>(actionResult);
-    // if (result) {
-    //   onSuccess(result, data);
-    // } else {
-    //   onError();
-    // }
-    // onLoading(false);
+    if (onSuccess) {
+      onSuccess(actionResult);
+    }
   });
 }
 

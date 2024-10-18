@@ -61,7 +61,13 @@ export function Tabs({
               >
                 {item?.title && (
                   <div
-                    className={`mr-2 mdmax:text-sm uppercase ${menuActive === index ? 'text-blue-01' : ''}`}
+                    className={`mr-2 mdmax:text-sm uppercase ${
+                      menuActive === index
+                        ? variant === 'full'
+                          ? 'text-white'
+                          : 'text-blue-01'
+                        : ''
+                    }`}
                   >
                     {item?.title}
                   </div>

@@ -56,6 +56,7 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
   const [tabValue, setTabValue] = useState<T_GetKurs['calcType']>(
     (tabs.at(0)?.slug as T_GetKurs['calcType']) || 'Beli'
   );
+  const [calculationResult, setCalculationResult] = useState(0);
   const { form, setForm, onFieldChange, validateForm } = useForm<
     T_GetKurs,
     T_GetKurs
@@ -76,28 +77,33 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
     }
     const isValid = validateForm();
     if (isValid) {
-      CFN_GetKurs(transiting, form);
+      CFN_GetKurs(transiting, form, (data) => {
+        const resultMapping = {
+          buy: data?.data.postBuyRateCounterCalculator,
+          sell: data?.data.postSellRateCounterCalculator,
+          buyRate: data?.data.postSellRateeRateCalculator,
+          sellRate: data?.data.postBuyRateeRateCalculator,
+        };
+    
+        setCalculationResult(resultMapping[form.type] || 0);
+      });
     }
   };
 
   useEffect(() => {
     handleCalculation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.amount, form.type]);
+  }, [form.amount, form.type, form.fromCurrency, form.toCurrency]);
   useEffect(() => {
-    if (isERate) {
-      if (tabValue === 'Beli') {
-        setForm({ ...form, type: 'buyRate' });
-      } else {
-        setForm({ ...form, type: 'sellRate' });
-      }
-    } else {
-      if (tabValue === 'Beli') {
-        setForm({ ...form, type: 'buy' });
-      } else {
-        setForm({ ...form, type: 'sell' });
-      }
-    }
+    const type = isERate
+      ? tabValue === 'Beli'
+        ? 'buyRate'
+        : 'sellRate'
+      : tabValue === 'Beli'
+        ? 'buy'
+        : 'sell';
+
+    setForm({ ...form, calcType: tabValue, type });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabValue, isERate]);
 
@@ -199,7 +205,9 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
                 />
               </div>
               <div className="flex-1 px-2">
-                <div className="text-blue-01 px-4">0</div>
+                <div className="text-blue-01 px-4">
+                  {new Intl.NumberFormat('EN-us').format(calculationResult)}
+                </div>
               </div>
             </div>
           </div>

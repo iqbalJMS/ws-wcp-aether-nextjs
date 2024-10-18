@@ -108,7 +108,7 @@ export function CE_IconMain({
             {list.map((listItem, listIndex) => {
               return (
                 listItem.active && (
-                  <div className="w-1/5 mdmax:w-1/2 flex-none">
+                  <div key={listIndex} className="w-1/5 mdmax:w-1/2 flex-none">
                     <Link
                       href={listItem.link}
                       extern={listItem.externalLink}

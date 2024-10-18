@@ -1,18 +1,21 @@
 import InputSlider from '@/lib/element/global/input.slider';
 import CE_SimulationLabel from './client.simulation.label';
 import InputText from '@/lib/element/global/input.text';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import useForm from '@/lib/hook/useForm';
 import {
+  CFN_GetSimulationKPR,
   CFN_MapToSimulationKPRPayload,
   CFN_ValidateCreateSimulationKPRFields,
   T_CreateSimulationKPR,
-} from '@/app/(views)/$function/cfn.create.simulation-kpr';
+} from '@/app/(views)/$function/cfn.get.simulation-kpr';
 import InputError from '@/lib/element/global/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import { T_SimulationKPR } from '@/api/simulation/kpr/api.get..simulation-kpr.type';
 
 const CE_SimulationKPRMain = () => {
+  const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
   const [formDisabled, setFormDisabled] = useState({
     loanAmount: true,
@@ -24,14 +27,29 @@ const CE_SimulationKPRMain = () => {
   >(
     CFN_MapToSimulationKPRPayload({
       amountLoan: 0,
-      period: 0,
+      period: 1,
       rate: 5,
     }),
     CFN_ValidateCreateSimulationKPRFields
   );
-
-  const handleSubmit = () => {
-    setIsResult(true);
+  const [result, setResult] = useState<T_SimulationKPR>();
+  const handleSubmit = async () => {
+    if (pending) {
+      return;
+    }
+    CFN_GetSimulationKPR(
+      transiting,
+      {
+        installmentAmount: form.amountLoan,
+        installmentTerm: form.period,
+      },
+      (data) => {
+        setResult(data?.data);
+        setIsResult(true);
+      }
+    );
+    
+    
   };
 
   return (
@@ -41,7 +59,7 @@ const CE_SimulationKPRMain = () => {
           values={[
             {
               label: 'Estimasi Angsuran Bulanan',
-              value: '154120937',
+              value: result?.monthlyInstallment.toString() || '0',
             },
           ]}
           onClose={() => setIsResult(false)}

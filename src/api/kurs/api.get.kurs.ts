@@ -2,21 +2,32 @@
 
 import { post } from '@/api/common/fetch';
 import { T_Kurs, T_KursRequest } from './api.get.kurs.type';
+import { T_PostResponse } from '@/api/common/fetch.type';
 
 export async function API_GetKurs(request: T_KursRequest) {
   try {
     const initialUrl = {
       buy: '/api/brimw/kurs/postBuyRateCounterCalculator',
       sell: '/api/brimw/kurs/postSellRateCounterCalculator',
-      buyRate: '/api/brimw/kurs/postSellRateeRateCalculator',
+      buyRate: '/api/brimw/kurs/postBuyRateeRateCalculator',
       sellRate: '/api/brimw/kurs/postSellRateeRateCalculator',
     };
 
     const url = initialUrl[request.type];
     if (!url) return undefined;
+    
     // eslint-disable-next-line no-unused-vars
     const { type, ...newRequest } = request;
-    const response = await post<T_Kurs>(url, newRequest);
+
+    
+    const formData = new FormData();
+
+    
+    Object.entries(newRequest).forEach(([key, value]) => {
+      formData.append(key, value.toString()); 
+    });
+    
+    const response = await post<T_PostResponse<T_Kurs>>(url, formData);
     
     return response;
   } catch (error) {
