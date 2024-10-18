@@ -67,7 +67,7 @@ export function CE_CarouselVariant01({
               </Link>
             )}
           </div>
-          <div className="overflow-hidden mdmax:w-full mdmax:flex-none p-5 mdmax:p-1">
+          <div className="overflow-hidden flex-1 mdmax:w-full mdmax:flex-none p-5 mdmax:p-1">
             <div
               className="flex -mx-2 transition-all ease-in-out duration-300"
               style={{
