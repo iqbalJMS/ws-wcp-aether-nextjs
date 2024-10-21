@@ -28,7 +28,7 @@ export default async function PageAetherDetail({
   const components = data?.field_components
     ?.map((component: T_FieldComponent) => {
       const entityBundle = component?.entity_bundle?.[0]?.value as T_Widget;
-
+      console.log({ entityBundle });
       const componentConfig = COMPONENT_MAP_WIDGET[entityBundle];
       if (componentConfig) {
         const { component: Component, props } = componentConfig;

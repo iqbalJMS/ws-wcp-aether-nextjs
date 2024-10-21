@@ -5,6 +5,7 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant02Props = {
+  title: string;
   data: {
     imagePosition?: 'left' | string;
     title: string;
@@ -18,10 +19,18 @@ type T_CardVariant02Props = {
   }[];
 };
 
-export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
+export default function CE_CardVariant02({
+  data,
+  title,
+}: T_CardVariant02Props) {
   return (
     <>
       <div className=" py-10 container">
+        {title && (
+          <div className="text-3xl font-semibold">
+            {parseHTMLToReact(title)}
+          </div>
+        )}
         <div className="flex flex-wrap -mx-5">
           {data?.map((item, index) => {
             return (
