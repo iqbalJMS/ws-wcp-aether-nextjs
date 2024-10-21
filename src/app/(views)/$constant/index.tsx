@@ -18,6 +18,9 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 const CE_PromoCard = dynamic(
   () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
 );
+const CE_CardVariant11 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant11')
+);
 
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
 
@@ -71,51 +74,6 @@ const SE_WysiwygMain = dynamic(
 const CE_CardVariant08 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant08')
 );
-
-// const CE_ContentMain = dynamic(
-//   () => import(''@/app/web/guest/$element/content/client.content.main')
-// );
-
-// const CE_CardVariant01 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant01')
-// );
-// const CE_CardVariant03 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant03')
-// );
-// const CE_CardVariant04 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant04')
-// );
-// const CE_CardVariant05 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant05')
-// );
-// const CE_CardVariant06 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant06')
-// );
-// const CE_CardVariant07 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant07')
-// );
-
-// const CE_CardVariant09 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant09')
-// );
-// const CE_CardVariant10 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant10')
-// );
-// const CE_CardVariant11 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant11')
-// );
-// const CE_CardVariant12 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant12')
-// );
-// const CE_CardVariant13 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant13')
-// );
-// const CE_CardVariant14 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant14')
-// );
-// const CE_CardVariant15 = dynamic(
-//   () => import(''@/app/web/guest/$element/card/client.card.variant15')
-// );
 
 const CE_CardVariant16 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant16')
@@ -172,16 +130,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   dropdown_action: {
     component: SE_FormMain,
     props: (_component: T_DropdownAction) => {
+      const title = _component?.field_title?.[0]?.value;
+      const data = _component?.field_menu_list?.[0]?.field_links?.map(
+        (item) => {
+          return {
+            title: item?.title,
+            value: item?.uri,
+          };
+        }
+      );
       return {
-        title: _component?.field_title?.[0]?.value,
-        listItems: _component?.field_menu_list?.[0]?.field_links?.map(
-          (item) => {
-            return {
-              title: item?.title,
-              value: item?.uri,
-            };
-          }
-        ),
+        title: title,
+        listItems: data,
         variant: '01',
       };
     },
@@ -201,7 +161,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const navigationLink = props?.[0]?.navigationLink;
       const backgroundImage = props?.[0]?.backgroundImage;
       const listItems = props?.[0]?.data;
-      const column = props?.[0]?.column;
+      const column = String(props?.[0]?.column);
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -218,7 +178,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             />
           );
         case WIDGET_VARIANT.variant03:
-          return <CE_CardVariant02 title={title} data={listItems} />;
+          return <CE_CardVariant02 data={listItems} />;
         case WIDGET_VARIANT.variant07:
           return (
             <SE_PortletMain
@@ -249,6 +209,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return (
             <CE_CarouselMain variant="01" data={listItems} title={title} />
           );
+        case WIDGET_VARIANT.variant12:
+          return (
+            <CE_CardVariant11 column={column} title={title} data={listItems} />
+          );
         default:
           return null;
       }
@@ -260,14 +224,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const subtitle = _component?.field_content?.[0]?.value;
       const navigationLink = _component?.field_primary_cta?.[0]?.uri;
       const navigationLink01 = _component?.field_primary_cta?.[0]?.uri;
-      const title = _component?.field_formatted_title?.[0]?.value;
-      const title02 =
-        _component?.field_column?.[0]?.field_title_custom?.[0]?.value;
       const textLink = _component?.field_primary_cta?.[0]?.title;
       const column = _component?.column_count;
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
+      const title = _component?.field_formatted_title?.[0]?.value;
       const titleV01 = _component?.field_column?.[0].field_title?.[0]?.value;
+      const titleV02 =
+        _component?.field_column?.[0]?.field_title_custom?.[0]?.value;
       const dataV01 =
         _component?.field_column?.[0]?.field_image_slider_items?.map((item) => {
           return {
@@ -279,6 +243,76 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
           text: item?.field_content?.[0]?.value,
+        };
+      });
+      const dataV07 = _component?.field_column?.map((item) => {
+        const text = item?.field_content?.[0]?.value;
+        return {
+          text: text,
+        };
+      });
+      const dataV03 = _component?.field_column?.map((item) => {
+        const title = item?.field_title?.[0]?.value;
+        const description = item?.field_content?.[0]?.value;
+        const imagePosition = item?.field_alignment?.[0]?.value;
+        const buttonLink = item?.field_primary_cta?.[0]?.uri;
+        const buttonTitle = item?.field_primary_cta?.[0]?.title;
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        return {
+          image: image,
+          title: title,
+          description: description,
+          imagePosition: imagePosition,
+          button: {
+            link: buttonLink,
+            title: buttonTitle,
+            extern: true,
+          },
+        };
+      });
+      const dataV08 = _component?.field_column?.map((item) => {
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        const text = item?.field_content?.[0]?.value;
+        const title = item?.field_title?.[0]?.value;
+        return {
+          image: image,
+          text: text,
+          title: title,
+        };
+      });
+      const dataV09 = _component?.field_column?.map((item) => {
+        return {
+          title: item.field_title?.[0]?.value,
+          description: item?.field_content?.[0]?.value,
+          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+          button: {
+            link: item?.field_primary_cta?.[0]?.uri,
+            title: item?.field_primary_cta?.[0]?.title,
+            extern: true,
+          },
+        };
+      });
+      const dataV11 = _component?.field_column?.[0].field_carousel_items?.map(
+        (item) => {
+          const title = item?.field_title?.[0]?.value;
+          const description = item?.field_content?.[0]?.value;
+          const image =
+            item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+
+          return {
+            image: image,
+            title: title,
+            desc: description,
+          };
+        }
+      );
+      const dataV12 = _component?.field_column?.map((item) => {
+        return {
+          title: item?.field_title?.[0]?.value,
+          description: item?.field_content?.[0]?.value,
+          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
         };
       });
 
@@ -303,20 +337,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             title: title,
-            data: _component?.field_column?.map((item) => {
-              return {
-                image:
-                  item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
-                title: item?.field_title?.[0]?.value,
-                description: item?.field_content?.[0]?.value,
-                imagePosition: item?.field_alignment?.[0]?.value,
-                button: {
-                  link: item?.field_primary_cta?.[0]?.uri,
-                  title: item?.field_primary_cta?.[0]?.title,
-                  extern: true,
-                },
-              };
-            }),
+            data: dataV03,
           };
         case WIDGET_VARIANT.variant07:
           return {
@@ -324,12 +345,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: title,
             subtitle: subtitle,
             navigationLink: navigationLink,
-            data: _component?.field_column?.map((item) => {
-              const text = item?.field_content?.[0]?.value;
-              return {
-                text: text,
-              };
-            }),
+            data: dataV07,
             backgroundImage: backgroundImage,
           };
         case WIDGET_VARIANT.variant08:
@@ -338,17 +354,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: title,
             subtitle: subtitle,
             navigationLink: navigationLink,
-            data: _component?.field_column?.map((item) => {
-              const image =
-                item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
-              const text = item?.field_content?.[0]?.value;
-              const title = item?.field_title?.[0]?.value;
-              return {
-                image: image,
-                text: text,
-                title: title,
-              };
-            }),
+            data: dataV08,
             column: column,
             backgroundImage: backgroundImage,
           };
@@ -356,39 +362,20 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             title: title,
-            data: _component?.field_column?.map((item) => {
-              return {
-                title: item.field_title?.[0]?.value,
-                description: item?.field_content?.[0]?.value,
-                image:
-                  item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
-                button: {
-                  link: item?.field_primary_cta?.[0]?.uri,
-                  title: item?.field_primary_cta?.[0]?.title,
-                  extern: true,
-                },
-              };
-            }),
+            data: dataV09,
           };
         case WIDGET_VARIANT.variant11:
-          const data03 =
-            _component?.field_column?.[0].field_carousel_items?.map((item) => {
-              const title = item?.field_title?.[0]?.value;
-              const description = item?.field_content?.[0]?.value;
-              const image =
-                item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
-
-              return {
-                image: image,
-                title: title,
-                desc: description,
-              };
-            });
-
           return {
             variant: findVariantStyle,
-            title: title02,
-            data: data03,
+            title: titleV02,
+            data: dataV11,
+          };
+        case WIDGET_VARIANT.variant12:
+          return {
+            title: _component?.field_formatted_title?.[0]?.value,
+            variant: findVariantStyle,
+            column: 1,
+            data: dataV12,
           };
         default:
           return null;
@@ -417,17 +404,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const variantLayout = _component.field_header_style?.[0].value;
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
-
+      const buttonItem = _component?.field_primary_cta?.map((item) => {
+        return {
+          buttonText: item?.title,
+          buttonLink: item?.uri,
+        };
+      });
       return {
         title: title,
         subtitle: subtitle,
-        buttonItems: _component?.field_primary_cta?.map((item) => {
-          return {
-            buttonText: item?.title,
-            buttonLink: item?.uri,
-          };
-        }),
-
+        buttonItems: buttonItem,
         bgImage: backgroundImage,
         variant: '02',
         variantLayout: variantLayout,
@@ -440,15 +426,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title = props?.[0]?.title;
       const list = props?.[0]?.list;
       const variant = props?.[0]?.variant;
+      const listTab = props?.[0]?.listTab;
 
       switch (variant) {
         case WIDGET_VARIANT.variant03:
-          return (
-            <CE_SectionPromo
-              title={props?.[0]?.title}
-              listTab={props?.[0]?.listTab}
-            />
-          );
+          return <CE_SectionPromo title={title} listTab={listTab} />;
         case WIDGET_VARIANT.variant05:
           return <Tabs title={title} list={list} variantContent={variant} />;
         case WIDGET_VARIANT.variant10:
@@ -463,105 +445,104 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title = _component?.field_title_custom?.[0]?.value;
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+      const listTabV06 = _component?.field_tab?.map((item) => {
+        const title = item?.field_title?.[0]?.value;
+        const informationText =
+          item?.field_paragraphs?.[0]?.field_title_custom?.[0]?.value;
+        const showTitle = item?.field_primary_cta?.[0]?.title;
+        const showUrl = item?.field_primary_cta?.[0]?.full_url;
+        return {
+          group: {
+            title: title,
+            informationText: informationText,
+            showMore: {
+              title: showTitle,
+              url: showUrl,
+            },
+          },
+          contents: item?.field_paragraphs?.[0]?.field_carousel_items?.map(
+            (items) => {
+              const title = items?.field_title?.[0]?.value;
+              const date = items?.field_simple_text?.[0]?.value;
+              const href = items?.field_primary_cta?.[0]?.full_url;
+              const description = items?.field_content?.[0]?.value;
+              const image =
+                items?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+              return {
+                img: image,
+                title: title,
+                date: date,
+                href: href,
+                description: description,
+              };
+            }
+          ),
+        };
+      });
+      const listTabV05 = _component?.field_tab?.map((item) => {
+        const rootTitle = item?.field_title?.[0]?.value;
+        const rootSlug = item?.field_title?.[0]?.value;
+        const rootList = item?.field_paragraphs?.[0]?.field_column || [];
+        return {
+          title: rootTitle,
+          slug: rootSlug,
+          children: rootList?.map((item) => {
+            const imagePosition = item?.field_alignment?.[0]?.value;
+            const title = item?.field_title?.[0]?.value;
+            const description = item?.field_content?.[0].value;
+            const buttonTitle = item?.field_primary_cta?.[0]?.title;
+            const buttonLink = item?.field_primary_cta?.[0]?.url;
+            const buttonExtern = false;
+            const image =
+              item?.field_image?.[0]?.field_media_image?.[0].uri?.[0]?.url;
+            return {
+              imagePosition: imagePosition,
+              title: title,
+              description: description,
+              image: image,
+              button: {
+                title: buttonTitle,
+                link: buttonLink,
+                extern: buttonExtern,
+              },
+            };
+          }),
+        };
+      });
+      const listTabV10 = _component.field_tab?.map((item) => {
+        const title = item?.field_title?.[0]?.value;
+        const rootSlug = item?.field_title?.[0]?.value;
+        const description =
+          item?.field_paragraphs?.[0]?.field_content?.[0]?.value;
+        const notes = item?.field_paragraphs?.[0]?.field_note?.[0]?.value;
+
+        return {
+          title: title,
+          slug: rootSlug,
+          description: description,
+          notes: notes,
+        };
+      });
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant06:
           return {
             title: title,
-            listTab: _component?.field_tab?.map((item) => {
-              const title = item?.field_title?.[0]?.value;
-              const informationText =
-                item?.field_paragraphs?.[0]?.field_title_custom?.[0]?.value;
-              const showTitle = item?.field_primary_cta?.[0]?.title;
-              const showUrl = item?.field_primary_cta?.[0]?.full_url;
-              return {
-                group: {
-                  title: title,
-                  informationText: informationText,
-                  showMore: {
-                    title: showTitle,
-                    url: showUrl,
-                  },
-                },
-                contents:
-                  item?.field_paragraphs?.[0]?.field_carousel_items?.map(
-                    (items) => {
-                      const title = items?.field_title?.[0]?.value;
-                      const date = items?.field_simple_text?.[0]?.value;
-                      const href = items?.field_primary_cta?.[0]?.full_url;
-                      const description = items?.field_content?.[0]?.value;
-                      const image =
-                        items?.field_image?.[0]?.field_media_image?.[0]
-                          ?.uri?.[0]?.url;
-                      return {
-                        img: image,
-                        title: title,
-                        date: date,
-                        href: href,
-                        description: description,
-                      };
-                    }
-                  ),
-              };
-            }),
+            listTab: listTabV06,
             variant: findVariantStyle,
           };
         case WIDGET_VARIANT.variant05:
           return {
             title: title,
             variant: findVariantStyle,
-            list: _component?.field_tab?.map((item) => {
-              const rootTitle = item?.field_title?.[0]?.value;
-              const rootSlug = item?.field_title?.[0]?.value;
-              const rootList = item?.field_paragraphs?.[0]?.field_column || [];
-              return {
-                title: rootTitle,
-                slug: rootSlug,
-                children: rootList?.map((item) => {
-                  const imagePosition = item?.field_alignment?.[0]?.value;
-                  const title = item?.field_title?.[0]?.value;
-                  const description = item?.field_content?.[0].value;
-                  const buttonTitle = item?.field_primary_cta?.[0]?.title;
-                  const buttonLink = item?.field_primary_cta?.[0]?.url;
-                  const buttonExtern = false;
-                  const image =
-                    item?.field_image?.[0]?.field_media_image?.[0].uri?.[0]
-                      ?.url;
-                  return {
-                    imagePosition: imagePosition,
-                    title: title,
-                    description: description,
-                    image: image,
-                    button: {
-                      title: buttonTitle,
-                      link: buttonLink,
-                      extern: buttonExtern,
-                    },
-                  };
-                }),
-              };
-            }),
+            list: listTabV05,
           };
         case WIDGET_VARIANT.variant10:
           return {
             variant: findVariantStyle,
             title: title,
-            list: _component.field_tab?.map((item) => {
-              const title = item?.field_title?.[0]?.value;
-              const rootSlug = item?.field_title?.[0]?.value;
-              const description =
-                item?.field_paragraphs?.[0]?.field_content?.[0]?.value;
-              const notes = item?.field_paragraphs?.[0]?.field_note?.[0]?.value;
-
-              return {
-                title: title,
-                slug: rootSlug,
-                description: description,
-                notes: notes,
-              };
-            }),
+            list: listTabV10,
           };
-
         default:
           return null;
       }
@@ -584,32 +565,25 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_CardVariant16,
     props: (_component: T_StaircaseCards) => {
       return {
-        data: _component?.field_cards?.map(
-          (item: {
-            field_title: { value: string }[];
-            field_content: { value: string }[];
-            field_image: { field_media_image: { uri: { url: string }[] }[] }[];
-            field_primary_cta: { title: string; full_url: string }[];
-          }) => {
-            const title = item?.field_title?.[0]?.value;
-            const description = item?.field_content?.[0]?.value;
-            const image =
-              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
-            const buttonLink = item?.field_primary_cta?.[0]?.full_url;
-            const buttonTitle = item?.field_primary_cta?.[0]?.title;
-            const buttonExtern = false;
-            return {
-              title: title,
-              description: description,
-              image: image,
-              button: {
-                link: buttonLink,
-                title: buttonTitle,
-                extern: buttonExtern,
-              },
-            };
-          }
-        ),
+        data: _component?.field_cards?.map((item) => {
+          const title = item?.field_title?.[0]?.value;
+          const description = item?.field_content?.[0]?.value;
+          const image =
+            item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+          const buttonLink = item?.field_primary_cta?.[0]?.full_url;
+          const buttonTitle = item?.field_primary_cta?.[0]?.title;
+          const buttonExtern = false;
+          return {
+            title: title,
+            description: description,
+            image: image,
+            button: {
+              link: buttonLink,
+              title: buttonTitle,
+              extern: buttonExtern,
+            },
+          };
+        }),
       };
     },
   },
@@ -623,38 +597,49 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   two_column: {
     component: (...props) => {
+      const description1 = props?.[0]?.description1 ?? '';
+      const description2 = props?.[0]?.description2 ?? '';
+      const imageUrl1 = props?.[0]?.imageUrl1 ?? '';
+      const imageUrl2 = props?.[0]?.imageUrl2 ?? '';
+
       return (
         <CE_PromoCard
-          description1={props?.[0]?.description1 ?? ''}
-          description2={props?.[0]?.description2 ?? ''}
-          imageUrl1={props?.[0]?.imageUrl1 ?? ''}
-          imageUrl2={props?.[0]?.imageUrl2 ?? ''}
+          description1={description1}
+          description2={description2}
+          imageUrl1={imageUrl1}
+          imageUrl2={imageUrl2}
         />
       );
     },
     props: (_component) => {
+      const description1 =
+        _component?.field_first_column?.[0]?.field_content?.[0]?.value;
+      const description2 =
+        _component?.field_second_column?.[0].field_content?.[0]?.value;
+      const imageUrl1 =
+        _component.field_first_column[0]?.field_image?.[0]
+          .field_media_image?.[0]?.uri?.[0]?.url;
+      const imageUrl2 =
+        _component.field_second_column[0]?.field_image?.[0]
+          .field_media_image?.[0]?.uri?.[0]?.url;
       return {
-        description1:
-          _component?.field_first_column?.[0]?.field_content?.[0]?.value,
-        description2:
-          _component?.field_second_column?.[0].field_content?.[0]?.value,
-        imageUrl1:
-          _component.field_first_column[0]?.field_image?.[0]
-            .field_media_image?.[0]?.uri?.[0]?.url,
-        imageUrl2:
-          _component.field_second_column[0]?.field_image?.[0]
-            .field_media_image?.[0]?.uri?.[0]?.url,
+        description1: description1,
+        description2: description2,
+        imageUrl1: imageUrl1,
+        imageUrl2: imageUrl2,
       };
     },
   },
   image: {
     component: (...props) => {
-      return <SE_WysiwygMain variant="01" imageContent={props?.[0]?.image} />;
+      const imageContent = props?.[0]?.image;
+      return <SE_WysiwygMain variant="01" imageContent={imageContent} />;
     },
     props: (_component: T_Image) => {
+      const imageContent =
+        _component?.field_image?.[0]?.field_media_image?.[0].uri?.[0].url;
       return {
-        image:
-          _component?.field_image?.[0]?.field_media_image?.[0].uri?.[0].url,
+        image: imageContent,
       };
     },
   },
@@ -668,29 +653,4 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       };
     },
   },
-  // carousel: {
-  //   component: (...props: Array<{ title?: string; data: Array<any> }>) => {
-  //     const title = props?.[0]?.title;
-  //     const data = props?.[0]?.data;
-
-  //     return <CE_CarouselMain variant="01" data={data} title={title} />;
-  //   },
-  //   props: (_component: {
-  //     field_carousel_items: Array<{
-  //       field_title: Array<{ value: string }>;
-  //       field_image: Array<{
-  //         field_media_image: Array<{ uri: Array<{ url: string }> }>;
-  //       }>;
-  //     }>;
-  //     field_title_custom: Array<{ value: string }>;
-  //     field_content: Array<{ value: string }>;
-  //   }) => {
-  //     const title = _component?.field_title_custom?.[0]?.value;
-
-  //     return {
-  //       title: title,
-  //       data: data,
-  //     };
-  //   },
-  // },
 };

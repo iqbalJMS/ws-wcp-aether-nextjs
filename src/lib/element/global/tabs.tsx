@@ -31,15 +31,10 @@ export function Tabs({
 }: T_TabsProps) {
   const [menuActive, setMenuActive] = useState(0);
 
-  const switchChildrenVariant = () => {
+  const switchChildrenVariant = (() => {
     switch (variantContent) {
       case WIDGET_VARIANT.variant05:
-        return (
-          <CE_CardVariant02
-            title={title ?? ''}
-            data={list?.[menuActive]?.children ?? []}
-          />
-        );
+        return <CE_CardVariant02 data={list?.[menuActive]?.children ?? []} />;
       case WIDGET_VARIANT.variant10:
         const description = list?.[menuActive]?.description ?? '';
         const notes = list?.[menuActive]?.notes ?? '';
@@ -51,8 +46,9 @@ export function Tabs({
           />
         );
       default:
+        return null;
     }
-  };
+  })();
 
   return (
     <div className="container mt-12 mb-16">
@@ -64,7 +60,7 @@ export function Tabs({
               key={index}
               onClick={() => {
                 setMenuActive(index);
-                onChange?.(item?.slug);
+                onChange?.(item?.slug ?? '');
               }}
               className={[
                 `flex-1 border-b cursor-pointer relative group/tab text-center`,
@@ -135,7 +131,7 @@ export function Tabs({
         })}
       </div>
       {(list?.[menuActive]?.children || list?.[menuActive]) &&
-        switchChildrenVariant()}
+        switchChildrenVariant}
     </div>
   );
 }
