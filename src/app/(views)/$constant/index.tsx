@@ -203,12 +203,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const navigationLink = props?.[0]?.navigationLink;
       const backgroundImage = props?.[0]?.backgroundImage;
       const listItems = props?.[0]?.data;
-
-      const seperateTag = title
-        ?.replaceAll('<p>', '')
-        ?.replaceAll('</p>', '')
-        ?.replaceAll('<strong>', '')
-        ?.replaceAll('</strong>', '');
+      const column = props?.[0]?.column;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -247,24 +242,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               listItems={listItems}
               bgImage={backgroundImage}
               variant="01"
-              // TODO
-              // Replace it with property from API
-              column={
-                title?.includes('The types of Bills')
-                  ? '3'
-                  : [
-                        'Cara Pengiriman Valas ke Luar Negri',
-                        'Cara Pembayaran',
-                      ]?.includes(seperateTag)
-                    ? '2'
-                    : [
-                          'Cara Pengiriman Valas ke Indonesia',
-                          'Jenis',
-                          'Produk yang dapat bertransaksi Online',
-                        ].includes(seperateTag)
-                      ? '2'
-                      : '1'
-              }
+              column={column}
             />
           );
         case WIDGET_VARIANT.variant09:
@@ -282,6 +260,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const navigationLink01 = _component?.field_primary_cta?.[0]?.uri;
       const title = _component?.field_formatted_title?.[0]?.value;
       const textLink = _component?.field_primary_cta?.[0]?.title;
+      const column = _component?.column_count;
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
       const titleV01 = _component?.field_column?.[0].field_title?.[0]?.value;
@@ -365,6 +344,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 title: title,
               };
             }),
+            column: column,
             backgroundImage: backgroundImage,
           };
         case WIDGET_VARIANT.variant09:
@@ -432,9 +412,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   multi_tab: {
     component: (...props) => {
-      switch (props?.[0]?.variant) {
-        case WIDGET_VARIANT.variant05:
-          return <Tabs title={props?.[0]?.title} list={props?.[0]?.list} />;
+      const title = props?.[0]?.title;
+      const list = props?.[0]?.list;
+      const variant = props?.[0]?.variant;
+
+      switch (variant) {
         case WIDGET_VARIANT.variant03:
           return (
             <CE_SectionPromo
@@ -442,7 +424,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               listTab={props?.[0]?.listTab}
             />
           );
-
+        case WIDGET_VARIANT.variant05:
+          return <Tabs title={title} list={list} variantContent={variant} />;
+        case WIDGET_VARIANT.variant10:
+          return <Tabs title={title} list={list} variantContent={variant} />;
         default:
           return null;
       }
@@ -455,42 +440,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
 
       switch (findVariantStyle) {
-        case WIDGET_VARIANT.variant05:
-          return {
-            title: title,
-            variant: findVariantStyle,
-            list: _component?.field_tab?.map((item) => {
-              const rootTitle = item?.field_title?.[0]?.value;
-              const rootSlug = item?.field_title?.[0]?.value;
-              const rootList = item?.field_paragraphs?.[0]?.field_column || [];
-              return {
-                title: rootTitle,
-                slug: rootSlug,
-                children: rootList?.map((item) => {
-                  const imagePosition = item?.field_alignment?.[0]?.value;
-                  const title = item?.field_title?.[0]?.value;
-                  const description = item?.field_content?.[0].value;
-                  const buttonTitle = item?.field_primary_cta?.[0]?.title;
-                  const buttonLink = item?.field_primary_cta?.[0]?.url;
-                  const buttonExtern = false;
-                  const image =
-                    item?.field_image?.[0]?.field_media_image?.[0].uri?.[0]
-                      ?.url;
-                  return {
-                    imagePosition: imagePosition,
-                    title: title,
-                    description: description,
-                    image: image,
-                    button: {
-                      title: buttonTitle,
-                      link: buttonLink,
-                      extern: buttonExtern,
-                    },
-                  };
-                }),
-              };
-            }),
-          };
         case WIDGET_VARIANT.variant06:
           return {
             title: title,
@@ -532,6 +481,62 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             }),
             variant: findVariantStyle,
           };
+        case WIDGET_VARIANT.variant05:
+          return {
+            title: title,
+            variant: findVariantStyle,
+            list: _component?.field_tab?.map((item) => {
+              const rootTitle = item?.field_title?.[0]?.value;
+              const rootSlug = item?.field_title?.[0]?.value;
+              const rootList = item?.field_paragraphs?.[0]?.field_column || [];
+              return {
+                title: rootTitle,
+                slug: rootSlug,
+                children: rootList?.map((item) => {
+                  const imagePosition = item?.field_alignment?.[0]?.value;
+                  const title = item?.field_title?.[0]?.value;
+                  const description = item?.field_content?.[0].value;
+                  const buttonTitle = item?.field_primary_cta?.[0]?.title;
+                  const buttonLink = item?.field_primary_cta?.[0]?.url;
+                  const buttonExtern = false;
+                  const image =
+                    item?.field_image?.[0]?.field_media_image?.[0].uri?.[0]
+                      ?.url;
+                  return {
+                    imagePosition: imagePosition,
+                    title: title,
+                    description: description,
+                    image: image,
+                    button: {
+                      title: buttonTitle,
+                      link: buttonLink,
+                      extern: buttonExtern,
+                    },
+                  };
+                }),
+              };
+            }),
+          };
+        case WIDGET_VARIANT.variant10:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            list: _component.field_tab?.map((item) => {
+              const title = item?.field_title?.[0]?.value;
+              const rootSlug = item?.field_title?.[0]?.value;
+              const description =
+                item?.field_paragraphs?.[0]?.field_content?.[0]?.value;
+              const notes = item?.field_paragraphs?.[0]?.field_note?.[0]?.value;
+
+              return {
+                title: title,
+                slug: rootSlug,
+                description: description,
+                notes: notes,
+              };
+            }),
+          };
+
         default:
           return null;
       }

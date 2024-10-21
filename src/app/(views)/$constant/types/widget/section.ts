@@ -39,6 +39,7 @@ type FieldImageItem = {
 export type T_Section = {
   field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
   field_content?: HtmlContent[];
+  column_count?: number;
   field_formatted_title?: HtmlContent[];
   field_image?: FieldImage[];
   field_margin_left?: { value: string }[];

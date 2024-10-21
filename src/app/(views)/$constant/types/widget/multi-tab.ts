@@ -1,4 +1,6 @@
 type T_FieldParagraph = Array<{
+  field_content: Array<{ value: string }>;
+  field_note: Array<{ value: string }>;
   field_carousel_items: Array<{
     field_image: Array<{
       field_media_image: Array<{ uri: Array<{ url: string }> }>;
