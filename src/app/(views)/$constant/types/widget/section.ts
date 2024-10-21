@@ -37,6 +37,7 @@ type FieldImageItem = {
 };
 
 export type T_Section = {
+  field_title_custom: any;
   field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
   field_content?: HtmlContent[];
   column_count?: number;
@@ -50,6 +51,8 @@ export type T_Section = {
     field_primary_cta?: FieldPrimaryCTA[];
     field_content?: any;
     field_alignment?: Array<{ value: string }>;
+    field_title_custom?: Array<{ value: string }>;
+    field_carousel_items?: Array<any>;
     field_title?: any;
     field_image_slider_items?: Array<{
       field_image?: Array<FieldImageItem>;

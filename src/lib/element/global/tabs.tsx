@@ -34,7 +34,12 @@ export function Tabs({
   const switchChildrenVariant = () => {
     switch (variantContent) {
       case WIDGET_VARIANT.variant05:
-        return <CE_CardVariant02 data={list?.[menuActive]?.children ?? []} />;
+        return (
+          <CE_CardVariant02
+            title={title ?? ''}
+            data={list?.[menuActive]?.children ?? []}
+          />
+        );
       case WIDGET_VARIANT.variant10:
         const description = list?.[menuActive]?.description ?? '';
         const notes = list?.[menuActive]?.notes ?? '';

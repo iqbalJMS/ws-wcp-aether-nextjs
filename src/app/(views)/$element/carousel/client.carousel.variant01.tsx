@@ -28,12 +28,17 @@ export function CE_CarouselVariant01({
       setCurrentSlide(currentSlide - slidesToScroll);
     }
   };
+
   return (
     <>
       <div className="py-20 container">
         <div className="flex mdmax:flex-wrap items-center">
           <div className="w-[20%] mdmax:w-full flex-none">
-            <div className="text-2xl font-semibold mb-4">{title}</div>
+            {title && (
+              <div className="text-2xl font-semibold mb-4">
+                {parseHTMLToReact(title)}
+              </div>
+            )}
             <div className="flex items-center gap-5 mdmax:gap-1">
               <button
                 className={[
@@ -78,20 +83,24 @@ export function CE_CarouselVariant01({
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem?.button?.link || ''} target="_blank">
                     <div className="p-4 mdmax:p-2 shadow-lg">
-                      <div className="w-full h-[12rem] mb-2">
-                        <Image
-                          extern={false}
-                          src={dataItem?.image}
-                          alt="image"
-                          width={400}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <div className=" text-red-01 font-semibold mb-2">
-                          {parseHTMLToReact(dataItem?.title)}
+                      {dataItem?.image && (
+                        <div className="w-full h-[12rem] mb-2">
+                          <Image
+                            extern={false}
+                            src={dataItem?.image ?? '/'}
+                            alt="image"
+                            width={400}
+                            height={400}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
+                      )}
+                      <div>
+                        {dataItem?.title && (
+                          <div className=" text-red-01 font-semibold mb-2">
+                            {parseHTMLToReact(dataItem?.title)}
+                          </div>
+                        )}
                         {dataItem?.desc && (
                           <div className="text-xs h-[4rem] overflow-auto">
                             {parseHTMLToReact(dataItem?.desc)}

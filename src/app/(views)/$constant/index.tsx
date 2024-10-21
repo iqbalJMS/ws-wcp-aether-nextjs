@@ -75,9 +75,7 @@ const CE_CardVariant08 = dynamic(
 // const CE_ContentMain = dynamic(
 //   () => import(''@/app/web/guest/$element/content/client.content.main')
 // );
-// const CE_CarouselMain = dynamic(
-//   () => import(''@/app/web/guest/$element/carousel/client.carousel.main')
-// );
+
 // const CE_CardVariant01 = dynamic(
 //   () => import(''@/app/web/guest/$element/card/client.card.variant01')
 // );
@@ -247,6 +245,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant09:
           return <CE_CardVariant08 title={title} data={listItems} />;
+        case WIDGET_VARIANT.variant11:
+          return (
+            <CE_CarouselMain variant="01" data={listItems} title={title} />
+          );
         default:
           return null;
       }
@@ -259,6 +261,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const navigationLink = _component?.field_primary_cta?.[0]?.uri;
       const navigationLink01 = _component?.field_primary_cta?.[0]?.uri;
       const title = _component?.field_formatted_title?.[0]?.value;
+      const title02 =
+        _component?.field_column?.[0]?.field_title_custom?.[0]?.value;
       const textLink = _component?.field_primary_cta?.[0]?.title;
       const column = _component?.column_count;
       const backgroundImage =
@@ -277,8 +281,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           text: item?.field_content?.[0]?.value,
         };
       });
-
-      console.log({ _component: _component?.field_formatted_title });
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -367,6 +369,26 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 },
               };
             }),
+          };
+        case WIDGET_VARIANT.variant11:
+          const data03 =
+            _component?.field_column?.[0].field_carousel_items?.map((item) => {
+              const title = item?.field_title?.[0]?.value;
+              const description = item?.field_content?.[0]?.value;
+              const image =
+                item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+
+              return {
+                image: image,
+                title: title,
+                desc: description,
+              };
+            });
+
+          return {
+            variant: findVariantStyle,
+            title: title02,
+            data: data03,
           };
         default:
           return null;
@@ -646,37 +668,29 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       };
     },
   },
-  carousel: {
-    component: (...props: Array<{ title?: string; data: Array<any> }>) => {
-      const title = props?.[0]?.title;
-      const data = props?.[0]?.data;
+  // carousel: {
+  //   component: (...props: Array<{ title?: string; data: Array<any> }>) => {
+  //     const title = props?.[0]?.title;
+  //     const data = props?.[0]?.data;
 
-      return <CE_CarouselMain variant="01" data={data} title={title} />;
-    },
-    props: (_component: {
-      field_carousel_items: Array<{
-        field_title: Array<{ value: string }>;
-        field_image: Array<{
-          field_media_image: Array<{ uri: Array<{ url: string }> }>;
-        }>;
-      }>;
-      field_title_custom: Array<{ value: string }>;
-      field_content: Array<{ value: string }>;
-    }) => {
-      const title = _component?.field_title_custom?.[0]?.value;
-      const data = _component?.field_carousel_items?.map((item) => {
-        const title = item?.field_title?.[0]?.value;
-        const image =
-          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
-        return {
-          image: image,
-          title: title,
-        };
-      });
-      return {
-        title: title,
-        data: data,
-      };
-    },
-  },
+  //     return <CE_CarouselMain variant="01" data={data} title={title} />;
+  //   },
+  //   props: (_component: {
+  //     field_carousel_items: Array<{
+  //       field_title: Array<{ value: string }>;
+  //       field_image: Array<{
+  //         field_media_image: Array<{ uri: Array<{ url: string }> }>;
+  //       }>;
+  //     }>;
+  //     field_title_custom: Array<{ value: string }>;
+  //     field_content: Array<{ value: string }>;
+  //   }) => {
+  //     const title = _component?.field_title_custom?.[0]?.value;
+
+  //     return {
+  //       title: title,
+  //       data: data,
+  //     };
+  //   },
+  // },
 };
