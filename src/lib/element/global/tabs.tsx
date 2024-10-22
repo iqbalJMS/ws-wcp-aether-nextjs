@@ -3,16 +3,21 @@
 import { Tooltip } from './tooltip';
 import { useState } from 'react';
 import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
+import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
+import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
 
 type T_TabsProps = {
   list: {
-    title: string;
+    title?: string;
     information?: string;
-    slug: string;
+    slug?: string;
+    description?: string;
     children?: Array<any>;
+    notes?: string;
   }[];
   value?: string;
   title?: string;
+  variantContent?: string;
   onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
 };
@@ -22,8 +27,28 @@ export function Tabs({
   onChange,
   title,
   variant = 'border',
+  variantContent,
 }: T_TabsProps) {
   const [menuActive, setMenuActive] = useState(0);
+
+  const switchChildrenVariant = (() => {
+    switch (variantContent) {
+      case WIDGET_VARIANT.variant05:
+        return <CE_CardVariant02 data={list?.[menuActive]?.children ?? []} />;
+      case WIDGET_VARIANT.variant10:
+        const description = list?.[menuActive]?.description ?? '';
+        const notes = list?.[menuActive]?.notes ?? '';
+        return (
+          <CE_Paragraphs
+            key={description}
+            description={description}
+            notes={notes}
+          />
+        );
+      default:
+        return null;
+    }
+  })();
 
   return (
     <div className="container mt-12 mb-16">
@@ -35,7 +60,7 @@ export function Tabs({
               key={index}
               onClick={() => {
                 setMenuActive(index);
-                onChange?.(item?.slug);
+                onChange?.(item?.slug ?? '');
               }}
               className={[
                 `flex-1 border-b cursor-pointer relative group/tab text-center`,
@@ -111,9 +136,8 @@ export function Tabs({
           );
         })}
       </div>
-      {list?.[menuActive]?.children && (
-        <CE_CardVariant02 data={list?.[menuActive]?.children} />
-      )}
+      {(list?.[menuActive]?.children || list?.[menuActive]) &&
+        switchChildrenVariant}
     </div>
   );
 }
