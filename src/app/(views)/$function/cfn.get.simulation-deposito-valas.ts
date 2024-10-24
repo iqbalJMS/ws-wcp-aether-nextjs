@@ -1,0 +1,47 @@
+'use client';
+
+import { T_PostResponse } from '@/api/common/fetch.type';
+import { validateMin } from '@/lib/functions/global/validation';
+import { Call } from '@strix/client';
+
+import {
+  T_SimulationDepositoValas,
+  T_SimulationDepositoValasRequest,
+} from '@/api/simulation/deposito-valas/api.get.deposito-valas.type';
+import { ACT_GetSimulationDepositoValas } from '@/app/(views)/$action/action.get.simulation';
+
+export function CFN_GetSimulationDepositoValas(
+  transit: Call,
+  data: T_SimulationDepositoValasRequest,
+  onSuccess?: (_data: T_PostResponse<T_SimulationDepositoValas> | undefined) => void
+) {
+  transit(async () => {
+    const actionResult = await ACT_GetSimulationDepositoValas(data);
+    if (onSuccess) {
+      onSuccess(actionResult);
+    }
+  });
+}
+
+export function CFN_MapToSimulationDepositoValasPayload(
+  form: T_SimulationDepositoValasRequest
+): T_SimulationDepositoValasRequest {
+  return {
+    depositAmount: form.depositAmount,
+    termInMonths: form.termInMonths,
+  };
+}
+
+export function CFN_ValidateCreateSimulationDepositoValasFields(
+  name: keyof T_SimulationDepositoValasRequest,
+  value: any
+): string {
+  switch (name) {
+    case 'depositAmount':
+      return validateMin(value, 'Jumlah Deposito', 1);
+    case 'termInMonths':
+      return validateMin(value, 'Jangka Waktu', 1);
+    default:
+      return '';
+  }
+}

@@ -5,16 +5,16 @@ import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import useForm from '@/lib/hook/useForm';
 import {
-  CFN_GetSimulationKPR,
-  CFN_MapToSimulationKPRPayload,
-  CFN_ValidateCreateSimulationKPRFields,
-} from '@/app/(views)/$function/cfn.get.simulation-kpr';
+  CFN_GetSimulationKPRS,
+  CFN_MapToSimulationKPRSPayload,
+  CFN_ValidateCreateSimulationKPRSFields,
+} from '@/app/(views)/$function/cfn.get.simulation-kprs';
 import InputError from '@/lib/element/global/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import { T_SimulationKPR, T_SimulationKPRRequest } from '@/api/simulation/kpr/api.get.kpr.type';
+import { T_SimulationKPRS, T_SimulationKPRSRequest } from '@/api/simulation/kprs/api.get.kprs.type';
 
 
-const CE_SimulationKPRMain = () => {
+const CE_SimulationKPRSMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
   
@@ -23,16 +23,16 @@ const CE_SimulationKPRMain = () => {
     installmentTerm: true,
   });
   const { form, formError, onFieldChange, validateForm } = useForm<
-    T_SimulationKPRRequest,
-    T_SimulationKPRRequest
+    T_SimulationKPRSRequest,
+    T_SimulationKPRSRequest
   >(
-    CFN_MapToSimulationKPRPayload({
+    CFN_MapToSimulationKPRSPayload({
       installmentAmount: 0,
       installmentTerm: 0,
     }),
-    CFN_ValidateCreateSimulationKPRFields
+    CFN_ValidateCreateSimulationKPRSFields
   );
-  const [result, setResult] = useState<T_SimulationKPR>();
+  const [result, setResult] = useState<T_SimulationKPRS>();
   const handleSubmit = async (button: boolean = true) => {
     const validate = validateForm();
     
@@ -40,7 +40,7 @@ const CE_SimulationKPRMain = () => {
       return;
     }
     try {
-      CFN_GetSimulationKPR(
+      CFN_GetSimulationKPRS(
         transiting,
         form,
         (data) => {
@@ -134,7 +134,7 @@ const CE_SimulationKPRMain = () => {
                   <div>
                     <InputSlider
                       min={0}
-                      max={100}
+                      max={15}
                       value={form.installmentTerm}
                       onChange={(value) => onFieldChange('installmentTerm', value)}
                     />
@@ -183,4 +183,4 @@ const CE_SimulationKPRMain = () => {
   );
 };
 
-export default CE_SimulationKPRMain;
+export default CE_SimulationKPRSMain;

@@ -7,19 +7,19 @@ import { validateMin } from '@/lib/functions/global/validation';
 import { Arrival, Call, Departure } from '@strix/client';
 
 import {
-  T_SimulationKPR,
-  T_SimulationKPRRequest,
-} from '@/api/simulation/kpr/api.get.kpr.type';
-import { ACT_GetSimulationKPR } from '@/app/(views)/$action/action.get.simulation';
+  T_SimulationKPRS,
+  T_SimulationKPRSRequest,
+} from '@/api/simulation/kprs/api.get.kprs.type';
+import { ACT_GetSimulationKPRS } from '@/app/(views)/$action/action.get.simulation';
 
-export function CFN_GetSimulationKPR(
+export function CFN_GetSimulationKPRS(
   transit: Call,
-  data: T_SimulationKPRRequest,
-  onSuccess?: (data: T_PostResponse<T_SimulationKPR> | undefined) => void
+  data: T_SimulationKPRSRequest,
+  onSuccess?: (data: T_PostResponse<T_SimulationKPRS> | undefined) => void
 ) {
   
   transit(async () => {
-    const actionResult = await ACT_GetSimulationKPR(data);
+    const actionResult = await ACT_GetSimulationKPRS(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
@@ -27,17 +27,17 @@ export function CFN_GetSimulationKPR(
 
 }
 
-export function CFN_MapToSimulationKPRPayload(
-  form: T_SimulationKPRRequest
-): T_SimulationKPRRequest {
+export function CFN_MapToSimulationKPRSPayload(
+  form: T_SimulationKPRSRequest
+): T_SimulationKPRSRequest {
   return {
     installmentAmount: form.installmentAmount,
     installmentTerm: form.installmentTerm,
   };
 }
 
-export function CFN_ValidateCreateSimulationKPRFields(
-  name: keyof T_SimulationKPRRequest,
+export function CFN_ValidateCreateSimulationKPRSFields(
+  name: keyof T_SimulationKPRSRequest,
   value: any
 ): string {
   switch (name) {

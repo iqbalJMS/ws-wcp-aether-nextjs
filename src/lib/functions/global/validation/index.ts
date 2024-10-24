@@ -38,13 +38,21 @@ export const validateText = (
 
 export const validateMin = (
   value?: number,
-  label: string = "field",
+  label: string = "Field",
   min: number = 1,
 ): string => {
   return (value || 0) < min
-    ? !label
-      ? `Field tidak boleh kurang dari ${min}`
-      : `${label} tidak boleh kurang dari ${min}`
+    ? `${label} tidak boleh kurang dari ${min}`
+    : "";
+};
+export const validateMaxMin = (
+  value?: number,
+  label: string = "Field",
+  min: number = 1,
+  max: number = 10,
+): string => {
+  return (value || 0) < min || (value || 0) > max
+    ? `${label} tidak boleh kurang dari ${min} atau tidak boleh lebih dari ${max}`
     : "";
 };
 

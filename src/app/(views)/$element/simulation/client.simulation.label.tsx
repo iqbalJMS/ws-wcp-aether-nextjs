@@ -4,7 +4,7 @@ import { ReactNode, useState } from 'react';
 
 type T_SimulationLabelProps = {
   label: string;
-  slot: ReactNode;
+  slot?: ReactNode;
   editable?: boolean;
   onChange?: (_value: boolean) => void;
 };

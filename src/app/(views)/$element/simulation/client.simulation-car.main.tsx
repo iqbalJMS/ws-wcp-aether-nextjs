@@ -1,7 +1,7 @@
 import InputSlider from '@/lib/element/global/input.slider';
 import CE_SimulationLabel from './client.simulation.label';
 import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import useForm from '@/lib/hook/useForm';
 
@@ -9,69 +9,64 @@ import InputError from '@/lib/element/global/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 import InputSelect from '@/lib/element/global/input.select';
 import {
-  CFN_MapToSimulationCarPayload,
-  CFN_ValidateCreateSimulationCarFields,
-  T_CreateSimulationCar,
-} from '@/app/(views)/$function/cfn.create.simulation-car';
-
-type T_Object = { [key: string]: number };
+  T_SimulationVehicleInstallment,
+  T_SimulationVehicleInstallmentRequest,
+} from '@/api/simulation/vehicle-installment/api.get.vehicle-installment.type';
+import {
+  CFN_GetSimulationVehicleInstallment,
+  CFN_MapToSimulationVehicleInstallmentPayload,
+  CFN_ValidateCreateSimulationVehicleInstallmentFields,
+} from '@/app/(views)/$function/cfn.get.simulation-vehicle-installment';
 
 const CE_SimulationCarMain = () => {
+  const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
+
   const [formDisabled, setFormDisabled] = useState({
-    otrPrice: true,
-    period: true,
+    vehiclePrice: true,
+    installmentTerm: true,
   });
-  const { form, formError, onFieldChange, setForm } = useForm<
-    T_CreateSimulationCar,
-    T_CreateSimulationCar
+  const { form, formError, onFieldChange, validateForm } = useForm<
+    T_SimulationVehicleInstallmentRequest,
+    T_SimulationVehicleInstallmentRequest
   >(
-    CFN_MapToSimulationCarPayload({
-      carStatus: 'baru',
-      dp: 0,
-      dpIDR: 0,
-      otrPrice: 0,
-      period: 1,
-      principalDebt: 0,
-      rate: 0,
+    CFN_MapToSimulationVehicleInstallmentPayload({
+      installmentTerm: 0,
+      vehiclePrice: 0,
+      vehicleStatus: 'NEW',
     }),
-    CFN_ValidateCreateSimulationCarFields
+    CFN_ValidateCreateSimulationVehicleInstallmentFields
   );
-
-  const handleSubmit = () => {
-    setIsResult(true);
-  };
-  const handleCalculation = () => {
-    const dpValues: T_Object = { baru: 25, bekas: 30 };
-    const rateValues: T_Object = { 1: 4.99, 2: 5.5, 3: 6.1, 4: 6.65 };
-
-    let dp = dpValues[form.carStatus] || 0;
-    let rate = rateValues[form.period] || 0;
-    let dpIDR = 0;
-    let principalDebt = 0;
-
-    if (form.otrPrice !== 0 && dp !== 0) {
-      dpIDR = form.otrPrice * (dp / 100);
-      principalDebt = form.otrPrice - dpIDR;
+  const [result, setResult] = useState<T_SimulationVehicleInstallment>();
+  const handleSubmit = async (button: boolean = true) => {
+    setResult(undefined);
+    const validate = validateForm();
+    if (pending || !validate) {
+      return;
     }
-    setForm({
-      ...form,
-      dp: dp,
-      dpIDR: dpIDR,
-      principalDebt: principalDebt,
-      rate: rate,
-    });
+    try {
+      CFN_GetSimulationVehicleInstallment(transiting, form, (data) => {
+        setResult(data?.data);
+
+        if (button) {
+          setIsResult(true);
+        }
+      });
+    } catch (error) {}
   };
   useEffect(() => {
-    handleCalculation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const handler = setTimeout(() => {
+      setResult(undefined);
+      if (form.vehiclePrice && form.installmentTerm && form.vehicleStatus) {
+        handleSubmit(false);
+      }
+    }, 300); // Delay of 300ms
 
-  useEffect(() => {
-    handleCalculation();
-
+    return () => {
+      clearTimeout(handler);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.otrPrice, form.carStatus, form.period]);
+  }, [form]);
 
   return (
     <div>
@@ -81,47 +76,47 @@ const CE_SimulationCarMain = () => {
           values={[
             {
               label: 'Harga OTR',
-              value: form.otrPrice.toString(),
+              value: form.vehiclePrice.toString(),
             },
             {
               label: 'Uang Muka',
-              value: form.dpIDR.toString(),
+              value: result?.downPaymentAmount.toString() || '',
               width: '50',
             },
             {
               label: 'Pokok Hutang',
-              value: form.principalDebt.toString(),
+              value: result?.principalDebt.toString() || '',
               width: '50',
             },
             {
               label: 'Bunga',
-              value: form.rate.toString(),
+              value: ((result?.interestRate || 0) * 100).toString() || '',
               col: true,
               percentage: true,
             },
             {
               label: 'Angsuran Pokok',
-              value: '154120937',
+              value: result?.principalInstallment.toString() || '',
               col: true,
             },
             {
               label: 'Angsuran Bunga/ Bulan',
-              value: '154120937',
+              value: '',
               col: true,
             },
             {
               label: 'Angsuran/ Bulan',
-              value: '154120937',
+              value: '',
               col: true,
             },
             {
               label: 'Administrasi',
-              value: '154120937',
+              value: '',
               col: true,
             },
             {
               label: 'TDP (DP + Biaya Administrasi + Provisi)',
-              value: '154120937',
+              value: '',
               col: true,
             },
           ]}
@@ -141,17 +136,17 @@ const CE_SimulationCarMain = () => {
                       list={[
                         {
                           title: 'Baru',
-                          value: 'baru',
+                          value: 'NEW',
                         },
                         {
                           title: 'Bekas',
-                          value: 'bekas',
+                          value: 'USED',
                         },
                       ]}
-                      value={form.carStatus}
+                      value={form.vehicleStatus}
                       onChange={(value) =>
                         onFieldChange(
-                          'carStatus',
+                          'vehicleStatus',
                           (Array.isArray(value)
                             ? value.at(0)?.value
                             : value?.value) || ''
@@ -159,9 +154,9 @@ const CE_SimulationCarMain = () => {
                       }
                     />
                   </div>
-                  {formError.carStatus && (
+                  {formError.vehicleStatus && (
                     <div className="mt-5">
-                      <InputError message={formError.carStatus} />
+                      <InputError message={formError.vehicleStatus} />
                     </div>
                   )}
                 </div>
@@ -175,11 +170,11 @@ const CE_SimulationCarMain = () => {
                 <div>
                   <div className="mb-5 w-[50%]">
                     <InputText
-                      disabled={formDisabled.otrPrice}
+                      disabled={formDisabled.vehiclePrice}
                       leftText="Rp."
-                      value={form.otrPrice}
+                      value={form.vehiclePrice}
                       onChange={(value) => {
-                        onFieldChange('otrPrice', value);
+                        onFieldChange('vehiclePrice', value);
                       }}
                       type="number"
                     />
@@ -189,21 +184,21 @@ const CE_SimulationCarMain = () => {
                       min={0}
                       max={1000000000}
                       step={100000}
-                      value={form.otrPrice}
+                      value={form.vehiclePrice}
                       onChange={(value) => {
-                        onFieldChange('otrPrice', value);
+                        onFieldChange('vehiclePrice', value);
                       }}
                     />
                   </div>
-                  {formError.otrPrice && (
+                  {formError.vehiclePrice && (
                     <div className="mt-5">
-                      <InputError message={formError.otrPrice} />
+                      <InputError message={formError.vehiclePrice} />
                     </div>
                   )}
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, otrPrice: edit })
+                setFormDisabled({ ...formDisabled, vehiclePrice: edit })
               }
             />
           </div>
@@ -218,8 +213,7 @@ const CE_SimulationCarMain = () => {
                       <InputText
                         disabled
                         rightText="%"
-                        value={form.dp}
-                        onChange={(value) => onFieldChange('dp', value)}
+                        value={form.vehicleStatus === 'NEW' ? 25 : 30}
                         type="number"
                       />
                     </div>
@@ -227,17 +221,11 @@ const CE_SimulationCarMain = () => {
                       <InputText
                         disabled
                         leftText="Rp."
-                        value={form.dpIDR}
-                        onChange={(value) => onFieldChange('dpIDR', value)}
+                        value={result?.downPaymentAmount}
                         type="number"
                       />
                     </div>
                   </div>
-                  {formError.dp && (
-                    <div className="mt-5">
-                      <InputError message={formError.dp} />
-                    </div>
-                  )}
                 </div>
               }
             />
@@ -252,15 +240,10 @@ const CE_SimulationCarMain = () => {
                     <InputText
                       disabled
                       leftText="Rp."
-                      value={form.principalDebt}
+                      value={result?.principalDebt}
                       type="number"
                     />
                   </div>
-                  {formError.principalDebt && (
-                    <div className="mt-5">
-                      <InputError message={formError.principalDebt} />
-                    </div>
-                  )}
                 </div>
               }
             />
@@ -272,30 +255,34 @@ const CE_SimulationCarMain = () => {
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
-                      disabled={formDisabled.period}
+                      disabled={formDisabled.installmentTerm}
                       rightText="Tahun"
-                      value={form.period}
-                      onChange={(value) => onFieldChange('period', value)}
+                      value={form.installmentTerm}
+                      onChange={(value) =>
+                        onFieldChange('installmentTerm', value)
+                      }
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
                       min={0}
-                      max={4}
-                      value={form.period}
-                      onChange={(value) => onFieldChange('period', value)}
+                      max={6}
+                      value={form.installmentTerm}
+                      onChange={(value) =>
+                        onFieldChange('installmentTerm', value)
+                      }
                     />
                   </div>
-                  {formError.period && (
+                  {formError.installmentTerm && (
                     <div className="mt-5">
-                      <InputError message={formError.period} />
+                      <InputError message={formError.installmentTerm} />
                     </div>
                   )}
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, period: edit })
+                setFormDisabled({ ...formDisabled, installmentTerm: edit })
               }
             />
           </div>
@@ -309,23 +296,22 @@ const CE_SimulationCarMain = () => {
                     <InputText
                       disabled
                       rightText="%"
-                      value={form.rate}
-                      onChange={(value) => onFieldChange('rate', value)}
-                      type="number"
+                      value={
+                        result
+                          ? new Intl.NumberFormat('EN-us').format(
+                              result.interestRate * 100
+                            )
+                          : 0
+                      }
                     />
                   </div>
-                  {formError.rate && (
-                    <div className="mt-5">
-                      <InputError message={formError.rate} />
-                    </div>
-                  )}
                 </div>
               }
             />
           </div>
           <div className="w-full flex-none px-5">
             <ButtonSecondary
-              onClick={handleSubmit}
+              onClick={() => handleSubmit(true)}
               rounded="full"
               size="md"
               color="orange-01"

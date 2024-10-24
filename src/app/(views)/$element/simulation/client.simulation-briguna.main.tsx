@@ -1,39 +1,85 @@
 import InputSlider from '@/lib/element/global/input.slider';
 import CE_SimulationLabel from './client.simulation.label';
 import InputText from '@/lib/element/global/input.text';
-import { useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import useForm from '@/lib/hook/useForm';
-import {
-  CFN_MapToSimulationBRIGunaPayload,
-  CFN_ValidateCreateSimulationBRIGunaFields,
-  T_CreateSimulationBRIGuna,
-} from '@/app/(views)/$function/cfn.create.simulation-briguna';
+
 import InputError from '@/lib/element/global/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import {
+  T_SimulationBriguna,
+  T_SimulationBrigunaRequest,
+} from '@/api/simulation/briguna/api.get.briguna.type';
+import {
+  CFN_GetSimulationBriguna,
+  CFN_MapToSimulationBrigunaPayload,
+  CFN_ValidateCreateSimulationBrigunaFields,
+} from '@/app/(views)/$function/cfn.get.simulation-briguna';
 
 const CE_SimulationBRIGunaMain = () => {
+  const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
-  const [formDisabled, setFormDisabled] = useState({
-    amount: true,
-    period: true,
-    rate: true,
-  });
-  const { form, formError, onFieldChange } = useForm<
-    T_CreateSimulationBRIGuna,
-    T_CreateSimulationBRIGuna
-  >(
-    CFN_MapToSimulationBRIGunaPayload({
-      amount: 0,
-      period: 0,
-      rate: 5,
-    }),
-    CFN_ValidateCreateSimulationBRIGunaFields
-  );
 
-  const handleSubmit = () => {
-    setIsResult(true);
+  const [formDisabled, setFormDisabled] = useState({
+    karyaInstallmentTerm: true,
+    karyaInterestRate: true,
+    karyaSalary: true,
+    purnaInstallmentTerm: true,
+    purnaInterestRate: true,
+    purnaSalary: true,
+  });
+  const { form, formError, onFieldChange, validateForm } = useForm<
+    T_SimulationBrigunaRequest,
+    T_SimulationBrigunaRequest
+  >(
+    CFN_MapToSimulationBrigunaPayload({
+      karyaInstallmentTerm: 0,
+      karyaInterestRate: 0,
+      karyaSalary: 0,
+      purnaInstallmentTerm: 0,
+      purnaInterestRate: 0,
+      purnaSalary: 0,
+    }),
+    CFN_ValidateCreateSimulationBrigunaFields
+  );
+  const [result, setResult] = useState<T_SimulationBriguna[]>();
+  const handleSubmit = async (button: boolean = true) => {
+    setResult(undefined);
+    const validate = validateForm();
+    if (pending || !validate) {
+      return;
+    }
+    try {
+      CFN_GetSimulationBriguna(transiting, form, (data) => {
+        setResult(data?.data);
+
+        if (button) {
+          setIsResult(true);
+        }
+      });
+    } catch (error) {}
   };
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setResult(undefined);
+      if (
+        form.karyaInstallmentTerm &&
+        form.karyaInterestRate &&
+        form.karyaSalary &&
+        form.purnaInstallmentTerm &&
+        form.purnaInterestRate &&
+        form.purnaSalary
+      ) {
+        handleSubmit(false);
+      }
+    }, 300); // Delay of 300ms
+
+    return () => {
+      clearTimeout(handler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
 
   return (
     <div>
@@ -41,8 +87,16 @@ const CE_SimulationBRIGunaMain = () => {
         <CE_SimulationResultVariant01
           values={[
             {
-              label: 'Estimasi Angsuran Bulanan',
-              value: '154120937',
+              label: 'Hasil BRIGuna Karya',
+              value: result?.at(0)?.monthlyInstallment.toString() || '0',
+            },
+            {
+              label: 'Hasil BRIGuna Purna',
+              value: result?.at(1)?.monthlyInstallment.toString() || '0',
+            },
+            {
+              label: 'Hasil BRIGuna Umum (BRIGuna Karya + BRIGuna Umum)',
+              value: result?.reduce((acc, curr) => acc + curr.monthlyInstallment, 0).toString() || '0',
             },
           ]}
           onClose={() => setIsResult(false)}
@@ -50,17 +104,20 @@ const CE_SimulationBRIGunaMain = () => {
       )}
       {!isResult && (
         <div className="flex flex-wrap -mx-5">
+          <div className="w-full flex-none px-5">
+            <CE_SimulationLabel label="BRIGuna Karya" editable={false} />
+          </div>
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Plafond"
+              label="Jumlah Gaji"
               slot={
                 <div>
                   <div className="mb-5 w-[50%]">
                     <InputText
-                      disabled={formDisabled.amount}
+                      disabled={formDisabled.karyaSalary}
                       leftText="Rp."
-                      value={form.amount}
-                      onChange={(value) => onFieldChange('amount', value)}
+                      value={form.karyaSalary}
+                      onChange={(value) => onFieldChange('karyaSalary', value)}
                       type="number"
                     />
                   </div>
@@ -69,19 +126,19 @@ const CE_SimulationBRIGunaMain = () => {
                       min={0}
                       max={1000000000}
                       step={100000}
-                      value={form.amount}
-                      onChange={(value) => onFieldChange('amount', value)}
+                      value={form.karyaSalary}
+                      onChange={(value) => onFieldChange('karyaSalary', value)}
                     />
                   </div>
-                  {formError.amount && (
+                  {formError.karyaSalary && (
                     <div className="mt-5">
-                      <InputError message={formError.amount} />
+                      <InputError message={formError.karyaSalary} />
                     </div>
                   )}
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, amount: edit })
+                setFormDisabled({ ...formDisabled, karyaSalary: edit })
               }
             />
           </div>
@@ -92,30 +149,34 @@ const CE_SimulationBRIGunaMain = () => {
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
-                      disabled={formDisabled.period}
+                      disabled={formDisabled.karyaInstallmentTerm}
                       rightText="Tahun"
-                      value={form.period}
-                      onChange={(value) => onFieldChange('period', value)}
+                      value={form.karyaInstallmentTerm}
+                      onChange={(value) =>
+                        onFieldChange('karyaInstallmentTerm', value)
+                      }
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
                       min={0}
-                      max={100}
-                      value={form.period}
-                      onChange={(value) => onFieldChange('period', value)}
+                      max={15}
+                      value={form.karyaInstallmentTerm}
+                      onChange={(value) =>
+                        onFieldChange('karyaInstallmentTerm', value)
+                      }
                     />
                   </div>
-                  {formError.period && (
+                  {formError.karyaInstallmentTerm && (
                     <div className="mt-5">
-                      <InputError message={formError.period} />
+                      <InputError message={formError.karyaInstallmentTerm} />
                     </div>
                   )}
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, period: edit })
+                setFormDisabled({ ...formDisabled, karyaInstallmentTerm: edit })
               }
             />
           </div>
@@ -126,10 +187,125 @@ const CE_SimulationBRIGunaMain = () => {
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
-                      disabled={formDisabled.rate}
+                      disabled={formDisabled.karyaInterestRate}
                       rightText="%"
-                      value={form.rate}
-                      onChange={(value) => onFieldChange('rate', value)}
+                      value={form.karyaInterestRate}
+                      onChange={(value) =>
+                        onFieldChange('karyaInterestRate', value)
+                      }
+                      type="number"
+                    />
+                  </div>
+                  <div>
+                    <InputSlider
+                      min={0}
+                      max={0.25}
+                      step={0.01}
+                      value={form.karyaInterestRate}
+                      onChange={(value) =>
+                        onFieldChange('karyaInterestRate', value)
+                      }
+                    />
+                  </div>
+                  {formError.karyaInterestRate && (
+                    <div className="mt-5">
+                      <InputError message={formError.karyaInterestRate} />
+                    </div>
+                  )}
+                </div>
+              }
+            />
+          </div>
+          <div className="border-b-2 pb-5 border-blue-01 border-opacity-35 border-dashed mb-10 w-full"></div>
+          <div className="w-full flex-none px-5">
+            <CE_SimulationLabel label="BRIGuna Purna" editable={false} />
+          </div>
+          <div className="w-full flex-none mb-10 px-5">
+            <CE_SimulationLabel
+              label="Jumlah Uang Pensiun"
+              slot={
+                <div>
+                  <div className="mb-5 w-[50%]">
+                    <InputText
+                      disabled={formDisabled.purnaSalary}
+                      leftText="Rp."
+                      value={form.purnaSalary}
+                      onChange={(value) => onFieldChange('purnaSalary', value)}
+                      type="number"
+                    />
+                  </div>
+                  <div>
+                    <InputSlider
+                      min={0}
+                      max={1000000000}
+                      step={100000}
+                      value={form.purnaSalary}
+                      onChange={(value) => onFieldChange('purnaSalary', value)}
+                    />
+                  </div>
+                  {formError.purnaSalary && (
+                    <div className="mt-5">
+                      <InputError message={formError.purnaSalary} />
+                    </div>
+                  )}
+                </div>
+              }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, purnaSalary: edit })
+              }
+            />
+          </div>
+          <div className="w-1/2 flex-none mb-10 px-5">
+            <CE_SimulationLabel
+              label="Jangka Waktu"
+              slot={
+                <div>
+                  <div className="mb-5 w-[70%]">
+                    <InputText
+                      disabled={formDisabled.purnaInstallmentTerm}
+                      rightText="Tahun"
+                      value={form.purnaInstallmentTerm}
+                      onChange={(value) =>
+                        onFieldChange('purnaInstallmentTerm', value)
+                      }
+                      type="number"
+                    />
+                  </div>
+                  <div>
+                    <InputSlider
+                      min={0}
+                      max={15}
+                      value={form.purnaInstallmentTerm}
+                      onChange={(value) =>
+                        onFieldChange('purnaInstallmentTerm', value)
+                      }
+                    />
+                  </div>
+                  {formError.purnaInstallmentTerm && (
+                    <div className="mt-5">
+                      <InputError message={formError.purnaInstallmentTerm} />
+                    </div>
+                  )}
+                </div>
+              }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, purnaInstallmentTerm: edit })
+              }
+            />
+          </div>
+          <div className="w-1/2 flex-none mb-10 px-5">
+            <CE_SimulationLabel
+              label="Suku Bunga Efektif"
+              slot={
+                <div>
+                  <div className="mb-5 w-[70%]">
+                    <InputText
+                      disabled={formDisabled.purnaInterestRate}
+                      rightText="%"
+                      value={form.purnaInterestRate}
+                      onChange={(value) =>
+                        onFieldChange('purnaInterestRate', value)
+                      }
                       type="number"
                     />
                   </div>
@@ -137,14 +313,16 @@ const CE_SimulationBRIGunaMain = () => {
                     <InputSlider
                       min={0}
                       max={25}
-                      step={0.01}
-                      value={form.rate}
-                      onChange={(value) => onFieldChange('rate', value)}
+                      step={1}
+                      value={form.purnaInterestRate}
+                      onChange={(value) =>
+                        onFieldChange('purnaInterestRate', value)
+                      }
                     />
                   </div>
-                  {formError.rate && (
+                  {formError.purnaInterestRate && (
                     <div className="mt-5">
-                      <InputError message={formError.rate} />
+                      <InputError message={formError.purnaInterestRate} />
                     </div>
                   )}
                 </div>
@@ -153,7 +331,7 @@ const CE_SimulationBRIGunaMain = () => {
           </div>
           <div className="w-full flex-none px-5">
             <ButtonSecondary
-              onClick={handleSubmit}
+              onClick={() => handleSubmit(true)}
               rounded="full"
               size="md"
               color="orange-01"

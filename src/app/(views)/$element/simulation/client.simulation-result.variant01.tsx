@@ -23,11 +23,11 @@ const CE_SimulationResultVariant01 = ({
   return (
     <CE_SimulationResultMain onClose={onClose}>
       <div>
-        <div className={type === 'center' ? 'mb-10' : 'mb-2'}>
+        <div className={type === 'center' ? '' : 'mb-2'}>
           {type === 'center' &&
             values.map((valueItem, valueIndex) => {
               return (
-                <div key={valueIndex}>
+                <div key={valueIndex} className='mb-10'>
                   <div className="text-xl text-center uppercase">
                     {valueItem.label}
                   </div>

@@ -5,60 +5,55 @@ import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import useForm from '@/lib/hook/useForm';
 import {
-  CFN_GetSimulationKPR,
-  CFN_MapToSimulationKPRPayload,
-  CFN_ValidateCreateSimulationKPRFields,
-} from '@/app/(views)/$function/cfn.get.simulation-kpr';
+  CFN_GetSimulationDepositoBusiness,
+  CFN_MapToSimulationDepositoBusinessPayload,
+  CFN_ValidateCreateSimulationDepositoBusinessFields,
+} from '@/app/(views)/$function/cfn.get.simulation-deposito-business';
 import InputError from '@/lib/element/global/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import { T_SimulationKPR, T_SimulationKPRRequest } from '@/api/simulation/kpr/api.get.kpr.type';
+import {
+  T_SimulationDepositoBusiness,
+  T_SimulationDepositoBusinessRequest,
+} from '@/api/simulation/deposito-business/api.get.deposito-business.type';
 
-
-const CE_SimulationKPRMain = () => {
+const CE_SimulationDepositoBusinessMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
-  
+
   const [formDisabled, setFormDisabled] = useState({
-    installmentAmount: true,
-    installmentTerm: true,
+    depositAmount: true,
+    termInMonths: true,
   });
   const { form, formError, onFieldChange, validateForm } = useForm<
-    T_SimulationKPRRequest,
-    T_SimulationKPRRequest
+    T_SimulationDepositoBusinessRequest,
+    T_SimulationDepositoBusinessRequest
   >(
-    CFN_MapToSimulationKPRPayload({
-      installmentAmount: 0,
-      installmentTerm: 0,
+    CFN_MapToSimulationDepositoBusinessPayload({
+      depositAmount: 0,
+      termInMonths: 0,
     }),
-    CFN_ValidateCreateSimulationKPRFields
+    CFN_ValidateCreateSimulationDepositoBusinessFields
   );
-  const [result, setResult] = useState<T_SimulationKPR>();
+  const [result, setResult] = useState<T_SimulationDepositoBusiness>();
   const handleSubmit = async (button: boolean = true) => {
     const validate = validateForm();
-    
+
     if (pending || !validate) {
       return;
     }
     try {
-      CFN_GetSimulationKPR(
-        transiting,
-        form,
-        (data) => {
-          setResult(data?.data);
-          if (button) {
-            setIsResult(true);
-          }
+      CFN_GetSimulationDepositoBusiness(transiting, form, (data) => {
+        setResult(data?.data);
+        if (button) {
+          setIsResult(true);
         }
-      );
-    } catch (error) {
-      
-    }
-    
+      });
+    } catch (error) {}
   };
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
-      if (form.installmentAmount && form.installmentTerm) {
+      if (form.depositAmount && form.termInMonths) {
         handleSubmit(false);
       }
     }, 300); // Delay of 300ms
@@ -66,8 +61,8 @@ const CE_SimulationKPRMain = () => {
     return () => {
       clearTimeout(handler);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
 
   return (
     <div>
@@ -75,8 +70,16 @@ const CE_SimulationKPRMain = () => {
         <CE_SimulationResultVariant01
           values={[
             {
-              label: 'Estimasi Angsuran Bulanan',
-              value: result?.monthlyInstallment.toString() || '0',
+              label: 'Bunga + Saldo Deposito',
+              value: result?.totalDepositWithInterest.toString() || '0',
+            },
+            {
+              label: 'Saldo Tanpa Bunga',
+              value: result?.totalDeposit.toString() || '0',
+            },
+            {
+              label: 'Bunga',
+              value: result?.totalInterest.toString() || '0',
             },
           ]}
           onClose={() => setIsResult(false)}
@@ -86,15 +89,17 @@ const CE_SimulationKPRMain = () => {
         <div className="flex flex-wrap -mx-5">
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Jumlah Pinjaman"
+              label="Jumlah Deposito"
               slot={
                 <div>
                   <div className="mb-5 w-[50%]">
                     <InputText
-                      disabled={formDisabled.installmentAmount}
+                      disabled={formDisabled.depositAmount}
                       leftText="Rp."
-                      value={form.installmentAmount}
-                      onChange={(value) => onFieldChange('installmentAmount', value)}
+                      value={form.depositAmount}
+                      onChange={(value) =>
+                        onFieldChange('depositAmount', value)
+                      }
                       type="number"
                     />
                   </div>
@@ -103,17 +108,19 @@ const CE_SimulationKPRMain = () => {
                       min={0}
                       max={1000000000}
                       step={100000}
-                      value={form.installmentAmount}
-                      onChange={(value) => onFieldChange('installmentAmount', value)}
+                      value={form.depositAmount}
+                      onChange={(value) =>
+                        onFieldChange('depositAmount', value)
+                      }
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.installmentAmount} />
+                    <InputError message={formError.depositAmount} />
                   </div>
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, installmentAmount: edit })
+                setFormDisabled({ ...formDisabled, depositAmount: edit })
               }
             />
           </div>
@@ -124,10 +131,12 @@ const CE_SimulationKPRMain = () => {
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
-                      disabled={formDisabled.installmentTerm}
+                      disabled={formDisabled.termInMonths}
                       rightText="Tahun"
-                      value={form.installmentTerm}
-                      onChange={(value) => onFieldChange('installmentTerm', value)}
+                      value={form.termInMonths}
+                      onChange={(value) =>
+                        onFieldChange('termInMonths', value)
+                      }
                       type="number"
                     />
                   </div>
@@ -135,17 +144,19 @@ const CE_SimulationKPRMain = () => {
                     <InputSlider
                       min={0}
                       max={100}
-                      value={form.installmentTerm}
-                      onChange={(value) => onFieldChange('installmentTerm', value)}
+                      value={form.termInMonths}
+                      onChange={(value) =>
+                        onFieldChange('termInMonths', value)
+                      }
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.installmentTerm} />
+                    <InputError message={formError.termInMonths} />
                   </div>
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, installmentTerm: edit })
+                setFormDisabled({ ...formDisabled, termInMonths: edit })
               }
             />
           </div>
@@ -159,7 +170,9 @@ const CE_SimulationKPRMain = () => {
                     <InputText
                       disabled
                       rightText="%"
-                      value={((result?.interestRate || 0) * 100).toString() || '5'}
+                      value={
+                        ((result?.rate || 0) * 100).toString() || '5'
+                      }
                       type="number"
                     />
                   </div>
@@ -183,4 +196,4 @@ const CE_SimulationKPRMain = () => {
   );
 };
 
-export default CE_SimulationKPRMain;
+export default CE_SimulationDepositoBusinessMain;

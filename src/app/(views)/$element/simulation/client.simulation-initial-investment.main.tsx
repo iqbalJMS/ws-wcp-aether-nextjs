@@ -5,60 +5,55 @@ import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import useForm from '@/lib/hook/useForm';
 import {
-  CFN_GetSimulationKPR,
-  CFN_MapToSimulationKPRPayload,
-  CFN_ValidateCreateSimulationKPRFields,
-} from '@/app/(views)/$function/cfn.get.simulation-kpr';
+  CFN_GetSimulationInitialInvestment,
+  CFN_MapToSimulationInitialInvestmentPayload,
+  CFN_ValidateCreateSimulationInitialInvestmentFields,
+} from '@/app/(views)/$function/cfn.get.simulation-initial-investment';
 import InputError from '@/lib/element/global/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import { T_SimulationKPR, T_SimulationKPRRequest } from '@/api/simulation/kpr/api.get.kpr.type';
+import {
+  T_SimulationInitialInvestment,
+  T_SimulationInitialInvestmentRequest,
+} from '@/api/simulation/initial-investment/api.get.initial-investment.type';
 
-
-const CE_SimulationKPRMain = () => {
+const CE_SimulationInitialInvestmentMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
-  
+
   const [formDisabled, setFormDisabled] = useState({
-    installmentAmount: true,
-    installmentTerm: true,
+    duration: true,
+    targetInvestmentValue: true,
   });
   const { form, formError, onFieldChange, validateForm } = useForm<
-    T_SimulationKPRRequest,
-    T_SimulationKPRRequest
+    T_SimulationInitialInvestmentRequest,
+    T_SimulationInitialInvestmentRequest
   >(
-    CFN_MapToSimulationKPRPayload({
-      installmentAmount: 0,
-      installmentTerm: 0,
+    CFN_MapToSimulationInitialInvestmentPayload({
+      duration: 0,
+      targetInvestmentValue: 0,
     }),
-    CFN_ValidateCreateSimulationKPRFields
+    CFN_ValidateCreateSimulationInitialInvestmentFields
   );
-  const [result, setResult] = useState<T_SimulationKPR>();
+  const [result, setResult] = useState<T_SimulationInitialInvestment>();
   const handleSubmit = async (button: boolean = true) => {
     const validate = validateForm();
-    
+
     if (pending || !validate) {
       return;
     }
     try {
-      CFN_GetSimulationKPR(
-        transiting,
-        form,
-        (data) => {
-          setResult(data?.data);
-          if (button) {
-            setIsResult(true);
-          }
+      CFN_GetSimulationInitialInvestment(transiting, form, (data) => {
+        setResult(data?.data);
+        if (button) {
+          setIsResult(true);
         }
-      );
-    } catch (error) {
-      
-    }
-    
+      });
+    } catch (error) {}
   };
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
-      if (form.installmentAmount && form.installmentTerm) {
+      if (form.duration && form.targetInvestmentValue) {
         handleSubmit(false);
       }
     }, 300); // Delay of 300ms
@@ -66,8 +61,8 @@ const CE_SimulationKPRMain = () => {
     return () => {
       clearTimeout(handler);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
 
   return (
     <div>
@@ -75,8 +70,12 @@ const CE_SimulationKPRMain = () => {
         <CE_SimulationResultVariant01
           values={[
             {
-              label: 'Estimasi Angsuran Bulanan',
-              value: result?.monthlyInstallment.toString() || '0',
+              label: 'One Time Investment',
+              value: result?.oneTimeInvestmentRequired.toString() || '0',
+            },
+            {
+              label: 'Periodic Investment',
+              value: result?.periodicInvestmentRequired.toString() || '0',
             },
           ]}
           onClose={() => setIsResult(false)}
@@ -91,10 +90,12 @@ const CE_SimulationKPRMain = () => {
                 <div>
                   <div className="mb-5 w-[50%]">
                     <InputText
-                      disabled={formDisabled.installmentAmount}
+                      disabled={formDisabled.targetInvestmentValue}
                       leftText="Rp."
-                      value={form.installmentAmount}
-                      onChange={(value) => onFieldChange('installmentAmount', value)}
+                      value={form.targetInvestmentValue}
+                      onChange={(value) =>
+                        onFieldChange('targetInvestmentValue', value)
+                      }
                       type="number"
                     />
                   </div>
@@ -103,17 +104,19 @@ const CE_SimulationKPRMain = () => {
                       min={0}
                       max={1000000000}
                       step={100000}
-                      value={form.installmentAmount}
-                      onChange={(value) => onFieldChange('installmentAmount', value)}
+                      value={form.targetInvestmentValue}
+                      onChange={(value) =>
+                        onFieldChange('targetInvestmentValue', value)
+                      }
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.installmentAmount} />
+                    <InputError message={formError.targetInvestmentValue} />
                   </div>
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, installmentAmount: edit })
+                setFormDisabled({ ...formDisabled, targetInvestmentValue: edit })
               }
             />
           </div>
@@ -124,10 +127,12 @@ const CE_SimulationKPRMain = () => {
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
-                      disabled={formDisabled.installmentTerm}
+                      disabled={formDisabled.duration}
                       rightText="Tahun"
-                      value={form.installmentTerm}
-                      onChange={(value) => onFieldChange('installmentTerm', value)}
+                      value={form.duration}
+                      onChange={(value) =>
+                        onFieldChange('duration', value)
+                      }
                       type="number"
                     />
                   </div>
@@ -135,21 +140,23 @@ const CE_SimulationKPRMain = () => {
                     <InputSlider
                       min={0}
                       max={100}
-                      value={form.installmentTerm}
-                      onChange={(value) => onFieldChange('installmentTerm', value)}
+                      value={form.duration}
+                      onChange={(value) =>
+                        onFieldChange('duration', value)
+                      }
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.installmentTerm} />
+                    <InputError message={formError.duration} />
                   </div>
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, installmentTerm: edit })
+                setFormDisabled({ ...formDisabled, duration: edit })
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          {/* <div className="w-1/2 flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Suku Bunga Efektif"
               editable={false}
@@ -159,14 +166,16 @@ const CE_SimulationKPRMain = () => {
                     <InputText
                       disabled
                       rightText="%"
-                      value={((result?.interestRate || 0) * 100).toString() || '5'}
+                      value={
+                        ((result?. || 0) * 100).toString() || '5'
+                      }
                       type="number"
                     />
                   </div>
                 </div>
               }
             />
-          </div>
+          </div> */}
           <div className="w-full flex-none px-5">
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
@@ -183,4 +192,4 @@ const CE_SimulationKPRMain = () => {
   );
 };
 
-export default CE_SimulationKPRMain;
+export default CE_SimulationInitialInvestmentMain;

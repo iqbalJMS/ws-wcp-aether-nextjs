@@ -4,61 +4,60 @@ import InputText from '@/lib/element/global/input.text';
 import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import useForm from '@/lib/hook/useForm';
-import {
-  CFN_GetSimulationKPR,
-  CFN_MapToSimulationKPRPayload,
-  CFN_ValidateCreateSimulationKPRFields,
-} from '@/app/(views)/$function/cfn.get.simulation-kpr';
+
 import InputError from '@/lib/element/global/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import { T_SimulationKPR, T_SimulationKPRRequest } from '@/api/simulation/kpr/api.get.kpr.type';
+import {
+  T_SimulationBrigunaPurna,
+  T_SimulationBrigunaPurnaRequest,
+} from '@/api/simulation/briguna-purna/api.get.briguna-purna.type';
+import {
+  CFN_GetSimulationBrigunaPurna,
+  CFN_MapToSimulationBrigunaPurnaPayload,
+  CFN_ValidateCreateSimulationBrigunaPurnaFields,
+} from '@/app/(views)/$function/cfn.get.simulation-briguna-purna';
 
-
-const CE_SimulationKPRMain = () => {
+const CE_SimulationBRIGunaPurnaMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
-  
+
   const [formDisabled, setFormDisabled] = useState({
-    installmentAmount: true,
     installmentTerm: true,
+    interestRate: true,
+    salary: true,
   });
   const { form, formError, onFieldChange, validateForm } = useForm<
-    T_SimulationKPRRequest,
-    T_SimulationKPRRequest
+    T_SimulationBrigunaPurnaRequest,
+    T_SimulationBrigunaPurnaRequest
   >(
-    CFN_MapToSimulationKPRPayload({
-      installmentAmount: 0,
+    CFN_MapToSimulationBrigunaPurnaPayload({
       installmentTerm: 0,
+      interestRate: 0,
+      salary: 0,
     }),
-    CFN_ValidateCreateSimulationKPRFields
+    CFN_ValidateCreateSimulationBrigunaPurnaFields
   );
-  const [result, setResult] = useState<T_SimulationKPR>();
+  const [result, setResult] = useState<T_SimulationBrigunaPurna>();
   const handleSubmit = async (button: boolean = true) => {
+    setResult(undefined);
     const validate = validateForm();
-    
     if (pending || !validate) {
       return;
     }
     try {
-      CFN_GetSimulationKPR(
-        transiting,
-        form,
-        (data) => {
-          setResult(data?.data);
-          if (button) {
-            setIsResult(true);
-          }
+      CFN_GetSimulationBrigunaPurna(transiting, form, (data) => {
+        setResult(data?.data);
+
+        if (button) {
+          setIsResult(true);
         }
-      );
-    } catch (error) {
-      
-    }
-    
+      });
+    } catch (error) {}
   };
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
-      if (form.installmentAmount && form.installmentTerm) {
+      if (form.installmentTerm && form.interestRate && form.salary) {
         handleSubmit(false);
       }
     }, 300); // Delay of 300ms
@@ -66,8 +65,8 @@ const CE_SimulationKPRMain = () => {
     return () => {
       clearTimeout(handler);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
 
   return (
     <div>
@@ -86,15 +85,15 @@ const CE_SimulationKPRMain = () => {
         <div className="flex flex-wrap -mx-5">
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Jumlah Pinjaman"
+              label="Jumlah Uang Pensiun"
               slot={
                 <div>
                   <div className="mb-5 w-[50%]">
                     <InputText
-                      disabled={formDisabled.installmentAmount}
+                      disabled={formDisabled.salary}
                       leftText="Rp."
-                      value={form.installmentAmount}
-                      onChange={(value) => onFieldChange('installmentAmount', value)}
+                      value={form.salary}
+                      onChange={(value) => onFieldChange('salary', value)}
                       type="number"
                     />
                   </div>
@@ -103,17 +102,19 @@ const CE_SimulationKPRMain = () => {
                       min={0}
                       max={1000000000}
                       step={100000}
-                      value={form.installmentAmount}
-                      onChange={(value) => onFieldChange('installmentAmount', value)}
+                      value={form.salary}
+                      onChange={(value) => onFieldChange('salary', value)}
                     />
                   </div>
-                  <div className="mt-5">
-                    <InputError message={formError.installmentAmount} />
-                  </div>
+                  {formError.salary && (
+                    <div className="mt-5">
+                      <InputError message={formError.salary} />
+                    </div>
+                  )}
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, installmentAmount: edit })
+                setFormDisabled({ ...formDisabled, salary: edit })
               }
             />
           </div>
@@ -127,21 +128,27 @@ const CE_SimulationKPRMain = () => {
                       disabled={formDisabled.installmentTerm}
                       rightText="Tahun"
                       value={form.installmentTerm}
-                      onChange={(value) => onFieldChange('installmentTerm', value)}
+                      onChange={(value) =>
+                        onFieldChange('installmentTerm', value)
+                      }
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
                       min={0}
-                      max={100}
+                      max={15}
                       value={form.installmentTerm}
-                      onChange={(value) => onFieldChange('installmentTerm', value)}
+                      onChange={(value) =>
+                        onFieldChange('installmentTerm', value)
+                      }
                     />
                   </div>
-                  <div className="mt-5">
-                    <InputError message={formError.installmentTerm} />
-                  </div>
+                  {formError.installmentTerm && (
+                    <div className="mt-5">
+                      <InputError message={formError.installmentTerm} />
+                    </div>
+                  )}
                 </div>
               }
               onChange={(edit) =>
@@ -152,21 +159,40 @@ const CE_SimulationKPRMain = () => {
           <div className="w-1/2 flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Suku Bunga Efektif"
-              editable={false}
               slot={
                 <div>
-                  <div className="w-[70%]">
+                  <div className="mb-5 w-[70%]">
                     <InputText
-                      disabled
+                      disabled={formDisabled.interestRate}
                       rightText="%"
-                      value={((result?.interestRate || 0) * 100).toString() || '5'}
+                      value={form.interestRate}
+                      onChange={(value) =>
+                        onFieldChange('interestRate', value)
+                      }
                       type="number"
                     />
                   </div>
+                  <div>
+                    <InputSlider
+                      min={0}
+                      max={15}
+                      step={1}
+                      value={form.interestRate}
+                      onChange={(value) =>
+                        onFieldChange('interestRate', value)
+                      }
+                    />
+                  </div>
+                  {formError.interestRate && (
+                    <div className="mt-5">
+                      <InputError message={formError.interestRate} />
+                    </div>
+                  )}
                 </div>
               }
             />
           </div>
+
           <div className="w-full flex-none px-5">
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
@@ -183,4 +209,4 @@ const CE_SimulationKPRMain = () => {
   );
 };
 
-export default CE_SimulationKPRMain;
+export default CE_SimulationBRIGunaPurnaMain;

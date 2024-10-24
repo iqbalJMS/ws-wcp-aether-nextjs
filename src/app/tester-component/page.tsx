@@ -31,8 +31,9 @@ import CE_CardVariant16 from '@/app/(views)/$element/card/client.card.variant16'
 import Accordion from '@/lib/element/global/accordion';
 import ImageViewer from '@/lib/element/global/image.viewer';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
+import CE_SimulationMain from '@/app/(views)/$element/simulation/client.simulation.main';
 // import { CE_CardVariant09 } from '@/app/(views)/$element/card/client.card.variant09';
-// import CE_SimulationMain from '@/app/$element/simulation/client.simulation.main';
+
 // import ImageViewer from '@/lib/element/global/image.viewer';
 // import InfoCards from '@/app/$element/portlet/client.portlet.variant04';
 
@@ -86,26 +87,26 @@ export default async function PageTester() {
     },
   ];
 
-  // const simulations = [
-  //   {
-  //     title: 'Cicilan KPR',
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-  //     variant: 'kpr',
-  //   },
-  //   {
-  //     title: 'Cicilan Kendaraan',
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-  //     variant: 'car',
-  //   },
-  //   {
-  //     title: 'Cicilan Briguna',
-  //     image: '/sites/default/files/images/1073-860x640.jpg',
-  //     tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-  //     variant: 'briguna',
-  //   },
-  // ];
+  const simulations = [
+    {
+      title: 'Cicilan KPR',
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+      variant: 'kpr',
+    },
+    {
+      title: 'Cicilan Kendaraan',
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+      variant: 'car',
+    },
+    {
+      title: 'Cicilan Briguna',
+      image: '/sites/default/files/images/1073-860x640.jpg',
+      tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+      variant: 'briguna',
+    },
+  ];
 
   return (
     <React.Fragment>
@@ -963,7 +964,7 @@ export default async function PageTester() {
         />
       </div>
 
-      {/* <CE_SimulationMain
+      <CE_SimulationMain
         type="tab"
         action={{
           button: {
@@ -980,7 +981,214 @@ export default async function PageTester() {
         }}
         variant={'kpr'}
         tabs={simulations}
-      /> */}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'kprs'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'KPRS',
+          variant: 'kprs',
+        }]}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'britama-rencana'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'Britama Rencana',
+          variant: 'britama-rencana',
+        }]}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'briguna-karya'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'BRIGuna Karya',
+          variant: 'briguna-karya',
+        }]}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'briguna-purna'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'BRIGuna Purna',
+          variant: 'briguna-purna',
+        }]}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'deposito'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'Deposito',
+          variant: 'deposito',
+        }]}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'deposito-business'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'Deposito Business',
+          variant: 'deposito-business',
+        }]}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'deposito-valas'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'Deposito Valas',
+          variant: 'deposito-valas',
+        }]}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'investment'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'Investment',
+          variant: 'investment',
+        }]}
+      />
+      <CE_SimulationMain
+        type="page"
+        action={{
+          button: {
+            extern: true,
+            link: 'https://bri.co.id',
+            title: 'Temukan Cabang',
+          },
+          description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+        }}
+        button={{
+          extern: true,
+          link: 'https://bri.co.id',
+          title: 'Lihat Selengkapnya',
+        }}
+        variant={'initial-investment'}
+        tabs={[{
+          image: '/sites/default/files/images/1073-860x640.jpg',
+          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+          title: 'Initial Investment',
+          variant: 'initial-investment',
+        }]}
+      />
 
       {/* <div className="container mx-auto p-8">
         <h1 className="text-3xl font-bold mb-6">Image Viewer</h1>

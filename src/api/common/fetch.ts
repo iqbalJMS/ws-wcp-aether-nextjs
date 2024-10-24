@@ -35,6 +35,10 @@ async function fetchData<T>(
     if (response.status === 403) {
       console.error('403 Forbidden: ', errorResponse.message);
     }
+    if (response.status === 422) {
+      console.error(options.body);
+      console.error(errorResponse);
+    }
 
     throw new Error(
       `Ups something went wrong, status: ${response.status ?? ''} - ${
