@@ -229,7 +229,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
       const title = _component?.field_formatted_title?.[0]?.value;
-      const titleV01 = _component?.field_column?.[0].field_title?.[0]?.value;
+      const titleV01 = _component?.field_column?.[0]?.field_title?.[0]?.value;
       const titleV02 =
         _component?.field_column?.[0]?.field_title_custom?.[0]?.value;
       const dataV01 =
@@ -239,6 +239,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             image: item?.field_image?.[0].field_media_image?.[0]?.uri[0]?.url,
           };
         });
+
       const dataV02 = _component?.field_column?.map((item) => {
         return {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
@@ -294,7 +295,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
-      const dataV11 = _component?.field_column?.[0].field_carousel_items?.map(
+      const dataV11 = _component?.field_column?.[0]?.field_carousel_items?.map(
         (item) => {
           const title = item?.field_title?.[0]?.value;
           const description = item?.field_content?.[0]?.value;
@@ -544,7 +545,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             list: listTabV10,
           };
         default:
-          return null;
+          return {
+            variant: findVariantStyle,
+          };
       }
     },
   },
@@ -615,7 +618,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const description1 =
         _component?.field_first_column?.[0]?.field_content?.[0]?.value;
       const description2 =
-        _component?.field_second_column?.[0].field_content?.[0]?.value;
+        _component?.field_second_column?.[0]?.field_content?.[0]?.value;
       const imageUrl1 =
         _component.field_first_column[0]?.field_image?.[0]
           .field_media_image?.[0]?.uri?.[0]?.url;
