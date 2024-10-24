@@ -101,22 +101,22 @@ const CE_SimulationCarMain = () => {
             },
             {
               label: 'Angsuran Bunga/ Bulan',
-              value: '',
+              value: result?.interestInstallmentPerMonth.toString() || '',
               col: true,
             },
             {
               label: 'Angsuran/ Bulan',
-              value: '',
+              value: result?.totalInstallmentPerMonth.toString() || '',
               col: true,
             },
             {
               label: 'Administrasi',
-              value: '',
+              value: result?.administrationFee.toString() || '',
               col: true,
             },
             {
               label: 'TDP (DP + Biaya Administrasi + Provisi)',
-              value: '',
+              value: result?.totalPayment.toString() || '',
               col: true,
             },
           ]}
