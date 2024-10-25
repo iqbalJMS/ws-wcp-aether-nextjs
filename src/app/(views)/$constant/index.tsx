@@ -435,9 +435,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant05:
           return <Tabs title={title} list={list} variantContent={variant} />;
         case WIDGET_VARIANT.variant10:
-          return <Tabs title={title} list={list} variantContent={variant} />;
+        case WIDGET_VARIANT.variant13:
         default:
-          return null;
+          return <Tabs title={title} list={list} variantContent={variant} />;
       }
     },
 
@@ -543,6 +543,37 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             title: title,
             list: listTabV10,
+          };
+        case WIDGET_VARIANT.variant13:
+          return {
+            variant: findVariantStyle,
+            list: _component?.field_tab?.map((item) => {
+              const rootSlug = item?.field_title?.[0]?.value;
+
+              return {
+                title: item.field_title[0].value,
+                slug: rootSlug,
+                children: item?.field_paragraphs?.map((item) => {
+                  const description1 =
+                    item?.field_first_column?.[0]?.field_content?.[0]?.value;
+                  const description2 =
+                    item?.field_second_column?.[0]?.field_content?.[0]?.value;
+                  const imageUrl1 =
+                    item.field_first_column?.[0]?.field_image?.[0]
+                      .field_media_image?.[0]?.uri?.[0]?.url;
+                  const imageUrl2 =
+                    item.field_second_column?.[0]?.field_image?.[0]
+                      .field_media_image?.[0]?.uri?.[0]?.url;
+
+                  return {
+                    description1: description1,
+                    description2: description2,
+                    imageUrl1: imageUrl1,
+                    imageUrl2: imageUrl2,
+                  };
+                }),
+              };
+            }),
           };
         default:
           return {
