@@ -5,6 +5,7 @@ import { useState } from 'react';
 import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
 import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
 import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
+import CE_PromoCard from '@/app/(views)/$element/portlet/client.portlet.variant04';
 
 type T_TabsProps = {
   list: {
@@ -45,6 +46,16 @@ export function Tabs({
             notes={notes}
           />
         );
+      case WIDGET_VARIANT.variant13:
+        return list?.[menuActive]?.children?.map((item, index) => (
+          <CE_PromoCard
+            key={index}
+            description1={item?.description1}
+            description2={item?.description2}
+            imageUrl1={item?.imageUrl1}
+            imageUrl2={item?.imageUrl2}
+          />
+        ));
       default:
         return null;
     }
