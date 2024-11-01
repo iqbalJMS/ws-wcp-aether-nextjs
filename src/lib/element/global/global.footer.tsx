@@ -38,7 +38,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
         >
           {icon && (
             <Image
-              src={`/images/footers/${icon}.svg`}
+              src={`/web/guest/images/footers/${icon}.svg`}
               width={18}
               extern
               height={18}
@@ -59,7 +59,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
             >
               {icon && (
                 <Image
-                  src={`/images/footers/${icon}.svg`}
+                  src={`/web/guest/images/footers/${icon}.svg`}
                   width={18}
                   extern={true}
                   height={18}
