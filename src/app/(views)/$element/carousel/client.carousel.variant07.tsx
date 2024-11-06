@@ -7,7 +7,7 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useState } from 'react';
 
-export function CE_CarouselVariant03({
+export function CE_CarouselVariant07({
   title,
   description,
   button,
@@ -38,7 +38,7 @@ export function CE_CarouselVariant03({
               <div className="text-2xl font-semibold mb-4">{title}</div>
             )}
             {description && <div className=" mb-4">{description}</div>}
-            <div className="flex items-center gap-5 mdmax:gap-1">
+            <div className="flex items-center gap-5 mdmax:gap-1  mb-4">
               <button
                 className={[
                   'w-12 h-12 mdmax:w-8 mdmax:h-8 bg-red-01 text-white',
@@ -71,9 +71,9 @@ export function CE_CarouselVariant03({
               </Link>
             )}
           </div>
-          <div className="overflow-hidden p-5 mdmax:p-2">
+          <div className="overflow-hidden p-5 mdmax:p-2 relative mb-10">
             <div
-              className="flex  -mx-2 transition-all ease-in-out duration-300"
+              className="flex  -mx-2 transition-all ease-in-out duration-300 relative z-0"
               style={{
                 transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`,
               }}
@@ -81,8 +81,8 @@ export function CE_CarouselVariant03({
               {data.map((dataItem, index) => (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem.button?.link || ''} target="_blank">
-                    <div className="shadow-lg relative rounded-md overflow-hidden group">
-                      <div className="w-full h-[18rem] ">
+                    <div className="p-4 py-6 bg-black bg-opacity-5 shadow-sm rounded-br-3xl">
+                      <div className="w-full h-[6rem] mb-2">
                         <Image
                           extern={false}
                           src={dataItem.image}
@@ -92,12 +92,10 @@ export function CE_CarouselVariant03({
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
-                      <div className="absolute z-20 bottom-0 left-0 p-4 ">
-                        <div className=" text-white text-2xl font-semibold text-line-2">
-                          {parseHTMLToReact(dataItem.title)}
-                        </div>
-                        <div className=" text-white group-hover:block hidden">
+                      <div>
+                        
+                        
+                        <div className="text-xs  overflow-auto">
                           {parseHTMLToReact(dataItem.desc)}
                         </div>
                       </div>

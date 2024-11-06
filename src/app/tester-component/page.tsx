@@ -211,7 +211,7 @@ export default async function PageTester() {
           name: 'Temukan Promosi Lainnya',
         }}
       />
-      <CE_CarouselMain variant="03" data={dataDummy} title="Keuntungan" />
+      <CE_CarouselMain variant="03" data={dataDummy} title="Carousel 03" description="Keuntungan Description" />
       <CE_CarouselMain
         variant="04"
         data={dataDummy}
@@ -232,6 +232,17 @@ export default async function PageTester() {
           name: 'Lainnya',
         }}
       />
+      <CE_CarouselMain
+        variant="07"
+        data={dataDummy}
+        title="Carousel 07"
+        description="Keuntungan Description"
+        button={{
+          link: 'https://bri.co.id',
+          name: 'Lainnya',
+        }}
+      />
+      
       <CE_ContentMain variant="01" data={dataDummy} title="Title" />
       <CE_ContentMain variant="02" data={dataDummy} />
       <CE_ContentMain variant="03" data={dataDummy} />
