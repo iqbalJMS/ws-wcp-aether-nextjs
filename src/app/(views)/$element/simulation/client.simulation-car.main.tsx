@@ -110,6 +110,11 @@ const CE_SimulationCarMain = () => {
               col: true,
             },
             {
+              label: 'Provisi',
+              value: '',
+              col: true,
+            },
+            {
               label: 'Administrasi',
               value: result?.administrationFee.toString() || '',
               col: true,
