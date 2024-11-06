@@ -32,6 +32,7 @@ import Accordion from '@/lib/element/global/accordion';
 import ImageViewer from '@/lib/element/global/image.viewer';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
 import CE_SimulationMain from '@/app/(views)/$element/simulation/client.simulation.main';
+import { CE_CarouselVariant06 } from '@/app/(views)/$element/carousel/client.carousel.variant06';
 // import { CE_CardVariant09 } from '@/app/(views)/$element/card/client.card.variant09';
 
 // import ImageViewer from '@/lib/element/global/image.viewer';
@@ -902,26 +903,32 @@ export default async function PageTester() {
           }
           isOpen
           renderContent={
-            <CE_CardVariant11
-              title="Lorem Ipsum"
+            <CE_CarouselVariant06
               data={[
                 {
-                  title: 'Lorem Ipsum',
-                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  image: '/web/guest/images/bri-mobile-image.png',
                   description:
-                    'Lorem Ipsum is simply dummy text of the printing',
+                    '1. Lorem Ipsum is simply dummy text of the printing',
                 },
                 {
-                  title: 'Lorem Ipsum',
-                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  image: '/web/guest/images/bri-mobile-image.png',
                   description:
-                    'Lorem Ipsum is simply dummy text of the printing',
+                    '1. Lorem Ipsum is simply dummy text of the printing',
                 },
                 {
-                  title: 'Lorem Ipsum',
-                  image: '/sites/default/files/images/1073-860x640.jpg',
+                  image: '/web/guest/images/bri-mobile-image.png',
                   description:
-                    'Lorem Ipsum is simply dummy text of the printing',
+                    '1. Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  image: '/web/guest/images/bri-mobile-image.png',
+                  description:
+                    '1. Lorem Ipsum is simply dummy text of the printing',
+                },
+                {
+                  image: '/web/guest/images/bri-mobile-image.png',
+                  description:
+                    '1. Lorem Ipsum is simply dummy text of the printing',
                 },
               ]}
             />
@@ -998,12 +1005,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'kprs'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'KPRS',
-          variant: 'kprs',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'KPRS',
+            variant: 'kprs',
+          },
+        ]}
       />
       <CE_SimulationMain
         type="page"
@@ -1021,12 +1030,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'britama-rencana'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'Britama Rencana',
-          variant: 'britama-rencana',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'Britama Rencana',
+            variant: 'britama-rencana',
+          },
+        ]}
       />
       <CE_SimulationMain
         type="page"
@@ -1044,12 +1055,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'briguna-karya'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'BRIGuna Karya',
-          variant: 'briguna-karya',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'BRIGuna Karya',
+            variant: 'briguna-karya',
+          },
+        ]}
       />
       <CE_SimulationMain
         type="page"
@@ -1067,12 +1080,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'briguna-purna'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'BRIGuna Purna',
-          variant: 'briguna-purna',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'BRIGuna Purna',
+            variant: 'briguna-purna',
+          },
+        ]}
       />
       <CE_SimulationMain
         type="page"
@@ -1090,12 +1105,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'deposito'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'Deposito',
-          variant: 'deposito',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'Deposito',
+            variant: 'deposito',
+          },
+        ]}
       />
       <CE_SimulationMain
         type="page"
@@ -1113,12 +1130,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'deposito-business'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'Deposito Business',
-          variant: 'deposito-business',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'Deposito Business',
+            variant: 'deposito-business',
+          },
+        ]}
       />
       <CE_SimulationMain
         type="page"
@@ -1136,12 +1155,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'deposito-valas'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'Deposito Valas',
-          variant: 'deposito-valas',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'Deposito Valas',
+            variant: 'deposito-valas',
+          },
+        ]}
       />
       <CE_SimulationMain
         type="page"
@@ -1159,12 +1180,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'investment'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'Investment',
-          variant: 'investment',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'Investment',
+            variant: 'investment',
+          },
+        ]}
       />
       <CE_SimulationMain
         type="page"
@@ -1182,12 +1205,14 @@ export default async function PageTester() {
           title: 'Lihat Selengkapnya',
         }}
         variant={'initial-investment'}
-        tabs={[{
-          image: '/sites/default/files/images/1073-860x640.jpg',
-          tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
-          title: 'Initial Investment',
-          variant: 'initial-investment',
-        }]}
+        tabs={[
+          {
+            image: '/sites/default/files/images/1073-860x640.jpg',
+            tnc: '<div>Syarat & Ketentuan</div><ul><li>Lorem Ipsum</li></ul>',
+            title: 'Initial Investment',
+            variant: 'initial-investment',
+          },
+        ]}
       />
 
       {/* <div className="container mx-auto p-8">
