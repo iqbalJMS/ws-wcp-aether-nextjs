@@ -714,7 +714,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       }
     },
 
-    // @ts-ignored
+    // @ts-ignore
     props: (_component: T_MultiTab) => {
       const title = _component?.field_title_custom?.[0]?.value;
       const findVariantStyle =
