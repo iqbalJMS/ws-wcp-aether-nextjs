@@ -30,34 +30,42 @@ export default function CE_CardVariant09({ data }: T_CardVariant09Props) {
                   <div>
                     <div className="p-10 mdmax:p-5 flex mdmax:flex-col items-center mdmax:items-start justify-between">
                       <div className="mdmax:mb-5">
-                        <div className="text-2xl font-semibold text-blue-01 text-line-1 mb-2">
-                          {parseHTMLToReact(item?.title)}
-                        </div>
+                        {item?.title && (
+                          <div className="text-2xl font-semibold text-blue-01 text-line-1 mb-2">
+                            {parseHTMLToReact(item?.title)}
+                          </div>
+                        )}
 
-                        <div className="text-black text-opacity-70">
-                          {parseHTMLToReact(item?.description)}
-                        </div>
+                        {item?.description && (
+                          <div className="text-black text-opacity-70">
+                            {parseHTMLToReact(item?.description)}
+                          </div>
+                        )}
                       </div>
                       <div className="text-right">
-                        <Link
-                          href={item?.button?.link}
-                          extern={item?.button?.extern}
-                          target={item?.button?.extern ? '_blank' : ''}
-                        >
-                          <div className="inline-flex text-blue-01 text-base">
-                            <div className="w-5 h-5 mr-2">
-                              <Image
-                                extern={false}
-                                src={item?.button?.image}
-                                alt="image"
-                                width={1920}
-                                height={1080}
-                                className="w-full h-full object-cover"
-                              />
+                        {item?.button?.link && (
+                          <Link
+                            href={item?.button?.link}
+                            extern={item?.button?.extern}
+                            target={item?.button?.extern ? '_blank' : ''}
+                          >
+                            <div className="inline-flex text-blue-01 text-base">
+                              {item?.button?.image && (
+                                <div className="w-5 h-5 mr-2">
+                                  <Image
+                                    extern={false}
+                                    src={item?.button?.image}
+                                    alt="image"
+                                    width={1920}
+                                    height={1080}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                              )}
+                              {item?.button?.title}
                             </div>
-                            {item?.button?.title}
-                          </div>
-                        </Link>
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>

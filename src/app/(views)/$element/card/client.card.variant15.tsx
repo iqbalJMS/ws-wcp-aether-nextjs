@@ -42,7 +42,7 @@ export function CE_CardVariant15({
           </div>
         </div>
         <div className="flex flex-wrap -mx-2">
-          {data.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <div
                 key={index}

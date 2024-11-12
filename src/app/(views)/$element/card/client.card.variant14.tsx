@@ -23,7 +23,7 @@ export function CE_CardVariant14({ data }: T_CardVariant14Props) {
     <>
       <div className="py-10 container overflow-hidden">
         <div className="flex flex-wrap -mx-5">
-          {data.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <div
                 key={index}

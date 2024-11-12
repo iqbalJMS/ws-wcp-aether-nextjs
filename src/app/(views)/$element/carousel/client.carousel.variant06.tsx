@@ -1,6 +1,7 @@
 'use client';
 
 import Image from '@/lib/element/global/image';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export type T_CarouselVariant06Props = {
@@ -50,7 +51,7 @@ export function CE_CarouselVariant06({ data }: T_CarouselVariant06Props) {
     <section
       className="py-10 container"
       data-active-range="0"
-      data-range-length={data.length}
+      data-range-length={data?.length}
       id="section"
     >
       <div className="overflow-hidden p-5 mdmax:p-2 relative">
@@ -82,20 +83,24 @@ export function CE_CarouselVariant06({ data }: T_CarouselVariant06Props) {
           className="flex transition-transform duration-500"
           style={{ transform: `translateX(-${current * 100}%)` }}
         >
-          {data.map((dataItem, index) => (
+          {data?.map((dataItem, index) => (
             <div key={index} className="w-full flex-none px-2">
-              <div className="md:w-1/4 w-full h-[600px] mb-8 mx-auto">
-                <Image
-                  extern={true}
-                  src={dataItem.image}
-                  alt="image"
-                  width={400}
-                  height={400}
-                  className="w-full h-full object-contain"
-                />
-              </div>
+              {dataItem?.image && (
+                <div className="md:w-1/4 w-full h-[600px] mb-8 mx-auto">
+                  <Image
+                    extern={false}
+                    src={dataItem?.image}
+                    alt="image"
+                    width={400}
+                    height={400}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              )}
               <div className="text-center">
-                <p>{dataItem.description}</p>
+                {dataItem?.description && (
+                  <p>{parseHTMLToReact(dataItem?.description)}</p>
+                )}
               </div>
             </div>
           ))}

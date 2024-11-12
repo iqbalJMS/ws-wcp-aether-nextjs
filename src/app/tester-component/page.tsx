@@ -33,10 +33,6 @@ import ImageViewer from '@/lib/element/global/image.viewer';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
 import CE_SimulationMain from '@/app/(views)/$element/simulation/client.simulation.main';
 import { CE_CarouselVariant06 } from '@/app/(views)/$element/carousel/client.carousel.variant06';
-// import { CE_CardVariant09 } from '@/app/(views)/$element/card/client.card.variant09';
-
-// import ImageViewer from '@/lib/element/global/image.viewer';
-// import InfoCards from '@/app/$element/portlet/client.portlet.variant04';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -111,6 +107,7 @@ export default async function PageTester() {
 
   return (
     <React.Fragment>
+      CE_BannerMain 01
       <CE_BannerMain
         variant="01"
         data={[
@@ -128,6 +125,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_BannerMain 02
       <CE_BannerMain
         variant="02"
         data={[
@@ -145,6 +143,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_BannerMain 03
       <CE_BannerMain
         variant="03"
         data={[
@@ -162,6 +161,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_BannerMain 04
       <CE_BannerMain
         variant="04"
         data={[
@@ -179,6 +179,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      SE_FormMain
       <SE_FormMain
         placeholder="Search..."
         title="Saya ingin"
@@ -190,7 +191,9 @@ export default async function PageTester() {
         // dropdownType="input-text"
         variant="01"
       />
+      SE_IconMain
       <SE_IconMain cookiesName="__personlized-menu" />
+      SE_WysiwygMain
       <SE_WysiwygMain
         variant="01"
         title="Laris Manis, Ini 9 Tips Mudah Jualan Online Buat Pemula"
@@ -199,9 +202,11 @@ export default async function PageTester() {
         imageContent="/sites/default/files/images/1073-860x640.jpg"
         content="<p>Transformasi Berkelanjutan untuk Tumbuh Semakin Kuat Dan Hebat</p>"
       />
+      CE_KursMain
       <CE_KursMain availableCurrency={[]} listCurrency={[]} listTable={[]} />
+      CE_CarouselMain
       <CE_CarouselMain variant="01" data={dataDummy} title="Keuntungan" />
-
+      CE_CarouselMain
       <CE_CarouselMain
         variant="02"
         data={dataDummy}
@@ -211,7 +216,9 @@ export default async function PageTester() {
           name: 'Temukan Promosi Lainnya',
         }}
       />
+      CE_CarouselMain 03
       <CE_CarouselMain variant="03" data={dataDummy} title="Keuntungan" />
+      CE_CarouselMain 04
       <CE_CarouselMain
         variant="04"
         data={dataDummy}
@@ -222,6 +229,7 @@ export default async function PageTester() {
           name: 'Lainnya',
         }}
       />
+      CE_CarouselMain 05
       <CE_CarouselMain
         variant="05"
         data={dataDummy}
@@ -232,9 +240,13 @@ export default async function PageTester() {
           name: 'Lainnya',
         }}
       />
+      CE_ContentMain 01
       <CE_ContentMain variant="01" data={dataDummy} title="Title" />
+      CE_ContentMain 02
       <CE_ContentMain variant="02" data={dataDummy} />
+      CE_ContentMain 03
       <CE_ContentMain variant="03" data={dataDummy} />
+      CE_CardVariant01
       <CE_CardVariant01
         data={[
           {
@@ -266,6 +278,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant02
       <CE_CardVariant02
         data={[
           {
@@ -311,6 +324,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant03
       <CE_CardVariant03
         data={[
           {
@@ -342,6 +356,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant04
       <CE_CardVariant04
         data={[
           {
@@ -402,6 +417,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant05
       <CE_CardVariant05
         data={[
           {
@@ -421,6 +437,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant06
       <CE_CardVariant06
         title="Lorem Ipsum"
         data={[
@@ -441,6 +458,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant07
       <CE_CardVariant07
         data={[
           {
@@ -481,6 +499,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant08
       <CE_CardVariant08
         title="Lorem Ipsum "
         data={[
@@ -516,6 +535,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant16
       <CE_CardVariant16
         title="Card Variant 16"
         data={[
@@ -551,6 +571,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      <h1>CE_CardVariant09</h1>
       <CE_CardVariant09
         data={[
           {
@@ -591,10 +612,12 @@ export default async function PageTester() {
           },
         ]}
       />
+      <h1>CE_CardVariant10</h1>
       <CE_CardVariant10
         title="Lorem Ipsum"
         description="Lorem Ipsum is simply dummy text of the printing"
       />
+      <h1>CE_CardVariant11</h1>
       <CE_CardVariant11
         title="Lorem Ipsum"
         data={[
@@ -615,6 +638,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      <h1>CE_CardVariant12</h1>
       <CE_CardVariant12
         data={[
           {
@@ -649,6 +673,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant13
       <CE_CardVariant13
         title="Lorem Ipsum"
         data={[
@@ -678,6 +703,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant14
       <CE_CardVariant14
         data={[
           {
@@ -718,6 +744,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_CardVariant15
       <CE_CardVariant15
         title={'Lorem Ipsum'}
         button={{
@@ -740,6 +767,7 @@ export default async function PageTester() {
         ]}
       />
       {/* Portlet Variant 01 */}
+      SE_PortletMain
       <SE_PortletMain
         variant="01"
         title="Mengapa Memilih BRI"
@@ -763,6 +791,7 @@ export default async function PageTester() {
         navigationLink="https://bri.co.id"
       />
       {/* Portlet Variant 02 */}
+      SE_PortletMain
       <SE_PortletMain
         variant="02"
         title="Mengapa BRI?"
@@ -776,6 +805,7 @@ export default async function PageTester() {
         ]}
         variantLayout="rounded_corneer"
       />
+      <h3>SE_PortletMain</h3>
       <SE_PortletMain
         variant="02"
         title="Mengapa BRI?"
@@ -790,6 +820,7 @@ export default async function PageTester() {
         variantLayout="large"
       />
       {/* Portlet Variant 03 */}
+      <h3>SE_PortletMain</h3>
       <SE_PortletMain
         variant="03"
         headerAlignment="left"
@@ -810,7 +841,9 @@ export default async function PageTester() {
         ]}
       />
       {/* Accordion Base */}
+      <h3>Accordion - slider</h3>
       <div className="py-4 container">
+        <h6>accordion - 1</h6>
         <Accordion
           renderTitle={
             <p className="text-l-bold text-left font-medium leading-8">
@@ -847,6 +880,7 @@ export default async function PageTester() {
       </div>
       {/* Accordion Full Border */}
       <div className="py-4">
+        <h6>accordion - 2</h6>
         <Accordion
           variant="full-border"
           renderTitle={
@@ -884,6 +918,7 @@ export default async function PageTester() {
       </div>
       {/* Accordion Rounded */}
       <div className="py-4 container">
+        <h6>accordion - 3</h6>
         <Accordion
           variant="rounded"
           renderTitle={
@@ -970,7 +1005,7 @@ export default async function PageTester() {
           }
         />
       </div>
-
+      CE_SimulationMain
       <CE_SimulationMain
         type="tab"
         action={{
@@ -989,6 +1024,7 @@ export default async function PageTester() {
         variant={'kpr'}
         tabs={simulations}
       />
+      CE_SimulationMain
       <CE_SimulationMain
         type="page"
         action={{
@@ -1014,6 +1050,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_SimulationMain
       <CE_SimulationMain
         type="page"
         action={{
@@ -1039,6 +1076,7 @@ export default async function PageTester() {
           },
         ]}
       />
+      CE_SimulationMain
       <CE_SimulationMain
         type="page"
         action={{
@@ -1214,17 +1252,6 @@ export default async function PageTester() {
           },
         ]}
       />
-
-      {/* <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-6">Image Viewer</h1>
-        <ImageViewer
-          src="/images/dummy/banner.jpg"
-          alt="Organizational Structure"
-          className="mx-auto"
-        />
-      </div> */}
-
-      {/* <InfoCards /> */}
       <div className="aspect-video overflow-hidden border border-gray-500">
         <ImageViewer />
       </div>

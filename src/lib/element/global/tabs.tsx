@@ -6,12 +6,18 @@ import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02'
 import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
 import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
 import CE_PromoCard from '@/app/(views)/$element/portlet/client.portlet.variant04';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import Link from './link';
+import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
+import Image from './image';
 
 type T_TabsProps = {
   list: {
     title?: string;
     information?: string;
     slug?: string;
+    linkShowMore?: string;
+    textShowMore?: string;
     description?: string;
     children?: Array<any>;
     notes?: string;
@@ -55,6 +61,101 @@ export function Tabs({
             imageUrl1={item?.imageUrl1}
             imageUrl2={item?.imageUrl2}
           />
+        ));
+      case WIDGET_VARIANT.variant15:
+        return list?.[menuActive]?.children?.map((item, index) => (
+          <div key={index}>
+            <h4 className="text-center font-semibold mt-10 text-4xl">
+              {parseHTMLToReact(item?.titleColumn)}
+            </h4>
+            <div className="grid grid-cols-4 mt-10 gap-6">
+              {item?.listColumn?.map((childItem, idx) => {
+                return (
+                  <div className="col-span-1" key={idx}>
+                    <div className="mb-2 font-semibold text-lg text-[#00539c]">
+                      {parseHTMLToReact(childItem?.field_title?.[0]?.value)}
+                    </div>
+                    <div className="text-gray-500 text-base">
+                      {parseHTMLToReact(childItem?.field_content?.[0]?.value)}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex justify-center mt-12">
+              <Link
+                href={list?.[menuActive]?.linkShowMore ?? ''}
+                className="bg-orange-400 text-white px-8 py-3 rounded-full"
+              >
+                {list?.[menuActive]?.textShowMore}
+              </Link>
+            </div>
+          </div>
+        ));
+      case WIDGET_VARIANT.variant29:
+        return (
+          <CE_CardVariant12
+            data={list?.[menuActive]?.children?.map((item) => {
+              return {
+                image: item?.image,
+                title: item?.title,
+                description: item?.description,
+                button: {
+                  link: item?.button?.link,
+                  title: item?.button?.title,
+                  extern: true,
+                },
+              };
+            })}
+          />
+        );
+      case WIDGET_VARIANT.variant31:
+        return list?.[menuActive]?.children?.map((item, index) => (
+          <div
+            className="border border-gray-200 rounded-lg flex items-center my-6 overflow-hidden"
+            key={index}
+          >
+            <div className="relative max-h-[16rem] aspect-video w-[30rem] rounded-lg object-contain">
+              <Image alt="image card" src={item?.image} extern={false} fill />
+            </div>
+            <div className="ml-6">
+              {item.title && (
+                <div className="text-lg text-[#13539c] font-semibold mb-2">
+                  {parseHTMLToReact(item.title)}
+                </div>
+              )}
+              {item?.description && (
+                <div className="text-gray-400 mb-6">
+                  {parseHTMLToReact(item?.description)}
+                </div>
+              )}
+
+              {item?.textLink && (
+                <Link
+                  href={item?.urlLink}
+                  extern={false}
+                  className="text-[#13539c] flex items-center gap-2"
+                >
+                  {item?.textLink}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    className="lucide lucide-chevron-right"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </Link>
+              )}
+            </div>
+          </div>
         ));
       default:
         return null;
