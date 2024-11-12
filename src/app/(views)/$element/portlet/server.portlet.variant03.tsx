@@ -37,9 +37,9 @@ export default async function SE_PortletVariant03({
         >
           {imageAtTitle ? (
             <div className="flex gap-2 items-center">
-              <Image width={20} height={20} src={imageAtTitle} alt="" />
+              <Image width={40} height={40} src={imageAtTitle} alt="" />
               {title && (
-                <div className="font-medium md:text-4xl text-3xl  mb-4">
+                <div className="font-medium md:text-4xl text-3xl">
                   {parseHTMLToReact(title)}
                 </div>
               )}
@@ -63,35 +63,39 @@ export default async function SE_PortletVariant03({
               <div className="flex gap-4 py-12 md:flex-row flex-col">
                 <div className="w-full h-[20rem] rounded-xl overflow-hidden mb-5 inline-block">
                   <Image
-                    extern={true}
+                    extern={false}
                     src={imageAtContent}
                     alt="image"
                     width={1920}
                     height={1080}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="md:max-w-2xl max-w-[90%]">
-                  {listItems?.map((item, index) => (
-                    <SE_PortletVariant01Item key={index} list_item={item} />
-                  ))}
+                  {typeof listItems !== 'string'
+                    ? listItems?.map((item, index) => (
+                        <SE_PortletVariant01Item key={index} list_item={item} />
+                      ))
+                    : parseHTMLToReact(listItems)}
                 </div>
               </div>
             ) : (
               <div className="flex gap-4 py-12 md:flex-row flex-col">
                 <div className="md:max-w-2xl max-w-[90%]">
-                  {listItems?.map((item, index) => (
-                    <SE_PortletVariant01Item key={index} list_item={item} />
-                  ))}
+                  {typeof listItems !== 'string'
+                    ? listItems?.map((item, index) => (
+                        <SE_PortletVariant01Item key={index} list_item={item} />
+                      ))
+                    : parseHTMLToReact(listItems)}
                 </div>
                 <div className="w-full h-[20rem] rounded-xl overflow-hidden mb-5 inline-block">
                   <Image
-                    extern={true}
+                    extern={false}
                     src={imageAtContent}
                     alt="image"
                     width={1920}
                     height={1080}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               </div>

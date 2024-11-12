@@ -33,6 +33,9 @@ export const WIDGET_VARIANT = {
   variant32: 'section_card_profile_2',
   variant33: 'section_two_column_2',
   variant34: 'div_portlet_02',
+  variant35: 'div_portlet_03',
+  variant36: 'section_card_center_2',
+  variant37: 'section_accordion_card_2',
 };
 
 export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';

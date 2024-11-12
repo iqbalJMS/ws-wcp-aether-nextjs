@@ -93,6 +93,10 @@ const CE_CardVariant16 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant16')
 );
 
+const CE_CardVariant18 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant18')
+);
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   kurs: {
     component: CE_KursMain,
@@ -121,7 +125,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
         const title = item?.field_title?.[0]?.value;
         const description = item?.field_content?.[0]?.value;
-        const button = item?.field_primary_cta[0]?.title;
+        const button = item?.field_primary_cta?.[0]?.title;
 
         return {
           image: image,
@@ -173,8 +177,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title = props?.[0]?.title;
       const subtitle = props?.[0]?.subtitle;
       const navigationLink = props?.[0]?.navigationLink;
+      const navigationText = props?.[0]?.navigationText;
       const backgroundImage = props?.[0]?.backgroundImage;
       const listItems = props?.[0]?.data;
+      const accordion = props?.[0]?.accordion;
       const column = String(props?.[0]?.column);
 
       switch (findVariantStyle) {
@@ -228,6 +234,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <CE_CardVariant11 column={column} title={title} data={listItems} />
           );
         case WIDGET_VARIANT.variant16:
+        case WIDGET_VARIANT.variant17:
           return <CE_CardVariant08 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant18:
           return <CE_CardVariant11 title={title} data={listItems} />;
@@ -335,6 +342,88 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               })}
             />
           );
+        case WIDGET_VARIANT.variant34:
+          return listItems?.map((item, key) => {
+            return (
+              <SE_PortletMain
+                title={item?.title}
+                key={key}
+                imageAtContent={item?.image}
+                bgImage={backgroundImage}
+                imageAtTitle={item?.icon}
+                imageContentAlignment="right"
+                variant="03"
+                listItems={item?.description}
+              />
+            );
+          });
+        case WIDGET_VARIANT.variant35:
+          return listItems?.map((item, key) => {
+            return (
+              <SE_PortletMain
+                title={item?.title}
+                key={key}
+                imageAtContent={item?.image}
+                bgImage={backgroundImage}
+                imageAtTitle={item?.icon}
+                imageContentAlignment="left"
+                variant="03"
+                listItems={item?.description}
+              />
+            );
+          });
+        case WIDGET_VARIANT.variant36:
+          return (
+            <CE_CardVariant18
+              title={title}
+              data={listItems}
+              showMore={{
+                title: navigationText,
+                link: navigationLink,
+              }}
+            />
+          );
+        case WIDGET_VARIANT.variant37:
+          return (
+            <div className="container mx-auto">
+              <div className="flex flex-col md:flex-row items-start md:space-x-10 px-4 md:px-10 py-6">
+                <div className="md:w-1/3 w-full mb-4 md:mb-0">
+                  {title && (
+                    <div className="text-xl font-semibold mb-2">
+                      {parseHTMLToReact(title)}
+                    </div>
+                  )}
+                  {subtitle && (
+                    <div className="text-gray-500">
+                      {parseHTMLToReact(subtitle)}
+                    </div>
+                  )}
+                </div>
+
+                <div className="md:w-2/3 w-full space-y-4 pt-6">
+                  {accordion?.map((item, key) => {
+                    return (
+                      <Accordion
+                        key={key}
+                        renderTitle={
+                          <p className="text-2xl font-normal text-left">
+                            {item?.title}
+                          </p>
+                        }
+                        variant="full-border"
+                        isOpen
+                        renderContent={
+                          <div className="py-6 text-gray-500">
+                            {parseHTMLToReact(item?.children)}
+                          </div>
+                        }
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          );
         default:
           return null;
       }
@@ -345,7 +434,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
       const subtitle = _component?.field_content?.[0]?.value;
       const navigationLink = _component?.field_primary_cta?.[0]?.uri;
-      const navigationLink01 = _component?.field_primary_cta?.[0]?.uri;
       const textLink = _component?.field_primary_cta?.[0]?.title;
       const column = _component?.column_count;
       const backgroundImage =
@@ -361,7 +449,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             image: item?.field_image?.[0].field_media_image?.[0]?.uri[0]?.url,
           };
         });
-
       const dataV02 = _component?.field_column?.map((item) => {
         return {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
@@ -514,6 +601,33 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
+      const dataV34 = _component?.field_column?.map((item) => {
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        const secondImage =
+          item?.field_second_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        const title = item?.field_title?.[0]?.value;
+        const description = item?.field_content?.[0]?.value;
+
+        return {
+          image: image,
+          title: title,
+          icon: secondImage,
+          description: description,
+          button: {
+            title: item?.field_primary_cta?.[0]?.title,
+            link: item?.field_primary_cta?.[0]?.full_url,
+          },
+        };
+      });
+      const dataV37 = _component?.field_column?.[0]?.field_accordion_items?.map(
+        (item) => {
+          return {
+            title: item?.field_title[0]?.value,
+            children: item?.field_paragraphs[0]?.field_content?.[0]?.value,
+          };
+        }
+      );
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -528,7 +642,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             subtitle: subtitle,
             data: dataV02,
             textLink: textLink,
-            navigationLink: navigationLink01,
+            navigationLink: navigationLink,
             backgroundImage: backgroundImage,
             variant: findVariantStyle,
           };
@@ -634,17 +748,38 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         case WIDGET_VARIANT.variant34:
           return {
+            variant: findVariantStyle,
+            data: dataV34,
+            backgroundImage: backgroundImage,
+          };
+        case WIDGET_VARIANT.variant35:
+          return {
+            variant: findVariantStyle,
+            data: dataV34,
+            backgroundImage: backgroundImage,
+          };
+        case WIDGET_VARIANT.variant36:
+          return {
             title: _component?.field_formatted_title?.[0]?.value,
             variant: findVariantStyle,
             column: 3,
+            navigationText: textLink,
+            navigationLink: navigationLink,
             data: dataV16,
           };
+        case WIDGET_VARIANT.variant37:
+          return {
+            title: title,
+            subtitle: subtitle,
+            variant: findVariantStyle,
+            accordion: dataV37,
+          };
+
         // TODO: Waiting section have two column
         // case WIDGET_VARIANT.variant22:
         //   return {
         //     backgroundImage: backgroundImage,
         //     title: _component?.field_formatted_title?.[0]?.value,
-        //     variant: findVariantStyle,
         //     column: 1,
         //     data: [],
         //   };
@@ -1065,8 +1200,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 title:
                   _component?.field_first_column?.[0]?.field_primary_cta?.[0]
                     ?.title,
-                link: _component?.field_first_column?.[0]?.field_primary_cta[0]
-                  ?.full_url,
+                link: _component?.field_first_column?.[0]
+                  ?.field_primary_cta?.[0]?.full_url,
                 extern: false,
               },
             },
@@ -1089,9 +1224,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               button: {
                 title:
                   _component.field_first_column?.[0]?.field_paragraphs?.[0]
-                    ?.field_primary_cta[0]?.title,
+                    ?.field_primary_cta?.[0]?.title,
                 link: _component?.field_first_column?.[0]?.field_paragraphs?.[0]
-                  ?.field_primary_cta[0]?.full_url,
+                  ?.field_primary_cta?.[0]?.full_url,
                 extern: false,
               },
             },
@@ -1282,18 +1417,17 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   accordion: {
     component: (props) => {
-      const variant = props?.variant;
-      const title = props?.title;
-      const listAccordion = props?.listAccordion;
-      const accordionStyle =
-        props?.accordionStyle === 'capsule' ? 'rounded-full' : '';
+      const variant: String = props?.variant;
+      const listAccordion: Array<any> = props?.listAccordion;
+      const accordionStyle: String = props?.accordionStyle;
+      const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
 
-      const renderElement = () => {
+      const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
             return (
               <CE_CardVariant09
-                data={props?.listChildren?.map((item) => {
+                data={children?.map((item) => {
                   return {
                     title: item?.filename?.replaceAll('_', ' '),
                     description: item?.description?.replaceAll('_', ' '),
@@ -1310,7 +1444,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           case 'image-slider':
             return (
               <CE_CarouselVariant06
-                data={props?.listChildren?.map((item) => {
+                data={children?.map((item) => {
                   return {
                     description: item?.description,
                     image: item?.image,
@@ -1322,7 +1456,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           default:
             return (
               <div className="flex">
-                {listAccordion?.map((item, index) => {
+                {children?.map((item, index) => {
                   return (
                     <div
                       key={index}
@@ -1375,85 +1509,113 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
       return (
         <div className="container mx-auto my-8">
-          <Accordion
-            renderTitle={
-              <p className="text-2xl text-left font-normal">{title}</p>
-            }
-            variant={accordionStyle as T_AccordionProps['variant']}
-            isOpen
-            renderContent={renderElement()}
-          />
+          {listAccordion?.map((item, key) => {
+            return (
+              <Accordion
+                key={key}
+                renderTitle={
+                  <p
+                    className={`${accordionStyle === 'capsule' ? 'text-base font-semibold pl-4' : 'text-2xl'} text-left font-normal`}
+                  >
+                    {item?.title}
+                  </p>
+                }
+                variant={isCapsule as T_AccordionProps['variant']}
+                isOpen
+                renderContent={renderElement(item?.children)}
+              />
+            );
+          })}
         </div>
       );
     },
     props: (_component) => {
       const title = _component?.field_accordion_items[0]?.field_title[0]?.value;
       const accordionStyle = _component?.field_accordion_style?.[0]?.value;
+
       const variantChildren =
         _component?.field_accordion_items?.[0]?.field_paragraphs?.[0]
           ?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
 
-      const listAccordionContent =
-        _component?.field_accordion_items?.[0]?.field_paragraphs?.[0]?.field_column?.map(
-          (item) => {
-            const title = item?.field_title?.[0]?.value;
-            const image =
-              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
-
-            return {
-              image: image,
-              title: title,
-              button: {
-                link: item?.field_primary_cta?.[0]?.full_url,
-                title: item?.field_primary_cta?.[0]?.title,
-                extern: true,
-              },
-            };
-          }
-        );
-
-      const listAccordionDownloaded =
-        _component?.field_accordion_items?.[0]?.field_paragraphs?.map(
-          (item) => {
-            const downloadFile =
-              item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
-            const description =
-              item?.field_document?.[0]?.field_media_file?.[0]?.filename?.[0]
-                ?.value;
-            const filename = item?.field_document?.[0]?.name?.[0]?.value;
-            const iconDownload = _component?.field_media_image;
-            return {
-              downloadFile: downloadFile,
-              description: description,
-              filename: filename,
-              iconDownload: iconDownload,
-            };
-          }
-        );
-
-      const listAccordionImageSlider =
-        _component.field_accordion_items[0]?.field_paragraphs?.map((item) => {
+      const listAccordionContent = _component?.field_accordion_items?.map(
+        (item) => {
           return {
-            image:
-              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
-            description: item?.field_content?.[0]?.value,
-          };
-        });
+            title: item?.field_title?.[0]?.value,
+            children: item?.field_paragraphs?.[0]?.field_column?.map(
+              (childItem) => {
+                const title = childItem?.field_title?.[0]?.value;
+                const image =
+                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                    ?.url;
 
-      const hasAccordionDownloaded = !!listAccordionDownloaded?.[0]?.filename;
-      const hasAccordionImageSlider = !!listAccordionImageSlider?.[0]?.image;
+                return {
+                  image: image,
+                  title: title,
+                  button: {
+                    link: childItem?.field_primary_cta?.[0]?.full_url,
+                    title: childItem?.field_primary_cta?.[0]?.title,
+                    extern: true,
+                  },
+                };
+              }
+            ),
+          };
+        }
+      );
+
+      const listAccordionDownloaded = _component?.field_accordion_items?.map(
+        (item) => {
+          return {
+            title: item?.field_title?.[0]?.value,
+            children: item?.field_paragraphs?.map((childItem) => {
+              const downloadFile =
+                childItem?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
+                  ?.url;
+              const description =
+                childItem?.field_document?.[0]?.field_media_file?.[0]
+                  ?.filename?.[0]?.value;
+              const filename = childItem?.field_document?.[0]?.name?.[0]?.value;
+
+              return {
+                downloadFile: downloadFile,
+                description: description,
+                filename: filename,
+              };
+            }),
+          };
+        }
+      );
+
+      const listAccordionImageSlider = _component?.field_accordion_items?.map(
+        (item) => {
+          return {
+            title: item?.field_title?.[0]?.value,
+            children: item?.field_paragraphs?.map((childItem) => {
+              return {
+                image:
+                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                    ?.url,
+                description: childItem?.field_content?.[0]?.value,
+              };
+            }),
+          };
+        }
+      );
+
+      const hasAccordionDownloaded =
+        !!listAccordionDownloaded?.[0]?.children?.[0]?.downloadFile;
+      const hasAccordionImageSlider =
+        !!listAccordionImageSlider?.[0]?.children?.[0]?.image;
 
       if (hasAccordionImageSlider) {
         return {
-          listChildren: listAccordionImageSlider,
-          title: title,
+          listAccordion: listAccordionImageSlider,
           variant: 'image-slider',
           accordionStyle: accordionStyle,
         };
       } else if (hasAccordionDownloaded) {
         return {
-          listChildren: listAccordionDownloaded,
-          title: title,
+          listAccordion: listAccordionDownloaded,
           variant: 'download',
           accordionStyle: accordionStyle,
         };

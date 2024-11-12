@@ -52,27 +52,29 @@ export default function CE_CardVariant08({
                     />
                   </div>
                   {item?.title && (
-                    <div className="text-lg font-semibold mb-2 text-center">
+                    <div className="text-lg font-semibold mb-2 ">
                       {parseHTMLToReact(item?.title)}
                     </div>
                   )}
                   {item?.description && (
-                    <div className="text-base mb-10 text-center">
+                    <div className="text-base mb-10 ">
                       {parseHTMLToReact(item?.description)}
                     </div>
                   )}
 
-                  <div className="text-center">
-                    <Link
-                      href={item?.button?.link}
-                      extern={item?.button?.extern}
-                      target={item?.button?.extern ? '_blank' : ''}
-                    >
-                      <div className="inline-block text-blue-01 text-base">
-                        {item?.button?.title} &#10095;
-                      </div>
-                    </Link>
-                  </div>
+                  {item?.button?.title && (
+                    <div className="text-center">
+                      <Link
+                        href={item?.button?.link}
+                        extern={item?.button?.extern}
+                        target={item?.button?.extern ? '_blank' : ''}
+                      >
+                        <div className="inline-block text-blue-01 text-base">
+                          {item?.button?.title} &#10095;
+                        </div>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             );
