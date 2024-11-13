@@ -13,21 +13,21 @@ import { WIDGET_VARIANT } from './variables';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { Tabs } from '@/lib/element/global/tabs';
 import { T_Image } from './types/widget/image';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import ImageViewer from '@/lib/element/global/image.viewer';
-import {
-  VideoPlayerVariant1,
-  VideoPlayerVariant2,
-} from '@/app/(views)/$element/client.video.player';
-import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
-import Link from 'next/link';
-import Image from '@/lib/element/global/image';
 import { CE_CarouselVariant06 } from '@/app/(views)/$element/carousel/client.carousel.variant06';
 import CE_PortletVarian05 from '@/app/(views)/$element/portlet/client.portlet.varian05';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
 import { CE_CardVariant05 } from '@/app/(views)/$element/card/client.card.variant05';
 import { CE_CardVariant13 } from '@/app/(views)/$element/card/client.card.variant13';
 import { CE_CardVariant01 } from '@/app/(views)/$element/card/client.card.variant01';
+import {
+  VideoPlayerVariant1,
+  VideoPlayerVariant2,
+} from '@/app/(views)/$element/client.video.player';
+import ImageViewer from '@/lib/element/global/image.viewer';
+import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import Image from '@/lib/element/global/image';
+import Link from 'next/link';
 
 const CE_PortletVarian04 = dynamic(
   () => import('@/app/(views)/$element/portlet/client.portlet.variant04')

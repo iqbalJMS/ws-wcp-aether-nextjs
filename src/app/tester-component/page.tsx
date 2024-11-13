@@ -33,6 +33,7 @@ import ImageViewer from '@/lib/element/global/image.viewer';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
 import CE_SimulationMain from '@/app/(views)/$element/simulation/client.simulation.main';
 import { CE_CarouselVariant06 } from '@/app/(views)/$element/carousel/client.carousel.variant06';
+import SE_PortletVariant06 from '@/app/(views)/$element/portlet/server.portlet.variant06';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -1255,6 +1256,76 @@ export default async function PageTester() {
       <div className="aspect-video overflow-hidden border border-gray-500">
         <ImageViewer />
       </div>
+      <SE_PortletVariant06
+        title="Informasi Kontak"
+        listContent={[
+          {
+            textContent: 'Hubungi kami untuk bantuan lebih lanjut',
+            cardContent: [
+              {
+                title: 'BRI Remittance Co.Ltd.',
+                item: [
+                  {
+                    title: 'Kantor Pusat',
+                    textValue: [
+                      {
+                        value:
+                          'Bay View Mansion Shopping Arcade, 33 Moreton terrace, Causeway Bay, Hongkong',
+                      },
+                    ],
+                  },
+                  {
+                    title: 'Telepon',
+                    textValue: [
+                      {
+                        value: '(852) 2890 2709',
+                      },
+                      {
+                        value: '(852) 5165 6683',
+                      },
+                    ],
+                  },
+                  {
+                    title: 'Website',
+                    textValue: [
+                      {
+                        value: 'http://www.brchk.com/',
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                title: 'HUBUNGI KAMI',
+                item: [
+                  {
+                    title: 'E-mail',
+                    textValue: [
+                      {
+                        value: 'https://bri.co.id/info@brchk.com',
+                      },
+                      {
+                        value: 'https://bri.co.id/brc.support@brchk.com',
+                      },
+                    ],
+                  },
+                  {
+                    title: 'Media Sosial',
+                    imageValue: [
+                      {
+                        image: '/web/guest/icons/zoom-in.svg',
+                      },
+                      {
+                        image: '/web/guest/icons/zoom-in.svg',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ]}
+      />
       <ScrollToTop />
     </React.Fragment>
   );

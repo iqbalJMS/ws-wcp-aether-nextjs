@@ -88,7 +88,7 @@ export function CE_CarouselVariant06({ data }: T_CarouselVariant06Props) {
               {dataItem?.image && (
                 <div className="md:w-1/4 w-full h-[600px] mb-8 mx-auto">
                   <Image
-                    extern={false}
+                    extern={true}
                     src={dataItem?.image}
                     alt="image"
                     width={400}
