@@ -18,14 +18,22 @@ async function fetchData<T>(
   const url = `${API_BASE_URL}${endpoint}`;
   const response = await fetch(url, {
     ...options,
-    next: options.method !== 'POST' ? {
-      revalidate: 120,
-    } : {},
+    cache: 'no-store',
+    next:
+      options.method !== 'POST'
+        ? {
+            revalidate: 0,
+          }
+        : {},
     headers: {
       ...(options.method !== 'POST' ? DEFAULT_HEADERS : {}),
       ...options.headers,
     },
-    body: options?.body ? (options.method !== 'POST' ? JSON.stringify(options.body) : options.body) : null,
+    body: options?.body
+      ? options.method !== 'POST'
+        ? JSON.stringify(options.body)
+        : options.body
+      : null,
   });
 
   const contentType = response.headers.get('content-type');
@@ -49,7 +57,6 @@ async function fetchData<T>(
   if (contentType && contentType.includes('application/json')) {
     return response.json();
   } else {
-    
     throw new Error('Unexpected response type');
   }
 }

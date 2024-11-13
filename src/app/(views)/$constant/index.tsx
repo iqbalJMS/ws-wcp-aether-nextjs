@@ -14,8 +14,22 @@ import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { Tabs } from '@/lib/element/global/tabs';
 import { T_Image } from './types/widget/image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import ImageViewer from '@/lib/element/global/image.viewer';
+import {
+  VideoPlayerVariant1,
+  VideoPlayerVariant2,
+} from '@/app/(views)/$element/client.video.player';
+import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
+import Link from 'next/link';
+import Image from '@/lib/element/global/image';
+import { CE_CarouselVariant06 } from '@/app/(views)/$element/carousel/client.carousel.variant06';
+import CE_PortletVarian05 from '@/app/(views)/$element/portlet/client.portlet.varian05';
+import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
+import { CE_CardVariant05 } from '@/app/(views)/$element/card/client.card.variant05';
+import { CE_CardVariant13 } from '@/app/(views)/$element/card/client.card.variant13';
+import { CE_CardVariant01 } from '@/app/(views)/$element/card/client.card.variant01';
 
-const CE_PromoCard = dynamic(
+const CE_PortletVarian04 = dynamic(
   () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
 );
 const CE_CardVariant11 = dynamic(
@@ -213,6 +227,114 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return (
             <CE_CardVariant11 column={column} title={title} data={listItems} />
           );
+        case WIDGET_VARIANT.variant16:
+          return <CE_CardVariant08 title={title} data={listItems} />;
+        case WIDGET_VARIANT.variant18:
+          return <CE_CardVariant11 title={title} data={listItems} />;
+        case WIDGET_VARIANT.variant23:
+          return (
+            <CE_CarouselMain variant="03" data={listItems} title={title} />
+          );
+        case WIDGET_VARIANT.variant24:
+          return <CE_CardVariant05 data={listItems} />;
+        case WIDGET_VARIANT.variant27:
+          return (
+            <div className="container mx-auto my-6">
+              {title && (
+                <div className="text-3xl">{parseHTMLToReact(title)}</div>
+              )}
+              <CE_CardVariant09
+                data={listItems?.map((item) => {
+                  return {
+                    title: item?.filename,
+                    button: {
+                      title: 'Download',
+                      link: item?.downloadFile,
+                    },
+                  };
+                })}
+              />
+            </div>
+          );
+        case WIDGET_VARIANT.variant28:
+          return (
+            <div className="container mx-auto bg-white overflow-hidden h-[1200px] py-2 w-full">
+              {listItems?.map((item, index) => (
+                <ImageViewer image={item?.image} key={index} />
+              ))}
+            </div>
+          );
+        case WIDGET_VARIANT.variant32:
+          return (
+            <div className="container my-8">
+              <div className="flex flex-wrap -mx-5">
+                {listItems?.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="w-1/4 mdmax:w-full flex-none px-5 mb-10 mdmax:!mt-0"
+                      style={{ marginTop: `${index * 5}rem` }}
+                    >
+                      <div>
+                        <div className="h-[20rem] mb-5">
+                          <Image
+                            extern={false}
+                            src={item?.image}
+                            alt="image"
+                            width={1920}
+                            height={1080}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        {item.title && (
+                          <div className="text-lg font-semibold mb-2 ">
+                            {parseHTMLToReact(item.title)}
+                          </div>
+                        )}
+                        {item.description && (
+                          <div className="text-base text-black text-opacity-30 mb-10 ">
+                            {parseHTMLToReact(item.description)}
+                          </div>
+                        )}
+
+                        <div className="">
+                          <Link
+                            href={item?.button?.link ?? '/'}
+                            target={!item?.button?.extern ? '_blank' : ''}
+                          >
+                            <div className="inline-block uppercase text-blue-01 text-xs">
+                              {item?.button?.title} &#10095;
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        case WIDGET_VARIANT.variant30:
+          return (
+            <CE_CardVariant13
+              title={title}
+              data={listItems?.map((item) => {
+                return {
+                  title: item?.title,
+                  image: item?.image,
+                  description: item?.description,
+                  subTitle: item?.subtitle,
+                  // TODO called it from item if data ready
+                  address: '',
+                  contactInformation: {
+                    fax: '',
+                    telephone: '',
+                    website: '',
+                  },
+                };
+              })}
+            />
+          );
         default:
           return null;
       }
@@ -316,6 +438,82 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
         };
       });
+      const dataV16 = _component?.field_column?.map((item) => {
+        return {
+          title: item?.field_title?.[0]?.value,
+          description: item?.field_content?.[0]?.value,
+          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
+          button: {
+            link: item?.field_primary_cta?.[0]?.uri,
+            title: item?.field_primary_cta?.[0]?.title,
+            extern: true,
+          },
+        };
+      });
+      const dataV18 = _component?.field_column?.map((item) => {
+        return {
+          title: item?.field_title?.[0]?.value,
+          description: item?.field_content?.[0]?.value,
+          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
+          button: {
+            title: item?.field_primary_cta?.[0]?.title,
+            link: item?.field_primary_cta?.[0]?.full_url ?? '',
+            extern: false,
+          },
+        };
+      });
+      const dataV24 = _component?.field_column?.map((item) => {
+        return {
+          title: item?.field_title?.[0]?.value,
+          description: item?.field_content?.[0]?.value,
+        };
+      });
+      const dataV27 = _component?.field_column?.map((item) => {
+        const downloadFile =
+          item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+        const description =
+          item?.field_document?.[0]?.field_media_file?.[0]?.filename?.[0]
+            ?.value;
+        const filename = item?.field_document?.[0]?.name?.[0]?.value;
+        const iconDownload = item?.field_media_image;
+        return {
+          filename: filename,
+          description: description,
+          downloadFile: downloadFile,
+          iconDownload: iconDownload,
+        };
+      });
+      const dataV28 = _component?.field_column?.map((item) => {
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        return { image: image };
+      });
+      const dataV30 = _component?.field_column?.map((item) => {
+        const title = item?.field_title?.[0]?.value;
+        const subtitle = item?.field_subtitle?.[0]?.value;
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+
+        const content = item?.field_content?.[0]?.value;
+
+        return {
+          title: title,
+          image: image,
+          description: content,
+          subtitle: subtitle,
+        };
+      });
+      const dataV32 = _component?.field_column?.map((item) => {
+        return {
+          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+          title: item?.field_title?.[0]?.value,
+          description: item?.field_content?.[0]?.value,
+          button: {
+            title: item?.field_primary_cta?.[0]?.title,
+            link: item?.field_primary_cta?.[0]?.full_url,
+          },
+        };
+      });
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -378,6 +576,78 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             column: 1,
             data: dataV12,
           };
+        case WIDGET_VARIANT.variant16:
+          return {
+            title: _component?.field_formatted_title?.[0]?.value,
+            variant: findVariantStyle,
+            column: 3,
+            data: dataV16,
+          };
+        case WIDGET_VARIANT.variant17:
+          return {
+            title: _component?.field_formatted_title?.[0]?.value,
+            variant: findVariantStyle,
+            column: 3,
+            data: dataV16,
+          };
+        case WIDGET_VARIANT.variant18:
+          return {
+            title: _component?.field_formatted_title?.[0]?.value,
+            variant: findVariantStyle,
+            column: 3,
+            data: dataV18,
+          };
+        case WIDGET_VARIANT.variant23:
+          return {
+            variant: findVariantStyle,
+            title: titleV02,
+            data: dataV11,
+          };
+        case WIDGET_VARIANT.variant24:
+          return {
+            variant: findVariantStyle,
+            title: titleV02,
+            data: dataV24,
+          };
+        case WIDGET_VARIANT.variant27:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: dataV27,
+          };
+        case WIDGET_VARIANT.variant28:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: dataV28,
+          };
+        case WIDGET_VARIANT.variant32:
+          return {
+            variant: findVariantStyle,
+            data: dataV32,
+          };
+        case WIDGET_VARIANT.variant30:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: dataV30,
+          };
+        case WIDGET_VARIANT.variant34:
+          return {
+            title: _component?.field_formatted_title?.[0]?.value,
+            variant: findVariantStyle,
+            column: 3,
+            data: dataV16,
+          };
+        // TODO: Waiting section have two column
+        // case WIDGET_VARIANT.variant22:
+        //   return {
+        //     backgroundImage: backgroundImage,
+        //     title: _component?.field_formatted_title?.[0]?.value,
+        //     variant: findVariantStyle,
+        //     column: 1,
+        //     data: [],
+        //   };
         default:
           return null;
       }
@@ -402,7 +672,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
       const title = _component?.field_title?.[0]?.value;
       const subtitle = _component?.field_content?.[0]?.value;
-      const variantLayout = _component.field_header_style?.[0].value;
+      const variantLayout = _component?.field_header_style?.[0]?.value;
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
       const buttonItem = _component?.field_primary_cta?.map((item) => {
@@ -435,9 +705,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant05:
           return <Tabs title={title} list={list} variantContent={variant} />;
         case WIDGET_VARIANT.variant10:
-          return <Tabs title={title} list={list} variantContent={variant} />;
+        case WIDGET_VARIANT.variant13:
+        case WIDGET_VARIANT.variant15:
+        case WIDGET_VARIANT.variant29:
+        case WIDGET_VARIANT.variant31:
         default:
-          return null;
+          return <Tabs title={title} list={list} variantContent={variant} />;
       }
     },
 
@@ -544,6 +817,103 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: title,
             list: listTabV10,
           };
+        case WIDGET_VARIANT.variant13:
+          return {
+            variant: findVariantStyle,
+            list: _component?.field_tab?.map((item) => {
+              const rootSlug = item?.field_title?.[0]?.value;
+
+              return {
+                title: item.field_title[0].value,
+                slug: rootSlug,
+                children: item?.field_paragraphs?.map((item) => {
+                  const description1 =
+                    item?.field_first_column?.[0]?.field_content?.[0]?.value;
+                  const description2 =
+                    item?.field_second_column?.[0]?.field_content?.[0]?.value;
+                  const imageUrl1 =
+                    item.field_first_column?.[0]?.field_image?.[0]
+                      .field_media_image?.[0]?.uri?.[0]?.url;
+                  const imageUrl2 =
+                    item.field_second_column?.[0]?.field_image?.[0]
+                      .field_media_image?.[0]?.uri?.[0]?.url;
+
+                  return {
+                    description1: description1,
+                    description2: description2,
+                    imageUrl1: imageUrl1,
+                    imageUrl2: imageUrl2,
+                  };
+                }),
+              };
+            }),
+          };
+        case WIDGET_VARIANT.variant15:
+          return {
+            variant: findVariantStyle,
+            list: _component?.field_tab?.map((item) => {
+              return {
+                title: item?.field_title?.[0]?.value,
+                slug: item?.field_title?.[0]?.value,
+                textShowMore: item?.field_primary_cta?.[0]?.title,
+                linkShowMore: item?.field_primary_cta?.[0]?.full_url,
+                children: item.field_paragraphs?.map((paragraph) => {
+                  return {
+                    titleColumn: paragraph?.field_formatted_title?.[0]?.value,
+                    countColumn: paragraph?.column_count ?? 3,
+                    listColumn: paragraph?.field_column ?? [],
+                  };
+                }),
+              };
+            }),
+          };
+        case WIDGET_VARIANT.variant29:
+          return {
+            variant: findVariantStyle,
+            list: _component?.field_tab?.map((item) => {
+              return {
+                title: item?.field_title?.[0]?.value,
+                slug: item?.field_title?.[0]?.value,
+                textShowMore: item?.field_primary_cta?.[0]?.title,
+                linkShowMore: item?.field_primary_cta?.[0]?.full_url,
+                children: item.field_paragraphs?.map((paragraph) => {
+                  return {
+                    image:
+                      paragraph?.field_image?.[0]?.field_media_image?.[0]
+                        ?.uri?.[0]?.url,
+                    title: paragraph?.field_title?.[0]?.value,
+                    description: paragraph?.field_content?.[0]?.value,
+                    button: {
+                      title: paragraph?.field_primary_cta?.[0]?.title,
+                      link: paragraph?.field_primary_cta?.[0]?.full_url,
+                    },
+                  };
+                }),
+              };
+            }),
+          };
+        case WIDGET_VARIANT.variant31:
+          return {
+            variant: findVariantStyle,
+            list: _component.field_tab?.map((item) => {
+              return {
+                title: item?.field_title?.[0]?.value,
+                slug: item?.field_title?.[0]?.value,
+                children: item?.field_paragraphs?.map((child) => {
+                  return {
+                    image:
+                      child?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                        ?.url,
+                    title: child?.field_title?.[0]?.value,
+                    description: child?.field_content?.[0]?.value,
+                    textLink: child?.field_primary_cta?.[0]?.title,
+                    urlLink: child?.field_primary_cta?.[0]?.full_url,
+                  };
+                }),
+              };
+            }),
+          };
+
         default:
           return {
             variant: findVariantStyle,
@@ -600,37 +970,227 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   two_column: {
     component: (...props) => {
-      const description1 = props?.[0]?.description1 ?? '';
-      const description2 = props?.[0]?.description2 ?? '';
-      const imageUrl1 = props?.[0]?.imageUrl1 ?? '';
-      const imageUrl2 = props?.[0]?.imageUrl2 ?? '';
+      const findVariantStyle = props?.[0]?.variant ?? '';
+      const firstColumn = props?.[0]?.firstColumn;
+      const secondColumn = props?.[0]?.secondColumn;
+      const description1 = props?.[0]?.firstColumn?.description ?? '';
+      const description2 = props?.[0]?.secondColumn?.description ?? '';
+      const imageUrl1 = props?.[0]?.firstColumn?.imageUrl1 ?? '';
+      const imageUrl2 = props?.[0]?.secondColumn?.imageUrl2 ?? '';
 
-      return (
-        <CE_PromoCard
-          description1={description1}
-          description2={description2}
-          imageUrl1={imageUrl1}
-          imageUrl2={imageUrl2}
-        />
-      );
+      switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant19:
+          return (
+            <CE_PortletVarian05
+              firstColumn={firstColumn}
+              secondColumn={secondColumn}
+            />
+          );
+        case WIDGET_VARIANT.variant21:
+          return (
+            <CE_PortletVarian05
+              firstColumn={firstColumn}
+              secondColumn={secondColumn}
+            />
+          );
+        case WIDGET_VARIANT.variant25:
+          return (
+            <CE_PortletVarian05
+              firstColumn={firstColumn}
+              secondColumn={secondColumn}
+            />
+          );
+        case WIDGET_VARIANT.variant26:
+          return (
+            <VideoPlayerVariant2
+              videoUrl={firstColumn?.video}
+              description={secondColumn?.description}
+            />
+          );
+        case WIDGET_VARIANT.variant33:
+          return (
+            <CE_CardVariant01
+              data={[
+                {
+                  image: firstColumn?.image,
+                  title: firstColumn?.title,
+                  description: firstColumn?.description,
+                  buttons: [
+                    {
+                      link: firstColumn?.button?.full_url,
+                      title: firstColumn?.button?.title,
+                      extern: true,
+                    },
+                  ],
+                },
+                {
+                  image: secondColumn?.image,
+                  title: secondColumn?.title,
+                  description: secondColumn?.description,
+                  buttons: [
+                    {
+                      link: secondColumn?.button?.full_url,
+                      title: secondColumn?.button?.title,
+                      extern: true,
+                    },
+                  ],
+                },
+              ]}
+            />
+          );
+        default:
+          return (
+            <CE_PortletVarian04
+              description1={description1}
+              description2={description2}
+              imageUrl1={imageUrl1}
+              imageUrl2={imageUrl2}
+            />
+          );
+      }
     },
     props: (_component) => {
-      const description1 =
-        _component?.field_first_column?.[0]?.field_content?.[0]?.value;
-      const description2 =
-        _component?.field_second_column?.[0]?.field_content?.[0]?.value;
-      const imageUrl1 =
-        _component.field_first_column[0]?.field_image?.[0]
-          .field_media_image?.[0]?.uri?.[0]?.url;
-      const imageUrl2 =
-        _component.field_second_column[0]?.field_image?.[0]
-          .field_media_image?.[0]?.uri?.[0]?.url;
-      return {
-        description1: description1,
-        description2: description2,
-        imageUrl1: imageUrl1,
-        imageUrl2: imageUrl2,
-      };
+      const findVariantStyle =
+        _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+
+      switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant19:
+          return {
+            firstColumn: {
+              title:
+                _component?.field_first_column?.[0]?.field_title?.[0]?.value,
+              description:
+                _component?.field_first_column?.[0]?.field_content?.[0]?.value,
+              button: {
+                title:
+                  _component?.field_first_column?.[0]?.field_primary_cta?.[0]
+                    ?.title,
+                link: _component?.field_first_column?.[0]?.field_primary_cta[0]
+                  ?.full_url,
+                extern: false,
+              },
+            },
+            secondColumn: {
+              image:
+                _component?.field_second_column?.[0]?.field_image?.[0]
+                  ?.field_media_image?.[0]?.uri?.[0]?.url,
+            },
+            variant: findVariantStyle,
+          };
+        case WIDGET_VARIANT.variant21:
+          return {
+            firstColumn: {
+              title:
+                _component?.field_first_column?.[0]?.field_paragraphs?.[0]
+                  ?.field_title?.[0]?.value,
+              description:
+                _component?.field_first_column?.[0]?.field_paragraphs?.[0]
+                  .field_content?.[0]?.value,
+              button: {
+                title:
+                  _component.field_first_column?.[0]?.field_paragraphs?.[0]
+                    ?.field_primary_cta[0]?.title,
+                link: _component?.field_first_column?.[0]?.field_paragraphs?.[0]
+                  ?.field_primary_cta[0]?.full_url,
+                extern: false,
+              },
+            },
+            secondColumn: {
+              image:
+                _component?.field_second_column?.[0]?.field_image?.[0]
+                  ?.field_media_image?.[0]?.uri?.[0]?.url,
+            },
+            variant: findVariantStyle,
+          };
+        case WIDGET_VARIANT.variant25:
+          return {
+            firstColumn: {
+              description:
+                _component?.field_first_column?.[0]?.field_content?.[0]?.value,
+            },
+            secondColumn: {
+              description:
+                _component?.field_second_column?.[0]?.field_content?.[0]?.value,
+            },
+            variant: findVariantStyle,
+          };
+        case WIDGET_VARIANT.variant26:
+          const video =
+            _component?.field_first_column?.[0]?.field_video?.[0]
+              ?.field_media_oembed_video?.[0]?.value;
+          const videoId = video?.substring(video?.lastIndexOf('/') + 1);
+          return {
+            firstColumn: {
+              video: videoId,
+            },
+            secondColumn: {
+              description:
+                _component?.field_second_column?.[0]?.field_content?.[0]?.value,
+            },
+            variant: findVariantStyle,
+          };
+        case WIDGET_VARIANT.variant33:
+          return {
+            firstColumn: {
+              image:
+                _component?.field_first_column?.[0]?.field_image?.[0]
+                  ?.field_media_image?.[0]?.uri?.[0]?.url,
+              title:
+                _component?.field_first_column?.[0]?.field_title?.[0]?.value,
+              description:
+                _component?.field_first_column?.[0]?.field_content?.[0]?.value,
+              button: {
+                title:
+                  _component.field_first_column?.[0]?.field_primary_cta?.[0]
+                    ?.title,
+                link: _component?.field_first_column?.[0]
+                  ?.field_primary_cta?.[0]?.full_url,
+                extern: false,
+              },
+            },
+            secondColumn: {
+              image:
+                _component?.field_second_column?.[0]?.field_image?.[0]
+                  ?.field_media_image?.[0]?.uri?.[0]?.url,
+              title:
+                _component?.field_second_column?.[0]?.field_title?.[0]?.value,
+              description:
+                _component?.field_second_column?.[0]?.field_content?.[0]?.value,
+              button: {
+                title:
+                  _component.field_second_column?.[0]?.field_primary_cta?.[0]
+                    ?.title,
+                link: _component?.field_second_column?.[0]
+                  ?.field_primary_cta?.[0]?.full_url,
+                extern: false,
+              },
+            },
+            variant: findVariantStyle,
+          };
+        default:
+          const description1 =
+            _component?.field_first_column?.[0]?.field_content?.[0]?.value;
+          const description2 =
+            _component?.field_second_column?.[0]?.field_content?.[0]?.value;
+          const imageUrl1 =
+            _component?.field_first_column?.[0]?.field_image?.[0]
+              ?.field_media_image?.[0]?.uri?.[0]?.url;
+          const imageUrl2 =
+            _component?.field_second_column?.[0]?.field_image?.[0]
+              ?.field_media_image?.[0]?.uri?.[0]?.url;
+
+          return {
+            firstColumn: {
+              description: description1,
+              image: imageUrl1,
+            },
+
+            secondColumn: {
+              description: description2,
+              image: imageUrl2,
+            },
+          };
+      }
     },
   },
   image: {
@@ -654,6 +1214,258 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       return {
         element: _component?.field_content?.[0]?.value,
       };
+    },
+  },
+  video: {
+    component: (props) => {
+      return (
+        <VideoPlayerVariant1
+          videoId={props.video}
+          title={props.title}
+          backgroundImage={props.background}
+        />
+      );
+    },
+    props: (_component) => {
+      const video =
+        _component?.field_video?.[0]?.field_media_oembed_video?.[0]?.value;
+      const videoId = video?.substring(video?.lastIndexOf('/') + 1);
+      const background =
+        _component?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+      const title = _component?.field_title?.[0]?.value;
+      return {
+        background: background,
+        title: title,
+        video: videoId,
+      };
+    },
+  },
+  download: {
+    component: (props) => {
+      const filename = props?.filename;
+      const description = props?.description;
+      const iconDownload = props?.iconDownload;
+      const downloadFile = props?.downloadFile;
+      return (
+        <CE_CardVariant09
+          data={[
+            {
+              title: filename,
+              description: description,
+              button: {
+                image: iconDownload,
+                link: downloadFile,
+                title: 'Download',
+                extern: true,
+              },
+            },
+          ]}
+        />
+      );
+    },
+    props: (_component) => {
+      const downloadFile =
+        _component?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+      const description =
+        _component?.field_document?.[0]?.field_media_file?.[0]?.filename?.[0]
+          ?.value;
+      const filename = _component?.field_document?.[0]?.name?.[0]?.value;
+      const iconDownload = _component?.field_media_image;
+
+      return {
+        filename: filename,
+        description: description,
+        downloadFile: downloadFile,
+        iconDownload: iconDownload,
+      };
+    },
+  },
+  accordion: {
+    component: (props) => {
+      const variant = props?.variant;
+      const title = props?.title;
+      const listAccordion = props?.listAccordion;
+      const accordionStyle =
+        props?.accordionStyle === 'capsule' ? 'rounded-full' : '';
+
+      const renderElement = () => {
+        switch (variant) {
+          case 'download':
+            return (
+              <CE_CardVariant09
+                data={props?.listChildren?.map((item) => {
+                  return {
+                    title: item?.filename?.replaceAll('_', ' '),
+                    description: item?.description?.replaceAll('_', ' '),
+                    button: {
+                      image: item?.iconDownload,
+                      link: item?.downloadFile,
+                      title: 'Download',
+                      extern: true,
+                    },
+                  };
+                })}
+              />
+            );
+          case 'image-slider':
+            return (
+              <CE_CarouselVariant06
+                data={props?.listChildren?.map((item) => {
+                  return {
+                    description: item?.description,
+                    image: item?.image,
+                  };
+                })}
+              />
+            );
+          case 'card-section':
+          default:
+            return (
+              <div className="flex">
+                {listAccordion?.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="w-1/4 mdmax:w-1/2 flex-none px-2"
+                    >
+                      <Link href={'/'} target="_blank">
+                        <div className="p-4 mdmax:p-2 shadow-lg">
+                          <div className="w-full h-[12rem] mb-2">
+                            <Image
+                              extern={false}
+                              src={item?.image}
+                              alt="image"
+                              width={400}
+                              height={400}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+
+                          <div>
+                            <div className=" text-red-01 font-semibold mb-2">
+                              {parseHTMLToReact(item?.title)}
+                            </div>
+
+                            <div className="text-base flex gap-3 items-center hover:underline h-[4rem] overflow-auto text-[#014A94]">
+                              {parseHTMLToReact(item?.button?.title)}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <path d="m9 18 6-6-6-6" />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+        }
+      };
+
+      return (
+        <div className="container mx-auto my-8">
+          <Accordion
+            renderTitle={
+              <p className="text-2xl text-left font-normal">{title}</p>
+            }
+            variant={accordionStyle as T_AccordionProps['variant']}
+            isOpen
+            renderContent={renderElement()}
+          />
+        </div>
+      );
+    },
+    props: (_component) => {
+      const title = _component?.field_accordion_items[0]?.field_title[0]?.value;
+      const accordionStyle = _component?.field_accordion_style?.[0]?.value;
+      const variantChildren =
+        _component?.field_accordion_items?.[0]?.field_paragraphs?.[0]
+          ?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+
+      const listAccordionContent =
+        _component?.field_accordion_items?.[0]?.field_paragraphs?.[0]?.field_column?.map(
+          (item) => {
+            const title = item?.field_title?.[0]?.value;
+            const image =
+              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+
+            return {
+              image: image,
+              title: title,
+              button: {
+                link: item?.field_primary_cta?.[0]?.full_url,
+                title: item?.field_primary_cta?.[0]?.title,
+                extern: true,
+              },
+            };
+          }
+        );
+
+      const listAccordionDownloaded =
+        _component?.field_accordion_items?.[0]?.field_paragraphs?.map(
+          (item) => {
+            const downloadFile =
+              item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+            const description =
+              item?.field_document?.[0]?.field_media_file?.[0]?.filename?.[0]
+                ?.value;
+            const filename = item?.field_document?.[0]?.name?.[0]?.value;
+            const iconDownload = _component?.field_media_image;
+            return {
+              downloadFile: downloadFile,
+              description: description,
+              filename: filename,
+              iconDownload: iconDownload,
+            };
+          }
+        );
+
+      const listAccordionImageSlider =
+        _component.field_accordion_items[0]?.field_paragraphs?.map((item) => {
+          return {
+            image:
+              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+            description: item?.field_content?.[0]?.value,
+          };
+        });
+
+      const hasAccordionDownloaded = !!listAccordionDownloaded?.[0]?.filename;
+      const hasAccordionImageSlider = !!listAccordionImageSlider?.[0]?.image;
+
+      if (hasAccordionImageSlider) {
+        return {
+          listChildren: listAccordionImageSlider,
+          title: title,
+          variant: 'image-slider',
+          accordionStyle: accordionStyle,
+        };
+      } else if (hasAccordionDownloaded) {
+        return {
+          listChildren: listAccordionDownloaded,
+          title: title,
+          variant: 'download',
+          accordionStyle: accordionStyle,
+        };
+      } else {
+        return {
+          variantChildren: variantChildren,
+          title: title,
+          variant: 'card-section',
+          listAccordion: listAccordionContent,
+          accordionStyle: accordionStyle,
+        };
+      }
     },
   },
 };

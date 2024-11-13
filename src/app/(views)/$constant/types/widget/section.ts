@@ -29,6 +29,7 @@ type FieldImage = {
 type FieldPrimaryCTA = {
   uri: string;
   title: string;
+  full_url: string;
   options: any[];
 };
 

@@ -1,10 +1,11 @@
 /* eslint-disable no-restricted-imports */
 'use client';
 
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 
-const DraggableZoomableImage = () => {
+const DraggableZoomableImage = ({ image }: { image?: string }) => {
   const imageRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
@@ -15,8 +16,8 @@ const DraggableZoomableImage = () => {
     if (imageRef.current) {
       const frameWidth = imageRef.current.offsetWidth;
       const frameHeight = imageRef.current.offsetHeight;
-      const initialLeft = (frameWidth - 600) / 2;
-      const initialTop = (frameHeight - 400) / 2;
+      const initialLeft = (frameWidth - 1100) / 2;
+      const initialTop = (frameHeight - 800) / 2;
       setOffset({ top: initialTop, left: initialLeft });
     }
   }, [imageRef]);
@@ -80,7 +81,7 @@ const DraggableZoomableImage = () => {
 
   return (
     <div className="relative flex justify-center items-center w-full container bg-red-200">
-      <div className="absolute right-0 top-0">
+      <div className="absolute bg-white z-10 right-0 top-0">
         <div className="flex items-center gap-2">
           <button
             onClick={zoomIn}
@@ -124,24 +125,26 @@ const DraggableZoomableImage = () => {
         </div>
       </div>
 
-      <div
-        ref={imageRef}
-        onMouseDown={handleMouseDown}
-        style={{
-          backgroundImage: 'url(https://via.placeholder.com/600)',
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          position: 'absolute',
-          top: `${offset.top}px`,
-          left: `${offset.left}px`,
-          width: '600px',
-          height: '400px',
-          cursor: dragging ? 'grabbing' : 'grab',
-          transform: `scale(${scale})`,
-          transformOrigin: 'center',
-        }}
-      ></div>
+      <div className="mx-auto flex justify-center items-center w-full bg-red-200">
+        <div
+          ref={imageRef}
+          onMouseDown={handleMouseDown}
+          style={{
+            backgroundImage: `url(${API_BASE_URL}${image})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            position: 'absolute',
+            top: `${offset.top}px`,
+            left: `${offset.left}px`,
+            width: '1100px',
+            height: '800px',
+            cursor: dragging ? 'grabbing' : 'grab',
+            transform: `scale(${scale})`,
+            transformOrigin: 'center',
+          }}
+        ></div>
+      </div>
     </div>
   );
 };

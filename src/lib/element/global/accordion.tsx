@@ -5,7 +5,7 @@ import { ChevronRightIcon } from './chevron-right-icon';
 import { ChevronUpIcon } from './chevron-up-icon';
 import Image from './image';
 
-type T_AccordionProps = {
+export type T_AccordionProps = {
   renderContent: React.ReactNode;
   renderTitle: React.ReactNode;
   isOpen?: boolean;

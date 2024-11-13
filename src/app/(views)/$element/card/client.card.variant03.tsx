@@ -21,7 +21,7 @@ export function CE_CardVariant03({ data }: T_CardVariant03Props) {
     <>
       <div className=" py-10 overflow-hidden">
         <div className="flex flex-wrap">
-          {data.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <div key={index} className="w-full flex-none">
                 <div className="h-[20rem]  relative z-0">

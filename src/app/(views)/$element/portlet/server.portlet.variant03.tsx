@@ -31,9 +31,9 @@ export default async function SE_PortletVariant03({
         backgroundSize: 'cover',
       }}
     >
-      <div className="container grid lg:grid-cols-2">
+      <div className="container flex flex-col">
         <div
-          className={`flex col-span-1 flex-col justify-center ${headerAlignment === 'left' ? 'justify-start mdmax:justify-center' : headerAlignment === 'right' ? 'justify-end mdmax:justify-center' : 'justify-center'}`}
+          className={`flex flex-col justify-center ${headerAlignment === 'left' ? 'justify-start mdmax:justify-center' : headerAlignment === 'right' ? 'justify-end mdmax:justify-center' : 'justify-center'}`}
         >
           {imageAtTitle ? (
             <div className="flex gap-2 items-center">
