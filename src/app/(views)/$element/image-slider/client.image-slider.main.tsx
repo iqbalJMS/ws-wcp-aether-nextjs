@@ -6,22 +6,22 @@ import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useEffect, useRef, useState } from 'react';
 
 const CE_ImageSliderMain = ({
-  data,
+  data = [],
   title,
 }: {
-  data: Array<{
-    image: string;
-    link: string;
+  data?: Array<{
+    image?: string;
+    link?: string;
   }>;
-  title: string;
+  title?: string;
 }) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(data?.length);
+  const [currentIndex, setCurrentIndex] = useState<number>(data?.length ?? 0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const screenWidth = useScreenWidth();
   const slidesToShow = screenWidth > 768 ? 5 : 3;
 
   const slidesToScroll = 1;
-  const totalSlides = data?.length;
+  const totalSlides = data?.length ?? 0;
   const sliderRef = useRef<HTMLDivElement | null>(null);
 
   const goToNext = () => {
@@ -87,10 +87,10 @@ const CE_ImageSliderMain = ({
               style={{ minWidth: `${100 / slidesToShow}%` }}
             >
               <div className="w-full h-40 mdmax:h-[5rem] border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
-                <Link href={slide?.link} target="_blank">
+                <Link href={slide?.link ?? ''} target="_blank">
                   <Image
                     extern={false}
-                    src={slide?.image}
+                    src={slide?.image ?? ''}
                     width={400}
                     height={400}
                     className="w-full h-full object-contain"

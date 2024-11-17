@@ -11,7 +11,9 @@ export type T_CarouselVariant06Props = {
   }>;
 };
 
-export function CE_CarouselVariant06({ data }: T_CarouselVariant06Props) {
+export default function CE_CarouselVariant06({
+  data,
+}: T_CarouselVariant06Props) {
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const interval = 3000;

@@ -18,7 +18,7 @@ type T_CardVariant01Props = {
   }[];
 };
 
-export function CE_CardVariant01({ data }: T_CardVariant01Props) {
+export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
   return (
     <>
       <div className=" py-10">

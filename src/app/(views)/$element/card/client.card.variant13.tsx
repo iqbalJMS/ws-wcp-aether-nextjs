@@ -6,21 +6,24 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant13Props = {
   title: string;
-  data: {
-    title: string;
-    subTitle: string;
-    description: string;
-    address: string;
-    contactInformation: {
-      telephone: string;
-      fax: string;
-      website: string;
+  data: Array<{
+    title?: string;
+    subTitle?: string;
+    description?: string;
+    address?: string;
+    contactInformation?: {
+      telephone?: string;
+      fax?: string;
+      website?: string;
     };
-    image: string;
-  }[];
+    image?: string;
+  }>;
 };
 
-export function CE_CardVariant13({ title, data }: T_CardVariant13Props) {
+export default function CE_CardVariant13({
+  title,
+  data,
+}: T_CardVariant13Props) {
   return (
     <>
       <div className="py-10 container overflow-hidden">
@@ -80,7 +83,7 @@ export function CE_CardVariant13({ title, data }: T_CardVariant13Props) {
                       )}
                     </div>
                     <div>
-                      {item.contactInformation.telephone && (
+                      {item?.contactInformation?.telephone && (
                         <>
                           <div className="text-sm mb-1">Kotak Informasi</div>
                           <div className="flex items-center text-sm">
@@ -96,7 +99,7 @@ export function CE_CardVariant13({ title, data }: T_CardVariant13Props) {
                         </>
                       )}
                       <div className="flex items-center text-sm">
-                        {item.contactInformation.fax && (
+                        {item?.contactInformation?.fax && (
                           <>
                             <div className="w-[20%] flex-none text-black text-opacity-50">
                               Fax
@@ -108,7 +111,7 @@ export function CE_CardVariant13({ title, data }: T_CardVariant13Props) {
                         )}
                       </div>
                       <div className="flex items-center text-sm">
-                        {item.contactInformation.website && (
+                        {item?.contactInformation?.website && (
                           <>
                             <div className="w-[20%] flex-none text-black text-opacity-50">
                               Website

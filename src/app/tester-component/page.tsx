@@ -12,18 +12,15 @@ import CE_CarouselMain from '@/app/(views)/$element/carousel/client.carousel.mai
 import { CE_ContentMain } from '@/app/(views)/$element/content/client.content.main';
 import CE_KursMain from '@/app/(views)/$element/kurs/client.kurs.main';
 import Image from '@/lib/element/global/image';
-import { CE_CardVariant01 } from '@/app/(views)/$element/card/client.card.variant01';
 import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
 import { CE_CardVariant03 } from '@/app/(views)/$element/card/client.card.variant03';
 import { CE_CardVariant04 } from '@/app/(views)/$element/card/client.card.variant04';
-import { CE_CardVariant05 } from '@/app/(views)/$element/card/client.card.variant05';
 import { CE_CardVariant06 } from '@/app/(views)/$element/card/client.card.variant06';
 import { CE_CardVariant07 } from '@/app/(views)/$element/card/client.card.variant07';
 import CE_CardVariant08 from '@/app/(views)/$element/card/client.card.variant08';
 import { CE_CardVariant10 } from '@/app/(views)/$element/card/client.card.variant10';
 import CE_CardVariant11 from '@/app/(views)/$element/card/client.card.variant11';
 import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
-import { CE_CardVariant13 } from '@/app/(views)/$element/card/client.card.variant13';
 import { CE_CardVariant14 } from '@/app/(views)/$element/card/client.card.variant14';
 import { CE_CardVariant15 } from '@/app/(views)/$element/card/client.card.variant15';
 import { T_CarouselMainProps } from '@/app/(views)/$constant/types';
@@ -32,8 +29,11 @@ import Accordion from '@/lib/element/global/accordion';
 import ImageViewer from '@/lib/element/global/image.viewer';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
 import CE_SimulationMain from '@/app/(views)/$element/simulation/client.simulation.main';
-import { CE_CarouselVariant06 } from '@/app/(views)/$element/carousel/client.carousel.variant06';
 import SE_PortletVariant06 from '@/app/(views)/$element/portlet/server.portlet.variant06';
+import CE_CardVariant01 from '@/app/(views)/$element/card/client.card.variant01';
+import CE_CardVariant05 from '@/app/(views)/$element/card/client.card.variant05';
+import CE_CardVariant13 from '@/app/(views)/$element/card/client.card.variant13';
+import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [

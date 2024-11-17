@@ -2,26 +2,45 @@
 
 import { Tooltip } from './tooltip';
 import { useState } from 'react';
-import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
 import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
+import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
 import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
 import CE_PromoCard from '@/app/(views)/$element/portlet/client.portlet.variant04';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import Link from './link';
-import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
 import Image from './image';
+import Link from './link';
 
 type T_TabsProps = {
-  list: {
+  list: Array<{
     title?: string;
     information?: string;
     slug?: string;
     linkShowMore?: string;
     textShowMore?: string;
     description?: string;
-    children?: Array<any>;
+    children?: Array<{
+      listColumn?: Array<{
+        field_title?: Array<{ value: string }>;
+        field_content?: Array<{ value: string }>;
+      }>;
+      description1?: string;
+      title?: string;
+      image?: string;
+      description?: string;
+      description2?: string;
+      imageUrl1?: string;
+      imageUrl2?: string;
+      titleColumn?: string;
+      button?: {
+        link?: string;
+        title?: string;
+      };
+      textLink?: string;
+      urlLink?: string;
+    }>;
     notes?: string;
-  }[];
+  }>;
   value?: string;
   title?: string;
   variantContent?: string;
@@ -66,18 +85,24 @@ export function Tabs({
         return list?.[menuActive]?.children?.map((item, index) => (
           <div key={index}>
             <h4 className="text-center font-semibold mt-10 text-4xl">
-              {parseHTMLToReact(item?.titleColumn)}
+              {parseHTMLToReact(item?.titleColumn ?? '')}
             </h4>
             <div className="grid grid-cols-4 mt-10 gap-6">
-              {item?.listColumn?.map((childItem, idx) => {
+              {item?.listColumn?.map((childItem, idx: number) => {
+                const title = childItem?.field_title?.[0]?.value ?? '';
+                const description = childItem?.field_content?.[0]?.value ?? '';
                 return (
                   <div className="col-span-1" key={idx}>
-                    <div className="mb-2 font-semibold text-lg text-[#00539c]">
-                      {parseHTMLToReact(childItem?.field_title?.[0]?.value)}
-                    </div>
-                    <div className="text-gray-500 text-base">
-                      {parseHTMLToReact(childItem?.field_content?.[0]?.value)}
-                    </div>
+                    {title && (
+                      <div className="mb-2 font-semibold text-lg text-[#00539c]">
+                        {parseHTMLToReact(title)}
+                      </div>
+                    )}
+                    {description && (
+                      <div className="text-gray-500 text-base">
+                        {parseHTMLToReact(description)}
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -116,9 +141,11 @@ export function Tabs({
             className="border border-gray-200 rounded-lg flex items-center my-6 overflow-hidden"
             key={index}
           >
-            <div className="relative max-h-[16rem] aspect-video w-[30rem] rounded-lg object-contain">
-              <Image alt="image card" src={item?.image} extern={false} fill />
-            </div>
+            {item?.image && (
+              <div className="relative max-h-[16rem] aspect-video w-[30rem] rounded-lg object-contain">
+                <Image alt="image card" src={item?.image} extern={false} fill />
+              </div>
+            )}
             <div className="ml-6">
               {item.title && (
                 <div className="text-lg text-[#13539c] font-semibold mb-2">
@@ -133,7 +160,7 @@ export function Tabs({
 
               {item?.textLink && (
                 <Link
-                  href={item?.urlLink}
+                  href={item?.urlLink ?? ''}
                   extern={false}
                   className="text-[#13539c] flex items-center gap-2"
                 >

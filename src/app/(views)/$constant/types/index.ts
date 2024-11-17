@@ -39,13 +39,13 @@ export type T_CarouselMainProps = {
     link: string;
   };
   data: Array<{
-    image: string;
-    title: string;
-    desc: string;
+    image?: string;
+    title?: string;
+    desc?: string;
     subDesc?: string;
     button?: {
-      name: string;
-      link: string;
+      name?: string;
+      link?: string;
     };
   }>;
   variant: '01' | '02' | '03' | '04' | '05' | '06' | '07';
@@ -53,13 +53,13 @@ export type T_CarouselMainProps = {
 
 export type T_ContentMainProps = {
   title?: string;
-  data: Array<{
-    image: string;
-    title: string;
-    desc: string;
+  data?: Array<{
+    image?: string;
+    title?: string;
+    desc?: string;
     button?: {
-      name: string;
-      link: string;
+      name?: string;
+      link?: string;
     };
   }>;
   variant: '01' | '02' | '03' | '04' | '05';

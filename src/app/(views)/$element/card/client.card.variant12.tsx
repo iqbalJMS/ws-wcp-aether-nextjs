@@ -5,14 +5,14 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant12Props = {
-  data: {
-    title: string;
-    image: string;
-    description: string;
-    button: {
-      title: string;
-      link: string;
-      extern: boolean;
+  data?: {
+    title?: string;
+    image?: string;
+    description?: string;
+    button?: {
+      title?: string;
+      link?: string;
+      extern?: boolean;
     };
   }[];
 };
@@ -56,7 +56,7 @@ export function CE_CardVariant12({ data }: T_CardVariant12Props) {
                   {item?.button?.title && (
                     <div className="text-right relative z-10">
                       <Link
-                        href={item?.button?.link}
+                        href={item?.button?.link ?? ''}
                         extern={item?.button?.extern}
                         target={item?.button?.extern ? '_blank' : ''}
                       >

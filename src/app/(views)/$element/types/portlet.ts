@@ -1,3 +1,15 @@
+type ListItem = {
+  image?: string;
+  text?: string;
+  title?: string;
+  description?: string;
+};
+
+type ButtonItem = {
+  buttonText?: string;
+  buttonLink?: string;
+};
+
 export type T_PortletProps = {
   bgImage: string;
   title?: string;
@@ -7,27 +19,16 @@ export type T_PortletProps = {
   column?: string;
   textLink?: string;
   navigationLink?: string;
-  buttonItems?: Array<{
-    buttonText?: string;
-    buttonLink?: string;
-  }>;
+  buttonItems?: Array<ButtonItem>;
   marginLeft?: 'medium' | string;
   headerAlignment?: 'left' | 'center' | 'right';
   imageContentAlignment?: 'left' | 'center' | 'right';
   variantWidget?: string;
   variant?: '01' | '02' | '03';
   variantLayout?: 'rounded_corneer' | 'square' | 'full' | 'large';
-  listItems?: Array<{
-    image?: string;
-    text?: string;
-    title?: string;
-  }>;
+  listItems?: Array<ListItem> | string;
 };
 
 export type T_PortletItemProps = {
-  list_item: {
-    title?: string;
-    image?: string;
-    text?: string;
-  };
+  list_item: ListItem;
 };

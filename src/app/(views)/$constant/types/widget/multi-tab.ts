@@ -1,4 +1,9 @@
 type T_FieldParagraph = Array<{
+  field_formatted_title: any;
+  column_count: number;
+  field_image: any;
+  field_title: any;
+  field_primary_cta: any;
   field_second_column: any;
   field_first_column: any;
   field_content: Array<{ value: string }>;

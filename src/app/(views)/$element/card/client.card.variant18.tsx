@@ -10,16 +10,16 @@ type T_CardVariant18Props = {
     title?: string;
     link?: string;
   };
-  data?: {
-    title: string;
-    description: string;
-    image: string;
-    button: {
-      title: string;
-      link: string;
-      extern: boolean;
+  data?: Array<{
+    title?: string;
+    description?: string;
+    image?: string;
+    button?: {
+      title?: string;
+      link?: string;
+      extern?: boolean;
     };
-  }[];
+  }>;
 };
 
 export default function CE_CardVariant18({
@@ -49,7 +49,7 @@ export default function CE_CardVariant18({
                   <div className="h-[20rem] mb-5">
                     <Image
                       extern={false}
-                      src={item?.image}
+                      src={item?.image ?? ''}
                       alt="image"
                       width={1920}
                       height={1080}

@@ -5,17 +5,17 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant02Props = {
-  data: {
+  data: Array<{
     imagePosition?: 'left' | string;
-    title: string;
-    image: string;
-    description: string;
-    button: {
-      title: string;
-      link: string;
-      extern: boolean;
+    title?: string;
+    image?: string;
+    description?: string;
+    button?: {
+      title?: string;
+      link?: string;
+      extern?: boolean;
     };
-  }[];
+  }>;
 };
 
 export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
@@ -35,7 +35,7 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
                   >
                     <Image
                       extern={false}
-                      src={item?.image}
+                      src={item?.image ?? ''}
                       alt="image"
                       width={1920}
                       height={1080}
@@ -55,7 +55,7 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
                     )}
                     <div className="text-right">
                       <Link
-                        href={item?.button?.link}
+                        href={item?.button?.link ?? ''}
                         extern={item?.button?.extern}
                         target={item?.button?.extern ? '_blank' : ''}
                       >

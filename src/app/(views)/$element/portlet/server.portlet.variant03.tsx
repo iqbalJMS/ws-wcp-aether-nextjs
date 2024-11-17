@@ -102,9 +102,10 @@ export default async function SE_PortletVariant03({
             )
           ) : (
             <div className="grid md:grid-cols-2 grid-cols-1 gap-8 py-12 md:max-w-4xl max-w-[90%]">
-              {listItems?.map((item, index) => (
-                <SE_PortletVariant01Item key={index} list_item={item} />
-              ))}
+              {Array.isArray(listItems) &&
+                listItems?.map((item, index) => (
+                  <SE_PortletVariant01Item key={index} list_item={item} />
+                ))}
             </div>
           )}
         </div>

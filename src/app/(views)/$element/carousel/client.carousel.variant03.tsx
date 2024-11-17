@@ -83,23 +83,29 @@ export function CE_CarouselVariant03({
                   <Link href={dataItem.button?.link || ''} target="_blank">
                     <div className="shadow-lg relative rounded-md overflow-hidden group">
                       <div className="w-full h-[18rem] ">
-                        <Image
-                          extern={false}
-                          src={dataItem.image}
-                          alt="image"
-                          width={400}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
+                        {dataItem.image && (
+                          <Image
+                            extern={false}
+                            src={dataItem.image}
+                            alt="image"
+                            width={400}
+                            height={400}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
                       </div>
                       <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
                       <div className="absolute z-20 bottom-0 left-0 p-4 ">
-                        <div className=" text-white text-2xl font-semibold text-line-2">
-                          {parseHTMLToReact(dataItem.title)}
-                        </div>
-                        <div className=" text-white group-hover:block hidden">
-                          {parseHTMLToReact(dataItem.desc)}
-                        </div>
+                        {dataItem.title && (
+                          <div className=" text-white text-2xl font-semibold text-line-2">
+                            {parseHTMLToReact(dataItem.title)}
+                          </div>
+                        )}
+                        {dataItem.desc && (
+                          <div className=" text-white group-hover:block hidden">
+                            {parseHTMLToReact(dataItem.desc)}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </Link>

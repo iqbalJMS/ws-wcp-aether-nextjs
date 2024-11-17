@@ -6,10 +6,10 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 type T_CardVariant11Props = {
   title?: string;
   column?: string;
-  data: {
-    title: string;
-    description: string;
-    image: string;
+  data?: {
+    title?: string;
+    description?: string;
+    image?: string;
   }[];
 };
 

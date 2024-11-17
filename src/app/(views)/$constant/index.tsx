@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { T_Slider } from './types/widget/slider';
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DropdownAction } from './types/widget/dropdown-action';
@@ -9,16 +10,11 @@ import { T_Kurs } from './types/widget/kurs';
 import { T_Header } from './types/widget/header';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
-import { WIDGET_VARIANT } from './variables';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
-import { Tabs } from '@/lib/element/global/tabs';
 import { T_Image } from './types/widget/image';
-import { CE_CarouselVariant06 } from '@/app/(views)/$element/carousel/client.carousel.variant06';
-import CE_PortletVarian05 from '@/app/(views)/$element/portlet/client.portlet.varian05';
-import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
-import { CE_CardVariant05 } from '@/app/(views)/$element/card/client.card.variant05';
-import { CE_CardVariant13 } from '@/app/(views)/$element/card/client.card.variant13';
-import { CE_CardVariant01 } from '@/app/(views)/$element/card/client.card.variant01';
+
+import { Tabs } from '@/lib/element/global/tabs';
+import { WIDGET_VARIANT } from './variables';
 import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
@@ -27,7 +23,30 @@ import ImageViewer from '@/lib/element/global/image.viewer';
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from '@/lib/element/global/image';
-import Link from 'next/link';
+
+const CE_CarouselVariant06 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
+);
+
+const CE_PortletVarian05 = dynamic(
+  () => import('@/app/(views)/$element/portlet/client.portlet.varian05')
+);
+
+const CE_CardVariant09 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant09')
+);
+
+const CE_CardVariant05 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant05')
+);
+
+const CE_CardVariant13 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant13')
+);
+
+const CE_CardVariant01 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant01')
+);
 
 const CE_PortletVarian04 = dynamic(
   () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
@@ -109,9 +128,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   slider: {
-    component: (...props) => {
-      const findVariantStyle = props?.[0]?.variant;
-      const data = props?.[0]?.data;
+    component: (props) => {
+      const findVariantStyle = props?.variant;
+      const data = props?.data;
       switch (findVariantStyle) {
         case 'header_curved':
         default:
@@ -171,17 +190,34 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   section: {
-    component: (...props) => {
-      const findVariantStyle = props?.[0]?.variant;
+    component: (props) => {
+      const findVariantStyle = props?.variant;
 
-      const title = props?.[0]?.title;
-      const subtitle = props?.[0]?.subtitle;
-      const navigationLink = props?.[0]?.navigationLink;
-      const navigationText = props?.[0]?.navigationText;
-      const backgroundImage = props?.[0]?.backgroundImage;
-      const listItems = props?.[0]?.data;
-      const accordion = props?.[0]?.accordion;
-      const column = String(props?.[0]?.column);
+      const title = props?.title;
+      const subtitle = props?.subtitle;
+      const navigationLink = props?.navigationLink;
+      const navigationText = props?.navigationText;
+      const backgroundImage = props?.backgroundImage;
+      const listItems = props?.data as Array<{
+        image?: string;
+        title?: string;
+        link?: string;
+        filename?: string;
+        description?: string;
+        downloadFile?: string;
+        subtitle?: string;
+        icon?: string;
+        button?: {
+          link?: string;
+          extern?: boolean;
+          title?: string;
+        };
+      }>;
+      const accordion = props?.accordion as Array<{
+        children?: string;
+        title?: string;
+      }>;
+      const column = String(props?.column);
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -266,7 +302,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant28:
           return (
             <div className="container mx-auto bg-white overflow-hidden h-[1200px] py-2 w-full">
-              {listItems?.map((item, index) => (
+              {listItems?.map((item, index: number) => (
                 <ImageViewer image={item?.image} key={index} />
               ))}
             </div>
@@ -275,7 +311,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return (
             <div className="container my-8">
               <div className="flex flex-wrap -mx-5">
-                {listItems?.map((item, index) => {
+                {listItems?.map((item, index: number) => {
                   return (
                     <div
                       key={index}
@@ -286,7 +322,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         <div className="h-[20rem] mb-5">
                           <Image
                             extern={false}
-                            src={item?.image}
+                            src={item?.image ?? ''}
                             alt="image"
                             width={1920}
                             height={1080}
@@ -414,7 +450,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         isOpen
                         renderContent={
                           <div className="py-6 text-gray-500">
-                            {parseHTMLToReact(item?.children)}
+                            {parseHTMLToReact(item?.children ?? '')}
                           </div>
                         }
                       />
@@ -623,8 +659,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const dataV37 = _component?.field_column?.[0]?.field_accordion_items?.map(
         (item) => {
           return {
-            title: item?.field_title[0]?.value,
-            children: item?.field_paragraphs[0]?.field_content?.[0]?.value,
+            title: item?.field_title?.[0]?.value,
+            children: item?.field_paragraphs?.[0]?.field_content?.[0]?.value,
           };
         }
       );
@@ -828,11 +864,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   multi_tab: {
-    component: (...props) => {
-      const title = props?.[0]?.title;
-      const list = props?.[0]?.list;
-      const variant = props?.[0]?.variant;
-      const listTab = props?.[0]?.listTab;
+    component: (props) => {
+      const title = props?.title;
+      const list = props?.list;
+      const variant = props?.variant;
+      const listTab = props?.listTab;
 
       switch (variant) {
         case WIDGET_VARIANT.variant03:
@@ -1104,14 +1140,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   two_column: {
-    component: (...props) => {
-      const findVariantStyle = props?.[0]?.variant ?? '';
-      const firstColumn = props?.[0]?.firstColumn;
-      const secondColumn = props?.[0]?.secondColumn;
-      const description1 = props?.[0]?.firstColumn?.description ?? '';
-      const description2 = props?.[0]?.secondColumn?.description ?? '';
-      const imageUrl1 = props?.[0]?.firstColumn?.imageUrl1 ?? '';
-      const imageUrl2 = props?.[0]?.secondColumn?.imageUrl2 ?? '';
+    component: (props) => {
+      const findVariantStyle = props?.variant ?? '';
+      const firstColumn = props?.firstColumn;
+      const secondColumn = props?.secondColumn;
+      const description1 = props?.firstColumn?.description ?? '';
+      const description2 = props?.secondColumn?.description ?? '';
+      const imageUrl1 = props?.firstColumn?.imageUrl1 ?? '';
+      const imageUrl2 = props?.secondColumn?.imageUrl2 ?? '';
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant19:
@@ -1329,8 +1365,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   image: {
-    component: (...props) => {
-      const imageContent = props?.[0]?.image;
+    component: (props) => {
+      const imageContent = props?.image;
       return <SE_WysiwygMain variant="01" imageContent={imageContent} />;
     },
     props: (_component: T_Image) => {
@@ -1352,7 +1388,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   video: {
-    component: (props) => {
+    component: (props: {
+      video: string | undefined;
+      title: string | undefined;
+      background: string | undefined;
+    }) => {
       return (
         <VideoPlayerVariant1
           videoId={props.video}
@@ -1361,7 +1401,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         />
       );
     },
-    props: (_component) => {
+    props: (_component: {
+      field_video: { field_media_oembed_video: { value: any }[] }[];
+      field_image: { field_media_image: { uri: { url: any }[] }[] }[];
+      field_title: { value: any }[];
+    }) => {
       const video =
         _component?.field_video?.[0]?.field_media_oembed_video?.[0]?.value;
       const videoId = video?.substring(video?.lastIndexOf('/') + 1);
@@ -1376,7 +1420,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   download: {
-    component: (props) => {
+    component: (props: {
+      filename: any;
+      description: any;
+      iconDownload: any;
+      downloadFile: any;
+    }) => {
       const filename = props?.filename;
       const description = props?.description;
       const iconDownload = props?.iconDownload;
@@ -1398,7 +1447,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         />
       );
     },
-    props: (_component) => {
+    props: (_component: {
+      field_document: Array<{
+        field_media_file: any;
+        name: Array<{ value: string }>;
+      }>;
+      field_media_image: string;
+    }) => {
       const downloadFile =
         _component?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
       const description =
@@ -1416,7 +1471,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   accordion: {
-    component: (props) => {
+    component: (props: {
+      variant: String;
+      listAccordion: any[];
+      accordionStyle: String;
+    }) => {
       const variant: String = props?.variant;
       const listAccordion: Array<any> = props?.listAccordion;
       const accordionStyle: String = props?.accordionStyle;
@@ -1464,16 +1523,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     >
                       <Link href={'/'} target="_blank">
                         <div className="p-4 mdmax:p-2 shadow-lg">
-                          <div className="w-full h-[12rem] mb-2">
-                            <Image
-                              extern={false}
-                              src={item?.image}
-                              alt="image"
-                              width={400}
-                              height={400}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
+                          {item?.image && (
+                            <div className="w-full h-[12rem] mb-2">
+                              <Image
+                                extern={false}
+                                src={item?.image}
+                                alt="image"
+                                width={400}
+                                height={400}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          )}
 
                           <div>
                             <div className=" text-red-01 font-semibold mb-2">
@@ -1529,7 +1590,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         </div>
       );
     },
-    props: (_component) => {
+    props: (_component: {
+      field_accordion_items: any[];
+      field_accordion_style: { value: any }[];
+    }) => {
       const title = _component?.field_accordion_items[0]?.field_title[0]?.value;
       const accordionStyle = _component?.field_accordion_style?.[0]?.value;
 
@@ -1538,7 +1602,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           ?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
 
       const listAccordionContent = _component?.field_accordion_items?.map(
-        (item) => {
+        (item: {
+          field_title: Array<{ value: string }>;
+          field_paragraphs: Array<{
+            field_column: Array<{
+              field_title: Array<{ value: string }>;
+              field_image: Array<{
+                field_media_image: Array<{ uri: Array<{ url: string }> }>;
+              }>;
+              field_primary_cta: Array<{ title: string; full_url: string }>;
+            }>;
+          }>;
+        }) => {
           return {
             title: item?.field_title?.[0]?.value,
             children: item?.field_paragraphs?.[0]?.field_column?.map(
@@ -1564,7 +1639,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       );
 
       const listAccordionDownloaded = _component?.field_accordion_items?.map(
-        (item) => {
+        (item: {
+          field_title: Array<{ value: string }>;
+          field_paragraphs: Array<{
+            field_document: Array<{
+              field_media_file: Array<{
+                filename: Array<{ value: string }>;
+                uri: Array<{ url: string }>;
+              }>;
+              name: Array<{ value: string }>;
+            }>;
+          }>;
+        }) => {
           return {
             title: item?.field_title?.[0]?.value,
             children: item?.field_paragraphs?.map((childItem) => {
@@ -1587,15 +1673,26 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       );
 
       const listAccordionImageSlider = _component?.field_accordion_items?.map(
-        (item) => {
+        (item: {
+          field_title: Array<{ value: string }>;
+          field_paragraphs: Array<{
+            field_image: Array<{
+              field_media_image: Array<{ uri: Array<{ url: string }> }>;
+            }>;
+            field_content: Array<{ value: string }>;
+          }>;
+        }) => {
           return {
             title: item?.field_title?.[0]?.value,
             children: item?.field_paragraphs?.map((childItem) => {
+              const image =
+                childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                  ?.url;
+
+              const description = childItem?.field_content?.[0]?.value;
               return {
-                image:
-                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                    ?.url,
-                description: childItem?.field_content?.[0]?.value,
+                image: image,
+                description: description,
               };
             }),
           };

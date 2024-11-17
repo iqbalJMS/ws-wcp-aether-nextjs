@@ -82,22 +82,24 @@ export function CE_CarouselVariant07({
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem.button?.link || ''} target="_blank">
                     <div className="p-4 py-6 bg-black bg-opacity-5 shadow-sm rounded-br-3xl">
-                      <div className="w-full h-[6rem] mb-2">
-                        <Image
-                          extern={false}
-                          src={dataItem.image}
-                          alt="image"
-                          width={400}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        
-                        
-                        <div className="text-xs  overflow-auto">
-                          {parseHTMLToReact(dataItem.desc)}
+                      {dataItem.image && (
+                        <div className="w-full h-[6rem] mb-2">
+                          <Image
+                            extern={false}
+                            src={dataItem.image ?? ''}
+                            alt="image"
+                            width={400}
+                            height={400}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
+                      )}
+                      <div>
+                        {dataItem.desc && (
+                          <div className="text-xs  overflow-auto">
+                            {parseHTMLToReact(dataItem.desc)}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </Link>

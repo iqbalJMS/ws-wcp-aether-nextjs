@@ -46,9 +46,10 @@ export default async function SE_PortletVariant01({
         <div
           className={`grid md:grid-cols-${column} grid-cols-1 gap-8 py-12 md:max-w-4xl ${marginLeft?.includes('medium') ? 'lg:ml-12' : ''}`}
         >
-          {listItems?.map((item, index) => (
-            <SE_PortletItem key={index} list_item={item} />
-          ))}
+          {Array.isArray(listItems) &&
+            listItems?.map((item, index) => (
+              <SE_PortletItem key={index} list_item={item} />
+            ))}
         </div>
         {textLink && (
           <div className="w-full">

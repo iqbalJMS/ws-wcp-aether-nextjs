@@ -78,26 +78,34 @@ export function CE_CarouselVariant05({
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem.button?.link || ''} target="_blank">
                     <div className="p-4 shadow-lg">
-                      <div className="w-full h-[12rem] mb-2">
-                        <Image
-                          extern={false}
-                          src={dataItem.image}
-                          alt="image"
-                          width={400}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                      {dataItem.image && (
+                        <div className="w-full h-[12rem] mb-2">
+                          <Image
+                            extern={false}
+                            src={dataItem.image}
+                            alt="image"
+                            width={400}
+                            height={400}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
                       <div>
-                        <div className=" text-red-01 font-semibold mb-1 text-line-1">
-                          {parseHTMLToReact(dataItem.title)}
-                        </div>
-                        <div className="text-xs text-line-1 mb-2">
-                          {parseHTMLToReact(dataItem.subDesc || '')}
-                        </div>
-                        <div className="text-xs h-[4rem] overflow-auto">
-                          {parseHTMLToReact(dataItem.desc)}
-                        </div>
+                        {dataItem.title && (
+                          <div className=" text-red-01 font-semibold mb-1 text-line-1">
+                            {parseHTMLToReact(dataItem.title)}
+                          </div>
+                        )}
+                        {dataItem.subDesc && (
+                          <div className="text-xs text-line-1 mb-2">
+                            {parseHTMLToReact(dataItem.subDesc || '')}
+                          </div>
+                        )}
+                        {dataItem.desc && (
+                          <div className="text-xs h-[4rem] overflow-auto">
+                            {parseHTMLToReact(dataItem.desc)}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </Link>

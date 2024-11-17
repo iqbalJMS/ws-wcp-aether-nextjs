@@ -6,14 +6,13 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant09Props = {
   data: {
-    title: string;
-    description: string;
-
-    button: {
-      title: string;
-      link: string;
-      image: string;
-      extern: boolean;
+    title?: string;
+    description?: string;
+    button?: {
+      title?: string;
+      link?: string;
+      image?: string;
+      extern?: boolean;
     };
   }[];
 };

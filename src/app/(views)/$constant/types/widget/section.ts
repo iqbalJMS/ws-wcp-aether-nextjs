@@ -48,6 +48,18 @@ export type T_Section = {
   field_note?: any[];
   field_primary_cta?: FieldPrimaryCTA[];
   field_column?: Array<{
+    field_document: any;
+    field_media_image: any;
+    field_subtitle: any;
+    field_accordion_items: Array<{
+      field_title?: any;
+      field_paragraphs?: Array<{
+        field_content: Array<{
+          value: string;
+        }>;
+      }>;
+    }>;
+    field_second_image: any;
     field_image?: Array<FieldImageItem>;
     field_primary_cta?: FieldPrimaryCTA[];
     field_content?: any;

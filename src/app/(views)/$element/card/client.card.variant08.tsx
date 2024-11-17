@@ -6,16 +6,16 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant08Props = {
   title: string;
-  data: {
-    title: string;
-    description: string;
-    image: string;
-    button: {
-      title: string;
-      link: string;
-      extern: boolean;
+  data: Array<{
+    title?: string;
+    description?: string;
+    image?: string;
+    button?: {
+      title?: string;
+      link?: string;
+      extern?: boolean;
     };
-  }[];
+  }>;
 };
 
 export default function CE_CardVariant08({
@@ -44,7 +44,7 @@ export default function CE_CardVariant08({
                   <div className="h-[18rem] mb-5">
                     <Image
                       extern={false}
-                      src={item?.image}
+                      src={item?.image ?? ''}
                       alt="image"
                       width={1920}
                       height={1080}
@@ -65,7 +65,7 @@ export default function CE_CardVariant08({
                   {item?.button?.title && (
                     <div className="text-center">
                       <Link
-                        href={item?.button?.link}
+                        href={item?.button?.link ?? ''}
                         extern={item?.button?.extern}
                         target={item?.button?.extern ? '_blank' : ''}
                       >

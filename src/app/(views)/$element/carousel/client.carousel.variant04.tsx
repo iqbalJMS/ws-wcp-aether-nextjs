@@ -82,20 +82,24 @@ export function CE_CarouselVariant04({
                 <div key={index} className="w-1/3 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem.button?.link || ''} target="_blank">
                     <div className="p-4 bg-white h-full shadow-lg text-center">
-                      <div className="w-[5rem] h-[5rem] mb-2 rounded-full overflow-hidden inline-block">
-                        <Image
-                          extern={false}
-                          src={dataItem.image}
-                          alt="image"
-                          width={400}
-                          height={400}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <div className=" text-red-01 font-semibold mb-1">
-                          {parseHTMLToReact(dataItem.title)}
+                      {dataItem.image && (
+                        <div className="w-[5rem] h-[5rem] mb-2 rounded-full overflow-hidden inline-block">
+                          <Image
+                            extern={false}
+                            src={dataItem.image}
+                            alt="image"
+                            width={400}
+                            height={400}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
+                      )}
+                      <div>
+                        {dataItem.title && (
+                          <div className=" text-red-01 font-semibold mb-1">
+                            {parseHTMLToReact(dataItem.title)}
+                          </div>
+                        )}
                         {dataItem.subDesc && (
                           <div className="text-xs mb-2 overflow-auto">
                             {parseHTMLToReact(dataItem.subDesc)}
@@ -107,7 +111,10 @@ export function CE_CarouselVariant04({
                           </div>
                         )}
                         {dataItem.button && (
-                          <Link href={dataItem.button?.link} target="_blank">
+                          <Link
+                            href={dataItem.button?.link ?? ''}
+                            target="_blank"
+                          >
                             <div className="inline-flex gap-2 items-center text-sm text-blue-01 uppercase underline">
                               {parseHTMLToReact(dataItem.button?.name || '')}
                             </div>

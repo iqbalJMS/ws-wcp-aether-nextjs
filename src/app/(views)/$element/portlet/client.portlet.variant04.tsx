@@ -4,8 +4,8 @@ import Image from '@/lib/element/global/image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_PromoCardProps = {
-  description1: string;
-  description2: string;
+  description1?: string;
+  description2?: string;
   imageUrl1?: string;
   imageUrl2?: string;
 };
@@ -35,7 +35,7 @@ const CE_PromoCard = ({
           <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
             <Image
               src={imageUrl1}
-              alt={description1}
+              alt={description1 ?? ''}
               fill
               className="object-cover w-full h-full"
             />
@@ -47,7 +47,7 @@ const CE_PromoCard = ({
           <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
             <Image
               src={imageUrl2}
-              alt={description2}
+              alt={description2 ?? ''}
               fill
               className="object-cover w-full h-full"
             />

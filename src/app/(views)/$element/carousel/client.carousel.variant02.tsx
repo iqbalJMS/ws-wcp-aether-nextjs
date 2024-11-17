@@ -73,7 +73,7 @@ export function CE_CarouselVariant02({
                       <div className="w-full h-[12rem] mb-2">
                         <Image
                           extern={false}
-                          src={dataItem.image}
+                          src={dataItem.image ?? ''}
                           alt="image"
                           width={400}
                           height={400}
@@ -81,15 +81,21 @@ export function CE_CarouselVariant02({
                         />
                       </div>
                       <div>
-                        <div className=" text-red-01 font-semibold mb-1 text-line-1">
-                          {parseHTMLToReact(dataItem.title)}
-                        </div>
-                        <div className="text-xs text-line-1 mb-2">
-                          {parseHTMLToReact(dataItem.subDesc || '')}
-                        </div>
-                        <div className="text-xs h-[4rem] overflow-auto">
-                          {parseHTMLToReact(dataItem.desc)}
-                        </div>
+                        {dataItem.title && (
+                          <div className=" text-red-01 font-semibold mb-1 text-line-1">
+                            {parseHTMLToReact(dataItem.title)}
+                          </div>
+                        )}
+                        {dataItem.subDesc && (
+                          <div className="text-xs text-line-1 mb-2">
+                            {parseHTMLToReact(dataItem.subDesc || '')}
+                          </div>
+                        )}
+                        {dataItem.desc && (
+                          <div className="text-xs h-[4rem] overflow-auto">
+                            {parseHTMLToReact(dataItem.desc)}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </Link>

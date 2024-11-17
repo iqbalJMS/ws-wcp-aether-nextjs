@@ -40,16 +40,18 @@ export default function CE_CardVariant16({
                 style={{ marginTop: `${index * 5}rem` }}
               >
                 <div>
-                  <div className="h-[20rem] mb-5">
-                    <Image
-                      extern={false}
-                      src={item?.image}
-                      alt="image"
-                      width={1920}
-                      height={1080}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  {item?.image && (
+                    <div className="h-[20rem] mb-5">
+                      <Image
+                        extern={false}
+                        src={item?.image}
+                        alt="image"
+                        width={1920}
+                        height={1080}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
                   {item.title && (
                     <div className="text-lg font-semibold mb-2 ">
                       {parseHTMLToReact(item.title)}
