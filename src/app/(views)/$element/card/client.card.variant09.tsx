@@ -5,7 +5,7 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant09Props = {
-  data: {
+  data?: {
     title?: string;
     description?: string;
     button?: {

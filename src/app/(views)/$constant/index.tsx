@@ -23,6 +23,7 @@ import ImageViewer from '@/lib/element/global/image.viewer';
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from '@/lib/element/global/image';
+import CE_SimulationMain from '@/app/(views)/$element/simulation/client.simulation.main';
 
 const CE_CarouselVariant06 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
@@ -51,6 +52,7 @@ const CE_CardVariant01 = dynamic(
 const CE_PortletVarian04 = dynamic(
   () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
 );
+
 const CE_CardVariant11 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant11')
 );
@@ -92,6 +94,7 @@ const CE_KursMain = dynamic(
 const CE_BannerMain = dynamic(
   () => import('@/app/(views)/$element/banner/client.banner.main')
 );
+
 const CE_CardVariant02 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant02')
 );
@@ -482,7 +485,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_column?.[0]?.field_image_slider_items?.map((item) => {
           return {
             link: item?.field_primary_cta?.[0]?.uri,
-            image: item?.field_image?.[0].field_media_image?.[0]?.uri[0]?.url,
+            image:
+              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
           };
         });
       const dataV02 = _component?.field_column?.map((item) => {
@@ -810,15 +814,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             accordion: dataV37,
           };
-
-        // TODO: Waiting section have two column
-        // case WIDGET_VARIANT.variant22:
-        //   return {
-        //     backgroundImage: backgroundImage,
-        //     title: _component?.field_formatted_title?.[0]?.value,
-        //     column: 1,
-        //     data: [],
-        //   };
         default:
           return null;
       }
@@ -880,12 +875,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant15:
         case WIDGET_VARIANT.variant29:
         case WIDGET_VARIANT.variant31:
+        case WIDGET_VARIANT.variant38:
         default:
           return <Tabs title={title} list={list} variantContent={variant} />;
       }
     },
 
-    // @ts-ignore
     props: (_component: T_MultiTab) => {
       const title = _component?.field_title_custom?.[0]?.value;
       const findVariantStyle =
@@ -934,12 +929,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           children: rootList?.map((item) => {
             const imagePosition = item?.field_alignment?.[0]?.value;
             const title = item?.field_title?.[0]?.value;
-            const description = item?.field_content?.[0].value;
+            const description = item?.field_content?.[0]?.value;
             const buttonTitle = item?.field_primary_cta?.[0]?.title;
             const buttonLink = item?.field_primary_cta?.[0]?.url;
             const buttonExtern = false;
             const image =
-              item?.field_image?.[0]?.field_media_image?.[0].uri?.[0]?.url;
+              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
             return {
               imagePosition: imagePosition,
               title: title,
@@ -995,7 +990,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               const rootSlug = item?.field_title?.[0]?.value;
 
               return {
-                title: item.field_title[0].value,
+                title: item?.field_title?.[0]?.value,
                 slug: rootSlug,
                 children: item?.field_paragraphs?.map((item) => {
                   const description1 =
@@ -1084,7 +1079,56 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               };
             }),
           };
+        case WIDGET_VARIANT.variant38:
+          return {
+            variant: findVariantStyle,
+            list: _component?.field_tab?.map((item) => {
+              return {
+                title: item?.field_title?.[0]?.value,
+                slug: item?.field_title?.[0]?.value,
+                textShowMore: item?.field_primary_cta?.[0]?.title,
+                linkShowMore: item?.field_primary_cta?.[0]?.full_url,
+                children: item.field_paragraphs?.map((item) => {
+                  return {
+                    listColumn: item?.field_accordion_items?.map(
+                      (item: {
+                        field_title: Array<{ value: string }>;
+                        field_paragraphs: Array<{
+                          field_document: Array<{
+                            field_media_file: Array<{
+                              filename: Array<{ value: string }>;
+                              uri: Array<{ url: string }>;
+                            }>;
+                            name: Array<{ value: string }>;
+                          }>;
+                        }>;
+                      }) => {
+                        return {
+                          title: item?.field_title?.[0]?.value,
+                          children: item?.field_paragraphs?.map((childItem) => {
+                            const downloadFile =
+                              childItem?.field_document?.[0]
+                                ?.field_media_file?.[0]?.uri?.[0]?.url;
+                            const description =
+                              childItem?.field_document?.[0]
+                                ?.field_media_file?.[0]?.filename?.[0]?.value;
+                            const filename =
+                              childItem?.field_document?.[0]?.name?.[0]?.value;
 
+                            return {
+                              downloadFile: downloadFile,
+                              description: description,
+                              filename: filename,
+                            };
+                          }),
+                        };
+                      }
+                    ),
+                  };
+                }),
+              };
+            }),
+          };
         default:
           return {
             variant: findVariantStyle,
@@ -1371,7 +1415,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
     props: (_component: T_Image) => {
       const imageContent =
-        _component?.field_image?.[0]?.field_media_image?.[0].uri?.[0].url;
+        _component?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
       return {
         image: imageContent,
       };
@@ -1594,7 +1638,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       field_accordion_items: any[];
       field_accordion_style: { value: any }[];
     }) => {
-      const title = _component?.field_accordion_items[0]?.field_title[0]?.value;
+      const title =
+        _component?.field_accordion_items?.[0]?.field_title?.[0]?.value;
       const accordionStyle = _component?.field_accordion_style?.[0]?.value;
 
       const variantChildren =
@@ -1725,6 +1770,71 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           accordionStyle: accordionStyle,
         };
       }
+    },
+  },
+  simulation: {
+    component: (props: {
+      tabs: Array<{
+        title: string;
+        image: string;
+        tnc: string;
+        variant: string;
+      }>;
+      title: string;
+      extern: boolean;
+      link: string;
+    }) => {
+      const button = {
+        title: props?.title,
+        extern: props?.extern,
+        link: props?.link,
+      };
+      const tabs = props?.tabs;
+
+      return (
+        <CE_SimulationMain
+          type="tab"
+          action={{
+            button: {
+              extern: true,
+              link: 'https://bri.co.id',
+              title: 'Temukan Cabang',
+            },
+            description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
+          }}
+          button={{
+            extern: button?.extern,
+            link: button?.link,
+            title: button?.title,
+          }}
+          variant={'kpr'}
+          tabs={tabs}
+        />
+      );
+    },
+    props: (_component: {
+      field_paragraphs: Array<{
+        field_title: Array<{ value: string }>;
+        field_secondary_content: Array<{ value: string }>;
+      }>;
+      field_primary_cta: { title: string; full_url: string }[];
+    }) => {
+      // TODO: needed confirmation form drupal
+      return {
+        tabs: _component?.field_paragraphs?.map((item) => {
+          return {
+            title: item?.field_title?.[0]?.value,
+            image: '',
+            tnc: item?.field_secondary_content?.[0]?.value,
+            variant: 'kpr',
+          };
+        }),
+        button: {
+          title: _component?.field_primary_cta?.[0]?.title,
+          extern: true,
+          link: _component?.field_primary_cta?.[0]?.full_url,
+        },
+      };
     },
   },
 };

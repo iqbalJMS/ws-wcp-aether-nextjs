@@ -1,4 +1,5 @@
 type T_FieldParagraph = Array<{
+  field_accordion_items: any;
   field_formatted_title: any;
   column_count: number;
   field_image: any;

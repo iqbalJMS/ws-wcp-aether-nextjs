@@ -5,9 +5,9 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export type T_CarouselVariant06Props = {
-  data: Array<{
-    image: string;
-    description: string;
+  data?: Array<{
+    image?: string;
+    description?: string;
   }>;
 };
 
@@ -20,15 +20,15 @@ export default function CE_CarouselVariant06({
 
   const nextSlide = useCallback(() => {
     setCurrent((prevIndex) =>
-      prevIndex === data.length - 1 ? 0 : prevIndex + 1
+      prevIndex === Number(data?.length) - 1 ? 0 : prevIndex + 1
     );
-  }, [data.length]);
+  }, [data?.length]);
 
   const prevSlide = useCallback(() => {
     setCurrent((prevIndex) =>
-      prevIndex === 0 ? data.length - 1 : prevIndex - 1
+      prevIndex === 0 ? Number(data?.length) - 1 : prevIndex - 1
     );
-  }, [data.length]);
+  }, [data?.length]);
 
   useEffect(() => {
     intervalRef.current = window.setInterval(() => {
@@ -73,7 +73,7 @@ export default function CE_CarouselVariant06({
           className={[
             'absolute top-1/2 right-0 transform -translate-y-1/2 z-10',
             'w-12 h-12 mdmax:w-8 mdmax:h-8 text-white rounded-full',
-            current < data.length - 1
+            current < Number(data?.length) - 1
               ? 'bg-blue-01 cursor-pointer'
               : 'bg-red-100 cursor-default',
           ].join(' ')}
@@ -109,7 +109,7 @@ export default function CE_CarouselVariant06({
         </div>
       </div>
       <div className="flex items-center gap-[0.625rem] justify-center">
-        {Array.from({ length: data.length }).map((_, idx) => (
+        {Array.from({ length: Number(data?.length) }).map((_, idx) => (
           <button
             key={idx}
             id={`${idx}`}

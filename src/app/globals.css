@@ -105,6 +105,81 @@ input[type='range']::-webkit-slider-thumb {
   @apply font-medium;
 }
 
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 h3 {
-  font-size: 2.188rem;
+  font-size: 1.17em;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+h5 {
+  font-size: 0.83em;
+  font-weight: bold;
+}
+
+h6 {
+  font-size: 0.67em;
+  font-weight: bold;
+}
+
+.body p {
+  @apply text-sm mb-3;
+}
+
+.body .text-align-justify {
+  @apply text-justify;
+}
+
+.body .text-align-center {
+  @apply text-center;
+}
+
+.body table {
+  @apply w-full mb-3 border border-black;
+}
+
+.body ul,
+.body ol {
+  @apply text-sm mb-3 pl-5 font-normal;
+}
+.body ul li,
+.body ol li {
+  @apply my-0;
+}
+
+.body table tr td {
+  @apply p-1 border border-black;
+}
+
+ol {
+  list-style-type: decimal;
+  font-weight: 500;
+}
+
+ul {
+  list-style-type: circle;
+  list-style: disc;
+}
+
+li {
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 5px;
+}
+
+.field__label.visually-hidden {
+  display: none;
 }

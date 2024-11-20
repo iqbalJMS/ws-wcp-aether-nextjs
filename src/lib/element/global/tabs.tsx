@@ -10,6 +10,9 @@ import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
 import CE_PromoCard from '@/app/(views)/$element/portlet/client.portlet.variant04';
 import Image from './image';
 import Link from './link';
+import Accordion from './accordion';
+import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
+import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
 
 type T_TabsProps = {
   list: Array<{
@@ -21,6 +24,7 @@ type T_TabsProps = {
     description?: string;
     children?: Array<{
       listColumn?: Array<{
+        title?: string;
         field_title?: Array<{ value: string }>;
         field_content?: Array<{ value: string }>;
       }>;
@@ -47,6 +51,7 @@ type T_TabsProps = {
   onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
 };
+
 export function Tabs({
   list,
   value,
@@ -56,6 +61,115 @@ export function Tabs({
   variantContent,
 }: T_TabsProps) {
   const [menuActive, setMenuActive] = useState(0);
+
+  const renderElement = ({
+    children,
+    type,
+  }: {
+    children?: Array<{
+      button?: {
+        link?: string;
+        title?: string;
+      };
+      title?: string;
+      image?: string;
+      description?: string;
+      children?: Array<{
+        description?: string;
+        filename?: string;
+        iconDownload?: string;
+        downloadFile: string;
+      }>;
+      field_title?: Array<{ value: string }>;
+      field_content?: Array<{ value: string }>;
+    }>;
+    type: string;
+  }) => {
+    switch (type) {
+      case 'download':
+        return children?.map((item, key) => {
+          return (
+            <CE_CardVariant09
+              key={key}
+              data={item?.children?.map((childItem) => {
+                return {
+                  title: childItem?.filename?.replaceAll('_', ' '),
+                  description: childItem?.description?.replaceAll('_', ' '),
+                  button: {
+                    image: childItem?.iconDownload,
+                    link: childItem?.downloadFile,
+                    title: 'Download',
+                    extern: true,
+                  },
+                };
+              })}
+            />
+          );
+        });
+      case 'image-slider':
+        return (
+          <CE_CarouselVariant06
+            data={children?.map((item) => {
+              return {
+                description: item?.description,
+                image: item?.image,
+              };
+            })}
+          />
+        );
+      case 'card-section':
+      default:
+        return (
+          <div className="flex">
+            {children?.map((item, index) => {
+              return (
+                <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
+                  <Link href={'/'} target="_blank">
+                    <div className="p-4 mdmax:p-2 shadow-lg">
+                      {item?.image && (
+                        <div className="w-full h-[12rem] mb-2">
+                          <Image
+                            extern={false}
+                            src={item?.image}
+                            alt="image"
+                            width={400}
+                            height={400}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+
+                      <div>
+                        <div className=" text-red-01 font-semibold mb-2">
+                          {parseHTMLToReact(item?.title ?? '')}
+                        </div>
+
+                        <div className="text-base flex gap-3 items-center hover:underline h-[4rem] overflow-auto text-[#014A94]">
+                          {parseHTMLToReact(item?.button?.title ?? '')}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        );
+    }
+  };
 
   const switchChildrenVariant = (() => {
     switch (variantContent) {
@@ -184,6 +298,26 @@ export function Tabs({
             </div>
           </div>
         ));
+      case WIDGET_VARIANT.variant38:
+        return list?.[menuActive]?.children?.map((item, index) => {
+          return item?.listColumn?.map((listItem) => (
+            <Accordion
+              key={index}
+              renderTitle={
+                listItem?.title && (
+                  <p className="text-left font-normal mt-8 text-2xl">
+                    {listItem?.title}
+                  </p>
+                )
+              }
+              isOpen
+              renderContent={renderElement({
+                type: 'download',
+                children: item?.listColumn,
+              })}
+            />
+          ));
+        });
       default:
         return null;
     }
