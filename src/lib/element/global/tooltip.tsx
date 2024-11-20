@@ -1,20 +1,44 @@
 'use client';
 
+import React from 'react';
+
 type T_TooltipProps = {
   description: string;
+  variant?: 'simple' | 'complex';
+  position?: 'top' | 'bottom' | 'left' | 'right';
+  children: React.ReactNode;
 };
-export function Tooltip({ description }: T_TooltipProps) {
+
+export function Tooltip({
+  description,
+  variant = 'simple',
+  position = 'top',
+  children,
+}: T_TooltipProps) {
+  const getPositionClasses = () => {
+    switch (position) {
+      case 'top':
+        return 'bottom-full mb-2 left-1/2 transform -translate-x-1/2';
+      case 'bottom':
+        return 'top-full mt-2 left-1/2 transform -translate-x-1/2';
+      case 'left':
+        return 'right-full mr-2 top-1/2 transform -translate-y-1/2';
+      case 'right':
+        return 'left-full ml-2 top-1/2 transform -translate-y-1/2';
+      default:
+        return 'bottom-full mb-2 left-1/2 transform -translate-x-1/2';
+    }
+  };
+
+  const tooltipStyles =
+    variant === 'simple' ? 'bg-black' : 'bg-gray-800 shadow-lg';
+
   return (
-    <div className="relative group/tooltip">
-      <div>
-        <svg className="w-5 h-5" width="32" height="32" viewBox="0 0 256 256">
-          <path
-            fill="currentColor"
-            d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m-4 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m12 112a16 16 0 0 1-16-16v-40a8 8 0 0 1 0-16a16 16 0 0 1 16 16v40a8 8 0 0 1 0 16"
-          />
-        </svg>
-      </div>
-      <div className="invisible group-hover/tooltip:visible absolute font-normal text-xs p-2 rounded-md bg-opacity-80 bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black w-[20rem] text-white">
+    <div className="relative group w-fit">
+      <div className="cursor-pointer">{children}</div>
+      <div
+        className={`invisible group-hover:visible absolute p-2 font-normal text-xs rounded-md bg-opacity-80 text-white ${tooltipStyles} ${getPositionClasses()} w-56`}
+      >
         {description}
       </div>
     </div>

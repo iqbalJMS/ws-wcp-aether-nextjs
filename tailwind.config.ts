@@ -21,7 +21,6 @@ const config: Config = {
         "2xl": "1496px",
       },
     },
-
     extend: {
       screens: {
         "1025-only": { max: "1024px" },

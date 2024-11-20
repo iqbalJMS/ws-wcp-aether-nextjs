@@ -34,6 +34,7 @@ import CE_CardVariant01 from '@/app/(views)/$element/card/client.card.variant01'
 import CE_CardVariant05 from '@/app/(views)/$element/card/client.card.variant05';
 import CE_CardVariant13 from '@/app/(views)/$element/card/client.card.variant13';
 import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
+import SE_PortletVariant07 from '@/app/(views)/$element/portlet/server.portlet.variant07';
 
 export default async function PageTester() {
   const dataDummy: T_CarouselMainProps['data'] = [
@@ -1323,6 +1324,25 @@ export default async function PageTester() {
                 ],
               },
             ],
+          },
+        ]}
+      />
+      <SE_PortletVariant07
+        title="Independent Party GCG Assessment"
+        cardContent={[
+          {
+            title: 'Penilaian Penerapan GCG oleh Pihak Independen',
+            textContent:
+              'Bank BRI assesses the implementation of GCG consistently each year to determine the adequacy of the implementation of GCG, which is performed',
+            textLink: 'See All',
+            urlTextLink: '#',
+          },
+          {
+            title: 'ASEAN Corporate Governance Score Card',
+            textContent:
+              'As commitment to comprehensively implement GCG in the company, Bank BRI has adopted ASEAN Corporate Governance Scorecard which was issued by',
+            textLink: 'See All',
+            urlTextLink: '#',
           },
         ]}
       />
