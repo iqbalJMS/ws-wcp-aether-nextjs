@@ -64,6 +64,8 @@ export function Search({ active, setActive }: T_SearchProps) {
             list={[
               { title: 'PRODUK', slug: 'pro' },
               { title: 'BERITA', slug: 'ber' },
+              { title: 'LAPORAN', slug: 'ber' },
+              { title: 'PROMO', slug: 'ber' },
             ]}
             value="pro"
             variant="full"

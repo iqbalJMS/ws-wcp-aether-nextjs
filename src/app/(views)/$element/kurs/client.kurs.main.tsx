@@ -20,9 +20,10 @@ type T_Props = {
   listCurrency: T_Kurs['field_currency'];
   availableCurrency: T_Kurs['available_currency'];
   tabActive?: string;
+  forPage?: string
 };
 
-function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
+function CE_KursValue({ listTable, listCurrency, tabActive, forPage }: T_Props) {
   const [pending, transiting] = useTransition();
   const isERate = tabActive === 'e-rate';
   const data = listTable?.map((item) => {
@@ -149,6 +150,7 @@ function CE_KursValue({ listTable, listCurrency, tabActive }: T_Props) {
             },
           ]}
           list={data}
+          itemsPerPage={forPage==='home' ? 999999 : 5}
         />
       </div>
       <div className="w-1/2 mdmax:w-full px-10">
@@ -221,6 +223,7 @@ const CE_KursMain = ({
   listTable,
   listCurrency,
   availableCurrency,
+  forPage = 'home'
 }: T_Props) => {
   const tabs = [
     {
@@ -269,6 +272,7 @@ const CE_KursMain = ({
           listTable={listTable}
           listCurrency={listCurrency}
           availableCurrency={availableCurrency}
+          forPage={forPage}
         />
       </div>
     </div>
