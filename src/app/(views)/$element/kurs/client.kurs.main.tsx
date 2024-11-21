@@ -23,7 +23,7 @@ type T_Props = {
   forPage?: string
 };
 
-function CE_KursValue({ listTable, listCurrency, tabActive, forPage }: T_Props) {
+function CE_KursValue({ listTable, availableCurrency,  tabActive, forPage }: T_Props) {
   const [pending, transiting] = useTransition();
   const isERate = tabActive === 'e-rate';
   const data = listTable?.map((item) => {
@@ -34,10 +34,10 @@ function CE_KursValue({ listTable, listCurrency, tabActive, forPage }: T_Props) 
       sell: isERate ? item.sellRateERate : item.sellRateCounter,
     };
   });
-  const dataCurrencySelected = listCurrency.map((item) => {
+  const dataCurrencySelected = availableCurrency.map((item) => {
     return {
-      title: item.value,
-      value: item.value,
+      title: item,
+      value: item,
     };
   });
 
@@ -225,6 +225,7 @@ const CE_KursMain = ({
   availableCurrency,
   forPage = 'home'
 }: T_Props) => {
+  
   const tabs = [
     {
       title: 'E-RATE',
