@@ -424,7 +424,7 @@ export default function GlobalHeader({
                         ].join(' ')}
                       >
                         <Link
-                          href={`/${item.title
+                          href={`/${item.alias
                             ?.toLowerCase()
                             .replaceAll(' ', '-')}`}
                           className={[
@@ -448,7 +448,7 @@ export default function GlobalHeader({
                           <div className="bg-white">
                             <div className="container py-5">
                               <Link
-                                href={`/${item.title
+                                href={`/${item.alias
                                   ?.toLowerCase()
                                   .replaceAll(' ', '-')}`}
                               >
@@ -461,7 +461,7 @@ export default function GlobalHeader({
                                   return (
                                     <div key={subIndex} className="px-5">
                                       <Link
-                                        href={`/${subItem.title
+                                        href={`/${subItem.alias
                                           ?.toLowerCase()
                                           .replaceAll(' ', '-')}`}
                                       >
@@ -478,7 +478,7 @@ export default function GlobalHeader({
                                                 className="flex-1"
                                               >
                                                 <Link
-                                                  href={`/${item.title
+                                                  href={`/${item.alias
                                                     ?.toLowerCase()
                                                     .replaceAll(' ', '-')}`}
                                                 >
