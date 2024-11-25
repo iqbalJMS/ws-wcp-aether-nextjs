@@ -13,6 +13,7 @@ export type T_Widget =
   | 'subscription'
   | 'header'
   | 'multi_tab'
+  | 'contact_info'
   | 'section'
   | 'kurs'
   | 'staircase_cards'

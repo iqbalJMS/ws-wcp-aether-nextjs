@@ -25,6 +25,9 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from '@/lib/element/global/image';
 import CE_SimulationMain from '@/app/(views)/$element/simulation/client.simulation.main';
 
+const ContactSection = dynamic(
+  () => import('@/app/(views)/$element/card/client.content.info')
+);
 const CE_CarouselVariant06 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
 );
@@ -1834,6 +1837,72 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           extern: true,
           link: _component?.field_primary_cta?.[0]?.full_url,
         },
+      };
+    },
+  },
+  contact_info: {
+    component: (props) => {
+      const title = props?.title ?? '';
+      const description = props?.description ?? '';
+      const cardContent = props?.column ?? [];
+
+      return (
+        <ContactSection
+          title={title}
+          description={description}
+          cards={cardContent}
+        />
+      );
+    },
+    props: (_component) => {
+      return {
+        title: _component?.field_title?.[0]?.value,
+        description: _component?.field_script?.[0]?.value,
+        column: _component?.field_paragraphs?.map(
+          (item: {
+            field_title: { value: string }[];
+            field_paragraphs: {
+              field_facebook: { value: string }[];
+              field_twitter: { value: string }[];
+              field_instagram: { value: string }[];
+              field_youtube: { value: string }[];
+              field_title: { value: string }[];
+              field_content: { value: string }[];
+              field_primary_cta: { title: string }[];
+            }[];
+          }) => {
+            return {
+              bigTitle: item?.field_title?.[0]?.value,
+              details: item?.field_paragraphs?.map(
+                (childItem: {
+                  field_facebook: { value: string }[];
+                  field_twitter: { value: string }[];
+                  field_instagram: { value: string }[];
+                  field_youtube: { value: string }[];
+                  field_title: { value: string }[];
+                  field_content: { value: string }[];
+                  field_primary_cta: { title: string }[];
+                }) => {
+                  const icon = {
+                    facebook: childItem?.field_facebook?.[0]?.value,
+                    twitter: childItem?.field_twitter?.[0]?.value,
+                    instagram: childItem?.field_instagram?.[0]?.value,
+                    youtube: childItem?.field_youtube?.[0]?.value,
+                  };
+
+                  const hasIcons = Object.values(icon).some((value) => value);
+
+                  return {
+                    title: childItem?.field_title?.[0]?.value,
+                    description: childItem?.field_content?.[0]?.value,
+                    link: childItem?.field_primary_cta?.[0]?.title,
+                    icon: hasIcons ? icon : null,
+                  };
+                }
+              ),
+            };
+          }
+        ),
       };
     },
   },
