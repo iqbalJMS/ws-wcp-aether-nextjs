@@ -244,6 +244,7 @@ export default function GlobalHeader({
   headerBottom: T_ResponseGetMainMenuNavbar;
   variant: 'transparent' | 'no-transparent';
 }) {
+  
   const pathname = usePathname();
   const currentLanguage = useSearchParams().get('lang');
   const router = useRouter();
@@ -262,6 +263,24 @@ export default function GlobalHeader({
       router.refresh();
     }
   };
+
+  const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
+    
+    if (!item) {
+      return ''
+    }
+    if (item.alias) {
+      return `/${item.alias
+        ?.toLowerCase()
+        .replaceAll(' ', '-')}`
+    }
+    if (item.uri) {
+      return item.uri
+    }
+    
+    return '/'
+    
+  }
 
   return (
     <>
@@ -424,16 +443,13 @@ export default function GlobalHeader({
                         ].join(' ')}
                       >
                         <Link
-                          href={`/${item.alias
-                            ?.toLowerCase()
-                            .replaceAll(' ', '-')}`}
+                          href={generateLinkBottom(item)}
                           className={[
                             `text-sm font-normal cursor-pointer uppercase relative `,
                             `${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white mdmax:text-black' : ''}`,
                           ].join(' ')}
                         >
                           {item?.title}
-
                           <div
                             className={[
                               `invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-100`,
@@ -461,9 +477,10 @@ export default function GlobalHeader({
                                   return (
                                     <div key={subIndex} className="px-5">
                                       <Link
-                                        href={`/${subItem.alias
-                                          ?.toLowerCase()
-                                          .replaceAll(' ', '-')}`}
+                                        // href={`/${subItem.alias
+                                        //   ?.toLowerCase()
+                                        //   .replaceAll(' ', '-')}`}
+                                        href={generateLinkBottom(subItem)}
                                       >
                                         <div className="text-red-01 font-semibold text-sm mb-3">
                                           {subItem?.title}
@@ -478,9 +495,10 @@ export default function GlobalHeader({
                                                 className="flex-1"
                                               >
                                                 <Link
-                                                  href={`/${item.alias
-                                                    ?.toLowerCase()
-                                                    .replaceAll(' ', '-')}`}
+                                                  // href={`/${item.alias
+                                                  //   ?.toLowerCase()
+                                                  //   .replaceAll(' ', '-')}`}
+                                                  href={generateLinkBottom(item)}
                                                 >
                                                   <div className="flex items-center justify-between w-full mb-2">
                                                     <div className="text-sm flex-1">
