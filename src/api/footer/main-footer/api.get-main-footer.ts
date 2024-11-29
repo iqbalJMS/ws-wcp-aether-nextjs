@@ -22,7 +22,7 @@ const ABSTRACTION_RESPONSE_DATA = {
       title: "Hubungi Kami",
       list: [
         {
-          name: "14017 / 1500017",
+          name: "1500017",
           icon: "call",
           extern: true,
           url: "tel:1500017",
