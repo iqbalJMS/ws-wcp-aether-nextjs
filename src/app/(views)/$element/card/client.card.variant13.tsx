@@ -67,7 +67,7 @@ export default function CE_CardVariant13({
                     )}
 
                     {item.description && (
-                      <div className="text-sm text-black text-opacity-50  mb-5">
+                      <div className="text-sm text-black  mb-5 body">
                         {parseHTMLToReact(item.description)}
                       </div>
                     )}
@@ -76,7 +76,7 @@ export default function CE_CardVariant13({
                       {item.address && (
                         <>
                           <div className="text-sm mb-1">Alamat</div>
-                          <div className="text-sm text-black text-opacity-50">
+                          <div className="text-sm text-black">
                             {parseHTMLToReact(item.address)}
                           </div>
                         </>
