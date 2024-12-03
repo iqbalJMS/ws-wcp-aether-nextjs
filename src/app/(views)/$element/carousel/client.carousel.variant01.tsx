@@ -82,9 +82,9 @@ export function CE_CarouselVariant01({
               {data?.map((dataItem, index) => (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={dataItem?.button?.link || ''} target="_blank">
-                    <div className="p-4 mdmax:p-2 shadow-lg">
+                    <div className="p-4 mdmax:p-2 shadow-lg py-10 px-5">
                       {dataItem?.image && (
-                        <div className="w-full h-[12rem] mb-2">
+                        <div className="w-full h-[15rem] mb-4">
                           <Image
                             extern={false}
                             src={dataItem?.image ?? '/'}

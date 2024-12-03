@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Suspense fallback={<Spinner />}>{children}</Suspense>
+        <Suspense fallback={<Spinner />}>{children} </Suspense>
       </body>
     </html>
   );
