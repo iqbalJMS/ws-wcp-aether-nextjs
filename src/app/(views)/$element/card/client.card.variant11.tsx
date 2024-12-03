@@ -33,7 +33,7 @@ export default function CE_CardVariant11({
             return (
               <div
                 key={index}
-                className={`w-1/${column} mdmax:w-full flex-none px-5 mb-10`}
+                className={`${column === "1"? 'flex-1' : 'flex-none w-1/' + column} mdmax:w-full  px-5 mb-10`}
               >
                 <div className="px-10 text-center hover:shadow-md p-5 rounded-xl">
                   {item?.image && (
