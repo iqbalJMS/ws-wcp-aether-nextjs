@@ -7,10 +7,10 @@ import { T_PostResponse } from '@/api/common/fetch.type';
 export async function API_GetKurs(request: T_KursRequest) {
   try {
     const initialUrl = {
-      buy: '/api/brimw/kurs/postBuyRateCounterCalculator',
-      sell: '/api/brimw/kurs/postSellRateCounterCalculator',
-      buyRate: '/api/brimw/kurs/postBuyRateeRateCalculator',
-      sellRate: '/api/brimw/kurs/postSellRateeRateCalculator',
+      buy: '/api/brimw/kurs/calcBuyCounter',
+      sell: '/api/brimw/kurs/calcSellCounter',
+      buyRate: '/api/brimw/kurs/calcBuyeRate',
+      sellRate: '/api/brimw/kurs/calcSelleRate',
     };
 
     const url = initialUrl[request.type];

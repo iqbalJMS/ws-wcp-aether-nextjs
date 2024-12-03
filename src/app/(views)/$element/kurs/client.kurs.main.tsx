@@ -80,10 +80,10 @@ function CE_KursValue({ listTable, availableCurrency,  tabActive, forPage }: T_P
     if (isValid) {
       CFN_GetKurs(transiting, form, (data) => {
         const resultMapping = {
-          buy: data?.data.postBuyRateCounterCalculator,
-          sell: data?.data.postSellRateCounterCalculator,
-          buyRate: data?.data.postSellRateeRateCalculator,
-          sellRate: data?.data.postBuyRateeRateCalculator,
+          buy: data?.data.calcBuyCounter,
+          sell: data?.data.calcSellCounter,
+          buyRate: data?.data.calcBuyeRate,
+          sellRate: data?.data.calcSelleRate,
         };
     
         setCalculationResult(resultMapping[form.type] || 0);
