@@ -5,11 +5,21 @@ import Image from './image';
 import { T_ResponseGetTopMenuNavbar } from '@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type';
 import { T_ResponseGetMainMenuNavbar } from '@/api/navbar-menu/main-navbar/api.get-main-menu-navbar.type';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import Link from './link';
 import { Tabs } from './tabs';
 import { CloseIcon } from './close-icon';
+import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
+import useForm from '@/lib/hook/useForm';
+import {
+  CFN_GetSearch,
+  CFN_MapToSearchPayload,
+  CFN_ValidateGetSearchFields,
+  T_GetSearch,
+} from '@/app/(views)/$function/cfn.get.search';
+import { T_Search } from '@/api/search/api.get.search.type';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
 
@@ -19,13 +29,52 @@ type T_SearchProps = {
 };
 
 export function Search({ active, setActive }: T_SearchProps) {
+  const [pending, transiting] = useTransition();
   const elementRef = useRef(null);
   useOnClickOutside(elementRef, () => setActive(false));
+  const [tab, setTab] = useState('produk');
+  const { form, onFieldChange, validateForm } = useForm<
+    T_GetSearch,
+    T_GetSearch
+  >(
+    CFN_MapToSearchPayload({
+      category: '',
+      filter: '',
+      parent: '',
+    }),
+    CFN_ValidateGetSearchFields
+  );
+  let [result, setResult] = useState<T_Search['list']>([]);
+  const handleSearch = () => {
+    setResult([])
+    if (pending) {
+      return;
+    }
+    const isValid = validateForm();
+    if (isValid) {
+      CFN_GetSearch(transiting, form, (data) => {
+        
+        if (data?.data.list && (data?.data.list.length || 0) > 0) {
+          setResult(data?.data.list);
+        } 
+        
+      });
+    }
+  };
+  useEffect(() => {
+    handleSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.filter, form.category]);
+  useEffect(() => {
+    onFieldChange('category', tab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
+
   return (
     <div
       ref={elementRef}
       className={[
-        'fixed top-0 left-0 w-full mdmax:h-screen bg-white z-50',
+        'fixed top-0 left-0 w-full h-screen bg-white z-50 overflow-auto overflow-custom',
         active ? 'visible' : 'invisible',
       ].join(' ')}
     >
@@ -42,7 +91,15 @@ export function Search({ active, setActive }: T_SearchProps) {
           </div>
           <div className="text-center">
             <div className="border border-black rounded-full inline-flex items-center overflow-hidden px-5 py-2 w-[60%] mdmax:w-full">
-              <input type="text" className="focus:outline-none flex-1" />
+              <input
+                type="text"
+                className="focus:outline-none flex-1"
+                onChange={(event) =>
+                  onFieldChange('filter', event.target.value)
+                }
+                value={form.filter}
+              />
+
               <div>
                 <svg
                   className="w-7 h-7"
@@ -62,19 +119,149 @@ export function Search({ active, setActive }: T_SearchProps) {
         <div>
           <Tabs
             list={[
-              { title: 'PRODUK', slug: 'pro' },
-              { title: 'BERITA', slug: 'ber' },
-              { title: 'LAPORAN', slug: 'ber' },
-              { title: 'PROMO', slug: 'ber' },
+              { title: 'PRODUK', slug: 'produk' },
+              { title: 'BERITA', slug: 'berita' },
+              { title: 'LAPORAN', slug: 'laporan' },
+              { title: 'PROMO', slug: 'promo' },
             ]}
-            value="pro"
+            value={tab}
             variant="full"
-            onChange={() => {}}
+            onChange={(value) => setTab(value)}
           />
         </div>
         <div>
-          {/* RESULT */}
-          <div className="text-center py-20">
+          <div className="max-h-[22rem] overflow-auto overflow-custom">
+            {tab === 'produk' && (
+              <div className='flex flex-wrap'>
+                {result.map((dataItem, index) => (
+                  <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
+                    <Link href={dataItem.service_url || ''} target="_blank">
+                      <div className="shadow-lg relative rounded-md overflow-hidden group">
+                        <div className="w-full h-[18rem] ">
+                          {dataItem.image.url && (
+                            <Image
+                              extern={false}
+                              src={dataItem.image.url}
+                              alt="image"
+                              width={400}
+                              height={400}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                        </div>
+                        <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
+                        <div className="absolute z-20 bottom-0 left-0 p-4 ">
+                          {dataItem.title && (
+                            <div className=" text-white text-2xl font-semibold text-line-2">
+                              {parseHTMLToReact(dataItem.title)}
+                            </div>
+                          )}
+                          {dataItem.content && (
+                            <div className=" text-white group-hover:block hidden">
+                              {parseHTMLToReact(dataItem.content)}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+            {tab === 'berita' && (
+              <div className='flex flex-wrap'>
+                {result.map((dataItem, index) => (
+                  <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
+                    <Link href={dataItem.service_url || ''} target="_blank">
+                      <div className="shadow-lg relative rounded-md overflow-hidden group">
+                        <div className="w-full h-[18rem] ">
+                          {dataItem.image.url && (
+                            <Image
+                              extern={false}
+                              src={dataItem.image.url}
+                              alt="image"
+                              width={400}
+                              height={400}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                        </div>
+                        <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
+                        <div className="absolute z-20 bottom-0 left-0 p-4 ">
+                          {dataItem.title && (
+                            <div className=" text-white text-2xl font-semibold text-line-2">
+                              {parseHTMLToReact(dataItem.title)}
+                            </div>
+                          )}
+                          {dataItem.content && (
+                            <div className=" text-white group-hover:block hidden">
+                              {parseHTMLToReact(dataItem.content)}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+            {tab === 'laporan' && (
+              <div className='flex flex-wrap'>
+                {result.map((dataItem, index) => (
+                  <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
+                    <Link href={dataItem.service_url || ''} target="_blank">
+                      <div className="shadow-lg relative rounded-md overflow-hidden group">
+                        <div className="w-full h-[18rem] ">
+                          {dataItem.image.url && (
+                            <Image
+                              extern={false}
+                              src={dataItem.image.url}
+                              alt="image"
+                              width={400}
+                              height={400}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                        </div>
+                        <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
+                        <div className="absolute z-20 bottom-0 left-0 p-4 ">
+                          {dataItem.title && (
+                            <div className=" text-white text-2xl font-semibold text-line-2">
+                              {parseHTMLToReact(dataItem.title)}
+                            </div>
+                          )}
+                          {dataItem.content && (
+                            <div className=" text-white group-hover:block hidden">
+                              {parseHTMLToReact(dataItem.content)}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+            {tab === 'promo' && (
+              <div>
+                <CE_CardVariant09
+                  type="search"
+                  data={result.map((item) => {
+                    return  {
+                      title: item.title,
+                      description: item.content,
+                      button: {
+                        title: 'Unduh',
+                        link: item.service_url,
+                        extern: true
+                      },
+                    }
+                  })}
+                />
+              </div>
+            )}
+          </div>
+          <div className="text-center py-10">
             <div className="text-2xl mdmax:text-sm font-bold">
               Tidak dapat menemukan{' '}
               <span className="text-red-01">apa yang kalian cari?</span>
@@ -90,7 +277,6 @@ export function Search({ active, setActive }: T_SearchProps) {
               atau arahkan ke kategori konten berikut
             </div>
           </div>
-          <div></div>
         </div>
         <div className="flex px-[15rem] mdmax:hidden">
           {[
@@ -244,7 +430,6 @@ export default function GlobalHeader({
   headerBottom: T_ResponseGetMainMenuNavbar;
   variant: 'transparent' | 'no-transparent';
 }) {
-  
   const pathname = usePathname();
   const currentLanguage = useSearchParams().get('lang');
   const router = useRouter();
@@ -265,22 +450,18 @@ export default function GlobalHeader({
   };
 
   const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
-    
     if (!item) {
-      return ''
+      return '';
     }
     if (item.alias) {
-      return `/${item.alias
-        ?.toLowerCase()
-        .replaceAll(' ', '-')}`
+      return `/${item.alias?.toLowerCase().replaceAll(' ', '-')}`;
     }
     if (item.uri) {
-      return item.uri
+      return item.uri;
     }
-    
-    return '/'
-    
-  }
+
+    return '/';
+  };
 
   return (
     <>
@@ -498,7 +679,9 @@ export default function GlobalHeader({
                                                   // href={`/${item.alias
                                                   //   ?.toLowerCase()
                                                   //   .replaceAll(' ', '-')}`}
-                                                  href={generateLinkBottom(item)}
+                                                  href={generateLinkBottom(
+                                                    item
+                                                  )}
                                                 >
                                                   <div className="flex items-center justify-between w-full mb-2">
                                                     <div className="text-sm flex-1">

@@ -325,7 +325,7 @@ export function Tabs({
 
   return (
     <div className="container mt-12 mb-16">
-      {title && <h1 className="text-4xl mb-16 font-semibold">{title}</h1>}
+      {title && <h1 className="text-4xl mb-16 font-semibold">{parseHTMLToReact(title)}</h1>}
       <div className="flex">
         {list?.map((item, index) => {
           return (

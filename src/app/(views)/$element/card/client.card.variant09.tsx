@@ -5,6 +5,7 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant09Props = {
+  type?: 'search' | 'normal'
   data?: {
     title?: string;
     description?: string;
@@ -17,17 +18,17 @@ type T_CardVariant09Props = {
   }[];
 };
 
-export default function CE_CardVariant09({ data }: T_CardVariant09Props) {
+export default function CE_CardVariant09({ data, type = 'normal' }: T_CardVariant09Props) {
   return (
     <>
-      <div className="py-10 container overflow-hidden">
+      <div className={`${type === 'search' ? 'py-0' : 'py-10'} container overflow-hidden`}>
         <div className="flex flex-wrap -mx-5">
           {data?.map((item, index) => {
             return (
               <div key={index} className="w-full flex-none px-5 mb-10">
                 <div className="rounded-xl bg-white shadow-xl">
                   <div>
-                    <div className="p-10 mdmax:p-5 flex mdmax:flex-col items-center mdmax:items-start justify-between">
+                    <div className={`${type === 'search' ? 'py-5' : 'py-10'} p-10 mdmax:p-5 flex mdmax:flex-col items-center mdmax:items-start justify-between`}>
                       <div className="mdmax:mb-5">
                         {item?.title && (
                           <div className="text-2xl font-semibold text-blue-01 text-line-1 mb-2">

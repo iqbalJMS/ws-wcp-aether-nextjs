@@ -31,7 +31,7 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
               >
                 <div className="bg-white px-10 pb-10 pt-20 shadow-lg rounded-br-[5rem]">
                   <div
-                    className={`mb-10 ${item?.imagePosition?.includes('left') ? 'w-[6.25rem] h-[6.25rem]' : 'w-full h-[7.5rem]'}`}
+                    className={`mb-10 overflow-hidden ${item?.imagePosition?.includes('left') ? 'w-[6.25rem] h-[6.25rem]' : 'w-full h-[7.5rem]'}`}
                   >
                     <Image
                       extern={false}
