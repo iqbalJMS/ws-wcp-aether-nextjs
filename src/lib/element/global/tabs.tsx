@@ -14,42 +14,91 @@ import Accordion from './accordion';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
 import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
 
-type T_TabsProps = {
-  list: Array<{
+type TChildren = {
+  button?: {
+    link?: string;
+    image?: string;
     title?: string;
-    information?: string;
-    slug?: string;
-    linkShowMore?: string;
-    textShowMore?: string;
-    description?: string;
-    children?: Array<{
-      listColumn?: Array<{
-        title?: string;
-        field_title?: Array<{ value: string }>;
-        field_content?: Array<{ value: string }>;
-      }>;
-      description1?: string;
-      title?: string;
-      image?: string;
-      description?: string;
-      description2?: string;
-      imageUrl1?: string;
-      imageUrl2?: string;
-      titleColumn?: string;
-      button?: {
-        link?: string;
-        title?: string;
-      };
-      textLink?: string;
-      urlLink?: string;
-    }>;
-    notes?: string;
-  }>;
+  };
+  title?: string;
+  image?: string;
+  description?: string;
+  filename?: string;
+  iconDownload?: string;
+  downloadFile: string;
+  field_title?: Array<{ value: string }>;
+  field_content?: Array<{ value: string }>;
+};
+
+type ButtonProps = {
+  link?: string;
+  title?: string;
+};
+
+type FieldValue = {
+  value: string;
+};
+
+type DownloadItemChild = {
+  description?: string;
+  filename?: string;
+  iconDownload?: string;
+  downloadFile: string;
+};
+
+type ListColumnChild = {
+  button?: ButtonProps;
+  title?: string;
+  image?: string;
+  description?: string;
+  children?: DownloadItemChild[];
+  field_title?: FieldValue[];
+  field_content?: FieldValue[];
+};
+
+type TabChildrenItem = {
+  listColumn?: {
+    children?: ListColumnChild[];
+    title?: string;
+    field_title?: FieldValue[];
+    field_content?: FieldValue[];
+  }[];
+  description1?: string;
+  title?: string;
+  image?: string;
+  description?: string;
+  description2?: string;
+  imageUrl1?: string;
+  imageUrl2?: string;
+  titleColumn?: string;
+  button?: ButtonProps;
+  textLink?: string;
+  urlLink?: string;
+};
+
+type TabItem = {
+  title?: string;
+  information?: string;
+  slug?: string;
+  linkShowMore?: string;
+  textShowMore?: string;
+  description?: string;
+  children?: TabChildrenItem[];
+  notes?: string;
+};
+
+type TabsProps = {
+  list: TabItem[];
   value?: string;
   title?: string;
   variantContent?: string;
   onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
+};
+
+type TRenderElemment = {
+  children: Array<TChildren>;
+  type: string;
 };
 
 export function Tabs({
@@ -59,53 +108,28 @@ export function Tabs({
   title,
   variant = 'border',
   variantContent,
-}: T_TabsProps) {
+}: TabsProps) {
   const [menuActive, setMenuActive] = useState(0);
 
-  const renderElement = ({
-    children,
-    type,
-  }: {
-    children?: Array<{
-      button?: {
-        link?: string;
-        title?: string;
-      };
-      title?: string;
-      image?: string;
-      description?: string;
-      children?: Array<{
-        description?: string;
-        filename?: string;
-        iconDownload?: string;
-        downloadFile: string;
-      }>;
-      field_title?: Array<{ value: string }>;
-      field_content?: Array<{ value: string }>;
-    }>;
-    type: string;
-  }) => {
+  const renderElement = ({ children, type }: TRenderElemment) => {
     switch (type) {
       case 'download':
-        return children?.map((item, key) => {
-          return (
-            <CE_CardVariant09
-              key={key}
-              data={item?.children?.map((childItem) => {
-                return {
-                  title: childItem?.filename?.replaceAll('_', ' '),
-                  description: childItem?.description?.replaceAll('_', ' '),
-                  button: {
-                    image: childItem?.iconDownload,
-                    link: childItem?.downloadFile,
-                    title: 'Download',
-                    extern: true,
-                  },
-                };
-              })}
-            />
-          );
-        });
+        return (
+          <CE_CardVariant09
+            data={children?.map((childItem) => {
+              return {
+                title: childItem?.filename?.replaceAll('_', ' '),
+                description: childItem?.description?.replaceAll('_', ' '),
+                button: {
+                  image: '/',
+                  link: childItem?.downloadFile,
+                  title: 'Download',
+                  extern: true,
+                },
+              };
+            })}
+          />
+        );
       case 'image-slider':
         return (
           <CE_CarouselVariant06
@@ -305,15 +329,15 @@ export function Tabs({
               key={index}
               renderTitle={
                 listItem?.title && (
-                  <p className="text-left font-normal mt-8 text-2xl">
+                  <p className="text-left font-normal text-2xl">
                     {listItem?.title}
                   </p>
                 )
               }
-              isOpen
+              isOpen={index === 0}
               renderContent={renderElement({
                 type: 'download',
-                children: item?.listColumn,
+                children: listItem?.children as Array<TChildren>,
               })}
             />
           ));
@@ -325,8 +349,12 @@ export function Tabs({
 
   return (
     <div className="container mt-12 mb-16">
-      {title && <h1 className="text-4xl mb-16 font-semibold">{parseHTMLToReact(title)}</h1>}
-      <div className="flex">
+      {title && (
+        <h1 className="text-4xl mb-16 font-semibold">
+          {parseHTMLToReact(title)}
+        </h1>
+      )}
+      <div className="flex mb-12">
         {list?.map((item, index) => {
           return (
             <div

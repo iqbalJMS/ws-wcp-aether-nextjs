@@ -23,11 +23,15 @@ import ImageViewer from '@/lib/element/global/image.viewer';
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from '@/lib/element/global/image';
-import CE_SimulationMain from '@/app/(views)/$element/simulation/client.simulation.main';
+
+const CE_SimulationMain = dynamic(
+  () => import('@/app/(views)/$element/simulation/client.simulation.main')
+);
 
 const ContactSection = dynamic(
   () => import('@/app/(views)/$element/card/client.content.info')
 );
+
 const CE_CarouselVariant06 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
 );
@@ -279,7 +283,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant17:
           return <CE_CardVariant08 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant18:
-          return <CE_CardVariant11 title={title} data={listItems} />;
+          return (
+            <CE_CardVariant11 title={title} column={column} data={listItems} />
+          );
         case WIDGET_VARIANT.variant23:
           return (
             <CE_CarouselMain variant="03" data={listItems} title={title} />
@@ -470,6 +476,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return null;
       }
     },
+
     // @ts-expect-error
     props: (_component: T_Section) => {
       const findVariantStyle =
@@ -751,7 +758,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             title: _component?.field_formatted_title?.[0]?.value,
             variant: findVariantStyle,
-            column: 3,
+            column: column,
             data: dataV18,
           };
         case WIDGET_VARIANT.variant23:
@@ -872,7 +879,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant03:
           return <CE_SectionPromo title={title} listTab={listTab} />;
         case WIDGET_VARIANT.variant05:
-          return <Tabs title={title} list={list} variantContent={variant} />;
         case WIDGET_VARIANT.variant10:
         case WIDGET_VARIANT.variant13:
         case WIDGET_VARIANT.variant15:
