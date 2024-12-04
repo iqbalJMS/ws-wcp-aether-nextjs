@@ -46,18 +46,16 @@ export function Search({ active, setActive }: T_SearchProps) {
   );
   let [result, setResult] = useState<T_Search['list']>([]);
   const handleSearch = () => {
-    setResult([])
+    setResult([]);
     if (pending) {
       return;
     }
     const isValid = validateForm();
     if (isValid) {
       CFN_GetSearch(transiting, form, (data) => {
-        
         if (data?.data.list && (data?.data.list.length || 0) > 0) {
           setResult(data?.data.list);
-        } 
-        
+        }
       });
     }
   };
@@ -132,9 +130,12 @@ export function Search({ active, setActive }: T_SearchProps) {
         <div>
           <div className="max-h-[22rem] overflow-auto overflow-custom">
             {tab === 'produk' && (
-              <div className='flex flex-wrap'>
+              <div className="flex flex-wrap">
                 {result.map((dataItem, index) => (
-                  <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
+                  <div
+                    key={index}
+                    className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4"
+                  >
                     <Link href={dataItem.service_url || ''} target="_blank">
                       <div className="shadow-lg relative rounded-md overflow-hidden group">
                         <div className="w-full h-[18rem] ">
@@ -169,9 +170,12 @@ export function Search({ active, setActive }: T_SearchProps) {
               </div>
             )}
             {tab === 'berita' && (
-              <div className='flex flex-wrap'>
+              <div className="flex flex-wrap">
                 {result.map((dataItem, index) => (
-                  <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
+                  <div
+                    key={index}
+                    className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4"
+                  >
                     <Link href={dataItem.service_url || ''} target="_blank">
                       <div className="shadow-lg relative rounded-md overflow-hidden group">
                         <div className="w-full h-[18rem] ">
@@ -206,9 +210,12 @@ export function Search({ active, setActive }: T_SearchProps) {
               </div>
             )}
             {tab === 'laporan' && (
-              <div className='flex flex-wrap'>
+              <div className="flex flex-wrap">
                 {result.map((dataItem, index) => (
-                  <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
+                  <div
+                    key={index}
+                    className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4"
+                  >
                     <Link href={dataItem.service_url || ''} target="_blank">
                       <div className="shadow-lg relative rounded-md overflow-hidden group">
                         <div className="w-full h-[18rem] ">
@@ -247,15 +254,15 @@ export function Search({ active, setActive }: T_SearchProps) {
                 <CE_CardVariant09
                   type="search"
                   data={result.map((item) => {
-                    return  {
+                    return {
                       title: item.title,
                       description: item.content,
                       button: {
                         title: 'Unduh',
                         link: item.service_url,
-                        extern: true
+                        extern: true,
                       },
-                    }
+                    };
                   })}
                 />
               </div>
@@ -449,6 +456,12 @@ export default function GlobalHeader({
     }
   };
 
+  const conditionalLang = ['en', 'id', ''].includes(String(currentLanguage))
+    ? !currentLanguage || currentLanguage === 'id'
+      ? 'id'
+      : 'en'
+    : 'id';
+
   const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
     if (!item) {
       return '';
@@ -588,7 +601,7 @@ export default function GlobalHeader({
                       `text-xs p-1 px-2 rounded-md`,
                       `${variant === 'transparent' ? 'text-white mdmax:text-black' : ''}`,
                       `${
-                        (currentLanguage ?? 'id')?.includes(label.toLowerCase())
+                        conditionalLang?.includes(label.toLowerCase())
                           ? 'border border-orange-01'
                           : ''
                       }`,

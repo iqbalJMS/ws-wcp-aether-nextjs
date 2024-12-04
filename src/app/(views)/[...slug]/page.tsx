@@ -21,7 +21,7 @@ export default async function PageAetherDetail({
 }) {
   const getNodeId = slug?.[0];
   const data = await ACT_GetSinglePage({
-    lang: lang ?? 'en',
+    lang: lang ?? 'id',
     alias: getNodeId ?? '',
   });
 
