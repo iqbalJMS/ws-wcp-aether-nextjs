@@ -11,7 +11,7 @@ export async function API_GetSinglePage({
   alias: string;
 }): Promise<any> {
   try {
-    const isEnglish = lang === 'en' ? '' : '/id';
+    const isEnglish = !lang || lang === 'id' ? '/id' : '';
     const response = await get(`${isEnglish}/${alias}?_format=json_recursive`);
 
     return response;

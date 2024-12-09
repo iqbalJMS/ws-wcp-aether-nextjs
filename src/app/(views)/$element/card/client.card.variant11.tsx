@@ -1,6 +1,7 @@
 'use client';
 
 import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant11Props = {
@@ -10,13 +11,18 @@ type T_CardVariant11Props = {
     title?: string;
     description?: string;
     image?: string;
+    href?: string;
+    button?: {
+      link?: string;
+      href?: string;
+    };
   }[];
 };
 
 export default function CE_CardVariant11({
   title,
   data,
-  column,
+  column = '2',
 }: T_CardVariant11Props) {
   return (
     <>
@@ -28,12 +34,13 @@ export default function CE_CardVariant11({
             </div>
           </div>
         )}
-        <div className="flex flex-wrap justify-center -mx-5">
+        <div className="flex flex-wrap w-full justify-center">
           {data?.map((item, index) => {
             return (
-              <div
+              <Link
+                href={item?.button?.link ?? ''}
                 key={index}
-                className={`${column === "1"? 'flex-1' : 'flex-none w-1/' + column} mdmax:w-full  px-5 mb-10`}
+                className={`${column === '1' ? 'flex-1' : `flex-none w-1/${String(column)}`} mdmax:w-full px-5 mb-10`}
               >
                 <div className="px-10 text-center hover:shadow-md p-5 rounded-xl">
                   {item?.image && (
@@ -59,7 +66,7 @@ export default function CE_CardVariant11({
                     </div>
                   )}
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

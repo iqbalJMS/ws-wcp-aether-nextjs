@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 
 import { ChevronRightIcon } from './chevron-right-icon';
-import { ChevronUpIcon } from './chevron-up-icon';
 import Image from './image';
+import { ChevronDownIcon } from './chevron-down-icon';
 
 export type T_AccordionProps = {
   renderContent: React.ReactNode;
@@ -36,7 +36,7 @@ export default function Accordion({
         <div className={`${variant == 'full-border' ? 'container' : ''}`}>
           <button
             onClick={() => setAccordionOpen(!accordionOpen)}
-            className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' ? 'border-none' : 'border-b'} flex items-center w-full`}
+            className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' ? 'border-none' : 'border-b'} flex py-4 items-center w-full`}
           >
             <div className="w-full">
               {imageTitle ? (
@@ -59,15 +59,15 @@ export default function Accordion({
             </div>
 
             {accordionOpen ? (
-              <ChevronUpIcon
-                className={`${variant == 'full' ? 'stroke-white' : 'stroke-blue-02'}`}
+              <ChevronDownIcon
+                className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
                 width={36}
                 height={36}
                 strokeWidth="2"
               />
             ) : (
               <ChevronRightIcon
-                className={`${variant == 'full' ? 'stroke-white' : 'stroke-blue-02'}`}
+                className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
                 width={36}
                 height={36}
                 strokeWidth="2"
