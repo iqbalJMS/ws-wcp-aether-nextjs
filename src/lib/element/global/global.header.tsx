@@ -136,28 +136,28 @@ export function Search({ active, setActive }: T_SearchProps) {
                 {result.map((dataItem, index) => (
                   <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
                     <Link href={dataItem.service_url || ''} target="_blank">
-                      <div className="shadow-lg relative rounded-md overflow-hidden group">
-                        <div className="w-full h-[18rem] ">
+                      <div className="shadow-lg relative rounded-md rounded-br-[3rem] overflow-hidden group p-4">
+                        <div className="w-[15rem] ">
                           {dataItem.image.url && (
                             <Image
                               extern={false}
-                              src={dataItem.image.url}
+                              src={dataItem.image.url.replace('https://admin-bri-corpsite.dev-kjt.id', '')}
                               alt="image"
                               width={400}
                               height={400}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-contain"
                             />
                           )}
                         </div>
-                        <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
-                        <div className="absolute z-20 bottom-0 left-0 p-4 ">
+                        
+                        <div className="mt-2">
                           {dataItem.title && (
-                            <div className=" text-white text-2xl font-semibold text-line-2">
+                            <div className=" text-blue-01 text-2xl font-semibold text-line-2">
                               {parseHTMLToReact(dataItem.title)}
                             </div>
                           )}
                           {dataItem.content && (
-                            <div className=" text-white group-hover:block hidden">
+                            <div className=" text-blue-02">
                               {parseHTMLToReact(dataItem.content)}
                             </div>
                           )}
@@ -178,44 +178,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                           {dataItem.image.url && (
                             <Image
                               extern={false}
-                              src={dataItem.image.url}
-                              alt="image"
-                              width={400}
-                              height={400}
-                              className="w-full h-full object-cover"
-                            />
-                          )}
-                        </div>
-                        <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
-                        <div className="absolute z-20 bottom-0 left-0 p-4 ">
-                          {dataItem.title && (
-                            <div className=" text-white text-2xl font-semibold text-line-2">
-                              {parseHTMLToReact(dataItem.title)}
-                            </div>
-                          )}
-                          {dataItem.content && (
-                            <div className=" text-white group-hover:block hidden">
-                              {parseHTMLToReact(dataItem.content)}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            )}
-            {tab === 'laporan' && (
-              <div className='flex flex-wrap'>
-                {result.map((dataItem, index) => (
-                  <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
-                    <Link href={dataItem.service_url || ''} target="_blank">
-                      <div className="shadow-lg relative rounded-md overflow-hidden group">
-                        <div className="w-full h-[18rem] ">
-                          {dataItem.image.url && (
-                            <Image
-                              extern={false}
-                              src={dataItem.image.url}
+                              src={dataItem.image.url.replace('https://admin-bri-corpsite.dev-kjt.id', '')}
                               alt="image"
                               width={400}
                               height={400}
@@ -243,6 +206,43 @@ export function Search({ active, setActive }: T_SearchProps) {
               </div>
             )}
             {tab === 'promo' && (
+              <div className='flex flex-wrap'>
+              {result.map((dataItem, index) => (
+                <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
+                  <Link href={dataItem.service_url || ''} target="_blank">
+                    <div className="shadow-lg relative rounded-md overflow-hidden group p-4">
+                      <div className="w-full h-[15rem] rounded-md overflow-hidden">
+                        {dataItem.image.url && (
+                          <Image
+                            extern={false}
+                            src={dataItem.image.url.replace('https://admin-bri-corpsite.dev-kjt.id', '')}
+                            alt="image"
+                            width={400}
+                            height={400}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                      </div>
+                      
+                      <div className="mt-2">
+                        {dataItem.title && (
+                          <div className=" text-red-01 text-2xl font-semibold text-line-2">
+                            {parseHTMLToReact(dataItem.title)}
+                          </div>
+                        )}
+                        {dataItem.content && (
+                          <div className=" text-black">
+                            {parseHTMLToReact(dataItem.content)}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+            )}
+            {tab === 'laporan' && (
               <div>
                 <CE_CardVariant09
                   type="search"
