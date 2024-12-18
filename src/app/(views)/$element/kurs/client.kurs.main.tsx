@@ -14,16 +14,22 @@ import {
   CFN_ValidateGetKursFields,
   T_GetKurs,
 } from '@/app/(views)/$function/cfn.get.kurs';
+import Image from '@/lib/element/global/image';
 
 type T_Props = {
   listTable: T_Kurs['data'];
   listCurrency: T_Kurs['field_currency'];
   availableCurrency: T_Kurs['available_currency'];
   tabActive?: string;
-  forPage?: string
+  forPage?: string;
 };
 
-function CE_KursValue({ listTable, availableCurrency,  tabActive, forPage }: T_Props) {
+function CE_KursValue({
+  listTable,
+  availableCurrency,
+  tabActive,
+  forPage,
+}: T_Props) {
   const [pending, transiting] = useTransition();
   const isERate = tabActive === 'e-rate';
   const data = listTable?.map((item) => {
@@ -32,6 +38,7 @@ function CE_KursValue({ listTable, availableCurrency,  tabActive, forPage }: T_P
       name: item.currency,
       buy: isERate ? item.buyRateERate : item.buyRateCounter,
       sell: isERate ? item.sellRateERate : item.sellRateCounter,
+      image: item.image,
     };
   });
   const dataCurrencySelected = availableCurrency.map((item) => {
@@ -85,7 +92,7 @@ function CE_KursValue({ listTable, availableCurrency,  tabActive, forPage }: T_P
           buyRate: data?.data.calcBuyeRate,
           sellRate: data?.data.calcSelleRate,
         };
-    
+        
         setCalculationResult(resultMapping[form.type] || 0);
       });
     }
@@ -104,7 +111,7 @@ function CE_KursValue({ listTable, availableCurrency,  tabActive, forPage }: T_P
         ? 'buy'
         : 'sell';
 
-    setForm({ ...form, calcType: tabValue, type });
+    setForm({ ...form, amount: 0, calcType: tabValue, type });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabValue, isERate]);
 
@@ -117,7 +124,19 @@ function CE_KursValue({ listTable, availableCurrency,  tabActive, forPage }: T_P
               title: 'Kurs',
               field: 'name',
               callback: (item) => {
-                return <span>{item.name}</span>;
+                return (
+                  <div className='flex items-center gap-5'>
+                    <Image
+                      src={item.image}
+                      extern={false}
+                      alt="background"
+                      width={60}
+                      height={60}
+                      className="w-10 h-10 object-cover rounded-full"
+                    />
+                    {item.name}
+                  </div>
+                );
               },
             },
             {
@@ -150,7 +169,7 @@ function CE_KursValue({ listTable, availableCurrency,  tabActive, forPage }: T_P
             },
           ]}
           list={data}
-          itemsPerPage={forPage==='home' ? 999999 : 5}
+          itemsPerPage={forPage === 'home' ? 999999 : 5}
         />
       </div>
       <div className="w-1/2 mdmax:w-full px-10">
@@ -223,9 +242,8 @@ const CE_KursMain = ({
   listTable,
   listCurrency,
   availableCurrency,
-  forPage = 'home'
+  forPage = 'home',
 }: T_Props) => {
-  
   const tabs = [
     {
       title: 'E-RATE',
@@ -241,14 +259,27 @@ const CE_KursMain = ({
     },
   ];
   const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '');
+  const [currentDate, setCurrentDate] = useState('');
 
+  useEffect(() => {
+    const now = new Date();
+    const formattedDate = now.toLocaleString('id-ID', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+    setCurrentDate(formattedDate);
+  }, []);
   return (
     <div className="container py-10">
       <div className="flex mdmax:flex-col mdmax:items-start items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
         <div className="mdmax:mb-5">
           <div className="text-2xl font-semibold mb-2">Kurs BRI</div>
           <div className=" text-black mdmax:text-sm  font-medium text-opacity-30">
-            * Terakhir diperbarui 23 Sep 2024 10:10 Untuk transaksi kurang dari
+            * Terakhir diperbarui {currentDate} Untuk transaksi kurang dari
             eq. USD 2.500
           </div>
         </div>

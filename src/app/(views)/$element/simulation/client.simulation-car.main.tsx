@@ -207,7 +207,7 @@ const CE_SimulationCarMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Uang Muka"
               editable={false}
@@ -235,7 +235,7 @@ const CE_SimulationCarMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Pokok Hutang"
               editable={false}
@@ -253,7 +253,7 @@ const CE_SimulationCarMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Jangka Waktu"
               slot={
@@ -291,7 +291,7 @@ const CE_SimulationCarMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Bunga"
               editable={false}

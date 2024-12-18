@@ -73,19 +73,13 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
       onChange?.(item);
       setDropdownActive(false);
     }
+    setFilterText('')
   };
 
   const newList = list?.filter((item) =>
     item.title.toLowerCase().includes(filterText.toLowerCase())
   );
   useOnClickOutside(elementRef, () => setDropdownActive(false));
-
-  // useEffect(() => {
-  //   const result = multiple
-  //     ? selectedItems.map((value) => list?.find((item) => item.value === value))
-  //     : selectedItem;
-  //   onChange && onChange(result);
-  // }, [selectedItems]);
 
   return (
     <div ref={elementRef} className="relative">

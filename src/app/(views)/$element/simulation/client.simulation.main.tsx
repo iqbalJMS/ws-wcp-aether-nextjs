@@ -56,7 +56,7 @@ const CE_SimulationMain = ({
   }, [variant]);
   return (
     <div className="relative overflow-hidden">
-      <div className="w-[50%] h-full absolute top-0 left-0">
+      <div className="w-[50%]  h-full absolute top-0 left-0">
         <Image
           src={'/web/guest/images/simulation/bg.png'}
           extern={true}
@@ -67,8 +67,8 @@ const CE_SimulationMain = ({
         />
       </div>
       <div className="relative z-10 container py-20">
-        <div className="flex  -mx-10">
-          <div className="w-[50%] flex-none px-10">
+        <div className="flex mdmax:flex-wrap  -mx-10">
+          <div className="w-[50%] mdmax:w-full flex-none px-10 mdmax:mb-10">
             <div className="mb-10">
               {simulation && (
                 <Image
@@ -85,8 +85,8 @@ const CE_SimulationMain = ({
               {simulation && parseHTMLToReact(simulation.tnc)}
             </div>
           </div>
-          <div className="w-1/2 flex-none px-10">
-            <div className={` ${type === 'tab' ? '-mt-20 ' : '' }`}>
+          <div className="w-1/2 mdmax:w-full flex-none px-10">
+            <div className={` ${type === 'tab' ? '-mt-20 mdmax:mt-0' : '' }`}>
               {type === 'tab' && (
                 <div className="text-right mb-10">
                   <Link
@@ -120,14 +120,14 @@ const CE_SimulationMain = ({
                   {simulation && simulation.title}
                 </div>
                 {type === 'page' && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex-none">
+                  <div className="flex mdmax:flex-wrap items-center justify-between">
+                    <div className="flex-none mdmax:w-full">
                       <div className="text-black text-opacity-50 font-medium text-lg">
                         Tertarik mengajukan {simulation && simulation.title}?
                         <br /> Kunjungi cabang terdekat kami.
                       </div>
                     </div>
-                    <div>
+                    <div className='mdmax:w-full'>
                       <Link
                         href={action.button.link}
                         extern={action.button.extern}
@@ -142,11 +142,12 @@ const CE_SimulationMain = ({
                 )}
                 <div className="border-b-2 pb-5 border-blue-01 border-opacity-35 border-dashed mb-10"></div>
                 <div className=" mb-10">
+                  
                   {variant === 'kpr' && <CE_SimulationKPRMain />}
                   {variant === 'kprs' && <CE_SimulationKPRSMain />}
-                  {variant === 'car' && <CE_SimulationCarMain />}
+                  {variant === 'cicilan_kendaraan' && <CE_SimulationCarMain />}
                   {variant === 'britama-rencana' && <CE_SimulationBritamaRencanaMain />}
-                  {variant === 'briguna' && <CE_SimulationBRIGunaMain />}
+                  {variant === 'briguna_umum' && <CE_SimulationBRIGunaMain />}
                   {variant === 'briguna-karya' && <CE_SimulationBRIGunaKaryaMain />}
                   {variant === 'briguna-purna' && <CE_SimulationBRIGunaPurnaMain />}
                   {variant === 'deposito' && <CE_SimulationDepositoMain />}
@@ -156,8 +157,8 @@ const CE_SimulationMain = ({
                   {variant === 'initial-investment' && <CE_SimulationInitialInvestmentMain />}
                 </div>
                 {type === 'tab' && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex-none">
+                  <div className="flex mdmax:flex-wrap items-center justify-between">
+                    <div className="flex-none mdmax:w-full">
                       <div className="text-black text-opacity-50 font-medium text-lg">
                         Tertarik mengajukan {simulation && simulation.title}?
                         <br /> Kunjungi cabang terdekat kami.

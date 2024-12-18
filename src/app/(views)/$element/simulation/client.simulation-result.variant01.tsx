@@ -47,18 +47,18 @@ const CE_SimulationResultVariant01 = ({
                 return (
                   <div
                     key={valueIndex}
-                    className="flex-none mb-5"
+                    className="flex-none mdmax:!w-full mb-5"
                     style={{ width: `${valueItem.width || 100}%` }}
                   >
                     <div
                       className={
-                        valueItem.col ? 'flex justify-between items-center' : ''
+                        valueItem.col ? 'flex justify-between items-center mdmax:flex-wrap' : ''
                       }
                     >
-                      <div className="uppercase font-medium text-black text-opacity-50">
+                      <div className="uppercase  mdmax:w-full mdmax:flex-none font-medium text-black text-opacity-50">
                         {valueItem.label}
                       </div>
-                      <div className="text-lg text-blue-01 font-semibold">
+                      <div className="text-lg text-blue-01 font-semibold mdmax:w-full mdmax:flex-none">
                         {!valueItem.percentage && 'Rp. '}
                         {new Intl.NumberFormat('en-US', {
                           minimumFractionDigits: 0,

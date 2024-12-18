@@ -1793,13 +1793,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       extern: boolean;
       link: string;
     }) => {
+      
       const button = {
         title: props?.title,
         extern: props?.extern,
         link: props?.link,
       };
       const tabs = props?.tabs;
-
       return (
         <CE_SimulationMain
           type="tab"
@@ -1816,7 +1816,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             link: button?.link,
             title: button?.title,
           }}
-          variant={'kpr'}
+          variant={tabs.at(0)?.variant || 'kpr'}
           tabs={tabs}
         />
       );
@@ -1824,6 +1824,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     props: (_component: {
       field_paragraphs: Array<{
         field_title: Array<{ value: string }>;
+        field_simulation: Array<{ value: string }>;
         field_secondary_content: Array<{ value: string }>;
       }>;
       field_primary_cta: { title: string; full_url: string }[];
@@ -1835,7 +1836,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: item?.field_title?.[0]?.value,
             image: '',
             tnc: item?.field_secondary_content?.[0]?.value,
-            variant: 'kpr',
+            variant:  item?.field_simulation?.[0]?.value.toLowerCase(),
           };
         }),
         button: {

@@ -94,7 +94,7 @@ const CE_SimulationBritamaRencanaMain = () => {
       )}
       {!isResult && (
         <div className="flex flex-wrap -mx-5">
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Jumlah Bulan"
               slot={
@@ -127,7 +127,7 @@ const CE_SimulationBritamaRencanaMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               editable={false}
               label="% Premi Asuransi BritAma Rencana Perbulan"
@@ -201,7 +201,7 @@ const CE_SimulationBritamaRencanaMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Rate Bunga BritAma Rencana (p.a)"
               editable={false}
@@ -219,7 +219,7 @@ const CE_SimulationBritamaRencanaMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Nominal Premi Asuransi BritAma Rencana Pertahun"
               editable={false}

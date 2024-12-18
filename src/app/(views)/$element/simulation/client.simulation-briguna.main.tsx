@@ -142,7 +142,7 @@ const CE_SimulationBRIGunaMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Jangka Waktu"
               slot={
@@ -180,7 +180,7 @@ const CE_SimulationBRIGunaMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Suku Bunga Efektif"
               slot={
@@ -255,7 +255,7 @@ const CE_SimulationBRIGunaMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Jangka Waktu"
               slot={
@@ -293,7 +293,7 @@ const CE_SimulationBRIGunaMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Suku Bunga Efektif"
               slot={
