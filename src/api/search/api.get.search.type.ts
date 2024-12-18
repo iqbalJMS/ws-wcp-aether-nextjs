@@ -9,6 +9,8 @@ export type T_Search = {
     image: {
       fileId: string;
       url: string;
+      base64: string;
+
     };
     parent: string;
     category: string;
@@ -31,4 +33,5 @@ export type T_SearchRequest = {
   filter: string;
   category: string;
   parent: string;
+  page: number
 };
