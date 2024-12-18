@@ -5,6 +5,7 @@ type T_Data = {
   isShow: boolean;
   sellRateCounter: number;
   sellRateERate: number;
+  image: string;
 };
 
 type T_EntityData = {

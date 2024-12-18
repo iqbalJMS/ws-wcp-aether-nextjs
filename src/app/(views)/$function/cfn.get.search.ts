@@ -22,6 +22,7 @@ export function CFN_GetSearch(
 
 export function CFN_MapToSearchPayload(form: T_GetSearch): T_GetSearch {
   return {
+    page: form.page,
     category: form.category,
     filter: form.filter,
     parent: form.parent
