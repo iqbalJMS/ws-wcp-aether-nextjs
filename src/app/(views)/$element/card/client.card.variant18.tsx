@@ -57,12 +57,12 @@ export default function CE_CardVariant18({
                     />
                   </div>
                   {item.title && (
-                    <div className="text-lg font-semibold mb-2 ">
+                    <div className="text-lg font-semibold mb-6">
                       {parseHTMLToReact(item.title)}
                     </div>
                   )}
                   {item.description && (
-                    <div className="text-base text-black text-opacity-30 mb-10 ">
+                    <div className="text-sm text-black text-opacity-30 mb-10 ">
                       {parseHTMLToReact(item.description)}
                     </div>
                   )}

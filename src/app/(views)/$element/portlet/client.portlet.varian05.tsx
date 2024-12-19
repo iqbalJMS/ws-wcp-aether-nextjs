@@ -31,7 +31,7 @@ export default function CE_PortletVarian05({
             </div>
           )}
           {firstColumn?.description && (
-            <div className="mt-6 text-gray-400 text-base">
+            <div className="mt-6 text-gray-700 text-base">
               {parseHTMLToReact(firstColumn?.description)}
             </div>
           )}
@@ -44,7 +44,7 @@ export default function CE_PortletVarian05({
           )}
         </div>
       </div>
-      <div className="col-span-1">
+      <div className="col-span-1 mt-4 lg:mt-0">
         {secondColumn?.description && (
           <div className="mt-6 text-gray-400 text-base">
             {parseHTMLToReact(secondColumn?.description)}
