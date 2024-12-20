@@ -433,11 +433,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant37:
           return (
-            <div className="container mx-auto">
-              <div className="flex flex-col md:flex-row items-start md:space-x-10 px-4 md:px-10 py-6">
+            <div className="lg:container lg:mx-auto">
+              <div className="flex flex-col md:flex-row items-start md:space-x-10 px-2 md:px-10 py-6">
                 <div className="md:w-1/3 w-full mb-4 md:mb-0">
                   {title && (
-                    <div className="text-xl font-semibold mb-2">
+                    <div className="text-xl font-semibold lg:mb-2 mb-4">
                       {parseHTMLToReact(title)}
                     </div>
                   )}
@@ -454,7 +454,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                       <Accordion
                         key={key}
                         renderTitle={
-                          <p className="text-2xl font-normal text-left">
+                          <p className="text-lg font-normal text-left">
                             {item?.title}
                           </p>
                         }
@@ -1629,7 +1629,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 key={key}
                 renderTitle={
                   <p
-                    className={`${accordionStyle === 'capsule' ? 'text-base font-semibold pl-4' : 'text-2xl'} text-left font-normal`}
+                    className={`${accordionStyle === 'capsule' ? 'lg:text-base text-sm font-semibold pl-4' : 'lg:text-2xl text-base'} text-left font-normal`}
                   >
                     {item?.title}
                   </p>
@@ -1793,7 +1793,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       extern: boolean;
       link: string;
     }) => {
-      
       const button = {
         title: props?.title,
         extern: props?.extern,
@@ -1836,7 +1835,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: item?.field_title?.[0]?.value,
             image: '',
             tnc: item?.field_secondary_content?.[0]?.value,
-            variant:  item?.field_simulation?.[0]?.value.toLowerCase(),
+            variant: item?.field_simulation?.[0]?.value.toLowerCase(),
           };
         }),
         button: {

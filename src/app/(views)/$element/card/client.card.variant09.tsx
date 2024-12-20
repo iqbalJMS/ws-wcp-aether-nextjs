@@ -38,13 +38,13 @@ export default function CE_CardVariant09({
                     >
                       <div className="mdmax:mb-5">
                         {item?.title && (
-                          <div className="text-2xl font-semibold text-blue-01 text-line-1 mb-2">
+                          <div className="lg:text-lg text-base font-semibold capitalize text-blue-01 text-line-1 mb-2">
                             {parseHTMLToReact(item?.title)}
                           </div>
                         )}
 
                         {item?.description && (
-                          <div className="text-black text-opacity-70">
+                          <div className="text-black lg:text-sm text-sm text-opacity-70 lowercase">
                             {parseHTMLToReact(item?.description)}
                           </div>
                         )}
@@ -56,7 +56,7 @@ export default function CE_CardVariant09({
                             extern={item?.button?.extern}
                             target={item?.button?.extern ? '_blank' : ''}
                           >
-                            <div className="inline-flex absolute inset-y-0 transform transition-all ease-in-out right-0 bg-white text-blue-01 lg:hover:text-white items-center text-base px-10 group">
+                            <div className="inline-flex absolute inset-y-0 transform transition-all ease-in-out right-0 bg-white text-blue-01 lg:hover:text-white items-center lg:text-base text-xs px-10 group">
                               <div className="absolute inset-0 -right-4 lg:bg-red-700 transition-all duration-300 ease-in-out transform translate-x-full group-hover:translate-x-0"></div>
                               <div className="relative z-10 flex items-center">
                                 {item?.button?.image && (
