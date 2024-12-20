@@ -32,11 +32,11 @@ export default async function SE_PortletVariant02({
           className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b from-black to-[#014a94] opacity-40 ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
         ></div>
         <div
-          className={`${hasCenterWidget ? 'items-center' : ''} container mx-auto flex flex-col items-start justify-center h-full relative z-10`}
+          className={`${hasCenterWidget ? 'items-center' : ''} container flex flex-col items-start justify-center h-full relative z-10`}
         >
           <div className="w-full mb-3">
             {title && (
-              <div className="text-white text-[1.75rem] font-semibold mb-3">
+              <div className="text-white text-4xl font-semibold mb-3">
                 {parseHTMLToReact(title)}
               </div>
             )}

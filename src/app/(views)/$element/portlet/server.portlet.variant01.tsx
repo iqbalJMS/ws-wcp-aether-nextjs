@@ -5,7 +5,10 @@ import { ArrowDownIcon } from '@/lib/element/global/arrow-down-icon';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
 import Link from '@/lib/element/global/link';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
+import {
+  API_BASE_URL,
+  WIDGET_VARIANT,
+} from '@/app/(views)/$constant/variables';
 
 export default async function SE_PortletVariant01({
   title,
@@ -16,8 +19,13 @@ export default async function SE_PortletVariant01({
   listItems,
   marginLeft,
   column,
+  variantWidget,
 }: Omit<T_PortletProps, 'variant'>) {
   const backgroundImg = bgImage ? `${API_BASE_URL}${bgImage}` : '';
+  //eslint-disable-next-line
+  console.log('variant,', bgImage);
+  const gridClass =
+    variantWidget !== WIDGET_VARIANT.variant07 ? `md:grid-cols-${column}` : '';
 
   return (
     <section
@@ -44,7 +52,7 @@ export default async function SE_PortletVariant01({
           </div>
         )}
         <div
-          className={`grid md:grid-cols-${column} grid-cols-1 gap-8 py-12 md:max-w-4xl ${marginLeft?.includes('medium') ? 'lg:ml-12' : ''}`}
+          className={`grid grid-cols-1 ${gridClass} gap-8 py-12 md:max-w-4xl ${marginLeft?.includes('medium') ? 'lg:ml-12' : ''}`}
         >
           {Array.isArray(listItems) &&
             listItems?.map((item, index) => (

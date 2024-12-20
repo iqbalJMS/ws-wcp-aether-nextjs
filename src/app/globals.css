@@ -164,7 +164,7 @@ h6 {
   @apply p-1 border border-black;
 }
 .body a {
-  @apply text-blue-01
+  @apply text-blue-01;
 }
 ol {
   list-style-type: decimal;
@@ -185,5 +185,3 @@ li {
 .field__label.visually-hidden {
   display: none;
 }
-
-
