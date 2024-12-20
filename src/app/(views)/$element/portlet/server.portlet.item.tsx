@@ -27,8 +27,7 @@ export default async function SE_PortletItem({
             {parseHTMLToReact(list_item?.title ?? '')}
           </div>
         )}
-
-        {list_item?.text && parseHTMLToReact(list_item?.text ?? '')}
+        <div>{list_item?.text && parseHTMLToReact(list_item?.text ?? '')}</div>
       </div>
     </div>
   );
