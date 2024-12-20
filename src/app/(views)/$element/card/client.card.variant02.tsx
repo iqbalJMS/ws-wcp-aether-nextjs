@@ -44,12 +44,12 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
                   </div>
                   <div>
                     {item?.title && (
-                      <div className="text-xl font-medium text-blue-02 mb-2">
+                      <div className="text-xl font-medium text-blue-02 mb-4">
                         {parseHTMLToReact(item?.title)}
                       </div>
                     )}
                     {item?.description && (
-                      <div className="mb-5 text-base text-blue-01 h-[4.5rem] overflow-auto overflow-custom">
+                      <div className="mb-5 text-base text-[#65afdf] h-[6rem] overflow-auto overflow-custom">
                         {parseHTMLToReact(item?.description)}
                       </div>
                     )}
@@ -59,7 +59,7 @@ export default function CE_CardVariant02({ data }: T_CardVariant02Props) {
                         extern={item?.button?.extern}
                         target={item?.button?.extern ? '_blank' : ''}
                       >
-                        <div className="w-10 h-10 rounded-full border border-blue-01 border-opacity-80 inline-flex items-center justify-center text-blue-01">
+                        <div className="w-10 h-10 rounded-full hover:text-white hover:bg-[#65afdf]  border border-[#65afdf] border-opacity-80 inline-flex items-center justify-center text-[#65afdf]">
                           &#10095;
                         </div>
                       </Link>
