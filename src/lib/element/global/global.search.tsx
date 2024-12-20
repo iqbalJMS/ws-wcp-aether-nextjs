@@ -138,7 +138,8 @@ export function Search({ active, setActive }: T_SearchProps) {
                   >
                     <Link href={dataItem.service_url || ''} target="_blank">
                       <div className="shadow-lg relative rounded-md rounded-br-[3rem] overflow-hidden group p-4">
-                        <div className="w-[15rem] ">
+                        <div className="h-[10rem] ">
+                          
                           {dataItem.image.url && (
                             <Image
                               extern={true}
@@ -163,7 +164,7 @@ export function Search({ active, setActive }: T_SearchProps) {
 
                         <div className="mt-2">
                           {dataItem.title && (
-                            <div className=" text-blue-01 text-2xl font-semibold text-line-2">
+                            <div className=" text-blue-01 text-2xl font-semibold text-line-2 mb-2">
                               {parseHTMLToReact(dataItem.title)}
                             </div>
                           )}
@@ -172,6 +173,13 @@ export function Search({ active, setActive }: T_SearchProps) {
                               {parseHTMLToReact(dataItem.content)}
                             </div>
                           )}
+                          <div className="text-right">
+                          <Link href={dataItem.service_url || ''} target="_blank">
+                              <div className="w-10 h-10 rounded-full border border-blue-01 border-opacity-80 inline-flex items-center justify-center text-blue-01">
+                                &#10095;
+                              </div>
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </Link>
@@ -210,7 +218,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                             />
                           )}
                         </div>
-                        <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
+                        <div className="absolute z-10 top-0 left-0 bg-black bg-opacity-30 group-hover:bg-opacity-70 w-full h-full"></div>
                         <div className="absolute z-20 bottom-0 left-0 p-4 ">
                           {dataItem.title && (
                             <div className=" text-white text-2xl font-semibold text-line-2">
@@ -286,11 +294,12 @@ export function Search({ active, setActive }: T_SearchProps) {
                   data={result.map((item) => {
                     return {
                       title: item.title,
-                      description: item.content,
+                      description: 'Dokumen PDF',
                       button: {
                         title: 'Unduh',
-                        link: item.service_url,
+                        link: item.service_url || 'https://bri.co.id',
                         extern: true,
+                        image: 'have'
                       },
                     };
                   })}
