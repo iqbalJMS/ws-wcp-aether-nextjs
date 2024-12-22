@@ -5,16 +5,19 @@ import { T_BreadcrumbProps } from '@/app/(views)/$constant/types/widget/breadcru
 const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths }) => {
   return (
     <nav
-      className="flex justify-center items-center border-b border-gray-400 py-6"
+      className="flex justify-center flex-wrap items-center border-b border-gray-400 py-6"
       aria-label="Breadcrumb"
     >
-      <ol className="inline-flex items-center space-x-1 md:space-x-3">
+      <ol className="inline-flex flex-wrap items-center justify-center gap-y-2 space-x-1 md:space-x-3 text-center">
         {paths?.map((path, index) => (
-          <li key={index} className="inline-flex items-center">
+          <li
+            key={index}
+            className="inline-flex items-center justify-center space-x-2"
+          >
             {index !== paths?.length - 1 ? (
               <Link
                 href={path?.href ?? '/'}
-                className="inline-flex items-center uppercase font-light text-sm  text-gray-700 hover:text-blue-700"
+                className="inline-flex items-center uppercase font-light text-sm text-gray-700 hover:text-blue-700"
               >
                 {path.name}
                 <svg
