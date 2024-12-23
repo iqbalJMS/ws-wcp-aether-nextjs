@@ -18,52 +18,62 @@ export default async function SE_PortletVariant02({
   const background = bgImage ? `${API_BASE_URL}/${bgImage}` : '';
 
   const hasCenterWidget = variantWidget === WIDGET_VARIANT.variant04;
+  const hasLeftWidget = variantWidget === 'div_more_left';
 
   return (
     <section className="relative mb-6">
       <div
-        className={`relative w-full bg-cover bg-no-repeat ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''} ${variantLayout === 'large' ? 'md:h-[40rem] h-[20rem]' : 'h-[20rem]'}`}
+        className={`relative w-full bg-cover bg-no-repeat ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem] overflow-hidden' : ''} ${variantLayout === 'large' ? 'md:h-[40rem] h-[20rem]' : 'h-[20rem]'}`}
         style={{
           backgroundImage: `url(${background ?? '/web/guest/images/no-image.png'})`,
           backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
       >
         <div
-          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b from-black to-[#014a94] opacity-40 ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
+          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b ${variantLayout === 'rounded_corneer' ? 'from-black to-[#94183d]' : 'from-black to-[#014a94]'} opacity-40`}
         ></div>
         <div
-          className={`${hasCenterWidget ? 'items-center' : ''} container flex flex-col items-start justify-center h-full relative z-10`}
+          className={`container flex flex-col justify-center h-full relative z-10 ${hasCenterWidget ? 'items-center' : ''}`}
         >
-          <div className="w-full mb-3">
-            {title && (
-              <div className="text-white text-4xl font-semibold mb-3">
-                {parseHTMLToReact(title)}
-              </div>
-            )}
-            {subtitle && (
-              <div className="text-white font-normal text-xl leading-9">
-                {parseHTMLToReact(subtitle)}
+          <div
+            className={`${hasLeftWidget ? 'ml-auto md:pr-[200px] pr-0' : ''}`}
+          >
+            <div
+              className={`${hasCenterWidget ? 'text-center' : ''} ${hasLeftWidget ? 'mdmax:text-center' : ''} mb-3`}
+            >
+              {title && (
+                <div
+                  className={`text-white font-semibold mb-3 ${hasCenterWidget ? 'text-2xl' : 'text-4xl '}`}
+                >
+                  {parseHTMLToReact(title)}
+                </div>
+              )}
+              {subtitle && (
+                <div className="text-white font-normal text-xl leading-9">
+                  {parseHTMLToReact(subtitle)}
+                </div>
+              )}
+            </div>
+            {buttonItems && (
+              <div
+                className={`flex ${hasCenterWidget ? 'justify-center' : ''} ${hasLeftWidget ? 'mdmax:justify-center' : ''} items-center gap-4`}
+              >
+                {buttonItems.map(({ buttonText, buttonLink }, index) => (
+                  <Link href={buttonLink ?? ''} extern key={index}>
+                    <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
+                      {buttonText}
+                    </button>
+                  </Link>
+                ))}
               </div>
             )}
           </div>
-          {buttonItems && (
-            <div
-              className={`flex ${hasCenterWidget ? 'justify-center' : ''} items-center gap-4 justify-start`}
-            >
-              {buttonItems.map(({ buttonText, buttonLink }, index) => (
-                <Link href={buttonLink ?? ''} extern key={index}>
-                  <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
-                    {buttonText}
-                  </button>
-                </Link>
-              ))}
-            </div>
-          )}
         </div>
       </div>
       {variantLayout == 'rounded_corneer' && (
         <div
-          className={`absolute left-0 top-0 w-full h-full bg-gray-300 mt-6 -z-10 ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
+          className={`absolute left-0 top-0 w-full h-full bg-gray-300 mt-4 -z-10 ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
         ></div>
       )}
     </section>

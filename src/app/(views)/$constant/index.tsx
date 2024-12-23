@@ -244,7 +244,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             />
           );
         case WIDGET_VARIANT.variant03:
-          return <CE_CardVariant02 data={listItems} />;
+          return <CE_CardVariant02 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant07:
           return (
             <SE_PortletMain
