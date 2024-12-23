@@ -135,6 +135,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         listTable: _component?.data,
         listCurrency: _component?.field_currency,
         availableCurrency: _component?.available_currency,
+        note: _component?.note
       };
     },
   },

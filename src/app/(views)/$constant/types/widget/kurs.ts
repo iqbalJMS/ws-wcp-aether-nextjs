@@ -20,6 +20,7 @@ type T_EntityData = {
     target_type: string;
     target_uuid: string;
   }[];
+  note: { timeUpdated: string; value: string };
   status: { value: true }[];
   created: { value: string; format: string }[];
   parent_id: { value: string }[];
