@@ -78,6 +78,7 @@ type TabChildrenItem = {
 
 type TabItem = {
   title?: string;
+  subTitle?: string;
   information?: string;
   slug?: string;
   linkShowMore?: string;
@@ -398,6 +399,7 @@ export function Tabs({
                     {item?.title}
                   </div>
                 )}
+                
                 {item?.information && (
                   <Tooltip
                     description={item?.information}
@@ -418,6 +420,23 @@ export function Tabs({
                   </Tooltip>
                 )}
               </div>
+              {item.subTitle && (
+                <div
+                  className={[
+                    'text-base font-medium ',
+                    `${
+                      item?.slug === value
+                        ? variant === 'full'
+                          ? 'text-white'
+                          : 'text-blue-01'
+                        : 'text-gray-500 group-hover/tab:text-blue-01'
+                    }`,
+                  ].join(' ')}
+                >
+                  {item.subTitle}
+                </div>
+              )}
+              
               {variant === 'border-arrow' && (
                 <div
                   className={[

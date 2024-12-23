@@ -23,6 +23,7 @@ import ImageViewer from '@/lib/element/global/image.viewer';
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from '@/lib/element/global/image';
+import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
@@ -134,6 +135,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         listTable: _component?.data,
         listCurrency: _component?.field_currency,
         availableCurrency: _component?.available_currency,
+        note: _component?.note
       };
     },
   },
@@ -470,6 +472,17 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   })}
                 </div>
               </div>
+            </div>
+          );
+        case WIDGET_VARIANT.variant39:
+          return (
+            <div>
+              <ProfileCard
+                name={listItems?.[0].title as string}
+                description={listItems?.[0].description as string}
+                imageUrl={listItems?.[0]?.image as string}
+                backgroundUrl={backgroundImage as string}
+              />
             </div>
           );
         default:
@@ -823,6 +836,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             subtitle: subtitle,
             variant: findVariantStyle,
             accordion: dataV37,
+          };
+        case WIDGET_VARIANT.variant39:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: dataV03,
+            backgroundImage: backgroundImage,
           };
         default:
           return null;

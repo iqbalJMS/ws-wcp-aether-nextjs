@@ -24,6 +24,12 @@ export function Search({ active, setActive }: T_SearchProps) {
   const elementRef = useRef(null);
   useOnClickOutside(elementRef, () => setActive(false));
   const [tab, setTab] = useState('produk');
+  let [total, setTotal] = useState({
+    produk: 0,
+    berita: 0,
+    laporan: 0,
+    promo: 0
+  })
   const { form, onFieldChange, validateForm } = useForm<
     T_GetSearch,
     T_GetSearch
@@ -50,6 +56,10 @@ export function Search({ active, setActive }: T_SearchProps) {
         if (data?.data.list && (data?.data.list.length || 0) > 0) {
           setResult(data?.data.list);
           setPagination(data.data.pagination);
+          setTotal({
+            ...total,
+            [form.category]: data.data.pagination.totalData
+          })
         }
       });
     }
@@ -117,10 +127,10 @@ export function Search({ active, setActive }: T_SearchProps) {
         <div>
           <Tabs
             list={[
-              { title: 'PRODUK', slug: 'produk' },
-              { title: 'BERITA', slug: 'berita' },
-              { title: 'LAPORAN', slug: 'laporan' },
-              { title: 'PROMO', slug: 'promo' },
+              { title: 'PRODUK', slug: 'produk', subTitle: `Total ${total.produk.toString()}` },
+              { title: 'BERITA', slug: 'berita', subTitle: `Total ${total.berita.toString()}` },
+              { title: 'LAPORAN', slug: 'laporan', subTitle: `Total ${total.laporan.toString()}` },
+              { title: 'PROMO', slug: 'promo', subTitle: `Total ${total.promo.toString()}` },
             ]}
             value={tab}
             variant="full"

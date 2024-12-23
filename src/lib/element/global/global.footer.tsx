@@ -5,6 +5,7 @@ import Image from './image';
 import Link from './link';
 import { T_ResponseGetMainFooterMenu } from '@/api/footer/main-footer/api.get-main-footer.type';
 import { T_ResponseGetBottomFooterMenu } from '@/api/footer/bottom-footer/api.get-bottom-footer.type';
+import MobileFooter from './accordion.footer';
 
 type T_FooterProps = {
   main_footer: T_ResponseGetMainFooterMenu;
@@ -86,7 +87,7 @@ function TermsAllReservedElement({ list }: T_PropsTermsAllReservedElement) {
   return (
     <div className="bg-blue-01 lg:py-[1.375rem] py-4">
       <div className="text-center flex items-center lg:flex-row flex-col lg:container justify-between lg:px-0 px-4 lg:items-center lg:justify-between">
-        <p className="text-white boxiner inline font-normal text-sm !text-center">
+        <p className="text-white boxiner inline lg:font-normal font-light text-sm !text-center">
           © 2024 PT.Bank Rakyat Indonesia (Persero) Tbk. | All Rights Reserved.
         </p>
 
@@ -97,7 +98,7 @@ function TermsAllReservedElement({ list }: T_PropsTermsAllReservedElement) {
                 <Link
                   href={url}
                   extern={extern}
-                  className="text-sm font-normal text-white"
+                  className="text-sm lg:font-normal font-light text-white"
                 >
                   {value}
                 </Link>
@@ -119,7 +120,7 @@ export default async function GlobalFooter({
 }: T_FooterProps) {
   return (
     <footer className="pt-6 lg:pt-11 shadow-[0_-4px_4px_-2px_rgba(0,0,0,0.1)]">
-      <div className="container text-left lg:mb-6">
+      <div className="container text-left lg:mb-6 lg:flex hidden">
         <div className="grid lg:grid-cols-9 grid-cols-1 lg:space-x-6 lg:mt-6 mt-3">
           {main_footer?.data?.map((list_item, index) => (
             <div className="lg:col-span-2 col-span-1 lg:mb-0 mb-4" key={index}>
@@ -132,6 +133,8 @@ export default async function GlobalFooter({
           ))}
         </div>
       </div>
+
+      <MobileFooter data={main_footer} />
 
       <TermsAllReservedElement list={bottom_footer?.data} />
     </footer>

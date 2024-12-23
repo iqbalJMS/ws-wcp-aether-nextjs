@@ -20,6 +20,7 @@ type T_Props = {
   listTable: T_Kurs['data'];
   listCurrency: T_Kurs['field_currency'];
   availableCurrency: T_Kurs['available_currency'];
+  note?: T_Kurs['note'];
   tabActive?: string;
   forPage?: string;
 };
@@ -112,6 +113,7 @@ function CE_KursValue({
         : 'sell';
 
     setForm({ ...form, amount: 0, calcType: tabValue, type });
+    setCalculationResult(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabValue, isERate]);
 
@@ -242,6 +244,7 @@ const CE_KursMain = ({
   listTable,
   listCurrency,
   availableCurrency,
+  note,
   forPage = 'home',
 }: T_Props) => {
   const tabs = [
@@ -259,10 +262,9 @@ const CE_KursMain = ({
     },
   ];
   const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '');
-  const [currentDate, setCurrentDate] = useState('');
-
-  useEffect(() => {
-    const now = new Date();
+  
+  const formatDate = (date: string) => {
+    const now = new Date(date);
     const formattedDate = now.toLocaleString('id-ID', {
       year: 'numeric',
       month: 'short',
@@ -271,16 +273,16 @@ const CE_KursMain = ({
       minute: '2-digit',
       second: '2-digit',
     });
-    setCurrentDate(formattedDate);
-  }, []);
+    return formattedDate
+  }
   return (
     <div className="container py-10">
       <div className="flex mdmax:flex-col mdmax:items-start items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
         <div className="mdmax:mb-5">
           <div className="text-2xl font-semibold mb-2">Kurs BRI</div>
           <div className=" text-black mdmax:text-sm  font-medium text-opacity-30">
-            * Terakhir diperbarui {currentDate} Untuk transaksi kurang dari
-            eq. USD 2.500
+            * Terakhir diperbarui {formatDate(note?.timeUpdated || '')} Untuk transaksi kurang dari
+            eq. {note?.value}
           </div>
         </div>
         <div>
