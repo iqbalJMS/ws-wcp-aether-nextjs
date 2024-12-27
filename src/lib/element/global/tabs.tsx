@@ -93,8 +93,10 @@ type TabsProps = {
   value?: string;
   title?: string;
   variantContent?: string;
+  margin?: string;
   onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
+  variantColor?: 'red' | 'default'
 };
 
 type TRenderElemment = {
@@ -108,7 +110,9 @@ export function Tabs({
   onChange,
   title,
   variant = 'border',
+  variantColor = 'default',
   variantContent,
+  margin
 }: TabsProps) {
   const [menuActive, setMenuActive] = useState(0);
 
@@ -349,7 +353,7 @@ export function Tabs({
   })();
 
   return (
-    <div className="container mt-12 mb-16">
+    <div className={`container ${margin ? margin : 'mt-12 mb-16'}`}>
       {title && (
         <h1 className="text-4xl mb-16 font-semibold">
           {parseHTMLToReact(title)}
@@ -381,18 +385,18 @@ export function Tabs({
                     item?.slug === value
                       ? variant === 'full'
                         ? 'text-white'
-                        : 'text-blue-01'
-                      : 'text-gray-500 group-hover/tab:text-blue-01'
+                        : variantColor === 'red'? 'text-red-01' : 'text-blue-01'
+                      : variantColor === 'red'? 'text-gray-500 group-hover/tab:text-red-01' : 'text-gray-500 group-hover/tab:text-blue-01'
                   }`,
                 ].join(' ')}
               >
                 {item?.title && (
                   <div
-                    className={`mr-2 mdmax:text-sm uppercase ${
+                    className={`mdmax:text-sm uppercase font-semibold ${
                       menuActive === index
                         ? variant === 'full'
                           ? 'text-white'
-                          : 'text-blue-01'
+                          : variantColor === 'red'? 'text-red-01' : 'text-blue-01'
                         : ''
                     }`}
                   >
@@ -401,35 +405,37 @@ export function Tabs({
                 )}
                 
                 {item?.information && (
-                  <Tooltip
-                    description={item?.information}
-                    position="top"
-                    variant="simple"
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 256 256"
+                  <div className='ml-2 '>
+                    <Tooltip
+                      description={item?.information}
+                      position="top"
+                      variant="simple"
                     >
-                      <path
-                        fill="currentColor"
-                        d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m-4 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m12 112a16 16 0 0 1-16-16v-40a8 8 0 0 1 0-16a16 16 0 0 1 16 16v40a8 8 0 0 1 0 16"
-                      />
-                    </svg>
-                  </Tooltip>
+                      <svg
+                        className="w-5 h-5"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 256 256"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m-4 48a12 12 0 1 1-12 12a12 12 0 0 1 12-12m12 112a16 16 0 0 1-16-16v-40a8 8 0 0 1 0-16a16 16 0 0 1 16 16v40a8 8 0 0 1 0 16"
+                        />
+                      </svg>
+                    </Tooltip>
+                  </div>
                 )}
               </div>
               {item.subTitle && (
                 <div
                   className={[
-                    'text-base font-medium ',
+                    'text-sm font-medium mdmax:text-xs',
                     `${
                       item?.slug === value
                         ? variant === 'full'
                           ? 'text-white'
-                          : 'text-blue-01'
-                        : 'text-gray-500 group-hover/tab:text-blue-01'
+                          : variantColor === 'red'? 'text-red-01' : 'text-blue-01'
+                        : variantColor === 'red'? 'text-gray-500 group-hover/tab:text-red-01' : 'text-gray-500 group-hover/tab:text-blue-01'
                     }`,
                   ].join(' ')}
                 >
@@ -460,7 +466,8 @@ export function Tabs({
                 <div
                   className={[
                     'absolute bottom-0 left-0',
-                    'w-full h-[.2rem] bg-blue-01',
+                    'w-full h-[.2rem] ',
+                    variantColor === 'red' ? 'bg-red-01' : 'bg-blue-01',
                     item?.slug === value || menuActive === index
                       ? 'visible'
                       : 'invisible',

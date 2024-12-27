@@ -82,15 +82,16 @@ export function Search({ active, setActive }: T_SearchProps) {
     <div
       ref={elementRef}
       className={[
-        'fixed top-0 left-0 w-full h-screen bg-white z-50 overflow-auto overflow-custom',
-        active ? 'visible' : 'invisible',
+        'fixed  left-0 w-full max-h-screen bg-white z-50 overflow-auto overflow-custom transition-all ease-in-out duration-300',
+        active ? 'top-0' : '-top-full',
       ].join(' ')}
     >
       <div
-        className="absolute top-2 right-4 text-lg cursor-pointer"
+        className="absolute top-2 right-4 cursor-pointer flex gap-2 items-center text-sm"
         onClick={() => setActive(false)}
       >
         <CloseIcon className="text-blue-02 cursor-pointer" />
+        Tutup
       </div>
       <div className="py-20 container">
         <div className="pb-10 border-b border-black">
@@ -133,7 +134,9 @@ export function Search({ active, setActive }: T_SearchProps) {
               { title: 'PROMO', slug: 'promo', subTitle: `Total ${total.promo.toString()}` },
             ]}
             value={tab}
-            variant="full"
+            margin='my-6'
+            variant="border"
+            variantColor='red'
             onChange={(value) => setTab(value)}
           />
         </div>
@@ -365,7 +368,7 @@ export function Search({ active, setActive }: T_SearchProps) {
             </div>
           </div>
         </div>
-        <div className="flex px-[15rem] mdmax:hidden">
+        <div className="flex px-[10rem] mdmax:hidden">
           {[
             {
               title: 'Simpanan',
@@ -373,35 +376,73 @@ export function Search({ active, setActive }: T_SearchProps) {
                 {
                   title: 'Tabungan',
                 },
-              ],
-            },
-            {
-              title: 'Simpanan',
-              below: [
                 {
-                  title: 'Tabungan',
+                  title: 'Deposito',
+                },
+                {
+                  title: 'Giro',
                 },
               ],
             },
             {
-              title: 'Simpanan',
+              title: 'Pinjaman',
               below: [
                 {
-                  title: 'Tabungan',
+                  title: 'KPR',
+                },
+                {
+                  title: 'KKB',
+                },
+                {
+                  title: 'Briguna',
                 },
               ],
             },
             {
-              title: 'Simpanan',
+              title: 'Bertia & Penawaran',
               below: [
                 {
-                  title: 'Tabungan',
+                  title: 'Promosi',
+                },
+                {
+                  title: 'Berita',
+                },
+                {
+                  title: 'Pengumuman',
+                },
+              ],
+            },
+            {
+              title: 'BRIZZI',
+              below: [
+                {
+                  title: 'Tentang BRIZZI',
+                },
+                {
+                  title: 'Cara Isi Ulang BRIZZI',
+                },
+                {
+                  title: 'Lokasi Isi Ulang BRIZZI',
+                },
+              ],
+            },
+            {
+              title: 'BRILink',
+              below: [
+                {
+                  title: 'Tentang BRILink',
+                },
+                {
+                  title: 'Masuk ke BRILink',
+                },
+                {
+                  title: 'Lokasi Agen BRILink',
                 },
               ],
             },
           ].map((subItem, subIndex) => {
             return (
-              <div key={subIndex} className="flex-1 mr-40">
+              <div key={subIndex} className="mr-16">
                 <div className="text-blue-01 font-semibold mb-2">
                   {subItem?.title}
                 </div>
