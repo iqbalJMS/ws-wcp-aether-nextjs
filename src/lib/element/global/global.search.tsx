@@ -368,7 +368,7 @@ export function Search({ active, setActive }: T_SearchProps) {
             </div>
           </div>
         </div>
-        <div className="flex px-[10rem] mdmax:hidden">
+        <div className="flex justify-center px-[10rem] mdmax:hidden">
           {[
             {
               title: 'Simpanan',
