@@ -105,6 +105,26 @@ input[type='range']::-webkit-slider-thumb {
   @apply font-medium;
 }
 
+.section-portlet-first-column h2 {
+  font-size: 2.5rem !important;
+  font-weight: 400 !important;
+}
+
+.section-portlet-first-column h3 {
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+}
+
+.section-portlet-first-column h4 {
+  font-size: 1.5rem !important;
+  font-weight: 400 !important;
+}
+
+.section-portlet-first-column a {
+  color: #014a94;
+  font-size: 1.5rem;
+}
+
 h1 {
   font-size: 2em;
   font-weight: bold;

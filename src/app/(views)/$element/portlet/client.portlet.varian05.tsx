@@ -24,14 +24,14 @@ export default function CE_PortletVarian05({
   return (
     <div className="container mx-auto grid md:grid-cols-2 my-8 py-6">
       <div className="flex items-center col-span-1">
-        <div>
+        <div className="section-portlet-first-column">
           {firstColumn?.title && (
             <div className="text-2xl">
               {parseHTMLToReact(firstColumn?.title)}
             </div>
           )}
           {firstColumn?.description && (
-            <div className="mt-6 text-gray-700 text-base">
+            <div className="mt-6 text-black">
               {parseHTMLToReact(firstColumn?.description)}
             </div>
           )}
@@ -57,7 +57,7 @@ export default function CE_PortletVarian05({
                 src={secondColumn?.image ?? ''}
                 alt={secondColumn.image}
                 fill
-                className="object-cover w-full h-full"
+                className="object-contain w-full h-full"
               />
             </div>
           </div>
