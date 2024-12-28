@@ -893,6 +893,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title = props?.title;
       const list = props?.list;
       const variant = props?.variant;
+      const style = props?.style;
       const listTab = props?.listTab;
 
       switch (variant) {
@@ -906,7 +907,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant31:
         case WIDGET_VARIANT.variant38:
         default:
-          return <Tabs title={title} list={list} variantContent={variant} />;
+          return (
+            <Tabs
+              title={title}
+              list={list}
+              style={style}
+              variantContent={variant}
+            />
+          );
       }
     },
 
@@ -1148,6 +1156,49 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                               downloadFile: downloadFile,
                               description: description,
                               filename: filename,
+                            };
+                          }),
+                        };
+                      }
+                    ),
+                  };
+                }),
+              };
+            }),
+          };
+
+        case WIDGET_VARIANT.variant40:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            style: 'center',
+            list: _component?.field_tab?.map((item) => {
+              return {
+                title: item?.field_title?.[0]?.value,
+                slug: item?.field_title?.[0]?.value,
+                textShowMore: item?.field_primary_cta?.[0]?.title,
+                linkShowMore: item?.field_primary_cta?.[0]?.full_url,
+                children: item.field_paragraphs?.map((item) => {
+                  return {
+                    listColumn: item?.field_accordion_items?.map(
+                      (item: {
+                        field_title: Array<{ value: string }>;
+                        field_paragraphs: Array<{
+                          field_content: Array<{ value: string }>;
+                          field_document: Array<{
+                            field_media_file: Array<{
+                              filename: Array<{ value: string }>;
+                              uri: Array<{ url: string }>;
+                            }>;
+                            name: Array<{ value: string }>;
+                          }>;
+                        }>;
+                      }) => {
+                        return {
+                          title: item?.field_title?.[0]?.value,
+                          children: item?.field_paragraphs?.map((childItem) => {
+                            return {
+                              richText: childItem?.field_content?.[0]?.value,
                             };
                           }),
                         };

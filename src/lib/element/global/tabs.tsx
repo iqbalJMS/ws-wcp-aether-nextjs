@@ -15,6 +15,7 @@ import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09'
 import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
 
 type TChildren = {
+  richText: string;
   button?: {
     link?: string;
     image?: string;
@@ -91,16 +92,17 @@ type TabItem = {
 type TabsProps = {
   list: TabItem[];
   value?: string;
+  style?: string;
   title?: string;
   variantContent?: string;
   margin?: string;
   onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
-  variantColor?: 'red' | 'default'
+  variantColor?: 'red' | 'default';
 };
 
 type TRenderElemment = {
-  children: Array<TChildren>;
+  children?: Array<TChildren | { richText?: string }>;
   type: string;
 };
 
@@ -109,10 +111,11 @@ export function Tabs({
   value,
   onChange,
   title,
+  style = 'center',
   variant = 'border',
   variantColor = 'default',
   variantContent,
-  margin
+  margin,
 }: TabsProps) {
   const [menuActive, setMenuActive] = useState(0);
 
@@ -146,7 +149,20 @@ export function Tabs({
             })}
           />
         );
+      case 'rich-text':
+        return (
+          <div>
+            {children?.map((item, key) => {
+              return (
+                <div className="w-7/12 p-4" key={key}>
+                  {parseHTMLToReact(item?.richText ?? '')}
+                </div>
+              );
+            })}
+          </div>
+        );
       case 'card-section':
+
       default:
         return (
           <div className="flex">
@@ -347,6 +363,26 @@ export function Tabs({
             />
           ));
         });
+      case WIDGET_VARIANT.variant40:
+        return list?.[menuActive]?.children?.map((item, index) => {
+          return item?.listColumn?.map((listItem) => (
+            <Accordion
+              key={index}
+              renderTitle={
+                listItem?.title && (
+                  <p className="text-left font-normal text-2xl">
+                    {listItem?.title}
+                  </p>
+                )
+              }
+              isOpen={index === 0}
+              renderContent={renderElement({
+                type: 'rich-text',
+                children: listItem.children as Array<{ richText: string }>,
+              })}
+            />
+          ));
+        });
       default:
         return null;
     }
@@ -355,9 +391,11 @@ export function Tabs({
   return (
     <div className={`container ${margin ? margin : 'mt-12 mb-16'}`}>
       {title && (
-        <h1 className="text-4xl mb-16 font-semibold">
+        <div
+          className={`${style === 'center' && 'text-center'} text-4xl mb-16`}
+        >
           {parseHTMLToReact(title)}
-        </h1>
+        </div>
       )}
       <div className="flex mb-12">
         {list?.map((item, index) => {
@@ -385,8 +423,12 @@ export function Tabs({
                     item?.slug === value
                       ? variant === 'full'
                         ? 'text-white'
-                        : variantColor === 'red'? 'text-red-01' : 'text-blue-01'
-                      : variantColor === 'red'? 'text-gray-500 group-hover/tab:text-red-01' : 'text-gray-500 group-hover/tab:text-blue-01'
+                        : variantColor === 'red'
+                          ? 'text-red-01'
+                          : 'text-blue-01'
+                      : variantColor === 'red'
+                        ? 'text-gray-500 group-hover/tab:text-red-01'
+                        : 'text-gray-500 group-hover/tab:text-blue-01'
                   }`,
                 ].join(' ')}
               >
@@ -396,16 +438,18 @@ export function Tabs({
                       menuActive === index
                         ? variant === 'full'
                           ? 'text-white'
-                          : variantColor === 'red'? 'text-red-01' : 'text-blue-01'
+                          : variantColor === 'red'
+                            ? 'text-red-01'
+                            : 'text-blue-01'
                         : ''
                     }`}
                   >
                     {item?.title}
                   </div>
                 )}
-                
+
                 {item?.information && (
-                  <div className='ml-2 '>
+                  <div className="ml-2 ">
                     <Tooltip
                       description={item?.information}
                       position="top"
@@ -434,15 +478,19 @@ export function Tabs({
                       item?.slug === value
                         ? variant === 'full'
                           ? 'text-white'
-                          : variantColor === 'red'? 'text-red-01' : 'text-blue-01'
-                        : variantColor === 'red'? 'text-gray-500 group-hover/tab:text-red-01' : 'text-gray-500 group-hover/tab:text-blue-01'
+                          : variantColor === 'red'
+                            ? 'text-red-01'
+                            : 'text-blue-01'
+                        : variantColor === 'red'
+                          ? 'text-gray-500 group-hover/tab:text-red-01'
+                          : 'text-gray-500 group-hover/tab:text-blue-01'
                     }`,
                   ].join(' ')}
                 >
                   {item.subTitle}
                 </div>
               )}
-              
+
               {variant === 'border-arrow' && (
                 <div
                   className={[
