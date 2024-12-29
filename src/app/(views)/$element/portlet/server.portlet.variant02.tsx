@@ -36,7 +36,7 @@ export default async function SE_PortletVariant02({
         >
           <div className="w-full mb-3">
             {title && (
-              <div className="text-white text-4xl font-semibold mb-3">
+              <div className="text-white text-4xl lg:w-1/2 w-full font-semibold mb-3">
                 {parseHTMLToReact(title)}
               </div>
             )}

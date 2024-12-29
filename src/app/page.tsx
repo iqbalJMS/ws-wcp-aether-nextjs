@@ -23,7 +23,7 @@ export default async function PageAether({
     lang: searchParams?.lang,
     alias: 'homepage',
   });
-  
+
   const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en' });
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
@@ -32,6 +32,7 @@ export default async function PageAether({
   const components = data?.field_components
     ?.map((component: T_FieldComponent) => {
       const entityBundle = component?.entity_bundle?.[0]?.value as T_Widget;
+
       const componentConfig = COMPONENT_MAP_WIDGET[entityBundle];
       if (componentConfig) {
         const { component: Component, props } = componentConfig;

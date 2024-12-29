@@ -102,7 +102,7 @@ type TabsProps = {
 };
 
 type TRenderElemment = {
-  children?: Array<TChildren | { richText?: string }>;
+  children?: Array<TChildren>;
   type: string;
 };
 
@@ -378,7 +378,8 @@ export function Tabs({
               isOpen={index === 0}
               renderContent={renderElement({
                 type: 'rich-text',
-                children: listItem.children as Array<{ richText: string }>,
+                // @ts-expect-error
+                children: listItem.children,
               })}
             />
           ));

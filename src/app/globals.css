@@ -205,3 +205,9 @@ li {
 .field__label.visually-hidden {
   display: none;
 }
+
+.container-rich-text,
+img,
+.box-head-text > .head-text {
+  width: 100% !important;
+}
