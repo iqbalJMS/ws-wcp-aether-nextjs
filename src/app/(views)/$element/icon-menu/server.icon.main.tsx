@@ -11,7 +11,7 @@ type T_IconMainProps = {
 };
 
 export default async function SE_IconMain({
-  maxListShow = 5,
+  maxListShow = 6,
   cookiesName = '__persolized-menu',
 }: T_IconMainProps) {
   const cookies = await SFN_SetPersonalizedMenu('get', cookiesName);
