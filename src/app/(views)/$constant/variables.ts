@@ -38,6 +38,9 @@ export const WIDGET_VARIANT = {
   variant37: 'section_accordion_card_2',
   variant38: 'multitab_with_accordion_1',
   variant39: 'section_profile_card',
+  variant40: 'multitab_bantuan_top_popular',
+  variant41: 'section_ngobrol_sabrina',
+  variant42: 'section_all_help_topics',
 };
 
 export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';

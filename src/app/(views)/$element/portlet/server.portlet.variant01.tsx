@@ -22,8 +22,7 @@ export default async function SE_PortletVariant01({
   variantWidget,
 }: Omit<T_PortletProps, 'variant'>) {
   const backgroundImg = bgImage ? `${API_BASE_URL}${bgImage}` : '';
-  //eslint-disable-next-line
-  console.log('variant,', bgImage);
+
   const gridClass =
     variantWidget !== WIDGET_VARIANT.variant07 ? `md:grid-cols-${column}` : '';
 

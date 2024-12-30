@@ -24,6 +24,7 @@ import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from '@/lib/element/global/image';
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
+import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
@@ -135,7 +136,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         listTable: _component?.data,
         listCurrency: _component?.field_currency,
         availableCurrency: _component?.available_currency,
-        note: _component?.note
+        note: _component?.note,
       };
     },
   },
@@ -230,6 +231,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         title?: string;
       }>;
       const column = String(props?.column);
+      const buttonSiapaSabrina = {
+        text: props?.btnSiapaSabrinaText,
+        url: props?.btnSiapaSabrinaUrl,
+      };
+      const dataV2 = props?.data;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -485,6 +491,52 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               />
             </div>
           );
+        case WIDGET_VARIANT.variant41:
+          return (
+            <div>
+              <CardSabrina
+                name={listItems?.[0].title as string}
+                description={listItems?.[0].description as string}
+                imageUrl={listItems?.[0]?.image as string}
+                backgroundUrl={backgroundImage as string}
+                buttonChatSabrina={{
+                  text: listItems?.[0]?.button?.title ?? '',
+                  url: listItems?.[0]?.button?.link ?? '',
+                }}
+                buttonSiapaSabrina={buttonSiapaSabrina}
+              />
+            </div>
+          );
+        case WIDGET_VARIANT.variant42:
+          return (
+            <div className="container py-6 mt-8">
+              <div className="text-center lg:text-4xl text-2xl font-normal">
+                {parseHTMLToReact(title)}
+              </div>
+              <div className="grid lg:grid-cols-4 lg:gap-12 gap-6 mt-12">
+                {dataV2?.map((item: any, index: number) => (
+                  <div
+                    key={index}
+                    className="col-span-1 rounded-[3.5rem] hover:bg-[#1553a3] text-center group shadow-md transition transform ease-in-out p-6 py-12 cursor-pointer"
+                  >
+                    <div className="flex w-full justify-center group-hover:filter group-hover:brightness-0 group-hover:invert">
+                      <div className="relative h-24 w-24">
+                        <Image
+                          fill
+                          src={item?.image}
+                          extern={false}
+                          alt="image"
+                        />
+                      </div>
+                    </div>
+                    <p className="text-base mt-6 font-semibold group-hover:text-white text-[#1553a3]">
+                      {item.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
         default:
           return null;
       }
@@ -691,6 +743,44 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         }
       );
+      const dataV41 = _component?.field_column?.map((item) => {
+        const title = item?.field_title?.[0]?.value;
+        const description = item?.field_content?.[0]?.value;
+        const imagePosition = item?.field_alignment?.[0]?.value;
+        const buttonLink = item?.field_primary_cta?.[0]?.uri;
+        const buttonTitle = item?.field_primary_cta?.[0]?.title;
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        return {
+          image: image,
+          title: title,
+          description: description,
+          imagePosition: imagePosition,
+          button: {
+            link: buttonLink,
+            title: buttonTitle,
+            extern: true,
+          },
+        };
+      });
+
+      const dataV42 = _component?.field_column?.map((item) => {
+        const title = item?.field_title?.[0]?.value;
+        const buttonLink = item?.field_primary_cta?.[0]?.uri;
+        const buttonTitle = item?.field_primary_cta?.[0]?.title;
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+
+        return {
+          image: image,
+          title: title,
+          button: {
+            link: buttonLink,
+            title: buttonTitle,
+            extern: true,
+          },
+        };
+      });
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -844,6 +934,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             data: dataV03,
             backgroundImage: backgroundImage,
           };
+        case WIDGET_VARIANT.variant41:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: dataV41,
+            btnSiapaSabrinaText: _component?.field_primary_cta?.[0]?.title,
+            btnSiapaSabrinaUrl: _component?.field_primary_cta?.[0]?.full_url,
+            backgroundImage: backgroundImage,
+          };
+        case WIDGET_VARIANT.variant42:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: dataV42,
+          };
         default:
           return null;
       }
@@ -893,6 +998,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title = props?.title;
       const list = props?.list;
       const variant = props?.variant;
+      const style = props?.style;
       const listTab = props?.listTab;
 
       switch (variant) {
@@ -906,7 +1012,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant31:
         case WIDGET_VARIANT.variant38:
         default:
-          return <Tabs title={title} list={list} variantContent={variant} />;
+          return (
+            <Tabs
+              title={title}
+              list={list}
+              style={style}
+              variantContent={variant}
+            />
+          );
       }
     },
 
@@ -1148,6 +1261,49 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                               downloadFile: downloadFile,
                               description: description,
                               filename: filename,
+                            };
+                          }),
+                        };
+                      }
+                    ),
+                  };
+                }),
+              };
+            }),
+          };
+
+        case WIDGET_VARIANT.variant40:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            style: 'center',
+            list: _component?.field_tab?.map((item) => {
+              return {
+                title: item?.field_title?.[0]?.value,
+                slug: item?.field_title?.[0]?.value,
+                textShowMore: item?.field_primary_cta?.[0]?.title,
+                linkShowMore: item?.field_primary_cta?.[0]?.full_url,
+                children: item.field_paragraphs?.map((item) => {
+                  return {
+                    listColumn: item?.field_accordion_items?.map(
+                      (item: {
+                        field_title: Array<{ value: string }>;
+                        field_paragraphs: Array<{
+                          field_content: Array<{ value: string }>;
+                          field_document: Array<{
+                            field_media_file: Array<{
+                              filename: Array<{ value: string }>;
+                              uri: Array<{ url: string }>;
+                            }>;
+                            name: Array<{ value: string }>;
+                          }>;
+                        }>;
+                      }) => {
+                        return {
+                          title: item?.field_title?.[0]?.value,
+                          children: item?.field_paragraphs?.map((childItem) => {
+                            return {
+                              richText: childItem?.field_content?.[0]?.value,
                             };
                           }),
                         };
@@ -1452,7 +1608,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   rich_text: {
     component: ({ element }: { element: string }) => (
-      <div className="container mx-auto my-6">{parseHTMLToReact(element)}</div>
+      <div className="container mx-auto my-6 py-6 container-rich-text">
+        {parseHTMLToReact(element)}
+      </div>
     ),
     props: (_component: { field_content?: Array<{ value: string }> }) => {
       return {

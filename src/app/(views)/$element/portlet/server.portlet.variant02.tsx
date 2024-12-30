@@ -34,6 +34,33 @@ export default async function SE_PortletVariant02({
           className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b ${variantLayout === 'rounded_corneer' ? 'from-black to-[#94183d]' : 'from-black to-[#014a94]'} opacity-40`}
         ></div>
         <div
+          className={`${hasCenterWidget ? 'items-center' : ''} container flex flex-col items-start justify-center h-full relative z-10`}
+        >
+          <div className="w-full mb-3">
+            {title && (
+              <div className="text-white text-4xl lg:w-1/2 w-full font-semibold mb-3">
+                {parseHTMLToReact(title)}
+              </div>
+            )}
+            {subtitle && (
+              <div className="text-white font-normal text-xl leading-9">
+                {parseHTMLToReact(subtitle)}
+              </div>
+            )}
+          </div>
+          {buttonItems && (
+            <div
+              className={`flex ${hasCenterWidget ? 'justify-center' : ''} items-center gap-4 justify-start`}
+            >
+              {buttonItems.map(({ buttonText, buttonLink }, index) => (
+                <Link href={buttonLink ?? ''} extern key={index}>
+                  <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
+                    {buttonText}
+                  </button>
+                </Link>
+              ))}
+            </div>
+          )}
           className={`container flex flex-col justify-center h-full relative z-10 ${hasCenterWidget ? 'items-center' : ''}`}
         >
           <div
