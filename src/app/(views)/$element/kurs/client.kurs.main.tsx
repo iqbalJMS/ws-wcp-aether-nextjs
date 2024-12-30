@@ -128,15 +128,17 @@ function CE_KursValue({
               callback: (item) => {
                 return (
                   <div className='flex items-center gap-5'>
-                    <Image
-                      src={item.image}
-                      extern={false}
-                      alt="background"
-                      width={60}
-                      height={60}
-                      className="w-10 h-10 object-cover rounded-full"
-                    />
-                    {item.name}
+                    <div className='w-10 flex-none'>
+                      <Image
+                        src={item.image}
+                        extern={false}
+                        alt="background"
+                        width={60}
+                        height={60}
+                        className="w-10 h-10 object-cover rounded-full"
+                      />
+                    </div>
+                    <div>{item.name}</div>
                   </div>
                 );
               },
