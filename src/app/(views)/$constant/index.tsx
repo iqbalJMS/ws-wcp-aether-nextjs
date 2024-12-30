@@ -2003,15 +2003,24 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         field_title: Array<{ value: string }>;
         field_simulation: Array<{ value: string }>;
         field_secondary_content: Array<{ value: string }>;
+        field_image?: {
+          field_media_image?: {
+            uri?: {
+              url: string
+            }[]
+          }[]
+        }[]
       }>;
       field_primary_cta: { title: string; full_url: string }[];
     }) => {
       // TODO: needed confirmation form drupal
+      
       return {
         tabs: _component?.field_paragraphs?.map((item) => {
+                   
           return {
             title: item?.field_title?.[0]?.value,
-            image: '',
+            image: item.field_image?.at(0)?.field_media_image?.at(0)?.uri?.at(0)?.url,
             tnc: item?.field_secondary_content?.[0]?.value,
             variant: item?.field_simulation?.[0]?.value.toLowerCase(),
           };
