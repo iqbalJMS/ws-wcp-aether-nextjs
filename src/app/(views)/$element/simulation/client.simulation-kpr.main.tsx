@@ -134,7 +134,7 @@ const CE_SimulationKPRMain = () => {
                   <div>
                     <InputSlider
                       min={0}
-                      max={100}
+                      max={20}
                       value={form.installmentTerm}
                       onChange={(value) => onFieldChange('installmentTerm', value)}
                     />
