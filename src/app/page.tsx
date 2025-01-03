@@ -48,6 +48,7 @@ export default async function PageAether({
     Component: React.ComponentType<any>;
     props: Record<string, any>;
   }>;
+  
   return (
     <React.Fragment>
       <GlobalHeader
