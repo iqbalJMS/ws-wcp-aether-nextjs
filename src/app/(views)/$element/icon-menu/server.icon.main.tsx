@@ -17,7 +17,6 @@ export default async function SE_IconMain({
   const cookies = await SFN_SetPersonalizedMenu('get', cookiesName);
   const iconCookies: T_IconList[] = cookies ? JSON.parse(cookies) : [];
   const initialIcon = await ACT_GetPersonalizeMenu();
-
   const icons: T_IconList[] = initialIcon.map((iconItem, index) => {
     const iconCookie = iconCookies.find(
       (item) => item.title === iconItem.title
