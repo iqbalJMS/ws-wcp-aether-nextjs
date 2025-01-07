@@ -21,18 +21,18 @@ export default function CE_FormVariant01Item({
 
   if (open) {
     return (
-      <ul className="w-full bg-white absolute max-h-96 overflow-y-auto -z-[1] pt-10 -mt-8 rounded-b-3xl shadow-lg">
+      <div className="w-full bg-white absolute max-h-96 overflow-y-auto -z-[1] pt-10 -mt-8 rounded-b-3xl shadow-lg">
         {list.map((item, index) => (
-          <li key={index}>
+          <div key={index}>
             <button
               className="w-full py-4 hover:bg-gray-100 md:text-left text-center md:px-20 md:text-lg text-md"
               onClick={() => handleChoose(item)}
             >
               {item.title}
             </button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     );
   }
 
