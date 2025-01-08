@@ -16,7 +16,7 @@ type T_FormVariant01Props = {
   placeholder?: string;
   dropdownType?: 'input-text';
   buttonText?: string;
-  listItems: T_InputSelectItem[];
+  listItems: T_InputSelectItem[] | undefined;
   buttonAction?: (_?: string) => void
 };
 
@@ -30,16 +30,16 @@ export default function CE_FormVariant01({
   className,
   buttonAction,
 }: T_FormVariant01Props) {
-  const [selectedItem, setSelectedItem] = React.useState(listItems[0]);
+  const [selectedItem, setSelectedItem] = React.useState(listItems?.at(0));
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   let [search, setSearch] = useState('')
   useOnClickOutside(dropdownRef, () => setIsOpen(false));
   useEffect(() => {
-    setSearch(selectedItem.title)
+    setSearch(selectedItem?.title || '')
   }, [selectedItem])
   let searchListItem = useMemo(() => {
-    return listItems.filter((listItem) => {
+    return listItems?.filter((listItem) => {
       return listItem.title.toLowerCase().includes(search.toLowerCase())
     })
   }, [search, listItems])
@@ -110,13 +110,13 @@ export default function CE_FormVariant01({
           </div>
           <div className="relative z-10">
             
-            <Link href={!hasButtonAction ? selectedItem.value : 'lokasi'}>
+            <Link href={!hasButtonAction ? selectedItem?.value || '' : 'lokasi'}>
               <button
                 disabled={isOpen}
                 className={`font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-full ${
                   isOpen ? 'bg-gray-400' : 'bg-orange-400 hover:bg-orange-500'
                 }`}
-                onClick={() => buttonAction ? buttonAction(selectedItem.value) : false}
+                onClick={() => buttonAction ? buttonAction(selectedItem?.value) : false}
               >
                 {buttonText?.toUpperCase() ?? 'BANTUAN'}
               </button>

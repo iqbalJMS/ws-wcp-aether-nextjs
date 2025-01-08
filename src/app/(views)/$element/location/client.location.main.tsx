@@ -5,7 +5,6 @@ import {
   T_LocationRequest,
 } from '@/api/location/api.get.location.type';
 import CE_FormVariant01 from '@/app/(views)/$element/form/client.form.variant01';
-import { CE_IconMain } from '@/app/(views)/$element/icon-menu/client.icon.main';
 import useForm from '@/lib/hook/useForm';
 import { useEffect, useState, useTransition } from 'react';
 import {
@@ -16,11 +15,24 @@ import {
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Link from '@/lib/element/global/link';
 import Pagination from '@/lib/element/global/pagination';
+import { ACT_GetLocationProvince } from '@/app/(views)/$action/action.get.location-province';
+import { T_InputSelectItem } from '@/lib/element/client/input';
+import { ACT_GetLocationType } from '@/app/(views)/$action/action.get.location-type';
+import { T_LocationType } from '@/api/location/api.get.location-type.type';
+import Image from '@/lib/element/global/image';
+import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.location-category';
+import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
+import InputSelect from '@/lib/element/global/input.select';
 
 const CE_LocationMain = () => {
   const [pending, transiting] = useTransition();
   const [location, setLocation] = useState<T_Location>();
-  const { form, setForm, validateForm } = useForm<
+  const [locationProvinces, setLocationProvinces] =
+    useState<T_InputSelectItem[]>();
+  const [locationTypes, setLocationTypes] = useState<T_LocationType['data']>();
+  const [locationCategories, setLocationCategories] =
+    useState<T_LocationCategory['data']>();
+  const { form, setForm, validateForm, onFieldChange } = useForm<
     T_LocationRequest,
     T_LocationRequest
   >(
@@ -29,37 +41,71 @@ const CE_LocationMain = () => {
       limit: '9',
       province: '',
       type: '',
+      category: '',
     }),
     CFN_ValidateGetLocationFields
   );
   let handlePageChange = (page: number) => {
-    const skip = ((parseInt(form.limit) * page) - parseInt(form.limit))
+    const skip = parseInt(form.limit) * page - parseInt(form.limit);
     // onFieldChange('skip', skip.toString())
     setForm({
       ...form,
-      'skip': skip.toString()
-    })
+      skip: skip.toString(),
+    });
     // console.log(form)
-  }
+  };
   const handleLocationList = () => {
     if (pending) {
       return;
     }
     const isValid = validateForm();
     if (isValid) {
+      
       CFN_GetLocation(transiting, form, (data) => {
         setLocation(data?.data);
       });
     }
   };
-  // useEffect(() => {
-  //   handleLocationList();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  let handleLocationProvinceList = async () => {
+    let response = await ACT_GetLocationProvince();
+    response?.data.data.unshift({
+      id: 0,
+      name: 'Semua Lokasi',
+    });
+    setLocationProvinces(
+      response?.data.data.map((provinceItem) => {
+        return {
+          title: provinceItem.name,
+          value: provinceItem.id === 0 ? '' : provinceItem.id.toString(),
+        };
+      })
+    );
+  };
+  let handleLocationTypeList = async () => {
+    let response = await ACT_GetLocationType();
+    setLocationTypes(response?.data.data);
+  };
+  let handleLocationCategoryList = async (typeId: string) => {
+    let response = await ACT_GetLocationCategory({
+      type_id: typeId,
+    });
+    setLocationCategories(response?.data.data);
+  };
+  useEffect(() => {
+    handleLocationProvinceList();
+    handleLocationTypeList();
+    handleLocationCategoryList('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     handleLocationList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.skip]);
+  }, [form.skip, form.province, form.type, form.category]);
+  useEffect(() => {
+    form.category = ''
+    handleLocationCategoryList(form.type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.type]);
   return (
     <div className=" py-10">
       <div className="text-center text-2xl mb-5">
@@ -69,37 +115,79 @@ const CE_LocationMain = () => {
       <div className="py-5 pb-10 border-b-2 border-black border-opacity-10">
         <CE_FormVariant01
           className="mt-20"
-          listItems={[
-            {
-              title: 'Jakarta',
-              value: 'Jakarta',
-            },
-            {
-              title: 'Bandung',
-              value: 'Bandung',
-            },
-          ]}
+          listItems={locationProvinces || []}
           dropdownType="input-text"
           placeholder="Mencari Lokasi"
           buttonText="Cari"
           imageAtTitle="/web/guest/images/icon-menu/maps.png"
-          // buttonAction={(e) => { console.log(e)}}
+          buttonAction={(e) => {
+            onFieldChange('province', e?.toString() || '');
+          }}
         />
       </div>
-      <div className="py-5">
-        <CE_IconMain
-          list={[
-            {
-              title: 'asd',
-              image: '',
-              link: '',
-              externalLink: false,
-              active: true,
-            },
-          ]}
-          cookiesName="locationMain"
-        />
+      <div className="py-10 pb-0 border-b-2 border-black border-opacity-10 text-center mb-5">
+        <div className="inline-flex -mx-5">
+          {locationTypes?.map((locationTypeItem) => {
+            return (
+              <div key={locationTypeItem.id} className="w-[15rem] group px-5">
+                <div
+                  className="relative cursor-pointer"
+                  onClick={() => {
+                    onFieldChange('type', locationTypeItem.id);
+                  }}
+                >
+                  <div
+                    className={[
+                      'w-full h-2 rounded-sm bg-red-01 absolute bottom-0 left-0  group-hover:block',
+                      form.type === locationTypeItem.id ? 'block' : 'hidden',
+                    ].join(' ')}
+                  ></div>
+                  <div>
+                    <div className="text-center mb-2">
+                      <div className="w-20 h-20 inline-block">
+                        {locationTypeItem.image && (
+                          <Image
+                            extern={false}
+                            src={locationTypeItem.image}
+                            alt="background"
+                            width={1920}
+                            height={980}
+                            className="w-full h-full object-contain"
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="text-center font-semibold h-[5rem]">
+                      {locationTypeItem.name}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
+      <div className="flex justify-center mb-10">
+        <div className="w-[30%] inline-block">
+          <div className="text-left font-semibold mb-2">Layanan</div>
+          <InputSelect
+            list={locationCategories?.map((locationCategoryItem) => {
+              return {
+                title: locationCategoryItem.name,
+                value: locationCategoryItem.id,
+              };
+            })}
+            value={form.category}
+            onChange={(value) =>
+              onFieldChange(
+                'category',
+                (Array.isArray(value) ? value.at(0)?.value : value?.value) || ''
+              )
+            }
+          />
+        </div>
+      </div>
+
       <div className="py-5 container">
         <div className="flex flex-wrap mb-10">
           {location?.data.map((dataItem, index) => (
@@ -159,15 +247,16 @@ const CE_LocationMain = () => {
             </div>
           ))}
         </div>
-        <div >
+        <div>
           <Pagination
             currentPage={location?.pagination.currentPage || 1}
             totalPages={location?.pagination.totalPages || 0}
             variant="simple"
-            onPageChange={(e) => {handlePageChange(e)}}
+            onPageChange={(e) => {
+              handlePageChange(e);
+            }}
           />
         </div>
-        
       </div>
     </div>
   );
