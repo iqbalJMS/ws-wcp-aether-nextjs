@@ -81,7 +81,7 @@ const RowElement = ({ description }: T_RowElementProps) => (
 
 export default function MobileFooter({ data }: T_FooterProps) {
   return (
-    <section>
+    <section className="lg:hidden">
       <AccordionMobile
         renderTitle="BRI Kantor Pusat"
         renderContent={
