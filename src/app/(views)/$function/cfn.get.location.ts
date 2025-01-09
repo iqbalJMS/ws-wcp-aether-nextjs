@@ -29,7 +29,7 @@ export function CFN_MapToLocationPayload(form: T_LocationRequest): T_LocationReq
     limit: form.limit,
     skip: form.skip,
     province: form.province,
-    type: form.type,
+    tipe: form.tipe,
     category: form.category
   };
 }
