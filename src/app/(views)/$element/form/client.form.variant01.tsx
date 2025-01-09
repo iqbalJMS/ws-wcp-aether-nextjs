@@ -1,20 +1,23 @@
 'use client';
 
 import { ArrowDownIcon } from '@/lib/element/global/arrow-down-icon';
-import Link from 'next/link';
-import React, { useRef } from 'react';
+// import Link from 'next/link';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import CE_FormVariant01Item from './client.form.variant01.item';
 import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import { T_InputSelectItem } from '@/lib/element/client/input';
 import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
 
 type T_FormVariant01Props = {
+  className?: string;
   title?: string;
   imageAtTitle?: string;
   placeholder?: string;
   dropdownType?: 'input-text';
   buttonText?: string;
-  listItems: T_InputSelectItem[];
+  listItems: T_InputSelectItem[] | undefined;
+  buttonAction?: (_?: string) => void
 };
 
 export default function CE_FormVariant01({
@@ -24,15 +27,27 @@ export default function CE_FormVariant01({
   dropdownType,
   buttonText,
   listItems,
+  className,
+  buttonAction,
 }: T_FormVariant01Props) {
-  const [selectedItem, setSelectedItem] = React.useState(listItems[0]);
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [selectedItem, setSelectedItem] = React.useState(listItems?.at(0));
+  const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-
+  let [search, setSearch] = useState('')
   useOnClickOutside(dropdownRef, () => setIsOpen(false));
-
+  useEffect(() => {
+    setSearch(selectedItem?.title || '')
+  }, [selectedItem])
+  let searchListItem = useMemo(() => {
+    return listItems?.filter((listItem) => {
+      return listItem.title.toLowerCase().includes(search.toLowerCase())
+    })
+  }, [search, listItems])
+  let hasButtonAction = useMemo(() => {
+    return buttonAction ? true : false
+  }, [buttonAction])
   return (
-    <section className="container md:px-20 px-5">
+    <section className={["container md:px-20 px-5", className].join(' ')}>
       <div className="w-[90%] relative z-10 mx-auto -mt-24" ref={dropdownRef}>
         <div className="py-5 px-8 rounded-[1.8rem] shadow-lg bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
           <div className="z-10 flex items-center w-full gap-4">
@@ -74,9 +89,9 @@ export default function CE_FormVariant01({
                   <input
                     type="text"
                     className="border-none focus:outline-none w-full"
-                    value={selectedItem?.title}
+                    value={search}
                     placeholder={placeholder ?? ''}
-                    onChange={() => {}}
+                    onChange={(event) => {setSearch(event.target.value)}}
                   />
                 </div>
               ) : (
@@ -94,12 +109,14 @@ export default function CE_FormVariant01({
             </div>
           </div>
           <div className="relative z-10">
-            <Link href={selectedItem.value}>
+            
+            <Link href={!hasButtonAction ? selectedItem?.value || '' : 'lokasi'}>
               <button
                 disabled={isOpen}
                 className={`font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-full ${
                   isOpen ? 'bg-gray-400' : 'bg-orange-400 hover:bg-orange-500'
                 }`}
+                onClick={() => buttonAction ? buttonAction(selectedItem?.value) : false}
               >
                 {buttonText?.toUpperCase() ?? 'BANTUAN'}
               </button>
@@ -107,7 +124,7 @@ export default function CE_FormVariant01({
           </div>
         </div>
         <CE_FormVariant01Item
-          list={listItems}
+          list={searchListItem}
           open={isOpen}
           onChange={setSelectedItem}
           setOpen={setIsOpen}

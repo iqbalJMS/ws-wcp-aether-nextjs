@@ -128,8 +128,17 @@ const CE_CardVariant16 = dynamic(
 const CE_CardVariant18 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant18')
 );
+const CE_LocationMain = dynamic(
+  () => import('@/app/(views)/$element/location/client.location.main')
+);
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
+  location: {
+    component: CE_LocationMain,
+    props: (_component: any) => {
+      return {};
+    },
+  },
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
@@ -1968,19 +1977,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         tnc: string;
         variant: string;
       }>;
-      title: string;
-      extern: boolean;
-      link: string;
+      button: {
+        title: string;
+        extern: boolean;
+        link: string;
+      };
     }) => {
       const button = {
-        title: props?.title,
-        extern: props?.extern,
-        link: props?.link,
+        title: props?.button.title,
+        extern: props?.button.extern,
+        link: props?.button.link,
       };
       const tabs = props?.tabs;
       return (
         <CE_SimulationMain
-          type="tab"
+          type={props.tabs.length === 1 ? 'page' : 'tab'}
           action={{
             button: {
               extern: true,

@@ -142,18 +142,17 @@ const CE_SimulationMain = ({
                 )}
                 <div className="border-b-2 pb-5 border-blue-01 border-opacity-35 border-dashed mb-10"></div>
                 <div className=" mb-10">
-                  
                   {variant === 'kpr' && <CE_SimulationKPRMain />}
                   {variant === 'kprs' && <CE_SimulationKPRSMain />}
                   {variant === 'cicilan_kendaraan' && <CE_SimulationCarMain />}
-                  {variant === 'britama-rencana' && <CE_SimulationBritamaRencanaMain />}
+                  {variant === 'britama_rencana' && <CE_SimulationBritamaRencanaMain />}
                   {variant === 'briguna_umum' && <CE_SimulationBRIGunaMain />}
-                  {variant === 'briguna-karya' && <CE_SimulationBRIGunaKaryaMain />}
-                  {variant === 'briguna-purna' && <CE_SimulationBRIGunaPurnaMain />}
+                  {variant === 'briguna_karya' && <CE_SimulationBRIGunaKaryaMain />}
+                  {variant === 'briguna_purna' && <CE_SimulationBRIGunaPurnaMain />}
                   {variant === 'deposito' && <CE_SimulationDepositoMain />}
-                  {variant === 'deposito-business' && <CE_SimulationDepositoBusinessMain />}
-                  {variant === 'deposito-valas' && <CE_SimulationDepositoValasMain />}
-                  {variant === 'investment' && <CE_SimulationInvestmentMain />}
+                  {variant === 'deposito_bisnis' && <CE_SimulationDepositoBusinessMain />}
+                  {variant === 'deposito_valas' && <CE_SimulationDepositoValasMain />}
+                  {variant === 'kredit_investasi' && <CE_SimulationInvestmentMain />}
                   {variant === 'initial-investment' && <CE_SimulationInitialInvestmentMain />}
                 </div>
                 {type === 'tab' && (

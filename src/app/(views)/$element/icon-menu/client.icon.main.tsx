@@ -85,7 +85,12 @@ export function CE_IconMain({
   const isMaxActiveList = useMemo(() => {
     return list.filter((item) => item.active === true).length === maxListShow;
   }, [maxListShow, list]);
+  function extractMatch(url: string): string | null {
+    const regex = /\/\.(\w+-\w+)/;
+    const match = url.match(regex);
 
+    return match ? match[1] : null;
+  }
   const handleChooseMenu = async (index: number) => {
     if (isMaxActiveList && list.at(index)?.active === false) {
       return false;
@@ -110,9 +115,13 @@ export function CE_IconMain({
                 listItem.active && (
                   <div key={listIndex} className="w-1/5 mdmax:w-1/2 flex-none">
                     <Link
-                      href={listItem.link}
+                      href={
+                        extractMatch(listItem.link)
+                          ? '#' + extractMatch(listItem.link)
+                          : listItem.link
+                      }
                       extern={listItem.externalLink}
-                      target={listItem.externalLink ? '_blank' : ''}
+                      target={extractMatch(listItem.link) ? '' : '_blank'}
                     >
                       <CE_IconMenu
                         key={listIndex}

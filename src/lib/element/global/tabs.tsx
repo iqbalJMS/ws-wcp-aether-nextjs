@@ -403,14 +403,19 @@ export function Tabs({
           return (
             <div
               key={index}
-              onClick={() => {
-                setMenuActive(index);
-                onChange?.(item?.slug ?? '');
-              }}
+              onClick={
+                list?.length > 1
+                  ? () => {
+                      setMenuActive(index);
+                      onChange?.(item?.slug ?? '');
+                    }
+                  : () => ({})
+              }
               className={[
                 `flex-1 border-b cursor-pointer relative group/tab text-center`,
                 variant === 'full' ? 'py-3 ' : 'pb-3 ',
-                item?.slug === value
+
+                list?.length > 1 && item?.slug === value
                   ? variant === 'full'
                     ? 'bg-blue-01'
                     : ''
@@ -421,7 +426,7 @@ export function Tabs({
                 className={[
                   'text-xl font-medium  inline-flex items-center',
                   `${
-                    item?.slug === value
+                    list?.length > 1 && item?.slug === value
                       ? variant === 'full'
                         ? 'text-white'
                         : variantColor === 'red'
@@ -436,7 +441,7 @@ export function Tabs({
                 {item?.title && (
                   <div
                     className={`mdmax:text-sm uppercase font-semibold ${
-                      menuActive === index
+                      menuActive === index && list?.length > 1
                         ? variant === 'full'
                           ? 'text-white'
                           : variantColor === 'red'
@@ -497,7 +502,9 @@ export function Tabs({
                   className={[
                     'absolute bottom-0 left-0',
                     'w-full h-[.2rem] bg-blue-01',
-                    item?.slug === value ? 'visible' : 'invisible',
+                    item?.slug === value && list?.length > 1
+                      ? 'visible'
+                      : 'invisible',
                     'group-hover/tab:visible',
                   ].join(' ')}
                 >
@@ -517,7 +524,8 @@ export function Tabs({
                     'absolute bottom-0 left-0',
                     'w-full h-[.2rem] ',
                     variantColor === 'red' ? 'bg-red-01' : 'bg-blue-01',
-                    item?.slug === value || menuActive === index
+                    (item?.slug === value || menuActive === index) &&
+                    list?.length > 1
                       ? 'visible'
                       : 'invisible',
                     'group-hover/tab:visible',

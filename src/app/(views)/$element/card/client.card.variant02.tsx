@@ -38,15 +38,16 @@ export default function CE_CardVariant02({
               >
                 <div className="bg-white px-10 pb-10 pt-20 shadow-lg rounded-br-[5rem]">
                   <div
-                    className={`mb-10 overflow-hidden ${item?.imagePosition?.includes('left') ? 'w-[6.25rem] h-[6.25rem]' : 'w-full object-contain max-h-[7.5rem]'}`}
+                    className={`mb-10 overflow-hidden ${item?.imagePosition?.includes('left') ? 'w-[6.25rem] h-[6.25rem]' : 'w-[1rem] object-contain h-[1.5rem]'}`}
                   >
                     <Image
                       extern={false}
                       src={item?.image ?? ''}
                       alt="image"
-                      width={1920}
-                      height={1080}
-                      className={`${item?.imagePosition?.includes('left') ? 'object-contain' : 'object-cover'}`}
+                      // width={1920}
+                      // height={1080}
+                      fill
+                      className={`${item?.imagePosition?.includes('left') ? 'object-contain' : 'object-contain'}`}
                     />
                   </div>
                   <div>
