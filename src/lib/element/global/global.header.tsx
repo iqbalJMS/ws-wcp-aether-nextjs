@@ -11,7 +11,6 @@ import Link from './link';
 import { CloseIcon } from './close-icon';
 import { Search } from './global.search';
 
-
 const LIST_LANGUAGES = ['ID', 'EN'];
 
 export function LoginButton() {
@@ -101,10 +100,12 @@ export default function GlobalHeader({
   headerTop,
   headerBottom,
   variant = 'transparent',
+  isLoginDropdown = true,
 }: {
   headerTop: T_ResponseGetTopMenuNavbar;
   headerBottom: T_ResponseGetMainMenuNavbar;
   variant: 'transparent' | 'no-transparent';
+  isLoginDropdown?: boolean;
 }) {
   const pathname = usePathname();
   const currentLanguage = useSearchParams().get('lang');
@@ -162,9 +163,11 @@ export default function GlobalHeader({
             </Link>
             <div>
               <div className="flex items-center gap-2">
-                <div>
-                  <LoginButton />
-                </div>
+                {isLoginDropdown && (
+                  <div>
+                    <LoginButton />
+                  </div>
+                )}
                 <div onClick={() => setActiveMenu(true)}>
                   <svg
                     className="w-7 h-7"
@@ -388,9 +391,11 @@ export default function GlobalHeader({
                       </div>
                     );
                   })}
-                  <div className="pb-2 border-b-4 border-transparent mdmax:hidden">
-                    <LoginButton />
-                  </div>
+                  {isLoginDropdown && (
+                    <div className="pb-2 border-b-4 border-transparent mdmax:hidden">
+                      <LoginButton />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

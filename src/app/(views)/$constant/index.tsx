@@ -13,18 +13,19 @@ import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Image } from './types/widget/image';
 
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import { Tabs } from '@/lib/element/global/tabs';
-import { WIDGET_VARIANT } from './variables';
+import Image from '@/lib/element/global/image';
+import ImageViewer from '@/lib/element/global/image.viewer';
+
 import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
-import ImageViewer from '@/lib/element/global/image.viewer';
-import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import Image from '@/lib/element/global/image';
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
+import { WIDGET_VARIANT } from './variables';
 
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
@@ -2006,21 +2007,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         field_image?: {
           field_media_image?: {
             uri?: {
-              url: string
-            }[]
-          }[]
-        }[]
+              url: string;
+            }[];
+          }[];
+        }[];
       }>;
       field_primary_cta: { title: string; full_url: string }[];
     }) => {
       // TODO: needed confirmation form drupal
-      
+
       return {
         tabs: _component?.field_paragraphs?.map((item) => {
-                   
           return {
             title: item?.field_title?.[0]?.value,
-            image: item.field_image?.at(0)?.field_media_image?.at(0)?.uri?.at(0)?.url,
+            image: item.field_image?.at(0)?.field_media_image?.at(0)?.uri?.at(0)
+              ?.url,
             tnc: item?.field_secondary_content?.[0]?.value,
             variant: item?.field_simulation?.[0]?.value.toLowerCase(),
           };

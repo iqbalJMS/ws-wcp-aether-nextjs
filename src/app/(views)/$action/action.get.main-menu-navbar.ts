@@ -5,9 +5,11 @@ import { T_ResponseGetMainMenuNavbar } from "@/api/navbar-menu/main-navbar/api.g
 
 export async function ACT_GetMainMenuNavbar({
   lang,
+  theme
 }: {
   lang: string;
+  theme?: string;
 }): Promise<T_ResponseGetMainMenuNavbar> {
-  const response = await API_GetMainMenuNavbar({ lang });
+  const response = await API_GetMainMenuNavbar({ lang, theme });
   return response;
 }
