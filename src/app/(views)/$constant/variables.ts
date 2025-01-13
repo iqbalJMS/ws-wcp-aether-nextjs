@@ -41,6 +41,8 @@ export const WIDGET_VARIANT = {
   variant40: 'multitab_bantuan_top_popular',
   variant41: 'section_ngobrol_sabrina',
   variant42: 'section_all_help_topics',
+  variant43: 'section_latest_promo',
+  variant44: 'section_with_news'
 };
 
 export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';

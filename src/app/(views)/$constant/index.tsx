@@ -26,6 +26,7 @@ import {
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 import { WIDGET_VARIANT } from './variables';
+import { T_PromoWidget } from './types/widget/promo';
 
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
@@ -111,6 +112,14 @@ const CE_CardVariant02 = dynamic(
 
 const CE_SectionPromo = dynamic(
   () => import('@/app/(views)/$element/promo/client.section-promo')
+);
+
+const CE_SectionPromoVariant01 = dynamic(
+  () => import('@/app/(views)/$element/promo/client.section-promo.variant01')
+);
+
+const CE_SectionPromoVariant02 = dynamic(
+  () => import('@/app/(views)/$element/promo/client.section-promo.variant02')
 );
 
 const SE_WysiwygMain = dynamic(
@@ -235,6 +244,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           extern?: boolean;
           title?: string;
         };
+        nid?: number;
       }>;
       const accordion = props?.accordion as Array<{
         children?: string;
@@ -292,6 +302,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant11:
           return (
             <CE_CarouselMain variant="01" data={listItems} title={title} />
+          );
+        case WIDGET_VARIANT.variant44:
+          return (
+            <CE_CarouselMain variant="05" data={listItems} title={title} />
           );
         case WIDGET_VARIANT.variant12:
           return (
@@ -643,6 +657,20 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         }
       );
+      const dataNews = _component?.field_column?.[0]?.field_content_type?.map(
+        (item) => {
+          const title = item?.title?.[0]?.value;
+          const nid = item?.nid?.[0]?.value;
+          const date = item?.created?.[0].value;
+
+          return {
+            image: '/sites/default/files/images/slider3-the-ultimate.jpg',
+            title: title,
+            nid: nid,
+            date: date,
+          };
+        }
+      );
       const dataV12 = _component?.field_column?.map((item) => {
         return {
           title: item?.field_title?.[0]?.value,
@@ -845,6 +873,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             title: titleV02,
             data: dataV11,
+          };
+        case WIDGET_VARIANT.variant44:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: dataNews,
           };
         case WIDGET_VARIANT.variant12:
           return {
@@ -2109,6 +2143,113 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           }
         ),
       };
+    },
+  },
+  promo_widget: {
+    component: (...props) => {
+      const titleProps = props?.[0]?.titleProps;
+      const buttonTextProps = props?.[0]?.buttonTextProps;
+      const buttonLinkProps = props?.[0]?.buttonLinkProps;
+      const dataProps = props?.[0]?.dataProps;
+      const categoryProps = props?.[0]?.categoryProps;
+      const findVariantStyle = props?.[0]?.variant;
+      const sidebarData = props?.[0]?.sidebarData;
+
+      switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant43:
+          return (
+            <CE_SectionPromoVariant01
+              title={titleProps}
+              buttonLink={buttonLinkProps}
+              buttonText={buttonTextProps}
+              promoData={dataProps}
+              categoryData={categoryProps}
+            />
+          );
+        default:
+          return (
+            <CE_SectionPromoVariant02
+              promoData={dataProps}
+              sidebarData={sidebarData}
+            />
+          );
+      }
+    },
+    props: (_component: T_PromoWidget) => {
+      const labelCard = _component?.field_title?.[0]?.value;
+      const textCta = _component?.field_primary_cta?.[0]?.title;
+      const linkCta = _component?.field_primary_cta?.[0]?.full_url.replace(
+        '/id',
+        ''
+      );
+      const cardDataPromo = _component?.promo_data?.items?.map((item) => {
+        return {
+          title: item?.title?.[0]?.value,
+          image: item?.field_promo_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+          nid: item?.nid?.[0]?.value,
+          startDate: item?.field_promo_start_date?.[0]?.value,
+          endDate: item?.field_promo_end_date?.[0]?.value,
+        };
+      });
+      const categoryPromo = _component?.promo_data?.popular_category?.map(
+        (item) => {
+          return {
+            text: item?.title?.[0]?.value,
+            image: item?.field_icon?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+            nid: item?.nid?.[0]?.value,
+          };
+        }
+      );
+
+      const sidebarCategoryPromo =
+        _component?.promo_data?.sidebar?.category?.map((item) => {
+          return {
+            label: item?.title?.[0]?.value,
+            value: item?.nid?.[0]?.value,
+          };
+        });
+
+      const sidebarProductPromo = _component?.promo_data?.sidebar?.product?.map(
+        (item) => {
+          return {
+            label: item?.name?.[0]?.value,
+            value: item?.tid?.[0]?.value,
+          };
+        }
+      );
+
+      const sidebarLocationPromo =
+        _component?.promo_data?.sidebar?.location?.map((item) => {
+          return {
+            label: item?.title?.[0]?.value,
+            value: item?.nid?.[0]?.value,
+          };
+        });
+
+      const sidebarData = _component.promo_data?.sidebar
+        ? {
+            categoryData: sidebarCategoryPromo || [],
+            productData: sidebarProductPromo || [],
+            locationData: sidebarLocationPromo || [],
+          }
+        : null;
+
+      const findVariantStyle =
+        _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+
+      switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant23:
+        default:
+          return {
+            dataProps: cardDataPromo,
+            categoryProps: categoryPromo,
+            variant: findVariantStyle,
+            titleProps: labelCard,
+            buttonTextProps: textCta,
+            buttonLinkProps: linkCta,
+            sidebarData: sidebarData,
+          };
+      }
     },
   },
 };

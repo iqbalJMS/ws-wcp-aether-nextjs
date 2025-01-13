@@ -304,6 +304,15 @@ const config: Config = {
         'light-08': '#777777',
         'red-01': '#c70740',
       },
+      animation: {
+        bounce: 'bounce 150ms alternate infinite ease',
+      },
+      keyframes: {
+        bounce: {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-50%)' },
+        },
+      },
     },
   },
   plugins: [
