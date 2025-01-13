@@ -28,7 +28,9 @@ export function CFN_MapToPromoPayload(form: T_PromoRequest): T_PromoRequest {
     limit: form.limit,
     page: form.page,
     category_id: form.category_id,
-    search: form.search
+    search: form.search,
+    location_id: form.location_id,
+    product_id: form.product_id
   };
 }
 

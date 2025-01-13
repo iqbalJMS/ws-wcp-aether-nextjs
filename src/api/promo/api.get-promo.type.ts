@@ -3,4 +3,6 @@ export type T_PromoRequest = {
   page?: string;
   category_id?: string
   search?: string
+  location_id?: string
+  product_id?: string
 };

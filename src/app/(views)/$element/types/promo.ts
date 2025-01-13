@@ -101,6 +101,12 @@ export type T_PromoProps = {
     startDate: string
     endDate: string
   }>
+  paginationData?: {
+    total: number;
+    limit: number;
+    page: number
+    total_page: number
+  }
   sidebarData?: {
     categoryData?: Array<{
       label: string;

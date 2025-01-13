@@ -2204,6 +2204,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const categoryProps = props?.[0]?.categoryProps;
       const findVariantStyle = props?.[0]?.variant;
       const sidebarData = props?.[0]?.sidebarData;
+      const paginationData = props?.[0]?.paginationData;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant46:
@@ -2221,6 +2222,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <CE_SectionPromoVariant02
               promoData={dataProps}
               sidebarData={sidebarData}
+              paginationData={paginationData}
             />
           );
       }
@@ -2284,6 +2286,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           }
         : null;
 
+      const paginationData = _component.promo_data?.pager;
+
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
 
@@ -2298,6 +2302,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             buttonTextProps: textCta,
             buttonLinkProps: linkCta,
             sidebarData: sidebarData,
+            paginationData: paginationData,
           };
       }
     },
