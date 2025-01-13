@@ -1,3 +1,5 @@
+import { T_Content_Type } from "./content_type";
+
 type HtmlContent = {
   value: string;
   format: string;
@@ -66,6 +68,7 @@ export type T_Section = {
     field_alignment?: Array<{ value: string }>;
     field_title_custom?: Array<{ value: string }>;
     field_carousel_items?: Array<any>;
+    field_content_type: Array<T_Content_Type>;
     field_title?: any;
     field_image_slider_items?: Array<{
       field_image?: Array<FieldImageItem>;

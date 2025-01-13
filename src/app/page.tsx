@@ -24,8 +24,9 @@ export default async function PageAether({
     alias: 'homepage',
   });
 
+  const theme = data?.field_main_menu?.[0]?.target_id;
   const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
-  const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en' });
+  const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en', theme });
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
 

@@ -8,6 +8,13 @@ import ScrollToTop from '@/lib/element/global/scroll.top';
 import { T_Widget } from '@/app/(views)/$constant/types';
 import { COMPONENT_MAP_WIDGET } from '@/app/(views)/$constant';
 
+import { ACT_GetTopMenuNavbar } from '@/app/(views)/$action/action.get.top-menu-navbar';
+import { ACT_GetMainMenuNavbar } from '@/app/(views)/$action/action.get.main-menu-navbar';
+import { ACT_GetMainMenuFooter } from '@/app/(views)/$action/action.get.main-footer';
+import { ACT_GetBottomMenuFooter } from '@/app/(views)/$action/action.get.bottom-footer';
+import GlobalHeader from '@/lib/element/global/global.header';
+import GlobalFooter from '@/lib/element/global/global.footer';
+
 export default async function PageAetherDetail({
   params: { slug },
   searchParams: { lang },
@@ -24,6 +31,13 @@ export default async function PageAetherDetail({
     lang: lang ?? 'id',
     alias: getNodeId ?? '',
   });
+
+  const theme = data?.field_main_menu?.[0]?.target_id;
+  const isLoginDropdown = data?.field_login_dropdown?.[0]?.value;
+  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
+  const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en', theme });
+  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
+  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
 
   const components = data?.field_components
     ?.map((component: T_FieldComponent) => {
@@ -46,11 +60,23 @@ export default async function PageAetherDetail({
   }>;
   return (
     <React.Fragment>
-      {components?.map(({ Component, props }, key) => (
-        <React.Fragment key={key}>
-          <Component {...props} />
-        </React.Fragment>
-      ))}
+      <GlobalHeader
+        variant="no-transparent"
+        headerBottom={listHeaderBottom}
+        headerTop={listHeaderTop}
+        isLoginDropdown={isLoginDropdown}
+      />
+      <main className="pt-32">
+        {components?.map(({ Component, props }, key) => (
+          <React.Fragment key={key}>
+            <Component {...props} />
+          </React.Fragment>
+        ))}
+      </main>
+      <GlobalFooter
+        main_footer={listMainFooter}
+        bottom_footer={listBottomFooter}
+      />
       <ScrollToTop />
     </React.Fragment>
   );

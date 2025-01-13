@@ -7,7 +7,6 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/lib/element/global/**/*.{js,ts,jsx,tsx,mdx}',
     './src/lib/functions/global/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     container: {
@@ -304,6 +303,15 @@ const config: Config = {
         'light-02': '#EAEBEB',
         'light-08': '#777777',
         'red-01': '#c70740',
+      },
+      animation: {
+        bounce: 'bounce 150ms alternate infinite ease',
+      },
+      keyframes: {
+        bounce: {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-50%)' },
+        },
       },
     },
   },
