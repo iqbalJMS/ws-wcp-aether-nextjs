@@ -45,7 +45,8 @@ export const WIDGET_VARIANT = {
   variant44: 'section_card_social_tentang_bri',
   variant45: 'slider_tentang_bri_anak_perusahaan',
   variant46: 'section_latest_promo',
-  variant47: 'section_with_news'
+  variant47: 'section_with_news',
+  variant48: 'section_product_unggulan_bank_raya',
 };
 
 export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';

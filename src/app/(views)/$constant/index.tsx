@@ -82,6 +82,10 @@ const CE_CarouselMain = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.main')
 );
 
+const CE_CarouselVariant09 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant09')
+);
+
 const CE_CarouselVariant08 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
 );
@@ -158,11 +162,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_LocationMain,
     props: (_component: any) => {
       return {
-        types: _component?.location_type_details.map((locationTypeItem: any) => {
-          return {
-            id: locationTypeItem.id
+        types: _component?.location_type_details.map(
+          (locationTypeItem: any) => {
+            return {
+              id: locationTypeItem.id,
+            };
           }
-        })
+        ),
       };
     },
   },
@@ -170,7 +176,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: CE_SimulationDropdown,
     props: (_component: any) => {
       return {
-        dropdown: _component.simulation_url
+        dropdown: _component.simulation_url,
       };
     },
   },
@@ -290,6 +296,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         url: props?.btnSiapaSabrinaUrl,
       };
       const dataV2 = props?.data;
+      const linkText = props?.linkText;
+      const linkUrl = props?.linkUrl;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -601,6 +609,17 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return <CE_CardVariant19 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant45:
           return <CE_CarouselVariant08 data={listItems} title={title} />;
+        case WIDGET_VARIANT.variant48:
+          return (
+            <CE_CarouselVariant09
+              button={{
+                link: linkUrl,
+                name: linkText,
+              }}
+              data={listItems}
+              title={title}
+            />
+          );
         default:
           return null;
       }
@@ -1059,7 +1078,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: titleV02,
             data: dataV11,
           };
-
+        case WIDGET_VARIANT.variant48:
+          return {
+            variant: findVariantStyle,
+            title: titleV02,
+            data: dataV11,
+            linkText: _component?.field_primary_cta?.[0]?.title,
+            linkUrl: _component?.field_primary_cta?.[0]?.title,
+          };
         default:
           return null;
       }
@@ -1856,17 +1882,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           case 'card-section':
           default:
             return (
-              <div className="flex">
+              <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
                 {children?.map((item, index) => {
                   return (
-                    <div
-                      key={index}
-                      className="w-1/4 mdmax:w-1/2 flex-none px-2"
-                    >
+                    <div key={index} className="lg:w-1/4 w-full flex-none px-2">
                       <Link href={'/'} target="_blank">
-                        <div className="p-4 mdmax:p-2 shadow-lg">
+                        <div className="lg:p-5 p-4 shadow-lg">
                           {item?.image && (
-                            <div className="w-full h-[12rem] mb-2">
+                            <div className="w-full h-[255px] mb-2">
                               <Image
                                 extern={false}
                                 src={item?.image}
@@ -1879,12 +1902,32 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           )}
 
                           <div>
-                            <div className=" text-red-01 font-semibold mb-2">
+                            <div className=" text-red-01 font-semibold text-sm mb-8">
                               {parseHTMLToReact(item?.title)}
                             </div>
 
-                            <div className="text-base flex gap-3 items-center hover:underline h-[4rem] overflow-auto text-[#014A94]">
-                              {parseHTMLToReact(item?.button?.title)}
+                            <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
+                              <div className="flex items-center gap-1 text-sm">
+                                {parseHTMLToReact(item?.button?.title)} (ID)
+                              </div>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <path d="m9 18 6-6-6-6" />
+                              </svg>
+                            </div>
+                            <div className="text-base flex gap-3 font-semibold items-center hover:underline overflow-auto text-[#014A94]">
+                              <div className="flex items-center gap-1 text-sm">
+                                {parseHTMLToReact(item?.button?.title)} (EN)
+                              </div>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
