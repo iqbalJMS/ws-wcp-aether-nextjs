@@ -41,8 +41,11 @@ export const WIDGET_VARIANT = {
   variant40: 'multitab_bantuan_top_popular',
   variant41: 'section_ngobrol_sabrina',
   variant42: 'section_all_help_topics',
-  variant43: 'section_latest_promo',
-  variant44: 'section_with_news'
+  variant43: 'section_tentang_bri',
+  variant44: 'section_card_social_tentang_bri',
+  variant45: 'slider_tentang_bri_anak_perusahaan',
+  variant46: 'section_latest_promo',
+  variant47: 'section_with_news'
 };
 
 export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';

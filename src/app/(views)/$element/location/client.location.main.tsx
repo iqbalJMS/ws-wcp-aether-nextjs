@@ -40,7 +40,7 @@ const CE_LocationMain = () => {
       skip: '0',
       limit: '9',
       province: '',
-      type: '',
+      tipe: '',
       category: '',
     }),
     CFN_ValidateGetLocationFields
@@ -60,7 +60,6 @@ const CE_LocationMain = () => {
     }
     const isValid = validateForm();
     if (isValid) {
-      
       CFN_GetLocation(transiting, form, (data) => {
         setLocation(data?.data);
       });
@@ -70,13 +69,14 @@ const CE_LocationMain = () => {
     let response = await ACT_GetLocationProvince();
     response?.data.data.unshift({
       id: 0,
+      uuid: '0',
       name: 'Semua Lokasi',
     });
     setLocationProvinces(
       response?.data.data.map((provinceItem) => {
         return {
           title: provinceItem.name,
-          value: provinceItem.id === 0 ? '' : provinceItem.id.toString(),
+          value: provinceItem.uuid === '0' ? '' : provinceItem.uuid.toString(),
         };
       })
     );
@@ -87,7 +87,7 @@ const CE_LocationMain = () => {
   };
   let handleLocationCategoryList = async (typeId: string) => {
     let response = await ACT_GetLocationCategory({
-      type_id: typeId,
+      tipe_id: typeId,
     });
     setLocationCategories(response?.data.data);
   };
@@ -100,12 +100,12 @@ const CE_LocationMain = () => {
   useEffect(() => {
     handleLocationList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.skip, form.province, form.type, form.category]);
+  }, [form.skip, form.province, form.tipe, form.category]);
   useEffect(() => {
     form.category = ''
-    handleLocationCategoryList(form.type);
+    handleLocationCategoryList(form.tipe);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.type]);
+  }, [form.tipe]);
   return (
     <div className=" py-10">
       <div className="text-center text-2xl mb-5">
@@ -133,22 +133,23 @@ const CE_LocationMain = () => {
                 <div
                   className="relative cursor-pointer"
                   onClick={() => {
-                    onFieldChange('type', locationTypeItem.id);
+                    onFieldChange('tipe', locationTypeItem.id);
                   }}
                 >
                   <div
                     className={[
                       'w-full h-2 rounded-sm bg-red-01 absolute bottom-0 left-0  group-hover:block',
-                      form.type === locationTypeItem.id ? 'block' : 'hidden',
+                      form.tipe === locationTypeItem.id ? 'block' : 'hidden',
                     ].join(' ')}
                   ></div>
                   <div>
                     <div className="text-center mb-2">
                       <div className="w-20 h-20 inline-block">
-                        {locationTypeItem.image && (
+                        
+                        {locationTypeItem.term_icon && (
                           <Image
                             extern={false}
-                            src={locationTypeItem.image}
+                            src={locationTypeItem.term_icon}
                             alt="background"
                             width={1920}
                             height={980}
@@ -168,28 +169,32 @@ const CE_LocationMain = () => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        <div className="w-[30%] inline-block">
-          <div className="text-left font-semibold mb-2">Layanan</div>
-          <InputSelect
-            list={locationCategories?.map((locationCategoryItem) => {
-              return {
-                title: locationCategoryItem.name,
-                value: locationCategoryItem.id,
-              };
-            })}
-            value={form.category}
-            onChange={(value) =>
-              onFieldChange(
-                'category',
-                (Array.isArray(value) ? value.at(0)?.value : value?.value) || ''
-              )
-            }
-          />
-        </div>
+        
+        {(Array.isArray(locationCategories) && locationCategories.length !== 0) && (
+          <div className="w-[30%] inline-block" >
+            <div className="text-left font-semibold mb-2">Layanan</div>
+            <InputSelect
+              list={locationCategories?.map((locationCategoryItem) => {
+                return {
+                  title: locationCategoryItem.name,
+                  value: locationCategoryItem.id,
+                };
+              })}
+              value={form.category}
+              onChange={(value) =>
+                onFieldChange(
+                  'category',
+                  (Array.isArray(value) ? value.at(0)?.value : value?.value) || ''
+                )
+              }
+            />
+          </div>
+        )}
+         
       </div>
 
       <div className="py-5 container">
-        <div className="flex flex-wrap mb-10">
+        <div className="flex flex-wrap mb-10 -mx-2">
           {location?.data.map((dataItem, index) => (
             <div key={index} className="w-1/3 mdmax:w-1/2 flex-none px-2 mb-4">
               <div className="shadow-lg relative rounded-md rounded-br-[3rem] overflow-hidden group p-4">

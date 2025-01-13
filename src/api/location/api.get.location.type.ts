@@ -26,6 +26,6 @@ export type T_LocationRequest = {
   skip: string;
   limit: string;
   province: string;
-  type: string;
+  tipe: string;
   category: string;
 };

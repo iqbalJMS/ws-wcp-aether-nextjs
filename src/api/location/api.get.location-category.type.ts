@@ -10,5 +10,5 @@ export type T_LocationCategory = {
 };
 
 export type T_LocationCategoryRequest = {
-  type_id: string;
+  tipe_id: string;
 };

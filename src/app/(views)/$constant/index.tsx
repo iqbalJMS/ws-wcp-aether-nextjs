@@ -25,7 +25,7 @@ import {
 } from '@/app/(views)/$element/client.video.player';
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
-import { WIDGET_VARIANT } from './variables';
+import AboutSection from '@/app/(views)/$element/client.about.section';
 import { T_PromoWidget } from './types/widget/promo';
 
 const CE_SimulationMain = dynamic(
@@ -78,6 +78,10 @@ const CE_CarouselMain = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.main')
 );
 
+const CE_CarouselVariant08 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
+);
+
 const SE_PortletMain = dynamic(
   () => import('@/app/(views)/$element/portlet/server.portlet.main')
 );
@@ -128,6 +132,10 @@ const SE_WysiwygMain = dynamic(
 
 const CE_CardVariant08 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant08')
+);
+
+const CE_CardVariant19 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant19')
 );
 
 const CE_CardVariant16 = dynamic(
@@ -225,6 +233,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: (props) => {
       const findVariantStyle = props?.variant;
 
+      const tentangBRI = {
+        bigTitle: props?.bigTitle,
+        title: props?.title,
+        description: props?.description,
+        textLink: props?.textLink,
+        hrefLink: props?.hrefLink,
+        image: props?.image,
+      };
       const title = props?.title;
       const subtitle = props?.subtitle;
       const navigationLink = props?.navigationLink;
@@ -272,6 +288,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             />
           );
         case WIDGET_VARIANT.variant03:
+          return <CE_CardVariant02 title={title} data={listItems} />;
           return <CE_CardVariant02 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant07:
           return (
@@ -561,6 +578,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               </div>
             </div>
           );
+        case WIDGET_VARIANT.variant43:
+          return <AboutSection {...tentangBRI} />;
+        case WIDGET_VARIANT.variant44:
+          return <CE_CardVariant19 title={title} data={listItems} />;
+        case WIDGET_VARIANT.variant45:
+          return <CE_CarouselVariant08 data={listItems} title={title} />;
         default:
           return null;
       }
@@ -801,7 +824,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
-
       const dataV42 = _component?.field_column?.map((item) => {
         const title = item?.field_title?.[0]?.value;
         const buttonLink = item?.field_primary_cta?.[0]?.uri;
@@ -993,6 +1015,34 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: title,
             data: dataV42,
           };
+        case WIDGET_VARIANT.variant43:
+          return {
+            variant: findVariantStyle,
+            bigTitle: title,
+            title: _component?.field_column?.[0]?.field_title?.[0]?.value,
+            description:
+              _component?.field_column?.[0]?.field_content?.[0]?.value,
+            textLink:
+              _component?.field_column?.[0].field_primary_cta?.[0]?.title,
+            hrefLink:
+              _component?.field_column?.[0].field_primary_cta?.[0]?.full_url,
+            image:
+              _component?.field_column?.[0]?.field_image?.[0]
+                .field_media_image?.[0]?.uri?.[0].url,
+          };
+        case WIDGET_VARIANT.variant44:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            data: dataV09,
+          };
+        case WIDGET_VARIANT.variant45:
+          return {
+            variant: findVariantStyle,
+            title: titleV02,
+            data: dataV11,
+          };
+
         default:
           return null;
       }

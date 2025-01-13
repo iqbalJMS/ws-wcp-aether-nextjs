@@ -20,14 +20,16 @@ type T_CardVariant02Props = {
 };
 
 export default function CE_CardVariant02({
-  title,
   data,
+  title,
 }: T_CardVariant02Props) {
   return (
     <>
-      <div className=" py-10 container">
+      <div className="py-10 container">
         {title && (
-          <div className="text-4xl mb-12">{parseHTMLToReact(title)}</div>
+          <div className="!font-semibold text-[2.5rem]">
+            {parseHTMLToReact(title)}
+          </div>
         )}
         <div className="flex flex-wrap -mx-5">
           {data?.map((item, index) => {
@@ -38,16 +40,15 @@ export default function CE_CardVariant02({
               >
                 <div className="bg-white px-10 pb-10 pt-20 shadow-lg rounded-br-[5rem]">
                   <div
-                    className={`mb-10 overflow-hidden ${item?.imagePosition?.includes('left') ? 'w-[6.25rem] h-[6.25rem]' : 'w-[1rem] object-contain h-[1.5rem]'}`}
+                    className={`mb-10 overflow-hidden ${item?.imagePosition?.includes('left') ? 'w-[6.25rem] h-[6.25rem]' : item?.imagePosition?.includes('center') ? 'w-auto object-contain h-[100] max-w-[167px]' : 'w-full object-contain max-h-[7.5rem]'}`}
                   >
                     <Image
                       extern={false}
                       src={item?.image ?? ''}
                       alt="image"
-                      // width={1920}
-                      // height={1080}
-                      fill
-                      className={`${item?.imagePosition?.includes('left') ? 'object-contain' : 'object-contain'}`}
+                      width={1920}
+                      height={1080}
+                      className={`${item?.imagePosition?.includes('left') ? 'object-contain' : 'object-cover'}`}
                     />
                   </div>
                   <div>
