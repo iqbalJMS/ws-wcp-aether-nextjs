@@ -87,6 +87,7 @@ export default function CE_SectionPromoVariant01({
 
   useEffect(() => {
     handlePromoList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.category_id]);
 
   return (

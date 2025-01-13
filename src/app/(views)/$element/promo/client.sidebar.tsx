@@ -42,6 +42,7 @@ export function CE_SidebarPromo({
     } else {
       unselectAll();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSelectAll]);
 
   const selectAll = (): void => {

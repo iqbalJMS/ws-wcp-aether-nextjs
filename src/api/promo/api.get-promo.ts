@@ -2,9 +2,7 @@
 
 import { get } from '@/api/common/fetch';
 import { redirect } from 'next/navigation';
-import { T_PostResponse } from '@/api/common/fetch.type';
 import { T_PromoRequest } from './api.get-promo.type';
-import { T_PromoWidget } from '@/app/(views)/$constant/types/widget/promo';
 
 function objectToQueryString(obj: Record<string, string>): string {
   const params = new URLSearchParams(obj);
