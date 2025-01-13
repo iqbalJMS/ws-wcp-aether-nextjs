@@ -14,8 +14,10 @@ export default async function SE_PortletVariant02({
   bgImage,
   variantWidget,
   variantLayout,
+  bgExtern,
 }: Omit<T_PortletProps, 'variant'>) {
-  const background = bgImage ? `${API_BASE_URL}/${bgImage}` : '';
+  const background =
+    bgImage && !bgExtern ? `${API_BASE_URL}/${bgImage}` : `${bgImage}`;
 
   const hasCenterWidget = variantWidget === WIDGET_VARIANT.variant04;
   const hasLeftWidget = variantWidget === 'div_more_left';

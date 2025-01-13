@@ -9,6 +9,7 @@ type T_CardVariant07Props = {
   subTitle?: string;
   description?: string;
   image?: string;
+  nid?: number;
 };
 
 export function CE_CardVariant07({
@@ -16,6 +17,7 @@ export function CE_CardVariant07({
   subTitle,
   description,
   image,
+  nid,
 }: T_CardVariant07Props) {
   return (
     <>
@@ -55,7 +57,7 @@ export function CE_CardVariant07({
                     </div>
                   )}
                   <div className="text-right mt-10">
-                    <Link href={'#'} target="_blank">
+                    <Link href={nid ? `/promo-detail/${nid}` : '#'}>
                       <div className="inline-block text-blue-01 text-base hover:underline font-semibold">
                         Selengkapnya &#10095;
                       </div>

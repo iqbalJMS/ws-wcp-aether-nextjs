@@ -12,6 +12,7 @@ import { T_InfoSaham } from './types/widget/info-saham';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Image } from './types/widget/image';
+import { WIDGET_VARIANT } from './variables';
 
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
@@ -289,7 +290,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant03:
           return <CE_CardVariant02 title={title} data={listItems} />;
-          return <CE_CardVariant02 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant07:
           return (
             <SE_PortletMain
@@ -320,7 +320,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return (
             <CE_CarouselMain variant="01" data={listItems} title={title} />
           );
-        case WIDGET_VARIANT.variant44:
+        case WIDGET_VARIANT.variant47:
           return (
             <CE_CarouselMain variant="05" data={listItems} title={title} />
           );
@@ -896,7 +896,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: titleV02,
             data: dataV11,
           };
-        case WIDGET_VARIANT.variant44:
+        case WIDGET_VARIANT.variant47:
           return {
             variant: findVariantStyle,
             title: title,
@@ -2206,7 +2206,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const sidebarData = props?.[0]?.sidebarData;
 
       switch (findVariantStyle) {
-        case WIDGET_VARIANT.variant43:
+        case WIDGET_VARIANT.variant46:
           return (
             <CE_SectionPromoVariant01
               title={titleProps}

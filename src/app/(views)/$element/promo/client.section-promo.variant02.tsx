@@ -105,6 +105,7 @@ export default function CE_SectionPromoVariant01({
                   title={promoItem?.title}
                   image={promoItem?.image}
                   subTitle={`${formatDate(promoItem?.startDate)} - ${formatDate(promoItem?.endDate)}`}
+                  nid={promoItem.nid}
                 />
               ))}
             </div>

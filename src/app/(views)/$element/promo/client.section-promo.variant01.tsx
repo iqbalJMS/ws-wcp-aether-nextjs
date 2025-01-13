@@ -136,6 +136,7 @@ export default function CE_SectionPromoVariant01({
                 image={promoItem?.image}
                 startDate={promoItem?.startDate}
                 endDate={promoItem?.endDate}
+                nid={promoItem.nid}
               />
             ))
           ) : isPending ? (
