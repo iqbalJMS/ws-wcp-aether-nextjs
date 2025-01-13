@@ -30,6 +30,9 @@ import AboutSection from '@/app/(views)/$element/client.about.section';
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
 );
+const CE_SimulationDropdown = dynamic(
+  () => import('@/app/(views)/$element/simulation/client.simulation.dropdown')
+);
 
 const ContactSection = dynamic(
   () => import('@/app/(views)/$element/card/client.content.info')
@@ -144,7 +147,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
     props: (_component: any) => {
-      return {};
+      return {
+        types: _component?.location_type_details.map((locationTypeItem: any) => {
+          return {
+            id: locationTypeItem.id
+          }
+        })
+      };
+    },
+  },
+  dropdown_simulation: {
+    component: CE_SimulationDropdown,
+    props: (_component: any) => {
+      return {
+        dropdown: _component.simulation_url
+      };
     },
   },
   kurs: {

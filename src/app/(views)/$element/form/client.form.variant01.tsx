@@ -39,10 +39,13 @@ export default function CE_FormVariant01({
     setSearch(selectedItem?.title || '')
   }, [selectedItem])
   let searchListItem = useMemo(() => {
+    if (dropdownType !== 'input-text') {
+      return listItems
+    }
     return listItems?.filter((listItem) => {
       return listItem.title.toLowerCase().includes(search.toLowerCase())
     })
-  }, [search, listItems])
+  }, [search, listItems, dropdownType])
   let hasButtonAction = useMemo(() => {
     return buttonAction ? true : false
   }, [buttonAction])

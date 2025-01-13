@@ -10,6 +10,7 @@ type T_SimulationresultVariant01Props = {
     width?: string;
     col?: boolean;
     percentage?: boolean;
+    active?: boolean
   }[];
   onClose: () => void;
   type?: 'center' | 'row-col';
@@ -42,8 +43,9 @@ const CE_SimulationResultVariant01 = ({
               );
             })}
           {type === 'row-col' && (
+            
             <div className="flex flex-wrap">
-              {values.map((valueItem, valueIndex) => {
+              {values.filter((valueItem) => valueItem.active === undefined || valueItem.active === true).map((valueItem, valueIndex) => {
                 return (
                   <div
                     key={valueIndex}

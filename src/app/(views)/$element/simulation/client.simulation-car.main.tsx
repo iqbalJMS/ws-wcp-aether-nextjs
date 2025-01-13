@@ -47,7 +47,6 @@ const CE_SimulationCarMain = () => {
     try {
       CFN_GetSimulationVehicleInstallment(transiting, form, (data) => {
         setResult(data?.data);
-
         if (button) {
           setIsResult(true);
         }
@@ -113,6 +112,7 @@ const CE_SimulationCarMain = () => {
               label: 'Provisi',
               value: '',
               col: true,
+              active: form.vehicleStatus === 'NEW' ? true  : false
             },
             {
               label: 'Administrasi',
@@ -187,7 +187,7 @@ const CE_SimulationCarMain = () => {
                   <div>
                     <InputSlider
                       min={0}
-                      max={1000000000}
+                      max={10000000000}
                       step={100000}
                       value={form.vehiclePrice}
                       onChange={(value) => {
@@ -272,7 +272,7 @@ const CE_SimulationCarMain = () => {
                   <div>
                     <InputSlider
                       min={0}
-                      max={6}
+                      max={form.vehicleStatus === 'NEW' ? 6 : 4}
                       value={form.installmentTerm}
                       onChange={(value) =>
                         onFieldChange('installmentTerm', value)

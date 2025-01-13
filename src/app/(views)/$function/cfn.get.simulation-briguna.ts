@@ -16,6 +16,7 @@ export function CFN_GetSimulationBriguna(
 ) {
   
   transit(async () => {
+    
     const actionResult = await ACT_GetSimulationBriguna(data);
     if (onSuccess) {
       onSuccess(actionResult);
@@ -28,12 +29,10 @@ export function CFN_MapToSimulationBrigunaPayload(
   form: T_SimulationBrigunaRequest
 ): T_SimulationBrigunaRequest {
   return {
-    karyaInstallmentTerm: form.karyaInstallmentTerm,
-    karyaInterestRate: form.karyaInterestRate,
-    karyaSalary: form.karyaSalary,
-    purnaInstallmentTerm : form.purnaInstallmentTerm,
-    purnaInterestRate : form.purnaInterestRate,
-    purnaSalary : form.purnaSalary
+    installmentTerm: form.installmentTerm,
+    interestRate: form.interestRate,
+    salary: form.salary,
+    type : form.type,
   };
 }
 
@@ -42,18 +41,12 @@ export function CFN_ValidateCreateSimulationBrigunaFields(
   value: any
 ): string {
   switch (name) {
-    case 'karyaSalary':
+    case 'salary':
       return validateMin(value, 'Jumlah Gaji', 1);
-    case 'karyaInstallmentTerm':
+    case 'installmentTerm':
       return validateMaxMin(value, 'Jangka Waktu', 1, 15);
-    case 'karyaInterestRate':
+    case 'interestRate':
       return validateMaxMin(value, 'Suku Bunga Efektif', 0.01, 0.25);
-    case 'purnaSalary':
-      return validateMin(value, 'Jumlah Gaji', 1);
-    case 'purnaInstallmentTerm':
-      return validateMaxMin(value, 'Jangka Waktu', 1, 15);
-    case 'purnaInterestRate':
-      return validateMin(value, 'Suku Bunga Efektif', 1);
     default:
       return '';
   }

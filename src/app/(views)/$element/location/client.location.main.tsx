@@ -24,7 +24,13 @@ import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.locati
 import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
 import InputSelect from '@/lib/element/global/input.select';
 
-const CE_LocationMain = () => {
+type T_Props = {
+  types: {id: string}[];
+  
+};
+
+
+const CE_LocationMain = ({types}:T_Props) => {
   const [pending, transiting] = useTransition();
   const [location, setLocation] = useState<T_Location>();
   const [locationProvinces, setLocationProvinces] =
@@ -106,6 +112,12 @@ const CE_LocationMain = () => {
     handleLocationCategoryList(form.tipe);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.tipe]);
+
+  let getLocationType = (id: string) => {
+    return locationTypes?.find((locationtypeItem) => {
+      return locationtypeItem.id === id
+    })
+  }
   return (
     <div className=" py-10">
       <div className="text-center text-2xl mb-5">
@@ -127,7 +139,7 @@ const CE_LocationMain = () => {
       </div>
       <div className="py-10 pb-0 border-b-2 border-black border-opacity-10 text-center mb-5">
         <div className="inline-flex -mx-5">
-          {locationTypes?.map((locationTypeItem) => {
+          {types?.map((locationTypeItem) => {
             return (
               <div key={locationTypeItem.id} className="w-[15rem] group px-5">
                 <div
@@ -146,10 +158,10 @@ const CE_LocationMain = () => {
                     <div className="text-center mb-2">
                       <div className="w-20 h-20 inline-block">
                         
-                        {locationTypeItem.term_icon && (
+                        {getLocationType(locationTypeItem.id)?.term_icon && (
                           <Image
                             extern={false}
-                            src={locationTypeItem.term_icon}
+                            src={getLocationType(locationTypeItem.id)?.term_icon || ''}
                             alt="background"
                             width={1920}
                             height={980}
@@ -159,7 +171,7 @@ const CE_LocationMain = () => {
                       </div>
                     </div>
                     <div className="text-center font-semibold h-[5rem]">
-                      {locationTypeItem.name}
+                      {getLocationType(locationTypeItem.id)?.name}
                     </div>
                   </div>
                 </div>

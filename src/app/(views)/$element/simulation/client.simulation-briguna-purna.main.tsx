@@ -100,7 +100,7 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                   <div>
                     <InputSlider
                       min={0}
-                      max={1000000000}
+                      max={10000000000}
                       step={100000}
                       value={form.salary}
                       onChange={(value) => onFieldChange('salary', value)}
