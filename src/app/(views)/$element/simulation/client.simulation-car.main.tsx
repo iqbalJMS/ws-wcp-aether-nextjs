@@ -110,7 +110,7 @@ const CE_SimulationCarMain = () => {
             },
             {
               label: 'Provisi',
-              value: '',
+              value: result?.provisionFee?.toString() || '',
               col: true,
               active: form.vehicleStatus === 'NEW' ? true  : false
             },
