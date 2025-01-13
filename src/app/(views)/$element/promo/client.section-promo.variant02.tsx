@@ -9,7 +9,7 @@ import {
   CFN_GetPromo,
   CFN_MapToPromoPayload,
   CFN_ValidateGetPromoFields,
-} from '../../$function/cfn.get.promo';
+} from '@/app/(views)/$function/cfn.get.promo';
 import useForm from '@/lib/hook/useForm';
 import { T_PromoRequest } from '@/api/promo/api.get-promo.type';
 import { useParams, useSearchParams } from 'next/navigation';
