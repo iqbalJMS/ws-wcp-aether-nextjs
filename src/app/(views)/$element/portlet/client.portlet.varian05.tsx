@@ -23,7 +23,7 @@ export default function CE_PortletVarian05({
 }) {
   return (
     <div className="container mx-auto grid md:grid-cols-2 my-8 py-6">
-      <div className="flex items-center col-span-1">
+      <div className="flex items-center col-span-1 md:order-1 order-2">
         <div className="section-portlet-first-column">
           {firstColumn?.title && (
             <div className="text-2xl">
@@ -44,7 +44,7 @@ export default function CE_PortletVarian05({
           )}
         </div>
       </div>
-      <div className="col-span-1 mt-4 lg:mt-0">
+      <div className="col-span-1 mt-4 lg:mt-0 md:order-2 order-1">
         {secondColumn?.description && (
           <div className="mt-6 text-gray-400 text-base">
             {parseHTMLToReact(secondColumn?.description)}

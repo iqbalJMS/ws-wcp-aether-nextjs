@@ -29,12 +29,24 @@ export function CE_CarouselVariant05({
       setCurrentSlide(currentSlide - slidesToScroll);
     }
   };
+
+  const formatDate = (dateTimeStamp: number): string => {
+    const date = new Date(dateTimeStamp * 1000);
+    return date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
+
   return (
     <>
       <div className="py-20 container">
         <div>
           <div className="text-center mb-5">
-            <div className="text-3xl ">{parseHTMLToReact(title || '')}</div>
+            <div className="text-3xl font-bold">
+              {parseHTMLToReact(title || '')}
+            </div>
           </div>
           <div className="flex items-center justify-between">
             <div>
@@ -75,9 +87,12 @@ export function CE_CarouselVariant05({
               }}
             >
               {data.map((dataItem, index) => (
-                <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
+                <div
+                  key={index}
+                  className="w-[304px] mdmax:w-full flex-none px-2"
+                >
                   <Link href={dataItem.button?.link || ''} target="_blank">
-                    <div className="p-4 shadow-lg">
+                    <div className="p-4 shadow-lg h-full">
                       {dataItem.image && (
                         <div className="w-full h-[12rem] mb-2">
                           <Image
@@ -92,7 +107,7 @@ export function CE_CarouselVariant05({
                       )}
                       <div>
                         {dataItem.title && (
-                          <div className=" text-red-01 font-semibold mb-1 text-line-1">
+                          <div className="font-semibold mb-8 text-line-2">
                             {parseHTMLToReact(dataItem.title)}
                           </div>
                         )}
@@ -104,6 +119,11 @@ export function CE_CarouselVariant05({
                         {dataItem.desc && (
                           <div className="text-xs h-[4rem] overflow-auto">
                             {parseHTMLToReact(dataItem.desc)}
+                          </div>
+                        )}
+                        {dataItem.date && (
+                          <div className="text-xs text-gray-500">
+                            {formatDate(Number(dataItem.date))}
                           </div>
                         )}
                       </div>

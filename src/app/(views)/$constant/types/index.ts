@@ -22,7 +22,8 @@ export type T_Widget =
   | 'kurs'
   | 'two_column'
   | 'rich_text'
-  | 'bbri_stock_market';
+  | 'bbri_stock_market'
+  | 'promo_widget';
 
 export type T_IconList = {
   image: string;
@@ -40,10 +41,12 @@ export type T_CarouselMainProps = {
     link: string;
   };
   data: Array<{
+    nid?: number;
     image?: string;
     title?: string;
     desc?: string;
     subDesc?: string;
+    date?: string;
     button?: {
       name?: string;
       link?: string;

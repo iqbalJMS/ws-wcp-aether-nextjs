@@ -82,3 +82,43 @@ export type T_ImageProps = {
   src?: string | StaticImageData;
   alt?: string;
 } & Omit<ImageProps, 'src' | 'alt'>;
+
+
+export type T_PromoProps = {
+  title?: string
+  subtitle?: string
+  buttonText?: string
+  buttonLink?: string
+  categoryData?: Array<{
+    image: string;
+    text: string;
+    nid: number
+  }>
+  promoData?: Array<{
+    title: string
+    nid: number
+    image: string
+    startDate: string
+    endDate: string
+  }>
+  paginationData?: {
+    total: number;
+    limit: number;
+    page: number
+    total_page: number
+  }
+  sidebarData?: {
+    categoryData?: Array<{
+      label: string;
+      value: number
+    }>
+    productData?: Array<{
+      label: string;
+      value: number
+    }>
+    locationData?: Array<{
+      label: string;
+      value: number
+    }>
+  }
+}

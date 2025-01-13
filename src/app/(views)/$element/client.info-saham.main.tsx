@@ -4,13 +4,13 @@ import { ChevronRightIcon } from '@/lib/element/global/chevron-right-icon';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import React from 'react';
-import { T_DataSaham } from '@/app/(views)/$constant/types/widget/info-saham';
+import { T_Data } from '@/app/(views)/$constant/types/widget/info-saham';
 
 type T_InfoSahamMainProps = {
   title?: string;
   textLink?: string;
   navigationLink?: string;
-  data: T_DataSaham;
+  data: T_Data;
 };
 
 export default function CE_InfoSahamMain({

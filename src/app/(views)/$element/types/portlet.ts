@@ -11,6 +11,7 @@ type ButtonItem = {
 };
 
 export type T_PortletProps = {
+  bgExtern?: boolean
   bgImage: string;
   title?: string;
   subtitle?: string;
