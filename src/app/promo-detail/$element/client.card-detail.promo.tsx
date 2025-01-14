@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import ShareIcon from '@/lib/element/global/share-icon';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import Link from 'next/link';
+import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
 
 export default function CE_CardDetailPromo({
   title,
@@ -40,7 +40,7 @@ export default function CE_CardDetailPromo({
           <section className="w-full grid grid-cols-1 place-items-start space-y-5 pb-12">
             <div className="w-full flex justify-center md:flex-none lg:w-8/12">
               <Image
-                src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${image}`}
+                src={`${image}`}
                 width={1000}
                 height={1000}
                 alt="image bri prioritas"
