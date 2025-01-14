@@ -20,7 +20,7 @@ const CE_SimulationDropdown = ({ dropdown }: T_Props) => {
     };
   });
   return (
-    <div className="relative z-50 -mt-[7rem]">
+    <div className="relative z-30 -mt-[7rem]">
       <div>
         <CE_FormVariant01
           className="mt-20"

@@ -17,7 +17,7 @@ import {
   CFN_ValidateCreateSimulationBrigunaFields,
 } from '@/app/(views)/$function/cfn.get.simulation-briguna';
 
-const CE_SimulationBRIGunaMain = () => {
+const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
 
@@ -34,26 +34,24 @@ const CE_SimulationBRIGunaMain = () => {
     T_SimulationBrigunaRequest
   >(
     CFN_MapToSimulationBrigunaPayload({
-      installmentTerm: 0,
+      installmentTerm: 1,
       interestRate: 0,
       salary: 0,
-      type: 'KARYA'
+      type: 'KARYA',
     }),
     CFN_ValidateCreateSimulationBrigunaFields
   );
   const [result, setResult] = useState<T_SimulationBriguna[]>();
   const handleSubmit = async (button: boolean = true) => {
-    
     setResult(undefined);
     const validate = validateForm();
-    
+
     if (pending || !validate) {
       return;
     }
-    
+
     try {
       CFN_GetSimulationBriguna(transiting, form, (data) => {
-        
         setResult(data?.data);
 
         if (button) {
@@ -65,11 +63,7 @@ const CE_SimulationBRIGunaMain = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
-      if (
-        form.installmentTerm &&
-        form.interestRate &&
-        form.salary
-      ) {
+      if (form.installmentTerm && form.interestRate && form.salary) {
         handleSubmit(false);
       }
     }, 300); // Delay of 300ms
@@ -79,36 +73,49 @@ const CE_SimulationBRIGunaMain = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
- 
+
   return (
     <div>
-      
       {isResult && (
         <CE_SimulationResultVariant01
-          values={[
-            {
-              label: 'Hasil BRIGuna Karya',
-              value: result?.at(0)?.monthlyInstallment.toString() || '0',
-            },
-            {
-              label: 'Hasil BRIGuna Purna',
-              value: result?.at(1)?.monthlyInstallment.toString() || '0',
-            },
-            {
-              label: 'Hasil BRIGuna Umum (BRIGuna Karya + BRIGuna Umum)',
-              value:
-                result
-                  ?.reduce((acc, curr) => acc + curr.monthlyInstallment, 0)
-                  .toString() || '0',
-            },
-          ]}
+          values={
+            type === 'tab'
+              ? [{
+                label: 'Estimasi Angsuran Bulanan',
+                value:
+                  result
+                    ?.reduce(
+                      (acc, curr) => acc + curr.monthlyInstallment,
+                      0
+                    )
+                    .toString() || '0',
+              },]
+              : [
+                  {
+                    label: 'Hasil BRIGuna Karya',
+                    value: result?.at(0)?.monthlyInstallment.toString() || '0',
+                  },
+                  {
+                    label: 'Hasil BRIGuna Purna',
+                    value: result?.at(1)?.monthlyInstallment.toString() || '0',
+                  },
+                  {
+                    label: 'Hasil BRIGuna Umum (BRIGuna Karya + BRIGuna Umum)',
+                    value:
+                      result
+                        ?.reduce(
+                          (acc, curr) => acc + curr.monthlyInstallment,
+                          0
+                        )
+                        .toString() || '0',
+                  },
+                ]
+          }
           onClose={() => setIsResult(false)}
         />
       )}
       {!isResult && (
         <div className="flex flex-wrap -mx-5">
-          
-
           {/* <div className="w-full flex-none px-5">
             <CE_SimulationLabel label="BRIGuna" editable={false} />
           </div> */}
@@ -198,7 +205,7 @@ const CE_SimulationBRIGunaMain = () => {
                     <InputText
                       disabled={formDisabled.karyaInterestRate}
                       rightText="%"
-                      value={form.interestRate}
+                      value={form.interestRate * 100}
                       onChange={(value) => {
                         onFieldChange('interestRate', value);
                       }}
@@ -209,7 +216,7 @@ const CE_SimulationBRIGunaMain = () => {
                     <InputSlider
                       min={0}
                       max={0.25}
-                      step={0.01}
+                      step={0.001}
                       value={form.interestRate}
                       onChange={(value) => {
                         onFieldChange('interestRate', value);

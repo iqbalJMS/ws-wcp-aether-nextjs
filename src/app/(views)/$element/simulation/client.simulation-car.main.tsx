@@ -31,7 +31,7 @@ const CE_SimulationCarMain = () => {
     T_SimulationVehicleInstallmentRequest
   >(
     CFN_MapToSimulationVehicleInstallmentPayload({
-      installmentTerm: 0,
+      installmentTerm: 1,
       vehiclePrice: 0,
       vehicleStatus: 'NEW',
     }),

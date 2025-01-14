@@ -31,7 +31,7 @@ const CE_SimulationBRIGunaPurnaMain = () => {
     T_SimulationBrigunaPurnaRequest
   >(
     CFN_MapToSimulationBrigunaPurnaPayload({
-      installmentTerm: 0,
+      installmentTerm: 1,
       interestRate: 0,
       salary: 0,
     }),

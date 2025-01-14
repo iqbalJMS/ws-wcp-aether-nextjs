@@ -31,7 +31,7 @@ const CE_SimulationBRIGunaKaryaMain = () => {
     T_SimulationBrigunaKaryaRequest
   >(
     CFN_MapToSimulationBrigunaKaryaPayload({
-      installmentTerm: 0,
+      installmentTerm: 1,
       interestRate: 0,
       salary: 0,
     }),

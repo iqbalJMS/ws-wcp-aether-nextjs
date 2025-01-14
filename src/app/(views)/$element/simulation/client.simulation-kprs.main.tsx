@@ -28,7 +28,7 @@ const CE_SimulationKPRSMain = () => {
   >(
     CFN_MapToSimulationKPRSPayload({
       installmentAmount: 0,
-      installmentTerm: 0,
+      installmentTerm: 1,
     }),
     CFN_ValidateCreateSimulationKPRSFields
   );

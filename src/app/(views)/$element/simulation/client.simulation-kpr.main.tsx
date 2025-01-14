@@ -28,7 +28,7 @@ const CE_SimulationKPRMain = () => {
   >(
     CFN_MapToSimulationKPRPayload({
       installmentAmount: 0,
-      installmentTerm: 0,
+      installmentTerm: 1,
     }),
     CFN_ValidateCreateSimulationKPRFields
   );
