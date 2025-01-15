@@ -30,7 +30,7 @@ const CE_SimulationDepositoMain = () => {
   >(
     CFN_MapToSimulationDepositoPayload({
       depositAmount: 0,
-      termInMonths: 0,
+      termInMonths: 1,
     }),
     CFN_ValidateCreateSimulationDepositoFields
   );

@@ -32,7 +32,7 @@ const CE_SimulationBritamaRencanaMain = () => {
   >(
     CFN_MapToSimulationBritamaRencanaPayload({
       amount: 0,
-      month: 0,
+      month: 1,
       premiAsuransi: 'ENAMPERSEN',
     }),
     CFN_ValidateCreateSimulationBritamaRencanaFields

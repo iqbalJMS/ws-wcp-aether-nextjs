@@ -29,7 +29,7 @@ const CE_SimulationInitialInvestmentMain = () => {
     T_SimulationInitialInvestmentRequest
   >(
     CFN_MapToSimulationInitialInvestmentPayload({
-      duration: 0,
+      duration: 1,
       targetInvestmentValue: 0,
     }),
     CFN_ValidateCreateSimulationInitialInvestmentFields

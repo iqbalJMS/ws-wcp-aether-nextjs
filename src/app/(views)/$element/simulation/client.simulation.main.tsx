@@ -90,7 +90,7 @@ const CE_SimulationMain = ({
               {type === 'tab' && (
                 <div className="text-right mb-10">
                   <Link
-                    href={button.link}
+                    href={button.link.replace('/id', '')}
                     extern={button.extern}
                     target={button.extern ? '_blank' : ''}
                   >
@@ -146,7 +146,7 @@ const CE_SimulationMain = ({
                   {variant === 'kprs' && <CE_SimulationKPRSMain />}
                   {variant === 'cicilan_kendaraan' && <CE_SimulationCarMain />}
                   {variant === 'britama_rencana' && <CE_SimulationBritamaRencanaMain />}
-                  {variant === 'briguna_umum' && <CE_SimulationBRIGunaMain />}
+                  {variant === 'briguna_umum' && <CE_SimulationBRIGunaMain type={type} />}
                   {variant === 'briguna_karya' && <CE_SimulationBRIGunaKaryaMain />}
                   {variant === 'briguna_purna' && <CE_SimulationBRIGunaPurnaMain />}
                   {variant === 'deposito' && <CE_SimulationDepositoMain />}

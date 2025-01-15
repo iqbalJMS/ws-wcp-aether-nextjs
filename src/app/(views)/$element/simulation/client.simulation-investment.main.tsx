@@ -31,7 +31,7 @@ const CE_SimulationInvestmentMain = () => {
     T_SimulationInvestmentRequest
   >(
     CFN_MapToSimulationInvestmentPayload({
-      duration: 0,
+      duration: 1,
       investmentAmount: 0,
       interestRate: 0,
     }),
