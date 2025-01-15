@@ -43,16 +43,16 @@ export function CE_CarouselVariant05({
     <>
       <div className="py-20 container">
         <div>
-          <div className="text-center mb-5">
+          <div className="text-center mb-10">
             <div className="text-3xl font-bold">
               {parseHTMLToReact(title || '')}
             </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between p-3">
             <div>
-              <div className="text-xl mdmax:text-sm mb-4">
-                {parseHTMLToReact(description || '')}
-              </div>
+              <h2 className="text-2xl mdmax:text-sm mb-4 font-semibold">
+                {description}
+              </h2>
             </div>
             <div className="flex gap-2">
               <button
@@ -79,7 +79,7 @@ export function CE_CarouselVariant05({
               </button>
             </div>
           </div>
-          <div className="overflow-hidden p-5 mdmax:p-2 relative mb-10">
+          <div className="overflow-hidden p-3 mdmax:p-2 relative mb-10">
             <div
               className="flex  -mx-2 transition-all ease-in-out duration-300 relative z-0"
               style={{
@@ -91,7 +91,10 @@ export function CE_CarouselVariant05({
                   key={index}
                   className="w-[304px] mdmax:w-full flex-none px-2"
                 >
-                  <Link href={dataItem.button?.link || ''} target="_blank">
+                  <Link
+                    href={dataItem.nid ? `/news-detail/${dataItem.nid}` : '#'}
+                    target="_blank"
+                  >
                     <div className="p-4 shadow-lg h-full">
                       {dataItem.image && (
                         <div className="w-full h-[12rem] mb-2">
