@@ -220,7 +220,7 @@ export default function GlobalHeader({
                           header.title.toLowerCase() === 'cari'
                             ? setActiveSearch(true)
                             : router.push(
-                                `${String(header?.alias)}?lang=${currentLanguage ?? 'en'}`
+                                `/${String(header?.alias)}?lang=${currentLanguage ?? 'en'}`
                               )
                         }
                       >
