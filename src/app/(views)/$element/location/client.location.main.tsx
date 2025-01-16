@@ -25,12 +25,10 @@ import { T_LocationCategory } from '@/api/location/api.get.location-category.typ
 import InputSelect from '@/lib/element/global/input.select';
 
 type T_Props = {
-  types: {id: string}[];
-  
+  types: { id: string }[];
 };
 
-
-const CE_LocationMain = ({types}:T_Props) => {
+const CE_LocationMain = ({ types }: T_Props) => {
   const [pending, transiting] = useTransition();
   const [location, setLocation] = useState<T_Location>();
   const [locationProvinces, setLocationProvinces] =
@@ -108,16 +106,16 @@ const CE_LocationMain = ({types}:T_Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.skip, form.province, form.tipe, form.category]);
   useEffect(() => {
-    form.category = ''
+    form.category = '';
     handleLocationCategoryList(form.tipe);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.tipe]);
 
   let getLocationType = (id: string) => {
     return locationTypes?.find((locationtypeItem) => {
-      return locationtypeItem.id === id
-    })
-  }
+      return locationtypeItem.id === id;
+    });
+  };
   return (
     <div className=" py-10">
       <div className="text-center text-2xl mb-5">
@@ -157,11 +155,13 @@ const CE_LocationMain = ({types}:T_Props) => {
                   <div>
                     <div className="text-center mb-2">
                       <div className="w-20 h-20 inline-block">
-                        
                         {getLocationType(locationTypeItem.id)?.term_icon && (
                           <Image
                             extern={false}
-                            src={getLocationType(locationTypeItem.id)?.term_icon || ''}
+                            src={
+                              getLocationType(locationTypeItem.id)?.term_icon ||
+                              ''
+                            }
                             alt="background"
                             width={1920}
                             height={980}
@@ -181,28 +181,29 @@ const CE_LocationMain = ({types}:T_Props) => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        
-        {(Array.isArray(locationCategories) && locationCategories.length !== 0) && (
-          <div className="w-[30%] inline-block" >
-            <div className="text-left font-semibold mb-2">Layanan</div>
-            <InputSelect
-              list={locationCategories?.map((locationCategoryItem) => {
-                return {
-                  title: locationCategoryItem.name,
-                  value: locationCategoryItem.id,
-                };
-              })}
-              value={form.category}
-              onChange={(value) =>
-                onFieldChange(
-                  'category',
-                  (Array.isArray(value) ? value.at(0)?.value : value?.value) || ''
-                )
-              }
-            />
-          </div>
-        )}
-         
+        {Array.isArray(locationCategories) &&
+          locationCategories.length !== 0 && (
+            <div className="w-[30%] inline-block">
+              <div className="text-left font-semibold mb-2">Layanan</div>
+              <InputSelect
+                list={locationCategories?.map((locationCategoryItem) => {
+                  return {
+                    title: locationCategoryItem.name,
+                    value: locationCategoryItem.id,
+                  };
+                })}
+                value={form.category}
+                onChange={(value) =>
+                  onFieldChange(
+                    'category',
+                    (Array.isArray(value)
+                      ? value.at(0)?.value
+                      : value?.value) || ''
+                  )
+                }
+              />
+            </div>
+          )}
       </div>
 
       <div className="py-5 container">
