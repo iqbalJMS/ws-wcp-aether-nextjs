@@ -219,7 +219,9 @@ export default function GlobalHeader({
                         onClick={() =>
                           header.title.toLowerCase() === 'cari'
                             ? setActiveSearch(true)
-                            : false
+                            : router.push(
+                                `${String(header?.alias)}?lang=${currentLanguage ?? 'en'}`
+                              )
                         }
                       >
                         {header.icon && (
