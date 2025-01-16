@@ -183,24 +183,26 @@ export default function CE_SectionPromoVariant01({
               )}
             </button>
           </div>
-          <div
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="items-center gap-2 text-blue-01 md:hidden flex cursor-pointer"
-          >
-            <svg
-              className="w-7 h-7"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 512 512"
+          {sidebarData && (
+            <div
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="items-center gap-2 text-blue-01 md:hidden flex cursor-pointer"
             >
-              <path
-                fill="currentColor"
-                d="M16 112h336v32H16zm144 128h336v32H160zM16 368h336v32H16z"
-              />
-            </svg>
-            <p>Category</p>
-          </div>
+              <svg
+                className="w-7 h-7"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16 112h336v32H16zm144 128h336v32H160zM16 368h336v32H16z"
+                />
+              </svg>
+              <p>Category</p>
+            </div>
+          )}
         </div>
 
         <div className="flex items-start md:justify-between gap-4">
@@ -280,21 +282,21 @@ export default function CE_SectionPromoVariant01({
                 <CE_SidebarPromo
                   title="Kategori"
                   listData={sidebarData.categoryData}
-                  onSelectionChange={() => {}}
+                  onSelectionChange={(e) => handleFilter('category_id', e)}
                 />
               )}
               {sidebarData.productData && (
                 <CE_SidebarPromo
                   title="Product"
                   listData={sidebarData.productData}
-                  onSelectionChange={() => {}}
+                  onSelectionChange={(e) => handleFilter('product_id', e)}
                 />
               )}
               {sidebarData.locationData && (
                 <CE_SidebarPromo
                   title="Lokasi"
                   listData={sidebarData.locationData}
-                  onSelectionChange={() => {}}
+                  onSelectionChange={(e) => handleFilter('location_id', e)}
                 />
               )}
             </div>
