@@ -11,10 +11,26 @@ export default async function SE_WysiwygVariant01({
   imageContent,
   content,
 }: Omit<T_WysiwygProps, 'variant'>) {
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+    });
+  };
+
   return (
     <section className="container my-8">
-      {title && <h1 className="font-bold text-3xl mb-4">{title}</h1>}
-      {createdAt && <p className="text-sm text-gray-400">{createdAt}</p>}
+      {title && (
+        <h1 className="font-bold text-3xl md:w-[80%] w-full mb-4">{title}</h1>
+      )}
+      {createdAt && (
+        <p className="text-base font-medium">{formatDate(createdAt)}</p>
+      )}
       {buttonText && (
         <div className="flex justify-end py-10">
           <button
@@ -24,7 +40,7 @@ export default async function SE_WysiwygVariant01({
           </button>
         </div>
       )}
-      <div className="w-full h-full rounded-xl overflow-hidden my-5 inline-block">
+      <div className="w-full h-full overflow-hidden my-5 inline-block">
         <Image
           extern={false}
           src={imageContent ?? ''}

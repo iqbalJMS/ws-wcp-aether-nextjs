@@ -347,7 +347,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant47:
           return (
-            <CE_CarouselMain variant="05" data={listItems} title={title} />
+            <CE_CarouselMain
+              variant="05"
+              data={listItems}
+              title={title}
+              description={subtitle}
+            />
           );
         case WIDGET_VARIANT.variant12:
           return (
@@ -630,6 +635,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
       const subtitle = _component?.field_content?.[0]?.value;
+      const subtitleNews =
+        _component?.field_column?.[0]?.field_title?.[0]?.value;
       const navigationLink = _component?.field_primary_cta?.[0]?.uri;
       const textLink = _component?.field_primary_cta?.[0]?.title;
       const column = _component?.column_count;
@@ -721,9 +728,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const title = item?.title?.[0]?.value;
           const nid = item?.nid?.[0]?.value;
           const date = item?.created?.[0].value;
+          const image = item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url;
 
           return {
-            image: '/sites/default/files/images/slider3-the-ultimate.jpg',
+            image: image,
             title: title,
             nid: nid,
             date: date,
@@ -936,6 +944,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             title: title,
+            subtitle: subtitleNews,
             data: dataNews,
           };
         case WIDGET_VARIANT.variant12:

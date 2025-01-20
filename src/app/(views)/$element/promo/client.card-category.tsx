@@ -39,7 +39,7 @@ export default function CE_CardCategoryPromo({
       )}
       {label && (
         <p
-          className={`line-clamp-1 ${isSelect ? 'text-white' : 'text-[#014A94] group-hover:text-white '}`}
+          className={`text-center line-clamp-1 ${isSelect ? 'text-white' : 'text-[#014A94] group-hover:text-white '}`}
         >
           {label}
         </p>

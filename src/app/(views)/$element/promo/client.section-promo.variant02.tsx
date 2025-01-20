@@ -45,11 +45,18 @@ export default function CE_SectionPromoVariant01({
     CFN_ValidateGetPromoFields
   );
 
+  const handlePageChange = (page: number) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      page: page.toString(),
+    }));
+  };
+
   const handleSearch = () => {
-    setForm({
-      ...form,
+    setForm((prevForm) => ({
+      ...prevForm,
       search: searchValue,
-    });
+    }));
   };
 
   const handleFilter = (type: keyof T_PromoRequest, value?: string[]) => {
@@ -57,17 +64,20 @@ export default function CE_SectionPromoVariant01({
       onFieldChange(type, value.join(','));
     } else {
       if (type === 'category_id') {
-        setForm({
+        setForm((prevForm) => ({
+          ...prevForm,
           category_id: undefined,
-        });
+        }));
       } else if (type === 'product_id') {
-        setForm({
+        setForm((prevForm) => ({
+          ...prevForm,
           product_id: undefined,
-        });
+        }));
       } else {
-        setForm({
+        setForm((prevForm) => ({
+          ...prevForm,
           location_id: undefined,
-        });
+        }));
       }
     }
   };
@@ -147,60 +157,69 @@ export default function CE_SectionPromoVariant01({
     <section className="py-20">
       <div className="container">
         <div className="mb-10 flex justify-end gap-4 mdmax:px-4">
-          <div className="border border-black rounded-3xl inline-flex items-center overflow-hidden md:w-[378px] w-full h-16 px-5">
-            <input
-              type="text"
-              className="focus:outline-none w-full h-full"
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Cari Promo"
-            />
-            <button onClick={handleSearch} disabled={isPending}>
-              {!isPending ? (
-                <svg
-                  className="w-7 h-7"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="m19.485 20.154l-6.262-6.262q-.75.639-1.725.989t-1.96.35q-2.402 0-4.066-1.663T3.808 9.503T5.47 5.436t4.064-1.667t4.068 1.664T15.268 9.5q0 1.042-.369 2.017t-.97 1.668l6.262 6.261zM9.539 14.23q1.99 0 3.36-1.37t1.37-3.361t-1.37-3.36t-3.36-1.37t-3.361 1.37t-1.37 3.36t1.37 3.36t3.36 1.37"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-7 h-7 animate-spin"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M11.5 4A8.5 8.5 0 0 0 3 12.5H2A9.5 9.5 0 0 1 11.5 3z"
-                  />
-                </svg>
-              )}
-            </button>
-          </div>
-          <div
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="items-center gap-2 text-blue-01 md:hidden flex cursor-pointer"
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearch();
+            }}
           >
-            <svg
-              className="w-7 h-7"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill="currentColor"
-                d="M16 112h336v32H16zm144 128h336v32H160zM16 368h336v32H16z"
+            <div className="border border-black rounded-3xl inline-flex items-center overflow-hidden md:w-[378px] w-full h-16 px-5">
+              <input
+                type="text"
+                className="focus:outline-none w-full h-full"
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Cari Promo"
               />
-            </svg>
-            <p>Category</p>
-          </div>
+              <button type="submit" disabled={isPending}>
+                {!isPending ? (
+                  <svg
+                    className="w-7 h-7"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="m19.485 20.154l-6.262-6.262q-.75.639-1.725.989t-1.96.35q-2.402 0-4.066-1.663T3.808 9.503T5.47 5.436t4.064-1.667t4.068 1.664T15.268 9.5q0 1.042-.369 2.017t-.97 1.668l6.262 6.261zM9.539 14.23q1.99 0 3.36-1.37t1.37-3.361t-1.37-3.36t-3.36-1.37t-3.361 1.37t-1.37 3.36t1.37 3.36t3.36 1.37"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-7 h-7 animate-spin"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.5 4A8.5 8.5 0 0 0 3 12.5H2A9.5 9.5 0 0 1 11.5 3z"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </form>
+          {sidebarData && (
+            <div
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="items-center gap-2 text-blue-01 md:hidden flex cursor-pointer"
+            >
+              <svg
+                className="w-7 h-7"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16 112h336v32H16zm144 128h336v32H160zM16 368h336v32H16z"
+                />
+              </svg>
+              <p>Category</p>
+            </div>
+          )}
         </div>
 
         <div className="flex items-start md:justify-between gap-4">
@@ -260,7 +279,9 @@ export default function CE_SectionPromoVariant01({
             currentPage={pagination?.page || 1}
             totalPages={pagination?.total_page || 0}
             variant="simple"
-            onPageChange={(e) => onFieldChange('page', e?.toString() || '1')}
+            onPageChange={(e) => {
+              handlePageChange(e);
+            }}
           />
         </div>
 
@@ -280,21 +301,21 @@ export default function CE_SectionPromoVariant01({
                 <CE_SidebarPromo
                   title="Kategori"
                   listData={sidebarData.categoryData}
-                  onSelectionChange={() => {}}
+                  onSelectionChange={(e) => handleFilter('category_id', e)}
                 />
               )}
               {sidebarData.productData && (
                 <CE_SidebarPromo
                   title="Product"
                   listData={sidebarData.productData}
-                  onSelectionChange={() => {}}
+                  onSelectionChange={(e) => handleFilter('product_id', e)}
                 />
               )}
               {sidebarData.locationData && (
                 <CE_SidebarPromo
                   title="Lokasi"
                   listData={sidebarData.locationData}
-                  onSelectionChange={() => {}}
+                  onSelectionChange={(e) => handleFilter('location_id', e)}
                 />
               )}
             </div>
