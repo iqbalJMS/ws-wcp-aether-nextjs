@@ -53,7 +53,7 @@ export default function CE_FormVariant01({
     <section className={["container md:px-20 px-5", className].join(' ')}>
       <div className="w-[90%] relative z-10 mx-auto -mt-24" ref={dropdownRef}>
         <div className="py-5 px-8 rounded-[1.8rem] shadow-lg bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
-          <div className="z-10 flex items-center w-full gap-4">
+          <div className="z-10 flex items-center mdmax:flex-col w-full gap-4">
             {imageAtTitle && title ? (
               <div className="flex items-center gap-2">
                 <Image

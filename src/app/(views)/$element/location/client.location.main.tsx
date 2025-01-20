@@ -138,10 +138,10 @@ const CE_LocationMain = ({types}:T_Props) => {
         />
       </div>
       <div className="py-10 pb-0 border-b-2 border-black border-opacity-10 text-center mb-5">
-        <div className="inline-flex -mx-5">
+        <div className="inline-flex -mx-5 mdmax:-mx-2">
           {types?.map((locationTypeItem) => {
             return (
-              <div key={locationTypeItem.id} className="w-[15rem] group px-5">
+              <div key={locationTypeItem.id} className="w-[15rem] mdmax:w-[5.5rem] group px-5 mdmax:px-2">
                 <div
                   className="relative cursor-pointer"
                   onClick={() => {
@@ -150,27 +150,27 @@ const CE_LocationMain = ({types}:T_Props) => {
                 >
                   <div
                     className={[
-                      'w-full h-2 rounded-sm bg-red-01 absolute bottom-0 left-0  group-hover:block',
+                      'w-full h-2 mdmax:h-1 rounded-sm bg-red-01 absolute bottom-0 left-0  group-hover:block',
                       form.tipe === locationTypeItem.id ? 'block' : 'hidden',
                     ].join(' ')}
                   ></div>
                   <div>
                     <div className="text-center mb-2">
-                      <div className="w-20 h-20 inline-block">
+                      <div className="w-20 h-20 mdmax:w-8 mdmax:h-8 inline-block">
                         
                         {getLocationType(locationTypeItem.id)?.term_icon && (
                           <Image
                             extern={false}
                             src={getLocationType(locationTypeItem.id)?.term_icon || ''}
                             alt="background"
-                            width={1920}
-                            height={980}
+                            width={200}
+                            height={200}
                             className="w-full h-full object-contain"
                           />
                         )}
                       </div>
                     </div>
-                    <div className="text-center font-semibold h-[5rem]">
+                    <div className="text-center font-semibold h-[5rem] mdmax:h-[2rem] mdmax:text-[0.5rem]">
                       {getLocationType(locationTypeItem.id)?.name}
                     </div>
                   </div>
@@ -183,7 +183,7 @@ const CE_LocationMain = ({types}:T_Props) => {
       <div className="flex justify-center mb-10">
         
         {(Array.isArray(locationCategories) && locationCategories.length !== 0) && (
-          <div className="w-[30%] inline-block" >
+          <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block" >
             <div className="text-left font-semibold mb-2">Layanan</div>
             <InputSelect
               list={locationCategories?.map((locationCategoryItem) => {
@@ -208,7 +208,7 @@ const CE_LocationMain = ({types}:T_Props) => {
       <div className="py-5 container">
         <div className="flex flex-wrap mb-10 -mx-2">
           {location?.data.map((dataItem, index) => (
-            <div key={index} className="w-1/3 mdmax:w-1/2 flex-none px-2 mb-4">
+            <div key={index} className="w-1/3 mdmax:w-full flex-none px-2 mb-4">
               <div className="shadow-lg relative rounded-md rounded-br-[3rem] overflow-hidden group p-4">
                 <div className="mt-2">
                   {dataItem.tipe && (

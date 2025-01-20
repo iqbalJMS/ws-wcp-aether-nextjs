@@ -218,7 +218,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                 {result.map((dataItem, index) => (
                   <div
                     key={index}
-                    className="w-1/3 mdmax:w-1/2 flex-none px-2 mb-4"
+                    className="w-1/3 mdmax:w-full flex-none px-2 mb-4"
                   >
                     <Link href={dataItem.service_url || ''} target="_blank">
                       <div className="shadow-lg relative rounded-md rounded-br-[3rem] overflow-hidden group p-4">
@@ -278,7 +278,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                 {result.map((dataItem, index) => (
                   <div
                     key={index}
-                    className="w-1/3 mdmax:w-1/2 flex-none px-2 mb-4"
+                    className="w-1/3 mdmax:w-full flex-none px-2 mb-4"
                   >
                     <Link href={dataItem.service_url || ''} target="_blank">
                       <div className="shadow-lg relative rounded-md overflow-hidden group">
@@ -328,7 +328,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                 {result.map((dataItem, index) => (
                   <div
                     key={index}
-                    className="w-1/3 mdmax:w-1/2 flex-none px-2 mb-4"
+                    className="w-1/3 mdmax:w-full flex-none px-2 mb-4"
                   >
                     <Link href={dataItem.service_url || ''} target="_blank">
                       <div className="shadow-lg relative rounded-md overflow-hidden group p-4">
