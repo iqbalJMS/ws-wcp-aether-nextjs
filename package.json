@@ -9,8 +9,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build; node server/obfuscator.js",
+    "start": "GENERATE_SOURCEMAP=false NEXT_TELEMETRY_DISABLED=1 next start --keepAliveTimeout 70000",
     "lint": "next lint",
     "format": "prettier --check --write src",
     "checker": "node server/fs-checker.js",
