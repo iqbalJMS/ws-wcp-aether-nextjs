@@ -18,7 +18,7 @@
     "obfuscate": "next build; node server/obfuscator.js",
     "purger": "node server/cache-purger.js",
     "dev:concurrent": "concurrently \"npm:dev -- --port 1223\" \"npm:dragon\"",
-    "prod:concurrent": "concurrently \"npm:start -- --port 1223\" \"npm:dragon\"",
+    "prod:concurrent": "concurrently \"npm:start -- --port 1223\" \"npm:dragon\" \"npm:purger\"",
     "prepare": "husky"
   },
   "dependencies": {
