@@ -15,3 +15,13 @@ export type T_ResponseGetMainFooterMenu = {
     }>;
   }>;
 };
+
+export type T_ResponseAPIItemMainFooterMenu =
+  Array<{
+    title: string;
+    relative: string;
+    options?: {
+      external: boolean
+    }
+  }>
+

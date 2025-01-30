@@ -280,8 +280,8 @@ export default function GlobalHeader({
                 ))}
               </div>
             </div>
-            <div className="flex items-end justify-between mdmax:border-b mdmax:border-black mdmax:w-full mdmax:pb-5 mdmax:mb-5">
-              <div className="mdmax:hidden">
+            <div className="flex items-center justify-between mdmax:border-b mdmax:border-black mdmax:w-full mdmax:pb-5 mdmax:mb-5">
+              <div className="mdmax:hidden flex-none">
                 <Link className="!text-gray-500" href="/">
                   <Image
                     alt="logo-bri"
@@ -293,21 +293,21 @@ export default function GlobalHeader({
                   />
                 </Link>
               </div>
-              <div className="mdmax:w-full mdmax:bg-white ">
-                <div className="flex mdmax:flex-col mdmax:items-start items-center gap-10 mdmax:gap-0 ">
+              <div className="mdmax:w-full mdmax:bg-white flex-auto">
+                <div className="flex mdmax:flex-col flex-wrap items-center justify-end mdmax:gap-0 gap-y-5">
                   {headerBottom?.map((item, index) => {
                     return (
                       <div
                         key={index}
                         className={[
-                          'pb-2 mdmax:pb-0 border-b-4 border-transparent hover:border-red-01 ',
+                          'mdmax:pb-0 border-b-4 border-transparent hover:border-red-01 ',
                           item.below?.length ? 'group' : '',
                         ].join(' ')}
                       >
                         <Link
                           href={generateLinkBottom(item)}
                           className={[
-                            `text-sm font-normal cursor-pointer uppercase relative `,
+                            `text-sm font-normal cursor-pointer uppercase relative px-5`,
                             `${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white mdmax:text-black' : ''}`,
                           ].join(' ')}
                         >
@@ -393,13 +393,13 @@ export default function GlobalHeader({
                       </div>
                     );
                   })}
-                  {isLoginDropdown && (
-                    <div className="pb-2 border-b-4 border-transparent mdmax:hidden">
-                      <LoginButton />
-                    </div>
-                  )}
                 </div>
               </div>
+              {isLoginDropdown && (
+                <div className="pb-2 border-b-4 border-transparent mdmax:hidden ml-4">
+                  <LoginButton />
+                </div>
+              )}
             </div>
           </div>
         </div>
