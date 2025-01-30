@@ -1,5 +1,6 @@
 "use server";
-import { T_ResponseGetMainFooterMenu } from "./api.get-main-footer.type";
+import { get } from "@/api/common/fetch";
+import { T_ResponseAPIItemMainFooterMenu, T_ResponseGetMainFooterMenu } from "./api.get-main-footer.type";
 
 const ABSTRACTION_RESPONSE_DATA = {
   data: [
@@ -65,44 +66,7 @@ const ABSTRACTION_RESPONSE_DATA = {
     },
     {
       title: "Tautan",
-      list: [
-        {
-          name: "Produk BRI",
-          url: "https://bri.co.id/bri-products",
-          extern: true,
-          className: "text-blue-01 ",
-        },
-        {
-          name: "Deposit Interest",
-          extern: true,
-          url: "https://bri.co.id/deposit-interest",
-          className: "text-blue-01 ",
-        },
-        {
-          name: "Rates",
-          url: "https://bri.co.id/kurs-detail",
-          extern: true,
-          className: "text-blue-01 ",
-        },
-        {
-          name: "Loan Interest Rates",
-          url: "https://bri.co.id/loan-interest-rates",
-          extern: true,
-          className: "text-blue-01 ",
-        },
-        {
-          name: "Whistleblowing System",
-          url: "https://whistleblowing-system.bri.co.id/",
-          extern: true,
-          className: "text-blue-01 ",
-        },
-        {
-          extern: true,
-          url: "https://bri.co.id/web/erecruitment",
-          name: "Karier",
-          className: "text-blue-01 ",
-        },
-      ],
+      list: []
     },
     {
       list: [
@@ -126,16 +90,18 @@ export async function API_GetMainFooterMenu({
   lang: string;
 }): Promise<T_ResponseGetMainFooterMenu> {
   try {
-    const response: T_ResponseGetMainFooterMenu = await new Promise(
-      (resolve) => {
-        setTimeout(() => {
-          resolve({
-            data: ABSTRACTION_RESPONSE_DATA.data,
-          });
-        }, 500);
-      },
+    const response: T_ResponseAPIItemMainFooterMenu = await get(
+      '/bricc-api/menu-items/footer?_format=json_recursive',
     );
-    return response;
+
+    ABSTRACTION_RESPONSE_DATA.data[2].list = response?.map((res) => ({
+      name: res.title,
+      url: res.relative,
+      extern: res.options?.external || false,
+      className: 'text-blue-01'
+    })) || [];
+
+    return ABSTRACTION_RESPONSE_DATA
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error("An error occurred during Get Main Footer Menu:", error);
