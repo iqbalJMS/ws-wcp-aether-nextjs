@@ -111,7 +111,6 @@ export default function GlobalHeader({
   variant: 'transparent' | 'no-transparent';
   isLoginDropdown?: boolean;
 }) {
-  const elementRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const currentLanguage = useSearchParams().get('lang');
   const router = useRouter();
@@ -120,8 +119,6 @@ export default function GlobalHeader({
   const [activeSearch, setActiveSearch] = useState(false);
   const [activeMenu, setActiveMenu] = useState(false);
   const [isSelectedMenu, setIsSelectedMenu] = useState<T_Items | null>(null);
-
-  useOnClickOutside(elementRef, () => setActiveMenu(false));
 
   const onSwitchLanguages = (language: string) => {
     if (currentLanguage !== language) {
@@ -389,7 +386,10 @@ export default function GlobalHeader({
         {activeMenu && (
           <div className="fixed top-0 w-full h-screen z-50">
             <div
-              onClick={() => setActiveMenu(false)}
+              onClick={() => {
+                setActiveMenu(false);
+                setIsSelectedMenu(null);
+              }}
               className="bg-black bg-opacity-30 absolute top-0 left-0 w-full h-screen"
             ></div>
             <motion.div
@@ -400,7 +400,10 @@ export default function GlobalHeader({
             >
               <div
                 className="absolute top-2 right-2"
-                onClick={() => setActiveMenu(false)}
+                onClick={() => {
+                  setActiveMenu(false);
+                  setIsSelectedMenu(null);
+                }}
               >
                 <CloseIcon className="text-blue-02 cursor-pointer" />
               </div>
@@ -565,7 +568,9 @@ export default function GlobalHeader({
                           {LIST_LANGUAGES.map((label) => (
                             <button
                               key={label}
-                              onClick={() => onSwitchLanguages(label)}
+                              onClick={() =>
+                                onSwitchLanguages(label.toLowerCase())
+                              }
                               className={`text-xs p-1 px-2 rounded-md ${
                                 (!currentLanguage || currentLanguage === 'id'
                                   ? 'id'
