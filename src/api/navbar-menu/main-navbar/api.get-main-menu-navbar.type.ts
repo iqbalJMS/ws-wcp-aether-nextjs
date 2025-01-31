@@ -7,16 +7,18 @@ type T_MenuItemBase = {
   weight: string;
   expanded: boolean;
   enabled: boolean;
-  options: Array<unknown>;
+  options?: {
+    external: boolean
+  }
   nid: string;
 };
 
-type T_Items = T_MenuItemBase & {
-  below: Array<T_Items>;
+export type T_Items = T_MenuItemBase & {
+  below?: Array<T_Items>;
 };
 
 type T_Below = T_MenuItemBase & {
-  below: Array<T_Items>;
+  below?: Array<T_Items>;
 };
 
 export type T_ResponseGetMainMenuNavbar = Array<T_Below>;
