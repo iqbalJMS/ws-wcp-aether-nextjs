@@ -162,7 +162,7 @@ export default function GlobalHeader({
           <div
             className={[
               `lg:flex items-center gap-5 justify-end mb-5 hidden`,
-              `${isScrolling ? 'hidden' : ''}`,
+              `${isScrolling ? 'lg:hidden' : ''}`,
             ].join(' ')}
           >
             <div className="flex items-center gap-8">
