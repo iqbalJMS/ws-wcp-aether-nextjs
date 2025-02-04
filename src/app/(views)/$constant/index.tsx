@@ -157,6 +157,10 @@ const CE_LocationMain = dynamic(
   () => import('@/app/(views)/$element/location/client.location.main')
 );
 
+const CE_FormQlola = dynamic(
+  () => import('@/app/(views)/$element/form/client.form.qlola')
+);
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -2120,6 +2124,23 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           accordionStyle: accordionStyle,
         };
       }
+    },
+  },
+  form: {
+    component: (props: { type_form: string }) => {
+      const findTypeForm = props?.type_form ?? '';
+
+      switch (findTypeForm) {
+        case 'qlola':
+          return <CE_FormQlola />;
+        default:
+          return null;
+      }
+    },
+    props: (_component: any) => {
+      return {
+        type_form: _component?.field_form?.[0]?.target_id,
+      };
     },
   },
   simulation: {
