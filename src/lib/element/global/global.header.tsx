@@ -14,24 +14,19 @@ import Link from './link';
 import { CloseIcon } from './close-icon';
 import { Search } from './global.search';
 import { motion } from 'framer-motion';
+import { T_ResponseGetMenuItemNavbar } from '@/api/navbar-menu/menu-items/api.get-menu-items-navbar.type';
+import { T_ResponGetHeaderLogo } from '@/api/header-logo/api.get-header-logo.type';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
 
-export function LoginButton() {
+export function LoginButton({
+  menuItems,
+}: {
+  menuItems: T_ResponseGetMenuItemNavbar;
+}) {
   const elementRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
-  const logins = [
-    {
-      title: 'Internet Banking Business',
-      color: 'orange-01',
-      link: 'https://biz.bri.co.id/',
-    },
-    {
-      title: 'Internet Banking Corporate',
-      color: 'green-500',
-      link: 'https://biz.bri.co.id/',
-    },
-  ];
+
   useOnClickOutside(elementRef, () => setActive(false));
   return (
     <div
@@ -66,35 +61,37 @@ export function LoginButton() {
           border-l-transparent border-r-transparent border-white
           h-5 w-5`}
         />
-        {logins.map((loginItem, index) => {
-          return (
-            <div
-              key={index}
-              className="w-full bg-white mb-2 px-5 py-4 rounded-3xl"
-            >
-              <Link href={loginItem.link} target="_blank">
-                <div
-                  className={` flex items-center  ${loginItem.color === 'orange-01' ? 'text-orange-01' : 'text-green-500'}`}
-                >
-                  <div className="mr-2">
-                    <svg
-                      className="w-6 h-6"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 256 256"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M216 56h-40v-8a24 24 0 0 0-24-24h-48a24 24 0 0 0-24 24v8H40a16 16 0 0 0-16 16v128a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V72a16 16 0 0 0-16-16M96 48a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v8H96Zm120 24v41.61A184 184 0 0 1 128 136a184.1 184.1 0 0 1-88-22.38V72Zm0 128H40v-68.36A200.2 200.2 0 0 0 128 152a200.25 200.25 0 0 0 88-20.37zm-112-88a8 8 0 0 1 8-8h32a8 8 0 0 1 0 16h-32a8 8 0 0 1-8-8"
-                      />
-                    </svg>
+        {menuItems &&
+          menuItems.length > 0 &&
+          menuItems.map((loginItem, index) => {
+            return (
+              <div
+                key={index}
+                className="w-full bg-white mb-2 px-5 py-4 rounded-3xl"
+              >
+                <Link href={loginItem?.uri} target="_blank">
+                  <div
+                    className={` flex items-center  ${loginItem?.field_theme_color?.[0]?.value == 'orange' ? 'text-orange-01' : 'text-green-500'}`}
+                  >
+                    <div className="mr-2">
+                      <svg
+                        className="w-6 h-6"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 256 256"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M216 56h-40v-8a24 24 0 0 0-24-24h-48a24 24 0 0 0-24 24v8H40a16 16 0 0 0-16 16v128a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V72a16 16 0 0 0-16-16M96 48a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v8H96Zm120 24v41.61A184 184 0 0 1 128 136a184.1 184.1 0 0 1-88-22.38V72Zm0 128H40v-68.36A200.2 200.2 0 0 0 128 152a200.25 200.25 0 0 0 88-20.37zm-112-88a8 8 0 0 1 8-8h32a8 8 0 0 1 0 16h-32a8 8 0 0 1-8-8"
+                        />
+                      </svg>
+                    </div>
+                    <div className="">{loginItem?.title}</div>
                   </div>
-                  <div className="">{loginItem.title}</div>
-                </div>
-              </Link>
-            </div>
-          );
-        })}
+                </Link>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
@@ -105,11 +102,15 @@ export default function GlobalHeader({
   headerBottom,
   variant = 'transparent',
   isLoginDropdown = true,
+  itemLogin,
+  headerLogo,
 }: {
   headerTop: T_ResponseGetTopMenuNavbar;
   headerBottom: T_ResponseGetMainMenuNavbar;
   variant: 'transparent' | 'no-transparent';
   isLoginDropdown?: boolean;
+  itemLogin: T_ResponseGetMenuItemNavbar;
+  headerLogo?: T_ResponGetHeaderLogo;
 }) {
   const pathname = usePathname();
   const currentLanguage = useSearchParams().get('lang');
@@ -174,9 +175,14 @@ export default function GlobalHeader({
                       onClick={() =>
                         header.title.toLowerCase() === 'cari'
                           ? setActiveSearch(true)
-                          : router.push(
-                              `/${String(header?.alias)}?lang=${currentLanguage ?? 'en'}`
-                            )
+                          : header.options?.external
+                            ? window.open(
+                                header.uri || header.relative,
+                                '_blank'
+                              )
+                            : router.push(
+                                `/${String(header?.alias || header?.relative)}?lang=${currentLanguage ?? 'en'}`
+                              )
                       }
                     >
                       {header.icon && (
@@ -237,9 +243,9 @@ export default function GlobalHeader({
             <Link href={'/'} className="w-[5rem]">
               <Image
                 alt="logo-bri"
-                src="/web/guest/images/headers/logo-bri.png"
+                src={`${headerLogo ? `${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}` : '/web/guest/images/logo-bri.png'}`}
                 width={128}
-                extern={true}
+                extern={headerLogo ? false : true}
                 height={53}
                 className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
               />
@@ -248,7 +254,7 @@ export default function GlobalHeader({
               <div className="flex items-center gap-2">
                 {isLoginDropdown && (
                   <div>
-                    <LoginButton />
+                    <LoginButton menuItems={itemLogin} />
                   </div>
                 )}
                 {!activeMenu && (
@@ -275,9 +281,9 @@ export default function GlobalHeader({
               <Link className="!text-gray-500" href="/">
                 <Image
                   alt="logo-bri"
-                  src="/web/guest/images/headers/logo-bri.png"
+                  src={`${headerLogo ? `${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}` : '/web/guest/images/logo-bri.png'}`}
                   width={128}
-                  extern={true}
+                  extern={headerLogo ? false : true}
                   height={53}
                   className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
                 />
@@ -377,7 +383,7 @@ export default function GlobalHeader({
             </div>
             {isLoginDropdown && (
               <div className="pb-2 border-b-4 border-transparent lg:block hidden ml-4">
-                <LoginButton />
+                <LoginButton menuItems={itemLogin} />
               </div>
             )}
           </div>
