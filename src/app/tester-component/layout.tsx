@@ -8,6 +8,8 @@ import { ACT_GetTopMenuNavbar } from '@/app/(views)/$action/action.get.top-menu-
 import { ACT_GetMainMenuNavbar } from '@/app/(views)/$action/action.get.main-menu-navbar';
 import { ACT_GetMainMenuFooter } from '@/app/(views)/$action/action.get.main-footer';
 import { ACT_GetBottomMenuFooter } from '@/app/(views)/$action/action.get.bottom-footer';
+import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
+import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
 
 export const metadata: Metadata = {
   title: 'Home - Bank BRI | Melayani Dengan Setulus Hati',
@@ -23,12 +25,17 @@ export default async function AetherLayout({
 
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
+
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
   return (
     <React.Fragment>
       <GlobalHeader
         variant="transparent"
         headerBottom={listHeaderBottom}
         headerTop={listHeaderTop}
+        itemLogin={itemMenuLogin}
+        headerLogo={itemHeaderLogo || undefined}
       />
       {children}
       <GlobalFooter

@@ -4,10 +4,14 @@ import React from 'react';
 import GlobalHeader from '@/lib/element/global/global.header';
 import { ACT_GetTopMenuNavbar } from '@/app/(views)/$action/action.get.top-menu-navbar';
 import { ACT_GetMainMenuNavbar } from '@/app/(views)/$action/action.get.main-menu-navbar';
+import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
+import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
 
 export default async function NotFoundPage() {
   const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en' });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
   return (
     <>
@@ -15,6 +19,9 @@ export default async function NotFoundPage() {
         variant="no-transparent"
         headerBottom={listHeaderBottom}
         headerTop={listHeaderTop}
+        itemLogin={itemMenuLogin}
+        headerLogo={itemHeaderLogo || undefined}
+        isLoginDropdown={false}
       />
       <div className="flex h-[100vh] items-center justify-center">
         <div className="flex lg:flex-row flex-col items-center">

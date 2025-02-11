@@ -58,7 +58,8 @@ export default function CE_InfoSahamMain({
           </div>
           <Link
             className="flex items-center text-blue-01 font-medium text-sm"
-            href={navigationLink ?? ''}
+            href={navigationLink ?? 'http://ir-bri.com/'}
+            extern
           >
             {textLink ?? 'Lebih Lanjut'.toUpperCase()}
             <ChevronRightIcon
@@ -120,18 +121,11 @@ export default function CE_InfoSahamMain({
                   <div className="flex items-center gap-2">
                     <div
                       className={[
-                        'absolute bottom-0 left-0',
-                        'w-full h-[.2rem] bg-blue-01',
+                        'border-l-[0.8rem] border-r-[0.8rem] border-b-[0.8rem] ',
+                        'border-l-transparent border-r-transparent border-green-500',
+                        'h-2 w-2 mr-2',
                       ].join(' ')}
-                    >
-                      <div
-                        className={[
-                          'border-l-[0.8rem] border-r-[0.8rem] border-b-[0.8rem] ',
-                          'border-l-transparent border-r-transparent border-green-500',
-                          'h-2 w-2 mr-2',
-                        ].join(' ')}
-                      ></div>
-                    </div>
+                    ></div>
                     <p className="text-2xl text-blue-01 font-medium">
                       {`+${Number(data.high) - Number(data.buyPrice)}.00(+${Number(data.percentChange)}%)`}
                     </p>

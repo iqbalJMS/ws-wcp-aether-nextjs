@@ -94,6 +94,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
       tipe_id: typeId,
     });
     setLocationCategories(response?.data.data);
+    form.category = response?.data.data.at(0)?.id || '';
   };
   useEffect(() => {
     handleLocationProvinceList();
@@ -101,12 +102,20 @@ const CE_LocationMain = ({ types }: T_Props) => {
     handleLocationCategoryList('');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     handleLocationList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.skip, form.province, form.tipe, form.category]);
+  }, [form.skip, form.province]);
+
   useEffect(() => {
-    form.category = '';
+    if (form.tipe !== '' && form.category !== '') {
+      handleLocationList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.tipe, form.category]);
+
+  useEffect(() => {
     handleLocationCategoryList(form.tipe);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.tipe]);
@@ -131,6 +140,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
           buttonText="Cari"
           imageAtTitle="/web/guest/images/icon-menu/maps.png"
           buttonAction={(e) => {
+            form.skip = '0';
             onFieldChange('province', e?.toString() || '');
           }}
         />
@@ -139,10 +149,15 @@ const CE_LocationMain = ({ types }: T_Props) => {
         <div className="inline-flex -mx-5 mdmax:-mx-2">
           {types?.map((locationTypeItem) => {
             return (
-              <div key={locationTypeItem.id} className="w-[15rem] mdmax:w-[5.5rem] group px-5 mdmax:px-2">
+              <div
+                key={locationTypeItem.id}
+                className="w-[15rem] mdmax:w-[5.5rem] group px-5 mdmax:px-2"
+              >
                 <div
                   className="relative cursor-pointer"
                   onClick={() => {
+                    form.skip = '0';
+                    form.category = '';
                     onFieldChange('tipe', locationTypeItem.id);
                   }}
                 >
@@ -155,7 +170,6 @@ const CE_LocationMain = ({ types }: T_Props) => {
                   <div>
                     <div className="text-center mb-2">
                       <div className="w-20 h-20 mdmax:w-8 mdmax:h-8 inline-block">
-                        
                         {getLocationType(locationTypeItem.id)?.term_icon && (
                           <Image
                             extern={false}
@@ -182,28 +196,30 @@ const CE_LocationMain = ({ types }: T_Props) => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        
-        {(Array.isArray(locationCategories) && locationCategories.length !== 0) && (
-          <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block" >
-            <div className="text-left font-semibold mb-2">Layanan</div>
-            <InputSelect
-              list={locationCategories?.map((locationCategoryItem) => {
-                return {
-                  title: locationCategoryItem.name,
-                  value: locationCategoryItem.id,
-                };
-              })}
-              value={form.category}
-              onChange={(value) =>
-                onFieldChange(
-                  'category',
-                  (Array.isArray(value) ? value.at(0)?.value : value?.value) || ''
-                )
-              }
-            />
-          </div>
-        )}
-         
+        {Array.isArray(locationCategories) &&
+          locationCategories.length !== 0 && (
+            <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
+              <div className="text-left font-semibold mb-2">Layanan</div>
+              <InputSelect
+                list={locationCategories?.map((locationCategoryItem) => {
+                  return {
+                    title: locationCategoryItem.name,
+                    value: locationCategoryItem.id,
+                  };
+                })}
+                value={form.category}
+                onChange={(value) => {
+                  form.skip = '0';
+                  onFieldChange(
+                    'category',
+                    (Array.isArray(value)
+                      ? value.at(0)?.value
+                      : value?.value) || ''
+                  );
+                }}
+              />
+            </div>
+          )}
       </div>
 
       <div className="py-5 container">

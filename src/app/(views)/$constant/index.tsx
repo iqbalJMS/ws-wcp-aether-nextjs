@@ -240,7 +240,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         (item) => {
           return {
             title: item?.title,
-            value: item?.uri,
+            value: item?.full_url || item?.uri,
           };
         }
       );
@@ -312,6 +312,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title={title}
               subtitle={subtitle}
               listItems={listItems}
+              textLink={navigationText}
               navigationLink={navigationLink}
               bgImage={backgroundImage}
               variant="01"
@@ -641,7 +642,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const subtitle = _component?.field_content?.[0]?.value;
       const subtitleNews =
         _component?.field_column?.[0]?.field_title?.[0]?.value;
-      const navigationLink = _component?.field_primary_cta?.[0]?.uri;
+      const navigationLink =
+        _component?.field_primary_cta?.[0]?.full_url ||
+        _component?.field_primary_cta?.[0]?.uri;
       const textLink = _component?.field_primary_cta?.[0]?.title;
       const column = _component?.column_count;
       const backgroundImage =
@@ -902,7 +905,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: title,
             subtitle: subtitle,
             data: dataV02,
-            textLink: textLink,
+            navigationText: textLink,
             navigationLink: navigationLink,
             backgroundImage: backgroundImage,
             variant: findVariantStyle,
@@ -2156,11 +2159,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         extern: boolean;
         link: string;
       };
+      actionButton: {
+        title: string;
+        extern: boolean;
+        link: string;
+      };
     }) => {
       const button = {
         title: props?.button.title,
         extern: props?.button.extern,
         link: props?.button.link,
+      };
+      const actionButton = {
+        title: props?.actionButton.title,
+        extern: props?.actionButton.extern,
+        link: props?.actionButton.link,
       };
       const tabs = props?.tabs;
       return (
@@ -2168,9 +2181,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           type={props.tabs.length === 1 ? 'page' : 'tab'}
           action={{
             button: {
-              extern: true,
-              link: 'https://bri.co.id',
-              title: 'Temukan Cabang',
+              extern: actionButton?.extern,
+              link: actionButton?.link,
+              title: actionButton?.title,
             },
             description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
           }}
@@ -2189,6 +2202,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         field_title: Array<{ value: string }>;
         field_simulation: Array<{ value: string }>;
         field_secondary_content: Array<{ value: string }>;
+        field_primary_cta: { title: string; full_url: string }[];
         field_image?: {
           field_media_image?: {
             uri?: {
@@ -2199,8 +2213,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       }>;
       field_primary_cta: { title: string; full_url: string }[];
     }) => {
-      // TODO: needed confirmation form drupal
-
       return {
         tabs: _component?.field_paragraphs?.map((item) => {
           return {
@@ -2215,6 +2227,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           title: _component?.field_primary_cta?.[0]?.title,
           extern: true,
           link: _component?.field_primary_cta?.[0]?.full_url,
+        },
+        actionButton: {
+          title:
+            _component?.field_paragraphs?.[0]?.field_primary_cta?.[0]?.title,
+          extern: true,
+          link: _component?.field_paragraphs?.[0]?.field_primary_cta?.[0]
+            ?.full_url,
         },
       };
     },

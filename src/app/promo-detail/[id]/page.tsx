@@ -11,6 +11,8 @@ import { ACT_GetMainMenuNavbar } from '@/app/(views)/$action/action.get.main-men
 import { ACT_GetMainMenuFooter } from '@/app/(views)/$action/action.get.main-footer';
 import { ACT_GetBottomMenuFooter } from '@/app/(views)/$action/action.get.bottom-footer';
 import SE_PortletVariant02 from '@/app/(views)/$element/portlet/server.portlet.variant02';
+import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
+import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
 
 export default async function page({ params }: { params: { id: string } }) {
   const getOurstoryData = await ACT_GetDetailPage({
@@ -26,6 +28,8 @@ export default async function page({ params }: { params: { id: string } }) {
   });
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
   const termsPromo = getOurstoryData?.field_term_and_condition?.[0]?.value;
   const merchantPromo = getOurstoryData?.field_promo_merchant?.[0]?.value;
@@ -48,6 +52,8 @@ export default async function page({ params }: { params: { id: string } }) {
           headerBottom={listHeaderBottom}
           headerTop={listHeaderTop}
           isLoginDropdown={false}
+          itemLogin={itemMenuLogin}
+          headerLogo={itemHeaderLogo || undefined}
         />
         <main className="pt-32">
           <SE_PortletVariant02

@@ -14,6 +14,8 @@ import { ACT_GetMainMenuFooter } from '@/app/(views)/$action/action.get.main-foo
 import { ACT_GetBottomMenuFooter } from '@/app/(views)/$action/action.get.bottom-footer';
 import GlobalHeader from '@/lib/element/global/global.header';
 import GlobalFooter from '@/lib/element/global/global.footer';
+import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
+import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
 
 export default async function PageAetherDetail({
   params: { slug },
@@ -38,6 +40,8 @@ export default async function PageAetherDetail({
   const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en', theme });
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
   const components = data?.field_components
     ?.map((component: T_FieldComponent) => {
@@ -65,6 +69,8 @@ export default async function PageAetherDetail({
         headerBottom={listHeaderBottom}
         headerTop={listHeaderTop}
         isLoginDropdown={isLoginDropdown}
+        itemLogin={itemMenuLogin}
+        headerLogo={itemHeaderLogo || undefined}
       />
       <main className="pt-32">
         {components?.map(({ Component, props }, key) => (

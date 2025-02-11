@@ -13,6 +13,8 @@ import { ACT_GetMainMenuFooter } from './(views)/$action/action.get.main-footer'
 import { ACT_GetBottomMenuFooter } from './(views)/$action/action.get.bottom-footer';
 import GlobalHeader from '@/lib/element/global/global.header';
 import GlobalFooter from '@/lib/element/global/global.footer';
+import { ACT_GetMenuItemNavbar } from './(views)/$action/action.get-menu-items-navbar';
+import { ACT_GetHeaderLogo } from './(views)/$action/action.get-header-logo';
 
 export default async function PageAether({
   searchParams,
@@ -29,6 +31,8 @@ export default async function PageAether({
   const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en', theme });
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
   const components = data?.field_components
     ?.map((component: T_FieldComponent) => {
@@ -49,13 +53,18 @@ export default async function PageAether({
     Component: React.ComponentType<any>;
     props: Record<string, any>;
   }>;
-  
+
   return (
     <React.Fragment>
       <GlobalHeader
         variant="transparent"
         headerBottom={listHeaderBottom}
         headerTop={listHeaderTop}
+        isLoginDropdown={
+          itemMenuLogin && itemMenuLogin.length > 0 ? true : false
+        }
+        itemLogin={itemMenuLogin}
+        headerLogo={itemHeaderLogo || undefined}
       />
       {components?.map(({ Component, props }, key) => (
         <React.Fragment key={key}>
