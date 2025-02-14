@@ -2,7 +2,6 @@
 
 import { ACT_GetPersonalizeMenu } from '@/app/(views)/$action/action.get.personalize-menu';
 import { CE_IconMain } from './client.icon.main';
-import { SFN_SetPersonalizedMenu } from '@/app/(views)/$function/sfn.set.personalized-menu';
 import { T_IconList } from '@/app/(views)/$constant/types';
 
 type T_IconMainProps = {
@@ -14,13 +13,8 @@ export default async function SE_IconMain({
   maxListShow = 6,
   cookiesName = '__persolized-menu',
 }: T_IconMainProps) {
-  const cookies = await SFN_SetPersonalizedMenu('get', cookiesName);
-  const iconCookies: T_IconList[] = cookies ? JSON.parse(cookies) : [];
   const initialIcon = await ACT_GetPersonalizeMenu();
   const icons: T_IconList[] = initialIcon.map((iconItem, index) => {
-    const iconCookie = iconCookies.find(
-      (item) => item.title === iconItem.title
-    );
     return {
       title: iconItem.title,
       link: iconItem.relative,
@@ -28,11 +22,7 @@ export default async function SE_IconMain({
         ? false
         : iconItem.options.external,
       image: iconItem.icon,
-      active: iconCookie
-        ? iconCookie.active
-        : index < maxListShow
-          ? true
-          : false,
+      active: index < maxListShow ? true : false,
     };
   });
 

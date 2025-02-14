@@ -1,7 +1,7 @@
 'use client';
 
 import { T_PostResponse } from '@/api/common/fetch.type';
-import { validateMin } from '@/lib/functions/global/validation';
+import { validateMaxMin } from '@/lib/functions/global/validation';
 import { Call } from '@strix/client';
 
 import {
@@ -38,9 +38,9 @@ export function CFN_ValidateCreateSimulationDepositoValasFields(
 ): string {
   switch (name) {
     case 'depositAmount':
-      return validateMin(value, 'Jumlah Deposito', 1);
+      return validateMaxMin(value, 'Jumlah Deposito', 1, 100000000, 'currency');
     case 'termInMonths':
-      return validateMin(value, 'Jangka Waktu', 1);
+      return validateMaxMin(value, 'Jangka Waktu', 1, 24);
     default:
       return '';
   }

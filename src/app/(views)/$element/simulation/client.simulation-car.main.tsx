@@ -26,14 +26,21 @@ const CE_SimulationCarMain = () => {
     vehiclePrice: true,
     installmentTerm: true,
   });
-  const { form, formError, onFieldChange, validateForm } = useForm<
+  const {
+    form,
+    formError,
+    onFieldChange,
+    validateForm,
+    setForm,
+    setFormError,
+  } = useForm<
     T_SimulationVehicleInstallmentRequest,
     T_SimulationVehicleInstallmentRequest
   >(
     CFN_MapToSimulationVehicleInstallmentPayload({
-      installmentTerm: 1,
       vehiclePrice: 0,
       vehicleStatus: 'NEW',
+      installmentTerm: 1,
     }),
     CFN_ValidateCreateSimulationVehicleInstallmentFields
   );
@@ -112,7 +119,7 @@ const CE_SimulationCarMain = () => {
               label: 'Provisi',
               value: result?.provisionFee?.toString() || '',
               col: true,
-              active: form.vehicleStatus === 'NEW' ? true  : false
+              active: form.vehicleStatus === 'NEW' ? true : false,
             },
             {
               label: 'Administrasi',
@@ -149,14 +156,20 @@ const CE_SimulationCarMain = () => {
                         },
                       ]}
                       value={form.vehicleStatus}
-                      onChange={(value) =>
+                      onChange={(value) => {
                         onFieldChange(
                           'vehicleStatus',
                           (Array.isArray(value)
                             ? value.at(0)?.value
                             : value?.value) || ''
-                        )
-                      }
+                        );
+                        setForm((prevForm) => ({
+                          ...prevForm,
+                          installmentTerm: 1,
+                          vehiclePrice: 0,
+                        }));
+                        setFormError({});
+                      }}
                     />
                   </div>
                   {formError.vehicleStatus && (
@@ -271,7 +284,7 @@ const CE_SimulationCarMain = () => {
                   </div>
                   <div>
                     <InputSlider
-                      min={0}
+                      min={1}
                       max={form.vehicleStatus === 'NEW' ? 6 : 4}
                       value={form.installmentTerm}
                       onChange={(value) =>

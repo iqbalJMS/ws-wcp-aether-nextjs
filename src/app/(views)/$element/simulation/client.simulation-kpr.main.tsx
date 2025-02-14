@@ -11,13 +11,15 @@ import {
 } from '@/app/(views)/$function/cfn.get.simulation-kpr';
 import InputError from '@/lib/element/global/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import { T_SimulationKPR, T_SimulationKPRRequest } from '@/api/simulation/kpr/api.get.kpr.type';
-
+import {
+  T_SimulationKPR,
+  T_SimulationKPRRequest,
+} from '@/api/simulation/kpr/api.get.kpr.type';
 
 const CE_SimulationKPRMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
-  
+
   const [formDisabled, setFormDisabled] = useState({
     installmentAmount: true,
     installmentTerm: true,
@@ -35,25 +37,18 @@ const CE_SimulationKPRMain = () => {
   const [result, setResult] = useState<T_SimulationKPR>();
   const handleSubmit = async (button: boolean = true) => {
     const validate = validateForm();
-    
+
     if (pending || !validate) {
       return;
     }
     try {
-      CFN_GetSimulationKPR(
-        transiting,
-        form,
-        (data) => {
-          setResult(data?.data);
-          if (button) {
-            setIsResult(true);
-          }
+      CFN_GetSimulationKPR(transiting, form, (data) => {
+        setResult(data?.data);
+        if (button) {
+          setIsResult(true);
         }
-      );
-    } catch (error) {
-      
-    }
-    
+      });
+    } catch (error) {}
   };
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -66,8 +61,8 @@ const CE_SimulationKPRMain = () => {
     return () => {
       clearTimeout(handler);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form]);
 
   return (
     <div>
@@ -94,7 +89,9 @@ const CE_SimulationKPRMain = () => {
                       disabled={formDisabled.installmentAmount}
                       leftText="Rp."
                       value={form.installmentAmount}
-                      onChange={(value) => onFieldChange('installmentAmount', value)}
+                      onChange={(value) =>
+                        onFieldChange('installmentAmount', value)
+                      }
                       type="number"
                     />
                   </div>
@@ -104,7 +101,9 @@ const CE_SimulationKPRMain = () => {
                       max={10000000000}
                       step={100000}
                       value={form.installmentAmount}
-                      onChange={(value) => onFieldChange('installmentAmount', value)}
+                      onChange={(value) =>
+                        onFieldChange('installmentAmount', value)
+                      }
                     />
                   </div>
                   <div className="mt-5">
@@ -127,16 +126,20 @@ const CE_SimulationKPRMain = () => {
                       disabled={formDisabled.installmentTerm}
                       rightText="Tahun"
                       value={form.installmentTerm}
-                      onChange={(value) => onFieldChange('installmentTerm', value)}
+                      onChange={(value) =>
+                        onFieldChange('installmentTerm', value)
+                      }
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
-                      min={0}
+                      min={1}
                       max={20}
                       value={form.installmentTerm}
-                      onChange={(value) => onFieldChange('installmentTerm', value)}
+                      onChange={(value) =>
+                        onFieldChange('installmentTerm', value)
+                      }
                     />
                   </div>
                   <div className="mt-5">
@@ -159,7 +162,9 @@ const CE_SimulationKPRMain = () => {
                     <InputText
                       disabled
                       rightText="%"
-                      value={((result?.interestRate || 0) * 100).toString() || '5'}
+                      value={
+                        ((result?.interestRate || 0) * 100).toString() || '5'
+                      }
                       type="number"
                     />
                   </div>

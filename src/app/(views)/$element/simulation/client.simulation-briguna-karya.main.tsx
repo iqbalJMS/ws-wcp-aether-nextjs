@@ -136,7 +136,7 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                   </div>
                   <div>
                     <InputSlider
-                      min={0}
+                      min={1}
                       max={15}
                       value={form.installmentTerm}
                       onChange={(value) =>
@@ -166,21 +166,17 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                       disabled={formDisabled.interestRate}
                       rightText="%"
                       value={form.interestRate}
-                      onChange={(value) =>
-                        onFieldChange('interestRate', value)
-                      }
+                      onChange={(value) => onFieldChange('interestRate', value)}
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
-                      min={0}
+                      min={0.01}
                       max={0.25}
                       step={0.01}
                       value={form.interestRate}
-                      onChange={(value) =>
-                        onFieldChange('interestRate', value)
-                      }
+                      onChange={(value) => onFieldChange('interestRate', value)}
                     />
                   </div>
                   {formError.interestRate && (

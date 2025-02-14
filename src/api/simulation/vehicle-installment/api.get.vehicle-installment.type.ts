@@ -13,6 +13,6 @@ export type T_SimulationVehicleInstallment = {
 
 export type T_SimulationVehicleInstallmentRequest = {
   vehiclePrice: number;
-  installmentTerm: number;
   vehicleStatus: 'NEW' | 'USED';
+  installmentTerm: number;
 };

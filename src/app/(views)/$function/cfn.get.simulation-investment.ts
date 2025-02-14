@@ -1,7 +1,7 @@
 'use client';
 
 import { T_PostResponse } from '@/api/common/fetch.type';
-import { validateMaxMin, validateMin } from '@/lib/functions/global/validation';
+import { validateMaxMin } from '@/lib/functions/global/validation';
 import { Call } from '@strix/client';
 import {
   T_SimulationInvestment,
@@ -14,7 +14,7 @@ export function CFN_GetSimulationInvestment(
   data: T_SimulationInvestmentRequest,
   onSuccess?: (_data: T_PostResponse<T_SimulationInvestment> | undefined) => void
 ) {
-  
+
   transit(async () => {
     const actionResult = await ACT_GetSimulationInvestment(data);
     if (onSuccess) {
@@ -40,11 +40,11 @@ export function CFN_ValidateCreateSimulationInvestmentFields(
 ): string {
   switch (name) {
     case 'investmentAmount':
-      return validateMin(value, 'Plafond Kredit ', 1);
+      return validateMaxMin(value, 'Plafond Kredit ', 1, 100000000, 'currency');
     case 'duration':
-      return validateMaxMin(value, 'Jangka Waktu', 1, 15);
+      return validateMaxMin(value, 'Jangka Waktu', 1, 120);
     case 'interestRate':
-      return validateMin(value, 'Suku Bunga Efektif', 1);
+      return validateMaxMin(value, 'Suku Bunga Efektif', 0.1, 100);
     default:
       return '';
   }

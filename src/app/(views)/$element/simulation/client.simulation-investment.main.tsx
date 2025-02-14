@@ -97,17 +97,21 @@ const CE_SimulationInvestmentMain = () => {
                       disabled={formDisabled.investmentAmount}
                       leftText="Rp."
                       value={form.investmentAmount}
-                      onChange={(value) => onFieldChange('investmentAmount', value)}
+                      onChange={(value) =>
+                        onFieldChange('investmentAmount', value)
+                      }
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
                       min={0}
-                      max={1000000000}
+                      max={100000000}
                       step={100000}
                       value={form.investmentAmount}
-                      onChange={(value) => onFieldChange('investmentAmount', value)}
+                      onChange={(value) =>
+                        onFieldChange('investmentAmount', value)
+                      }
                     />
                   </div>
                   {formError.investmentAmount && (
@@ -130,22 +134,18 @@ const CE_SimulationInvestmentMain = () => {
                   <div className="mb-5 w-[70%]">
                     <InputText
                       disabled={formDisabled.duration}
-                      rightText="Tahun"
+                      rightText="Bulan"
                       value={form.duration}
-                      onChange={(value) =>
-                        onFieldChange('duration', value)
-                      }
+                      onChange={(value) => onFieldChange('duration', value)}
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
-                      min={0}
-                      max={15}
+                      min={1}
+                      max={120}
                       value={form.duration}
-                      onChange={(value) =>
-                        onFieldChange('duration', value)
-                      }
+                      onChange={(value) => onFieldChange('duration', value)}
                     />
                   </div>
                   {formError.duration && (
@@ -176,9 +176,9 @@ const CE_SimulationInvestmentMain = () => {
                   </div>
                   <div>
                     <InputSlider
-                      min={0}
-                      max={15}
-                      step={1}
+                      min={0.1}
+                      max={100}
+                      step={0.1}
                       value={form.interestRate}
                       onChange={(value) => onFieldChange('interestRate', value)}
                     />
