@@ -23,6 +23,7 @@ import Image from '@/lib/element/global/image';
 import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.location-category';
 import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
 import InputSelect from '@/lib/element/global/input.select';
+import debounce from '@/lib/functions/global/debounce';
 
 type T_Props = {
   types: { id: string }[];
@@ -49,15 +50,61 @@ const CE_LocationMain = ({ types }: T_Props) => {
     }),
     CFN_ValidateGetLocationFields
   );
-  let handlePageChange = (page: number) => {
-    const skip = parseInt(form.limit) * page - parseInt(form.limit);
-    // onFieldChange('skip', skip.toString())
-    setForm({
-      ...form,
-      skip: skip.toString(),
-    });
-    // console.log(form)
+
+  const initializeFormData = async () => {
+    try {
+      const typeResponse = await ACT_GetLocationType();
+      const types = typeResponse?.data.data || [];
+      setLocationTypes(types);
+
+      const firstTypeId = types.at(0)?.id || '';
+      setForm((prevForm) => ({
+        ...prevForm,
+        tipe: firstTypeId,
+      }));
+    } catch (error) {
+      //eslint-disable-next-line no-console
+      console.error('Error initializing form data:', error);
+    }
   };
+
+  const handleLocationProvinceList = async () => {
+    try {
+      const response = await ACT_GetLocationProvince();
+      response?.data.data.unshift({
+        id: 0,
+        uuid: '0',
+        name: 'Semua Lokasi',
+      });
+      setLocationProvinces(
+        response?.data.data.map((provinceItem) => ({
+          title: provinceItem.name,
+          value: provinceItem.uuid === '0' ? '' : provinceItem.uuid.toString(),
+        }))
+      );
+    } catch (error) {
+      //eslint-disable-next-line no-console
+      console.error('Error fetching provinces:', error);
+    }
+  };
+
+  const handleLocationCategoryList = async (typeId: string) => {
+    try {
+      const response = await ACT_GetLocationCategory({ tipe_id: typeId });
+      const categories = response?.data.data || [];
+      setLocationCategories(categories);
+
+      const firstCategoryId = categories.at(0)?.id || '';
+      setForm((prevForm) => ({
+        ...prevForm,
+        category: firstCategoryId,
+      }));
+    } catch (error) {
+      //eslint-disable-next-line no-console
+      console.error('Error fetching categories:', error);
+    }
+  };
+
   const handleLocationList = () => {
     if (pending) {
       return;
@@ -69,54 +116,36 @@ const CE_LocationMain = ({ types }: T_Props) => {
       });
     }
   };
-  let handleLocationProvinceList = async () => {
-    let response = await ACT_GetLocationProvince();
-    response?.data.data.unshift({
-      id: 0,
-      uuid: '0',
-      name: 'Semua Lokasi',
+
+  const handlePageChange = (page: number) => {
+    const skip = parseInt(form.limit) * page - parseInt(form.limit);
+    setForm({
+      ...form,
+      skip: skip.toString(),
     });
-    setLocationProvinces(
-      response?.data.data.map((provinceItem) => {
-        return {
-          title: provinceItem.name,
-          value: provinceItem.uuid === '0' ? '' : provinceItem.uuid.toString(),
-        };
-      })
-    );
   };
-  let handleLocationTypeList = async () => {
-    let response = await ACT_GetLocationType();
-    setLocationTypes(response?.data.data);
-  };
-  let handleLocationCategoryList = async (typeId: string) => {
-    let response = await ACT_GetLocationCategory({
-      tipe_id: typeId,
-    });
-    setLocationCategories(response?.data.data);
-    form.category = response?.data.data.at(0)?.id || '';
-  };
+
+  const debouncedHandleLocationList = debounce(handleLocationList, 300);
+
   useEffect(() => {
     handleLocationProvinceList();
-    handleLocationTypeList();
-    handleLocationCategoryList('');
+    initializeFormData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    handleLocationList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.skip, form.province]);
-
-  useEffect(() => {
     if (form.tipe !== '' && form.category !== '') {
-      handleLocationList();
+      debouncedHandleLocationList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form.tipe, form.category]);
+  }, [form.skip, form.province, form.tipe, form.category]);
 
   useEffect(() => {
-    handleLocationCategoryList(form.tipe);
+    const fetchCategories = async () => {
+      await handleLocationCategoryList(form.tipe);
+    };
+
+    fetchCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.tipe]);
 

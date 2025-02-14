@@ -2,10 +2,9 @@
 
 import Image from '@/lib/element/global/image';
 import Modal from '@/lib/element/global/modal';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { T_IconList } from '@/app/(views)/$constant/types';
 import Link from '@/lib/element/global/link';
-import { SFN_SetPersonalizedMenu } from '@/app/(views)/$function/sfn.set.personalized-menu';
 
 type T_IconMainProps = {
   maxListShow?: number;
@@ -80,17 +79,50 @@ export function CE_IconMain({
   list: initialList,
   cookiesName,
 }: T_IconMainProps) {
-  const [list, setList] = useState(initialList);
+  const [iconStorage, setIconStorage] = useState<string | null>(null);
+  const [list, setList] = useState<T_IconList[]>(initialList);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedData = sessionStorage.getItem(cookiesName);
+      setIconStorage(storedData);
+    }
+  }, [cookiesName]);
+
+  useEffect(() => {
+    if (iconStorage) {
+      const dataIcons: T_IconList[] = iconStorage
+        ? JSON.parse(iconStorage)
+        : [];
+      const updatedList = initialList.map((iconItem) => {
+        const iconCookie = dataIcons.find(
+          (item) => item.title === iconItem.title
+        );
+        return {
+          ...iconItem,
+          active: iconCookie?.active ?? iconItem.active,
+        };
+      });
+      setList(updatedList);
+    } else {
+      setList(initialList);
+    }
+    setIsLoading(false);
+  }, [iconStorage, initialList]);
+
   const [showModal, setShowModal] = useState(false);
   const isMaxActiveList = useMemo(() => {
     return list.filter((item) => item.active === true).length === maxListShow;
   }, [maxListShow, list]);
+
   function extractMatch(url: string): string | null {
     const regex = /\/\.(\w+-\w+)/;
     const match = url.match(regex);
 
     return match ? match[1] : null;
   }
+
   const handleChooseMenu = async (index: number) => {
     if (isMaxActiveList && list.at(index)?.active === false) {
       return false;
@@ -102,8 +134,30 @@ export function CE_IconMain({
       };
     });
     setList(returnList);
-    await SFN_SetPersonalizedMenu('set', cookiesName, returnList);
+    sessionStorage.setItem(cookiesName, JSON.stringify(returnList));
   };
+
+  if (isLoading) {
+    return (
+      <div className="overflow-hidden relative py-10 container">
+        <div className="border-b-2 border-black border-opacity-50 px-[20rem] mdmax:px-0">
+          <div className="flex justify-center -mx-5 mdmax:flex-wrap">
+            {Array.from({ length: 5 }).map((_, index) => {
+              return (
+                <div
+                  key={index}
+                  className="flex flex-col items-center space-y-2 animate-pulse px-5 pb-5"
+                >
+                  <div className="w-20 h-20 bg-gray-300 rounded-full"></div>
+                  <div className="w-24 h-6 bg-gray-300 rounded-md"></div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

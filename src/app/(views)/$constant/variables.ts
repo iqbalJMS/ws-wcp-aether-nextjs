@@ -47,6 +47,7 @@ export const WIDGET_VARIANT = {
   variant46: 'section_latest_promo',
   variant47: 'section_with_news',
   variant48: 'section_product_unggulan_bank_raya',
+  variant49: 'section_carousel_variant_4',
 };
 
 export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';

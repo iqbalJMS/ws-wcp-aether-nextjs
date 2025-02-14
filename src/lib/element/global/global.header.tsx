@@ -240,16 +240,17 @@ export default function GlobalHeader({
           </div>
 
           <div className="lg:hidden items-center justify-between flex">
-            <Link href={'/'} className="w-[5rem]">
-              <Image
-                alt="logo-bri"
-                src={`${headerLogo ? `${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}` : '/web/guest/images/logo-bri.png'}`}
-                width={128}
-                extern={headerLogo ? false : true}
-                height={53}
-                className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
-              />
-            </Link>
+            {headerLogo && (
+              <Link href={'/'} className="w-[5rem]">
+                <Image
+                  alt="logo-bri"
+                  src={`${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
+                  width={128}
+                  height={53}
+                  className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
+                />
+              </Link>
+            )}
             <div>
               <div className="flex items-center gap-2">
                 {isLoginDropdown && (
@@ -278,16 +279,17 @@ export default function GlobalHeader({
 
           <div className="lg:flex items-center justify-between hidden">
             <div className="flex-none">
-              <Link className="!text-gray-500" href="/">
-                <Image
-                  alt="logo-bri"
-                  src={`${headerLogo ? `${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}` : '/web/guest/images/logo-bri.png'}`}
-                  width={128}
-                  extern={headerLogo ? false : true}
-                  height={53}
-                  className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
-                />
-              </Link>
+              {headerLogo && (
+                <Link className="!text-gray-500" href="/">
+                  <Image
+                    alt="logo-bri"
+                    src={`${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
+                    width={128}
+                    height={53}
+                    className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
+                  />
+                </Link>
+              )}
             </div>
             <div className="flex-auto">
               <div className="flex flex-wrap items-center justify-end gap-y-5">

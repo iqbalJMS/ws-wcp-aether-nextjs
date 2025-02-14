@@ -1155,7 +1155,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const listTab = props?.listTab;
 
       switch (variant) {
-        case WIDGET_VARIANT.variant03:
+        case WIDGET_VARIANT.variant49:
           return <CE_SectionPromo title={title} listTab={listTab} />;
         case WIDGET_VARIANT.variant05:
         case WIDGET_VARIANT.variant10:
@@ -1260,7 +1260,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       });
 
       switch (findVariantStyle) {
-        case WIDGET_VARIANT.variant06:
+        case WIDGET_VARIANT.variant49:
           return {
             title: title,
             listTab: listTabV06,

@@ -1,7 +1,7 @@
 'use client';
 
 import { T_PostResponse } from '@/api/common/fetch.type';
-import { validateMaxMin, validateMin } from '@/lib/functions/global/validation';
+import { validateMaxMin } from '@/lib/functions/global/validation';
 import { Call } from '@strix/client';
 import {
   T_SimulationBrigunaPurna,
@@ -14,7 +14,7 @@ export function CFN_GetSimulationBrigunaPurna(
   data: T_SimulationBrigunaPurnaRequest,
   onSuccess?: (_data: T_PostResponse<T_SimulationBrigunaPurna> | undefined) => void
 ) {
-  
+
   transit(async () => {
     const actionResult = await ACT_GetSimulationBrigunaPurna(data);
     if (onSuccess) {
@@ -40,11 +40,11 @@ export function CFN_ValidateCreateSimulationBrigunaPurnaFields(
 ): string {
   switch (name) {
     case 'salary':
-      return validateMin(value, 'Jumlah Uang Pensiun', 1);
+      return validateMaxMin(value, 'Jumlah Uang Pensiun', 1, 10000000000, 'currency');
     case 'installmentTerm':
       return validateMaxMin(value, 'Jangka Waktu', 1, 15);
     case 'interestRate':
-      return validateMin(value, 'Suku Bunga Efektif', 1);
+      return validateMaxMin(value, 'Suku Bunga Efektif', 0.01, 0.025);
     default:
       return '';
   }

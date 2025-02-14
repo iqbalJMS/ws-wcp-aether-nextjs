@@ -41,7 +41,7 @@ export function Search({ active, setActive }: T_SearchProps) {
     CFN_MapToSearchPayload({
       category: '',
       filter: '',
-      parent: '',
+      parent: 'main-website',
       page: 1,
     }),
     CFN_ValidateGetSearchFields
@@ -449,7 +449,6 @@ export function Search({ active, setActive }: T_SearchProps) {
           {menus?.map((subItem, subIndex) => {
             return (
               <div key={subIndex} className="mr-16">
-                
                 <Link href={generateLink(subItem)}>
                   <div className="text-blue-01 font-semibold mb-2">
                     {subItem?.title}

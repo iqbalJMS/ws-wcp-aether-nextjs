@@ -106,7 +106,7 @@ const CE_SimulationDepositoBusinessMain = () => {
                   <div>
                     <InputSlider
                       min={0}
-                      max={1000000000}
+                      max={10000000000}
                       step={100000}
                       value={form.depositAmount}
                       onChange={(value) =>
@@ -132,22 +132,23 @@ const CE_SimulationDepositoBusinessMain = () => {
                   <div className="mb-5 w-[70%]">
                     <InputText
                       disabled={formDisabled.termInMonths}
-                      rightText="Tahun"
+                      rightText="Bulan"
                       value={form.termInMonths}
-                      onChange={(value) =>
-                        onFieldChange('termInMonths', value)
-                      }
+                      onChange={(value) => onFieldChange('termInMonths', value)}
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
-                      min={0}
-                      max={100}
-                      value={form.termInMonths}
-                      onChange={(value) =>
-                        onFieldChange('termInMonths', value)
+                      min={1}
+                      max={24}
+                      step={
+                        form.termInMonths === 1
+                          ? form.termInMonths + 1
+                          : form.termInMonths
                       }
+                      value={form.termInMonths}
+                      onChange={(value) => onFieldChange('termInMonths', value)}
                     />
                   </div>
                   <div className="mt-5">
@@ -170,9 +171,7 @@ const CE_SimulationDepositoBusinessMain = () => {
                     <InputText
                       disabled
                       rightText="%"
-                      value={
-                        ((result?.rate || 0) * 100).toString() || '5'
-                      }
+                      value={((result?.rate || 0) * 100).toString() || '5'}
                       type="number"
                     />
                   </div>
