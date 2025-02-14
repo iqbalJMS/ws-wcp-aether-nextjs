@@ -1,7 +1,7 @@
 'use client';
 
 import Link from '@/lib/element/global/link';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 import { Tabs } from '@/lib/element/global/tabs';
 import Table from '@/lib/element/global/table';
 import InputSelect from '@/lib/element/global/input.select';
@@ -15,6 +15,7 @@ import {
   T_GetKurs,
 } from '@/app/(views)/$function/cfn.get.kurs';
 import Image from '@/lib/element/global/image';
+import PaginationKurs, { ShowingText } from './client.pagination.kurs';
 
 type T_Props = {
   listTable: T_Kurs['data'];
@@ -33,7 +34,21 @@ function CE_KursValue({
 }: T_Props) {
   const [pending, transiting] = useTransition();
   const isERate = tabActive === 'e-rate';
-  const data = listTable?.map((item) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsTablePerPage = 10;
+  const dataTableLength = listTable.length;
+  const totalPages = useMemo(
+    () => Math.ceil(dataTableLength / itemsTablePerPage),
+    [dataTableLength, itemsTablePerPage]
+  );
+
+  const paginatedDataTable: T_Kurs['data'] = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsTablePerPage;
+    const endIndex = startIndex + itemsTablePerPage;
+    return listTable.slice(startIndex, endIndex);
+  }, [currentPage, itemsTablePerPage, listTable]);
+
+  const data = paginatedDataTable?.map((item) => {
     return {
       id: item.currency,
       name: item.currency,
@@ -42,6 +57,7 @@ function CE_KursValue({
       image: item.image,
     };
   });
+
   const dataCurrencySelected = availableCurrency.map((item) => {
     return {
       title: item,
@@ -93,7 +109,7 @@ function CE_KursValue({
           buyRate: data?.data.calcBuyeRate,
           sellRate: data?.data.calcSelleRate,
         };
-        
+
         setCalculationResult(resultMapping[form.type] || 0);
       });
     }
@@ -113,13 +129,15 @@ function CE_KursValue({
         : 'sell';
 
     setForm({ ...form, amount: 0, calcType: tabValue, type });
-    setCalculationResult(0)
+    setCalculationResult(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabValue, isERate]);
 
   return (
     <div className="flex mdmax:flex-wrap -mx-10">
-      <div className="w-1/2 mdmax:w-full px-10">
+      <div
+        className={`w-1/2 mdmax:w-full px-10 ${listTable.length > 10 ? 'order-2' : ''}`}
+      >
         <Table
           headers={[
             {
@@ -127,8 +145,8 @@ function CE_KursValue({
               field: 'name',
               callback: (item) => {
                 return (
-                  <div className='flex items-center gap-5'>
-                    <div className='w-10 flex-none'>
+                  <div className="flex items-center gap-5">
+                    <div className="w-10 flex-none">
                       <Image
                         src={item.image}
                         extern={false}
@@ -175,8 +193,24 @@ function CE_KursValue({
           list={data}
           itemsPerPage={forPage === 'home' ? 999999 : 5}
         />
+        {listTable.length > 10 && (
+          <div className="flex md:flex-row flex-col items-center justify-between gap-3">
+            <ShowingText
+              currentPage={currentPage}
+              itemsPerPage={itemsTablePerPage}
+              dataLength={dataTableLength}
+            />
+            <PaginationKurs
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
+        )}
       </div>
-      <div className="w-1/2 mdmax:w-full px-10">
+      <div
+        className={`w-1/2 mdmax:w-full px-10 ${listTable.length > 10 ? 'order-1' : ''}`}
+      >
         <div>
           <div className="text-lg uppercase text-blue-01 font-semibold border-b-2 border-blue-01 pb-2">
             Kalkulator
@@ -264,7 +298,7 @@ const CE_KursMain = ({
     },
   ];
   const [tabValue, setTabValue] = useState(tabs.at(0)?.slug || '');
-  
+
   const formatDate = (date: string) => {
     const now = new Date(date);
     const formattedDate = now.toLocaleString('id-ID', {
@@ -275,24 +309,29 @@ const CE_KursMain = ({
       minute: '2-digit',
       second: '2-digit',
     });
-    return formattedDate
-  }
+    return formattedDate;
+  };
   return (
     <div className="container py-10">
       <div className="flex mdmax:flex-col mdmax:items-start items-end justify-between border-b-2 border-dashed border-blue-01 border-opacity-20 pb-5 mb-10">
         <div className="mdmax:mb-5">
           <div className="text-2xl font-semibold mb-2">Kurs BRI</div>
           <div className=" text-black mdmax:text-sm  font-medium text-opacity-30">
-            * Terakhir diperbarui {formatDate(note?.timeUpdated || '')} Untuk transaksi kurang dari
-            eq. {note?.value}
+            * Terakhir diperbarui {formatDate(note?.timeUpdated || '')} Untuk
+            transaksi kurang dari eq. {note?.value}
           </div>
         </div>
-        <div>
-          <Link className="text-blue-01 flex items-center" href={'/'}>
-            LIHAT SELENGKAPNYA{' '}
-            <span className="text-xl inline-block ml-2">{'  >'}</span>
-          </Link>
-        </div>
+        {listTable.length < 10 && (
+          <div>
+            <Link
+              className="text-blue-01 flex items-center"
+              href={'/kurs-detail'}
+            >
+              LIHAT SELENGKAPNYA{' '}
+              <span className="text-xl inline-block ml-2">{'  >'}</span>
+            </Link>
+          </div>
+        )}
       </div>
       <div className="mb-10">
         <Tabs
