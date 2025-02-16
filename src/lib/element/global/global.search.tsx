@@ -1,21 +1,21 @@
-import { Tabs } from './tabs';
-import { CloseIcon } from './close-icon';
+import { T_ApiGetSearchMenu } from '@/api/search/api.get-search-menu.type';
+import { T_Search } from '@/api/search/api.get.search.type';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
-import useForm from '@/lib/hook/useForm';
 import {
   CFN_GetSearch,
   CFN_MapToSearchPayload,
   CFN_ValidateGetSearchFields,
   T_GetSearch,
 } from '@/app/(views)/$function/cfn.get.search';
-import { T_Search } from '@/api/search/api.get.search.type';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import { useEffect, useRef, useState, useTransition } from 'react';
-import useOnClickOutside from '@/lib/hook/useOnClickOutside';
-import Link from './link';
-import Image from './image';
 import { CFN_GetSearchMenu } from '@/app/(views)/$function/cfn.get.search-menu';
-import { T_ApiGetSearchMenu } from '@/api/search/api.get-search-menu.type';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import useForm from '@/lib/hook/useForm';
+import useOnClickOutside from '@/lib/hook/useOnClickOutside';
+import { useEffect, useRef, useState, useTransition } from 'react';
+import { CloseIcon } from './close-icon';
+import Image from './image';
+import Link from './link';
+import { Tabs } from './tabs';
 type T_SearchProps = {
   active: boolean;
   setActive: (_active: boolean) => void;
@@ -435,10 +435,7 @@ export function Search({ active, setActive }: T_SearchProps) {
             </div>
             <div className="mdmax:text-xs">
               Carilah jawaban pada{' '}
-              <Link
-                className="underline font-semibold"
-                href={'https://bri.co.id/web/bri/bantuan'}
-              >
+              <Link className="underline font-semibold" href={'/bantuan'}>
                 halaman FAQ
               </Link>{' '}
               atau arahkan ke kategori konten berikut
