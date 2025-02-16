@@ -161,6 +161,10 @@ const CE_FormQlola = dynamic(
   () => import('@/app/(views)/$element/form/client.form.qlola')
 );
 
+const SE_Sitemap = dynamic(
+  () => import('@/app/(views)/$element/server.sitemap')
+);
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -630,6 +634,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title={title}
             />
           );
+        case WIDGET_VARIANT.variant50:
+          return <SE_Sitemap />;
         default:
           return null;
       }
@@ -1102,6 +1108,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             linkText: _component?.field_primary_cta?.[0]?.title,
             linkUrl: _component?.field_primary_cta?.[0]?.title,
           };
+        case WIDGET_VARIANT.variant50:
+          return {
+            variant: findVariantStyle,
+          };
         default:
           return null;
       }
@@ -1184,8 +1194,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const title = item?.field_title?.[0]?.value;
         const informationText =
           item?.field_paragraphs?.[0]?.field_title_custom?.[0]?.value;
-        const showTitle = item?.field_primary_cta?.[0]?.title;
-        const showUrl = item?.field_primary_cta?.[0]?.full_url;
+        const showTitle =
+          item?.field_paragraphs?.[0]?.field_primary_cta?.[0]?.title;
+        const showUrl =
+          item?.field_paragraphs?.[0]?.field_primary_cta?.[0]?.full_url;
         return {
           group: {
             title: title,
@@ -1195,23 +1207,34 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               url: showUrl,
             },
           },
-          contents: item?.field_paragraphs?.[0]?.field_carousel_items?.map(
-            (items) => {
-              const title = items?.field_title?.[0]?.value;
-              const date = items?.field_simple_text?.[0]?.value;
-              const href = items?.field_primary_cta?.[0]?.full_url;
-              const description = items?.field_content?.[0]?.value;
-              const image =
-                items?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
-              return {
-                img: image,
-                title: title,
-                date: date,
-                href: href,
-                description: description,
-              };
-            }
-          ),
+          contents:
+            item?.field_paragraphs?.[0]?.field_carousel_items?.[0]?.field_content_type?.map(
+              (items) => {
+                const id = items?.nid?.[0]?.value;
+                const type = items?.type?.[0]?.type;
+                const title = items?.title?.[0]?.value;
+                const start_date = items?.field_promo_start_date?.[0]?.value;
+                const end_date = items?.field_promo_end_date?.[0]?.value;
+                const date = items?.created?.[0]?.value;
+                const description =
+                  items?.body?.[0]?.value ||
+                  items?.field_plain_description?.[0]?.value;
+                const image =
+                  items?.field_image?.[0]?.field_media_image?.[0]?.url ||
+                  items?.field_promo_image?.[0]?.field_media_image?.[0]?.url;
+
+                return {
+                  id: id,
+                  type: type,
+                  img: image,
+                  title: title,
+                  description: description,
+                  startDate: start_date,
+                  endDate: end_date,
+                  date: date,
+                };
+              }
+            ),
         };
       });
       const listTabV05 = _component?.field_tab?.map((item) => {
