@@ -60,11 +60,14 @@ export type T_TabProps = {
 export type T_TabViewProps = {
   contents: Array<
     Array<{
+      id: string;
+      type: string;
       img: string;
       title: string;
       date: string;
-      href: string;
       description: string;
+      startDate?: string;
+      endDate?: string;
     }>
   >;
   className?: string;

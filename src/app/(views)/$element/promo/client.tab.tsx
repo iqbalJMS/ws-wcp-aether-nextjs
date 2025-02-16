@@ -45,7 +45,7 @@ export default function CE_Tab(props: T_TabProps) {
     if (isDragging.current) return;
     const target = e.target as HTMLButtonElement;
     const targetAttribute = document.querySelector(
-      attributeTargetId
+      `#${attributeTargetId}`
     ) as HTMLElement;
     targetAttribute.dataset[activeAttr] = n.toString();
 
@@ -148,7 +148,7 @@ export default function CE_Tab(props: T_TabProps) {
       {Number(contents[current]) > 3 && (
         <CE_Buttons
           tabViewController={tabViewController}
-          attributeTargetId="section"
+          attributeTargetId="section-multitab-carousel"
           className="1025-only:hidden"
           attributeName={{ range: 'range' }}
         />

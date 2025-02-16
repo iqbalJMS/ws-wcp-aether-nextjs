@@ -223,7 +223,7 @@ function TabView(props: T_TabViewProps, ref: any) {
       name="tab-view"
       className={{
         container: [
-          'w-max wrapper-space max-w-full px-[calc((max(60vw,15.125rem)+1.25rem)/3.5)]',
+          'w-max wrapper-space max-w-full pl-[calc((max(60vw,15.125rem)+1.25rem)/3.5)]',
           '1025:px-[calc((100vw-var(--wrapper-space))/2)] 1025:pl-0',
           className,
         ].join(' '),
