@@ -263,7 +263,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   section: {
     component: (props) => {
       const findVariantStyle = props?.variant;
-
       const tentangBRI = {
         bigTitle: props?.bigTitle,
         title: props?.title,
@@ -298,7 +297,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         ...item,
         button: {
           ...item.button,
-          ...(!item.button?.extern && {
+          ...((item.button?.link || '').includes('/id/') && {
             link: `${item.button?.link}`.replace('/id', ''),
           }),
         },
@@ -649,7 +648,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return null;
       }
     },
-
     // @ts-expect-error
     props: (_component: T_Section) => {
       const findVariantStyle =
@@ -692,7 +690,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const title = item?.field_title?.[0]?.value;
         const description = item?.field_content?.[0]?.value;
         const imagePosition = item?.field_alignment?.[0]?.value;
-        const buttonLink = item?.field_primary_cta?.[0]?.uri;
+        const buttonLink =
+          item?.field_primary_cta?.[0]?.full_url ||
+          item?.field_primary_cta?.[0]?.uri;
         const buttonTitle = item?.field_primary_cta?.[0]?.title;
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
