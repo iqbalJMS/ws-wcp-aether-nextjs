@@ -47,14 +47,11 @@ export const validateMaxMin = (
   value?: number,
   label: string = 'Nilai',
   min: number = 1,
-  max: number = 10,
-  style: 'currency' | 'number' = 'number'
+  max: number = 10
+  // style: 'currency' | 'number' = 'number'
 ): string => {
-  return (value || 0) < min || (value || 0) > max
-    ? `${label} tidak boleh kurang dari ${min} atau tidak boleh lebih dari ${style === 'currency' ? new Intl.NumberFormat('id-ID').format(Number(max)) : max}`
-    : '';
+  return (value || 0) < min || (value || 0) > max ? `${label} ` : '';
 };
-
 export const validateEmptyArray = (
   value: Array<string | object>,
   label: string = 'field'
