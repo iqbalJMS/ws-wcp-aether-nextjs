@@ -40,13 +40,7 @@ export function CFN_ValidateCreateSimulationBrigunaPurnaFields(
 ): string {
   switch (name) {
     case 'salary':
-      return validateMaxMin(
-        value,
-        'Jumlah Uang Pensiun',
-        1,
-        10000000000,
-        'currency'
-      );
+      return validateMaxMin(value, 'Jumlah Uang Pensiun', 1, 10000000000);
     case 'installmentTerm':
       return validateMaxMin(value, 'Jangka Waktu', 1, 15);
     case 'interestRate':

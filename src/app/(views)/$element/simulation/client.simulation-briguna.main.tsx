@@ -232,6 +232,9 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                   )}
                 </div>
               }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, karyaInterestRate: edit })
+              }
             />
           </div>
           {/* <div className="border-b-2 pb-5 border-blue-01 border-opacity-35 border-dashed mb-10 w-full"></div>

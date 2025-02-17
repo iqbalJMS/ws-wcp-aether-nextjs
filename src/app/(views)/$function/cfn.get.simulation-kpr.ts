@@ -42,13 +42,17 @@ export function CFN_ValidateCreateSimulationKPRFields(
     case 'installmentAmount':
       return validateMaxMin(
         value,
-        'Jumlah Pinjaman',
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 10.000.000.000',
         1,
-        10000000000,
-        'currency'
+        10000000000
       );
     case 'installmentTerm':
-      return validateMaxMin(value, 'Jangka Waktu', 1, 20);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 20',
+        1,
+        20
+      );
     default:
       return '';
   }

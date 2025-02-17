@@ -40,7 +40,7 @@ export function CFN_ValidateCreateSimulationInvestmentFields(
 ): string {
   switch (name) {
     case 'investmentAmount':
-      return validateMaxMin(value, 'Plafond Kredit ', 1, 100000000, 'currency');
+      return validateMaxMin(value, 'Plafond Kredit ', 1, 100000000);
     case 'duration':
       return validateMaxMin(value, 'Jangka Waktu', 1, 120);
     case 'interestRate':

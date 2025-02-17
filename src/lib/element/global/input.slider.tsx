@@ -31,6 +31,7 @@ const InputSlider: React.FC<GradientSliderProps> = ({
   return (
     <div className="flex flex-col items-center w-full">
       <input
+        className="cursor-pointer"
         type="range"
         min={min}
         max={max}
