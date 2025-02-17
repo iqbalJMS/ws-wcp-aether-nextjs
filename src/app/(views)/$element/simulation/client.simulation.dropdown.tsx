@@ -26,7 +26,7 @@ const CE_SimulationDropdown = ({ dropdown }: T_Props) => {
           className="mt-20"
           listItems={listItems}
           buttonText="OK"
-          title='Simulation'
+          title="Simulation"
         />
       </div>
     </div>

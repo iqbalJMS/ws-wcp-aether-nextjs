@@ -25,7 +25,7 @@ const CE_SimulationLabel = ({
             className="text-black text-opacity-50 cursor-pointer"
             onClick={() => {
               setHasEdit(!hasEdit);
-              if (onChange) onChange(hasEdit)
+              if (onChange) onChange(hasEdit);
             }}
           >
             {!hasEdit ? (

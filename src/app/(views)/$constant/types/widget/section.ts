@@ -1,4 +1,4 @@
-import { T_Content_Type } from "./content_type";
+import { T_Content_Type } from './content_type';
 
 type HtmlContent = {
   value: string;

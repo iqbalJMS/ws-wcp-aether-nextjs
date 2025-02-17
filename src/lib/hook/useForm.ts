@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState } from 'react';
 
 export type T_FormErrors<T> = {
   [K in keyof T]?: string;
@@ -7,7 +7,7 @@ export type T_FormErrors<T> = {
 
 type T_Validator<T> = (
   name: keyof T,
-  value: string | boolean | number,
+  value: string | boolean | number
 ) => string;
 
 const updateNestedField = <T>(obj: T, path: (keyof T)[], value: any): T => {
@@ -25,11 +25,11 @@ const updateNestedField = <T>(obj: T, path: (keyof T)[], value: any): T => {
 type T_NestedObject = { [key: string]: any };
 
 function getObjectValue<T>(obj: T_NestedObject, path: string): T | undefined {
-  const keys = path.split(".");
+  const keys = path.split('.');
   let result: any = obj;
 
   for (const key of keys) {
-    if (result && typeof result === "object" && key in result) {
+    if (result && typeof result === 'object' && key in result) {
       result = result[key];
     } else {
       return undefined;
@@ -41,7 +41,7 @@ function getObjectValue<T>(obj: T_NestedObject, path: string): T | undefined {
 
 const useForm = <T extends Record<string, any>, B extends Record<string, any>>(
   initialState: B,
-  validateField: T_Validator<T>,
+  validateField: T_Validator<T>
 ) => {
   const [form, setForm] = useState<B>(initialState);
   const [formError, setFormError] = useState<T_FormErrors<T>>({});
@@ -49,7 +49,7 @@ const useForm = <T extends Record<string, any>, B extends Record<string, any>>(
   const onFieldChange = (
     name: keyof T,
     value: string | boolean | number,
-    withValidation = true,
+    withValidation = true
   ) => {
     if (withValidation) {
       const error = validateField(name as keyof T, value);
@@ -59,7 +59,7 @@ const useForm = <T extends Record<string, any>, B extends Record<string, any>>(
       });
     }
 
-    const pathArray = name.toString().split(".");
+    const pathArray = name.toString().split('.');
 
     const newForm = updateNestedField<B>(form, pathArray as (keyof B)[], value);
 
@@ -86,7 +86,7 @@ const useForm = <T extends Record<string, any>, B extends Record<string, any>>(
     data.forEach((key) => {
       const error = validateField(
         key as keyof T,
-        getObjectValue(form, key as string) as string,
+        getObjectValue(form, key as string) as string
       );
       if (error) {
         errors[key as keyof T] = error;

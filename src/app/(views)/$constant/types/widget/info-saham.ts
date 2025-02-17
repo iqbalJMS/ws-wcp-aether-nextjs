@@ -5,11 +5,11 @@ export type T_Data = {
   high52WKS: string;
   lastUpdated: string;
   low: string;
-  low52WKS: string
-  percentChange: string
-  stockId: string
+  low52WKS: string;
+  percentChange: string;
+  stockId: string;
 };
 
 export type T_InfoSaham = {
-  data: T_Data
+  data: T_Data;
 };

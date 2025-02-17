@@ -14,15 +14,12 @@ export function CFN_GetSimulationBriguna(
   data: T_SimulationBrigunaRequest,
   onSuccess?: (_data: T_PostResponse<T_SimulationBriguna[]> | undefined) => void
 ) {
-  
   transit(async () => {
-    
     const actionResult = await ACT_GetSimulationBriguna(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationBrigunaPayload(
@@ -32,7 +29,7 @@ export function CFN_MapToSimulationBrigunaPayload(
     installmentTerm: form.installmentTerm,
     interestRate: form.interestRate,
     salary: form.salary,
-    type : form.type,
+    type: form.type,
   };
 }
 

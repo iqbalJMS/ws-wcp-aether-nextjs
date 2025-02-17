@@ -36,7 +36,7 @@ type T_Content_Type_Multitab = Array<{
   field_promo_image?: Array<T_FieldImage>;
   field_promo_start_date?: Array<{ value: string }>;
   field_promo_end_date?: Array<{ value: string }>;
-}>
+}>;
 
 type T_FieldParagraph = Array<{
   field_accordion_items: any;
@@ -58,7 +58,7 @@ type T_FieldParagraph = Array<{
     field_content: Array<{ value: string }>;
     field_simple_text: Array<{ value: string }>;
     field_primary_cta: Array<{ full_url: string }>;
-    field_content_type: T_Content_Type_Multitab
+    field_content_type: T_Content_Type_Multitab;
   }>;
   field_column: Array<any>;
   field_title_custom?: Array<{ value: string }>;

@@ -79,17 +79,30 @@ export type T_PromoWidget = {
       field_promo_start_date: Array<{ value: string }>;
       field_promo_end_date: Array<{ value: string }>;
     }>;
-    popular_category: Array<{ title: Array<{ value: string }>; nid: Array<{ value: number }>; field_icon: Array<T_FieldIcon> }>;
+    popular_category: Array<{
+      title: Array<{ value: string }>;
+      nid: Array<{ value: number }>;
+      field_icon: Array<T_FieldIcon>;
+    }>;
     pager: {
       total: number;
       limit: number;
-      page: number
-      total_page: number
-    }
+      page: number;
+      total_page: number;
+    };
     sidebar: {
-      category: Array<{ title: Array<{ value: string }>; nid: Array<{ value: number }>; }>
-      product: Array<{ name: Array<{ value: string }>; tid: Array<{ value: number }>; }>
-      location: Array<{ title: Array<{ value: string }>; nid: Array<{ value: number }>; }>
-    }
+      category: Array<{
+        title: Array<{ value: string }>;
+        nid: Array<{ value: number }>;
+      }>;
+      product: Array<{
+        name: Array<{ value: string }>;
+        tid: Array<{ value: number }>;
+      }>;
+      location: Array<{
+        title: Array<{ value: string }>;
+        nid: Array<{ value: number }>;
+      }>;
+    };
   };
 };

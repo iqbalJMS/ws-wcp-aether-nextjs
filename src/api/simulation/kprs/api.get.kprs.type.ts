@@ -1,9 +1,9 @@
 export type T_SimulationKPRS = {
-  monthlyInstallment: number
-  interestRate: number
+  monthlyInstallment: number;
+  interestRate: number;
 };
 
 export type T_SimulationKPRSRequest = {
-  installmentAmount: number
-  installmentTerm: number
-}
+  installmentAmount: number;
+  installmentTerm: number;
+};

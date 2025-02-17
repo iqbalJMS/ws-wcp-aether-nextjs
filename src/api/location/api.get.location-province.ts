@@ -5,12 +5,10 @@ import { get } from '@/api/common/fetch';
 import { T_PostResponse } from '@/api/common/fetch.type';
 import { T_LocationProvince } from './api.get.location-province.type';
 
-
-
 export async function API_GetLocationProvince() {
   try {
     const url = `/api/brimw/location/province`;
-    
+
     if (!url) return undefined;
     const response = await get<T_PostResponse<T_LocationProvince>>(url);
     return response;

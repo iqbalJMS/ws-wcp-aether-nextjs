@@ -86,7 +86,7 @@ const CE_SimulationMain = ({
             </div>
           </div>
           <div className="w-1/2 mdmax:w-full flex-none px-10">
-            <div className={` ${type === 'tab' ? '-mt-20 mdmax:mt-0' : '' }`}>
+            <div className={` ${type === 'tab' ? '-mt-20 mdmax:mt-0' : ''}`}>
               {type === 'tab' && (
                 <div className="text-right mb-10">
                   <Link
@@ -116,7 +116,9 @@ const CE_SimulationMain = ({
               )}
 
               <div>
-                <div className={`text-3xl font-semibold ${type === 'tab' ? '' : '' }`}>
+                <div
+                  className={`text-3xl font-semibold ${type === 'tab' ? '' : ''}`}
+                >
                   {simulation && simulation.title}
                 </div>
                 {type === 'page' && (
@@ -127,7 +129,7 @@ const CE_SimulationMain = ({
                         <br /> Kunjungi cabang terdekat kami.
                       </div>
                     </div>
-                    <div className='mdmax:w-full'>
+                    <div className="mdmax:w-full">
                       <Link
                         href={action.button.link}
                         extern={action.button.extern}
@@ -145,15 +147,31 @@ const CE_SimulationMain = ({
                   {variant === 'kpr' && <CE_SimulationKPRMain />}
                   {variant === 'kprs' && <CE_SimulationKPRSMain />}
                   {variant === 'cicilan_kendaraan' && <CE_SimulationCarMain />}
-                  {variant === 'britama_rencana' && <CE_SimulationBritamaRencanaMain />}
-                  {variant === 'briguna_umum' && <CE_SimulationBRIGunaMain type={type} />}
-                  {variant === 'briguna_karya' && <CE_SimulationBRIGunaKaryaMain />}
-                  {variant === 'briguna_purna' && <CE_SimulationBRIGunaPurnaMain />}
+                  {variant === 'britama_rencana' && (
+                    <CE_SimulationBritamaRencanaMain />
+                  )}
+                  {variant === 'briguna_umum' && (
+                    <CE_SimulationBRIGunaMain type={type} />
+                  )}
+                  {variant === 'briguna_karya' && (
+                    <CE_SimulationBRIGunaKaryaMain />
+                  )}
+                  {variant === 'briguna_purna' && (
+                    <CE_SimulationBRIGunaPurnaMain />
+                  )}
                   {variant === 'deposito' && <CE_SimulationDepositoMain />}
-                  {variant === 'deposito_bisnis' && <CE_SimulationDepositoBusinessMain />}
-                  {variant === 'deposito_valas' && <CE_SimulationDepositoValasMain />}
-                  {variant === 'kredit_investasi' && <CE_SimulationInvestmentMain />}
-                  {variant === 'initial-investment' && <CE_SimulationInitialInvestmentMain />}
+                  {variant === 'deposito_bisnis' && (
+                    <CE_SimulationDepositoBusinessMain />
+                  )}
+                  {variant === 'deposito_valas' && (
+                    <CE_SimulationDepositoValasMain />
+                  )}
+                  {variant === 'kredit_investasi' && (
+                    <CE_SimulationInvestmentMain />
+                  )}
+                  {variant === 'initial-investment' && (
+                    <CE_SimulationInitialInvestmentMain />
+                  )}
                 </div>
                 {type === 'tab' && (
                   <div className="flex mdmax:flex-wrap items-center justify-between">

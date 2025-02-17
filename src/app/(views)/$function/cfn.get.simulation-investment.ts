@@ -12,16 +12,16 @@ import { ACT_GetSimulationInvestment } from '@/app/(views)/$action/action.get.si
 export function CFN_GetSimulationInvestment(
   transit: Call,
   data: T_SimulationInvestmentRequest,
-  onSuccess?: (_data: T_PostResponse<T_SimulationInvestment> | undefined) => void
+  onSuccess?: (
+    _data: T_PostResponse<T_SimulationInvestment> | undefined
+  ) => void
 ) {
-
   transit(async () => {
     const actionResult = await ACT_GetSimulationInvestment(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationInvestmentPayload(

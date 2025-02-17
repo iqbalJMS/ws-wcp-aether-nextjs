@@ -4,7 +4,6 @@ export type T_FetchOptions = {
   body?: any;
 };
 
-
 export type T_PostResponse<T> = {
-  data: T
-}
+  data: T;
+};

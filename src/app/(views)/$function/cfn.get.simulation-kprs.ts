@@ -17,14 +17,12 @@ export function CFN_GetSimulationKPRS(
   data: T_SimulationKPRSRequest,
   onSuccess?: (data: T_PostResponse<T_SimulationKPRS> | undefined) => void
 ) {
-
   transit(async () => {
     const actionResult = await ACT_GetSimulationKPRS(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationKPRSPayload(
@@ -42,7 +40,13 @@ export function CFN_ValidateCreateSimulationKPRSFields(
 ): string {
   switch (name) {
     case 'installmentAmount':
-      return validateMaxMin(value, 'Jumlah Pinjaman', 1, 10000000000, 'currency');
+      return validateMaxMin(
+        value,
+        'Jumlah Pinjaman',
+        1,
+        10000000000,
+        'currency'
+      );
     case 'installmentTerm':
       return validateMaxMin(value, 'Jangka Waktu', 1, 15);
     default:

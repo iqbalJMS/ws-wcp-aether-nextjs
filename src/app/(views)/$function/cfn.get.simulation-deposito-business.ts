@@ -13,7 +13,9 @@ import { ACT_GetSimulationDepositoBusiness } from '@/app/(views)/$action/action.
 export function CFN_GetSimulationDepositoBusiness(
   transit: Call,
   data: T_SimulationDepositoBusinessRequest,
-  onSuccess?: (_data: T_PostResponse<T_SimulationDepositoBusiness> | undefined) => void
+  onSuccess?: (
+    _data: T_PostResponse<T_SimulationDepositoBusiness> | undefined
+  ) => void
 ) {
   transit(async () => {
     const actionResult = await ACT_GetSimulationDepositoBusiness(data);
@@ -38,7 +40,13 @@ export function CFN_ValidateCreateSimulationDepositoBusinessFields(
 ): string {
   switch (name) {
     case 'depositAmount':
-      return validateMaxMin(value, 'Jumlah Deposito', 1, 10000000000, 'currency');
+      return validateMaxMin(
+        value,
+        'Jumlah Deposito',
+        1,
+        10000000000,
+        'currency'
+      );
     case 'termInMonths':
       return validateMaxMin(value, 'Jangka Waktu', 1, 24);
     default:

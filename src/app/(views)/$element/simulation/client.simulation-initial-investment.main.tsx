@@ -116,7 +116,10 @@ const CE_SimulationInitialInvestmentMain = () => {
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, targetInvestmentValue: edit })
+                setFormDisabled({
+                  ...formDisabled,
+                  targetInvestmentValue: edit,
+                })
               }
             />
           </div>
@@ -130,9 +133,7 @@ const CE_SimulationInitialInvestmentMain = () => {
                       disabled={formDisabled.duration}
                       rightText="Tahun"
                       value={form.duration}
-                      onChange={(value) =>
-                        onFieldChange('duration', value)
-                      }
+                      onChange={(value) => onFieldChange('duration', value)}
                       type="number"
                     />
                   </div>
@@ -141,9 +142,7 @@ const CE_SimulationInitialInvestmentMain = () => {
                       min={0}
                       max={100}
                       value={form.duration}
-                      onChange={(value) =>
-                        onFieldChange('duration', value)
-                      }
+                      onChange={(value) => onFieldChange('duration', value)}
                     />
                   </div>
                   <div className="mt-5">

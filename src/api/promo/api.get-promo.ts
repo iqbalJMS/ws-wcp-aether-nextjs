@@ -9,10 +9,14 @@ function objectToQueryString(obj: Record<string, string>): string {
   return params.toString();
 }
 
-export async function API_GetPromo({ request, alias = 'promo', lang }: {
+export async function API_GetPromo({
+  request,
+  alias = 'promo',
+  lang,
+}: {
   request: T_PromoRequest;
   alias: string;
-  lang: string
+  lang: string;
 }) {
   try {
     let queryString = objectToQueryString(request);

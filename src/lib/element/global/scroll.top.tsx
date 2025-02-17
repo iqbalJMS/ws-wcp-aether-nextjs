@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,21 +16,21 @@ function ScrollToTop() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility);
     return () => {
-      window.removeEventListener("scroll", toggleVisibility);
+      window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
 
   return (
     <div
       className={`fixed right-10 transition-all duration-300 ${
-        isVisible ? "bottom-10" : "-bottom-16"
+        isVisible ? 'bottom-10' : '-bottom-16'
       }`}
     >
       <button

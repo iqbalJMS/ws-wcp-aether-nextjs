@@ -8,8 +8,8 @@ type T_MenuItemBase = {
   expanded: boolean;
   enabled: boolean;
   options?: {
-    external: boolean
-  }
+    external: boolean;
+  };
   nid: string;
 };
 

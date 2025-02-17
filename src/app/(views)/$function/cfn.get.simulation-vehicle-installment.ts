@@ -4,21 +4,24 @@ import { T_PostResponse } from '@/api/common/fetch.type';
 import { validateMaxMin, validateMin } from '@/lib/functions/global/validation';
 import { Call } from '@strix/client';
 import { ACT_GetSimulationVehicleInstallment } from '@/app/(views)/$action/action.get.simulation';
-import { T_SimulationVehicleInstallment, T_SimulationVehicleInstallmentRequest } from '@/api/simulation/vehicle-installment/api.get.vehicle-installment.type';
+import {
+  T_SimulationVehicleInstallment,
+  T_SimulationVehicleInstallmentRequest,
+} from '@/api/simulation/vehicle-installment/api.get.vehicle-installment.type';
 
 export function CFN_GetSimulationVehicleInstallment(
   transit: Call,
   data: T_SimulationVehicleInstallmentRequest,
-  onSuccess?: (_data: T_PostResponse<T_SimulationVehicleInstallment> | undefined) => void
+  onSuccess?: (
+    _data: T_PostResponse<T_SimulationVehicleInstallment> | undefined
+  ) => void
 ) {
-
   transit(async () => {
     const actionResult = await ACT_GetSimulationVehicleInstallment(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationVehicleInstallmentPayload(
@@ -28,7 +31,6 @@ export function CFN_MapToSimulationVehicleInstallmentPayload(
     installmentTerm: form.installmentTerm,
     vehiclePrice: form.vehiclePrice,
     vehicleStatus: form.vehicleStatus,
-
   };
 }
 

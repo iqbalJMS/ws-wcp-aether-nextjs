@@ -29,19 +29,27 @@ export async function ACT_GetSimulationKPR(request: T_SimulationKPRRequest) {
   const response = await API_GetSimulationKPR(request);
   return response;
 }
-export async function ACT_GetSimulationVehicleInstallment(request: T_SimulationVehicleInstallmentRequest) {
+export async function ACT_GetSimulationVehicleInstallment(
+  request: T_SimulationVehicleInstallmentRequest
+) {
   const response = await API_GetSimulationVehicleInstallment(request);
   return response;
 }
-export async function ACT_GetSimulationBriguna(request: T_SimulationBrigunaRequest) {
+export async function ACT_GetSimulationBriguna(
+  request: T_SimulationBrigunaRequest
+) {
   const response = await API_GetSimulationBriguna(request);
   return response;
 }
-export async function ACT_GetSimulationBrigunaKarya(request: T_SimulationBrigunaKaryaRequest) {
+export async function ACT_GetSimulationBrigunaKarya(
+  request: T_SimulationBrigunaKaryaRequest
+) {
   const response = await API_GetSimulationBrigunaKarya(request);
   return response;
 }
-export async function ACT_GetSimulationBrigunaPurna(request: T_SimulationBrigunaPurnaRequest) {
+export async function ACT_GetSimulationBrigunaPurna(
+  request: T_SimulationBrigunaPurnaRequest
+) {
   const response = await API_GetSimulationBrigunaPurna(request);
   return response;
 }
@@ -49,27 +57,39 @@ export async function ACT_GetSimulationKPRS(request: T_SimulationKPRSRequest) {
   const response = await API_GetSimulationKPRS(request);
   return response;
 }
-export async function ACT_GetSimulationBritamaRencana(request: T_SimulationBritamaRencanaRequest) {
+export async function ACT_GetSimulationBritamaRencana(
+  request: T_SimulationBritamaRencanaRequest
+) {
   const response = await API_GetSimulationBritamaRencana(request);
   return response;
 }
-export async function ACT_GetSimulationDeposito(request: T_SimulationDepositoRequest) {
+export async function ACT_GetSimulationDeposito(
+  request: T_SimulationDepositoRequest
+) {
   const response = await API_GetSimulationDeposito(request);
   return response;
 }
-export async function ACT_GetSimulationDepositoBusiness(request: T_SimulationDepositoBusinessRequest) {
+export async function ACT_GetSimulationDepositoBusiness(
+  request: T_SimulationDepositoBusinessRequest
+) {
   const response = await API_GetSimulationDepositoBusiness(request);
   return response;
 }
-export async function ACT_GetSimulationDepositoValas(request: T_SimulationDepositoValasRequest) {
+export async function ACT_GetSimulationDepositoValas(
+  request: T_SimulationDepositoValasRequest
+) {
   const response = await API_GetSimulationDepositoValas(request);
   return response;
 }
-export async function ACT_GetSimulationInvestment(request: T_SimulationInvestmentRequest) {
+export async function ACT_GetSimulationInvestment(
+  request: T_SimulationInvestmentRequest
+) {
   const response = await API_GetSimulationInvestment(request);
   return response;
 }
-export async function ACT_GetSimulationInitialInvestment(request: T_SimulationInitialInvestmentRequest) {
+export async function ACT_GetSimulationInitialInvestment(
+  request: T_SimulationInitialInvestmentRequest
+) {
   const response = await API_GetSimulationInitialInvestment(request);
   return response;
 }

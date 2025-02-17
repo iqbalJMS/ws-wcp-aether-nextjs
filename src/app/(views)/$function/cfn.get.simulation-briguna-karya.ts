@@ -12,16 +12,16 @@ import { ACT_GetSimulationBrigunaKarya } from '@/app/(views)/$action/action.get.
 export function CFN_GetSimulationBrigunaKarya(
   transit: Call,
   data: T_SimulationBrigunaKaryaRequest,
-  onSuccess?: (_data: T_PostResponse<T_SimulationBrigunaKarya> | undefined) => void
+  onSuccess?: (
+    _data: T_PostResponse<T_SimulationBrigunaKarya> | undefined
+  ) => void
 ) {
-
   transit(async () => {
     const actionResult = await ACT_GetSimulationBrigunaKarya(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationBrigunaKaryaPayload(
@@ -40,7 +40,13 @@ export function CFN_ValidateCreateSimulationBrigunaKaryaFields(
 ): string {
   switch (name) {
     case 'salary':
-      return validateMaxMin(value, 'Jumlah Uang Pensiun', 1, 10000000000, 'currency');
+      return validateMaxMin(
+        value,
+        'Jumlah Uang Pensiun',
+        1,
+        10000000000,
+        'currency'
+      );
     case 'installmentTerm':
       return validateMaxMin(value, 'Jangka Waktu', 1, 15);
     case 'interestRate':
