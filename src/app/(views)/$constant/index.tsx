@@ -1,33 +1,31 @@
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import { T_Slider } from './types/widget/slider';
-import { T_ComponentMapWidget, T_Widget } from './types';
-import { T_DropdownAction } from './types/widget/dropdown-action';
-import { T_Section } from './types/widget/section';
-import { T_Subscription } from './types/widget/subscription';
-import { T_MultiTab } from './types/widget/multi-tab';
-import { T_Kurs } from './types/widget/kurs';
-import { T_Header } from './types/widget/header';
-import { T_InfoSaham } from './types/widget/info-saham';
-import { T_DataBreadCrumb } from './types/widget/breadcrumb';
-import { T_StaircaseCards } from './types/widget/staircase-cards';
-import { T_Image } from './types/widget/image';
-import { WIDGET_VARIANT } from './variables';
-
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
-import { Tabs } from '@/lib/element/global/tabs';
-import Image from '@/lib/element/global/image';
-import ImageViewer from '@/lib/element/global/image.viewer';
-
+import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
+import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
+import AboutSection from '@/app/(views)/$element/client.about.section';
 import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
-import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
-import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
-import AboutSection from '@/app/(views)/$element/client.about.section';
+import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
+import Image from '@/lib/element/global/image';
+import ImageViewer from '@/lib/element/global/image.viewer';
+import { Tabs } from '@/lib/element/global/tabs';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { T_ComponentMapWidget, T_Widget } from './types';
+import { T_DataBreadCrumb } from './types/widget/breadcrumb';
+import { T_DropdownAction } from './types/widget/dropdown-action';
+import { T_Header } from './types/widget/header';
+import { T_Image } from './types/widget/image';
+import { T_InfoSaham } from './types/widget/info-saham';
+import { T_Kurs } from './types/widget/kurs';
+import { T_MultiTab } from './types/widget/multi-tab';
 import { T_PromoWidget } from './types/widget/promo';
+import { T_Section } from './types/widget/section';
+import { T_Slider } from './types/widget/slider';
+import { T_StaircaseCards } from './types/widget/staircase-cards';
+import { T_Subscription } from './types/widget/subscription';
+import { WIDGET_VARIANT } from './variables';
 
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
@@ -203,6 +201,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: (props) => {
       const findVariantStyle = props?.variant;
       const data = props?.data;
+
       switch (findVariantStyle) {
         case 'header_curved':
         default:
@@ -244,7 +243,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         (item) => {
           return {
             title: item?.title,
-            value: item?.full_url || item?.uri,
+            value: (item?.full_url || item?.uri || '')?.replace('/id', ''),
           };
         }
       );
@@ -278,22 +277,32 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const navigationLink = props?.navigationLink;
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
-      const listItems = props?.data as Array<{
-        image?: string;
-        title?: string;
-        link?: string;
-        filename?: string;
-        description?: string;
-        downloadFile?: string;
-        subtitle?: string;
-        icon?: string;
-        button?: {
-          link?: string;
-          extern?: boolean;
+      const listItems = (
+        props?.data as Array<{
+          image?: string;
           title?: string;
-        };
-        nid?: number;
-      }>;
+          link?: string;
+          filename?: string;
+          description?: string;
+          downloadFile?: string;
+          subtitle?: string;
+          icon?: string;
+          button?: {
+            link?: string;
+            extern?: boolean;
+            title?: string;
+          };
+          nid?: number;
+        }>
+      ).map((item) => ({
+        ...item,
+        button: {
+          ...item.button,
+          ...(!item.button?.extern && {
+            link: `${item.button?.link}`.replace('/id', ''),
+          }),
+        },
+      }));
       const accordion = props?.accordion as Array<{
         children?: string;
         title?: string;
@@ -1836,7 +1845,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const filename = props?.filename;
       const description = props?.description;
       const iconDownload = props?.iconDownload;
-      const downloadFile = props?.downloadFile;
+      const downloadFile = `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${props?.downloadFile}`;
+
       return (
         <CE_CardVariant09
           data={[
