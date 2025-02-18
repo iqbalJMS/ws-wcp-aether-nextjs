@@ -273,7 +273,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       };
       const title = props?.title;
       const subtitle = props?.subtitle;
-      const navigationLink = props?.navigationLink;
+      const navigationLink = (props?.navigationLink || '').replace('/id', '');
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
       const listItems = (
@@ -2201,14 +2201,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const button = {
         title: props?.button.title,
         extern: props?.button.extern,
-        link: props?.button.link,
+        link: props?.button.link.replace('/id', ''),
       };
       const actionButton = {
         title: props?.actionButton.title,
         extern: props?.actionButton.extern,
-        link: props?.actionButton.link,
+        link: props?.actionButton.link.replace('/id', ''),
       };
       const tabs = props?.tabs;
+
       return (
         <CE_SimulationMain
           type={props.tabs.length === 1 ? 'page' : 'tab'}
