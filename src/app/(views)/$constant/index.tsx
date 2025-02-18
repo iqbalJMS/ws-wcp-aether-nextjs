@@ -277,7 +277,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
       const listItems = (
-        props?.data as Array<{
+        (props?.data as Array<{
           image?: string;
           title?: string;
           link?: string;
@@ -292,7 +292,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title?: string;
           };
           nid?: number;
-        }>
+        }>) || []
       ).map((item) => ({
         ...item,
         button: {
@@ -2201,12 +2201,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const button = {
         title: props?.button.title,
         extern: props?.button.extern,
-        link: props?.button.link.replace('/id', ''),
+        link: (props?.button.link || '').replace('/id', ''),
       };
       const actionButton = {
         title: props?.actionButton.title,
         extern: props?.actionButton.extern,
-        link: props?.actionButton.link.replace('/id', ''),
+        link: (props?.actionButton.link || '').replace('/id', ''),
       };
       const tabs = props?.tabs;
 
