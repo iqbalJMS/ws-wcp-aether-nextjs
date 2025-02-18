@@ -19,6 +19,7 @@ const CE_SimulationDropdown = ({ dropdown }: T_Props) => {
       value: dropdownItem.url.replace('/id', ''),
     };
   });
+
   return (
     <div className="relative z-30 -mt-[7rem]">
       <div>
