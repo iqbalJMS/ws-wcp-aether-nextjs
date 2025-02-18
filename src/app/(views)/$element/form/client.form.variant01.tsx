@@ -17,7 +17,7 @@ type T_FormVariant01Props = {
   dropdownType?: 'input-text';
   buttonText?: string;
   listItems: T_InputSelectItem[] | undefined;
-  buttonAction?: (_?: string) => void
+  buttonAction?: (_?: string) => void;
 };
 
 export default function CE_FormVariant01({
@@ -33,24 +33,24 @@ export default function CE_FormVariant01({
   const [selectedItem, setSelectedItem] = React.useState(listItems?.at(0));
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  let [search, setSearch] = useState('')
+  let [search, setSearch] = useState('');
   useOnClickOutside(dropdownRef, () => setIsOpen(false));
   useEffect(() => {
-    setSearch(selectedItem?.title || '')
-  }, [selectedItem])
+    setSearch(selectedItem?.title || '');
+  }, [selectedItem]);
   let searchListItem = useMemo(() => {
     if (dropdownType !== 'input-text') {
-      return listItems
+      return listItems;
     }
     return listItems?.filter((listItem) => {
-      return listItem.title.toLowerCase().includes(search.toLowerCase())
-    })
-  }, [search, listItems, dropdownType])
+      return listItem.title.toLowerCase().includes(search.toLowerCase());
+    });
+  }, [search, listItems, dropdownType]);
   let hasButtonAction = useMemo(() => {
-    return buttonAction ? true : false
-  }, [buttonAction])
+    return buttonAction ? true : false;
+  }, [buttonAction]);
   return (
-    <section className={["container md:px-20 px-5", className].join(' ')}>
+    <section className={['container md:px-20 px-5', className].join(' ')}>
       <div className="w-[90%] relative z-10 mx-auto -mt-24" ref={dropdownRef}>
         <div className="py-5 px-8 rounded-[1.8rem] shadow-lg bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
           <div className="z-10 flex items-center mdmax:flex-col w-full gap-4">
@@ -94,7 +94,9 @@ export default function CE_FormVariant01({
                     className="border-none focus:outline-none w-full"
                     value={search}
                     placeholder={placeholder ?? ''}
-                    onChange={(event) => {setSearch(event.target.value)}}
+                    onChange={(event) => {
+                      setSearch(event.target.value);
+                    }}
                   />
                 </div>
               ) : (
@@ -112,14 +114,17 @@ export default function CE_FormVariant01({
             </div>
           </div>
           <div className="relative z-10">
-            
-            <Link href={!hasButtonAction ? selectedItem?.value || '' : 'lokasi'}>
+            <Link
+              href={!hasButtonAction ? selectedItem?.value || '' : 'lokasi'}
+            >
               <button
                 disabled={isOpen}
                 className={`font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-full ${
                   isOpen ? 'bg-gray-400' : 'bg-orange-400 hover:bg-orange-500'
                 }`}
-                onClick={() => buttonAction ? buttonAction(selectedItem?.value) : false}
+                onClick={() =>
+                  buttonAction ? buttonAction(selectedItem?.value) : false
+                }
               >
                 {buttonText?.toUpperCase() ?? 'BANTUAN'}
               </button>

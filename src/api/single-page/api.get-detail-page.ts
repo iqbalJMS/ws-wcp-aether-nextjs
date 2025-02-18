@@ -13,7 +13,7 @@ export async function API_GetDetailPage({
   nid: number;
 }): Promise<any> {
   try {
-    const isEnglish = lang === 'en' ? '' : '/id';
+    const isEnglish = !lang || lang === 'id' ? '/id' : '';
     const response = await get(
       `${isEnglish}/${alias}/${nid}?_format=json_recursive`
     );

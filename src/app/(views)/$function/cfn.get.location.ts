@@ -1,14 +1,15 @@
 'use client';
 
-
 /* eslint-disable no-unused-vars */
 
 import { Arrival, Call, Departure } from '@strix/client';
 import { ACT_GetKurs } from '@/app/(views)/$action/action.get.kurs';
 import { T_PostResponse } from '@/api/common/fetch.type';
-import { T_Location, T_LocationRequest } from '@/api/location/api.get.location.type';
+import {
+  T_Location,
+  T_LocationRequest,
+} from '@/api/location/api.get.location.type';
 import { ACT_GetLocation } from '@/app/(views)/$action/action.get.location';
-
 
 export function CFN_GetLocation(
   transit: Call,
@@ -24,13 +25,15 @@ export function CFN_GetLocation(
   });
 }
 
-export function CFN_MapToLocationPayload(form: T_LocationRequest): T_LocationRequest {
+export function CFN_MapToLocationPayload(
+  form: T_LocationRequest
+): T_LocationRequest {
   return {
     limit: form.limit,
     skip: form.skip,
     province: form.province,
     tipe: form.tipe,
-    category: form.category
+    category: form.category,
   };
 }
 

@@ -211,7 +211,9 @@ const CE_SimulationBritamaRencanaMain = () => {
                     <InputText
                       disabled
                       rightText="%"
-                      value={((result?.interestRate || 0) * 100).toString() || '5'}
+                      value={
+                        ((result?.interestRate || 0) * 100).toString() || '5'
+                      }
                       type="number"
                     />
                   </div>

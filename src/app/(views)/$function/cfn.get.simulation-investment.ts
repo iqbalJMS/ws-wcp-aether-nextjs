@@ -12,16 +12,16 @@ import { ACT_GetSimulationInvestment } from '@/app/(views)/$action/action.get.si
 export function CFN_GetSimulationInvestment(
   transit: Call,
   data: T_SimulationInvestmentRequest,
-  onSuccess?: (_data: T_PostResponse<T_SimulationInvestment> | undefined) => void
+  onSuccess?: (
+    _data: T_PostResponse<T_SimulationInvestment> | undefined
+  ) => void
 ) {
-
   transit(async () => {
     const actionResult = await ACT_GetSimulationInvestment(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationInvestmentPayload(
@@ -40,7 +40,7 @@ export function CFN_ValidateCreateSimulationInvestmentFields(
 ): string {
   switch (name) {
     case 'investmentAmount':
-      return validateMaxMin(value, 'Plafond Kredit ', 1, 100000000, 'currency');
+      return validateMaxMin(value, 'Plafond Kredit ', 1, 100000000);
     case 'duration':
       return validateMaxMin(value, 'Jangka Waktu', 1, 120);
     case 'interestRate':

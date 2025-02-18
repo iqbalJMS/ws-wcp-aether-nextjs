@@ -80,16 +80,18 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
         <CE_SimulationResultVariant01
           values={
             type === 'tab'
-              ? [{
-                label: 'Estimasi Angsuran Bulanan',
-                value:
-                  result
-                    ?.reduce(
-                      (acc, curr) => acc + curr.monthlyInstallment,
-                      0
-                    )
-                    .toString() || '0',
-              },]
+              ? [
+                  {
+                    label: 'Estimasi Angsuran Bulanan',
+                    value:
+                      result
+                        ?.reduce(
+                          (acc, curr) => acc + curr.monthlyInstallment,
+                          0
+                        )
+                        .toString() || '0',
+                  },
+                ]
               : [
                   {
                     label: 'Hasil BRIGuna Karya',
@@ -229,6 +231,9 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                     </div>
                   )}
                 </div>
+              }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, karyaInterestRate: edit })
               }
             />
           </div>

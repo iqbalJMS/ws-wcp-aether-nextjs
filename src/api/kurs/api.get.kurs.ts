@@ -15,20 +15,18 @@ export async function API_GetKurs(request: T_KursRequest) {
 
     const url = initialUrl[request.type];
     if (!url) return undefined;
-    
+
     // eslint-disable-next-line no-unused-vars
     const { type, ...newRequest } = request;
 
-    
     const formData = new FormData();
 
-    
     Object.entries(newRequest).forEach(([key, value]) => {
-      formData.append(key, value.toString()); 
+      formData.append(key, value.toString());
     });
-    
+
     const response = await post<T_PostResponse<T_Kurs>>(url, formData);
-    
+
     return response;
   } catch (error) {
     // eslint-disable-next-line no-console

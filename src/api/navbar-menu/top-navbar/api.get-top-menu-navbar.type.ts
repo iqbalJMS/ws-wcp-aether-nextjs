@@ -8,7 +8,7 @@ export type T_ResponseGetTopMenuNavbar = Array<{
   expanded: boolean;
   enabled: boolean;
   options?: {
-    external: boolean
-  }
+    external: boolean;
+  };
   icon?: string;
 }>;

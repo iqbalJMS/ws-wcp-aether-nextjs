@@ -10,7 +10,7 @@ export function CFN_GetPromo(
   data: T_PromoRequest,
   alias: string,
   lang: string,
-  onSuccess?: (data: any | undefined) => void,
+  onSuccess?: (data: any | undefined) => void
 ) {
   transit(async () => {
     const payload = CFN_MapToPromoPayload(data);
@@ -28,7 +28,7 @@ export function CFN_MapToPromoPayload(form: T_PromoRequest): T_PromoRequest {
     category_id: form.category_id,
     search: form.search,
     location_id: form.location_id,
-    product_id: form.product_id
+    product_id: form.product_id,
   };
 }
 

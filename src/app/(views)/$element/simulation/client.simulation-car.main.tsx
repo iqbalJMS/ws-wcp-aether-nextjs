@@ -197,7 +197,7 @@ const CE_SimulationCarMain = () => {
                       type="number"
                     />
                   </div>
-                  <div>
+                  <div className="cursor-pointer">
                     <InputSlider
                       min={0}
                       max={10000000000}

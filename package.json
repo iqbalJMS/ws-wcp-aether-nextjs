@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node server/obfuscator.js",
+    "build": "npm run obfuscate",
     "start": "GENERATE_SOURCEMAP=false NEXT_TELEMETRY_DISABLED=1 next start --keepAliveTimeout 70000",
     "lint": "next lint",
     "format": "prettier --check --write src",

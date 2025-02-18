@@ -1,7 +1,6 @@
 'use client';
 
 import useScrollActive from '@/lib/hook/useScroll';
-import Image from './image';
 import { T_ResponseGetTopMenuNavbar } from '@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type';
 import {
   T_Items,
@@ -16,6 +15,8 @@ import { Search } from './global.search';
 import { motion } from 'framer-motion';
 import { T_ResponseGetMenuItemNavbar } from '@/api/navbar-menu/menu-items/api.get-menu-items-navbar.type';
 import { T_ResponGetHeaderLogo } from '@/api/header-logo/api.get-header-logo.type';
+import Image from 'next/image';
+import defaultLogo from '@/../../public/images/bri-logo.png';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
 
@@ -185,13 +186,12 @@ export default function GlobalHeader({
                               )
                       }
                     >
-                      {header.icon && (
+                      {header?.icon && (
                         <Image
-                          extern={false}
-                          src={`${header.icon}`}
+                          src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${header?.icon}`}
                           width={18}
                           height={18}
-                          alt={`icon-${header.icon}`}
+                          alt={`icon-${header?.icon}`}
                           className={[
                             'w-3 h-3 mr-2 ',
                             variant === 'no-transparent'
@@ -240,17 +240,26 @@ export default function GlobalHeader({
           </div>
 
           <div className="lg:hidden items-center justify-between flex">
-            {headerLogo && (
-              <Link href={'/'} className="w-[5rem]">
+            <Link href={'/'} className="w-[5rem]">
+              {headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]
+                ?.url ? (
                 <Image
                   alt="logo-bri"
-                  src={`${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
+                  src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ?? ''}`}
                   width={128}
                   height={53}
                   className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
                 />
-              </Link>
-            )}
+              ) : (
+                <Image
+                  alt="logo-default"
+                  src={defaultLogo}
+                  width={128}
+                  height={53}
+                  className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
+                />
+              )}
+            </Link>
             <div>
               <div className="flex items-center gap-2">
                 {isLoginDropdown && (
@@ -279,17 +288,26 @@ export default function GlobalHeader({
 
           <div className="lg:flex items-center justify-between hidden">
             <div className="flex-none">
-              {headerLogo && (
-                <Link className="!text-gray-500" href="/">
+              <Link className="!text-gray-500" href="/">
+                {headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]
+                  ?.uri?.[0]?.url ? (
                   <Image
                     alt="logo-bri"
-                    src={`${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
+                    src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
                     width={128}
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
                   />
-                </Link>
-              )}
+                ) : (
+                  <Image
+                    alt="logo-default"
+                    src={defaultLogo}
+                    width={128}
+                    height={53}
+                    className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
+                  />
+                )}
+              </Link>
             </div>
             <div className="flex-auto">
               <div className="flex flex-wrap items-center justify-end gap-y-5">
@@ -360,7 +378,7 @@ export default function GlobalHeader({
                                                     src={`/web/guest/images/headers/arrow-right.svg`}
                                                     width={18}
                                                     height={18}
-                                                    extern={true}
+                                                    // extern={true}
                                                     alt={`icon-arrow-right`}
                                                     className="w-3 h-3 ml-4"
                                                   />
@@ -404,7 +422,7 @@ export default function GlobalHeader({
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="bg-black max-w-[80%] relative z-20 h-full p-5 pt-10 overflow-y-auto"
+              className="bg-black max-w-[80%] relative z-20 h-screen p-5 pt-10 overflow-y-auto"
             >
               <div
                 className="absolute top-2 right-2"
@@ -450,7 +468,7 @@ export default function GlobalHeader({
                         height={24}
                         style={{ rotate: '180deg' }}
                         className="filter brightness-0 invert"
-                        extern
+                        // extern
                       />
                       <p className="uppercase">{isSelectedMenu?.title}</p>
                     </button>
@@ -502,7 +520,7 @@ export default function GlobalHeader({
                                 src="/web/guest/images/headers/arrow-right.svg"
                                 width={24}
                                 height={24}
-                                extern
+                                // extern
                                 className="filter brightness-0 invert"
                               />
                             </button>
@@ -551,18 +569,18 @@ export default function GlobalHeader({
                                     )
                               }
                             >
-                              {header.icon && (
+                              {header?.icon && (
                                 <Image
-                                  extern={false}
-                                  src={`${header.icon}`}
+                                  // extern={false}
+                                  src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${header?.icon}`}
                                   width={18}
                                   height={18}
-                                  alt={`icon-${header.icon}`}
+                                  alt={`icon-${header?.icon}`}
                                   className="w-3 h-3 mr-2 filter brightness-0 invert"
                                 />
                               )}
                               <div className="text-[0.813rem] font-light text-white">
-                                {header.title}
+                                {header?.title}
                               </div>
                             </div>
                           </div>
@@ -650,7 +668,7 @@ const NavigationItem = ({
               <Image
                 alt="icon-arrow-right"
                 src="/web/guest/images/headers/arrow-right.svg"
-                extern
+                // extern
                 width={20}
                 height={20}
                 className="filter brightness-0 invert"
@@ -662,7 +680,7 @@ const NavigationItem = ({
               <Image
                 alt="icon-arrow-right"
                 src="/web/guest/images/headers/arrow-right.svg"
-                extern
+                // extern
                 width={20}
                 height={20}
                 style={{

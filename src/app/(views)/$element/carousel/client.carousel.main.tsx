@@ -8,7 +8,6 @@ import { CE_CarouselVariant04 } from './client.carousel.variant04';
 import { CE_CarouselVariant05 } from './client.carousel.variant05';
 import { CE_CarouselVariant07 } from './client.carousel.variant07';
 
-
 export default function CE_CarouselMain({
   data,
   title,
@@ -25,7 +24,12 @@ export default function CE_CarouselMain({
         <CE_CarouselVariant02 data={data} title={title} button={button} />
       )}
       {variant === '03' && (
-        <CE_CarouselVariant03 data={data} title={title} button={button} description={description} />
+        <CE_CarouselVariant03
+          data={data}
+          title={title}
+          button={button}
+          description={description}
+        />
       )}
       {variant === '04' && (
         <CE_CarouselVariant04
@@ -51,7 +55,6 @@ export default function CE_CarouselMain({
           description={description}
         />
       )}
-      
     </>
   );
 }

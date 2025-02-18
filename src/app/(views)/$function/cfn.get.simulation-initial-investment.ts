@@ -12,16 +12,16 @@ import { ACT_GetSimulationInitialInvestment } from '@/app/(views)/$action/action
 export function CFN_GetSimulationInitialInvestment(
   transit: Call,
   data: T_SimulationInitialInvestmentRequest,
-  onSuccess?: (_data: T_PostResponse<T_SimulationInitialInvestment> | undefined) => void
+  onSuccess?: (
+    _data: T_PostResponse<T_SimulationInitialInvestment> | undefined
+  ) => void
 ) {
-  
   transit(async () => {
     const actionResult = await ACT_GetSimulationInitialInvestment(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationInitialInvestmentPayload(
@@ -30,7 +30,6 @@ export function CFN_MapToSimulationInitialInvestmentPayload(
   return {
     duration: form.duration,
     targetInvestmentValue: form.targetInvestmentValue,
-    
   };
 }
 

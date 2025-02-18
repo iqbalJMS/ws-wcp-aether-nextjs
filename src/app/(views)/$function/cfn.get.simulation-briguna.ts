@@ -1,7 +1,7 @@
 'use client';
 
 import { T_PostResponse } from '@/api/common/fetch.type';
-import { validateMaxMin, validateMin } from '@/lib/functions/global/validation';
+import { validateMaxMin } from '@/lib/functions/global/validation';
 import { Call } from '@strix/client';
 import {
   T_SimulationBriguna,
@@ -14,15 +14,12 @@ export function CFN_GetSimulationBriguna(
   data: T_SimulationBrigunaRequest,
   onSuccess?: (_data: T_PostResponse<T_SimulationBriguna[]> | undefined) => void
 ) {
-  
   transit(async () => {
-    
     const actionResult = await ACT_GetSimulationBriguna(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationBrigunaPayload(
@@ -32,7 +29,7 @@ export function CFN_MapToSimulationBrigunaPayload(
     installmentTerm: form.installmentTerm,
     interestRate: form.interestRate,
     salary: form.salary,
-    type : form.type,
+    type: form.type,
   };
 }
 
@@ -42,11 +39,26 @@ export function CFN_ValidateCreateSimulationBrigunaFields(
 ): string {
   switch (name) {
     case 'salary':
-      return validateMin(value, 'Jumlah Gaji', 1);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 10.000.000.000',
+        1,
+        10000000000
+      );
     case 'installmentTerm':
-      return validateMaxMin(value, 'Jangka Waktu', 1, 15);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 15',
+        1,
+        15
+      );
     case 'interestRate':
-      return validateMaxMin(value, 'Suku Bunga Efektif', 0.01, 0.25);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0% atau Nilai tidak boleh lebih besar dari 25%',
+        0.01,
+        0.25
+      );
     default:
       return '';
   }

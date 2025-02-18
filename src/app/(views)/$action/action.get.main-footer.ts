@@ -1,7 +1,7 @@
-"use server";
+'use server';
 
-import { API_GetMainFooterMenu } from "@/api/footer/main-footer/api.get-main-footer";
-import { T_ResponseGetMainFooterMenu } from "@/api/footer/main-footer/api.get-main-footer.type";
+import { API_GetMainFooterMenu } from '@/api/footer/main-footer/api.get-main-footer';
+import { T_ResponseGetMainFooterMenu } from '@/api/footer/main-footer/api.get-main-footer.type';
 
 export async function ACT_GetMainMenuFooter({
   lang,

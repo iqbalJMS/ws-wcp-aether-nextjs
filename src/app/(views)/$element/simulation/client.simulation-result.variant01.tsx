@@ -10,7 +10,7 @@ type T_SimulationresultVariant01Props = {
     width?: string;
     col?: boolean;
     percentage?: boolean;
-    active?: boolean
+    active?: boolean;
   }[];
   onClose: () => void;
   type?: 'center' | 'row-col';
@@ -28,7 +28,7 @@ const CE_SimulationResultVariant01 = ({
           {type === 'center' &&
             values.map((valueItem, valueIndex) => {
               return (
-                <div key={valueIndex} className='mb-10'>
+                <div key={valueIndex} className="mb-10">
                   <div className="text-xl text-center uppercase">
                     {valueItem.label}
                   </div>
@@ -43,35 +43,41 @@ const CE_SimulationResultVariant01 = ({
               );
             })}
           {type === 'row-col' && (
-            
             <div className="flex flex-wrap">
-              {values.filter((valueItem) => valueItem.active === undefined || valueItem.active === true).map((valueItem, valueIndex) => {
-                return (
-                  <div
-                    key={valueIndex}
-                    className="flex-none mdmax:!w-full mb-5"
-                    style={{ width: `${valueItem.width || 100}%` }}
-                  >
+              {values
+                .filter(
+                  (valueItem) =>
+                    valueItem.active === undefined || valueItem.active === true
+                )
+                .map((valueItem, valueIndex) => {
+                  return (
                     <div
-                      className={
-                        valueItem.col ? 'flex justify-between items-center mdmax:flex-wrap' : ''
-                      }
+                      key={valueIndex}
+                      className="flex-none mdmax:!w-full mb-5"
+                      style={{ width: `${valueItem.width || 100}%` }}
                     >
-                      <div className="uppercase  mdmax:w-full mdmax:flex-none font-medium text-black text-opacity-50">
-                        {valueItem.label}
-                      </div>
-                      <div className="text-lg text-blue-01 font-semibold mdmax:w-full mdmax:flex-none">
-                        {!valueItem.percentage && 'Rp. '}
-                        {new Intl.NumberFormat('en-US', {
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 2,
-                        }).format(parseFloat(valueItem.value))}
-                        {valueItem.percentage && '%'}
+                      <div
+                        className={
+                          valueItem.col
+                            ? 'flex justify-between items-center mdmax:flex-wrap'
+                            : ''
+                        }
+                      >
+                        <div className="uppercase  mdmax:w-full mdmax:flex-none font-medium text-black text-opacity-50">
+                          {valueItem.label}
+                        </div>
+                        <div className="text-lg text-blue-01 font-semibold mdmax:w-full mdmax:flex-none">
+                          {!valueItem.percentage && 'Rp. '}
+                          {new Intl.NumberFormat('en-US', {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2,
+                          }).format(parseFloat(valueItem.value))}
+                          {valueItem.percentage && '%'}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           )}
         </div>

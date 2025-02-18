@@ -152,7 +152,7 @@ const CE_SimulationKPRSMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5 bg-[#CACACD] opacity-25">
             <CE_SimulationLabel
               label="Suku Bunga Efektif"
               editable={false}

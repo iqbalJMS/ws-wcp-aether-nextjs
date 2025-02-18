@@ -16,10 +16,9 @@ const InputSlider: React.FC<GradientSliderProps> = ({
   value: defaultValue = min,
   onChange,
 }) => {
-  
   const value = useMemo(() => {
-    return defaultValue
-  }, [defaultValue])
+    return defaultValue;
+  }, [defaultValue]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
     if (onChange) onChange(newValue);
@@ -32,6 +31,7 @@ const InputSlider: React.FC<GradientSliderProps> = ({
   return (
     <div className="flex flex-col items-center w-full">
       <input
+        className="cursor-pointer"
         type="range"
         min={min}
         max={max}

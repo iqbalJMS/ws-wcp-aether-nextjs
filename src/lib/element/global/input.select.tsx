@@ -73,7 +73,7 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
       onChange?.(item);
       setDropdownActive(false);
     }
-    setFilterText('')
+    setFilterText('');
   };
 
   const newList = list?.filter((item) =>

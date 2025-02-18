@@ -17,14 +17,12 @@ export function CFN_GetSimulationKPR(
   data: T_SimulationKPRRequest,
   onSuccess?: (data: T_PostResponse<T_SimulationKPR> | undefined) => void
 ) {
-
   transit(async () => {
     const actionResult = await ACT_GetSimulationKPR(data);
     if (onSuccess) {
       onSuccess(actionResult);
     }
   });
-
 }
 
 export function CFN_MapToSimulationKPRPayload(
@@ -42,9 +40,19 @@ export function CFN_ValidateCreateSimulationKPRFields(
 ): string {
   switch (name) {
     case 'installmentAmount':
-      return validateMaxMin(value, 'Jumlah Pinjaman', 1, 10000000000, 'currency');
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 10.000.000.000',
+        1,
+        10000000000
+      );
     case 'installmentTerm':
-      return validateMaxMin(value, 'Jangka Waktu', 1, 20);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 20',
+        1,
+        20
+      );
     default:
       return '';
   }

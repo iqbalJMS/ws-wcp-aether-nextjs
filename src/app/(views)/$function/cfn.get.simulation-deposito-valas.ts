@@ -13,7 +13,9 @@ import { ACT_GetSimulationDepositoValas } from '@/app/(views)/$action/action.get
 export function CFN_GetSimulationDepositoValas(
   transit: Call,
   data: T_SimulationDepositoValasRequest,
-  onSuccess?: (_data: T_PostResponse<T_SimulationDepositoValas> | undefined) => void
+  onSuccess?: (
+    _data: T_PostResponse<T_SimulationDepositoValas> | undefined
+  ) => void
 ) {
   transit(async () => {
     const actionResult = await ACT_GetSimulationDepositoValas(data);
@@ -38,7 +40,7 @@ export function CFN_ValidateCreateSimulationDepositoValasFields(
 ): string {
   switch (name) {
     case 'depositAmount':
-      return validateMaxMin(value, 'Jumlah Deposito', 1, 100000000, 'currency');
+      return validateMaxMin(value, 'Jumlah Deposito', 1, 100000000);
     case 'termInMonths':
       return validateMaxMin(value, 'Jangka Waktu', 1, 24);
     default:
