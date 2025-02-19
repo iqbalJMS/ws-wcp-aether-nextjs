@@ -49,7 +49,9 @@ export const WIDGET_VARIANT = {
   variant48: 'section_product_unggulan_bank_raya',
   variant49: 'section_carousel_variant_4',
   variant50: 'generated_sitemap',
-  variant51: 'news'
+  variant51: 'news',
 };
 
-export const API_BASE_URL = 'https://admin-bri-corpsite.dev-kjt.id';
+export const API_BASE_URL =
+  process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT'] ||
+  'https://admin-bri-corpsite.dev-kjt.id';

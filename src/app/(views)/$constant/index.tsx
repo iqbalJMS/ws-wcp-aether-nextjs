@@ -14,6 +14,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
+import { T_News } from './types/widget/content_type';
 import { T_DropdownAction } from './types/widget/dropdown-action';
 import { T_Header } from './types/widget/header';
 import { T_Image } from './types/widget/image';
@@ -25,8 +26,7 @@ import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
-import { WIDGET_VARIANT } from './variables';
-import { T_News } from './types/widget/content_type';
+import { API_BASE_URL, WIDGET_VARIANT } from './variables';
 
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
@@ -1197,7 +1197,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               list={list}
               style={style}
               variantContent={variant}
-              drupalBase={process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}
+              drupalBase={API_BASE_URL}
             />
           );
       }
@@ -1854,7 +1854,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const filename = props?.filename;
       const description = props?.description;
       const iconDownload = props?.iconDownload;
-      const downloadFile = `${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${props?.downloadFile}`;
+      const downloadFile = `${API_BASE_URL}${props?.downloadFile}`;
 
       return (
         <CE_CardVariant09

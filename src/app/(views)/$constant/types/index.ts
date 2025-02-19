@@ -31,7 +31,7 @@ export type T_IconList = {
   link: string;
   externalLink: boolean;
   active: boolean;
-  isFixed: string
+  isFixed: string;
 };
 
 export type T_CarouselMainProps = {

@@ -9,10 +9,10 @@ export type T_PersonalizeMenu = {
   expanded: boolean;
   enabled: boolean;
   uuid?: string;
-  field_is_fixed: Array<{ value: string }> | null
+  field_is_fixed: Array<{ value: string }> | null;
   options:
-  | {
-    external: boolean;
-  }
-  | any[];
+    | {
+        external: boolean;
+      }
+    | any[];
 };

@@ -3,7 +3,9 @@
 
 import { T_FetchOptions } from './fetch.type';
 
-const API_BASE_URL = process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT'];
+const API_BASE_URL =
+  process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT'] ||
+  'https://admin-bri-corpsite.dev-kjt.id';
 
 const DEFAULT_HEADERS: HeadersInit = {
   'Content-Type': 'application/json',

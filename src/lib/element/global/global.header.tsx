@@ -1,23 +1,24 @@
 'use client';
 
-import useScrollActive from '@/lib/hook/useScroll';
-import { T_ResponseGetTopMenuNavbar } from '@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type';
+import defaultLogo from '@/../../public/images/bri-logo.png';
+import { T_ResponGetHeaderLogo } from '@/api/header-logo/api.get-header-logo.type';
 import {
   T_Items,
   T_ResponseGetMainMenuNavbar,
 } from '@/api/navbar-menu/main-navbar/api.get-main-menu-navbar.type';
+import { T_ResponseGetMenuItemNavbar } from '@/api/navbar-menu/menu-items/api.get-menu-items-navbar.type';
+import { T_ResponseGetTopMenuNavbar } from '@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
+import CE_DefaultIcon from '@/lib/element/global/default-icon';
+import useOnClickOutside from '@/lib/hook/useOnClickOutside';
+import useScrollActive from '@/lib/hook/useScroll';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
-import useOnClickOutside from '@/lib/hook/useOnClickOutside';
-import Link from './link';
 import { CloseIcon } from './close-icon';
 import { Search } from './global.search';
-import { motion } from 'framer-motion';
-import { T_ResponseGetMenuItemNavbar } from '@/api/navbar-menu/menu-items/api.get-menu-items-navbar.type';
-import { T_ResponGetHeaderLogo } from '@/api/header-logo/api.get-header-logo.type';
-import Image from 'next/image';
-import defaultLogo from '@/../../public/images/bri-logo.png';
-import CE_DefaultIcon from '@/lib/element/global/default-icon';
+import Link from './link';
 // import icon1 from '@/../../public/images/icon-menu/icon1.webp';
 // import icon2 from '@/../../public/images/icon-menu/icon2.webp';
 // import icon3 from '@/../../public/images/icon-menu/icon3.webp';
@@ -216,7 +217,7 @@ export default function GlobalHeader({
                     >
                       {header?.icon ? (
                         <Image
-                          src={`${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${header?.icon}`}
+                          src={`${API_BASE_URL}${header?.icon}`}
                           width={18}
                           height={18}
                           alt={`icon-${header?.icon}`}
@@ -284,7 +285,7 @@ export default function GlobalHeader({
                 ?.url ? (
                 <Image
                   alt="logo-bri"
-                  src={`${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ?? ''}`}
+                  src={`${API_BASE_URL}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ?? ''}`}
                   width={128}
                   height={53}
                   className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -332,7 +333,7 @@ export default function GlobalHeader({
                   ?.uri?.[0]?.url ? (
                   <Image
                     alt="logo-bri"
-                    src={`${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
+                    src={`${API_BASE_URL}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
                     width={128}
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -611,7 +612,7 @@ export default function GlobalHeader({
                               {header?.icon && (
                                 <Image
                                   // extern={false}
-                                  src={`${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${header?.icon}`}
+                                  src={`${API_BASE_URL}${header?.icon}`}
                                   width={18}
                                   height={18}
                                   alt={`icon-${header?.icon}`}
