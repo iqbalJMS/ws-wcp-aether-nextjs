@@ -1611,7 +1611,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   description: firstColumn?.description,
                   buttons: [
                     {
-                      link: firstColumn?.button?.full_url,
+                      link: (firstColumn?.button?.link || '').replace(
+                        '/id',
+                        ''
+                      ),
                       title: firstColumn?.button?.title,
                       extern: true,
                     },
@@ -1623,7 +1626,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   description: secondColumn?.description,
                   buttons: [
                     {
-                      link: secondColumn?.button?.full_url,
+                      link: (secondColumn?.button?.link || '').replace(
+                        '/id',
+                        ''
+                      ),
                       title: secondColumn?.button?.title,
                       extern: true,
                     },
