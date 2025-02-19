@@ -15,16 +15,19 @@ import {
   T_SimulationDepositoBusiness,
   T_SimulationDepositoBusinessRequest,
 } from '@/api/simulation/deposito-business/api.get.deposito-business.type';
+import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
+import InputSelect from '@/lib/element/global/input.select';
 
 const CE_SimulationDepositoBusinessMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
+  const [resetCount, setResetCount] = useState(0);
 
   const [formDisabled, setFormDisabled] = useState({
     depositAmount: true,
     termInMonths: true,
   });
-  const { form, formError, onFieldChange, validateForm } = useForm<
+  const { form, formError, onFieldChange, validateForm, resetForm } = useForm<
     T_SimulationDepositoBusinessRequest,
     T_SimulationDepositoBusinessRequest
   >(
@@ -63,6 +66,15 @@ const CE_SimulationDepositoBusinessMain = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
+
+  const handleResetForm = () => {
+    setIsResult(false);
+    resetForm();
+  };
+
+  useEffect(() => {
+    handleResetForm();
+  }, [resetCount]);
 
   return (
     <div>
@@ -125,30 +137,48 @@ const CE_SimulationDepositoBusinessMain = () => {
             />
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
-            <CE_SimulationLabel
+            <CE_SimulationBrigunaLabel
               label="Jangka Waktu"
               slot={
                 <div>
-                  <div className="mb-5 w-[70%]">
-                    <InputText
-                      disabled={formDisabled.termInMonths}
-                      rightText="Bulan"
-                      value={form.termInMonths}
-                      onChange={(value) => onFieldChange('termInMonths', value)}
-                      type="number"
-                    />
-                  </div>
                   <div>
-                    <InputSlider
-                      min={1}
-                      max={24}
-                      step={
-                        form.termInMonths === 1
-                          ? form.termInMonths + 1
-                          : form.termInMonths
-                      }
+                    <InputSelect
+                      placeholder="Pilih Paket"
+                      list={[
+                        {
+                          title: '1 Bulan',
+                          value: '1',
+                        },
+                        {
+                          title: '3 Bulan',
+                          value: '3',
+                        },
+                        {
+                          title: '6 Bulan',
+                          value: '6',
+                        },
+                        {
+                          title: '12 Bulan',
+                          value: '12',
+                        },
+                        {
+                          title: '24 Bulan',
+                          value: '24',
+                        },
+                        {
+                          title: '36 Bulan',
+                          value: '36',
+                        },
+                      ]}
                       value={form.termInMonths}
-                      onChange={(value) => onFieldChange('termInMonths', value)}
+                      onChange={(value) =>
+                        onFieldChange(
+                          'termInMonths',
+                          (Array.isArray(value)
+                            ? value.at(0)?.value
+                            : value?.value) || ''
+                        )
+                      }
                     />
                   </div>
                   <div className="mt-5">
@@ -179,7 +209,15 @@ const CE_SimulationDepositoBusinessMain = () => {
               }
             />
           </div>
-          <div className="w-full flex-none px-5">
+          <div className="w-full flex-none px-5 space-x-4">
+            <ButtonSecondary
+              onClick={() => setResetCount((prev) => prev + 1)}
+              rounded="full"
+              size="md"
+              className="bg-[#014A94] uppercase"
+            >
+              Atur ulang
+            </ButtonSecondary>
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
               rounded="full"

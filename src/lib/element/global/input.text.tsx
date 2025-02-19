@@ -9,6 +9,9 @@ type T_InputTextProps = {
   leftText?: string;
   disabled?: boolean;
   state?: 'init' | 'error';
+  min?: number;
+  max?: number;
+  step?: number;
   onEnter?: () => void;
   // eslint-disable-next-line no-unused-vars
   onChange?: (value: T_InputTextOnChange) => void;
@@ -39,6 +42,9 @@ export default function InputText({
   onChange,
   rightSlot,
   leftSlot,
+  min,
+  max,
+  step,
 }: T_InputTextProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { number } = useFormat();
@@ -94,13 +100,16 @@ export default function InputText({
         <input
           ref={inputRef}
           value={formatModelValue()}
-          className="w-full h-full text-base mdmax:text-sm placeholder-black placeholder-opacity-40 focus:outline-none flex-1 bg-transparent"
+          className="w-full h-full text-base mdmax:text-sm placeholder-black placeholder-opacity-40 focus:outline-none flex-1 bg-transparent "
           disabled={disabled}
           type={type === 'password' ? 'password' : 'text'}
           placeholder={placeholder}
           onKeyUp={(event) => event.key === 'Enter' && onEnter && onEnter()}
           onKeyDown={handleIsNumber}
           onInput={handleInput}
+          min={min}
+          max={max}
+          step={step}
         />
         {rightSlot || rightText ? (
           <div className="flex items-center justify-center ml-2 h-full text-black02 text-opacity-90 text-15 whitespace-nowrap">
