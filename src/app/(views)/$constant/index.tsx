@@ -1939,71 +1939,51 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           default:
             return (
               <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
-                {children?.map((item, index) => {
-                  return (
-                    <div key={index} className="lg:w-1/4 w-full flex-none px-2">
-                      <Link href={'/'} target="_blank">
-                        <div className="lg:p-5 p-4 shadow-lg">
-                          {item?.image && (
-                            <div className="w-full h-[255px] mb-2">
-                              <Image
-                                extern={false}
-                                src={item?.image}
-                                alt="image"
-                                width={400}
-                                height={400}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          )}
+                {children?.map((item, index) => (
+                  <div key={index} className="lg:w-1/4 w-full flex-none px-2">
+                    <Link href={item?.button?.link} target="_blank">
+                      <div className="lg:p-5 p-4 shadow-lg">
+                        {item?.image && (
+                          <div className="w-full h-[255px] mb-2">
+                            <Image
+                              extern={false}
+                              src={item?.image}
+                              alt="image"
+                              width={400}
+                              height={400}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
 
-                          <div>
-                            <div className=" text-red-01 font-semibold text-sm mb-8">
-                              {parseHTMLToReact(item?.title)}
-                            </div>
+                        <div>
+                          <div className=" text-red-01 font-semibold text-sm mb-8">
+                            {parseHTMLToReact(item?.title)}
+                          </div>
 
-                            <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
-                              <div className="flex items-center gap-1 text-sm">
-                                {parseHTMLToReact(item?.button?.title)} (ID)
-                              </div>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              >
-                                <path d="m9 18 6-6-6-6" />
-                              </svg>
+                          <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
+                            <div className="flex items-center gap-1 text-sm">
+                              {parseHTMLToReact(item?.button?.title)}
                             </div>
-                            <div className="text-base flex gap-3 font-semibold items-center hover:underline overflow-auto text-[#014A94]">
-                              <div className="flex items-center gap-1 text-sm">
-                                {parseHTMLToReact(item?.button?.title)} (EN)
-                              </div>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              >
-                                <path d="m9 18 6-6-6-6" />
-                              </svg>
-                            </div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
                           </div>
                         </div>
-                      </Link>
-                    </div>
-                  );
-                })}
+                      </div>
+                    </Link>
+                  </div>
+                ))}
               </div>
             );
         }
