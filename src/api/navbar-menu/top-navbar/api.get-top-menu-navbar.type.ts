@@ -10,5 +10,5 @@ export type T_ResponseGetTopMenuNavbar = Array<{
   options?: {
     external: boolean;
   };
-  icon?: string;
+  icon: string;
 }>;
