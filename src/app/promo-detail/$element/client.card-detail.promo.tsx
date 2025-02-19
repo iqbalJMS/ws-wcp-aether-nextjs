@@ -32,7 +32,7 @@ export default function CE_CardDetailPromo({
   product: string;
 }) {
   const pathname = usePathname();
-  const urlLink = `${process.env.NEXT_PUBLIC_BASE_URL}${pathname}`;
+  const urlLink = `${process.env['NEXT_PUBLIC_BASE_URL'] || process.env.NEXT_PUBLIC_BASE_URL}${pathname}`;
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [isShareOpen, setIsShareOpen] = useState<boolean>(false);
 

@@ -5,6 +5,7 @@ import { T_FetchOptions } from './fetch.type';
 
 const API_BASE_URL =
   process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT'] ||
+  process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT ||
   'https://admin-bri-corpsite.dev-kjt.id';
 
 const DEFAULT_HEADERS: HeadersInit = {
@@ -16,6 +17,7 @@ async function fetchData<T>(
   options: T_FetchOptions = {}
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
+  console.log(url);
   const response = await fetch(url, {
     ...options,
     cache: 'no-store',
