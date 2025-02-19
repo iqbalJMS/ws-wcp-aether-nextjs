@@ -17,35 +17,36 @@ import { T_ResponseGetMenuItemNavbar } from '@/api/navbar-menu/menu-items/api.ge
 import { T_ResponGetHeaderLogo } from '@/api/header-logo/api.get-header-logo.type';
 import Image from 'next/image';
 import defaultLogo from '@/../../public/images/bri-logo.png';
-import icon1 from '@/../../public/images/icon-menu/icon1.webp';
-import icon2 from '@/../../public/images/icon-menu/icon2.webp';
-import icon3 from '@/../../public/images/icon-menu/icon3.webp';
-import icon4 from '@/../../public/images/icon-menu/icon4.webp';
-import icon5 from '@/../../public/images/icon-menu/icon5.webp';
-import icon6 from '@/../../public/images/icon-menu/icon6.webp';
+import CE_DefaultIcon from '@/lib/element/global/default-icon';
+// import icon1 from '@/../../public/images/icon-menu/icon1.webp';
+// import icon2 from '@/../../public/images/icon-menu/icon2.webp';
+// import icon3 from '@/../../public/images/icon-menu/icon3.webp';
+// import icon4 from '@/../../public/images/icon-menu/icon4.webp';
+// import icon5 from '@/../../public/images/icon-menu/icon5.webp';
+// import icon6 from '@/../../public/images/icon-menu/icon6.webp';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
 
-const LIST_DEFAULT_ICONS = [
-  {
-    icon: icon1,
-  },
-  {
-    icon: icon2,
-  },
-  {
-    icon: icon3,
-  },
-  {
-    icon: icon4,
-  },
-  {
-    icon: icon5,
-  },
-  {
-    icon: icon6,
-  },
-];
+// const LIST_DEFAULT_ICONS = [
+//   {
+//     icon: icon1,
+//   },
+//   {
+//     icon: icon2,
+//   },
+//   {
+//     icon: icon3,
+//   },
+//   {
+//     icon: icon4,
+//   },
+//   {
+//     icon: icon5,
+//   },
+//   {
+//     icon: icon6,
+//   },
+// ];
 
 export function LoginButton({
   menuItems,
@@ -227,17 +228,15 @@ export default function GlobalHeader({
                           ].join(' ')}
                         />
                       ) : (
-                        <Image
-                          src={LIST_DEFAULT_ICONS?.[0]?.icon}
-                          width={18}
-                          height={18}
-                          alt={`icon-${header?.icon}`}
+                        <CE_DefaultIcon
                           className={[
                             'w-3 h-3 mr-2 ',
                             variant === 'no-transparent'
                               ? ''
                               : 'filter brightness-0 invert',
                           ].join(' ')}
+                          width={18}
+                          height={18}
                         />
                       )}
                       <div

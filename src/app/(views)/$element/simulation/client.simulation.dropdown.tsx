@@ -1,7 +1,7 @@
 'use client';
 
 import { T_InputSelectItem } from '@/lib/element/client/input';
-import CE_FormVariant01 from '@/app/(views)/$element/form/client.form.variant01';
+import CE_FormVariant02 from '@/app/(views)/$element/form/client.form.variant02';
 
 type T_Props = {
   dropdown: {
@@ -19,11 +19,10 @@ const CE_SimulationDropdown = ({ dropdown }: T_Props) => {
       value: dropdownItem.url.replace('/id', ''),
     };
   });
-
   return (
     <div className="relative z-30 -mt-[7rem]">
       <div>
-        <CE_FormVariant01
+        <CE_FormVariant02
           className="mt-20"
           listItems={listItems}
           buttonText="OK"

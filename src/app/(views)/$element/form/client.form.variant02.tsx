@@ -8,6 +8,7 @@ import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import { T_InputSelectItem } from '@/lib/element/client/input';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { useParams } from 'next/navigation';
 
 type T_FormVariant01Props = {
   className?: string;
@@ -20,7 +21,7 @@ type T_FormVariant01Props = {
   buttonAction?: (_?: string) => void;
 };
 
-export default function CE_FormVariant01({
+export default function CE_FormVariant02({
   title,
   imageAtTitle,
   placeholder,
@@ -30,6 +31,7 @@ export default function CE_FormVariant01({
   className,
   buttonAction,
 }: T_FormVariant01Props) {
+  const { slug } = useParams();
   const [selectedItem, setSelectedItem] = React.useState(listItems?.at(0));
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -39,7 +41,14 @@ export default function CE_FormVariant01({
 
   useEffect(() => {
     setSearch(selectedItem?.title || '');
-  }, [selectedItem]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listItems]);
+
+  useEffect(() => {
+    const data = listItems?.find((item) => item.value.includes(slug[0]));
+    setSelectedItem(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   let searchListItem = useMemo(() => {
     if (dropdownType !== 'input-text') {
@@ -57,8 +66,8 @@ export default function CE_FormVariant01({
   return (
     <section className={['container md:px-20 px-5', className].join(' ')}>
       <div className="w-[90%] relative z-10 mx-auto -mt-24" ref={dropdownRef}>
-        <div className="py-5 px-8 rounded-[1.8rem] shadow-lg bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
-          <div className="z-10 flex items-center mdmax:flex-col w-full gap-4">
+        <div className="py-5 px-8 rounded-[1.8rem] shadow-lg  flex justify-between md:items-center md:flex-row flex-col gap-4 bg-white">
+          <div className="z-10 flex items-center mdmax:flex-col w-full gap-4 ">
             {imageAtTitle && title ? (
               <div className="flex items-center gap-2">
                 <Image
