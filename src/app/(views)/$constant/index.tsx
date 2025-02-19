@@ -1190,6 +1190,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               list={list}
               style={style}
               variantContent={variant}
+              drupalBase={process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}
             />
           );
       }

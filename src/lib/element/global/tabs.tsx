@@ -99,6 +99,7 @@ type TabsProps = {
   onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
   variantColor?: 'red' | 'default';
+  drupalBase?: string | undefined | null;
 };
 
 type TRenderElemment = {
@@ -114,6 +115,7 @@ export function Tabs({
   style = 'center',
   variant = 'border',
   variantColor = 'default',
+  drupalBase = '',
   variantContent,
   margin,
 }: TabsProps) {
@@ -129,7 +131,7 @@ export function Tabs({
               description: childItem?.description?.replaceAll('_', ' '),
               button: {
                 image: '/',
-                link: `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${childItem?.downloadFile}`,
+                link: `${drupalBase}${childItem?.downloadFile}`,
                 title: 'Download',
                 extern: true,
               },
