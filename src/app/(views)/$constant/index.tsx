@@ -26,6 +26,7 @@ import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
 import { WIDGET_VARIANT } from './variables';
+import { T_News } from './types/widget/content_type';
 
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
@@ -163,6 +164,10 @@ const SE_Sitemap = dynamic(
   () => import('@/app/(views)/$element/server.sitemap')
 );
 
+const CE_SectionNews = dynamic(
+  () => import('@/app/(views)/$element/client.section-news')
+);
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -216,12 +221,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const title = item?.field_title?.[0]?.value;
         const description = item?.field_content?.[0]?.value;
         const button = item?.field_primary_cta?.[0]?.title;
+        const buttonLink = item?.field_primary_cta?.[0]?.full_url;
 
         return {
           image: image,
           title: title,
           desc: description,
           button: button,
+          buttonLink: buttonLink,
         };
       });
 
@@ -1229,8 +1236,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   items?.body?.[0]?.value ||
                   items?.field_plain_description?.[0]?.value;
                 const image =
-                  items?.field_image?.[0]?.field_media_image?.[0]?.url ||
-                  items?.field_promo_image?.[0]?.field_media_image?.[0]?.url;
+                  items?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                    ?.url ||
+                  items?.field_promo_image?.[0]?.field_media_image?.[0]
+                    ?.uri?.[0]?.url;
 
                 return {
                   id: id,
@@ -2447,6 +2456,39 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             sidebarData: sidebarData,
             paginationData: paginationData,
           };
+      }
+    },
+  },
+  content_type: {
+    component: (...props: any) => {
+      const findEntityBundle = props?.[0]?.entity;
+      const data = props?.[0]?.data;
+
+      switch (findEntityBundle) {
+        case WIDGET_VARIANT.variant51:
+          return <CE_SectionNews newsData={data} />;
+        default:
+          return <></>;
+      }
+    },
+    props: (_component: T_News) => {
+      const entityBundle = _component?.field_content_type?.[0]?.type?.[0]?.type;
+      const dataNews = {
+        contents: _component?.field_content_type?.map((item) => {
+          return {
+            title: item?.title?.[0]?.value,
+            nid: item?.nid?.[0]?.value,
+            image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+            date: item?.created?.[0]?.value,
+          };
+        }),
+      };
+
+      switch (entityBundle) {
+        case WIDGET_VARIANT.variant51:
+          return { entity: entityBundle, data: dataNews };
+        default:
+          return {};
       }
     },
   },

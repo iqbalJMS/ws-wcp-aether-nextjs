@@ -214,7 +214,7 @@ export function CE_IconMain({
                 return (
                   <div
                     key={listIndex}
-                    className="w-1/4 mdmax:w-1/3 px-2 mb-4 h-full"
+                    className={`w-1/4 mdmax:w-1/3 px-2 mb-4 h-full ${listItem.isFixed === '1' ? 'hidden' : 'block'}`}
                   >
                     <div
                       onClick={() => handleChooseMenu(listIndex)}

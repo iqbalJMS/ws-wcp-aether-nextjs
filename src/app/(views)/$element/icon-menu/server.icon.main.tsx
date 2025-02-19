@@ -23,6 +23,7 @@ export default async function SE_IconMain({
         : iconItem.options.external,
       image: iconItem.icon,
       active: index < maxListShow ? true : false,
+      isFixed: iconItem.field_is_fixed?.[0]?.value || '0',
     };
   });
 

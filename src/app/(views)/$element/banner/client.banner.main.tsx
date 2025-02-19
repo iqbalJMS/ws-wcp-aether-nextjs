@@ -14,6 +14,7 @@ const CE_BannerMain = ({
     title: string;
     desc: string;
     button: string;
+    buttonLink: string;
   }>;
   variant: '01' | '02' | '03' | '04' | '05';
 }) => {
