@@ -1,18 +1,18 @@
 'use client';
 
-import { Tooltip } from './tooltip';
-import { useState } from 'react';
 import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
 import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
+import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
+import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
+import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
 import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
 import CE_PromoCard from '@/app/(views)/$element/portlet/client.portlet.variant04';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useState } from 'react';
+import Accordion from './accordion';
 import Image from './image';
 import Link from './link';
-import Accordion from './accordion';
-import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
-import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
+import { Tooltip } from './tooltip';
 
 type TChildren = {
   richText: string;
@@ -124,18 +124,16 @@ export function Tabs({
       case 'download':
         return (
           <CE_CardVariant09
-            data={children?.map((childItem) => {
-              return {
-                title: childItem?.filename?.replaceAll('_', ' '),
-                description: childItem?.description?.replaceAll('_', ' '),
-                button: {
-                  image: '/',
-                  link: childItem?.downloadFile,
-                  title: 'Download',
-                  extern: true,
-                },
-              };
-            })}
+            data={children?.map((childItem) => ({
+              title: childItem?.filename?.replaceAll('_', ' '),
+              description: childItem?.description?.replaceAll('_', ' '),
+              button: {
+                image: '/',
+                link: `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${childItem?.downloadFile}`,
+                title: 'Download',
+                extern: true,
+              },
+            }))}
           />
         );
       case 'image-slider':
