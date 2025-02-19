@@ -92,7 +92,9 @@ export function CE_CarouselVariant05({
                   className="w-[304px] mdmax:w-full flex-none px-2"
                 >
                   <Link
-                    href={dataItem.nid ? `/news-detail/${dataItem.nid}` : '#'}
+                    href={
+                      dataItem.nid ? `/promo-news-detail/${dataItem.nid}` : '#'
+                    }
                     target="_blank"
                   >
                     <div className="p-4 shadow-lg h-full">
