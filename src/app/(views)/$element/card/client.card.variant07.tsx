@@ -3,22 +3,35 @@
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-
+import { useMemo } from 'react';
 type T_CardVariant07Props = {
   title?: string;
   subTitle?: string;
   description?: string;
   image?: string;
   nid?: number;
+  typeContent?: 'promo' | 'news';
 };
-
 export function CE_CardVariant07({
   title,
   subTitle,
   description,
   image,
   nid,
+  typeContent = 'promo',
 }: T_CardVariant07Props) {
+  const urlLink = useMemo(() => {
+    switch (typeContent) {
+      case 'promo':
+        return `/promo-detail/${nid}`;
+      case 'news':
+        return `/news-detail/${nid}`;
+      default:
+        return '';
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typeContent]);
   return (
     <>
       <div className="container overflow-hidden">
@@ -57,7 +70,7 @@ export function CE_CardVariant07({
                     </div>
                   )}
                   <div className="text-right mt-10">
-                    <Link href={nid ? `/promo-detail/${nid}` : '#'}>
+                    <Link href={nid ? urlLink : '#'}>
                       <div className="inline-block text-blue-01 text-base hover:underline font-semibold">
                         Selengkapnya &#10095;
                       </div>

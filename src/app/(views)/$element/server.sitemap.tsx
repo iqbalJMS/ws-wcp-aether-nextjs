@@ -26,7 +26,7 @@ export default async function SE_Sitemap() {
                   <li key={index} className="my-4">
                     <Link
                       target="_blank"
-                      href={listItem.relative}
+                      href={listItem.relative || '#'}
                       className="text-blue-02 text-xl hover:underline"
                     >
                       {listItem.title}
@@ -40,7 +40,7 @@ export default async function SE_Sitemap() {
         <div className="bg-white p-5 shadow-md rounded-md">
           <h2 className="font-bold text-2xl">Footer</h2>
           <ul className="list-none">
-            {listMainFooter?.data[2].list.map((listItem, index) => {
+            {listMainFooter?.data?.[2]?.list?.map((listItem, index) => {
               return (
                 <li key={index} className="my-4">
                   <Link
@@ -54,7 +54,7 @@ export default async function SE_Sitemap() {
                 </li>
               );
             })}
-            {listBottomFooter?.data.map((listItem, index) => {
+            {listBottomFooter?.data?.map((listItem, index) => {
               return (
                 <li key={index} className="my-4">
                   <Link
@@ -78,7 +78,10 @@ export default async function SE_Sitemap() {
                 <div className="flex items-center font-bold gap-3 text-2xl">
                   <h2 className="font-bold text-2xl">Main Navigation</h2>
                   {`>`}
-                  <Link className="hover:underline" href={listItem.relative}>
+                  <Link
+                    className="hover:underline"
+                    href={listItem.relative || '#'}
+                  >
                     {listItem.title}
                   </Link>
                 </div>
@@ -104,7 +107,7 @@ const RecursiveList = ({
         <li key={index} className={`ml-${level * 4} my-4`}>
           <Link
             target="_blank"
-            href={item.relative}
+            href={item.relative || '#'}
             className={`text-blue-02 hover:underline ${level === 0 ? 'text-xl font-bold' : 'text-lg'}`}
           >
             {item.title}

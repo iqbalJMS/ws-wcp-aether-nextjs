@@ -42,7 +42,7 @@ export default function CE_SectionPromo({
       data-active="0"
       data-range="next"
       data-active-range="0"
-      data-range-length={listTab?.[0]?.contents?.slice(0, 7).length}
+      data-range-length={listTab?.[0]?.contents?.length}
       id="section-multitab-carousel"
       className={[
         'flex flex-col justify-between gap-7 1025:flex-row 1025:gap-10 items-start',
@@ -68,7 +68,7 @@ export default function CE_SectionPromo({
         <CE_Tab
           tabViewController={tabView}
           options={listTab?.map((data) => data?.group)}
-          contents={listTab?.map((data) => data?.contents?.slice(0, 7).length)}
+          contents={listTab?.map((data) => data?.contents?.length)}
           attributeTargetId="section-multitab-carousel"
           attributeName={{ active: 'active' }}
           className="wrapper-space 1025-only:mx-auto 1025-only:px-[var(--wrapper-space)]"
@@ -76,7 +76,7 @@ export default function CE_SectionPromo({
       </div>
       <CE_TabViewForwardRef
         ref={tabView}
-        contents={listTab?.map((data) => data?.contents.slice(0, 7))}
+        contents={listTab?.map((data) => data?.contents)}
         attributeTargetId="section-multitab-carousel"
         attributeName={{
           active: 'active',

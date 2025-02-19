@@ -2,6 +2,7 @@
 
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 
@@ -13,6 +14,7 @@ export function CE_BannerVariant01({
     title: string;
     desc: string;
     button: string;
+    buttonLink: string;
   }>;
 }) {
   const [index, setIndex] = useState(0);
@@ -109,7 +111,7 @@ export function CE_BannerVariant01({
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30"></div>
-                  <div className="absolute top-1/2 transform -translate-y-1/2 z-30 left-0 w-full">
+                  <div className="absolute top-1/2 transform -translate-y-1/2 z-10 left-0 w-full">
                     <div className="container">
                       {bannerItem?.title && (
                         <div className="text-[4rem] mdmax:text-3xl font-semibold text-white">
@@ -122,7 +124,7 @@ export function CE_BannerVariant01({
                         </div>
                       )}
                       {bannerItem?.button && (
-                        <div>
+                        <Link href={bannerItem?.buttonLink ?? '#'}>
                           <ButtonSecondary
                             size="lg"
                             color="red-01"
@@ -131,7 +133,7 @@ export function CE_BannerVariant01({
                           >
                             {bannerItem?.button}
                           </ButtonSecondary>
-                        </div>
+                        </Link>
                       )}
                     </div>
                   </div>
@@ -143,11 +145,11 @@ export function CE_BannerVariant01({
         {data?.length > 1 && (
           <div
             className={[
-              'absolute top-1/2 transform -translate-y-1/2 z-30 right-0 w-full',
+              'absolute top-1/2 z-30 right-0 w-full',
               'mdmax:top-[initial] mdmax:bottom-10 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2 mdmax:w-[initial]',
             ].join(' ')}
           >
-            <div className="container  text-right">
+            <div className="container text-right">
               <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2 inline-block">
                 {data?.map((_: any, bannerIndex: number) => (
                   <div

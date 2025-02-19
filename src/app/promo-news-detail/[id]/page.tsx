@@ -24,6 +24,7 @@ export default async function page({ params }: { params: { id: string } }) {
   const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({
     lang: 'en',
+    theme: 'promo-main-navigation',
   });
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
@@ -56,11 +57,11 @@ export default async function page({ params }: { params: { id: string } }) {
           <Breadcrumb
             paths={[
               {
-                name: 'News',
-                href: '/news',
+                name: 'Promo',
+                href: '/promo-beranda',
               },
               {
-                name: 'Detail News',
+                name: 'Whats new',
                 href: '',
               },
             ]}
@@ -70,7 +71,7 @@ export default async function page({ params }: { params: { id: string } }) {
               <div className="text-3xl font-bold">Announcement</div>
             </div>
             <SE_WysiwygMain
-              variant="02"
+              variant="01"
               title={titleNews}
               createdAt={dateNews}
               imageContent={imageArticle}
