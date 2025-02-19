@@ -1912,18 +1912,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           case 'download':
             return (
               <CE_CardVariant09
-                data={children?.map((item) => {
-                  return {
-                    title: item?.filename?.replaceAll('_', ' '),
-                    description: item?.description?.replaceAll('_', ' '),
-                    button: {
-                      image: item?.iconDownload,
-                      link: item?.downloadFile,
-                      title: 'Download',
-                      extern: true,
-                    },
-                  };
-                })}
+                data={children?.map((item) => ({
+                  title: item?.filename?.replaceAll('_', ' '),
+                  description: item?.description?.replaceAll('_', ' '),
+                  button: {
+                    image: item?.iconDownload,
+                    link: `${API_BASE_URL}${item?.downloadFile}`,
+                    title: 'Download',
+                    extern: true,
+                  },
+                }))}
               />
             );
           case 'image-slider':
