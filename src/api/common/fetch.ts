@@ -3,9 +3,7 @@
 
 import { T_FetchOptions } from './fetch.type';
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT ||
-  'https://admin-bri-corpsite.dev-kjt.id';
+const API_BASE_URL = process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT'];
 
 const DEFAULT_HEADERS: HeadersInit = {
   'Content-Type': 'application/json',
@@ -60,6 +58,7 @@ async function fetchData<T>(
     throw new Error('Unexpected response type');
   }
 }
+
 export async function get<T>(
   endpoint: string,
   headers?: Record<string, string>

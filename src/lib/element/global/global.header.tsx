@@ -216,7 +216,7 @@ export default function GlobalHeader({
                     >
                       {header?.icon ? (
                         <Image
-                          src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${header?.icon}`}
+                          src={`${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${header?.icon}`}
                           width={18}
                           height={18}
                           alt={`icon-${header?.icon}`}
@@ -284,7 +284,7 @@ export default function GlobalHeader({
                 ?.url ? (
                 <Image
                   alt="logo-bri"
-                  src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ?? ''}`}
+                  src={`${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ?? ''}`}
                   width={128}
                   height={53}
                   className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -332,7 +332,7 @@ export default function GlobalHeader({
                   ?.uri?.[0]?.url ? (
                   <Image
                     alt="logo-bri"
-                    src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
+                    src={`${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`}
                     width={128}
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -611,7 +611,7 @@ export default function GlobalHeader({
                               {header?.icon && (
                                 <Image
                                   // extern={false}
-                                  src={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${header?.icon}`}
+                                  src={`${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${header?.icon}`}
                                   width={18}
                                   height={18}
                                   alt={`icon-${header?.icon}`}

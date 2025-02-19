@@ -1190,7 +1190,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               list={list}
               style={style}
               variantContent={variant}
-              drupalBase={process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}
+              drupalBase={process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}
             />
           );
       }
@@ -1845,7 +1845,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const filename = props?.filename;
       const description = props?.description;
       const iconDownload = props?.iconDownload;
-      const downloadFile = `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${props?.downloadFile}`;
+      const downloadFile = `${process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT']}${props?.downloadFile}`;
 
       return (
         <CE_CardVariant09
