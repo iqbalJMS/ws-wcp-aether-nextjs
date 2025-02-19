@@ -31,6 +31,7 @@ export function CFN_MapToSimulationDepositoValasPayload(
   return {
     depositAmount: form.depositAmount,
     termInMonths: form.termInMonths,
+    currency: form.currency,
   };
 }
 

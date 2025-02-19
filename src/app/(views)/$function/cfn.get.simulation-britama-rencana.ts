@@ -30,9 +30,9 @@ export function CFN_MapToSimulationBritamaRencanaPayload(
   form: T_SimulationBritamaRencanaRequest
 ): T_SimulationBritamaRencanaRequest {
   return {
-    amount: form.amount,
-    month: form.month,
-    premiAsuransi: form.premiAsuransi,
+    monthlyDeposit: form.monthlyDeposit,
+    durationInMonths: form.durationInMonths,
+    insurancePremium: form.insurancePremium,
   };
 }
 
@@ -41,11 +41,11 @@ export function CFN_ValidateCreateSimulationBritamaRencanaFields(
   value: any
 ): string {
   switch (name) {
-    case 'amount':
+    case 'monthlyDeposit':
       return validateMin(value, 'Setoran Bulan BritAma Rencana', 1);
-    case 'month':
-      return validateMin(value, 'Jumlah Bulan', 1);
-    case 'premiAsuransi':
+    case 'durationInMonths':
+      return validateMin(value, 'Nilai', 1);
+    case 'insurancePremium':
       return validateEmpty(value, '% Premi Asuransi BritAma Rencana Perbulan');
     default:
       return '';

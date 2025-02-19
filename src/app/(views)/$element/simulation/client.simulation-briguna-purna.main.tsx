@@ -20,13 +20,14 @@ import {
 const CE_SimulationBRIGunaPurnaMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
+  const [resetCount, setResetCount] = useState(0);
 
   const [formDisabled, setFormDisabled] = useState({
     installmentTerm: true,
     interestRate: true,
     salary: true,
   });
-  const { form, formError, onFieldChange, validateForm } = useForm<
+  const { form, formError, onFieldChange, validateForm, resetForm } = useForm<
     T_SimulationBrigunaPurnaRequest,
     T_SimulationBrigunaPurnaRequest
   >(
@@ -67,6 +68,15 @@ const CE_SimulationBRIGunaPurnaMain = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
+
+  const handleResetForm = () => {
+    setIsResult(false);
+    resetForm();
+  };
+
+  useEffect(() => {
+    handleResetForm();
+  }, [resetCount]);
 
   return (
     <div>
@@ -189,7 +199,15 @@ const CE_SimulationBRIGunaPurnaMain = () => {
             />
           </div>
 
-          <div className="w-full flex-none px-5">
+          <div className="w-full flex-none px-5 space-x-4">
+            <ButtonSecondary
+              onClick={() => setResetCount((prev) => prev + 1)}
+              rounded="full"
+              size="md"
+              className="bg-[#014A94] uppercase"
+            >
+              Atur ulang
+            </ButtonSecondary>
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
               rounded="full"

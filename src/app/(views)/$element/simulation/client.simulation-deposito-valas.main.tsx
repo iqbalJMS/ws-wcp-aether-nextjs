@@ -15,22 +15,27 @@ import {
   T_SimulationDepositoValas,
   T_SimulationDepositoValasRequest,
 } from '@/api/simulation/deposito-valas/api.get.deposito-valas.type';
+import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
+import InputSelect from '@/lib/element/global/input.select';
 
 const CE_SimulationDepositoValasMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
+  const [resetCount, setResetCount] = useState(0);
 
   const [formDisabled, setFormDisabled] = useState({
     depositAmount: true,
     termInMonths: true,
+    currency: true,
   });
-  const { form, formError, onFieldChange, validateForm } = useForm<
+  const { form, formError, onFieldChange, validateForm, resetForm } = useForm<
     T_SimulationDepositoValasRequest,
     T_SimulationDepositoValasRequest
   >(
     CFN_MapToSimulationDepositoValasPayload({
       depositAmount: 0,
       termInMonths: 1,
+      currency: 'USD',
     }),
     CFN_ValidateCreateSimulationDepositoValasFields
   );
@@ -53,7 +58,7 @@ const CE_SimulationDepositoValasMain = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
-      if (form.depositAmount && form.termInMonths) {
+      if (form.depositAmount && form.termInMonths && form.currency) {
         handleSubmit(false);
       }
     }, 300); // Delay of 300ms
@@ -63,6 +68,15 @@ const CE_SimulationDepositoValasMain = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
+
+  const handleResetForm = () => {
+    setIsResult(false);
+    resetForm();
+  };
+
+  useEffect(() => {
+    handleResetForm();
+  }, [resetCount]);
 
   return (
     <div>
@@ -87,15 +101,78 @@ const CE_SimulationDepositoValasMain = () => {
       )}
       {!isResult && (
         <div className="flex flex-wrap -mx-5">
+          <div className="w-full">
+            <CE_SimulationBrigunaLabel
+              label="Mata Uang"
+              slot={
+                <div>
+                  <div>
+                    <InputSelect
+                      placeholder="Pilih Mata Uang"
+                      list={[
+                        {
+                          title: 'USD',
+                          value: 'USD',
+                        },
+                        {
+                          title: 'EUR',
+                          value: 'EUR',
+                        },
+                        {
+                          title: 'SGD ',
+                          value: 'SGD',
+                        },
+                        {
+                          title: 'JPY ',
+                          value: 'JPY',
+                        },
+                        {
+                          title: 'AUD ',
+                          value: 'AUD',
+                        },
+                        {
+                          title: 'GBP ',
+                          value: 'GBP',
+                        },
+                        {
+                          title: 'HKD ',
+                          value: 'HKD',
+                        },
+                        {
+                          title: 'CNY ',
+                          value: 'CNY',
+                        },
+                      ]}
+                      value={form.currency}
+                      onChange={(value) =>
+                        onFieldChange(
+                          'currency',
+                          (Array.isArray(value)
+                            ? value.at(0)?.value
+                            : value?.value) || ''
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="mt-5">
+                    <InputError message={formError.currency} />
+                  </div>
+                </div>
+              }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, termInMonths: edit })
+              }
+            />
+          </div>
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
               label="Jumlah Deposito"
               slot={
                 <div>
-                  <div className="mb-5 w-[50%]">
+                  <div className="mb-5 w-[50%] flex items-center space-x-2">
+                    <h1 className="text-lg font-medium">{form.currency}</h1>
                     <InputText
                       disabled={formDisabled.depositAmount}
-                      leftText="Rp."
                       value={form.depositAmount}
                       onChange={(value) =>
                         onFieldChange('depositAmount', value)
@@ -125,7 +202,56 @@ const CE_SimulationDepositoValasMain = () => {
             />
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
-            <CE_SimulationLabel
+            <CE_SimulationBrigunaLabel
+              label="Jangka Waktu"
+              slot={
+                <div>
+                  <div>
+                    <InputSelect
+                      placeholder="SELECT PACKAGE"
+                      list={[
+                        {
+                          title: '1 Bulan',
+                          value: '1',
+                        },
+                        {
+                          title: '3 Bulan',
+                          value: '3',
+                        },
+                        {
+                          title: '6 Bulan',
+                          value: '6',
+                        },
+                        {
+                          title: '12 Bulan',
+                          value: '12',
+                        },
+                        {
+                          title: '24 Bulan',
+                          value: '24',
+                        },
+                      ]}
+                      value={form.termInMonths}
+                      onChange={(value) =>
+                        onFieldChange(
+                          'termInMonths',
+                          (Array.isArray(value)
+                            ? value.at(0)?.value
+                            : value?.value) || ''
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="mt-5">
+                    <InputError message={formError.termInMonths} />
+                  </div>
+                </div>
+              }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, termInMonths: edit })
+              }
+            />
+            {/* <CE_SimulationLabel
               label="Jangka Waktu"
               slot={
                 <div>
@@ -159,7 +285,7 @@ const CE_SimulationDepositoValasMain = () => {
               onChange={(edit) =>
                 setFormDisabled({ ...formDisabled, termInMonths: edit })
               }
-            />
+            /> */}
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
@@ -179,7 +305,15 @@ const CE_SimulationDepositoValasMain = () => {
               }
             />
           </div>
-          <div className="w-full flex-none px-5">
+          <div className="w-full flex-none px-5 space-x-4">
+            <ButtonSecondary
+              onClick={() => setResetCount((prev) => prev + 1)}
+              rounded="full"
+              size="md"
+              className="bg-[#014A94] uppercase"
+            >
+              Atur ulang
+            </ButtonSecondary>
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
               rounded="full"

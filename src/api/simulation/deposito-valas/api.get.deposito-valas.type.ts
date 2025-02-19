@@ -8,4 +8,5 @@ export type T_SimulationDepositoValas = {
 export type T_SimulationDepositoValasRequest = {
   depositAmount: number;
   termInMonths: number;
+  currency: string;
 };

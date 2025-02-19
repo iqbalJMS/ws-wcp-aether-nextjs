@@ -1,5 +1,4 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
+// import InputSlider from '@/lib/element/global/input.slider';
 import InputText from '@/lib/element/global/input.text';
 import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
@@ -16,24 +15,27 @@ import {
   T_SimulationBritamaRencanaRequest,
 } from '@/api/simulation/britama-rencana/api.get.britama-rencana.type';
 import InputSelect from '@/lib/element/global/input.select';
+import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
+import InputTextVariant from '@/lib/element/global/input.text-variant';
 
 const CE_SimulationBritamaRencanaMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
+  const [resetCount, setResetCount] = useState(0);
 
   const [formDisabled, setFormDisabled] = useState({
-    amount: true,
-    month: true,
-    premiAsuransi: true,
+    monthlyDeposit: true,
+    durationInMonths: true,
+    insurancePremium: true,
   });
-  const { form, formError, onFieldChange, validateForm } = useForm<
+  const { form, formError, onFieldChange, validateForm, resetForm } = useForm<
     T_SimulationBritamaRencanaRequest,
     T_SimulationBritamaRencanaRequest
   >(
     CFN_MapToSimulationBritamaRencanaPayload({
-      amount: 0,
-      month: 1,
-      premiAsuransi: 'ENAMPERSEN',
+      monthlyDeposit: 0,
+      durationInMonths: 1,
+      insurancePremium: 'ZERO_PERCENT',
     }),
     CFN_ValidateCreateSimulationBritamaRencanaFields
   );
@@ -56,7 +58,11 @@ const CE_SimulationBritamaRencanaMain = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
-      if (form.amount && form.month && form.premiAsuransi) {
+      if (
+        form.monthlyDeposit &&
+        form.durationInMonths &&
+        form.insurancePremium
+      ) {
         handleSubmit(false);
       }
     }, 300); // Delay of 300ms
@@ -67,6 +73,15 @@ const CE_SimulationBritamaRencanaMain = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
 
+  const handleResetForm = () => {
+    setIsResult(false);
+    resetForm();
+  };
+
+  useEffect(() => {
+    handleResetForm();
+  }, [resetCount]);
+
   return (
     <div>
       {isResult && (
@@ -74,81 +89,131 @@ const CE_SimulationBritamaRencanaMain = () => {
           values={[
             {
               label: 'Bunga + Saldo BritAma Rencana',
-              value: result?.bungaSaldoBritamaRencana.toString() || '0',
+              value: result?.interestEarnings.toString() || '0',
             },
             {
               label: 'Saldo Tanpa Bunga',
-              value: result?.saldoTanpaBunga.toString() || '0',
+              value: result?.balanceWithoutInterest.toString() || '0',
             },
             {
               label: 'Bunga',
-              value: result?.bunga.toString() || '0',
+              value: result?.interest.toString() || '0',
             },
             {
               label: 'Total Investasi BritAma Rencana + BritAma',
-              value: result?.totalInvestasiBritamaRencana.toString() || '0',
+              value: result?.totalBritamaPlanInvestment.toString() || '0',
             },
           ]}
           onClose={() => setIsResult(false)}
         />
       )}
       {!isResult && (
-        <div className="flex flex-wrap -mx-5">
-          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
-            <CE_SimulationLabel
-              label="Jumlah Bulan"
+        <div className="">
+          <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 ">
+            <h1 className="text-lg lg:text-xl font-medium  text-[#4A4A4A]">
+              Jumlah Bulan
+            </h1>
+            <CE_SimulationBrigunaLabel
+              label=""
               slot={
-                <div>
-                  <div className="mb-5 w-[50%]">
-                    <InputText
-                      disabled={formDisabled.month}
-                      rightText="Bulan"
-                      value={form.month}
-                      onChange={(value) => onFieldChange('month', value)}
-                      type="number"
+                <div className="">
+                  <div className=" w-80">
+                    <InputTextVariant
+                      value={form.durationInMonths}
+                      onChange={(value) =>
+                        onFieldChange('durationInMonths', value)
+                      }
+                      min={1}
+                      max={240}
                     />
                   </div>
-                  <div>
-                    <InputSlider
-                      min={0}
-                      max={15}
-                      step={1}
-                      value={form.month}
-                      onChange={(value) => onFieldChange('month', value)}
-                    />
-                  </div>
-                  <div className="mt-5">
-                    <InputError message={formError.month} />
+                  <div className="pt-2">
+                    <InputError message={formError.durationInMonths} />
                   </div>
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, month: edit })
+                setFormDisabled({ ...formDisabled, durationInMonths: edit })
               }
             />
           </div>
-          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
-            <CE_SimulationLabel
-              editable={false}
-              label="% Premi Asuransi BritAma Rencana Perbulan"
+          <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 space-x-2">
+            <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
+              Setoran Bulan BritAma Rencana
+            </h1>
+            <CE_SimulationBrigunaLabel
+              label=""
               slot={
                 <div>
-                  <div className="">
+                  <div className=" w-80">
+                    <InputText
+                      value={form.monthlyDeposit}
+                      onChange={(value) =>
+                        onFieldChange('monthlyDeposit', value)
+                      }
+                      type="number"
+                      min={0}
+                      max={0}
+                    />
+                  </div>
+                  <div className="mt-5">
+                    <InputError message={formError.monthlyDeposit} />
+                  </div>
+                </div>
+              }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, monthlyDeposit: edit })
+              }
+            />
+          </div>
+          <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 space-x-2">
+            <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
+              Rate Bunga BritAma Rencana (p.a)
+            </h1>
+            <CE_SimulationBrigunaLabel
+              label=""
+              editable={false}
+              slot={
+                <div>
+                  <div className=" w-80 ">
+                    <InputText
+                      disabled
+                      rightText="%"
+                      value={'3.25'}
+                      type="number"
+                      min={0}
+                      max={0}
+                    />
+                  </div>
+                </div>
+              }
+            />
+          </div>
+          <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 space-x-2">
+            <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
+              % Premi Asuransi BritAma Rencana Perbulan
+            </h1>
+            <CE_SimulationBrigunaLabel
+              editable={false}
+              label=""
+              slot={
+                <div>
+                  <div className=" w-80">
                     <InputSelect
                       list={[
                         {
                           title: '6%',
-                          value: 'ENAMPERSEN',
+                          value: 'SIX_PERCENT',
                         },
                         {
                           title: '0%',
-                          value: 'NOLPERSEN',
+                          value: 'ZERO_PERCENT',
                         },
                       ]}
-                      value={form.premiAsuransi}
+                      value={form.insurancePremium}
                       onChange={(value) =>
                         onFieldChange(
-                          'premiAsuransi',
+                          'insurancePremium',
                           (Array.isArray(value)
                             ? value.at(0)?.value
                             : value?.value) || ''
@@ -156,95 +221,56 @@ const CE_SimulationBritamaRencanaMain = () => {
                       }
                     />
                   </div>
-                  {formError.premiAsuransi && (
+                  {formError.insurancePremium && (
                     <div className="mt-5">
-                      <InputError message={formError.premiAsuransi} />
+                      <InputError message={formError.insurancePremium} />
                     </div>
                   )}
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, amount: edit })
+                setFormDisabled({ ...formDisabled, monthlyDeposit: edit })
               }
             />
           </div>
-          <div className="w-full flex-none mb-10 px-5">
-            <CE_SimulationLabel
-              label="Setoran Bulan BritAma Rencana"
+
+          <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 space-x-2">
+            <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
+              Nominal Premi Asuransi BritAma Rencana Pertahun
+            </h1>
+            <CE_SimulationBrigunaLabel
+              label=""
+              editable={false}
               slot={
                 <div>
-                  <div className="mb-5 w-[70%]">
+                  <div className=" w-80">
                     <InputText
-                      disabled={formDisabled.amount}
-                      leftText="Rp."
-                      value={form.amount}
-                      onChange={(value) => onFieldChange('amount', value)}
+                      disabled
+                      rightText="%"
+                      value={result?.insurancePremium || '0'}
                       type="number"
-                    />
-                  </div>
-                  <div>
-                    <InputSlider
                       min={0}
-                      max={100000000}
-                      step={1000000}
-                      value={form.amount}
-                      onChange={(value) => onFieldChange('amount', value)}
-                    />
-                  </div>
-                  <div className="mt-5">
-                    <InputError message={formError.amount} />
-                  </div>
-                </div>
-              }
-              onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, amount: edit })
-              }
-            />
-          </div>
-          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
-            <CE_SimulationLabel
-              label="Rate Bunga BritAma Rencana (p.a)"
-              editable={false}
-              slot={
-                <div>
-                  <div className="w-[70%]">
-                    <InputText
-                      disabled
-                      rightText="%"
-                      value={
-                        ((result?.interestRate || 0) * 100).toString() || '5'
-                      }
-                      type="number"
+                      max={0}
                     />
                   </div>
                 </div>
               }
             />
           </div>
-          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
-            <CE_SimulationLabel
-              label="Nominal Premi Asuransi BritAma Rencana Pertahun"
-              editable={false}
-              slot={
-                <div>
-                  <div className="w-[70%]">
-                    <InputText
-                      disabled
-                      rightText="%"
-                      value={result?.asurancePremium.toString() || '0'}
-                      type="number"
-                    />
-                  </div>
-                </div>
-              }
-            />
-          </div>
-          <div className="w-full flex-none px-5">
+          <div className="w-full flex-none pt-10 px-5 space-x-4">
+            <ButtonSecondary
+              onClick={() => setResetCount((prev) => prev + 1)}
+              rounded="full"
+              size="md"
+              className="bg-[#014A94] uppercase"
+            >
+              Atur ulang
+            </ButtonSecondary>
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
               rounded="full"
               size="md"
-              color="orange-01"
+              color="orange-01 uppercase"
             >
               Hitung
             </ButtonSecondary>

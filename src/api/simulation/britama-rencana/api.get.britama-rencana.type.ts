@@ -1,14 +1,14 @@
 export type T_SimulationBritamaRencana = {
-  bungaSaldoBritamaRencana: number;
-  saldoTanpaBunga: number;
-  bunga: number;
-  totalInvestasiBritamaRencana: number;
+  interestEarnings: number;
+  balanceWithoutInterest: number;
+  interest: number;
+  totalBritamaPlanInvestment: number;
   interestRate: number;
-  asurancePremium: number;
+  insurancePremium: number;
 };
 
 export type T_SimulationBritamaRencanaRequest = {
-  month: number;
-  amount: number;
-  premiAsuransi: 'ENAMPERSEN' | 'NOLPERSEN';
+  durationInMonths: number;
+  monthlyDeposit: number;
+  insurancePremium: 'SIX_PERCENT' | 'ZERO_PERCENT';
 };
