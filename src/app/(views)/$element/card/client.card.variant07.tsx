@@ -10,7 +10,7 @@ type T_CardVariant07Props = {
   description?: string;
   image?: string;
   nid?: number;
-  typeContent?: 'promo' | 'news';
+  typeContent?: 'promo' | 'news' | 'alert_mode';
 };
 export function CE_CardVariant07({
   title,
@@ -26,6 +26,8 @@ export function CE_CardVariant07({
         return `/promo-detail/${nid}`;
       case 'news':
         return `/news-detail/${nid}`;
+      case 'alert_mode':
+        return `/waspada-modus-detail/${nid}`;
       default:
         return '';
     }
@@ -38,20 +40,19 @@ export function CE_CardVariant07({
         <div className="flex flex-wrap -mx-5">
           <div className="w-full flex-none px-5 mb-10">
             <div className="flex mdmax:flex-wrap bg-white shadow-xl">
-              {image && (
-                <div className="w-[40%] mdmax:w-full flex-none">
-                  <div className="w-full h-[17rem] rounded-br-[5rem] overflow-hidden">
-                    <Image
-                      extern={false}
-                      src={image}
-                      alt="image"
-                      width={1920}
-                      height={1080}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+              <div className="w-[40%] mdmax:w-full flex-none">
+                <div className="w-full h-[17rem] rounded-br-[5rem] overflow-hidden">
+                  <Image
+                    extern={image ? false : true}
+                    src={image || '/web/guest/images/no-image.png'}
+                    alt="image"
+                    width={1920}
+                    height={1080}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-              )}
+              </div>
+
               <div className="flex-1">
                 <div className="p-10 mdmax:p-5">
                   {title && (
