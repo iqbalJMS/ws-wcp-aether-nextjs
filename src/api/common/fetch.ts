@@ -17,7 +17,6 @@ async function fetchData<T>(
   options: T_FetchOptions = {}
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
-  console.log(url);
   const response = await fetch(url, {
     ...options,
     cache: 'no-store',

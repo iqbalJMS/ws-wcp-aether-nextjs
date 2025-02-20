@@ -72,5 +72,6 @@ export type T_MultiTab = {
     field_title: Array<{ value: string }>;
     field_paragraphs: T_FieldParagraph;
     field_primary_cta: Array<{ title: string; full_url: string }>;
+    field_default_selected?: Array<{ value: boolean }>;
   }>;
 };

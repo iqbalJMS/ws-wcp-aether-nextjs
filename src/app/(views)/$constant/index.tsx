@@ -1198,6 +1198,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               style={style}
               variantContent={variant}
               drupalBase={API_BASE_URL}
+              defaultSelected={
+                ((list as any[]) || []).find(({ selected }) => selected > 0)
+                  ?.selected || 0
+              }
             />
           );
       }
@@ -1255,13 +1259,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             ),
         };
       });
-      const listTabV05 = _component?.field_tab?.map((item) => {
+      const listTabV05 = _component?.field_tab?.map((item, at) => {
         const rootTitle = item?.field_title?.[0]?.value;
         const rootSlug = item?.field_title?.[0]?.value;
         const rootList = item?.field_paragraphs?.[0]?.field_column || [];
+
         return {
           title: rootTitle,
           slug: rootSlug,
+          selected: item?.field_default_selected?.[0]?.value || false ? at : 0,
           children: rootList?.map((item) => {
             const imagePosition = item?.field_alignment?.[0]?.value;
             const title = item?.field_title?.[0]?.value;
@@ -1271,6 +1277,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             const buttonExtern = false;
             const image =
               item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+
             return {
               imagePosition: imagePosition,
               title: title,
@@ -1465,7 +1472,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               };
             }),
           };
-
         case WIDGET_VARIANT.variant40:
           return {
             variant: findVariantStyle,

@@ -100,6 +100,7 @@ type TabsProps = {
   variant?: 'full' | 'border-arrow' | 'border';
   variantColor?: 'red' | 'default';
   drupalBase?: string | undefined | null;
+  defaultSelected?: number;
 };
 
 type TRenderElemment = {
@@ -112,14 +113,15 @@ export function Tabs({
   value,
   onChange,
   title,
+  variantContent,
+  margin,
   style = 'center',
   variant = 'border',
   variantColor = 'default',
   drupalBase = '',
-  variantContent,
-  margin,
+  defaultSelected = 0,
 }: TabsProps) {
-  const [menuActive, setMenuActive] = useState(0);
+  const [menuActive, setMenuActive] = useState(defaultSelected);
 
   const renderElement = ({ children, type }: TRenderElemment) => {
     switch (type) {
