@@ -1,3 +1,4 @@
+'use server';
 import React from 'react';
 
 import { ACT_GetTopMenuNavbar } from '@/app/(views)/$action/action.get.top-menu-navbar';
@@ -13,6 +14,9 @@ import SE_PortletVariant02 from '@/app/(views)/$element/portlet/server.portlet.v
 import SE_WysiwygMain from '@/app/(views)/$element/wysiwyg/server.wysiwyg.main';
 import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
 import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
+import { ACT_GetRelatedContentType } from '@/app/(views)/$action/action.get-related-content-type';
+import SE_RelatedContent from '@/app/(views)/$element/content-type/server.related-content-type';
+import { T_Response_Content_Type } from '@/api/content-type/api.get-content-type.type';
 
 export default async function page({ params }: { params: { id: string } }) {
   const getOurstoryData = await ACT_GetDetailPage({
@@ -29,12 +33,27 @@ export default async function page({ params }: { params: { id: string } }) {
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
   const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
   const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
+  const dataRelatedContent = await ACT_GetRelatedContentType({
+    nid: +params.id,
+    type: 'news',
+  });
 
   const titleNews = getOurstoryData?.title?.[0]?.value;
   const bodyNews = getOurstoryData?.body?.[0]?.value;
   const dateNews = getOurstoryData?.created?.[0]?.value;
   const imageArticle =
     getOurstoryData?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url;
+
+  const mapResponseToDataContent = (response: T_Response_Content_Type[]) => {
+    return {
+      contents: response.map((item) => ({
+        nid: item?.nid?.[0]?.value,
+        title: item?.title?.[0]?.value,
+        date: item?.created?.[0]?.value,
+        image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+      })),
+    };
+  };
 
   return (
     <>
@@ -76,6 +95,12 @@ export default async function page({ params }: { params: { id: string } }) {
               imageContent={imageArticle}
               content={bodyNews}
             />
+            {dataRelatedContent && (
+              <SE_RelatedContent
+                type="news"
+                dataContent={mapResponseToDataContent(dataRelatedContent)}
+              />
+            )}
           </section>
         </main>
         <GlobalFooter

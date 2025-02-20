@@ -28,6 +28,8 @@ export default function CE_Card(props: T_CardProps) {
         return `/promo-detail/${content.id}`;
       case 'news':
         return `/news-detail/${content.id}`;
+      case 'alert_mode':
+        return `/waspada-modus-detail/${content.id}`;
       default:
         return '#';
     }

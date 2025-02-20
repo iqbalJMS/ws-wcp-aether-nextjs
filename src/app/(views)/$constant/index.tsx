@@ -165,7 +165,12 @@ const SE_Sitemap = dynamic(
 );
 
 const CE_SectionNews = dynamic(
-  () => import('@/app/(views)/$element/client.section-news')
+  () => import('@/app/(views)/$element/content-type/client.section-news')
+);
+
+const CE_SectionWaspadaModus = dynamic(
+  () =>
+    import('@/app/(views)/$element/content-type/client.section-waspada-modus')
 );
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
@@ -2451,18 +2456,25 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       switch (findEntityBundle) {
         case WIDGET_VARIANT.variant51:
           return <CE_SectionNews newsData={data} />;
+        case WIDGET_VARIANT.variant52:
+          return <CE_SectionWaspadaModus waspadaModusData={data} />;
         default:
           return <></>;
       }
     },
     props: (_component: T_News) => {
       const entityBundle = _component?.field_content_type?.[0]?.type?.[0]?.type;
-      const dataNews = {
+      const dataContentType = {
         contents: _component?.field_content_type?.map((item) => {
+          const imageV2 = item?.field_components?.find(
+            (item) => item?.entity_bundle?.[0]?.value === 'image'
+          );
           return {
             title: item?.title?.[0]?.value,
             nid: item?.nid?.[0]?.value,
-            image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+            image:
+              item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
+              imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
             date: item?.created?.[0]?.value,
           };
         }),
@@ -2470,7 +2482,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
       switch (entityBundle) {
         case WIDGET_VARIANT.variant51:
-          return { entity: entityBundle, data: dataNews };
+          return { entity: entityBundle, data: dataContentType };
+        case WIDGET_VARIANT.variant52:
+          return { entity: entityBundle, data: dataContentType };
         default:
           return {};
       }
