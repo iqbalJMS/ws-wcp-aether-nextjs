@@ -1,3 +1,9 @@
+export type T_ContentTypeRequest = {
+  limit: string;
+  page: string;
+  search?: string;
+};
+
 type T_FieldMediaImage = {
   entity_type: any[];
   entity_bundle: any[];
@@ -36,8 +42,8 @@ type T_FieldImage = {
   field_media_image: any[];
 };
 
-export type T_Content_Type = {
-  nid: Array<{ value: string }>;
+export type T_Response_Content_Type = {
+  nid: Array<{ value: number }>;
   uuid: Array<{ value: string }>;
   vid: Array<{ value: string }>;
   langcode: Array<{ value: string }>;
@@ -46,22 +52,11 @@ export type T_Content_Type = {
   title: Array<{ value: string }>;
   created: Array<{ value: string }>;
   path: Array<{ alias: string }>;
-  field_plain_description: Array<{ value: string }>;
-  field_image: Array<T_FieldImage>;
-  body: Array<{ value: string }>;
+  field_plain_description?: Array<{ value: string }>;
+  field_image?: Array<T_FieldImage>;
+  body?: Array<{ value: string }>;
+  field_promo_image?: Array<T_FieldImage>;
+  field_promo_start_date?: Array<{ value: string }>;
+  field_promo_end_date?: Array<{ value: string }>;
   field_components?: any[];
-};
-
-export type T_News = {
-  entity_type: any[];
-  entity_bundle: Array<{ value: string }>;
-  id: Array<{ value: number }>;
-  uuid: Array<{ value: string }>;
-  parent_id: Array<{ value: string }>;
-  parent_type: Array<{ value: string }>;
-  parent_field_name: Array<{ value: string }>;
-  content_translation_source: Array<{ value: string }>;
-  content_translation_outdated: Array<{ value: boolean }>;
-  content_translation_changed: Array<{ value: string; format: string }>;
-  field_content_type: Array<T_Content_Type>;
 };
