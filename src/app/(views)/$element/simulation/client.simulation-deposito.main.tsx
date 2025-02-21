@@ -214,7 +214,8 @@ const CE_SimulationDepositoMain = () => {
               onClick={() => setResetCount((prev) => prev + 1)}
               rounded="full"
               size="md"
-              className="bg-[#014A94] uppercase"
+              color="blue-01"
+              className="uppercase"
             >
               Atur ulang
             </ButtonSecondary>

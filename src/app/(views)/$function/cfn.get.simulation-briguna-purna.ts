@@ -40,11 +40,26 @@ export function CFN_ValidateCreateSimulationBrigunaPurnaFields(
 ): string {
   switch (name) {
     case 'salary':
-      return validateMaxMin(value, 'Jumlah Uang Pensiun', 1, 10000000000);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 10.000.000.000',
+        1,
+        10000000000
+      );
     case 'installmentTerm':
-      return validateMaxMin(value, 'Jangka Waktu', 1, 15);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 15',
+        1,
+        15
+      );
     case 'interestRate':
-      return validateMaxMin(value, 'Suku Bunga Efektif', 0.01, 0.025);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0% atau Nilai tidak boleh lebih besar dari 25%',
+        0.1,
+        250
+      );
     default:
       return '';
   }

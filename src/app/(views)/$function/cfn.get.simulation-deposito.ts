@@ -38,7 +38,12 @@ export function CFN_ValidateCreateSimulationDepositoFields(
 ): string {
   switch (name) {
     case 'depositAmount':
-      return validateMaxMin(value, 'Jumlah Deposito', 1, 10000000000);
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 10.000.000.000',
+        1,
+        10000000000
+      );
     case 'termInMonths':
       return validateMaxMin(value, 'Jangka Waktu', 1, 36);
     default:

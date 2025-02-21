@@ -7,4 +7,5 @@ export type T_SimulationBrigunaKaryaRequest = {
   interestRate: number;
   salary: number;
   installmentTerm: number;
+  type?: 'KARYA';
 };

@@ -19,35 +19,8 @@ import { useRef, useState } from 'react';
 import { CloseIcon } from './close-icon';
 import { Search } from './global.search';
 import Link from './link';
-// import icon1 from '@/../../public/images/icon-menu/icon1.webp';
-// import icon2 from '@/../../public/images/icon-menu/icon2.webp';
-// import icon3 from '@/../../public/images/icon-menu/icon3.webp';
-// import icon4 from '@/../../public/images/icon-menu/icon4.webp';
-// import icon5 from '@/../../public/images/icon-menu/icon5.webp';
-// import icon6 from '@/../../public/images/icon-menu/icon6.webp';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
-
-// const LIST_DEFAULT_ICONS = [
-//   {
-//     icon: icon1,
-//   },
-//   {
-//     icon: icon2,
-//   },
-//   {
-//     icon: icon3,
-//   },
-//   {
-//     icon: icon4,
-//   },
-//   {
-//     icon: icon5,
-//   },
-//   {
-//     icon: icon6,
-//   },
-// ];
 
 export function LoginButton({
   menuItems,
