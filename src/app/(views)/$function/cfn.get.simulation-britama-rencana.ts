@@ -4,7 +4,6 @@ import { T_PostResponse } from '@/api/common/fetch.type';
 import {
   validateEmpty,
   validateMaxMin,
-  validateMin,
 } from '@/lib/functions/global/validation';
 
 import { Call } from '@strix/client';
@@ -46,9 +45,19 @@ export function CFN_ValidateCreateSimulationBritamaRencanaFields(
 ): string {
   switch (name) {
     case 'monthlyDeposit':
-      return validateMin(value, 'Nilai harus lebih dari 0', 1);
+      return validateMaxMin(
+        value,
+        'Nilai tidak boleh lebih kecil dari 1 dan atau tidak boleh lebih besar dari 10.000.000.000',
+        1,
+        10000000000
+      );
     case 'durationInMonths':
-      return validateMaxMin(value, 'Nilai harus lebih dari 0 ', 1);
+      return validateMaxMin(
+        value,
+        'Nilai tidak boleh lebih kecil dari 1 dan atau tidak boleh lebih besar dari 240 ',
+        1,
+        240
+      );
     case 'insurancePremium':
       return validateEmpty(value, '% Premi Asuransi BritAma Rencana Perbulan');
     default:

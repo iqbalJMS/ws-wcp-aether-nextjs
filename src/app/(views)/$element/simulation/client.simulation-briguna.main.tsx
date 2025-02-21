@@ -304,7 +304,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                     <InputText
                       disabled={formDisabled.karyaInterestRate}
                       rightText="%"
-                      value={karyaForm.interestRate * (10 / 100)}
+                      value={karyaForm.interestRate}
                       onChange={(value) => {
                         karyaOnFieldChange('interestRate', value);
                       }}
@@ -314,7 +314,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                   <div>
                     <InputSlider
                       min={0}
-                      max={250}
+                      max={25}
                       step={0.1}
                       value={karyaForm.interestRate}
                       onChange={(value) => {
@@ -433,7 +433,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                         <InputText
                           disabled={formDisabled.purnaInterestRate}
                           rightText="%"
-                          value={purnaForm.interestRate * (10 / 100)}
+                          value={purnaForm.interestRate}
                           onChange={(value) =>
                             purnaOnFieldChange('interestRate', value)
                           }
@@ -443,7 +443,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       <div>
                         <InputSlider
                           min={0}
-                          max={250}
+                          max={25}
                           step={0.1}
                           value={purnaForm.interestRate}
                           onChange={(value) =>
