@@ -33,7 +33,7 @@ const CE_SimulationBRIGunaPurnaMain = () => {
   >(
     CFN_MapToSimulationBrigunaPurnaPayload({
       installmentTerm: 1,
-      interestRate: 0,
+      interestRate: 0.1,
       salary: 0,
     }),
     CFN_ValidateCreateSimulationBrigunaPurnaFields
@@ -182,9 +182,9 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                   </div>
                   <div>
                     <InputSlider
-                      min={0.01}
-                      max={0.25}
-                      step={0.01}
+                      min={0}
+                      max={250}
+                      step={0.1}
                       value={form.interestRate}
                       onChange={(value) => onFieldChange('interestRate', value)}
                     />
@@ -196,6 +196,9 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                   )}
                 </div>
               }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, interestRate: edit })
+              }
             />
           </div>
 
@@ -204,7 +207,8 @@ const CE_SimulationBRIGunaPurnaMain = () => {
               onClick={() => setResetCount((prev) => prev + 1)}
               rounded="full"
               size="md"
-              className="bg-[#014A94] uppercase"
+              color="blue-01"
+              className=" uppercase"
             >
               Atur ulang
             </ButtonSecondary>

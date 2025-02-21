@@ -98,7 +98,7 @@ const CE_SimulationKPRSMain = () => {
                   <div>
                     <InputSlider
                       min={0}
-                      max={1000000000}
+                      max={10000000000}
                       step={100000}
                       value={form.installmentAmount}
                       onChange={(value) =>
@@ -152,7 +152,7 @@ const CE_SimulationKPRSMain = () => {
               }
             />
           </div>
-          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5 bg-[#CACACD] opacity-25">
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5 opacity-25">
             <CE_SimulationLabel
               label="Suku Bunga Efektif"
               editable={false}

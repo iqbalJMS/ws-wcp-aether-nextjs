@@ -33,7 +33,7 @@ const CE_SimulationBRIGunaKaryaMain = () => {
   >(
     CFN_MapToSimulationBrigunaKaryaPayload({
       installmentTerm: 1,
-      interestRate: 0,
+      interestRate: 0.1,
       salary: 0,
     }),
     CFN_ValidateCreateSimulationBrigunaKaryaFields
@@ -175,16 +175,16 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                     <InputText
                       disabled={formDisabled.interestRate}
                       rightText="%"
-                      value={form.interestRate}
+                      value={form.interestRate * (10 / 100)}
                       onChange={(value) => onFieldChange('interestRate', value)}
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
-                      min={0.01}
-                      max={0.25}
-                      step={0.01}
+                      min={0}
+                      max={250}
+                      step={0.1}
                       value={form.interestRate}
                       onChange={(value) => onFieldChange('interestRate', value)}
                     />
@@ -196,6 +196,9 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                   )}
                 </div>
               }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, interestRate: edit })
+              }
             />
           </div>
 
@@ -204,7 +207,8 @@ const CE_SimulationBRIGunaKaryaMain = () => {
               onClick={() => setResetCount((prev) => prev + 1)}
               rounded="full"
               size="md"
-              className="bg-[#014A94] uppercase"
+              color="blue-01"
+              className=" uppercase"
             >
               Atur ulang
             </ButtonSecondary>

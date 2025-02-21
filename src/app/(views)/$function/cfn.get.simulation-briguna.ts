@@ -12,7 +12,7 @@ import { ACT_GetSimulationBriguna } from '@/app/(views)/$action/action.get.simul
 export function CFN_GetSimulationBriguna(
   transit: Call,
   data: T_SimulationBrigunaRequest,
-  onSuccess?: (_data: T_PostResponse<T_SimulationBriguna[]> | undefined) => void
+  onSuccess?: (_data: T_PostResponse<T_SimulationBriguna> | undefined) => void
 ) {
   transit(async () => {
     const actionResult = await ACT_GetSimulationBriguna(data);
@@ -56,8 +56,8 @@ export function CFN_ValidateCreateSimulationBrigunaFields(
       return validateMaxMin(
         value,
         'Nilai harus lebih besar dari 0% atau Nilai tidak boleh lebih besar dari 25%',
-        0.01,
-        0.25
+        0.1,
+        250
       );
     default:
       return '';
