@@ -16,6 +16,8 @@ const CE_PromoCard = ({
   imageUrl1,
   imageUrl2,
 }: T_PromoCardProps) => {
+  //eslint-disable-next-line no-console
+  console.log(imageUrl1, imageUrl2);
   return (
     <div className="relative flex mb-10">
       {description1 && (
