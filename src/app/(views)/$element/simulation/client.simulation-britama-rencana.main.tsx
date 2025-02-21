@@ -153,7 +153,7 @@ const CE_SimulationBritamaRencanaMain = () => {
                       }
                       type="number"
                       min={0}
-                      max={0}
+                      max={10000000000}
                     />
                   </div>
                   <div className="mt-5">

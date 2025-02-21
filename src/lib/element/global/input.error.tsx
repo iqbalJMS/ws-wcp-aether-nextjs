@@ -7,7 +7,9 @@ interface T_InputErrorProps {
 const InputError: React.FC<T_InputErrorProps> = ({ message = '' }) => {
   return (
     <div>
-      {message && <div className="text-xs text-red-500">{message}</div>}
+      {message && (
+        <div className="text-wrap w-60 text-xs text-red-500">{message}</div>
+      )}
     </div>
   );
 };

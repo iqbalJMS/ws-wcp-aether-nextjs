@@ -159,14 +159,7 @@ const CE_SimulationKPRMain = () => {
               slot={
                 <div>
                   <div className="w-[70%]">
-                    <InputText
-                      disabled
-                      rightText="%"
-                      value={
-                        ((result?.interestRate || 0) * 100).toString() || '5'
-                      }
-                      type="number"
-                    />
+                    <InputText disabled rightText="%" value={5} type="number" />
                   </div>
                 </div>
               }
