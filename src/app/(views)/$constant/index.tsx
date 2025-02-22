@@ -1529,14 +1529,19 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   breadcrumb: {
     component: Breadcrumb,
     props: (_component: T_DataBreadCrumb) => {
-      return {
-        paths: _component?.data?.map((item) => {
-          return {
-            name: item?.title,
-            href: item?.url,
-          };
-        }),
-      };
+      const paths = _component?.data?.map((item) => ({
+        name: item?.title,
+        href: item?.url?.replace('/id', ''),
+      }));
+
+      if (paths[paths.length - 1]?.href === '/simulasi-kpr') {
+        paths.push({
+          name: 'Kredit Pemilikan Rumah (KPR)',
+          href: '/simulasi-kpr',
+        });
+      }
+
+      return { paths };
     },
   },
   staircase_cards: {
