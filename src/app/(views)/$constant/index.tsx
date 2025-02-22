@@ -1580,8 +1580,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const secondColumn = props?.secondColumn;
       const description1 = props?.firstColumn?.description ?? '';
       const description2 = props?.secondColumn?.description ?? '';
-      const imageUrl1 = props?.firstColumn?.imageUrl1 ?? '';
-      const imageUrl2 = props?.secondColumn?.imageUrl2 ?? '';
+      const imageUrl1 = firstColumn?.image ?? '';
+      const imageUrl2 = secondColumn?.image ?? '';
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant19:
@@ -1785,17 +1785,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             _component?.field_second_column?.[0]?.field_content?.[0]?.value;
           const imageUrl1 =
             _component?.field_first_column?.[0]?.field_image?.[0]
-              ?.field_media_image?.[0]?.uri?.[0]?.url;
+              ?.thumbnail?.[0]?.uri?.[0]?.url;
           const imageUrl2 =
             _component?.field_second_column?.[0]?.field_image?.[0]
-              ?.field_media_image?.[0]?.uri?.[0]?.url;
+              ?.thumbnail?.[0]?.uri?.[0]?.url;
 
           return {
             firstColumn: {
               description: description1,
               image: imageUrl1,
             },
-
             secondColumn: {
               description: description2,
               image: imageUrl2,
