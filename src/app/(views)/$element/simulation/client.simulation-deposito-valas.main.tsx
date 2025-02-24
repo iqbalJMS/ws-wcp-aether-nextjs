@@ -22,7 +22,7 @@ const CE_SimulationDepositoValasMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
   const [resetCount, setResetCount] = useState(0);
-
+  const [valSBE, setValSBE] = useState(0);
   const [formDisabled, setFormDisabled] = useState({
     depositAmount: true,
     termInMonths: true,
@@ -34,7 +34,7 @@ const CE_SimulationDepositoValasMain = () => {
   >(
     CFN_MapToSimulationDepositoValasPayload({
       depositAmount: 0,
-      termInMonths: 1,
+      termInMonths: 0,
       currency: 'USD',
     }),
     CFN_ValidateCreateSimulationDepositoValasFields
@@ -69,8 +69,21 @@ const CE_SimulationDepositoValasMain = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
 
+  const depositSBE = (at: number) => {
+    let sbe = 0;
+
+    if ([1, 3, 12, 14].includes(at)) {
+      sbe = 2;
+    } else if (at === 6) {
+      sbe = 2.25;
+    }
+
+    return sbe;
+  };
+
   const handleResetForm = () => {
     setIsResult(false);
+    setValSBE(0);
     resetForm();
   };
 
@@ -182,6 +195,10 @@ const CE_SimulationDepositoValasMain = () => {
                           strToInt = Number(value);
                         } catch (_) {}
 
+                        if (strToInt > 0) {
+                          depositSBE(Number(form.termInMonths || '0'))
+                        }
+
                         onFieldChange('depositAmount', strToInt);
                       }}
                     />
@@ -192,9 +209,17 @@ const CE_SimulationDepositoValasMain = () => {
                       max={100000000}
                       step={100000}
                       value={form.depositAmount}
-                      onChange={(value) =>
-                        onFieldChange('depositAmount', value)
-                      }
+                      onChange={(value) => {
+                        onFieldChange('depositAmount', value);
+
+                        try {
+                          if (Number(value) > 0) {
+                            setValSBE(
+                              depositSBE(Number(form.termInMonths || '0'))
+                            );
+                          }
+                        } catch (_) {}
+                      }}
                     />
                   </div>
                   <div className="mt-5">
@@ -238,14 +263,19 @@ const CE_SimulationDepositoValasMain = () => {
                         },
                       ]}
                       value={form.termInMonths}
-                      onChange={(value) =>
-                        onFieldChange(
-                          'termInMonths',
-                          (Array.isArray(value)
-                            ? value.at(0)?.value
-                            : value?.value) || ''
-                        )
-                      }
+                      onChange={(value) => {
+                        const getValue = Array.isArray(value)
+                          ? value.at(0)?.value
+                          : value?.value;
+
+                        onFieldChange('termInMonths', getValue || '');
+
+                        try {
+                          if (Number(form.depositAmount) > 0 && !!getValue) {
+                            setValSBE(depositSBE(Number(getValue || '0')));
+                          }
+                        } catch (_) {}
+                      }}
                     />
                   </div>
                   <div className="mt-5">
@@ -268,8 +298,8 @@ const CE_SimulationDepositoValasMain = () => {
                     <InputText
                       disabled
                       rightText="%"
-                      value={((result?.rate || 0) * 100).toString() || '5'}
                       type="number"
+                      value={valSBE}
                     />
                   </div>
                 </div>

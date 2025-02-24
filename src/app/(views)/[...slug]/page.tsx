@@ -31,7 +31,7 @@ export default async function PageAetherDetail({
   const getNodeId = slug?.[0];
   const data = await ACT_GetSinglePage({
     lang: lang ?? 'id',
-    alias: getNodeId ?? '',
+    alias: getNodeId ?? 'home',
   });
 
   const theme = data?.field_main_menu?.[0]?.target_id;

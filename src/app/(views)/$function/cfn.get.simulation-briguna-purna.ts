@@ -58,7 +58,7 @@ export function CFN_ValidateCreateSimulationBrigunaPurnaFields(
         value,
         'Nilai harus lebih besar dari 0% atau Nilai tidak boleh lebih besar dari 25%',
         0.1,
-        250
+        25
       );
     default:
       return '';
