@@ -317,6 +317,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const accordion = props?.accordion as Array<{
         children?: string;
         title?: string;
+        content?: string;
       }>;
       const column = String(props?.column);
       const buttonSiapaSabrina = {
@@ -568,11 +569,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         }
                         variant="full-border"
                         isOpen
-                        renderContent={
-                          <div className="py-6 text-gray-500">
-                            {parseHTMLToReact(item?.children ?? '')}
-                          </div>
-                        }
+                        renderContent={item?.content}
                       />
                     );
                   })}
@@ -878,6 +875,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         (item) => {
           return {
             title: item?.field_title?.[0]?.value,
+            content: item?.field_content?.[0]?.value,
             children: item?.field_paragraphs?.[0]?.field_content?.[0]?.value,
           };
         }
@@ -1928,6 +1926,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const accordionStyle: String = props?.accordionStyle;
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
 
+      // eslint-disable-next-line no-unused-vars
       const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
@@ -2025,7 +2024,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 }
                 variant={isCapsule as T_AccordionProps['variant']}
                 isOpen
-                renderContent={renderElement(item?.children)}
+                renderContent={item?.content}
               />
             );
           })}

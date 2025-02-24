@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 import { ChevronRightIcon } from './chevron-right-icon';
 import Image from './image';
 import { ChevronDownIcon } from './chevron-down-icon';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 export type T_AccordionProps = {
-  renderContent: React.ReactNode;
+  renderContent?: string;
   renderTitle: React.ReactNode;
   isOpen?: boolean;
   variant?: 'full' | 'full-border' | 'rounded';
@@ -79,7 +80,9 @@ export default function Accordion({
       <div
         className={`grid overflow-hidden transition-all duration-500 ease-in-out ${accordionOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
       >
-        <div className="overflow-hidden">{renderContent}</div>
+        <div className="overflow-hidden">
+          {parseHTMLToReact(renderContent || '')}
+        </div>
       </div>
     </section>
   );
