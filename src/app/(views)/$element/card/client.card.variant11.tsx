@@ -34,35 +34,35 @@ export default function CE_CardVariant11({
             </div>
           </div>
         )}
-        <div className="overflow-x-auto whitespace-nowrap">
-          <div className="flex w-full lg:justify-center">
+        <div className="overflow-x-auto lg:overflow-x-hidden whitespace-nowrap">
+          <div className="flex w-full h-full lg:justify-center items-end">
             {data?.map((item, index) => {
               return (
                 <Link
                   href={item?.button?.link ?? ''}
                   key={index}
-                  className={`${column === '1' ? 'flex-1' : `flex-none w-1/${String(column)}`} mdmax:w-full flex-shrink-${index} px-5 mb-10`}
+                  className={`${column === '1' ? 'flex-1' : `flex-none w-1/${String(column)}`} w-full h-full flex-shrink-${index} px-5 lg:px-0`}
                 >
-                  <div className="lg:px-10 px-4 text-center hover:shadow-md p-5 rounded-xl">
+                  <div className="lg:w-60 xl:w-80 h-52 flex flex-col items-center justify-center hover:-translate-y-4 hover:shadow-md duration-200 p-5 rounded-xl">
                     {item?.image && (
-                      <div className="w-[5rem] mb-5 inline-block">
+                      <div className="w-20 lg:w-full flex justify-center items-center">
                         <Image
                           extern={false}
                           src={item?.image ?? ''}
                           alt="image"
-                          width={1920}
-                          height={1080}
-                          className="w-full h-full object-cover"
+                          width={500}
+                          height={500}
+                          className="w-full h-full lg:w-20 lg:h-20 xl:w-24 xl:h-24 object-cover"
                         />
                       </div>
                     )}
                     {item?.title && (
-                      <div className="text-lg text-blue-01 font-semibold text-center">
+                      <div className="text-sm xl:text-base text-blue-01 font-semibold pt-5">
                         {parseHTMLToReact(item?.title)}
                       </div>
                     )}
                     {item?.description && (
-                      <div className="text-sm text-black text-opacity-50 text-center">
+                      <div className="w-full lg:w-52 text-sm text-black text-opacity-50 line-clamp-1">
                         {parseHTMLToReact(item?.description)}
                       </div>
                     )}
