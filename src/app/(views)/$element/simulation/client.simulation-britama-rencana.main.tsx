@@ -116,8 +116,8 @@ const CE_SimulationBritamaRencanaMain = () => {
             <CE_SimulationBrigunaLabel
               label=""
               slot={
-                <div className="">
-                  <div className=" w-80">
+                <div className=" w-80">
+                  <div className=" w-full">
                     <InputTextVariant
                       value={form.durationInMonths}
                       onChange={(value) =>
@@ -127,7 +127,7 @@ const CE_SimulationBritamaRencanaMain = () => {
                       max={240}
                     />
                   </div>
-                  <div className="pt-2">
+                  <div className="w-full pt-2">
                     <InputError message={formError.durationInMonths} />
                   </div>
                 </div>
@@ -144,8 +144,8 @@ const CE_SimulationBritamaRencanaMain = () => {
             <CE_SimulationBrigunaLabel
               label=""
               slot={
-                <div>
-                  <div className=" w-80">
+                <div className="w-80">
+                  <div className="w-full">
                     <InputText
                       value={form.monthlyDeposit}
                       onChange={(value) =>
@@ -156,7 +156,7 @@ const CE_SimulationBritamaRencanaMain = () => {
                       max={10000000000}
                     />
                   </div>
-                  <div className="mt-5">
+                  <div className=" w-full mt-5">
                     <InputError message={formError.monthlyDeposit} />
                   </div>
                 </div>

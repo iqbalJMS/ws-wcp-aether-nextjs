@@ -1983,7 +1983,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </div>
 
                           <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
-                            <div className="flex items-center gap-1 text-sm">
+                            <div className="flex items-center gap-1 text-sm bg-red-500">
                               {parseHTMLToReact(item?.button?.title)}
                             </div>
                             <svg
@@ -2047,36 +2047,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const listAccordionContent = _component?.field_accordion_items?.map(
         (item: {
           field_title: Array<{ value: string }>;
-          field_paragraphs: Array<{
-            field_column: Array<{
-              field_title: Array<{ value: string }>;
-              field_image: Array<{
-                field_media_image: Array<{ uri: Array<{ url: string }> }>;
-              }>;
-              field_primary_cta: Array<{ title: string; full_url: string }>;
-            }>;
-          }>;
+          field_content: Array<{ value: string }>;
         }) => {
           return {
             title: item?.field_title?.[0]?.value,
-            children: item?.field_paragraphs?.[0]?.field_column?.map(
-              (childItem) => {
-                const title = childItem?.field_title?.[0]?.value;
-                const image =
-                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                    ?.url;
-
-                return {
-                  image: image,
-                  title: title,
-                  button: {
-                    link: childItem?.field_primary_cta?.[0]?.full_url,
-                    title: childItem?.field_primary_cta?.[0]?.title,
-                    extern: true,
-                  },
-                };
-              }
-            ),
+            children: item?.field_content?.[0]?.value,
           };
         }
       );

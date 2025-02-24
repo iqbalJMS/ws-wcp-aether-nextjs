@@ -54,7 +54,7 @@ export default function Accordion({
                   {renderTitle}
                 </div>
               ) : (
-                <>{renderTitle}</>
+                <>{renderTitle} </>
               )}
             </div>
 
