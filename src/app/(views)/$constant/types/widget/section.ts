@@ -55,6 +55,7 @@ export type T_Section = {
     field_subtitle: any;
     field_accordion_items: Array<{
       field_title?: any;
+      field_content: Array<{ value: string }>;
       field_paragraphs?: Array<{
         field_content: Array<{
           value: string;
