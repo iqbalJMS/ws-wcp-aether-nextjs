@@ -6,10 +6,10 @@ import { T_Response_Content_Type } from './api.get-content-type.type';
 
 export async function API_GetRelatedContentType({
   type,
-  nid
+  nid,
 }: {
-  nid: number
-  type: string
+  nid: number;
+  type: string;
 }) {
   try {
     const url = `/api/brimw/related/${nid}?_format=json_recursive&type=${type}`;

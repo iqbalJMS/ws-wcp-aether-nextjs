@@ -50,7 +50,7 @@ export const WIDGET_VARIANT = {
   variant49: 'section_carousel_variant_4',
   variant50: 'generated_sitemap',
   variant51: 'news',
-  variant52: 'alert_mode'
+  variant52: 'alert_mode',
 };
 
 export const API_BASE_URL =

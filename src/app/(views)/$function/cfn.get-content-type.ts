@@ -20,7 +20,9 @@ export function CFN_GetContentType(
   });
 }
 
-export function CFN_MapToContentTypePayload(form: T_ContentTypeRequest): T_ContentTypeRequest {
+export function CFN_MapToContentTypePayload(
+  form: T_ContentTypeRequest
+): T_ContentTypeRequest {
   return {
     limit: form.limit,
     page: form.page,

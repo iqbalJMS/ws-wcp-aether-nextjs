@@ -35,7 +35,7 @@ const CE_SimulationKPRSMain = () => {
     CFN_ValidateCreateSimulationKPRSFields
   );
   const [result, setResult] = useState<T_SimulationKPRS>();
-  const handleSubmit = async (button: boolean = true) => {
+  const handleSubmit = (button: boolean = true) => {
     const validate = validateForm();
 
     if (pending || !validate) {

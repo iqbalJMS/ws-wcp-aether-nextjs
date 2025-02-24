@@ -1,20 +1,20 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
-import ButtonSecondary from '@/lib/element/global/button.secondary';
-import useForm from '@/lib/hook/useForm';
+import {
+  T_SimulationInitialInvestment,
+  T_SimulationInitialInvestmentRequest,
+} from '@/api/simulation/initial-investment/api.get.initial-investment.type';
 import {
   CFN_GetSimulationInitialInvestment,
   CFN_MapToSimulationInitialInvestmentPayload,
   CFN_ValidateCreateSimulationInitialInvestmentFields,
 } from '@/app/(views)/$function/cfn.get.simulation-initial-investment';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
 import InputError from '@/lib/element/global/input.error';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
+import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import {
-  T_SimulationInitialInvestment,
-  T_SimulationInitialInvestmentRequest,
-} from '@/api/simulation/initial-investment/api.get.initial-investment.type';
+import CE_SimulationLabel from './client.simulation.label';
 
 const CE_SimulationInitialInvestmentMain = () => {
   const [pending, transiting] = useTransition();
@@ -35,7 +35,7 @@ const CE_SimulationInitialInvestmentMain = () => {
     CFN_ValidateCreateSimulationInitialInvestmentFields
   );
   const [result, setResult] = useState<T_SimulationInitialInvestment>();
-  const handleSubmit = async (button: boolean = true) => {
+  const handleSubmit = (button: boolean = true) => {
     const validate = validateForm();
 
     if (pending || !validate) {

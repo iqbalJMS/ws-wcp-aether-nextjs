@@ -1,12 +1,3 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
-import ButtonSecondary from '@/lib/element/global/button.secondary';
-import useForm from '@/lib/hook/useForm';
-
-import InputError from '@/lib/element/global/input.error';
-import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 import {
   T_SimulationBrigunaKarya,
   T_SimulationBrigunaKaryaRequest,
@@ -16,12 +7,19 @@ import {
   CFN_MapToSimulationBrigunaKaryaPayload,
   CFN_ValidateCreateSimulationBrigunaKaryaFields,
 } from '@/app/(views)/$function/cfn.get.simulation-briguna-karya';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
+import InputError from '@/lib/element/global/input.error';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
+import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
+import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import CE_SimulationLabel from './client.simulation.label';
 
 const CE_SimulationBRIGunaKaryaMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
   const [resetCount, setResetCount] = useState(0);
-
   const [formDisabled, setFormDisabled] = useState({
     installmentTerm: true,
     interestRate: true,
@@ -39,22 +37,30 @@ const CE_SimulationBRIGunaKaryaMain = () => {
     CFN_ValidateCreateSimulationBrigunaKaryaFields
   );
   const [result, setResult] = useState<T_SimulationBrigunaKarya>();
-  const handleSubmit = async (button: boolean = true) => {
+
+  const handleSubmit = (button: boolean = true) => {
     setResult(undefined);
     const validate = validateForm();
+
     if (pending || !validate) {
       return;
     }
-    try {
-      CFN_GetSimulationBrigunaKarya(transiting, form, (data) => {
-        setResult(data?.data);
 
-        if (button) {
-          setIsResult(true);
+    try {
+      CFN_GetSimulationBrigunaKarya(
+        transiting,
+        { ...form, interestRate: Number(form.interestRate) * 0.01 },
+        (data) => {
+          setResult(data?.data);
+
+          if (button) {
+            setIsResult(true);
+          }
         }
-      });
+      );
     } catch (error) {}
   };
+
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
@@ -175,18 +181,34 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                     <InputText
                       disabled={formDisabled.interestRate}
                       rightText="%"
-                      value={form.interestRate * (10 / 100)}
-                      onChange={(value) => onFieldChange('interestRate', value)}
+                      value={form.interestRate}
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('interestRate', strToInt);
+                      }}
                     />
                   </div>
                   <div>
                     <InputSlider
                       min={0}
-                      max={250}
+                      max={25}
                       step={0.1}
                       value={form.interestRate}
-                      onChange={(value) => onFieldChange('interestRate', value)}
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('interestRate', strToInt);
+                      }}
                     />
                   </div>
                   {formError.interestRate && (

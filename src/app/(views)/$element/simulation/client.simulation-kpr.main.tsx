@@ -1,20 +1,20 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
-import ButtonSecondary from '@/lib/element/global/button.secondary';
-import useForm from '@/lib/hook/useForm';
+import {
+  T_SimulationKPR,
+  T_SimulationKPRRequest,
+} from '@/api/simulation/kpr/api.get.kpr.type';
 import {
   CFN_GetSimulationKPR,
   CFN_MapToSimulationKPRPayload,
   CFN_ValidateCreateSimulationKPRFields,
 } from '@/app/(views)/$function/cfn.get.simulation-kpr';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
 import InputError from '@/lib/element/global/input.error';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
+import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import {
-  T_SimulationKPR,
-  T_SimulationKPRRequest,
-} from '@/api/simulation/kpr/api.get.kpr.type';
+import CE_SimulationLabel from './client.simulation.label';
 
 const CE_SimulationKPRMain = () => {
   const [pending, transiting] = useTransition();
@@ -35,7 +35,7 @@ const CE_SimulationKPRMain = () => {
     CFN_ValidateCreateSimulationKPRFields
   );
   const [result, setResult] = useState<T_SimulationKPR>();
-  const handleSubmit = async (button: boolean = true) => {
+  const handleSubmit = (button: boolean = true) => {
     const validate = validateForm();
 
     if (pending || !validate) {

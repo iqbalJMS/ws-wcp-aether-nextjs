@@ -4,10 +4,10 @@ import { API_GetRelatedContentType } from '@/api/content-type/api.get-related-co
 
 export async function ACT_GetRelatedContentType({
   nid,
-  type
+  type,
 }: {
-  nid: number
-  type: string
+  nid: number;
+  type: string;
 }) {
   const response = await API_GetRelatedContentType({ nid, type });
   return response;

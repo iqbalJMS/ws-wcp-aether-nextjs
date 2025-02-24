@@ -1,12 +1,10 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
 import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
+import CE_SimulationLabel from './client.simulation.label';
 
-import InputError from '@/lib/element/global/input.error';
-import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 import {
   T_SimulationInvestment,
   T_SimulationInvestmentRequest,
@@ -16,6 +14,8 @@ import {
   CFN_MapToSimulationInvestmentPayload,
   CFN_ValidateCreateSimulationInvestmentFields,
 } from '@/app/(views)/$function/cfn.get.simulation-investment';
+import InputError from '@/lib/element/global/input.error';
+import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 
 const CE_SimulationInvestmentMain = () => {
   const [pending, transiting] = useTransition();
@@ -38,7 +38,7 @@ const CE_SimulationInvestmentMain = () => {
     CFN_ValidateCreateSimulationInvestmentFields
   );
   const [result, setResult] = useState<T_SimulationInvestment>();
-  const handleSubmit = async (button: boolean = true) => {
+  const handleSubmit = (button: boolean = true) => {
     setResult(undefined);
     const validate = validateForm();
     if (pending || !validate) {

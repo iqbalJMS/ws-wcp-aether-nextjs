@@ -1,22 +1,22 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
-import ButtonSecondary from '@/lib/element/global/button.secondary';
-import useForm from '@/lib/hook/useForm';
+import {
+  T_SimulationDepositoValas,
+  T_SimulationDepositoValasRequest,
+} from '@/api/simulation/deposito-valas/api.get.deposito-valas.type';
 import {
   CFN_GetSimulationDepositoValas,
   CFN_MapToSimulationDepositoValasPayload,
   CFN_ValidateCreateSimulationDepositoValasFields,
 } from '@/app/(views)/$function/cfn.get.simulation-deposito-valas';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
 import InputError from '@/lib/element/global/input.error';
-import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import {
-  T_SimulationDepositoValas,
-  T_SimulationDepositoValasRequest,
-} from '@/api/simulation/deposito-valas/api.get.deposito-valas.type';
-import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
 import InputSelect from '@/lib/element/global/input.select';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
+import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
+import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
+import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import CE_SimulationLabel from './client.simulation.label';
 
 const CE_SimulationDepositoValasMain = () => {
   const [pending, transiting] = useTransition();
@@ -40,7 +40,7 @@ const CE_SimulationDepositoValasMain = () => {
     CFN_ValidateCreateSimulationDepositoValasFields
   );
   const [result, setResult] = useState<T_SimulationDepositoValas>();
-  const handleSubmit = async (button: boolean = true) => {
+  const handleSubmit = (button: boolean = true) => {
     const validate = validateForm();
 
     if (pending || !validate) {

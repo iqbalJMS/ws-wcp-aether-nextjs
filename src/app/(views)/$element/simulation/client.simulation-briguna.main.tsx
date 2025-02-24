@@ -1,12 +1,3 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
-import ButtonSecondary from '@/lib/element/global/button.secondary';
-import useForm from '@/lib/hook/useForm';
-
-import InputError from '@/lib/element/global/input.error';
-import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 import {
   T_SimulationBriguna,
   T_SimulationBrigunaRequest,
@@ -16,7 +7,15 @@ import {
   CFN_MapToSimulationBrigunaPayload,
   CFN_ValidateCreateSimulationBrigunaFields,
 } from '@/app/(views)/$function/cfn.get.simulation-briguna';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
+import InputError from '@/lib/element/global/input.error';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
+import useForm from '@/lib/hook/useForm';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState, useTransition } from 'react';
+import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import CE_SimulationLabel from './client.simulation.label';
 
 const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
   const [pending, transiting] = useTransition();
@@ -67,7 +66,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
   const [resultKarya, setResultKarya] = useState<T_SimulationBriguna>();
   const [resultPurna, setResultPurna] = useState<T_SimulationBriguna>();
 
-  const handleSubmit = async (button: boolean = true) => {
+  const handleSubmit = (button: boolean = true) => {
     setResultKarya(undefined);
     setResultPurna(undefined);
     const karyaValidate = karyaValidateForm();
@@ -78,23 +77,25 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
     }
 
     try {
-      CFN_GetSimulationBriguna(transiting, karyaForm, (data) => {
-        setResultKarya(data?.data);
-      });
-    } catch (error) {}
-
-    try {
-      CFN_GetSimulationBriguna(transiting, purnaForm, (data) => {
-        setResultPurna(data?.data);
-      });
-    } catch (error) {}
-
-    if (
-      button &&
-      resultKarya?.monthlyInstallment &&
-      resultPurna?.monthlyInstallment
-    ) {
-      setIsResult(true);
+      CFN_GetSimulationBriguna(
+        transiting,
+        { ...karyaForm, interestRate: Number(karyaForm.interestRate) * 0.01 },
+        (data) => {
+          setResultKarya(data?.data);
+        }
+      );
+      CFN_GetSimulationBriguna(
+        transiting,
+        { ...purnaForm, interestRate: Number(purnaForm.interestRate) * 0.01 },
+        (data) => {
+          setResultPurna(data?.data);
+        }
+      );
+    } catch (error) {
+    } finally {
+      if (button) {
+        setIsResult(true);
+      }
     }
   };
 
@@ -130,7 +131,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
     handleResetForm();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetCount]);
-  // console.log(karyaForm, purnaForm, '<><>');
+
   return (
     <div className="">
       {isResult && (
@@ -189,10 +190,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                         disabled={formDisabled.karyaSalary}
                         leftText="Rp."
                         value={karyaForm.salary}
+                        type="number"
                         onChange={(value) => {
                           karyaOnFieldChange('salary', value);
                         }}
-                        type="number"
                       />
                     </div>
                     <div>
@@ -227,10 +228,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                         disabled={formDisabled.karyaSalary}
                         leftText="Rp."
                         value={karyaForm.salary}
+                        type="number"
                         onChange={(value) => {
                           karyaOnFieldChange('salary', value);
                         }}
-                        type="number"
                       />
                     </div>
                     <div>
@@ -267,10 +268,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       disabled={formDisabled.karyaInstallmentTerm}
                       rightText="Tahun"
                       value={karyaForm.installmentTerm}
+                      type="number"
                       onChange={(value) => {
                         karyaOnFieldChange('installmentTerm', value);
                       }}
-                      type="number"
                     />
                   </div>
                   <div>
@@ -305,10 +306,16 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       disabled={formDisabled.karyaInterestRate}
                       rightText="%"
                       value={karyaForm.interestRate}
-                      onChange={(value) => {
-                        karyaOnFieldChange('interestRate', value);
-                      }}
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        karyaOnFieldChange('interestRate', strToInt);
+                      }}
                     />
                   </div>
                   <div>
@@ -318,7 +325,13 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       step={0.1}
                       value={karyaForm.interestRate}
                       onChange={(value) => {
-                        karyaOnFieldChange('interestRate', value);
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        karyaOnFieldChange('interestRate', strToInt);
                       }}
                     />
                   </div>
@@ -352,16 +365,16 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                           disabled={formDisabled.purnaSalary}
                           leftText="Rp."
                           value={purnaForm.salary}
+                          type="number"
                           onChange={(value) =>
                             purnaOnFieldChange('salary', value)
                           }
-                          type="number"
                         />
                       </div>
                       <div>
                         <InputSlider
                           min={0}
-                          max={1000000000}
+                          max={10000000000}
                           step={10000000}
                           value={purnaForm.salary}
                           onChange={(value) =>
@@ -391,10 +404,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                           disabled={formDisabled.purnaInstallmentTerm}
                           rightText="Tahun"
                           value={purnaForm.installmentTerm}
+                          type="number"
                           onChange={(value) =>
                             purnaOnFieldChange('installmentTerm', value)
                           }
-                          type="number"
                         />
                       </div>
                       <div>
@@ -434,10 +447,16 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                           disabled={formDisabled.purnaInterestRate}
                           rightText="%"
                           value={purnaForm.interestRate}
-                          onChange={(value) =>
-                            purnaOnFieldChange('interestRate', value)
-                          }
                           type="number"
+                          onChange={(value) => {
+                            let strToInt = 0;
+
+                            try {
+                              strToInt = Number(value);
+                            } catch (_) {}
+
+                            purnaOnFieldChange('interestRate', strToInt);
+                          }}
                         />
                       </div>
                       <div>
@@ -446,9 +465,15 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                           max={25}
                           step={0.1}
                           value={purnaForm.interestRate}
-                          onChange={(value) =>
-                            purnaOnFieldChange('interestRate', value)
-                          }
+                          onChange={(value) => {
+                            let strToInt = 0;
+
+                            try {
+                              strToInt = Number(value);
+                            } catch (_) {}
+
+                            purnaOnFieldChange('interestRate', strToInt);
+                          }}
                         />
                       </div>
                       {purnaFormError.interestRate && (

@@ -1,22 +1,22 @@
 // import InputSlider from '@/lib/element/global/input.slider';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
-import ButtonSecondary from '@/lib/element/global/button.secondary';
-import useForm from '@/lib/hook/useForm';
+import {
+  T_SimulationBritamaRencana,
+  T_SimulationBritamaRencanaRequest,
+} from '@/api/simulation/britama-rencana/api.get.britama-rencana.type';
 import {
   CFN_GetSimulationBritamaRencana,
   CFN_MapToSimulationBritamaRencanaPayload,
   CFN_ValidateCreateSimulationBritamaRencanaFields,
 } from '@/app/(views)/$function/cfn.get.simulation-britama-rencana';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
 import InputError from '@/lib/element/global/input.error';
-import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import {
-  T_SimulationBritamaRencana,
-  T_SimulationBritamaRencanaRequest,
-} from '@/api/simulation/britama-rencana/api.get.britama-rencana.type';
 import InputSelect from '@/lib/element/global/input.select';
-import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
+import InputText from '@/lib/element/global/input.text';
 import InputTextVariant from '@/lib/element/global/input.text-variant';
+import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
+import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
+import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 
 const CE_SimulationBritamaRencanaMain = () => {
   const [pending, transiting] = useTransition();
@@ -40,7 +40,7 @@ const CE_SimulationBritamaRencanaMain = () => {
     CFN_ValidateCreateSimulationBritamaRencanaFields
   );
   const [result, setResult] = useState<T_SimulationBritamaRencana>();
-  const handleSubmit = async (button: boolean = true) => {
+  const handleSubmit = (button: boolean = true) => {
     const validate = validateForm();
 
     if (pending || !validate) {

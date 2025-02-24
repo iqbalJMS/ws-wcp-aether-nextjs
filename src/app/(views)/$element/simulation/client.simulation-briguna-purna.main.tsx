@@ -1,12 +1,3 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
-import ButtonSecondary from '@/lib/element/global/button.secondary';
-import useForm from '@/lib/hook/useForm';
-
-import InputError from '@/lib/element/global/input.error';
-import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 import {
   T_SimulationBrigunaPurna,
   T_SimulationBrigunaPurnaRequest,
@@ -16,12 +7,19 @@ import {
   CFN_MapToSimulationBrigunaPurnaPayload,
   CFN_ValidateCreateSimulationBrigunaPurnaFields,
 } from '@/app/(views)/$function/cfn.get.simulation-briguna-purna';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
+import InputError from '@/lib/element/global/input.error';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
+import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
+import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import CE_SimulationLabel from './client.simulation.label';
 
 const CE_SimulationBRIGunaPurnaMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
   const [resetCount, setResetCount] = useState(0);
-
   const [formDisabled, setFormDisabled] = useState({
     installmentTerm: true,
     interestRate: true,
@@ -39,22 +37,28 @@ const CE_SimulationBRIGunaPurnaMain = () => {
     CFN_ValidateCreateSimulationBrigunaPurnaFields
   );
   const [result, setResult] = useState<T_SimulationBrigunaPurna>();
-  const handleSubmit = async (button: boolean = true) => {
+
+  const handleSubmit = (button: boolean = true) => {
     setResult(undefined);
     const validate = validateForm();
     if (pending || !validate) {
       return;
     }
     try {
-      CFN_GetSimulationBrigunaPurna(transiting, form, (data) => {
-        setResult(data?.data);
+      CFN_GetSimulationBrigunaPurna(
+        transiting,
+        { ...form, interestRate: Number(form.interestRate) * 0.01 },
+        (data) => {
+          setResult(data?.data);
 
-        if (button) {
-          setIsResult(true);
+          if (button) {
+            setIsResult(true);
+          }
         }
-      });
+      );
     } catch (error) {}
   };
+
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
@@ -103,8 +107,8 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                       disabled={formDisabled.salary}
                       leftText="Rp."
                       value={form.salary}
-                      onChange={(value) => onFieldChange('salary', value)}
                       type="number"
+                      onChange={(value) => onFieldChange('salary', value)}
                     />
                   </div>
                   <div>
@@ -176,17 +180,33 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                       disabled={formDisabled.interestRate}
                       rightText="%"
                       value={form.interestRate}
-                      onChange={(value) => onFieldChange('interestRate', value)}
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('interestRate', strToInt);
+                      }}
                     />
                   </div>
                   <div>
                     <InputSlider
                       min={0}
-                      max={250}
+                      max={25}
                       step={0.1}
                       value={form.interestRate}
-                      onChange={(value) => onFieldChange('interestRate', value)}
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('interestRate', strToInt);
+                      }}
                     />
                   </div>
                   {formError.interestRate && (

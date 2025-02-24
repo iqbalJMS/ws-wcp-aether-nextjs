@@ -1,13 +1,10 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
 import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
+import CE_SimulationLabel from './client.simulation.label';
 
-import InputError from '@/lib/element/global/input.error';
-import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import InputSelect from '@/lib/element/global/input.select';
 import {
   T_SimulationVehicleInstallment,
   T_SimulationVehicleInstallmentRequest,
@@ -17,6 +14,9 @@ import {
   CFN_MapToSimulationVehicleInstallmentPayload,
   CFN_ValidateCreateSimulationVehicleInstallmentFields,
 } from '@/app/(views)/$function/cfn.get.simulation-vehicle-installment';
+import InputError from '@/lib/element/global/input.error';
+import InputSelect from '@/lib/element/global/input.select';
+import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 
 const CE_SimulationCarMain = () => {
   const [pending, transiting] = useTransition();
@@ -45,7 +45,7 @@ const CE_SimulationCarMain = () => {
     CFN_ValidateCreateSimulationVehicleInstallmentFields
   );
   const [result, setResult] = useState<T_SimulationVehicleInstallment>();
-  const handleSubmit = async (button: boolean = true) => {
+  const handleSubmit = (button: boolean = true) => {
     setResult(undefined);
     const validate = validateForm();
     if (pending || !validate) {
