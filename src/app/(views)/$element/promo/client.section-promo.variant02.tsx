@@ -55,6 +55,7 @@ export default function CE_SectionPromoVariant01({
   const handleSearch = () => {
     setForm((prevForm) => ({
       ...prevForm,
+      page: '1',
       search: searchValue,
     }));
   };

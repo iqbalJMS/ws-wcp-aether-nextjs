@@ -173,6 +173,15 @@ const CE_SectionWaspadaModus = dynamic(
     import('@/app/(views)/$element/content-type/client.section-waspada-modus')
 );
 
+const CE_SectionAnnouncement = dynamic(
+  () =>
+    import('@/app/(views)/$element/content-type/client.section-announcement')
+);
+
+const CE_SectionAuctions = dynamic(
+  () => import('@/app/(views)/$element/content-type/client.section-auctions')
+);
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -1221,6 +1230,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           item?.field_paragraphs?.[0]?.field_primary_cta?.[0]?.title;
         const showUrl =
           item?.field_paragraphs?.[0]?.field_primary_cta?.[0]?.full_url;
+        const imageDefault =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
         return {
           group: {
             title: title,
@@ -1251,7 +1262,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 return {
                   id: id,
                   type: type,
-                  img: image,
+                  img: imageDefault || image,
                   title: title,
                   description: description,
                   startDate: start_date,
@@ -2469,6 +2480,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return <CE_SectionNews newsData={data} />;
         case WIDGET_VARIANT.variant52:
           return <CE_SectionWaspadaModus waspadaModusData={data} />;
+        case WIDGET_VARIANT.variant53:
+          return <CE_SectionAuctions auctionsData={data} />;
+        case WIDGET_VARIANT.variant54:
+          return <CE_SectionAnnouncement announcementData={data} />;
         default:
           return <></>;
       }
@@ -2486,7 +2501,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             image:
               item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
               imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-            date: item?.created?.[0]?.value,
+            date:
+              item?.type?.[0]?.type === 'info_lelang'
+                ? item?.body?.[0]?.value
+                : item?.created?.[0]?.value,
           };
         }),
       };
@@ -2495,6 +2513,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant51:
           return { entity: entityBundle, data: dataContentType };
         case WIDGET_VARIANT.variant52:
+          return { entity: entityBundle, data: dataContentType };
+        case WIDGET_VARIANT.variant53:
+          return { entity: entityBundle, data: dataContentType };
+        case WIDGET_VARIANT.variant54:
           return { entity: entityBundle, data: dataContentType };
         default:
           return {};
