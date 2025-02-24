@@ -16,12 +16,10 @@ const CE_PromoCard = ({
   imageUrl1,
   imageUrl2,
 }: T_PromoCardProps) => {
-  //eslint-disable-next-line no-console
-  console.log(imageUrl1, imageUrl2);
   return (
-    <div className="relative flex mb-10">
+    <div className="relative flex my-10">
       {description1 && (
-        <div className="flex-1 flex flex-col justify-center p-6 items-center z-10 bg-white">
+        <div className="flex-1 flex flex-col justify-center p-6 items-center z-10">
           <div className="w-full flex justify-end">
             <div
               className={`mb-4 flex justify-center text-center md:text-left w-full md:max-w-[650px]`}
