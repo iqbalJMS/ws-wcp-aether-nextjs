@@ -51,6 +51,8 @@ export const WIDGET_VARIANT = {
   variant50: 'generated_sitemap',
   variant51: 'news',
   variant52: 'alert_mode',
+  variant53: 'info_lelang',
+  variant54: 'pengumuman',
 };
 
 export const API_BASE_URL =

@@ -68,6 +68,7 @@ export type T_MultiTab = {
   field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
   field_title_custom: Array<{ value: string }>;
   field_tab: Array<{
+    field_image?: Array<T_FieldImage>;
     value: string;
     field_title: Array<{ value: string }>;
     field_paragraphs: T_FieldParagraph;
