@@ -142,10 +142,16 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                       disabled={formDisabled.installmentTerm}
                       rightText="Tahun"
                       value={form.installmentTerm}
-                      onChange={(value) =>
-                        onFieldChange('installmentTerm', value)
-                      }
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('installmentTerm', strToInt);
+                      }}
                     />
                   </div>
                   <div>

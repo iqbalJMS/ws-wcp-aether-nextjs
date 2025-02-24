@@ -89,10 +89,10 @@ const CE_SimulationKPRMain = () => {
                       disabled={formDisabled.installmentAmount}
                       leftText="Rp."
                       value={form.installmentAmount}
+                      type="number"
                       onChange={(value) =>
                         onFieldChange('installmentAmount', value)
                       }
-                      type="number"
                     />
                   </div>
                   <div>
@@ -126,10 +126,16 @@ const CE_SimulationKPRMain = () => {
                       disabled={formDisabled.installmentTerm}
                       rightText="Tahun"
                       value={form.installmentTerm}
-                      onChange={(value) =>
-                        onFieldChange('installmentTerm', value)
-                      }
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('installmentTerm', strToInt);
+                      }}
                     />
                   </div>
                   <div>

@@ -109,10 +109,16 @@ const CE_SimulationDepositoBusinessMain = () => {
                       disabled={formDisabled.depositAmount}
                       leftText="Rp."
                       value={form.depositAmount}
-                      onChange={(value) =>
-                        onFieldChange('depositAmount', value)
-                      }
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('depositAmount', strToInt);
+                      }}
                     />
                   </div>
                   <div>

@@ -270,7 +270,13 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       value={karyaForm.installmentTerm}
                       type="number"
                       onChange={(value) => {
-                        karyaOnFieldChange('installmentTerm', value);
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        karyaOnFieldChange('installmentTerm', strToInt);
                       }}
                     />
                   </div>
@@ -405,9 +411,15 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                           rightText="Tahun"
                           value={purnaForm.installmentTerm}
                           type="number"
-                          onChange={(value) =>
-                            purnaOnFieldChange('installmentTerm', value)
-                          }
+                          onChange={(value) => {
+                            let strToInt = 0;
+
+                            try {
+                              strToInt = Number(value);
+                            } catch (_) {}
+
+                            purnaOnFieldChange('installmentTerm', strToInt);
+                          }}
                         />
                       </div>
                       <div>

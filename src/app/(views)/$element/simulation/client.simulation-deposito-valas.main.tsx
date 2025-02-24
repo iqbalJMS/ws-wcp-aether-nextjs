@@ -174,10 +174,16 @@ const CE_SimulationDepositoValasMain = () => {
                     <InputText
                       disabled={formDisabled.depositAmount}
                       value={form.depositAmount}
-                      onChange={(value) =>
-                        onFieldChange('depositAmount', value)
-                      }
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('depositAmount', strToInt);
+                      }}
                     />
                   </div>
                   <div>
@@ -251,41 +257,6 @@ const CE_SimulationDepositoValasMain = () => {
                 setFormDisabled({ ...formDisabled, termInMonths: edit })
               }
             />
-            {/* <CE_SimulationLabel
-              label="Jangka Waktu"
-              slot={
-                <div>
-                  <div className="mb-5 w-[70%]">
-                    <InputText
-                      disabled={formDisabled.termInMonths}
-                      rightText="Bulan"
-                      value={form.termInMonths}
-                      onChange={(value) => onFieldChange('termInMonths', value)}
-                      type="number"
-                    />
-                  </div>
-                  <div>
-                    <InputSlider
-                      min={1}
-                      max={24}
-                      step={
-                        form.termInMonths === 1
-                          ? form.termInMonths + 1
-                          : form.termInMonths
-                      }
-                      value={form.termInMonths}
-                      onChange={(value) => onFieldChange('termInMonths', value)}
-                    />
-                  </div>
-                  <div className="mt-5">
-                    <InputError message={formError.termInMonths} />
-                  </div>
-                </div>
-              }
-              onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, termInMonths: edit })
-              }
-            /> */}
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel

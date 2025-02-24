@@ -109,8 +109,8 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                       disabled={formDisabled.salary}
                       leftText="Rp."
                       value={form.salary}
-                      onChange={(value) => onFieldChange('salary', value)}
                       type="number"
+                      onChange={(value) => onFieldChange('salary', value)}
                     />
                   </div>
                   <div>
@@ -144,10 +144,16 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                       disabled={formDisabled.installmentTerm}
                       rightText="Tahun"
                       value={form.installmentTerm}
-                      onChange={(value) =>
-                        onFieldChange('installmentTerm', value)
-                      }
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('installmentTerm', strToInt);
+                      }}
                     />
                   </div>
                   <div>

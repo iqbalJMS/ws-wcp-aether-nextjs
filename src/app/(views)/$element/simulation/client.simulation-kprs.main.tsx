@@ -1,20 +1,20 @@
-import InputSlider from '@/lib/element/global/input.slider';
-import CE_SimulationLabel from './client.simulation.label';
-import InputText from '@/lib/element/global/input.text';
-import { useEffect, useState, useTransition } from 'react';
-import ButtonSecondary from '@/lib/element/global/button.secondary';
-import useForm from '@/lib/hook/useForm';
+import {
+  T_SimulationKPRS,
+  T_SimulationKPRSRequest,
+} from '@/api/simulation/kprs/api.get.kprs.type';
 import {
   CFN_GetSimulationKPRS,
   CFN_MapToSimulationKPRSPayload,
   CFN_ValidateCreateSimulationKPRSFields,
 } from '@/app/(views)/$function/cfn.get.simulation-kprs';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
 import InputError from '@/lib/element/global/input.error';
+import InputSlider from '@/lib/element/global/input.slider';
+import InputText from '@/lib/element/global/input.text';
+import useForm from '@/lib/hook/useForm';
+import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
-import {
-  T_SimulationKPRS,
-  T_SimulationKPRSRequest,
-} from '@/api/simulation/kprs/api.get.kprs.type';
+import CE_SimulationLabel from './client.simulation.label';
 
 const CE_SimulationKPRSMain = () => {
   const [pending, transiting] = useTransition();
@@ -126,10 +126,16 @@ const CE_SimulationKPRSMain = () => {
                       disabled={formDisabled.installmentTerm}
                       rightText="Tahun"
                       value={form.installmentTerm}
-                      onChange={(value) =>
-                        onFieldChange('installmentTerm', value)
-                      }
                       type="number"
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('installmentTerm', strToInt);
+                      }}
                     />
                   </div>
                   <div>

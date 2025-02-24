@@ -120,11 +120,17 @@ const CE_SimulationBritamaRencanaMain = () => {
                   <div className=" w-full">
                     <InputTextVariant
                       value={form.durationInMonths}
-                      onChange={(value) =>
-                        onFieldChange('durationInMonths', value)
-                      }
                       min={1}
                       max={240}
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('durationInMonths', strToInt);
+                      }}
                     />
                   </div>
                   <div className="w-full pt-2">
@@ -148,12 +154,18 @@ const CE_SimulationBritamaRencanaMain = () => {
                   <div className="w-full">
                     <InputText
                       value={form.monthlyDeposit}
-                      onChange={(value) =>
-                        onFieldChange('monthlyDeposit', value)
-                      }
                       type="number"
                       min={0}
                       max={10000000000}
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('monthlyDeposit', strToInt);
+                      }}
                     />
                   </div>
                   <div className=" w-full mt-5">
