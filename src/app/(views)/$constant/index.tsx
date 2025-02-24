@@ -1933,7 +1933,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           case 'download':
             return (
               <CE_CardVariant09
-                data={children?.map((item) => ({
+                data={(children || [])?.map((item) => ({
                   title: item?.filename?.replaceAll('_', ' '),
                   description: item?.description?.replaceAll('_', ' '),
                   button: {
@@ -1948,7 +1948,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           case 'image-slider':
             return (
               <CE_CarouselVariant06
-                data={children?.map((item) => {
+                data={(children || [])?.map((item) => {
                   return {
                     description: item?.description,
                     image: item?.image,
@@ -1960,7 +1960,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           default:
             return (
               <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
-                {children?.map((item, index) => (
+                {(children || [])?.map((item, index) => (
                   <div key={index} className="lg:w-1/4 w-full flex-none px-2">
                     <Link href={item?.button?.link} target="_blank">
                       <div className="lg:p-5 p-4 shadow-lg">
@@ -2048,10 +2048,37 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         (item: {
           field_title: Array<{ value: string }>;
           field_content: Array<{ value: string }>;
+          field_paragraphs: Array<{
+            field_column: Array<{
+              field_title: Array<{ value: string }>;
+              field_image: Array<{
+                field_media_image: Array<{ uri: Array<{ url: string }> }>;
+              }>;
+              field_primary_cta: Array<{ title: string; full_url: string }>;
+            }>;
+          }>;
         }) => {
           return {
             title: item?.field_title?.[0]?.value,
-            children: item?.field_content?.[0]?.value,
+            content: item?.field_content?.[0]?.value,
+            children: item?.field_paragraphs?.[0]?.field_column?.map(
+              (childItem) => {
+                const title = childItem?.field_title?.[0]?.value;
+                const image =
+                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                    ?.url;
+
+                return {
+                  image: image,
+                  title: title,
+                  button: {
+                    link: childItem?.field_primary_cta?.[0]?.full_url,
+                    title: childItem?.field_primary_cta?.[0]?.title,
+                    extern: true,
+                  },
+                };
+              }
+            ),
           };
         }
       );
