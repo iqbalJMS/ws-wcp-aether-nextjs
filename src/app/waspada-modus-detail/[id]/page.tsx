@@ -46,7 +46,11 @@ export default async function PageAether({
         nid: item?.nid?.[0]?.value,
         title: item?.title?.[0]?.value,
         dateTimestamp: item?.created?.[0]?.value,
-        image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+        image:
+          item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
+          item?.field_components?.find(
+            (item) => item?.entity_bundle?.[0]?.value === 'image'
+          )?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
       })),
     };
   };
