@@ -48,7 +48,12 @@ export function CFN_ValidateCreateSimulationDepositoValasFields(
         100000000
       );
     case 'termInMonths':
-      return validateMaxMin(value, 'Jangka Waktu', 1, 24);
+      return validateMaxMin(
+        value,
+        'Jangka Waktu harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 24',
+        1,
+        24
+      );
     default:
       return '';
   }
