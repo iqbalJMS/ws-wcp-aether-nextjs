@@ -578,7 +578,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         }
                         variant="full-border"
                         isOpen
-                        renderContent={item?.content}
+                        renderContent={parseHTMLToReact(item?.content || '')}
                       />
                     );
                   })}
@@ -2035,7 +2035,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 }
                 variant={isCapsule as T_AccordionProps['variant']}
                 isOpen
-                renderContent={item?.content}
+                renderContent={parseHTMLToReact(item?.content)}
               />
             );
           })}
