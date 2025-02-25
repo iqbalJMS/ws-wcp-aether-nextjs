@@ -10,7 +10,8 @@ export default function SE_RelatedContent({
     contents: Array<{
       nid: number;
       title: string;
-      date: string;
+      dateTimestamp?: string;
+      dateString?: string;
       image?: string;
       startDate?: string;
       endDate?: string;
@@ -43,11 +44,11 @@ export default function SE_RelatedContent({
   };
 
   return (
-    <div className="flex items-center md:flex-row flex-col gap-4">
+    <div className="flex items-center md:flex-row flex-col gap-4 w-full">
       {dataContent.contents.map((data) => (
         <div
           key={data.nid}
-          className="h-[300px] mdmax:max-w-[300px] relative rounded-xl overflow-hidden group cursor-pointer"
+          className="h-[300px] mdmax:max-w-[300px] relative rounded-xl overflow-hidden group cursor-pointer flex-grow"
         >
           <Image
             src={data.image || '/web/guest/images/no-image.png'}
@@ -55,6 +56,7 @@ export default function SE_RelatedContent({
             height={0}
             alt=""
             sizes="100vw"
+            extern={data.image ? false : true}
             className="w-full h-full object-cover group-hover:transform group-hover:scale-125 transition-transform ease-in-out duration-300"
           />
           <div className="absolute top-0 left-0 w-full h-full  group-hover:bg-[#014A94]/70 bg-transparent transition-all ease-in-out duration-300">
@@ -67,7 +69,9 @@ export default function SE_RelatedContent({
                   </p>
                 ) : (
                   <p className="line-clamp-1 text-lg text-white">
-                    {formatDateTimestamp(data?.date)}
+                    {data?.dateTimestamp
+                      ? formatDateTimestamp(data?.dateTimestamp)
+                      : data?.dateString || ''}
                   </p>
                 )}
                 {data.title && (

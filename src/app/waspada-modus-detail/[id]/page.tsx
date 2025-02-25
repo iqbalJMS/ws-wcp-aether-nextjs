@@ -45,7 +45,7 @@ export default async function PageAether({
       contents: response.map((item) => ({
         nid: item?.nid?.[0]?.value,
         title: item?.title?.[0]?.value,
-        date: item?.created?.[0]?.value,
+        dateTimestamp: item?.created?.[0]?.value,
         image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
       })),
     };
@@ -74,30 +74,36 @@ export default async function PageAether({
 
   return (
     <React.Fragment>
-      <GlobalHeader
-        variant="no-transparent"
-        headerBottom={listHeaderBottom}
-        headerTop={listHeaderTop}
-        isLoginDropdown={false}
-        itemLogin={itemMenuLogin}
-        headerLogo={itemHeaderLogo || undefined}
-      />
-      {components?.map(({ Component, props }, key) => (
-        <React.Fragment key={key}>
-          <Component {...props} />
-        </React.Fragment>
-      ))}
-      {dataRelatedContent && (
-        <SE_RelatedContent
-          type="alert_mode"
-          dataContent={mapResponseToDataContent(dataRelatedContent)}
+      <div>
+        <GlobalHeader
+          variant="no-transparent"
+          headerBottom={listHeaderBottom}
+          headerTop={listHeaderTop}
+          isLoginDropdown={false}
+          itemLogin={itemMenuLogin}
+          headerLogo={itemHeaderLogo || undefined}
         />
-      )}
-      <GlobalFooter
-        main_footer={listMainFooter}
-        bottom_footer={listBottomFooter}
-      />
-      <ScrollToTop />
+        <main className="pt-32">
+          {components?.map(({ Component, props }, key) => (
+            <React.Fragment key={key}>
+              <Component {...props} />
+            </React.Fragment>
+          ))}
+          <section className="container py-20 w-full">
+            {dataRelatedContent && (
+              <SE_RelatedContent
+                type="alert_mode"
+                dataContent={mapResponseToDataContent(dataRelatedContent)}
+              />
+            )}
+          </section>
+        </main>
+        <GlobalFooter
+          main_footer={listMainFooter}
+          bottom_footer={listBottomFooter}
+        />
+        <ScrollToTop />
+      </div>
     </React.Fragment>
   );
 }

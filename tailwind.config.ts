@@ -138,7 +138,7 @@ const config: Config = {
             fontWeight: 300,
           },
         ],
-        // text xl
+
         'xl-bold': [
           '18px',
           {
@@ -282,9 +282,6 @@ const config: Config = {
             fontWeight: 300,
           },
         ],
-      },
-      filter: {
-        'brightness-invert': 'brightness(0) invert(1)',
       },
       colors: {
         'blue-01': '#00549B',

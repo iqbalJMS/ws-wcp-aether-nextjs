@@ -49,7 +49,7 @@ export default async function page({ params }: { params: { id: string } }) {
       contents: response.map((item) => ({
         nid: item?.nid?.[0]?.value,
         title: item?.title?.[0]?.value,
-        date: item?.created?.[0]?.value,
+        dateTimestamp: item?.created?.[0]?.value,
         image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
       })),
     };
@@ -85,9 +85,6 @@ export default async function page({ params }: { params: { id: string } }) {
             ]}
           />
           <section className="container py-20 w-full">
-            <div className="text-center mb-20">
-              <div className="text-3xl font-bold">Announcement</div>
-            </div>
             <SE_WysiwygMain
               variant="02"
               title={titleNews}
