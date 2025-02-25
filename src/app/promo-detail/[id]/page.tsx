@@ -13,6 +13,9 @@ import { ACT_GetBottomMenuFooter } from '@/app/(views)/$action/action.get.bottom
 import SE_PortletVariant02 from '@/app/(views)/$element/portlet/server.portlet.variant02';
 import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
 import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
+import { ACT_GetRelatedContentType } from '@/app/(views)/$action/action.get-related-content-type';
+import SE_RelatedContent from '@/app/(views)/$element/content-type/server.related-content-type';
+import { T_Response_Content_Type } from '@/api/content-type/api.get-content-type.type';
 
 export default async function page({ params }: { params: { id: string } }) {
   const getOurstoryData = await ACT_GetDetailPage({
@@ -31,6 +34,11 @@ export default async function page({ params }: { params: { id: string } }) {
   const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
   const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
+  const dataRelatedContent = await ACT_GetRelatedContentType({
+    nid: +params.id,
+    type: 'promo',
+  });
+
   const termsPromo = getOurstoryData?.field_term_and_condition?.[0]?.value;
   const merchantPromo = getOurstoryData?.field_promo_merchant?.[0]?.value;
   const imagePromo =
@@ -43,6 +51,18 @@ export default async function page({ params }: { params: { id: string } }) {
   const productPromo = getOurstoryData?.field_promo_product_type
     ?.map((item: any) => item.name?.[0]?.value)
     .join(', ');
+
+  const mapResponseToDataContent = (response: T_Response_Content_Type[]) => {
+    return {
+      contents: response.map((item) => ({
+        nid: item?.nid?.[0]?.value,
+        title: item?.title?.[0]?.value,
+        dateString: `${item?.field_promo_start_date?.[0]?.value} to ${item?.field_promo_end_date?.[0]?.value || 'Tidak ada kedaluwarsa'}`,
+        image:
+          item?.field_promo_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+      })),
+    };
+  };
 
   return (
     <>
@@ -77,7 +97,7 @@ export default async function page({ params }: { params: { id: string } }) {
               },
             ]}
           />
-          <section className="w-full flex flex-col justify-center items-center pb-10">
+          <section className="container py-20 w-full">
             <CE_CardDetailPromo
               title={titlePromo}
               image={imagePromo}
@@ -88,6 +108,15 @@ export default async function page({ params }: { params: { id: string } }) {
               lokasi={locationPromo}
               product={productPromo}
             />
+            {dataRelatedContent && (
+              <div>
+                <h2 className="font-bold text-3xl mb-10">Promo Lainnya</h2>
+                <SE_RelatedContent
+                  type="news"
+                  dataContent={mapResponseToDataContent(dataRelatedContent)}
+                />
+              </div>
+            )}
           </section>
         </main>
         <GlobalFooter
