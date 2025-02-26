@@ -50,6 +50,7 @@ export type T_Content_Type = {
   field_image: Array<T_FieldImage>;
   body: Array<{ value: string }>;
   field_components?: any[];
+  field_document?: any[];
 };
 
 export type T_News = {

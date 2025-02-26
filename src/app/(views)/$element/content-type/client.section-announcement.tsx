@@ -19,6 +19,7 @@ export default function CE_SectionAnnouncement({
       title: string;
       date: string;
       image: string;
+      downloadFile?: string;
     }>;
   };
 }) {
@@ -118,7 +119,7 @@ export default function CE_SectionAnnouncement({
               title: item.title,
               description: formatDate(Number(item.date)),
               button: {
-                link: '#',
+                link: item?.downloadFile || '#',
                 title: 'Unduh',
                 extern: true,
               },
