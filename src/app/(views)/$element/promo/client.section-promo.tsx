@@ -21,7 +21,8 @@ export default function CE_SectionPromo({
       title: string;
       date: string;
       id: string;
-      description: string;
+      description?: string;
+      downloadFile?: string;
       startDate?: string;
       endDate?: string;
     }>;

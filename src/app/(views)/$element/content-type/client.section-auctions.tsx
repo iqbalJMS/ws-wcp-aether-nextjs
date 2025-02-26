@@ -19,6 +19,7 @@ export default function CE_SectionAuctions({
       title: string;
       date: string;
       image: string;
+      downloadFile?: string;
     }>;
   };
 }) {
@@ -106,7 +107,7 @@ export default function CE_SectionAuctions({
               title: item.title,
               description: item.date,
               button: {
-                link: '#',
+                link: item?.downloadFile || '#',
                 title: 'Download',
                 extern: true,
               },

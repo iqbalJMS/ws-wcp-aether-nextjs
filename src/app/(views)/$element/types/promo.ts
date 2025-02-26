@@ -65,7 +65,8 @@ export type T_TabViewProps = {
       img: string;
       title: string;
       date: string;
-      description: string;
+      downloadFile?: string;
+      description?: string;
       startDate?: string;
       endDate?: string;
     }>

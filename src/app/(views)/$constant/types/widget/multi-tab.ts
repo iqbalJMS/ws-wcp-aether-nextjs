@@ -36,6 +36,7 @@ type T_Content_Type_Multitab = Array<{
   field_promo_image?: Array<T_FieldImage>;
   field_promo_start_date?: Array<{ value: string }>;
   field_promo_end_date?: Array<{ value: string }>;
+  field_document: any[]
 }>;
 
 type T_FieldParagraph = Array<{

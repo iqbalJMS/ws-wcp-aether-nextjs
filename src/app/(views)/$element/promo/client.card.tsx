@@ -6,6 +6,7 @@ import { T_CardProps } from '@/app/(views)/$element/types/promo';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useMemo } from 'react';
 import Link from '@/lib/element/global/link';
+import ButtonSecondary from '@/lib/element/global/button.secondary';
 
 export default function CE_Card(props: T_CardProps) {
   const { className, content, idx } = props;
@@ -25,11 +26,15 @@ export default function CE_Card(props: T_CardProps) {
   const urlLink = useMemo(() => {
     switch (content.type) {
       case 'promo':
-        return `/promo-detail/${content.id}`;
+        return content?.id ? `/promo-detail/${content.id}` : '#';
       case 'news':
-        return `/news-detail/${content.id}`;
+        return content?.id ? `/news-detail/${content.id}` : '#';
       case 'alert_mode':
-        return `/waspada-modus-detail/${content.id}`;
+        return content?.id ? `/waspada-modus-detail/${content.id}` : '#';
+      case 'info_lelang':
+        return content?.downloadFile || '#';
+      case 'pengumuman':
+        return content?.downloadFile || '#';
       default:
         return '#';
     }
@@ -46,7 +51,7 @@ export default function CE_Card(props: T_CardProps) {
       className={['p-5 shadow-md m-2 bg-white space-y-7', className].join(' ')}
     >
       <div draggable={false} className="space-y-7">
-        <Link href={content?.id ? urlLink : '#'} draggable={false}>
+        <Link href={urlLink} draggable={false}>
           <div className="w-full aspect-square h-[14rem] relative isolate">
             <Image
               src={content.img}
@@ -74,6 +79,16 @@ export default function CE_Card(props: T_CardProps) {
               <div className="line-clamp-2 text-xs text-gray-500">
                 {parseHTMLToReact(content?.description)}
               </div>
+            )}
+            {content?.downloadFile && (
+              <ButtonSecondary
+                className="bg-orange-01 hover:bg-orange-03 transition-all duration-300"
+                rounded="full"
+                color="orange-01"
+                size="md"
+              >
+                Unduh
+              </ButtonSecondary>
             )}
           </div>
         </Link>

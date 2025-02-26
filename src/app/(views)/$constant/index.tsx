@@ -1250,6 +1250,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 const start_date = items?.field_promo_start_date?.[0]?.value;
                 const end_date = items?.field_promo_end_date?.[0]?.value;
                 const date = items?.created?.[0]?.value;
+                const downloadFile =
+                  items?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
+                    ?.url;
                 const description =
                   items?.body?.[0]?.value ||
                   items?.field_plain_description?.[0]?.value;
@@ -1265,6 +1268,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   img: imageDefault || image,
                   title: title,
                   description: description,
+                  downloadFile: downloadFile
+                    ? `${API_BASE_URL}${downloadFile}`
+                    : '',
                   startDate: start_date,
                   endDate: end_date,
                   date: date,
@@ -2501,6 +2507,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             image:
               item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
               imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+            downloadFile: item?.field_document?.[0]?.field_media_file?.[0]
+              ?.uri?.[0]?.url
+              ? `${API_BASE_URL}${item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url}`
+              : '',
             date:
               item?.type?.[0]?.type === 'info_lelang'
                 ? item?.body?.[0]?.value
