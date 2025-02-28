@@ -240,6 +240,7 @@ export function Tabs({
             description2={item?.description2}
             imageUrl1={item?.imageUrl1}
             imageUrl2={item?.imageUrl2}
+            variant={''}
           />
         ));
       case WIDGET_VARIANT.variant15:
@@ -362,6 +363,7 @@ export function Tabs({
                 type: 'download',
                 children: listItem?.children as Array<TChildren>,
               })}
+              content={''}
             />
           ));
         });
@@ -383,6 +385,7 @@ export function Tabs({
                 // @ts-expect-error
                 children: listItem.children,
               })}
+              content={''}
             />
           ));
         });
