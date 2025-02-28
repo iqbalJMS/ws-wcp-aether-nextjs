@@ -196,7 +196,7 @@ const CE_SimulationDepositoValasMain = () => {
                         } catch (_) {}
 
                         if (strToInt > 0) {
-                          depositSBE(Number(form.termInMonths || '0'))
+                          depositSBE(Number(form.termInMonths || '0'));
                         }
 
                         onFieldChange('depositAmount', strToInt);
