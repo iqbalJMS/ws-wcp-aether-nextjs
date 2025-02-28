@@ -1,13 +1,6 @@
 'use client';
 
-import Link from '@/lib/element/global/link';
-import { useEffect, useMemo, useState, useTransition } from 'react';
-import { Tabs } from '@/lib/element/global/tabs';
-import Table from '@/lib/element/global/table';
-import InputSelect from '@/lib/element/global/input.select';
-import InputText from '@/lib/element/global/input.text';
 import { T_Kurs } from '@/app/(views)/$constant/types/widget/kurs';
-import useForm from '@/lib/hook/useForm';
 import {
   CFN_GetKurs,
   CFN_MapToKursPayload,
@@ -15,6 +8,13 @@ import {
   T_GetKurs,
 } from '@/app/(views)/$function/cfn.get.kurs';
 import Image from '@/lib/element/global/image';
+import InputSelect from '@/lib/element/global/input.select';
+import InputText from '@/lib/element/global/input.text';
+import Link from '@/lib/element/global/link';
+import Table from '@/lib/element/global/table';
+import { Tabs } from '@/lib/element/global/tabs';
+import useForm from '@/lib/hook/useForm';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 import PaginationKurs, { ShowingText } from './client.pagination.kurs';
 
 type T_Props = {
@@ -293,7 +293,7 @@ const CE_KursMain = ({
     {
       title: 'KURS TT COUNTER',
       information:
-        'e-Rate BRI adalah kurs khusus yang dapat dinikmati oleh pengguna e-Banking BRI ketika melakukan transaksi transfer.',
+        'TT Counter BRI merupakan layanan nilai tukar valuta asing (valas) yang dilakukan langsung di counter bank.',
       slug: 'kurs-tt',
     },
   ];
