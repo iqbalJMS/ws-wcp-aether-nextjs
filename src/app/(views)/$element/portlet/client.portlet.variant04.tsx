@@ -8,6 +8,7 @@ type T_PromoCardProps = {
   description2?: string;
   imageUrl1?: string;
   imageUrl2?: string;
+  variant: string;
 };
 
 const CE_PromoCard = ({
@@ -15,10 +16,11 @@ const CE_PromoCard = ({
   description2,
   imageUrl1,
   imageUrl2,
+  variant,
 }: T_PromoCardProps) => {
   return (
     <>
-      <div className="relative hidden lg:flex my-10">
+      <div className="w-full relative hidden lg:flex">
         {description1 && (
           <div className="flex-1 flex flex-col justify-center p-6 items-center z-10">
             <div className="w-full flex justify-end">
@@ -32,8 +34,8 @@ const CE_PromoCard = ({
         )}
 
         {imageUrl1 && (
-          <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
-            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
+          <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[200vh]">
+            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[103vh]">
               <Image
                 src={imageUrl1}
                 alt={description1 ?? ''}
@@ -43,17 +45,36 @@ const CE_PromoCard = ({
             </div>
           </div>
         )}
-        {imageUrl2 && (
-          <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
-            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
-              <Image
-                src={imageUrl2}
-                alt={description2 ?? ''}
-                fill
-                className="object-cover w-full h-full"
-              />
-            </div>
-          </div>
+        {variant ? (
+          <>
+            {imageUrl2 && (
+              <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[200vh] ">
+                <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[102vh]">
+                  <Image
+                    src={imageUrl2}
+                    alt={description2 ?? ''}
+                    fill
+                    className="object-center w-80 h-96"
+                  />
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            {imageUrl2 && (
+              <div className="md:flex-1 relative h-[300px] md:h-[450px] w-9/12 ">
+                <div className="md:flex-1 relative h-[300px] md:h-[450px] w-9/12">
+                  <Image
+                    src={imageUrl2}
+                    alt={description2 ?? ''}
+                    fill
+                    className="object-center w-80 h-96"
+                  />
+                </div>
+              </div>
+            )}
+          </>
         )}
 
         {description2 && (

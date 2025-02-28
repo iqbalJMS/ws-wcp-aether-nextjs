@@ -579,6 +579,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         variant="full-border"
                         isOpen
                         renderContent={parseHTMLToReact(item?.content || '')}
+                        content={''}
                       />
                     );
                   })}
@@ -1676,6 +1677,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               description2={description2}
               imageUrl1={imageUrl1}
               imageUrl2={imageUrl2}
+              variant={findVariantStyle}
             />
           );
       }
@@ -1819,6 +1821,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               description: description2,
               image: imageUrl2,
             },
+            variant: findVariantStyle,
           };
       }
     },
@@ -1943,7 +1946,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const accordionStyle: String = props?.accordionStyle;
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
 
-      // eslint-disable-next-line no-unused-vars
       const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
@@ -1999,7 +2001,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </div>
 
                           <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
-                            <div className="flex items-center gap-1 text-sm bg-red-500">
+                            <div className="flex items-center gap-1 text-sm">
                               {parseHTMLToReact(item?.button?.title)}
                             </div>
                             <svg
@@ -2041,7 +2043,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 }
                 variant={isCapsule as T_AccordionProps['variant']}
                 isOpen
-                renderContent={parseHTMLToReact(item?.content)}
+                renderContent={renderElement(item?.children ?? null)}
+                content={item?.content ?? null}
               />
             );
           })}

@@ -23,5 +23,3 @@ export default function WhatsappIcon({
     </main>
   );
 }
-
-// bg-[#080087] rounded-full p-[3px]

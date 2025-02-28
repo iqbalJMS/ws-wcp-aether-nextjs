@@ -52,7 +52,7 @@ const VideoPlayerVariant2: React.FC<CompanyProfileProps> = ({
   linkText,
 }) => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto bg-yellow-500">
       <div className="flex flex-col md:flex-row items-center bg-gray-100 py-12 px-6">
         <div>
           <iframe
