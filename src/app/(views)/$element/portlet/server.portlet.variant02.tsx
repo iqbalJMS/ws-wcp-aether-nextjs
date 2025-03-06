@@ -39,10 +39,10 @@ export default async function SE_PortletVariant02({
           className={`container flex flex-col justify-center h-full relative z-10 ${hasCenterWidget ? 'items-center' : ''}`}
         >
           <div
-            className={`${hasLeftWidget ? 'ml-auto md:pr-[200px] pr-0' : ''}`}
+            className={`${hasLeftWidget ? 'ml-auto md:pr-[200px] pr-0' : ''} ${hasCenterWidget ? 'ml:0 xl:ml-96 flex flex-col items-start' : ''}`}
           >
             <div
-              className={`${hasCenterWidget ? 'text-center' : ''} ${hasLeftWidget ? 'mdmax:text-center' : ''} mb-3`}
+              className={`${hasCenterWidget ? 'text-nowrap' : ''} ${hasLeftWidget ? 'mdmax:text-center' : ''} mb-3`}
             >
               {title && (
                 <div
