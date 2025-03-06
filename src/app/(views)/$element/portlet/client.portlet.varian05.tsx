@@ -22,7 +22,7 @@ export default function CE_PortletVarian05({
   };
 }) {
   return (
-    <div className="container mx-auto grid md:grid-cols-2 my-8 py-6 bg-red-300">
+    <div className="container mx-auto grid md:grid-cols-2 my-8 py-6">
       <div className="flex items-center col-span-1 md:order-1 order-2">
         <div className="section-portlet-first-column">
           {firstColumn?.title && (
