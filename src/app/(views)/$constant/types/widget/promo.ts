@@ -78,6 +78,7 @@ export type T_PromoWidget = {
       field_promo_image: Array<T_FieldImage>;
       field_promo_start_date: Array<{ value: string }>;
       field_promo_end_date: Array<{ value: string }>;
+      field_promo_category: Array<{ title: Array<{ value: string }> }>;
     }>;
     popular_category: Array<{
       title: Array<{ value: string }>;

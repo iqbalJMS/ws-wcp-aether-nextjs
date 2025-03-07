@@ -28,6 +28,10 @@ import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
 
+const CE_PromoSlider = dynamic(
+  () => import('@/app/(views)/$element/promo/client.promo-slider')
+);
+
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
 );
@@ -2389,6 +2393,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               categoryData={categoryProps}
             />
           );
+        case WIDGET_VARIANT.variant55:
+          return <CE_PromoSlider data={dataProps} />;
         default:
           return (
             <CE_SectionPromoVariant02
@@ -2463,7 +2469,23 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
 
+      const promoSliderData = _component?.promo_data?.items.map((item) => {
+        return {
+          image: item?.field_promo_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+          title: item?.title?.[0]?.value,
+          nid: item?.nid?.[0]?.value,
+          startDate: item?.field_promo_start_date?.[0]?.value,
+          endDate: item?.field_promo_end_date?.[0]?.value,
+          label: item?.field_promo_category?.[0]?.title?.[0]?.value,
+        };
+      });
+
       switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant55:
+          return {
+            dataProps: promoSliderData,
+            variant: findVariantStyle,
+          };
         case WIDGET_VARIANT.variant23:
         default:
           return {
