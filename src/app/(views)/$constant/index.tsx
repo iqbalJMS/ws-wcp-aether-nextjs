@@ -1367,10 +1367,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     item?.field_second_column?.[0]?.field_content?.[0]?.value;
                   const imageUrl1 =
                     item.field_first_column?.[0]?.field_image?.[0]
-                      .field_media_image?.[0]?.uri?.[0]?.url;
+                      ?.field_media_image?.[0]?.uri?.[0]?.url;
                   const imageUrl2 =
                     item.field_second_column?.[0]?.field_image?.[0]
-                      .field_media_image?.[0]?.uri?.[0]?.url;
+                      ?.field_media_image?.[0]?.uri?.[0]?.url;
 
                   return {
                     description1: description1,

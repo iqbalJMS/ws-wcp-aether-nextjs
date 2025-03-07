@@ -23,7 +23,7 @@ const CE_PromoCard = ({
       <div className="w-full relative hidden lg:flex">
         {description1 && (
           <div className="flex-1 flex flex-col justify-center p-6 items-center z-10">
-            <div className="w-full flex justify-end">
+            <div className="w-full flex justify-start">
               <div
                 className={`mb-4 flex justify-center text-center md:text-left w-full md:max-w-[650px]`}
               >
@@ -35,12 +35,12 @@ const CE_PromoCard = ({
 
         {imageUrl1 && (
           <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[200vh]">
-            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[103vh]">
+            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[103vh] justify-start">
               <Image
                 src={imageUrl1}
                 alt={description1 ?? ''}
                 fill
-                className="object-cover w-full h-full"
+                className="object-contain w-full h-full"
               />
             </div>
           </div>
@@ -49,12 +49,12 @@ const CE_PromoCard = ({
           <>
             {imageUrl2 && (
               <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[200vh] ">
-                <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[102vh]">
+                <div className="md:flex-1 relative md:h-[450px] h-[250px] w-[102vh] justify-end">
                   <Image
                     src={imageUrl2}
                     alt={description2 ?? ''}
                     fill
-                    className="object-center w-80 h-96"
+                    className="object-contain w-80 h-96"
                   />
                 </div>
               </div>
@@ -64,12 +64,12 @@ const CE_PromoCard = ({
           <>
             {imageUrl2 && (
               <div className="md:flex-1 relative h-[300px] md:h-[450px] w-9/12 ">
-                <div className="md:flex-1 relative h-[300px] md:h-[450px] w-9/12">
+                <div className="md:flex-1 relative h-[300px] md:h-[450px] w-9/12 justify-end">
                   <Image
                     src={imageUrl2}
                     alt={description2 ?? ''}
                     fill
-                    className="object-center w-80 h-96"
+                    className="object-contain w-80 h-96"
                   />
                 </div>
               </div>
@@ -79,7 +79,7 @@ const CE_PromoCard = ({
 
         {description2 && (
           <div className="flex-1 flex flex-col justify-center p-6 items-center z-10 bg-white">
-            <div className="w-full flex justify-start">
+            <div className="w-full flex justify-end">
               <div
                 className={`mb-4 flex justify-center text-center md:text-left w-full md:max-w-[650px]`}
               >
@@ -92,7 +92,7 @@ const CE_PromoCard = ({
       <div className="relative flex flex-col lg:hidden my-10">
         {description1 && (
           <div className="flex-1 flex flex-col justify-center p-6 items-center z-10 md:order-1 order-2">
-            <div className="w-full flex justify-end">
+            <div className="w-full flex justify-start">
               <div
                 className={`mb-4 flex justify-center text-center w-full md:max-w-[650px]`}
               >
@@ -104,24 +104,24 @@ const CE_PromoCard = ({
 
         {imageUrl1 && (
           <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
-            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
+            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full justify-start">
               <Image
                 src={imageUrl1}
                 alt={description1 ?? ''}
                 fill
-                className="object-cover w-full h-full"
+                className="object-contain w-full h-full"
               />
             </div>
           </div>
         )}
         {imageUrl2 && (
           <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
-            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
+            <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full justify-end">
               <Image
                 src={imageUrl2}
                 alt={description2 ?? ''}
                 fill
-                className="object-cover w-full h-full"
+                className="object-contain w-full h-full"
               />
             </div>
           </div>
@@ -129,7 +129,7 @@ const CE_PromoCard = ({
 
         {description2 && (
           <div className="flex-1 flex flex-col justify-center p-6 items-center z-10 bg-white">
-            <div className="w-full flex justify-start">
+            <div className="w-full flex justify-end">
               <div
                 className={`mb-4 flex justify-center text-center w-full md:max-w-[650px]`}
               >
