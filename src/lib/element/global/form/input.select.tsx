@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
-import { T_InputSelectItem, T_InputState } from '@/lib/element/client/input';
-import { T_Icon } from '@/lib/element/client/icon';
+import { T_InputSelectItem, T_InputState } from '@/lib/types/input';
+import { T_Icon } from '@/lib/types/icon';
 import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 
 export function ArrowDownIcon({ width = 16, height = 9, className }: T_Icon) {
@@ -97,7 +97,7 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
       >
         {!multiple ? (
           <div
-            className={`mr-4 text-base mdmax:text-sm text-line-1 ${selectedItem ? '' : 'text-black text-opacity-40 font-light'}`}
+            className={`mr-4 text-base mdmax:text-sm line-clamp-1 ${selectedItem ? '' : 'text-black text-opacity-40 font-light'}`}
           >
             {selectedItem ? selectedItem?.title : placeholder}
           </div>
@@ -108,7 +108,7 @@ const InputSelect: React.FC<T_InputSelectProps> = ({
               return (
                 <div key={index} className="px-2">
                   <div className="bg-blue01 bg-opacity-10 rounded-4 flex overflow-hidden">
-                    <div className=" font-medium text-line-1 text-blue01 px-8">
+                    <div className=" font-medium line-clamp-1 text-blue01 px-8">
                       {item?.title}
                     </div>
                     {!disabled && (

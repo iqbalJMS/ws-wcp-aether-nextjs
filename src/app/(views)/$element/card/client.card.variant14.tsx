@@ -45,7 +45,7 @@ export function CE_CardVariant14({ data }: T_CardVariant14Props) {
                   </div>
                   <div className="relative z-20">
                     <div className="p-10 mdmax:p-10">
-                      <div className="text-2xl font-semibold text-white text-line-1 mb-2">
+                      <div className="text-2xl font-semibold text-white line-clamp-1 mb-2">
                         {parseHTMLToReact(item.title)}
                       </div>
                       <div className="text-white mb-2">

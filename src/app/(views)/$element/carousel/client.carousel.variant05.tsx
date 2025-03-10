@@ -112,12 +112,12 @@ export function CE_CarouselVariant05({
                       )}
                       <div>
                         {dataItem.title && (
-                          <div className="font-semibold mb-8 text-line-2">
+                          <div className="font-semibold mb-8 line-clamp-2">
                             {parseHTMLToReact(dataItem.title)}
                           </div>
                         )}
                         {dataItem.subDesc && (
-                          <div className="text-xs text-line-1 mb-2">
+                          <div className="text-xs line-clamp-1 mb-2">
                             {parseHTMLToReact(dataItem.subDesc || '')}
                           </div>
                         )}

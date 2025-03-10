@@ -1,6 +1,6 @@
-import { CheckIcon } from '@/lib/element/global/check-icon';
-import { ChevronDownIcon } from '@/lib/element/global/chevron-down-icon';
-import { ChevronUpIcon } from '@/lib/element/global/chevron-up-icon';
+import { CheckIcon } from '@/lib/element/global/icons/check-icon';
+import { ChevronDownIcon } from '@/lib/element/global/icons/chevron-down-icon';
+import { ChevronUpIcon } from '@/lib/element/global/icons/chevron-up-icon';
 import { useCallback, useEffect, useState } from 'react';
 
 interface CategoryListProps {

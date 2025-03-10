@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRightIcon } from '@/lib/element/global/chevron-right-icon';
+import { ChevronRightIcon } from '@/lib/element/global/icons/chevron-right-icon';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import React from 'react';

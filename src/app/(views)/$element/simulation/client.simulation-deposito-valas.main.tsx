@@ -8,10 +8,10 @@ import {
   CFN_ValidateCreateSimulationDepositoValasFields,
 } from '@/app/(views)/$function/cfn.get.simulation-deposito-valas';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
-import InputError from '@/lib/element/global/input.error';
-import InputSelect from '@/lib/element/global/input.select';
-import InputSlider from '@/lib/element/global/input.slider';
-import InputText from '@/lib/element/global/input.text';
+import InputError from '@/lib/element/global/form/input.error';
+import InputSelect from '@/lib/element/global/form/input.select';
+import InputSlider from '@/lib/element/global/form/input.slider';
+import InputText from '@/lib/element/global/form/input.text';
 import useForm from '@/lib/hook/useForm';
 import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';

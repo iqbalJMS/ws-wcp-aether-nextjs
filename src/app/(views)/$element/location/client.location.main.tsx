@@ -16,13 +16,13 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Link from '@/lib/element/global/link';
 import Pagination from '@/lib/element/global/pagination';
 import { ACT_GetLocationProvince } from '@/app/(views)/$action/action.get.location-province';
-import { T_InputSelectItem } from '@/lib/element/client/input';
+import { T_InputSelectItem } from '@/lib/types/input';
 import { ACT_GetLocationType } from '@/app/(views)/$action/action.get.location-type';
 import { T_LocationType } from '@/api/location/api.get.location-type.type';
 import Image from '@/lib/element/global/image';
 import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.location-category';
 import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
-import InputSelect from '@/lib/element/global/input.select';
+import InputSelect from '@/lib/element/global/form/input.select';
 import debounce from '@/lib/functions/global/debounce';
 
 type T_Props = {

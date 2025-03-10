@@ -26,11 +26,11 @@ const config: Config = {
         '1025': '1025px',
         '1367': '1367px',
         mdmax: { max: '768px' },
+        xsmax: { max: '375px' },
         hoverable: { raw: '(hover: hover)' },
         unhoverable: { raw: '(hover: none)' },
       },
       fontSize: {
-        // heading s
         'heading-s-bold': [
           '30px',
           {
@@ -66,7 +66,6 @@ const config: Config = {
             fontWeight: 300,
           },
         ],
-        // heading m
         'heading-m-bold': [
           '60px',
           {
@@ -102,7 +101,6 @@ const config: Config = {
             fontWeight: 300,
           },
         ],
-        // text xxl
         'xxl-bold': [
           '20px',
           {
@@ -138,7 +136,6 @@ const config: Config = {
             fontWeight: 300,
           },
         ],
-
         'xl-bold': [
           '18px',
           {
@@ -174,7 +171,6 @@ const config: Config = {
             fontWeight: 300,
           },
         ],
-        // text l
         'l-bold': [
           '16px',
           {
@@ -210,7 +206,6 @@ const config: Config = {
             fontWeight: 300,
           },
         ],
-        // text m
         'm-bold': [
           '14px',
           {
@@ -246,7 +241,6 @@ const config: Config = {
             fontWeight: 300,
           },
         ],
-        // text s
         's-bold': [
           '12px',
           {

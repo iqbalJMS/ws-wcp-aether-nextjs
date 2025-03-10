@@ -38,7 +38,7 @@ export default function CE_CardVariant09({
                     >
                       <div className="mdmax:mb-5">
                         {item?.title && (
-                          <div className="lg:text-lg text-base font-semibold capitalize text-blue-01 text-line-1 mb-2">
+                          <div className="lg:text-lg text-base font-semibold capitalize text-blue-01 line-clamp-1 mb-2">
                             {parseHTMLToReact(item?.title)}
                           </div>
                         )}

@@ -12,7 +12,7 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import useForm from '@/lib/hook/useForm';
 import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import { useEffect, useRef, useState, useTransition } from 'react';
-import { CloseIcon } from './close-icon';
+import { CloseIcon } from './icons/close-icon';
 import Image from './image';
 import Link from './link';
 import { Tabs } from './tabs';
@@ -113,7 +113,7 @@ export function Search({ active, setActive }: T_SearchProps) {
     <div
       ref={elementRef}
       className={[
-        'fixed  left-0 w-full max-h-screen bg-white z-50 overflow-auto overflow-custom transition-all ease-in-out duration-300',
+        'fixed left-0 w-full max-h-screen bg-white z-50 overflow-auto overflow-custom transition-all ease-in-out duration-300',
         active ? 'top-0' : '-top-full',
       ].join(' ')}
     >
@@ -247,12 +247,12 @@ export function Search({ active, setActive }: T_SearchProps) {
 
                         <div className="mt-2">
                           {dataItem.title && (
-                            <div className=" text-blue-01 text-2xl font-semibold text-line-2 mb-2">
+                            <div className=" text-blue-01 text-2xl font-semibold line-clamp-2 mb-2">
                               {parseHTMLToReact(dataItem.title)}
                             </div>
                           )}
                           {dataItem.content && (
-                            <div className=" text-blue-02 text-line-2 mb-2">
+                            <div className=" text-blue-02 line-clamp-2 mb-2">
                               {parseHTMLToReact(dataItem.content)}
                             </div>
                           )}
@@ -307,12 +307,12 @@ export function Search({ active, setActive }: T_SearchProps) {
                         <div className="absolute z-10 top-0 left-0 bg-black bg-opacity-30 group-hover:bg-opacity-70 w-full h-full"></div>
                         <div className="absolute z-20 bottom-0 left-0 p-4 ">
                           {dataItem.title && (
-                            <div className=" text-white text-2xl font-semibold text-line-2">
+                            <div className=" text-white text-2xl font-semibold line-clamp-2">
                               {parseHTMLToReact(dataItem.title)}
                             </div>
                           )}
                           {dataItem.content && (
-                            <div className=" text-white text-line-2">
+                            <div className=" text-white line-clamp-2">
                               {parseHTMLToReact(dataItem.content)}
                             </div>
                           )}
@@ -357,7 +357,7 @@ export function Search({ active, setActive }: T_SearchProps) {
 
                         <div className="mt-2">
                           {dataItem.title && (
-                            <div className=" text-red-01 text-2xl font-semibold text-line-2">
+                            <div className=" text-red-01 text-2xl font-semibold line-clamp-2">
                               {parseHTMLToReact(dataItem.title)}
                             </div>
                           )}

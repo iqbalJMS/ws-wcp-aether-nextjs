@@ -1,7 +1,7 @@
 'use server';
 
 import SE_PortletItem from './server.portlet.item';
-import { ArrowDownIcon } from '@/lib/element/global/arrow-down-icon';
+import { ArrowDownIcon } from '@/lib/element/global/icons/arrow-down-icon';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
 import Link from '@/lib/element/global/link';

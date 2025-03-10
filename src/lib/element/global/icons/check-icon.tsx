@@ -1,4 +1,4 @@
-import { T_Icon } from '@/lib/element/client/icon';
+import { T_Icon } from '@/lib/types/icon';
 
 export function CheckIcon({
   width = 24,

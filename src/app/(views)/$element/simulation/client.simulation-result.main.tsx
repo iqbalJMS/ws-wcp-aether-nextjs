@@ -1,4 +1,4 @@
-import { CloseIcon } from '@/lib/element/global/close-icon';
+import { CloseIcon } from '@/lib/element/global/icons/close-icon';
 import { ReactNode } from 'react';
 
 type T_SimulationresultMainProps = {

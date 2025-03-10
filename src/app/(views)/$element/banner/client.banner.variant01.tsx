@@ -1,5 +1,3 @@
-'use client';
-
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
@@ -49,7 +47,7 @@ export function CE_BannerVariant01({
   const handleMouseDown = (e: MouseEvent) => {
     setIsDragging(true);
     setStartX(e.clientX);
-    setTranslateX(0); // Reset translate value when a new drag starts
+    setTranslateX(0);
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -63,14 +61,13 @@ export function CE_BannerVariant01({
     if (!isDragging) return;
     setIsDragging(false);
 
-    // If dragged enough, change the image
     if (translateX > 50) {
       goToPrevious();
     } else if (translateX < -50) {
       goToNext();
     }
 
-    setTranslateX(0); // Reset translate after slide
+    setTranslateX(0);
   };
 
   const handleMouseLeave = () => {
@@ -81,15 +78,15 @@ export function CE_BannerVariant01({
   };
 
   return (
-    <>
-      <div className="overflow-hidden relative pb-5">
+    <section className="pb-5">
+      <div className="relative">
         <div
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
           ref={sliderRef}
-          className="overflow-hidden relative rounded-br-[14rem] h-[50rem] mdmax:h-[20rem] mdmax:rounded-br-[7rem] z-10"
+          className="overflow-hidden relative rounded-br-[14rem] h-[50rem] mdmax:h-[30rem] mdmax:rounded-br-[7rem] z-10"
         >
           {data?.map((bannerItem, bannerIndex: number) => {
             return (
@@ -101,7 +98,7 @@ export function CE_BannerVariant01({
                   ${bannerIndex === index ? '' : 'opacity-0'}
                   `}
               >
-                <div className=" overflow-hidden w-full h-full relative ">
+                <div className="h-full relative">
                   <Image
                     extern={false}
                     src={bannerItem.image}
@@ -141,12 +138,15 @@ export function CE_BannerVariant01({
               </div>
             );
           })}
+          <div
+            className={`absolute left-0 bottom-0 w-full h-[30%] bg-gradient-to-t from-[#94183d] to-[rgba(148,24,61,0)] opacity-60 rounded-br-[14rem] z-10`}
+          ></div>
         </div>
         {data?.length > 1 && (
           <div
             className={[
               'absolute top-1/2 z-30 right-0 w-full',
-              'mdmax:top-[initial] mdmax:bottom-10 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2 mdmax:w-[initial]',
+              'mdmax:top-[initial] mdmax:bottom-32 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2 mdmax:w-[initial]',
             ].join(' ')}
           >
             <div className="container text-right">
@@ -169,8 +169,8 @@ export function CE_BannerVariant01({
             </div>
           </div>
         )}
-        <div className="w-full h-[50rem] mdmax:h-[20rem] absolute top-4 left-0 bg-black rounded-br-[14rem] mdmax:rounded-br-[7rem] overflow-hidden bg-opacity-10 z-0"></div>
+        <div className="w-full h-[50rem] mdmax:h-[30rem] absolute top-4 left-0 bg-black rounded-br-[14rem] mdmax:rounded-br-[7rem] overflow-hidden bg-opacity-10 z-0"></div>
       </div>
-    </>
+    </section>
   );
 }

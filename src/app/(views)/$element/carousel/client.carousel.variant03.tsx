@@ -97,7 +97,7 @@ export function CE_CarouselVariant03({
                       <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
                       <div className="absolute z-20 bottom-0 left-0 p-4 ">
                         {dataItem.title && (
-                          <div className=" text-white text-2xl font-semibold text-line-2">
+                          <div className=" text-white text-2xl font-semibold line-clamp-2">
                             {parseHTMLToReact(dataItem.title)}
                           </div>
                         )}

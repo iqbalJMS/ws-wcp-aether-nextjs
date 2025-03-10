@@ -1,5 +1,5 @@
 'use client';
-import { T_InputSelectItem } from '@/lib/element/client/input';
+import { T_InputSelectItem } from '@/lib/types/input';
 
 type T_FormVariant01ItemProps = {
   open: boolean;
@@ -21,7 +21,7 @@ export default function CE_FormVariant01Item({
 
   if (open) {
     return (
-      <div className="w-full bg-white absolute max-h-96 overflow-y-auto -z-[1] pt-10 -mt-8 rounded-b-3xl shadow-lg">
+      <div className="w-full bg-white absolute max-h-96 overflow-y-auto -z-[1] pt-10 px-5 -mt-8 rounded-b-3xl shadow-lg">
         {list?.map((item, index) => (
           <div key={index}>
             <button
