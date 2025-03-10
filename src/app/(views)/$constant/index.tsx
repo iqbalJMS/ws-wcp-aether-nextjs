@@ -2394,7 +2394,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             />
           );
         case WIDGET_VARIANT.variant55:
-          return <CE_PromoSlider data={dataProps} />;
+          return (
+            <CE_PromoSlider data={dataProps} linkPromo={buttonLinkProps} />
+          );
         default:
           return (
             <CE_SectionPromoVariant02
@@ -2480,11 +2482,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         };
       });
 
+      const promoSliderLink = _component?.field_primary_cta?.[0]?.full_url;
+
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant55:
           return {
             dataProps: promoSliderData,
             variant: findVariantStyle,
+            buttonLinkProps: promoSliderLink,
           };
         case WIDGET_VARIANT.variant23:
         default:
