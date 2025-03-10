@@ -60,7 +60,7 @@ function CE_IconMenu({
       </div>
       {variant === 'main' && (
         <>
-          <div className="uppercase text-base text-line-2 font-semibold h-[3rem] mdmax:h-[1rem] mdmax:text-xs">
+          <div className="uppercase text-base line-clamp-2 font-semibold mdmax:text-xs">
             {title}
           </div>
           {hover === 'main' && (
@@ -139,9 +139,9 @@ export function CE_IconMain({
 
   if (isLoading) {
     return (
-      <div className="overflow-hidden relative py-10 container">
-        <div className="border-b-2 border-black border-opacity-50 px-[20rem] mdmax:px-0">
-          <div className="flex justify-center -mx-5 mdmax:flex-wrap">
+      <section className="overflow-x-scroll py-10 container">
+        <div className="border-b-2 border-black border-opacity-50">
+          <div className="flex justify-center">
             {Array.from({ length: 5 }).map((_, index) => {
               return (
                 <div
@@ -155,118 +155,114 @@ export function CE_IconMain({
             })}
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <>
-      <div className="overflow-hidden relative py-10 container">
-        <div className="border-b-2 border-black border-opacity-50 px-[20rem] mdmax:px-0">
-          <div className="flex justify-center -mx-5 mdmax:flex-wrap">
+    <section className="py-10 container">
+      <div className="overflow-x-auto border-b-2 border-black border-opacity-50 ">
+        <div className="flex md:justify-center justify-start items-center">
+          {list.map((listItem, listIndex) => {
+            return (
+              listItem.active && (
+                <div
+                  key={listIndex}
+                  className="w-1/5 mdmax:w-1/3 mdmax:flex-none"
+                >
+                  <Link
+                    href={
+                      extractMatch(listItem.link)
+                        ? '#' + extractMatch(listItem.link)
+                        : listItem.link
+                    }
+                    extern={listItem.externalLink}
+                    target={extractMatch(listItem.link) ? '' : '_blank'}
+                  >
+                    <CE_IconMenu
+                      key={listIndex}
+                      image={`${listItem.image}`}
+                      title={listItem.title}
+                    />
+                  </Link>
+                </div>
+              )
+            );
+          })}
+          {list.length > maxListShow && (
+            <div className="w-1/5" onClick={() => setShowModal(true)}>
+              <CE_IconMenu
+                image="/web/guest/images/icon-menu/config.png"
+                variant="config"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+      <Modal open={showModal} setOpen={setShowModal}>
+        <div>
+          <div className="text-center font-semibold text-xl mdmax:text-lg mb-2">
+            Personalisasi Link Cepat
+          </div>
+          <div className="text-center mdmax:text-xs mb-4">
+            Silakan dan pilih hingga {maxListShow} link cepat rutin perbankan
+            favorit Anda.
+          </div>
+          <div className="flex justify-center flex-wrap max-h-[450px] overflow-y-auto p-4">
             {list.map((listItem, listIndex) => {
               return (
-                listItem.active && (
-                  <div key={listIndex} className="w-1/5 mdmax:w-1/2 flex-none">
-                    <Link
-                      href={
-                        extractMatch(listItem.link)
-                          ? '#' + extractMatch(listItem.link)
-                          : listItem.link
-                      }
-                      extern={listItem.externalLink}
-                      target={extractMatch(listItem.link) ? '' : '_blank'}
-                    >
+                <div
+                  key={listIndex}
+                  className={`w-1/4 mdmax:w-1/2 px-2 mb-4 h-full ${listItem.isFixed === '1' ? 'hidden' : 'block'}`}
+                >
+                  <div
+                    onClick={() => handleChooseMenu(listIndex)}
+                    className="relative"
+                  >
+                    <div className="absolute -top-3 -right-2 z-10">
+                      {listItem.active ? (
+                        <svg
+                          className="text-red-01"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 256 256"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m40 112H88a8 8 0 0 1 0-16h80a8 8 0 0 1 0 16"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className={[
+                            isMaxActiveList ? 'text-gray-200' : 'text-blue-01',
+                          ].join(' ')}
+                          width="32"
+                          height="32"
+                          viewBox="0 0 256 256"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M128 24a104 104 0 1 0 104 104A104.13 104.13 0 0 0 128 24m40 112h-32v32a8 8 0 0 1-16 0v-32H88a8 8 0 0 1 0-16h32V88a8 8 0 0 1 16 0v32h32a8 8 0 0 1 0 16"
+                          />
+                        </svg>
+                      )}
+                    </div>
+                    <div className="relative z-0">
                       <CE_IconMenu
                         key={listIndex}
                         image={`${listItem.image}`}
                         title={listItem.title}
+                        hover="selected"
                       />
-                    </Link>
-                  </div>
-                )
-              );
-            })}
-            {list.length > maxListShow && (
-              <div
-                className="w-1/5 mdmax:w-1/2 flex-none"
-                onClick={() => setShowModal(true)}
-              >
-                <CE_IconMenu
-                  image="/web/guest/images/icon-menu/config.png"
-                  variant="config"
-                />
-              </div>
-            )}
-          </div>
-        </div>
-        <Modal open={showModal} setOpen={setShowModal}>
-          <div>
-            <div className="text-center font-semibold text-xl mdmax:text-lg mb-2">
-              Personalisasi Link Cepat
-            </div>
-            <div className="text-center mdmax:text-xs mb-4">
-              Silakan dan pilih hingga {maxListShow} link cepat rutin perbankan
-              favorit Anda.
-            </div>
-            <div className="flex justify-center flex-wrap -mx-2">
-              {list.map((listItem, listIndex) => {
-                return (
-                  <div
-                    key={listIndex}
-                    className={`w-1/4 mdmax:w-1/3 px-2 mb-4 h-full ${listItem.isFixed === '1' ? 'hidden' : 'block'}`}
-                  >
-                    <div
-                      onClick={() => handleChooseMenu(listIndex)}
-                      className="relative"
-                    >
-                      <div className="absolute -top-2 -right-2 z-10">
-                        {listItem.active ? (
-                          <svg
-                            className="text-red-01"
-                            width="32"
-                            height="32"
-                            viewBox="0 0 256 256"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m40 112H88a8 8 0 0 1 0-16h80a8 8 0 0 1 0 16"
-                            />
-                          </svg>
-                        ) : (
-                          <svg
-                            className={[
-                              isMaxActiveList
-                                ? 'text-gray-200'
-                                : 'text-blue-01',
-                            ].join(' ')}
-                            width="32"
-                            height="32"
-                            viewBox="0 0 256 256"
-                          >
-                            <path
-                              fill="currentColor"
-                              d="M128 24a104 104 0 1 0 104 104A104.13 104.13 0 0 0 128 24m40 112h-32v32a8 8 0 0 1-16 0v-32H88a8 8 0 0 1 0-16h32V88a8 8 0 0 1 16 0v32h32a8 8 0 0 1 0 16"
-                            />
-                          </svg>
-                        )}
-                      </div>
-                      <div className="relative z-0">
-                        <CE_IconMenu
-                          key={listIndex}
-                          image={`${listItem.image}`}
-                          title={listItem.title}
-                          hover="selected"
-                        />
-                      </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
-        </Modal>
-      </div>
-    </>
+        </div>
+      </Modal>
+    </section>
   );
 }

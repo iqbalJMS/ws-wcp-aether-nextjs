@@ -56,7 +56,7 @@ export function CE_CardVariant07({
               <div className="flex-1">
                 <div className="p-10 mdmax:p-5">
                   {title && (
-                    <div className="text-2xl font-semibold text-line-1 mb-2">
+                    <div className="text-2xl font-semibold line-clamp-1 mb-2">
                       {parseHTMLToReact(title)}
                     </div>
                   )}

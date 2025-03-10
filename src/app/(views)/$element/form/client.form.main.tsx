@@ -1,7 +1,7 @@
-'use server';
+'use client';
 
 import React from 'react';
-import { T_InputSelectItem } from '@/lib/element/client/input';
+import { T_InputSelectItem } from '@/lib/types/input';
 import CE_FormVariant01 from './client.form.variant01';
 
 type T_FormMainProps = {
@@ -13,7 +13,8 @@ type T_FormMainProps = {
   listItems: T_InputSelectItem[];
   variant?: '01' | '02';
 };
-export default async function SE_FormMain({
+
+export default function CE_FormMain({
   title,
   imageAtTitle,
   placeholder,

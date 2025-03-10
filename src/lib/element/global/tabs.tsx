@@ -249,7 +249,7 @@ export function Tabs({
             <h4 className="text-center font-semibold mt-10 text-4xl">
               {parseHTMLToReact(item?.titleColumn ?? '')}
             </h4>
-            <div className="grid grid-cols-4 mt-10 gap-6">
+            <div className="grid md:grid-cols-4 grid-cols-1 mt-10 gap-6">
               {item?.listColumn?.map((childItem, idx: number) => {
                 const title = childItem?.field_title?.[0]?.value ?? '';
                 const description = childItem?.field_content?.[0]?.value ?? '';

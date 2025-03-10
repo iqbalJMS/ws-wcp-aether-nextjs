@@ -109,8 +109,8 @@ const CE_ImageSliderMain = dynamic(
   () => import('@/app/(views)/$element/image-slider/client.image-slider.main')
 );
 
-const SE_FormMain = dynamic(
-  () => import('@/app/(views)/$element/form/server.form.main')
+const CE_FormMain = dynamic(
+  () => import('@/app/(views)/$element/form/client.form.main')
 );
 
 const CE_KursMain = dynamic(
@@ -222,18 +222,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   slider: {
     component: (props) => {
-      const findVariantStyle = props?.variant;
-      const data = props?.data;
+      const sliderVariant = props?.sliderVariant;
+      const sliderData = props?.sliderData;
 
-      switch (findVariantStyle) {
+      switch (sliderVariant) {
         case 'header_curved':
         default:
-          return <CE_BannerMain variant="01" data={data} />;
+          return <CE_BannerMain variant="01" data={sliderData} />;
       }
     },
     props: (_component: T_Slider) => {
-      const findVariantStyle = _component?.field_slider_variant?.[0]?.value;
-      const data = _component?.field_slider_items?.map((item) => {
+      const sliderVariant = _component?.field_slider_variant?.[0]?.value;
+      const sliderData = _component?.field_slider_items?.map((item) => {
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
         const title = item?.field_title?.[0]?.value;
@@ -250,18 +250,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         };
       });
 
-      switch (findVariantStyle) {
+      switch (sliderVariant) {
         case 'header_curved':
         default:
           return {
-            variant: findVariantStyle,
-            data: data,
+            sliderVariant: sliderVariant,
+            sliderData: sliderData,
           };
       }
     },
   },
   dropdown_action: {
-    component: SE_FormMain,
+    component: CE_FormMain,
     props: (_component: T_DropdownAction) => {
       const title = _component?.field_title?.[0]?.value;
       const data = _component?.field_menu_list?.[0]?.field_links?.map(

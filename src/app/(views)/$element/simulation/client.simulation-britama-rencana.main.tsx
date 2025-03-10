@@ -9,10 +9,10 @@ import {
   CFN_ValidateCreateSimulationBritamaRencanaFields,
 } from '@/app/(views)/$function/cfn.get.simulation-britama-rencana';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
-import InputError from '@/lib/element/global/input.error';
-import InputSelect from '@/lib/element/global/input.select';
-import InputText from '@/lib/element/global/input.text';
-import InputTextVariant from '@/lib/element/global/input.text-variant';
+import InputError from '@/lib/element/global/form/input.error';
+import InputSelect from '@/lib/element/global/form/input.select';
+import InputText from '@/lib/element/global/form/input.text';
+import InputTextVariant from '@/lib/element/global/form/input.text-variant';
 import useForm from '@/lib/hook/useForm';
 import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';

@@ -8,9 +8,9 @@ import {
   CFN_ValidateCreateSimulationKPRSFields,
 } from '@/app/(views)/$function/cfn.get.simulation-kprs';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
-import InputError from '@/lib/element/global/input.error';
-import InputSlider from '@/lib/element/global/input.slider';
-import InputText from '@/lib/element/global/input.text';
+import InputError from '@/lib/element/global/form/input.error';
+import InputSlider from '@/lib/element/global/form/input.slider';
+import InputText from '@/lib/element/global/form/input.text';
 import useForm from '@/lib/hook/useForm';
 import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';

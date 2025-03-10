@@ -16,7 +16,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
-import { CloseIcon } from './close-icon';
+import { CloseIcon } from './icons/close-icon';
 import { Search } from './global.search';
 import Link from './link';
 

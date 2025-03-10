@@ -67,11 +67,13 @@ export default async function PageAether({
         itemLogin={itemMenuLogin}
         headerLogo={itemHeaderLogo || undefined}
       />
-      {components?.map(({ Component, props }, key) => (
-        <React.Fragment key={key}>
-          <Component {...props} />
-        </React.Fragment>
-      ))}
+      <main className="w-full">
+        {components?.map(({ Component, props }, key) => (
+          <React.Fragment key={key}>
+            <Component {...props} />
+          </React.Fragment>
+        ))}
+      </main>
       <GlobalFooter
         main_footer={listMainFooter}
         bottom_footer={listBottomFooter}

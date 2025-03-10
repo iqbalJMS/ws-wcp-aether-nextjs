@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 
 import './globals.css';
-import { Suspense } from 'react';
-import Spinner from '@/lib/element/global/spinner';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -22,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Suspense fallback={<Spinner />}>{children} </Suspense>
+        <div className="overflow-x-hidden">{children}</div>
       </body>
     </html>
   );

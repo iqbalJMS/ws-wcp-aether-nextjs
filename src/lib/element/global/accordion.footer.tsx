@@ -5,8 +5,8 @@ import React from 'react';
 import Image from './image';
 import Link from './link';
 import { T_ResponseGetMainFooterMenu } from '@/api/footer/main-footer/api.get-main-footer.type';
-import { ChevronRightIcon } from './chevron-right-icon';
-import { ChevronDownIcon } from './chevron-down-icon';
+import { ChevronRightIcon } from './icons/chevron-right-icon';
+import { ChevronDownIcon } from './icons/chevron-down-icon';
 
 export type T_AccordionProps = {
   renderContent: React.ReactNode;

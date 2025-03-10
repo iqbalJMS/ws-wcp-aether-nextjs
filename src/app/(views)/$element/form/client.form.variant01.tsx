@@ -1,11 +1,8 @@
-'use client';
-
-import { ArrowDownIcon } from '@/lib/element/global/arrow-down-icon';
-// import Link from 'next/link';
+import { ArrowDownIcon } from '@/lib/element/global/icons/arrow-down-icon';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import CE_FormVariant01Item from './client.form.variant01.item';
 import useOnClickOutside from '@/lib/hook/useOnClickOutside';
-import { T_InputSelectItem } from '@/lib/element/client/input';
+import { T_InputSelectItem } from '@/lib/types/input';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 
@@ -55,12 +52,12 @@ export default function CE_FormVariant01({
   }, [buttonAction]);
 
   return (
-    <section className={['container md:px-20 px-5', className].join(' ')}>
-      <div className="w-[90%] relative z-10 mx-auto -mt-24" ref={dropdownRef}>
-        <div className="py-5 px-8 rounded-[1.8rem] shadow-lg bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
-          <div className="z-10 flex items-center mdmax:flex-col w-full gap-4">
+    <section className={['container w-[90%]', className].join(' ')}>
+      <div className="relative z-10 -mt-24 md:px-20 px-5" ref={dropdownRef}>
+        <div className="py-5 px-8 rounded-3xl shadow-lg bg-white flex justify-between md:items-center md:flex-row flex-col gap-4">
+          <div className="z-10 flex items-center xsmax:flex-wrap w-full gap-4">
             {imageAtTitle && title ? (
-              <div className="flex items-center gap-2">
+              <div className="flex flex-none items-center gap-2">
                 <Image
                   width={30}
                   height={30}
@@ -68,7 +65,7 @@ export default function CE_FormVariant01({
                   src={imageAtTitle}
                   extern
                 />{' '}
-                <h2 className="font-bold md:text-xl text-md text-red-500 flex-none w-fit">
+                <h2 className="font-bold md:text-xl text-[1rem] text-red-500 flex-none w-fit">
                   {title.toUpperCase()}:
                 </h2>
               </div>
@@ -82,7 +79,7 @@ export default function CE_FormVariant01({
               />
             ) : (
               title && (
-                <h2 className="font-bold md:text-xl text-md text-red-500 flex-none w-fit">
+                <h2 className="font-bold md:text-xl text-[1rem] text-red-500 flex-none w-fit">
                   {title.toUpperCase()}:
                 </h2>
               )
@@ -90,7 +87,7 @@ export default function CE_FormVariant01({
             <div
               ref={dropdownRef}
               onClick={() => setIsOpen((prev) => !prev)}
-              className="flex items-center cursor-pointer w-full border-b-2 pb-1 flex-1"
+              className="flex items-center cursor-pointer w-full border-b-2 pb-1"
             >
               {dropdownType === 'input-text' ? (
                 <div className="md:text-xl text-md w-full font-normal">
@@ -105,7 +102,7 @@ export default function CE_FormVariant01({
                   />
                 </div>
               ) : (
-                <div className="md:text-xl text-md w-full font-normal">
+                <div className="md:text-xl text-md w-full font-normal line-clamp-1">
                   {selectedItem ? selectedItem?.title : ''}
                 </div>
               )}

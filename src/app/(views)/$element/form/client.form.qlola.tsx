@@ -1,10 +1,10 @@
 'use client';
 
 import ButtonSecondary from '@/lib/element/global/button.secondary';
-import InputError from '@/lib/element/global/input.error';
-import InputLabel from '@/lib/element/global/input.label';
-import InputSelect from '@/lib/element/global/input.select';
-import InputText from '@/lib/element/global/input.text';
+import InputError from '@/lib/element/global/form/input.error';
+import InputLabel from '@/lib/element/global/form/input.label';
+import InputSelect from '@/lib/element/global/form/input.select';
+import InputText from '@/lib/element/global/form/input.text';
 import { useState } from 'react';
 
 export default function CE_FormQlola() {

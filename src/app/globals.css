@@ -23,6 +23,10 @@ html {
   scrollbar-width: none; /* Firefox */
 }
 
+.field__label.visually-hidden {
+  display: none;
+}
+
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
@@ -51,39 +55,6 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 100%;
   height: 1.7rem;
   width: 1.7rem;
-}
-
-.text-line-4 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-}
-.text-line-3 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-}
-.text-line-2 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-}
-.text-line-1 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  line-clamp: 3;
 }
 
 .overflow-custom::-webkit-scrollbar-track {
@@ -159,11 +130,11 @@ h6 {
   @apply text-sm mb-3;
 }
 
-.body .text-align-justify {
+.text-align-justify {
   @apply text-justify;
 }
 
-.body .text-align-center {
+.text-align-center {
   @apply text-center;
 }
 
@@ -175,6 +146,7 @@ h6 {
 .body ol {
   @apply text-sm mb-3 pl-5 font-normal;
 }
+
 .body ul li,
 .body ol li {
   @apply my-0;
@@ -183,9 +155,11 @@ h6 {
 .body table tr td {
   @apply p-1 border border-black;
 }
+
 .body a {
   @apply text-blue-01;
 }
+
 ol {
   list-style-type: decimal;
   font-weight: 500;
@@ -202,18 +176,9 @@ li {
   margin-bottom: 5px;
 }
 
-.field__label.visually-hidden {
-  display: none;
-}
-
 .container-rich-text img,
 .box-head-text > .head-text {
   width: 100% !important;
-}
-
-ul li {
-  margin-top: unset;
-  margin-bottom: unset;
 }
 
 .heading .heading-title {

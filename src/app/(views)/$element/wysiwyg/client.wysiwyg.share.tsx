@@ -1,10 +1,10 @@
 'use client';
-import FacebookIcon from '@/lib/element/global/facebook-icon';
+import FacebookIcon from '@/lib/element/global/icons/facebook-icon';
 import Link from '@/lib/element/global/link';
-import LinkedinIcon from '@/lib/element/global/linkedin-icon';
-import ShareIcon from '@/lib/element/global/share-icon';
-import TwitterIcon from '@/lib/element/global/twitter-icon';
-import WhatsappIcon from '@/lib/element/global/whatsapp-icon';
+import LinkedinIcon from '@/lib/element/global/icons/linkedin-icon';
+import ShareIcon from '@/lib/element/global/icons/share-icon';
+import TwitterIcon from '@/lib/element/global/icons/twitter-icon';
+import WhatsappIcon from '@/lib/element/global/icons/whatsapp-icon';
 import { useState } from 'react';
 
 export default function CE_WysiwygShaxre({ text }: { text: string }) {

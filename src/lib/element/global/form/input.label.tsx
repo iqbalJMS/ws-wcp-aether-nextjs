@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { T_InputState } from '@/lib/element/client/input';
+import { T_InputState } from '@/lib/types/input';
 
 interface InputProps {
   state?: T_InputState;

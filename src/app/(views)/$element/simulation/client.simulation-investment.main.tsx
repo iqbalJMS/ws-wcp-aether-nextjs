@@ -1,6 +1,6 @@
 import ButtonSecondary from '@/lib/element/global/button.secondary';
-import InputSlider from '@/lib/element/global/input.slider';
-import InputText from '@/lib/element/global/input.text';
+import InputSlider from '@/lib/element/global/form/input.slider';
+import InputText from '@/lib/element/global/form/input.text';
 import useForm from '@/lib/hook/useForm';
 import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationLabel from './client.simulation.label';
@@ -14,7 +14,7 @@ import {
   CFN_MapToSimulationInvestmentPayload,
   CFN_ValidateCreateSimulationInvestmentFields,
 } from '@/app/(views)/$function/cfn.get.simulation-investment';
-import InputError from '@/lib/element/global/input.error';
+import InputError from '@/lib/element/global/form/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 
 const CE_SimulationInvestmentMain = () => {

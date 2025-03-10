@@ -1,6 +1,6 @@
 'use client';
 
-import { T_InputSelectItem } from '@/lib/element/client/input';
+import { T_InputSelectItem } from '@/lib/types/input';
 import CE_FormVariant02 from '@/app/(views)/$element/form/client.form.variant02';
 
 type T_Props = {

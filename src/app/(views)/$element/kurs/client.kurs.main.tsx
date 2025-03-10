@@ -8,8 +8,8 @@ import {
   T_GetKurs,
 } from '@/app/(views)/$function/cfn.get.kurs';
 import Image from '@/lib/element/global/image';
-import InputSelect from '@/lib/element/global/input.select';
-import InputText from '@/lib/element/global/input.text';
+import InputSelect from '@/lib/element/global/form/input.select';
+import InputText from '@/lib/element/global/form/input.text';
 import Link from '@/lib/element/global/link';
 import Table from '@/lib/element/global/table';
 import { Tabs } from '@/lib/element/global/tabs';

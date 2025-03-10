@@ -30,7 +30,7 @@ export default function CE_CardVariant05({ data }: T_CardVariant05Props) {
                     </div>
                   )}
                   {item.description && (
-                    <div className="text-line-3 text-sm">
+                    <div className="line-clamp-3 text-sm">
                       {parseHTMLToReact(item.description)}
                     </div>
                   )}

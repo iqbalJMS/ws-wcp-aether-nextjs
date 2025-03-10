@@ -1,6 +1,6 @@
 import Link from '@/lib/element/global/link';
 import React from 'react';
-import { ChevronRightIcon } from '@/lib/element/global/chevron-right-icon';
+import { ChevronRightIcon } from '@/lib/element/global/icons/chevron-right-icon';
 import { Tooltip } from '@/lib/element/global/tooltip';
 
 type T_PortletVariant07Props = {

@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import { ChevronDownIcon } from './chevron-down-icon';
-import { ChevronRightIcon } from './chevron-right-icon';
+import { ChevronDownIcon } from './icons/chevron-down-icon';
+import { ChevronRightIcon } from './icons/chevron-right-icon';
 import Image from './image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
