@@ -24,8 +24,9 @@
   "dependencies": {
     "@strix/client": "file:./node_build/strix-client-prod-0.0.27.tgz",
     "@strix/server": "file:./node_build/strix-server-prod-0.0.40.tgz",
-    "framer-motion": "^11.5.4",
+    "framer-motion": "^11.18.2",
     "merge-refs": "^1.3.0",
+    "motion": "^12.4.10",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "18.3.1",

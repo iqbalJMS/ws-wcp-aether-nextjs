@@ -109,7 +109,11 @@ const CE_ImageSliderMain = dynamic(
   () => import('@/app/(views)/$element/image-slider/client.image-slider.main')
 );
 
-const CE_FormMain = dynamic(
+const CE_FlipCard = dynamic(
+  () => import('@/app/(views)/$element/flip-card/client.flip-card')
+);
+
+const SE_FormMain = dynamic(
   () => import('@/app/(views)/$element/form/client.form.main')
 );
 
@@ -261,7 +265,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   dropdown_action: {
-    component: CE_FormMain,
+    component: SE_FormMain,
     props: (_component: T_DropdownAction) => {
       const title = _component?.field_title?.[0]?.value;
       const data = _component?.field_menu_list?.[0]?.field_links?.map(
@@ -296,6 +300,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         hrefLink: props?.hrefLink,
         image: props?.image,
       };
+      const propsData = props?.propsData;
       const title = props?.title;
       const subtitle = props?.subtitle;
       const navigationLink = (props?.navigationLink || '').replace('/id', '');
@@ -667,6 +672,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant50:
           return <SE_Sitemap />;
+        case WIDGET_VARIANT.variant56:
+          return (
+            <CE_FlipCard data={propsData} backgroundImage={backgroundImage} />
+          );
         default:
           return null;
       }
@@ -932,6 +941,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         };
       });
 
+      const backgroundFlipCard =
+        _component?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+
+      const flipCardData = _component?.field_column?.map((item) => {
+        return {
+          title: item?.field_title?.[0]?.value,
+          subtitle: item?.field_subtitle?.[0]?.value,
+          frontImage:
+            item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+          backImage:
+            item?.field_second_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+              ?.url,
+        };
+      });
+
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
           return {
@@ -1144,6 +1168,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant50:
           return {
             variant: findVariantStyle,
+          };
+        case WIDGET_VARIANT.variant56:
+          return {
+            variant: findVariantStyle,
+            propsData: flipCardData,
+            backgroundImage: backgroundFlipCard,
           };
         default:
           return null;
