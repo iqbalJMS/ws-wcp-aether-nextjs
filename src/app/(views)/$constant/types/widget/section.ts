@@ -39,6 +39,10 @@ type FieldImageItem = {
   field_media_image: Array<{ uri: Array<{ url: string }> }>;
 };
 
+type FieldSecondImage = {
+  field_media_image: Array<{ uri: Array<{ url: string }> }>;
+};
+
 export type T_Section = {
   field_title_custom: any;
   field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
@@ -62,7 +66,7 @@ export type T_Section = {
         }>;
       }>;
     }>;
-    field_second_image: any;
+    field_second_image: Array<FieldSecondImage>;
     field_image?: Array<FieldImageItem>;
     field_primary_cta?: FieldPrimaryCTA[];
     field_content?: any;
