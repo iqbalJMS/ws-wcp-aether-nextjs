@@ -1,7 +1,8 @@
 'use client';
+import Image from '@/lib/element/global/image';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 export default function CE_Card({
   frontImage,
@@ -11,7 +12,6 @@ export default function CE_Card({
   backImage: string;
 }) {
   const [flip, setFlip] = useState(true);
-
   return (
     <>
       <div className="w-full h-full flex items-center justify-center">

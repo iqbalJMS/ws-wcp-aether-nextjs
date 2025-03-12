@@ -2,6 +2,7 @@
 import React from 'react';
 import CE_Card from './client.card';
 // import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 export default function CE_FlipCard({
   data,
@@ -25,7 +26,7 @@ export default function CE_FlipCard({
             <div
               className="w-9/12 2xl:w-7/12 h-full"
               style={{
-                backgroundImage: `url(${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${backgroundImage ?? ''})`,
+                backgroundImage: `url(${API_BASE_URL}${backgroundImage ?? ''})`,
                 backgroundAttachment: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '800px',
@@ -35,8 +36,8 @@ export default function CE_FlipCard({
               <div className="mt-60 ml-20 ">
                 {data && (
                   <CE_Card
-                    frontImage={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${data?.[0]?.frontImage}`}
-                    backImage={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${data?.[0]?.backImage}`}
+                    frontImage={`${data?.[0]?.frontImage}`}
+                    backImage={`${data?.[0]?.backImage}`}
                   />
                 )}
               </div>
@@ -56,7 +57,7 @@ export default function CE_FlipCard({
             <div
               className="w-full h-80 flex justify-center"
               style={{
-                backgroundImage: `url(${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${backgroundImage ?? ''})`,
+                backgroundImage: `url(${API_BASE_URL}${backgroundImage ?? ''})`,
                 backgroundAttachment: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 500,
@@ -66,8 +67,8 @@ export default function CE_FlipCard({
               <div className="mt-72 ml-56 md:ml-80">
                 {data && (
                   <CE_Card
-                    frontImage={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${data?.[0]?.frontImage}`}
-                    backImage={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${data?.[0]?.backImage}`}
+                    frontImage={`${data?.[0]?.frontImage}`}
+                    backImage={`${data?.[0]?.backImage}`}
                   />
                 )}
               </div>
