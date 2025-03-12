@@ -72,7 +72,7 @@ export default async function PageAetherDetail({
         itemLogin={itemMenuLogin}
         headerLogo={itemHeaderLogo || undefined}
       />
-      <main className="pt-32 w-full container">
+      <main className="pt-32 w-full">
         {components?.map(({ Component, props }, key) => (
           <React.Fragment key={key}>
             <Component {...props} />
