@@ -20,13 +20,13 @@ export default function CE_Card({
           style={{ perspective: '1000px' }}
         >
           <motion.div
-            className="flip-card-inner hidden md:flex w-[70%] h-[70%] md:w-[90%] md:h-[90%]"
+            className="flip-card-inner hidden lg:flex w-[70%] h-[70%] md:w-[60%] md:h-[60%] xl:w-[70%] xl:h-[70%]"
             transition={{ duration: 0.7 }}
             animate={{ rotateY: flip ? 180 : 360 }}
             onMouseEnter={() => setFlip(true)}
             onMouseLeave={() => setFlip(false)}
           >
-            <div className="flip-card-front w-[95%] h-full bg-cover cursor-pointer">
+            <div className="flip-card-front w-full h-full bg-cover cursor-pointer">
               <Image
                 src={frontImage ?? ''}
                 alt="card credit image"
@@ -34,7 +34,7 @@ export default function CE_Card({
                 height={1000}
               />
             </div>
-            <div className="flip-card-back w-[95%] h-full bg-cover cursor-pointer">
+            <div className="flip-card-back w-full h-full bg-cover cursor-pointer">
               <Image
                 src={backImage ?? ''}
                 alt="card credit image"
@@ -45,13 +45,13 @@ export default function CE_Card({
           </motion.div>
 
           {/* Mobile */}
-          <div className="flip-card-inner relative md:hidden w-[70%] h-[70%] md:w-[90%] md:h-[90%]">
+          <div className="flip-card-inner relative lg:hidden w-[70%] h-[70%] md:w-[90%] md:h-[90%]">
             <div className="flip-card-transition group z-10 w-full h-full bg-cover cursor-pointer hover:z-0">
               <Image
                 src={frontImage ?? ''}
                 alt="card credit image"
-                width={1000}
-                height={1000}
+                width={250}
+                height={250}
                 className=""
               />
             </div>
@@ -59,8 +59,8 @@ export default function CE_Card({
               <Image
                 src={backImage ?? ''}
                 alt="card credit image"
-                width={1000}
-                height={1000}
+                width={250}
+                height={250}
                 className=""
               />
             </div>
