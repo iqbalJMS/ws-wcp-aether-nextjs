@@ -173,55 +173,87 @@ export default function GlobalHeader({
               {headerTop?.map((header, index) => {
                 return (
                   <div key={index}>
-                    <div
-                      className="flex items-center cursor-pointer"
-                      onClick={() =>
-                        header.title.toLowerCase() === 'cari'
-                          ? setActiveSearch(true)
-                          : header.options?.external
-                            ? window.open(
-                                header.uri || header.relative,
-                                '_blank'
-                              )
-                            : router.push(
-                                `/${String(header?.alias || header?.relative)}?lang=${currentLanguage ?? 'en'}`
-                              )
-                      }
-                    >
-                      {header?.icon ? (
-                        <Image
-                          src={`${API_BASE_URL}${header?.icon}`}
-                          width={18}
-                          height={18}
-                          alt={`icon-${header?.icon}`}
-                          className={[
-                            'w-3 h-3 mr-2 ',
-                            variant === 'no-transparent'
-                              ? ''
-                              : 'filter brightness-0 invert',
-                          ].join(' ')}
-                        />
-                      ) : (
-                        <CE_DefaultIcon
-                          className={[
-                            'w-3 h-3 mr-2 ',
-                            variant === 'no-transparent'
-                              ? ''
-                              : 'filter brightness-0 invert',
-                          ].join(' ')}
-                          width={18}
-                          height={18}
-                        />
-                      )}
+                    {header.title.toLowerCase() === 'cari' ? (
                       <div
-                        className={[
-                          `text-[0.813rem] font-light`,
-                          `${variant === 'transparent' ? 'text-white' : ''}`,
-                        ].join(' ')}
+                        className="flex items-center cursor-pointer"
+                        onClick={() => setActiveSearch(true)}
                       >
-                        {header.title}
+                        {header?.icon ? (
+                          <Image
+                            src={`${API_BASE_URL}${header?.icon}`}
+                            width={18}
+                            height={18}
+                            alt={`icon-${header?.icon}`}
+                            className={[
+                              'w-3 h-3 mr-2 ',
+                              variant === 'no-transparent'
+                                ? ''
+                                : 'filter brightness-0 invert',
+                            ].join(' ')}
+                          />
+                        ) : (
+                          <CE_DefaultIcon
+                            className={[
+                              'w-3 h-3 mr-2 ',
+                              variant === 'no-transparent'
+                                ? ''
+                                : 'filter brightness-0 invert',
+                            ].join(' ')}
+                            width={18}
+                            height={18}
+                          />
+                        )}
+                        <div
+                          className={[
+                            `text-[0.813rem] font-light`,
+                            `${variant === 'transparent' ? 'text-white' : ''}`,
+                          ].join(' ')}
+                        >
+                          {header.title}
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <Link
+                        target={header.options?.external ? '_blank' : '_self'}
+                        href={`${header.options?.external ? header.uri || header.relative : `/${String(header?.alias || header?.relative)}?lang=${currentLanguage ?? 'en'}`}`}
+                      >
+                        <div className="flex items-center">
+                          {header?.icon ? (
+                            <Image
+                              src={`${API_BASE_URL}${header?.icon}`}
+                              width={18}
+                              height={18}
+                              alt={`icon-${header?.icon}`}
+                              className={[
+                                'w-3 h-3 mr-2 ',
+                                variant === 'no-transparent'
+                                  ? ''
+                                  : 'filter brightness-0 invert',
+                              ].join(' ')}
+                            />
+                          ) : (
+                            <CE_DefaultIcon
+                              className={[
+                                'w-3 h-3 mr-2 ',
+                                variant === 'no-transparent'
+                                  ? ''
+                                  : 'filter brightness-0 invert',
+                              ].join(' ')}
+                              width={18}
+                              height={18}
+                            />
+                          )}
+                          <div
+                            className={[
+                              `text-[0.813rem] font-light`,
+                              `${variant === 'transparent' ? 'text-white' : ''}`,
+                            ].join(' ')}
+                          >
+                            {header.title}
+                          </div>
+                        </div>
+                      </Link>
+                    )}
                   </div>
                 );
               })}

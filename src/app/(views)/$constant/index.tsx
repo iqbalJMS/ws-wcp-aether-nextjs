@@ -373,6 +373,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               navigationLink={navigationLink}
               bgImage={backgroundImage}
               variant="01"
+              variantWidget={findVariantStyle}
             />
           );
         case WIDGET_VARIANT.variant08:
@@ -385,6 +386,19 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               bgImage={backgroundImage}
               variant="01"
               column={column}
+            />
+          );
+        case WIDGET_VARIANT.variant57:
+          return (
+            <SE_PortletMain
+              title={title}
+              subtitle={subtitle}
+              navigationLink={navigationLink}
+              listItems={listItems}
+              bgImage={backgroundImage}
+              variant="01"
+              column={column}
+              variantWidget={findVariantStyle}
             />
           );
         case WIDGET_VARIANT.variant09:
@@ -989,6 +1003,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             backgroundImage: backgroundImage,
           };
         case WIDGET_VARIANT.variant08:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            subtitle: subtitle,
+            navigationLink: navigationLink,
+            data: dataV08,
+            column: column,
+            backgroundImage: backgroundImage,
+          };
+        case WIDGET_VARIANT.variant57:
           return {
             variant: findVariantStyle,
             title: title,
