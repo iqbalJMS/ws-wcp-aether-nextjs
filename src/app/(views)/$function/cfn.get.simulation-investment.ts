@@ -28,9 +28,9 @@ export function CFN_MapToSimulationInvestmentPayload(
   form: T_SimulationInvestmentRequest
 ): T_SimulationInvestmentRequest {
   return {
-    duration: form.duration,
-    investmentAmount: form.investmentAmount,
-    interestRate: form.interestRate,
+    installment: form.installment,
+    installmentTerm: form.installmentTerm,
+    InterestRate: form.InterestRate,
   };
 }
 
@@ -39,12 +39,27 @@ export function CFN_ValidateCreateSimulationInvestmentFields(
   value: any
 ): string {
   switch (name) {
-    case 'investmentAmount':
-      return validateMaxMin(value, 'Plafond Kredit ', 1, 100000000);
-    case 'duration':
-      return validateMaxMin(value, 'Jangka Waktu', 1, 120);
-    case 'interestRate':
-      return validateMaxMin(value, 'Suku Bunga Efektif', 0.1, 100);
+    case 'installment':
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 100.000.000',
+        1,
+        100000000
+      );
+    case 'installmentTerm':
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 120',
+        1,
+        120
+      );
+    case 'InterestRate':
+      return validateMaxMin(
+        value,
+        'Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 100',
+        0.1,
+        100
+      );
     default:
       return '';
   }
