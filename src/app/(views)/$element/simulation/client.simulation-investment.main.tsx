@@ -22,18 +22,18 @@ const CE_SimulationInvestmentMain = () => {
   const [isResult, setIsResult] = useState(false);
 
   const [formDisabled, setFormDisabled] = useState({
-    duration: true,
-    investmentAmount: true,
-    interestRate: true,
+    installmentTerm: true,
+    installment: true,
+    InterestRate: true,
   });
   const { form, formError, onFieldChange, validateForm } = useForm<
     T_SimulationInvestmentRequest,
     T_SimulationInvestmentRequest
   >(
     CFN_MapToSimulationInvestmentPayload({
-      duration: 1,
-      investmentAmount: 0,
-      interestRate: 0,
+      installmentTerm: 0,
+      installment: 100000,
+      InterestRate: 0,
     }),
     CFN_ValidateCreateSimulationInvestmentFields
   );
@@ -57,7 +57,7 @@ const CE_SimulationInvestmentMain = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setResult(undefined);
-      if (form.duration && form.investmentAmount && form.interestRate) {
+      if (form.installmentTerm && form.installment && form.InterestRate) {
         handleSubmit(false);
       }
     }, 300); // Delay of 300ms
@@ -74,12 +74,12 @@ const CE_SimulationInvestmentMain = () => {
         <CE_SimulationResultVariant01
           values={[
             {
-              label: 'One Time Investment',
-              value: result?.oneTimeInvestmentResult.toString() || '0',
+              label: 'One Month Investment',
+              value: result?.monthlyPrincipalInstallment.toString() || '0',
             },
             {
               label: 'Periodic Investment',
-              value: result?.periodicInvestmentResult.toString() || '0',
+              value: result?.interest.toString() || '0',
             },
           ]}
           onClose={() => setIsResult(false)}
@@ -94,12 +94,10 @@ const CE_SimulationInvestmentMain = () => {
                 <div>
                   <div className="mb-5 w-[50%]">
                     <InputText
-                      disabled={formDisabled.investmentAmount}
+                      disabled={formDisabled.installment}
                       leftText="Rp."
-                      value={form.investmentAmount}
-                      onChange={(value) =>
-                        onFieldChange('investmentAmount', value)
-                      }
+                      value={form.installment}
+                      onChange={(value) => onFieldChange('installment', value)}
                       type="number"
                     />
                   </div>
@@ -108,55 +106,19 @@ const CE_SimulationInvestmentMain = () => {
                       min={0}
                       max={100000000}
                       step={100000}
-                      value={form.investmentAmount}
-                      onChange={(value) =>
-                        onFieldChange('investmentAmount', value)
-                      }
+                      value={form.installment}
+                      onChange={(value) => onFieldChange('installment', value)}
                     />
                   </div>
-                  {formError.investmentAmount && (
+                  {formError.installment && (
                     <div className="mt-5">
-                      <InputError message={formError.investmentAmount} />
+                      <InputError message={formError.installment} />
                     </div>
                   )}
                 </div>
               }
               onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, investmentAmount: edit })
-              }
-            />
-          </div>
-          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
-            <CE_SimulationLabel
-              label="Jangka Waktu"
-              slot={
-                <div>
-                  <div className="mb-5 w-[70%]">
-                    <InputText
-                      disabled={formDisabled.duration}
-                      rightText="Bulan"
-                      value={form.duration}
-                      onChange={(value) => onFieldChange('duration', value)}
-                      type="number"
-                    />
-                  </div>
-                  <div>
-                    <InputSlider
-                      min={1}
-                      max={120}
-                      value={form.duration}
-                      onChange={(value) => onFieldChange('duration', value)}
-                    />
-                  </div>
-                  {formError.duration && (
-                    <div className="mt-5">
-                      <InputError message={formError.duration} />
-                    </div>
-                  )}
-                </div>
-              }
-              onChange={(edit) =>
-                setFormDisabled({ ...formDisabled, duration: edit })
+                setFormDisabled({ ...formDisabled, installment: edit })
               }
             />
           </div>
@@ -167,28 +129,69 @@ const CE_SimulationInvestmentMain = () => {
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
-                      disabled={formDisabled.interestRate}
+                      disabled={formDisabled.InterestRate}
                       rightText="%"
-                      value={form.interestRate}
-                      onChange={(value) => onFieldChange('interestRate', value)}
+                      value={form.InterestRate}
+                      type="number"
+                      onChange={(value) => onFieldChange('InterestRate', value)}
+                    />
+                  </div>
+                  <div>
+                    <InputSlider
+                      min={0}
+                      max={100}
+                      step={0.1}
+                      value={form.InterestRate}
+                      onChange={(value) => onFieldChange('InterestRate', value)}
+                    />
+                  </div>
+                  {formError.InterestRate && (
+                    <div className="mt-5">
+                      <InputError message={formError.InterestRate} />
+                    </div>
+                  )}
+                </div>
+              }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, InterestRate: edit })
+              }
+            />
+          </div>
+          <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
+            <CE_SimulationLabel
+              label="Jangka Waktu"
+              slot={
+                <div>
+                  <div className="mb-5 w-[70%]">
+                    <InputText
+                      disabled={formDisabled.installmentTerm}
+                      rightText="Bulan"
+                      value={form.installmentTerm}
+                      onChange={(value) =>
+                        onFieldChange('installmentTerm', value)
+                      }
                       type="number"
                     />
                   </div>
                   <div>
                     <InputSlider
-                      min={0.1}
-                      max={100}
-                      step={0.1}
-                      value={form.interestRate}
-                      onChange={(value) => onFieldChange('interestRate', value)}
+                      min={0}
+                      max={120}
+                      value={form.installmentTerm}
+                      onChange={(value) =>
+                        onFieldChange('installmentTerm', value)
+                      }
                     />
                   </div>
-                  {formError.interestRate && (
+                  {formError.installmentTerm && (
                     <div className="mt-5">
-                      <InputError message={formError.interestRate} />
+                      <InputError message={formError.installmentTerm} />
                     </div>
                   )}
                 </div>
+              }
+              onChange={(edit) =>
+                setFormDisabled({ ...formDisabled, installmentTerm: edit })
               }
             />
           </div>
