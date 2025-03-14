@@ -16,13 +16,13 @@ export async function API_GetSimulationInvestment(
       formData.append(key, value.toString());
     });
     const response = await post<T_PostResponse<T_SimulationInvestment>>(
-      '/api/brimw/simulasi/estimateInvestment',
+      '/api/brimw/simulasi/estimateKreditInvestasi',
       formData
     );
     return response;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('An error occurred during Get Simulation Investment:', error);
+    console.error('An error occurred during Get Kredit Investasi:', error);
     return undefined;
   }
 }
