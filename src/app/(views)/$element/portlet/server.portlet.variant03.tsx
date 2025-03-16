@@ -20,7 +20,7 @@ export default async function SE_PortletVariant03({
 
   return (
     <section
-      className="w-full bg-no-repeat pt-20 pb-12"
+      className="w-full bg-no-repeat pt-10 pb-20"
       style={{
         backgroundImage: `url(${
           bgImage
@@ -39,9 +39,9 @@ export default async function SE_PortletVariant03({
             <div className="flex gap-2 items-center">
               <Image width={40} height={40} src={imageAtTitle} alt="" />
               {title && (
-                <div className="font-medium md:text-4xl text-3xl">
-                  {parseHTMLToReact(title)}
-                </div>
+                <div className="font-semibold text-3xl text-white font-poppins">
+                {parseHTMLToReact(title)}
+                </div>              
               )}
             </div>
           ) : (
@@ -80,15 +80,15 @@ export default async function SE_PortletVariant03({
                 </div>
               </div>
             ) : (
-              <div className="flex gap-4 py-12 md:flex-row flex-col">
-                <div className="md:max-w-2xl max-w-[90%]">
+              <div className="flex gap-6 py-2 md:flex-row flex-col">
+                <div className="md:max-w-3xl max-w-[90%] text-white text-1xl">
                   {typeof listItems !== 'string'
                     ? listItems?.map((item, index) => (
                         <SE_PortletVariant01Item key={index} list_item={item} />
                       ))
-                    : parseHTMLToReact(listItems)}
+                    : <div className="checked-list">{parseHTMLToReact(listItems)}</div>}
                 </div>
-                <div className="w-full h-[20rem] rounded-xl overflow-hidden mb-5 inline-block">
+                <div className="w-full h-[35rem] rounded-xl overflow-hidden mb-2 inline-block">
                   <Image
                     extern={false}
                     src={imageAtContent}

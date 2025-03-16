@@ -2076,7 +2076,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   </p>
                 }
                 variant={isCapsule as T_AccordionProps['variant']}
-                isOpen
                 renderContent={renderElement(item?.children ?? null)}
                 content={item?.content ?? null}
               />
