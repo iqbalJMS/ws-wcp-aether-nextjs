@@ -171,23 +171,19 @@ export default function GlobalHeader({
           >
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
+              var nextUrl = '/' + (header?.alias || header?.relative) + '?lang=' + (currentLanguage ?? 'en');
                 return (
                   <div key={index}>
-                    <div
+                    <a {...(header.title.toLowerCase() !== 'cari' 
+                        ? (
+                          !header.options?.external 
+                            ? { href: nextUrl }
+                            : { onClick: () => window.open(header.uri || header.relative, '_blank') }
+                        ) 
+                        : { onClick: () => setActiveSearch(true) }
+                      )}
                       className="flex items-center cursor-pointer"
-                      onClick={() =>
-                        header.title.toLowerCase() === 'cari'
-                          ? setActiveSearch(true)
-                          : header.options?.external
-                            ? window.open(
-                                header.uri || header.relative,
-                                '_blank'
-                              )
-                            : router.push(
-                                `/${String(header?.alias || header?.relative)}?lang=${currentLanguage ?? 'en'}`
-                              )
-                      }
-                    >
+                      >                      
                       {header?.icon ? (
                         <Image
                           src={`${API_BASE_URL}${header?.icon}`}
@@ -221,7 +217,7 @@ export default function GlobalHeader({
                       >
                         {header.title}
                       </div>
-                    </div>
+                    </a>
                   </div>
                 );
               })}
