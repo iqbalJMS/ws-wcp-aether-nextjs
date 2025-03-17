@@ -32,7 +32,9 @@ type FieldPrimaryCTA = {
   uri: string;
   title: string;
   full_url: string;
-  options: any[];
+  options?: {
+    external: boolean;
+  }
 };
 
 type FieldImageItem = {
