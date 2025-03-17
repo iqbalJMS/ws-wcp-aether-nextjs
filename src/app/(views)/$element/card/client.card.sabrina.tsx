@@ -36,17 +36,25 @@ const CardSabrina: React.FC<IProfileSabrina> = ({
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-[#014a94]/85 z-0"></div>
+      {!backgroundUrl ? (
+        <div className="absolute inset-0 bg-white z-0"></div>
+      ) : (
+        <div className="absolute inset-0 bg-[#014a94]/85 z-0"></div>
+      )}
 
       <div className="container grid lg:grid-cols-2 lg:h-[450px] h-full relative z-10">
         <div className="col-span-1 flex flex-col justify-center lg:py-0 py-4">
           {name && (
-            <div className="text-2xl leading-loose lg:text-4xl lg:w-9/12 font-semibold text-white mb-4">
+            <div
+              className={` text-2xl leading-loose lg:text-4xl lg:w-9/12 font-semibold mb-4 ${!backgroundUrl ? ' text-black ' : 'text-white'} `}
+            >
               {name}
             </div>
           )}
           {description && (
-            <div className="text-gray-200 leading-7 text-sm font-light lg:w-9/12 w-full lg:text-base">
+            <div
+              className={`leading-7 text-sm font-light lg:w-9/12 w-full lg:text-base ${!backgroundUrl ? 'text-black' : 'text-white'} `}
+            >
               {parseHTMLToReact(description)}
             </div>
           )}
