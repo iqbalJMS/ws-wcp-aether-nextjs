@@ -4,7 +4,7 @@
 import { T_FetchOptions } from './fetch.type';
 
 const API_BASE_URL =
-  process.env['NEXT_PUBLIC_DRUPAL_ENDPOINT'] ||
+  process.env.DRUPAL_ENDPOINT ||
   process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT ||
   'https://admin-bri-corpsite.dev-kjt.id';
 

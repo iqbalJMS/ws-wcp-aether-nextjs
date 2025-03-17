@@ -169,89 +169,61 @@ export default function GlobalHeader({
           >
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
+                var nextUrl =
+                  '/' +
+                  (header?.alias || header?.relative) +
+                  '?lang=' +
+                  (currentLanguage ?? 'en');
                 return (
                   <div key={index}>
-                    {header.title.toLowerCase() === 'cari' ? (
-                      <div
-                        className="flex items-center cursor-pointer"
-                        onClick={() => setActiveSearch(true)}
-                      >
-                        {header?.icon ? (
-                          <Image
-                            src={`${API_BASE_URL}${header?.icon}`}
-                            width={18}
-                            height={18}
-                            alt={`icon-${header?.icon}`}
-                            className={[
-                              'w-3 h-3 mr-2 ',
-                              variant === 'no-transparent'
-                                ? ''
-                                : 'filter brightness-0 invert',
-                            ].join(' ')}
-                          />
-                        ) : (
-                          <CE_DefaultIcon
-                            className={[
-                              'w-3 h-3 mr-2 ',
-                              variant === 'no-transparent'
-                                ? ''
-                                : 'filter brightness-0 invert',
-                            ].join(' ')}
-                            width={18}
-                            height={18}
-                          />
-                        )}
-                        <div
+                    <a
+                      {...(header.title.toLowerCase() !== 'cari'
+                        ? !header.options?.external
+                          ? { href: nextUrl }
+                          : {
+                              onClick: () =>
+                                window.open(
+                                  header.uri || header.relative,
+                                  '_blank'
+                                ),
+                            }
+                        : { onClick: () => setActiveSearch(true) })}
+                      className="flex items-center cursor-pointer"
+                    >
+                      {header?.icon ? (
+                        <Image
+                          src={`${API_BASE_URL}${header?.icon}`}
+                          width={18}
+                          height={18}
+                          alt={`icon-${header?.icon}`}
                           className={[
-                            `text-[0.813rem] font-light`,
-                            `${variant === 'transparent' ? 'text-white' : ''}`,
+                            'w-3 h-3 mr-2 ',
+                            variant === 'no-transparent'
+                              ? ''
+                              : 'filter brightness-0 invert',
                           ].join(' ')}
-                        >
-                          {header.title}
-                        </div>
-                      </div>
-                    ) : (
-                      <Link
-                        target={header.options?.external ? '_blank' : '_self'}
-                        href={`${header.options?.external ? header.uri || header.relative : `/${String(header?.alias) || header?.relative}?lang=${currentLanguage ?? 'en'}`}`}
+                        />
+                      ) : (
+                        <CE_DefaultIcon
+                          className={[
+                            'w-3 h-3 mr-2 ',
+                            variant === 'no-transparent'
+                              ? ''
+                              : 'filter brightness-0 invert',
+                          ].join(' ')}
+                          width={18}
+                          height={18}
+                        />
+                      )}
+                      <div
+                        className={[
+                          `text-[0.813rem] font-light`,
+                          `${variant === 'transparent' ? 'text-white' : ''}`,
+                        ].join(' ')}
                       >
-                        <div className="flex items-center">
-                          {header?.icon ? (
-                            <Image
-                              src={`${API_BASE_URL}${header?.icon}`}
-                              width={18}
-                              height={18}
-                              alt={`icon-${header?.icon}`}
-                              className={[
-                                'w-3 h-3 mr-2 ',
-                                variant === 'no-transparent'
-                                  ? ''
-                                  : 'filter brightness-0 invert',
-                              ].join(' ')}
-                            />
-                          ) : (
-                            <CE_DefaultIcon
-                              className={[
-                                'w-3 h-3 mr-2 ',
-                                variant === 'no-transparent'
-                                  ? ''
-                                  : 'filter brightness-0 invert',
-                              ].join(' ')}
-                              width={18}
-                              height={18}
-                            />
-                          )}
-                          <div
-                            className={[
-                              `text-[0.813rem] font-light`,
-                              `${variant === 'transparent' ? 'text-white' : ''}`,
-                            ].join(' ')}
-                          >
-                            {header.title}
-                          </div>
-                        </div>
-                      </Link>
-                    )}
+                        {header.title}
+                      </div>
+                    </a>
                   </div>
                 );
               })}
