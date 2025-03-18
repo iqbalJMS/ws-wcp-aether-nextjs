@@ -373,6 +373,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               navigationLink={navigationLink}
               bgImage={backgroundImage}
               variant="01"
+              variantWidget={findVariantStyle}
             />
           );
         case WIDGET_VARIANT.variant08:
@@ -385,6 +386,19 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               bgImage={backgroundImage}
               variant="01"
               column={column}
+            />
+          );
+        case WIDGET_VARIANT.variant57:
+          return (
+            <SE_PortletMain
+              title={title}
+              subtitle={subtitle}
+              navigationLink={navigationLink}
+              listItems={listItems}
+              bgImage={backgroundImage}
+              variant="01"
+              column={column}
+              variantWidget={findVariantStyle}
             />
           );
         case WIDGET_VARIANT.variant09:
@@ -586,7 +600,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </p>
                         }
                         variant="full-border"
-                        isOpen
                         renderContent={parseHTMLToReact(item?.content || '')}
                         content={''}
                       />
@@ -631,8 +644,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               </div>
               <div className="grid lg:grid-cols-4 lg:gap-12 gap-6 mt-12">
                 {dataV2?.map((item: any, index: number) => (
-                  <div
+                  <Link
                     key={index}
+                    href={item?.button?.link ?? 'javascript:void(0)'}
+                    target="_blank"
                     className="col-span-1 rounded-[3.5rem] hover:bg-[#1553a3] text-center group shadow-md transition transform ease-in-out p-6 py-12 cursor-pointer"
                   >
                     <div className="flex w-full justify-center group-hover:filter group-hover:brightness-0 group-hover:invert">
@@ -648,7 +663,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     <p className="text-base mt-6 font-semibold group-hover:text-white text-[#1553a3]">
                       {item.title}
                     </p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -793,10 +808,17 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         }
       );
       const dataV12 = _component?.field_column?.map((item) => {
+        const isExternalLink =
+          item?.field_primary_cta?.[0]?.options?.external || false;
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
+          button: {
+            link: isExternalLink
+              ? item?.field_primary_cta?.[0]?.uri
+              : item?.field_primary_cta?.[0]?.full_url,
+          },
         };
       });
       const dataV16 = _component?.field_column?.map((item) => {
@@ -925,7 +947,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       });
       const dataV42 = _component?.field_column?.map((item) => {
         const title = item?.field_title?.[0]?.value;
-        const buttonLink = item?.field_primary_cta?.[0]?.uri;
+        const isExternalLink =
+          item?.field_primary_cta?.[0]?.options?.external || false;
+        const buttonLink = isExternalLink
+          ? item?.field_primary_cta?.[0]?.uri
+          : item?.field_primary_cta?.[0]?.full_url;
         const buttonTitle = item?.field_primary_cta?.[0]?.title;
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
@@ -936,7 +962,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           button: {
             link: buttonLink,
             title: buttonTitle,
-            extern: true,
+            extern: isExternalLink,
           },
         };
       });
@@ -989,6 +1015,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             backgroundImage: backgroundImage,
           };
         case WIDGET_VARIANT.variant08:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            subtitle: subtitle,
+            navigationLink: navigationLink,
+            data: dataV08,
+            column: column,
+            backgroundImage: backgroundImage,
+          };
+        case WIDGET_VARIANT.variant57:
           return {
             variant: findVariantStyle,
             title: title,

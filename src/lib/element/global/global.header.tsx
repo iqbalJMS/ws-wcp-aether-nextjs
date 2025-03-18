@@ -137,16 +137,14 @@ export default function GlobalHeader({
 
   const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
     if (!item) {
-      return '';
-    }
-    if (item.alias) {
-      return `/${item.alias?.toLowerCase().replaceAll(' ', '-')}`;
-    }
-    if (item.uri) {
-      return item.uri;
+      return '#';
     }
 
-    return '/';
+    if (item?.options?.external) {
+      return item.uri || item.relative;
+    } else {
+      return `/${item.alias ? item.alias.toLowerCase().replaceAll(' ', '-') : item.relative}`;
+    }
   };
 
   const activeTab = (url: string) => {
@@ -339,6 +337,7 @@ export default function GlobalHeader({
                     >
                       <Link
                         href={generateLinkBottom(item)}
+                        target={'_blank'}
                         className={[
                           `text-sm font-normal cursor-pointer uppercase relative px-5`,
                           `${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white' : ''}`,
@@ -506,8 +505,9 @@ export default function GlobalHeader({
                         {item.below ? (
                           <div className="flex justify-between items-center w-full">
                             <Link
-                              href={item.relative}
+                              href={generateLinkBottom(item)}
                               extern={item.options?.external || false}
+                              target={'_blank'}
                               className="relative text-sm font-light capitalize group"
                             >
                               <span className="uppercase">{item.title}</span>
@@ -576,30 +576,93 @@ export default function GlobalHeader({
                       {headerTop?.map((header, index) => {
                         return (
                           <div key={index} className="mb-2">
-                            <div
-                              className="flex items-center cursor-pointer"
-                              onClick={() =>
-                                header.title.toLowerCase() === 'cari'
-                                  ? setActiveSearch(true)
-                                  : router.push(
-                                      `/${String(header?.alias)}?lang=${currentLanguage ?? 'en'}`
-                                    )
-                              }
-                            >
-                              {header?.icon && (
-                                <Image
-                                  // extern={false}
-                                  src={`${API_BASE_URL}${header?.icon}`}
-                                  width={18}
-                                  height={18}
-                                  alt={`icon-${header?.icon}`}
-                                  className="w-3 h-3 mr-2 filter brightness-0 invert"
-                                />
-                              )}
-                              <div className="text-[0.813rem] font-light text-white">
-                                {header?.title}
+                            {header.title.toLowerCase() === 'cari' ? (
+                              <div
+                                className="flex items-center cursor-pointer"
+                                onClick={() => setActiveSearch(true)}
+                              >
+                                {header?.icon ? (
+                                  <Image
+                                    src={`${API_BASE_URL}${header?.icon}`}
+                                    width={18}
+                                    height={18}
+                                    alt={`icon-${header?.icon}`}
+                                    className={[
+                                      'w-3 h-3 mr-2 ',
+                                      variant === 'no-transparent'
+                                        ? ''
+                                        : 'filter brightness-0 invert',
+                                    ].join(' ')}
+                                  />
+                                ) : (
+                                  <CE_DefaultIcon
+                                    className={[
+                                      'w-3 h-3 mr-2 ',
+                                      variant === 'no-transparent'
+                                        ? ''
+                                        : 'filter brightness-0 invert',
+                                    ].join(' ')}
+                                    width={18}
+                                    height={18}
+                                  />
+                                )}
+                                <div
+                                  className={[
+                                    `text-[0.813rem] font-light`,
+                                    `${variant === 'transparent' ? 'text-white' : ''}`,
+                                  ].join(' ')}
+                                >
+                                  <div className="text-[0.813rem] font-light text-white">
+                                    {header?.title}
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            ) : (
+                              <Link
+                                target={
+                                  header.options?.external ? '_blank' : '_self'
+                                }
+                                href={`${header.options?.external ? header.uri || header.relative : `/${String(header?.alias) || header?.relative}?lang=${currentLanguage ?? 'en'}`}`}
+                              >
+                                <div className="flex items-center">
+                                  {header?.icon ? (
+                                    <Image
+                                      src={`${API_BASE_URL}${header?.icon}`}
+                                      width={18}
+                                      height={18}
+                                      alt={`icon-${header?.icon}`}
+                                      className={[
+                                        'w-3 h-3 mr-2 ',
+                                        variant === 'no-transparent'
+                                          ? ''
+                                          : 'filter brightness-0 invert',
+                                      ].join(' ')}
+                                    />
+                                  ) : (
+                                    <CE_DefaultIcon
+                                      className={[
+                                        'w-3 h-3 mr-2 ',
+                                        variant === 'no-transparent'
+                                          ? ''
+                                          : 'filter brightness-0 invert',
+                                      ].join(' ')}
+                                      width={18}
+                                      height={18}
+                                    />
+                                  )}
+                                  <div
+                                    className={[
+                                      `text-[0.813rem] font-light`,
+                                      `${variant === 'transparent' ? 'text-white' : ''}`,
+                                    ].join(' ')}
+                                  >
+                                    <div className="text-[0.813rem] font-light text-white">
+                                      {header?.title}
+                                    </div>
+                                  </div>
+                                </div>
+                              </Link>
+                            )}
                           </div>
                         );
                       })}

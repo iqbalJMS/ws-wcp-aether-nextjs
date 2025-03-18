@@ -39,7 +39,7 @@ export default function CE_CardVariant11({
             {data?.map((item, index) => {
               return (
                 <Link
-                  href={item?.button?.link ?? ''}
+                  href={item?.button?.link ?? 'javascript:void(0)'}
                   key={index}
                   className={`${column === '1' ? 'flex-1' : `flex-none w-1/${String(column)}`} w-full h-full flex-shrink-${index} px-5 lg:px-0`}
                 >

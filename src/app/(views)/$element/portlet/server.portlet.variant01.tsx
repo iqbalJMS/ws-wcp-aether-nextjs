@@ -26,6 +26,9 @@ export default async function SE_PortletVariant01({
   const gridClass =
     variantWidget !== WIDGET_VARIANT.variant07 ? `md:grid-cols-${column}` : '';
 
+  const widthClass =
+    variantWidget === WIDGET_VARIANT.variant57 ? 'w-full' : 'w-[1100px]';
+
   return (
     <section
       className="component-portlet-01 w-full bg-no-repeat pt-20 pb-12 my-8"
@@ -51,7 +54,7 @@ export default async function SE_PortletVariant01({
           </div>
         )}
         <div
-          className={`grid grid-cols-1 ${gridClass} gap-8 py-12 md:max-w-4xl ${marginLeft?.includes('medium') ? 'lg:ml-12' : ''}`}
+          className={`${widthClass} grid grid-cols-1 ${gridClass} gap-8 py-12 ${marginLeft?.includes('medium') ? 'lg:ml-12' : ''}`}
         >
           {Array.isArray(listItems) &&
             listItems?.map((item, index) => (

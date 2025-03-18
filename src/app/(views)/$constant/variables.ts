@@ -55,6 +55,7 @@ export const WIDGET_VARIANT = {
   variant54: 'pengumuman',
   variant55: 'div_promo_slider_01',
   variant56: 'div_flip_card',
+  variant57: 'div_portlet_01_full',
 };
 
 export const API_BASE_URL =
