@@ -169,7 +169,12 @@ export default function GlobalHeader({
           >
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
-              var nextUrl = PATH_URL+ '/' + (header?.alias || header?.relative) + '?lang=' + (currentLanguage ?? 'en');
+                var nextUrl =
+                  PATH_URL +
+                  '/' +
+                  (header?.alias || header?.relative) +
+                  '?lang=' +
+                  (currentLanguage ?? 'en');
                 return (
                   <div key={index}>
                     <a

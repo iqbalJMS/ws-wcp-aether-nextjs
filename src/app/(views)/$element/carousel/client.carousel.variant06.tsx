@@ -92,7 +92,7 @@ export default function CE_CarouselVariant06({
                 <div className="md:w-1/4 w-full h-[600px] mb-8 mx-auto">
                   <Image
                     extern={true}
-                    src={API_BASE_URL+dataItem?.image}
+                    src={API_BASE_URL + dataItem?.image}
                     alt="Image"
                     width={400}
                     height={400}

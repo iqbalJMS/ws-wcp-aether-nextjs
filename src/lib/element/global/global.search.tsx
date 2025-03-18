@@ -1,5 +1,5 @@
 import { T_ApiGetSearchMenu } from '@/api/search/api.get-search-menu.type';
-import { T_Search,T_SearchRequest } from '@/api/search/api.get.search.type';
+import { T_Search, T_SearchRequest } from '@/api/search/api.get.search.type';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
 import {
   CFN_GetSearch,
@@ -20,7 +20,7 @@ type T_SearchProps = {
   active: boolean;
   setActive: (_active: boolean) => void;
 };
-var prevSearch = "";
+var prevSearch = '';
 export function Search({ active, setActive }: T_SearchProps) {
   const [pending, transiting] = useTransition();
   const elementRef = useRef(null);
@@ -90,10 +90,10 @@ export function Search({ active, setActive }: T_SearchProps) {
         setLoading(false);
         if (data?.data.list && (data?.data.list.length || 0) > 0) {
           setResult(data?.data.list);
-          setPagination(data.data.pagination); 
-        } 
+          setPagination(data.data.pagination);
+        }
       });
-      prevSearch = form.filter
+      prevSearch = form.filter;
     }
   };
 
@@ -130,11 +130,12 @@ export function Search({ active, setActive }: T_SearchProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
   const handleSearchClick = () => {
-    const inputValue = (document.getElementById('search-box') as HTMLInputElement)
-      .value;
+    const inputValue = (
+      document.getElementById('search-box') as HTMLInputElement
+    ).value;
     onFieldChange('filter', inputValue);
   };
-  
+
   return (
     <div
       ref={elementRef}
