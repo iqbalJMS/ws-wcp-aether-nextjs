@@ -99,14 +99,17 @@ const CE_SimulationDepositoValasMain = () => {
             {
               label: 'Bunga + Saldo Deposito',
               value: result?.totalDepositWithInterest.toString() || '0',
+              currency: `${form.currency}`,
             },
             {
               label: 'Saldo Tanpa Bunga',
               value: result?.totalDeposit.toString() || '0',
+              currency: `${form.currency}`,
             },
             {
               label: 'Bunga',
               value: result?.totalInterest.toString() || '0',
+              currency: `${form.currency}`,
             },
           ]}
           onClose={() => setIsResult(false)}
