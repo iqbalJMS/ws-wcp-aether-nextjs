@@ -8,6 +8,7 @@ type ListItem = {
 type ButtonItem = {
   buttonText?: string;
   buttonLink?: string;
+  buttonCta?: string;
 };
 
 export type T_PortletProps = {

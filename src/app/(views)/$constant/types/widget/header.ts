@@ -3,6 +3,7 @@ type FieldContent = { value: string };
 
 type FieldPrimaryCTA = {
   uri: string;
+  full_url: string;
   title: string;
 };
 

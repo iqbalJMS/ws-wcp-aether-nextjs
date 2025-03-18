@@ -1206,6 +1206,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           buttonText: item?.title,
           buttonLink: item?.uri,
+          buttonCta: item?.full_url,
         };
       });
       return {

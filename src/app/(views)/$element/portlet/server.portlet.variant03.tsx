@@ -40,8 +40,8 @@ export default async function SE_PortletVariant03({
               <Image width={40} height={40} src={imageAtTitle} alt="" />
               {title && (
                 <div className="font-semibold text-3xl text-white font-poppins">
-                {parseHTMLToReact(title)}
-                </div>              
+                  {parseHTMLToReact(title)}
+                </div>
               )}
             </div>
           ) : (
@@ -82,11 +82,15 @@ export default async function SE_PortletVariant03({
             ) : (
               <div className="flex gap-6 py-2 md:flex-row flex-col">
                 <div className="md:max-w-3xl max-w-[90%] text-white text-1xl">
-                  {typeof listItems !== 'string'
-                    ? listItems?.map((item, index) => (
-                        <SE_PortletVariant01Item key={index} list_item={item} />
-                      ))
-                    : <div className="checked-list">{parseHTMLToReact(listItems)}</div>}
+                  {typeof listItems !== 'string' ? (
+                    listItems?.map((item, index) => (
+                      <SE_PortletVariant01Item key={index} list_item={item} />
+                    ))
+                  ) : (
+                    <div className="checked-list">
+                      {parseHTMLToReact(listItems)}
+                    </div>
+                  )}
                 </div>
                 <div className="w-full h-[35rem] rounded-xl overflow-hidden mb-2 inline-block">
                   <Image
