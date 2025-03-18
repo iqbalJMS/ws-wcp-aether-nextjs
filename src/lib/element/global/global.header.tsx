@@ -171,7 +171,7 @@ export default function GlobalHeader({
           >
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
-              var nextUrl = '/' + (header?.alias || header?.relative) + '?lang=' + (currentLanguage ?? 'en');
+              var nextUrl = '/web/guest/' + (header?.alias || header?.relative) + '?lang=' + (currentLanguage ?? 'en');
                 return (
                   <div key={index}>
                     <a {...(header.title.toLowerCase() !== 'cari' 
