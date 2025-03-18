@@ -1,5 +1,5 @@
 import { T_ApiGetSearchMenu } from '@/api/search/api.get-search-menu.type';
-import { T_Search } from '@/api/search/api.get.search.type';
+import { T_Search,T_SearchRequest } from '@/api/search/api.get.search.type';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
 import {
   CFN_GetSearch,
@@ -20,7 +20,7 @@ type T_SearchProps = {
   active: boolean;
   setActive: (_active: boolean) => void;
 };
-
+var prevSearch = "";
 export function Search({ active, setActive }: T_SearchProps) {
   const [pending, transiting] = useTransition();
   const elementRef = useRef(null);
@@ -49,6 +49,7 @@ export function Search({ active, setActive }: T_SearchProps) {
   let [result, setResult] = useState<T_Search['list']>([]);
   let [pagination, setPagination] = useState<T_Search['pagination']>();
   const handleSearch = () => {
+    setLoading(true);
     setResult([]);
     setPagination(undefined);
     if (pending) {
@@ -57,22 +58,42 @@ export function Search({ active, setActive }: T_SearchProps) {
     const isValid = validateForm();
     if (isValid) {
       setLoading(true);
+      if (prevSearch != form.filter) {
+        const arrTabs = ['produk', 'berita', 'laporan', 'promo'];
+        let vallTabs = [0, 0, 0, 0];
+        const fetchData = arrTabs.map((x, i) => {
+          const currRequest: T_SearchRequest = {
+            category: x,
+            filter: form.filter,
+            page: form.page,
+            parent: form.parent,
+          };
+
+          return new Promise<void>((resolve) => {
+            CFN_GetSearch(transiting, currRequest, (data) => {
+              vallTabs[i] = data?.data.pagination.totalData ?? 0;
+              resolve();
+            });
+          });
+        });
+
+        Promise.all(fetchData).then(() => {
+          setTotal({
+            produk: vallTabs[0],
+            berita: vallTabs[1],
+            laporan: vallTabs[2],
+            promo: vallTabs[3],
+          });
+        });
+      }
       CFN_GetSearch(transiting, form, (data) => {
         setLoading(false);
         if (data?.data.list && (data?.data.list.length || 0) > 0) {
           setResult(data?.data.list);
-          setPagination(data.data.pagination);
-          setTotal({
-            ...total,
-            [form.category]: data.data.pagination.totalData,
-          });
-        } else {
-          setTotal({
-            ...total,
-            [form.category]: 0,
-          });
-        }
+          setPagination(data.data.pagination); 
+        } 
       });
+      prevSearch = form.filter
     }
   };
 
@@ -108,7 +129,12 @@ export function Search({ active, setActive }: T_SearchProps) {
     onFieldChange('category', tab);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
-
+  const handleSearchClick = () => {
+    const inputValue = (document.getElementById('search-box') as HTMLInputElement)
+      .value;
+    onFieldChange('filter', inputValue);
+  };
+  
   return (
     <div
       ref={elementRef}
@@ -134,13 +160,12 @@ export function Search({ active, setActive }: T_SearchProps) {
               <input
                 type="text"
                 className="focus:outline-none flex-1"
-                onChange={(event) =>
-                  onFieldChange('filter', event.target.value)
-                }
-                value={form.filter}
+                id="search-box"
               />
-
-              <div>
+              <button
+                onClick={handleSearchClick}
+                className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-2 transition-all duration-200"
+              >
                 <svg
                   className="w-7 h-7"
                   width="32"
@@ -152,7 +177,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                     d="m19.485 20.154l-6.262-6.262q-.75.639-1.725.989t-1.96.35q-2.402 0-4.066-1.663T3.808 9.503T5.47 5.436t4.064-1.667t4.068 1.664T15.268 9.5q0 1.042-.369 2.017t-.97 1.668l6.262 6.261zM9.539 14.23q1.99 0 3.36-1.37t1.37-3.361t-1.37-3.36t-3.36-1.37t-3.361 1.37t-1.37 3.36t1.37 3.36t3.36 1.37"
                   />
                 </svg>
-              </div>
+              </button>
             </div>
           </div>
         </div>
