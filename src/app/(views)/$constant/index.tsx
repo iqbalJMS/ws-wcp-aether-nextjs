@@ -2526,10 +2526,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
       const sidebarData = _component.promo_data?.sidebar
         ? {
-            categoryData: sidebarCategoryPromo || [],
-            productData: sidebarProductPromo || [],
-            locationData: sidebarLocationPromo || [],
-          }
+          categoryData: sidebarCategoryPromo || [],
+          productData: sidebarProductPromo || [],
+          locationData: sidebarLocationPromo || [],
+        }
         : null;
 
       const paginationData = _component.promo_data?.pager;
