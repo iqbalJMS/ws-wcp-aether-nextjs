@@ -8,7 +8,7 @@ import {
 } from '@/api/navbar-menu/main-navbar/api.get-main-menu-navbar.type';
 import { T_ResponseGetMenuItemNavbar } from '@/api/navbar-menu/menu-items/api.get-menu-items-navbar.type';
 import { T_ResponseGetTopMenuNavbar } from '@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
+import { API_BASE_URL, PATH_URL } from '@/app/(views)/$constant/variables';
 import CE_DefaultIcon from '@/lib/element/global/default-icon';
 import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import useScrollActive from '@/lib/hook/useScroll';
@@ -170,6 +170,7 @@ export default function GlobalHeader({
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
                 var nextUrl =
+                  PATH_URL +
                   '/' +
                   (header?.alias || header?.relative) +
                   '?lang=' +

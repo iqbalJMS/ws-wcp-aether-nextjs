@@ -31,7 +31,7 @@ export default async function SE_PortletVariant01({
 
   return (
     <section
-      className="component-portlet-01 w-full bg-no-repeat pt-20 pb-12 my-8"
+      className="component-portlet-01 w-full bg-no-repeat pt-0.5 pb-0.5 my-0"
       style={{
         backgroundImage: `url(${
           bgImage

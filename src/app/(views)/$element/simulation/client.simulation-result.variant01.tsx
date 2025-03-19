@@ -11,6 +11,7 @@ type T_SimulationresultVariant01Props = {
     col?: boolean;
     percentage?: boolean;
     active?: boolean;
+    currency?: string;
   }[];
   onClose: () => void;
   type?: 'center' | 'row-col';
@@ -33,7 +34,7 @@ const CE_SimulationResultVariant01 = ({
                     {valueItem.label}
                   </div>
                   <div className="text-[3rem] text-center text-blue-01 font-semibold">
-                    Rp.{' '}
+                    <span>{valueItem?.currency || 'Rp'}</span>.{' '}
                     {new Intl.NumberFormat('en-US', {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
