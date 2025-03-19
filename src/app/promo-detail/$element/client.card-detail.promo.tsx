@@ -21,6 +21,7 @@ export default function CE_CardDetailPromo({
   merchant,
   lokasi,
   product,
+  urlLink,
 }: {
   title: string;
   image: string;
@@ -30,9 +31,10 @@ export default function CE_CardDetailPromo({
   merchant: string;
   lokasi: string;
   product: string;
+  urlLink: string;
 }) {
   const pathname = usePathname();
-  const urlLink = `${process.env['NEXT_PUBLIC_BASE_URL'] || process.env.NEXT_PUBLIC_BASE_URL}${pathname}`;
+  const textShare = `${urlLink || process.env.NEXT_PUBLIC_APP_URL}/${pathname}`;
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [isShareOpen, setIsShareOpen] = useState<boolean>(false);
 
@@ -96,7 +98,7 @@ export default function CE_CardDetailPromo({
                 >
                   <div className="flex items-center justify-center space-x-2">
                     <Link
-                      href={`https://x.com/intent/tweet?text=${urlLink}`}
+                      href={`https://x.com/intent/tweet?text=${textShare}`}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -108,7 +110,7 @@ export default function CE_CardDetailPromo({
                     </Link>
 
                     <Link
-                      href={`https://www.facebook.com/sharer/sharer.php?&quote=${urlLink}`}
+                      href={`https://www.facebook.com/sharer/sharer.php?&quote=${textShare}`}
                       target="_blank"
                     >
                       <FacebookIcon
@@ -119,7 +121,7 @@ export default function CE_CardDetailPromo({
                     </Link>
 
                     <Link
-                      href={`https://www.linkedin.com/sharing/share-offsite/?url=${urlLink}`}
+                      href={`https://www.linkedin.com/sharing/share-offsite/?url=${textShare}`}
                       target="_blank"
                     >
                       <LinkedinIcon
@@ -130,7 +132,7 @@ export default function CE_CardDetailPromo({
                     </Link>
 
                     <Link
-                      href={`https://web.whatsapp.com/send?text=${urlLink}`}
+                      href={`https://web.whatsapp.com/send?text=${textShare}`}
                       target="_blank"
                     >
                       <WhatsappIcon
@@ -142,7 +144,7 @@ export default function CE_CardDetailPromo({
                     </Link>
                     <div
                       onClick={async () => {
-                        await navigator.clipboard.writeText(`${urlLink}`);
+                        await navigator.clipboard.writeText(`${textShare}`);
                         setAlertOpen(true);
                       }}
                     >
