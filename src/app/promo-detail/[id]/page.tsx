@@ -1,3 +1,4 @@
+'use server';
 import React from 'react';
 
 import { ACT_GetTopMenuNavbar } from '@/app/(views)/$action/action.get.top-menu-navbar';
@@ -18,6 +19,7 @@ import SE_RelatedContent from '@/app/(views)/$element/content-type/server.relate
 import { T_Response_Content_Type } from '@/api/content-type/api.get-content-type.type';
 
 export default async function page({ params }: { params: { id: string } }) {
+  const urlLink = `${process.env['BASE_URL'] || process.env.BASE_URL}`;
   const getOurstoryData = await ACT_GetDetailPage({
     lang: 'en',
     alias: 'node',
@@ -107,6 +109,7 @@ export default async function page({ params }: { params: { id: string } }) {
               merchant={merchantPromo}
               lokasi={locationPromo}
               product={productPromo}
+              urlLink={urlLink}
             />
             {dataRelatedContent && (
               <div>
