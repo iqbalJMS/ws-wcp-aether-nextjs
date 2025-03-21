@@ -2,12 +2,12 @@
 
 import AlertCopy from '@/lib/element/global/alert-copy';
 import FacebookIcon from '@/lib/element/global/icons/facebook-icon';
-import Image from '@/lib/element/global/image';
-import Link from '@/lib/element/global/link';
 import LinkedinIcon from '@/lib/element/global/icons/linkedin-icon';
 import ShareIcon from '@/lib/element/global/icons/share-icon';
 import TwitterIcon from '@/lib/element/global/icons/twitter-icon';
 import WhatsappIcon from '@/lib/element/global/icons/whatsapp-icon';
+import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -32,7 +32,7 @@ export default function CE_CardDetailPromo({
   product: string;
 }) {
   const pathname = usePathname();
-  const urlLink = `${process.env['NEXT_PUBLIC_BASE_URL'] || process.env.NEXT_PUBLIC_BASE_URL}${pathname}`;
+  const urlLink = `${process.env.NEXT_PUBLIC_BASE_URL}${pathname}`;
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [isShareOpen, setIsShareOpen] = useState<boolean>(false);
 
