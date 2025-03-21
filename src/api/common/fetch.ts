@@ -4,9 +4,6 @@
 import { T_FetchOptions } from './fetch.type';
 
 const API_BASE_URL =
-  process.env.DRUPAL_ENDPOINT ||
-  process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT ||
-  'https://admin-bri-corpsite.stg.service-kjt.id';
   process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
 
 const DEFAULT_HEADERS: HeadersInit = {
