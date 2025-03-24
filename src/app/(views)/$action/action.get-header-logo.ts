@@ -13,7 +13,7 @@ export async function ACT_GetHeaderLogo({
     return response;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('An error occurred during Get Single Page:', error);
+    console.error('An error occurred during Get Header Logo:', error);
     return null;
   }
 }

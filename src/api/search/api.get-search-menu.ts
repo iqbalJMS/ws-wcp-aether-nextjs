@@ -12,7 +12,7 @@ export async function API_GetSearchMenu(): Promise<any> {
     return response;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('An error occurred during Get Single Page:', error);
+    console.error('An error occurred during Get Search:', error);
     redirect('/404');
   }
 }
