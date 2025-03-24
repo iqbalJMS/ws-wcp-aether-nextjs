@@ -1,10 +1,10 @@
 'use client';
 
-import Modal from '@/lib/element/global/modal';
-import { useEffect, useMemo, useState } from 'react';
 import { T_IconList } from '@/app/(views)/$constant/types';
 import Link from '@/lib/element/global/link';
+import Modal from '@/lib/element/global/modal';
 import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
 
 type T_IconMainProps = {
   maxListShow?: number;
@@ -47,11 +47,7 @@ function CE_IconMenu({
         ].join(' ')}
       >
         <Image
-          src={
-            variant === 'config'
-              ? image
-              : `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}/${image}`
-          }
+          src={image}
           alt="image"
           width={200}
           height={200}
@@ -64,7 +60,7 @@ function CE_IconMenu({
       {variant === 'main' && (
         <>
           <div className="uppercase text-base line-clamp-2 font-semibold mdmax:text-xs">
-            {`${title} - ${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || process.env.DRUPAL_ENDPOINT || 'ntek'}`}
+            {title}
           </div>
           {hover === 'main' && (
             <div className="absolute bottom-0 left-0 w-full h-2 px-5">
