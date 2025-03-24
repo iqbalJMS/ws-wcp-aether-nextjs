@@ -64,7 +64,7 @@ function CE_IconMenu({
       {variant === 'main' && (
         <>
           <div className="uppercase text-base line-clamp-2 font-semibold mdmax:text-xs">
-            {`${title} - ${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || 'ntek'}`}
+            {`${title} - ${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || process.env.DRUPAL_ENDPOINT || 'ntek'}`}
           </div>
           {hover === 'main' && (
             <div className="absolute bottom-0 left-0 w-full h-2 px-5">
