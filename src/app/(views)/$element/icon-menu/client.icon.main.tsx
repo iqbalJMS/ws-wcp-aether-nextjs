@@ -1,10 +1,10 @@
 'use client';
 
-import Image from '@/lib/element/global/image';
 import Modal from '@/lib/element/global/modal';
 import { useEffect, useMemo, useState } from 'react';
 import { T_IconList } from '@/app/(views)/$constant/types';
 import Link from '@/lib/element/global/link';
+import Image from 'next/image';
 
 type T_IconMainProps = {
   maxListShow?: number;
@@ -47,8 +47,11 @@ function CE_IconMenu({
         ].join(' ')}
       >
         <Image
-          extern={variant === 'config' ? true : false}
-          src={image}
+          src={
+            variant === 'config'
+              ? image
+              : `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}/${image}`
+          }
           alt="image"
           width={200}
           height={200}
