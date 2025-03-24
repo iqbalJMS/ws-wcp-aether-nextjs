@@ -1,25 +1,25 @@
 'use server';
-import React from 'react';
 
 import { ACT_GetTopMenuNavbar } from '@/app/(views)/$action/action.get.top-menu-navbar';
 import GlobalFooter from '@/lib/element/global/global.footer';
 
-import { ACT_GetDetailPage } from '@/app/(views)/$action/action.get.detail-page';
-import Breadcrumb from '@/lib/element/global/breadcrumb';
-import CE_CardDetailPromo from '@/app/promo-detail/$element/client.card-detail.promo';
-import GlobalHeader from '@/lib/element/global/global.header';
-import { ACT_GetMainMenuNavbar } from '@/app/(views)/$action/action.get.main-menu-navbar';
-import { ACT_GetMainMenuFooter } from '@/app/(views)/$action/action.get.main-footer';
-import { ACT_GetBottomMenuFooter } from '@/app/(views)/$action/action.get.bottom-footer';
-import SE_PortletVariant02 from '@/app/(views)/$element/portlet/server.portlet.variant02';
-import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
-import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
-import { ACT_GetRelatedContentType } from '@/app/(views)/$action/action.get-related-content-type';
-import SE_RelatedContent from '@/app/(views)/$element/content-type/server.related-content-type';
 import { T_Response_Content_Type } from '@/api/content-type/api.get-content-type.type';
+import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
+import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
+import { ACT_GetRelatedContentType } from '@/app/(views)/$action/action.get-related-content-type';
+import { ACT_GetBottomMenuFooter } from '@/app/(views)/$action/action.get.bottom-footer';
+import { ACT_GetDetailPage } from '@/app/(views)/$action/action.get.detail-page';
+import { ACT_GetMainMenuFooter } from '@/app/(views)/$action/action.get.main-footer';
+import { ACT_GetMainMenuNavbar } from '@/app/(views)/$action/action.get.main-menu-navbar';
+import SE_RelatedContent from '@/app/(views)/$element/content-type/server.related-content-type';
+import SE_PortletVariant02 from '@/app/(views)/$element/portlet/server.portlet.variant02';
+import CE_CardDetailPromo from '@/app/promo-detail/$element/client.card-detail.promo';
+import Breadcrumb from '@/lib/element/global/breadcrumb';
+import GlobalHeader from '@/lib/element/global/global.header';
 
 export default async function page({ params }: { params: { id: string } }) {
-  const urlLink = `${process.env['BASE_URL'] || process.env.BASE_URL}`;
+  const urlLink =
+    process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
   const getOurstoryData = await ACT_GetDetailPage({
     lang: 'en',
     alias: 'node',
