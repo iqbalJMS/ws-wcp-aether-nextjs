@@ -1291,7 +1291,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       }
     },
     props: (_component: T_MultiTab) => {
-      const title = `${_component?.field_title_custom?.[0]?.value} - ${process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || 'ntek'}`;
+      const title = _component?.field_title_custom?.[0]?.value;
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
       const listTabV06 = _component?.field_tab?.map((item) => {
