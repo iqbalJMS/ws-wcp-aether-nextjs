@@ -210,3 +210,8 @@ li {
   position: absolute;
   backface-visibility: hidden;
 }
+
+.parsehtml img {
+  width: 50;
+  height: 50;
+}
