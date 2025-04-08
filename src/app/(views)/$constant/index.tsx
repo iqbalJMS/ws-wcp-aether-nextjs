@@ -1912,7 +1912,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   rich_text: {
     component: ({ element }: { element: string }) => (
-      <div className="container mx-auto my-6 py-6 container-rich-text">
+      <div className="container mx-auto my-6 py-6 container-rich-text parsehtml">
         {parseHTMLToReact(element)}
       </div>
     ),
