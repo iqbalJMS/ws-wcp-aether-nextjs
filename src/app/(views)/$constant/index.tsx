@@ -345,6 +345,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const dataV2 = props?.data;
       const linkText = props?.linkText;
       const linkUrl = props?.linkUrl;
+      const elementRichText = props?.element;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -495,7 +496,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
                         <div className="">
                           <Link
-                            href={item?.button?.link ?? '/'}
+                            href={item?.button?.link ?? 'javascript:void(0)'}
                             target={!item?.button?.extern ? '_blank' : ''}
                           >
                             <div className="inline-block uppercase text-blue-01 text-xs">
@@ -691,6 +692,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return (
             <CE_FlipCard data={propsData} backgroundImage={backgroundImage} />
           );
+        case WIDGET_VARIANT.variant58:
+          return (
+            <div className="container mx-auto my-6 py-6 body table-blue-header">
+              {parseHTMLToReact(elementRichText)}
+            </div>
+          );
+        case WIDGET_VARIANT.variant59:
+          return (
+            <div className="container mx-auto my-6 py-6 body table-full-border">
+              {parseHTMLToReact(elementRichText)}
+            </div>
+          );
         default:
           return null;
       }
@@ -840,7 +853,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
           button: {
             title: item?.field_primary_cta?.[0]?.title,
-            link: item?.field_primary_cta?.[0]?.full_url ?? '',
+            link: item?.field_primary_cta?.[0]?.full_url,
             extern: false,
           },
         };
@@ -849,6 +862,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
+        };
+      });
+      const dataV58 = _component?.field_column?.map((item) => {
+        return {
+          element: item?.field_content?.[0]?.value,
         };
       });
       const dataV27 = _component?.field_column?.map((item) => {
@@ -1211,6 +1229,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             propsData: flipCardData,
             backgroundImage: backgroundFlipCard,
           };
+        case WIDGET_VARIANT.variant58:
+          return {
+            variant: findVariantStyle,
+            element: dataV58?.[0]?.element,
+          };
+        case WIDGET_VARIANT.variant59:
+          return {
+            variant: findVariantStyle,
+            element: dataV58?.[0]?.element,
+          };
         default:
           return null;
       }
@@ -1241,8 +1269,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const buttonItem = _component?.field_primary_cta?.map((item) => {
         return {
           buttonText: item?.title,
-          buttonLink: item?.uri,
-          buttonCta: item?.full_url,
+          buttonLink: item?.uri || (_component?.field_primary_cta?.[0]?.uri || '#'),
+          buttonCta: item?.full_url || (_component?.field_primary_cta?.[0]?.full_url || '#'),
         };
       });
       return {
@@ -1439,11 +1467,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     item.field_second_column?.[0]?.field_image?.[0]
                       ?.field_media_image?.[0]?.uri?.[0]?.url;
 
+                  const variantChildren =
+                    item?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
                   return {
                     description1: description1,
                     description2: description2,
                     imageUrl1: imageUrl1,
                     imageUrl2: imageUrl2,
+                    variantChildren: variantChildren,
                   };
                 }),
               };
@@ -1912,7 +1943,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   rich_text: {
     component: ({ element }: { element: string }) => (
-      <div className="container mx-auto my-6 py-6 container-rich-text parsehtml">
+      <div className="container mx-auto my-6 py-6 container-rich-text">
         {parseHTMLToReact(element)}
       </div>
     ),

@@ -44,7 +44,7 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                         {item?.buttons?.map((buttonItem, buttonIndex) => (
                           <div key={buttonIndex}>
                             <Link
-                              href={buttonItem?.link}
+                              href={buttonItem?.link || 'javascript:void(0)'}
                               extern={buttonItem?.extern}
                               target={buttonItem?.extern ? '_blank' : ''}
                             >

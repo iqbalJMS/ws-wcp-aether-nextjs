@@ -2,6 +2,7 @@
 
 import Image from '@/lib/element/global/image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
 
 type T_PromoCardProps = {
   description1?: string;
@@ -9,6 +10,7 @@ type T_PromoCardProps = {
   imageUrl1?: string;
   imageUrl2?: string;
   variant: string;
+  variantTwoColumn?: string;
 };
 
 const CE_PromoCard = ({
@@ -17,16 +19,21 @@ const CE_PromoCard = ({
   imageUrl1,
   imageUrl2,
   variant,
+  variantTwoColumn,
 }: T_PromoCardProps) => {
+  const variantTwoColumnClass =
+    variantTwoColumn === WIDGET_VARIANT.variant58
+      ? 'table-blue-header'
+      : 'body';
+
   return (
     <>
-      <div className="w-full relative hidden lg:flex">
+      <div className="w-full relative hidden lg:flex mt-10 lg:mt-20 mb-10 lg:mb-20">
         {description1 && (
           <div className="flex-1 flex flex-col justify-center p-6 items-center z-10">
             <div className="w-full flex justify-start">
               <div
-                className="mb-2 flex justify-center text-center md:text-left w-full md:max-w-[950px]"
-                style={{ paddingLeft: '200px' }}
+                className={`mb-2 flex justify-center text-center md:text-left w-full md:max-w-[950px] ${variantTwoColumnClass ? `${variantTwoColumnClass}` : 'pl-[200px]'}`}
               >
                 {parseHTMLToReact(description1)}
               </div>
@@ -80,9 +87,9 @@ const CE_PromoCard = ({
 
         {description2 && (
           <div className="flex-1 flex flex-col justify-center pl-6 items-center z-10 bg-white">
-            <div className="w-full flex justify-end">
+            <div className="w-full flex justify-start">
               <div
-                className={`mb-2 flex justify-center text-center md:text-left w-full md:max-w-[650px]`}
+                className={`mb-2 flex justify-center text-center md:text-left w-full md:max-w-[650px] ${variantTwoColumnClass}`}
               >
                 {parseHTMLToReact(description2)}
               </div>
@@ -92,10 +99,10 @@ const CE_PromoCard = ({
       </div>
       <div className="relative flex flex-col lg:hidden my-10">
         {description1 && (
-          <div className="flex-1 flex flex-col justify-center pl-6 items-center z-10 md:order-1 order-2">
+          <div className="flex-1 flex flex-col justify-center pl-6 items-center z-10 order-1">
             <div className="w-full flex justify-start">
               <div
-                className={`mb-2 flex justify-center text-center w-full md:max-w-[650px]`}
+                className={`mb-2 w-full flex px-4 md:px-0 justify-center text-left leading-relaxed md:max-w-[650px] ${variantTwoColumnClass}`}
               >
                 {parseHTMLToReact(description1)}
               </div>
@@ -129,10 +136,10 @@ const CE_PromoCard = ({
         )}
 
         {description2 && (
-          <div className="flex-1 flex flex-col justify-center pl-6 items-center z-10 bg-white">
+          <div className="flex-1 flex flex-col justify-center pl-6 items-center z-10 bg-white order-2">
             <div className="w-full flex justify-end">
               <div
-                className={`mb-2 flex justify-center text-center w-full md:max-w-[650px]`}
+                className={`mb-2 w-full flex px-4 md:px-0 justify-center text-left leading-relaxed md:max-w-[650px] ${variantTwoColumnClass}`}
               >
                 {parseHTMLToReact(description2)}
               </div>
