@@ -23,25 +23,25 @@ export default function CE_InfoSahamMain({
     {
       name: '',
       icon: 'facebook',
-      url: 'https://www.facebook.com/BRIofficialpage',
+      url: 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
+      className: 'text-blue-01 ',
+    },    
+    {
+      name: '',
+      icon: 'x',
+      url: 'https://x.com/share?url=https%3A%2F%2Fbri.co.id%2Finformasi-investor&text=BBRI%20Stock%20Info',
       className: 'text-blue-01 ',
     },
     {
       name: '',
-      icon: 'instagram',
-      url: 'https://www.instagram.com/bankbri_id',
+      icon: 'google',
+      url: 'https://plus.google.com/share?url=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
       className: 'text-blue-01 ',
     },
     {
       name: '',
-      icon: 'twitter',
-      url: 'https://x.com/kontakbri',
-      className: 'text-blue-01 ',
-    },
-    {
-      name: '',
-      icon: 'youTube',
-      url: 'https://www.youtube.com/channel/UCRHFE_ooDrkEiRRJbog3EjA',
+      icon: 'whatsapp',
+      url: 'whatsapp://send/?text=https%3A%2F%2Fbri.co.id%2Finformasi-investor%20BBRI%20Stock%20Info',
       className: 'text-blue-01 ',
     },
   ];
@@ -79,7 +79,7 @@ export default function CE_InfoSahamMain({
                 {data.stockId}
                 <Image
                   className="ml-2"
-                  src="/web/guest/images/icon-menu/config.png"
+                  src="/web/guest/images/icon-menu/share.svg"
                   width={20}
                   height={20}
                   extern={true}

@@ -65,7 +65,7 @@ export default function CE_CardVariant16({
 
                   <div className="">
                     <Link
-                      href={item?.button?.link ?? '/'}
+                      href={item?.button?.link ?? 'javascript:void(0)'}
                       extern={item?.button?.extern}
                       target={!item?.button?.extern ? '_blank' : ''}
                     >
