@@ -75,6 +75,7 @@ type TabChildrenItem = {
   button?: ButtonProps;
   textLink?: string;
   urlLink?: string;
+  variantChildren?: string;
 };
 
 type TabItem = {
@@ -241,6 +242,7 @@ export function Tabs({
             imageUrl1={item?.imageUrl1}
             imageUrl2={item?.imageUrl2}
             variant={''}
+            variantTwoColumn={item?.variantChildren}
           />
         ));
       case WIDGET_VARIANT.variant15:

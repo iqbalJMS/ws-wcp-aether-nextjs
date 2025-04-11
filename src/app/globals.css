@@ -13,16 +13,6 @@ html {
   }
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
 .field__label.visually-hidden {
   display: none;
 }
@@ -57,6 +47,15 @@ input[type='range']::-webkit-slider-thumb {
   width: 1.7rem;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .overflow-custom::-webkit-scrollbar-track {
   @apply bg-blue-01 bg-opacity-10  rounded-sm;
 }
@@ -72,6 +71,7 @@ input[type='range']::-webkit-slider-thumb {
 .simulation-tnc ul {
   @apply list-disc ml-5;
 }
+
 .simulation-tnc div {
   @apply font-medium;
 }
@@ -127,19 +127,7 @@ h6 {
 }
 
 .body p {
-  @apply text-sm mb-3;
-}
-
-.text-align-justify {
-  @apply text-justify;
-}
-
-.text-align-center {
-  @apply text-center;
-}
-
-.body table {
-  @apply w-full mb-3 border border-black;
+  @apply text-sm mb-3 leading-relaxed;
 }
 
 .body ul,
@@ -149,11 +137,7 @@ h6 {
 
 .body ul li,
 .body ol li {
-  @apply my-0;
-}
-
-.body table tr td {
-  @apply p-1 border border-black;
+  @apply my-2;
 }
 
 .body a {
@@ -174,11 +158,6 @@ li {
   margin-left: 1rem;
   margin-top: 1rem;
   margin-bottom: 5px;
-}
-
-.container-rich-text img,
-.box-head-text > .head-text {
-  width: 100% !important;
 }
 
 .heading .heading-title {
@@ -211,7 +190,68 @@ li {
   backface-visibility: hidden;
 }
 
-.parsehtml img {
-  width: 50;
-  height: 50;
+.container-rich-text .box-head-text > .head-text {
+  width: 100% !important;
+}
+
+.container-rich-text table {
+  width: 100%;
+}
+
+.container-rich-text table tbody tr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-full-border table {
+  width: 100% !important;
+}
+
+.table-full-border table {
+  @apply w-full mb-3 border border-black;
+}
+
+.table-full-border table thead tr th {
+  background-color: #aaaa;
+  font-size: 12pt;
+}
+
+.table-full-border table tbody tr td {
+  @apply p-1 border border-black;
+}
+
+.table-blue-header div {
+  width: 100%;
+}
+
+.table-blue-header table {
+  width: 100% !important;
+}
+
+.table-blue-header table thead tr th {
+  border-top: none;
+  border-bottom: 2px solid #5b9bd5;
+  border-right: 2px solid #5b9bd5;
+  border-left: none;
+  height: 57px;
+  padding: 0 7px;
+  color: white;
+  background-color: #0070c0;
+  font-size: 12pt;
+}
+
+.table-blue-header table tbody tr td {
+  border-bottom: 2px solid #5b9bd5;
+  height: 59px;
+  padding: 0 7px;
+  color: #0070c0;
+}
+
+.text-align-justify {
+  @apply text-justify;
+}
+
+.text-align-center {
+  @apply text-center;
 }

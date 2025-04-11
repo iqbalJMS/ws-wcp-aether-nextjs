@@ -48,6 +48,7 @@ type T_FieldParagraph = Array<{
   field_primary_cta: any;
   field_second_column: any;
   field_first_column: any;
+  field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
   field_content: Array<{ value: string }>;
   field_note: Array<{ value: string }>;
   field_carousel_items: Array<{
