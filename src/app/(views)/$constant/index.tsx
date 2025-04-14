@@ -853,7 +853,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
           button: {
             title: item?.field_primary_cta?.[0]?.title,
-            link: item?.field_primary_cta?.[0]?.full_url,
+            link: item?.field_primary_cta?.[0]?.full_url || '#',
             extern: false,
           },
         };
@@ -1269,8 +1269,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const buttonItem = _component?.field_primary_cta?.map((item) => {
         return {
           buttonText: item?.title,
-          buttonLink: item?.uri || (_component?.field_primary_cta?.[0]?.uri || '#'),
-          buttonCta: item?.full_url || (_component?.field_primary_cta?.[0]?.full_url || '#'),
+          buttonLink: item?.uri || '#',
+          buttonCta: item?.full_url || '#',
         };
       });
       return {

@@ -4,6 +4,7 @@ import ButtonSecondary from '@/lib/element/global/button.secondary';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
 
 type T_CardVariant01Props = {
   data: {
@@ -44,7 +45,7 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                         {item?.buttons?.map((buttonItem, buttonIndex) => (
                           <div key={buttonIndex}>
                             <Link
-                              href={buttonItem?.link || 'javascript:void(0)'}
+                              href={handleurl(buttonItem?.link)}
                               extern={buttonItem?.extern}
                               target={buttonItem?.extern ? '_blank' : ''}
                             >
