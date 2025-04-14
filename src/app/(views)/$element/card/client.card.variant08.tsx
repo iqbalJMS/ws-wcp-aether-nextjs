@@ -2,6 +2,7 @@
 
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant08Props = {
@@ -65,7 +66,7 @@ export default function CE_CardVariant08({
                   {item?.button?.title && (
                     <div className="text-center">
                       <Link
-                        href={item?.button?.link ?? 'javascript:void(0)'}
+                        href={handleurl(item?.button?.link)}
                         extern={item?.button?.extern}
                         target={item?.button?.extern ? '_blank' : ''}
                       >
