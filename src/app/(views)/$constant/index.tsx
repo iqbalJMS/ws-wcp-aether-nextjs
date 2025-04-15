@@ -27,7 +27,6 @@ import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
-import { button } from 'framer-motion/client';
 
 const CE_PromoSlider = dynamic(
   () => import('@/app/(views)/$element/promo/client.promo-slider')
