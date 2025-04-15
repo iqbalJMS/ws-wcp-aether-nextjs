@@ -27,6 +27,7 @@ import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
+import { button } from 'framer-motion/client';
 
 const CE_PromoSlider = dynamic(
   () => import('@/app/(views)/$element/promo/client.promo-slider')
@@ -430,7 +431,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant23:
           return (
-            <CE_CarouselMain variant="03" data={listItems} title={title} />
+            <CE_CarouselMain
+              variant="03"
+              data={listItems}
+              title={title}
+              description={subtitle}
+              button={props?.button}
+            />
           );
         case WIDGET_VARIANT.variant24:
           return <CE_CardVariant05 data={listItems} />;
@@ -715,6 +722,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const subtitle = _component?.field_content?.[0]?.value;
       const subtitleNews =
         _component?.field_column?.[0]?.field_title?.[0]?.value;
+      const hrefLink =
+        _component?.field_column?.[0].field_primary_cta?.[0]?.full_url;
+      const hreftitle =
+        _component?.field_column?.[0].field_primary_cta?.[0]?.title;
       const navigationLink =
         _component?.field_primary_cta?.[0]?.full_url ||
         _component?.field_primary_cta?.[0]?.uri;
@@ -1102,7 +1113,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant23:
           return {
             variant: findVariantStyle,
-            title: titleV02,
+            title: titleV02 || parseHTMLToReact(title || ''),
+            subtitle: parseHTMLToReact(subtitle || ''),
+            button: {
+              name: hreftitle,
+              link: hrefLink,
+            },
             data: dataV11,
           };
         case WIDGET_VARIANT.variant24:
@@ -1191,10 +1207,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: _component?.field_column?.[0]?.field_title?.[0]?.value,
             description:
               _component?.field_column?.[0]?.field_content?.[0]?.value,
-            textLink:
-              _component?.field_column?.[0].field_primary_cta?.[0]?.title,
-            hrefLink:
-              _component?.field_column?.[0].field_primary_cta?.[0]?.full_url,
+            textLink: hreftitle,
+            hrefLink: hrefLink,
             image:
               _component?.field_column?.[0]?.field_image?.[0]
                 .field_media_image?.[0]?.uri?.[0].url,

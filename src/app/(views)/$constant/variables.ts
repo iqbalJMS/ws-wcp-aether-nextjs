@@ -57,7 +57,7 @@ export const WIDGET_VARIANT = {
   variant56: 'div_flip_card',
   variant57: 'div_portlet_01_full',
   variant58: 'richtext_table_blue_header',
-  variant59: 'richtext_table_full_border'
+  variant59: 'richtext_table_full_border',
 };
 
 export const API_BASE_URL =

@@ -6,6 +6,7 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useState } from 'react';
+import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
 
 export function CE_CarouselVariant03({
   title,
@@ -22,6 +23,12 @@ export function CE_CarouselVariant03({
     if (currentSlide < data.length - slidesToShow) {
       setCurrentSlide(currentSlide + slidesToScroll);
     }
+  };
+
+  const truncateText = (text: string, maxWords: number): string => {
+    const words = text.split(' ');
+    if (words.length <= maxWords) return text;
+    return words.slice(0, maxWords).join(' ');
   };
 
   const prevSlide = () => {
@@ -63,8 +70,8 @@ export function CE_CarouselVariant03({
               </button>
             </div>
             {button && (
-              <Link href={button?.link} target="_blank">
-                <div className="inline-flex gap-2 items-center text-blue-01">
+              <Link href={handleurl(button?.link)} target="_blank">
+                <div className="inline-flex gap-2 items-center text-blue-01 mt-10">
                   {parseHTMLToReact(button?.name || '')}{' '}
                   <span className="text-xs">&#10095;</span>
                 </div>
@@ -80,7 +87,7 @@ export function CE_CarouselVariant03({
             >
               {data.map((dataItem, index) => (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
-                  <Link href={dataItem.button?.link || ''} target="_blank">
+                  <Link href={handleurl(dataItem.button?.link)} target="_blank">
                     <div className="shadow-lg relative rounded-md overflow-hidden group">
                       <div className="w-full h-[18rem] ">
                         {dataItem.image && (
@@ -95,15 +102,18 @@ export function CE_CarouselVariant03({
                         )}
                       </div>
                       <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
-                      <div className="absolute z-20 bottom-0 left-0 p-4 ">
+                      <div className="absolute z-20 bottom-0 left-0 p-4">
                         {dataItem.title && (
-                          <div className=" text-white text-2xl font-semibold line-clamp-2">
+                          <div className="text-white text-2xl font-semibold line-clamp-2">
                             {parseHTMLToReact(dataItem.title)}
                           </div>
                         )}
                         {dataItem.desc && (
-                          <div className=" text-white group-hover:block hidden">
-                            {parseHTMLToReact(dataItem.desc)}
+                          <div className="text-white hidden group-hover:block mt-6 mb-4">
+                            {parseHTMLToReact(
+                              truncateText(dataItem.desc, 17) +
+                                ' ...Selengkapnya'
+                            )}
                           </div>
                         )}
                       </div>

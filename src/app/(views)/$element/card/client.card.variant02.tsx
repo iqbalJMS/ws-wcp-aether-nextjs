@@ -67,7 +67,7 @@ export default function CE_CardVariant02({
                       <Link
                         href={handleurl(item?.button?.link)}
                         extern={item?.button?.extern}
-                        target={item?.button?.extern ? '_blank' : ""}
+                        target={item?.button?.extern ? '_blank' : ''}
                       >
                         <div className="w-10 h-10 rounded-full hover:text-white hover:bg-[#65afdf]  border border-[#65afdf] border-opacity-80 inline-flex items-center justify-center text-[#65afdf]">
                           &#10095;
