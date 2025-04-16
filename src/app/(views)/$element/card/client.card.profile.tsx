@@ -3,14 +3,16 @@ import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 interface ProfileProps {
-  name: string;
-  description: string;
-  imageUrl: string;
-  backgroundUrl: string;
+  title?: string;
+  position?: string;
+  description?: string;
+  imageUrl?: string;
+  backgroundUrl?: string;
 }
 
 const ProfileCard: React.FC<ProfileProps> = ({
-  name,
+  title,
+  position,
   description,
   imageUrl,
   backgroundUrl,
@@ -24,25 +26,30 @@ const ProfileCard: React.FC<ProfileProps> = ({
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-[#014a94]/85 z-0"></div>
+      <div className="absolute inset-0 bg-[#ffff]/90 z-0"></div>
 
       <div className="relative max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16 p-8">
         <div
           className="flex-shrink-0 relative bg-top h-[480px] w-[400px] rounded-br-[4rem] overflow-hidden shadow-lg"
           style={{
-            backgroundImage: `url(${API_BASE_URL}${imageUrl})`,
+            backgroundImage: `url(${imageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'top',
           }}
         ></div>
         <div>
-          {name && (
-            <div className="text-xl leading-loose lg:text-4xl font-normal lg:w-9/12 text-white mb-4">
-              {name}
+          {position && (
+            <div className="text-xl leading-loose lg:text-4xl font-semibold text-black mb-4">
+              {position}
+            </div>
+          )}
+          {title && (
+            <div className="text-xl leading-loose lg:text-4xl font-semibold text-blue-01 mb-6">
+              {title}
             </div>
           )}
           {description && (
-            <div className="text-white leading-loose text-sm font-light lg:text-base">
+            <div className="text-[#627d92] leading-loose text-sm lg:text-base">
               {parseHTMLToReact(description)}
             </div>
           )}
