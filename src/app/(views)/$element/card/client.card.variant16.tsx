@@ -68,7 +68,7 @@ export default function CE_CardVariant16({
                     <Link
                       href={handleurl(item?.button?.link)}
                       extern={item?.button?.extern}
-                      target={!item?.button?.extern ? '_blank' : ''}
+                      target={!item?.button?.extern ? '_self' : ''}
                     >
                       <div className="inline-block uppercase text-blue-01 text-xs">
                         {item?.button?.title} &#10095;

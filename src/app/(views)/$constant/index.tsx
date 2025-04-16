@@ -303,9 +303,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const propsData = props?.propsData;
       const title = props?.title;
       const subtitle = props?.subtitle;
+      const accordiontitle = props?.accordiontitle;
       const navigationLink = (props?.navigationLink || '').replace('/id', '');
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
+      const backgroundImg = backgroundImage ? `${API_BASE_URL}${backgroundImage}` : '';
       const listItems = (
         (props?.data as Array<{
           image?: string;
@@ -616,6 +618,59 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               </div>
             </div>
           );
+        case WIDGET_VARIANT.variant60:
+          return (
+            <div 
+              className="w-full mb-10"
+              style={{
+                backgroundImage: `url(${
+                  backgroundImage
+                    ? (backgroundImg ?? '')
+                    : ''
+                })`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+              }}
+            >
+              <div className="flex flex-col px-4 md:px-8 py-6 max-w-screen-2xl mx-auto">
+                {/* Title and Subtitle Section */}
+                <div className="w-full mb-8">
+                  {title && (
+                    <div className="text-xl font-semibold mb-2 mt-10">
+                      {parseHTMLToReact(title)}
+                    </div>
+                  )}
+                  {subtitle && (
+                    <div className="text-blue-700 mb-4 mt-10 text-xl">
+                      {parseHTMLToReact(subtitle)}
+                    </div>
+                  )}
+                </div>
+                {accordiontitle && (
+                  <h1 className="text-2xl font-bold mb-6">
+                    {accordiontitle}
+                  </h1>
+                )}
+                <div className="w-full flex flex-col space-y-4">
+                  {accordion?.map((item, key) => {
+                    return (
+                      <Accordion
+                        key={key}
+                        renderTitle={
+                          <p className="text-lg font-semibold text-left text-blue-700">
+                            {item?.title}
+                          </p>
+                        }
+                        variant="none"
+                        renderContent={parseHTMLToReact(item?.content || '')}
+                        content={''}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          );
         case WIDGET_VARIANT.variant39:
           return (
             <div>
@@ -725,6 +780,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_column?.[0].field_primary_cta?.[0]?.full_url;
       const hreftitle =
         _component?.field_column?.[0].field_primary_cta?.[0]?.title;
+      const accordiontitle = _component?.field_column?.[0]?.field_title?.[0]?.value;
       const navigationLink =
         _component?.field_primary_cta?.[0]?.full_url ||
         _component?.field_primary_cta?.[0]?.uri;
@@ -945,6 +1001,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         };
       });
       const dataV37 = _component?.field_column?.[0]?.field_accordion_items?.map(
+        (item) => {
+          return {
+            title: item?.field_title?.[0]?.value,
+            content: item?.field_content?.[0]?.value,
+            children: item?.field_paragraphs?.[0]?.field_content?.[0]?.value,
+          };
+        }
+      );
+      const dataV60 = _component?.field_column?.[0]?.field_accordion_items?.map(
         (item) => {
           return {
             title: item?.field_title?.[0]?.value,
@@ -1176,6 +1241,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             subtitle: subtitle,
             variant: findVariantStyle,
             accordion: dataV37,
+          };
+        case WIDGET_VARIANT.variant60:
+          return {
+            title: title,
+            subtitle: subtitle,
+            accordiontitle: accordiontitle,
+            backgroundImage: backgroundImage,
+            variant: findVariantStyle,
+            accordion: dataV60,
           };
         case WIDGET_VARIANT.variant39:
           return {

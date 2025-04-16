@@ -70,7 +70,7 @@ export function CE_CarouselVariant03({
               </button>
             </div>
             {button && (
-              <Link href={handleurl(button?.link)} target="_blank">
+              <Link href={handleurl(button?.link)} target="_self">
                 <div className="inline-flex gap-2 items-center text-blue-01 mt-10">
                   {parseHTMLToReact(button?.name || '')}{' '}
                   <span className="text-xs">&#10095;</span>
@@ -87,7 +87,7 @@ export function CE_CarouselVariant03({
             >
               {data.map((dataItem, index) => (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
-                  <Link href={handleurl(dataItem.button?.link)} target="_blank">
+                  <Link href={handleurl(dataItem.button?.link)} target="_self">
                     <div className="shadow-lg relative rounded-md overflow-hidden group">
                       <div className="w-full h-[18rem] ">
                         {dataItem.image && (
