@@ -441,7 +441,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             />
           );
         case WIDGET_VARIANT.variant24:
-          return <CE_CardVariant05 data={listItems} />;
+          return <CE_CardVariant05 data={listItems} title={title}/>;
         case WIDGET_VARIANT.variant27:
           return (
             <div className="container mx-auto my-6">
@@ -1188,7 +1188,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant24:
           return {
             variant: findVariantStyle,
-            title: titleV02,
+            title: _component?.field_formatted_title?.[0]?.value,
             data: dataV24,
           };
         case WIDGET_VARIANT.variant27:
