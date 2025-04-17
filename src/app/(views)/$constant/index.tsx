@@ -2243,7 +2243,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       field_accordion_items: any[];
       field_accordion_style: { value: any }[];
     }) => {
-      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const title =
         _component?.field_accordion_items?.[0]?.field_title?.[0]?.value;
       const accordionStyle = _component?.field_accordion_style?.[0]?.value;
