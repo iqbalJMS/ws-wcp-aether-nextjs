@@ -30,10 +30,10 @@ const CE_PromoCard = ({
     <>
       <div className="w-full relative hidden lg:flex mt-10 lg:mt-20 mb-10 lg:mb-20">
         {description1 && (
-          <div className="flex-1 flex flex-col justify-center p-6 items-center z-10">
+          <div className="flex-1 flex flex-col justify-center pl-[10.5rem] items-center z-10">
             <div className="w-full flex justify-start">
               <div
-                className={`mb-2 flex justify-center text-center md:text-left w-full md:max-w-[950px] ${variantTwoColumnClass ? `${variantTwoColumnClass}` : 'pl-[200px]'}`}
+                className={`mb-2 flex justify-center text-center md:text-left w-full md:max-w-[750px] ${variantTwoColumnClass ? `${variantTwoColumnClass}` : 'pl-[200px]'}`}
               >
                 {parseHTMLToReact(description1)}
               </div>
