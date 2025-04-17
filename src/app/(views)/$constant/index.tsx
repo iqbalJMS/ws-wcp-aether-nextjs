@@ -269,6 +269,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   section: {
     component: (props) => {
       const findVariantStyle = props?.variant;
+      const richTextData = props?.richText;
       const tentangBRI = {
         bigTitle: props?.bigTitle,
         title: props?.title,
@@ -284,7 +285,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const navigationLink = (props?.navigationLink || '').replace('/id', '');
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
-      const backgroundImg = backgroundImage ? `${API_BASE_URL}${backgroundImage}` : '';
+      const backgroundImg = backgroundImage
+        ? `${API_BASE_URL}${backgroundImage}`
+        : '';
       const listItems = (
         (props?.data as Array<{
           image?: string;
@@ -325,7 +328,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const dataV2 = props?.data;
       const linkText = props?.linkText;
       const linkUrl = props?.linkUrl;
-      const elementRichText = props?.elementRichtext;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -419,7 +421,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             />
           );
         case WIDGET_VARIANT.variant24:
-          return <CE_CardVariant05 data={listItems} title={title}/>;
+          return <CE_CardVariant05 data={listItems} title={title} />;
         case WIDGET_VARIANT.variant27:
           return (
             <div className="container mx-auto my-6">
@@ -598,13 +600,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant60:
           return (
-            <div 
+            <div
               className="w-full mb-10"
               style={{
                 backgroundImage: `url(${
-                  backgroundImage
-                    ? (backgroundImg ?? '')
-                    : ''
+                  backgroundImage ? (backgroundImg ?? '') : ''
                 })`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
@@ -625,9 +625,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   )}
                 </div>
                 {accordiontitle && (
-                  <h1 className="text-2xl font-bold mb-6">
-                    {accordiontitle}
-                  </h1>
+                  <h1 className="text-2xl font-bold mb-6">{accordiontitle}</h1>
                 )}
                 <div className="w-full flex flex-col space-y-4">
                   {accordion?.map((item, key) => {
@@ -735,13 +733,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant58:
           return (
             <div className="container mx-auto my-6 py-6 body table-blue-header">
-              {parseHTMLToReact(elementRichText)}
+              {richTextData ? parseHTMLToReact(richTextData) : ''}
             </div>
           );
         case WIDGET_VARIANT.variant59:
           return (
             <div className="container mx-auto my-6 py-6 body table-full-border">
-              {parseHTMLToReact(elementRichText)}
+              {richTextData ? parseHTMLToReact(richTextData) : ''}
             </div>
           );
         default:
@@ -759,7 +757,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_column?.[0].field_primary_cta?.[0]?.full_url;
       const hreftitle =
         _component?.field_column?.[0].field_primary_cta?.[0]?.title;
-      const accordiontitle = _component?.field_column?.[0]?.field_title?.[0]?.value;
+      const accordiontitle =
+        _component?.field_column?.[0]?.field_title?.[0]?.value;
       const navigationLink =
         _component?.field_primary_cta?.[0]?.full_url ||
         _component?.field_primary_cta?.[0]?.uri;
@@ -1323,12 +1322,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant58:
           return {
             variant: findVariantStyle,
-            elementRichText: dataRichText?.[0]?.element,
+            richText: dataRichText?.[0]?.element,
           };
         case WIDGET_VARIANT.variant59:
           return {
             variant: findVariantStyle,
-            elementRichText: dataRichText?.[0]?.element,
+            richText: dataRichText?.[0]?.element,
           };
         default:
           return null;
@@ -2147,7 +2146,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const listAccordion: Array<any> = props?.listAccordion;
       const accordionStyle: String = props?.accordionStyle;
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
-      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
+      const BASE_URL =
+        process.env.DRUPAL_ENDPOINT ||
+        process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT ||
+        '';
       const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
@@ -2171,7 +2173,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 data={(children || [])?.map((item) => {
                   return {
                     description: item?.description,
-                    image: item?.image ? `${BASE_URL}${item?.image}` : item?.image,
+                    image: item?.image
+                      ? `${BASE_URL}${item?.image}`
+                      : item?.image,
                   };
                 })}
               />
@@ -2182,13 +2186,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
                 {(children || [])?.map((item, index) => (
                   <div key={index} className="lg:w-1/4 w-full flex-none px-2">
-                    <Link href={item?.button?.link} target="_blank">
+                    <Link href={item?.button?.link || '#'} target="_blank">
                       <div className="lg:p-5 p-4 shadow-lg">
                         {item?.image && (
                           <div className="w-full h-[255px] mb-2">
                             <Image
                               extern={false}
-                              src={`${BASE_URL}${item?.image}`}
+                              src={`${item?.image}`}
                               alt="image"
                               width={400}
                               height={400}
@@ -2198,14 +2202,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         )}
 
                         <div>
-                          <div className=" text-red-01 font-semibold text-sm mb-8">
-                            {parseHTMLToReact(item?.title)}
-                          </div>
+                          {item?.title && (
+                            <div className=" text-red-01 font-semibold text-sm mb-8">
+                              {parseHTMLToReact(item?.title)}
+                            </div>
+                          )}
 
                           <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
-                            <div className="flex items-center gap-1 text-sm">
-                              {parseHTMLToReact(item?.button?.title)}
-                            </div>
+                            {item?.button?.title && (
+                              <div className="flex items-center gap-1 text-sm">
+                                {parseHTMLToReact(item?.button?.title)}
+                              </div>
+                            )}
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
