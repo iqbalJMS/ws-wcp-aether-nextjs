@@ -25,7 +25,7 @@ export default function CE_InfoSahamMain({
       icon: 'facebook',
       url: 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
       className: 'text-blue-01 ',
-    },    
+    },
     {
       name: '',
       icon: 'x',

@@ -10,7 +10,7 @@ export type T_AccordionProps = {
   renderContent: React.ReactNode;
   renderTitle: React.ReactNode;
   isOpen?: boolean;
-  variant?: 'full' | 'full-border' | 'rounded';
+  variant?: 'full' | 'full-border' | 'rounded' | 'none';
   imageTitle?: string;
   content: string;
 };
@@ -39,7 +39,7 @@ export default function Accordion({
           <div className={`${variant == 'full-border' ? 'container' : ''}`}>
             <button
               onClick={() => setAccordionOpen(!accordionOpen)}
-              className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' ? 'border-none' : 'border-b'} flex py-4 items-center w-full`}
+              className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' || variant == 'none' ? 'border-none' : 'border-b'} flex py-4 items-center w-full`}
             >
               <div className="w-full">
                 {imageTitle ? (

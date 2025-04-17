@@ -6,6 +6,7 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useState } from 'react';
+import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
 
 export function CE_CarouselVariant01({
   title,
@@ -64,7 +65,7 @@ export function CE_CarouselVariant01({
               </button>
             </div>
             {button && (
-              <Link href={button?.link} target="_blank">
+              <Link href={handleurl(button?.link)} target="_self">
                 <div className="inline-flex gap-2 items-center text-blue-01 mt-4">
                   {parseHTMLToReact(button?.name || '')}{' '}
                   <span className="text-xs">&#10095;</span>
@@ -81,7 +82,7 @@ export function CE_CarouselVariant01({
             >
               {data?.map((dataItem, index) => (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
-                  <Link href={dataItem?.button?.link || ''} target="_blank">
+                  <Link href={dataItem?.button?.link || ''} target="_self">
                     <div className="p-4 mdmax:p-2 shadow-lg py-10 px-5">
                       {dataItem?.image && (
                         <div className="w-full h-[15rem] mb-4">

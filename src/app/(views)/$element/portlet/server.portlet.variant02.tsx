@@ -62,7 +62,11 @@ export default async function SE_PortletVariant02({
                 className={`flex ${hasCenterWidget ? 'justify-center' : ''} ${hasLeftWidget ? 'mdmax:justify-center' : ''} items-center gap-4`}
               >
                 {buttonItems.map(({ buttonText, buttonCta }, index) => (
-                  <Link href={buttonCta ?? 'javascript:void(0)'} extern key={index}>
+                  <Link
+                    href={buttonCta ?? 'javascript:void(0)'}
+                    extern
+                    key={index}
+                  >
                     <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
                       {buttonText}
                     </button>

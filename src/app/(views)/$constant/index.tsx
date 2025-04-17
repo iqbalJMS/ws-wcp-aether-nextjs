@@ -1,3 +1,6 @@
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 import AboutSection from '@/app/(views)/$element/client.about.section';
@@ -5,13 +8,12 @@ import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
+
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
 import ImageViewer from '@/lib/element/global/image.viewer';
 import { Tabs } from '@/lib/element/global/tabs';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
+
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_News } from './types/widget/content_type';
@@ -26,168 +28,143 @@ import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
 
+/* Portlet Component */
+const SE_PortletMain = dynamic(
+  () => import('@/app/(views)/$element/portlet/server.portlet.main')
+);
+const CE_PortletVarian04 = dynamic(
+  () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
+);
+const CE_PortletVarian05 = dynamic(
+  () => import('@/app/(views)/$element/portlet/client.portlet.varian05')
+);
+
+/* Carousel Component */
+const CE_CarouselMain = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.main')
+);
+const CE_CarouselVariant06 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
+);
+const CE_CarouselVariant08 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
+);
+const CE_CarouselVariant09 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant09')
+);
+
+/* Card Component */
+const CE_CardVariant01 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant01')
+);
+const CE_CardVariant02 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant02')
+);
+const CE_CardVariant05 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant05')
+);
+const CE_CardVariant08 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant08')
+);
+const CE_CardVariant09 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant09')
+);
+const CE_CardVariant11 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant11')
+);
+const CE_CardVariant13 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant13')
+);
+const CE_CardVariant16 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant16')
+);
+const CE_CardVariant18 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant18')
+);
+const CE_CardVariant19 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant19')
+);
+
+/* Wysiwyg Component */
+const SE_WysiwygMain = dynamic(
+  () => import('@/app/(views)/$element/wysiwyg/server.wysiwyg.main')
+);
+
+/* Content Type Component */
+const CE_SectionPromo = dynamic(
+  () => import('@/app/(views)/$element/promo/client.section-promo')
+);
+const CE_SectionPromoVariant01 = dynamic(
+  () => import('@/app/(views)/$element/promo/client.section-promo.variant01')
+);
+const CE_SectionPromoVariant02 = dynamic(
+  () => import('@/app/(views)/$element/promo/client.section-promo.variant02')
+);
+const CE_LocationMain = dynamic(
+  () => import('@/app/(views)/$element/location/client.location.main')
+);
+const CE_SectionNews = dynamic(
+  () => import('@/app/(views)/$element/content-type/client.section-news')
+);
+const CE_SectionWaspadaModus = dynamic(
+  () =>
+    import('@/app/(views)/$element/content-type/client.section-waspada-modus')
+);
+const CE_SectionAnnouncement = dynamic(
+  () =>
+    import('@/app/(views)/$element/content-type/client.section-announcement')
+);
+const CE_SectionAuctions = dynamic(
+  () => import('@/app/(views)/$element/content-type/client.section-auctions')
+);
+const CE_FormQlola = dynamic(
+  () => import('@/app/(views)/$element/form/client.form.qlola')
+);
+
+/* Other */
+const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
+const CE_BannerMain = dynamic(
+  () => import('@/app/(views)/$element/banner/client.banner.main')
+);
+const SE_IconMain = dynamic(
+  () => import('@/app/(views)/$element/icon-menu/server.icon.main')
+);
 const CE_PromoSlider = dynamic(
   () => import('@/app/(views)/$element/promo/client.promo-slider')
 );
-
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
 );
 const CE_SimulationDropdown = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.dropdown')
 );
-
-const ContactSection = dynamic(
-  () => import('@/app/(views)/$element/card/client.content.info')
-);
-
-const CE_CarouselVariant06 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
-);
-
-const CE_PortletVarian05 = dynamic(
-  () => import('@/app/(views)/$element/portlet/client.portlet.varian05')
-);
-
-const CE_CardVariant09 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant09')
-);
-
-const CE_CardVariant05 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant05')
-);
-
-const CE_CardVariant13 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant13')
-);
-
-const CE_CardVariant01 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant01')
-);
-
-const CE_PortletVarian04 = dynamic(
-  () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
-);
-
-const CE_CardVariant11 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant11')
-);
-
-const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
-
-const SE_SubscriberContent = dynamic(
-  () => import('@/app/(views)/$element/server.subscriber.content')
-);
-
-const CE_CarouselMain = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.main')
-);
-
-const CE_CarouselVariant09 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant09')
-);
-
-const CE_CarouselVariant08 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
-);
-
-const SE_PortletMain = dynamic(
-  () => import('@/app/(views)/$element/portlet/server.portlet.main')
-);
-
-const SE_IconMain = dynamic(
-  () => import('@/app/(views)/$element/icon-menu/server.icon.main')
-);
-
 const CE_InfoSahamMain = dynamic(
   () => import('@/app/(views)/$element/client.info-saham.main')
 );
-
-const CE_ImageSliderMain = dynamic(
-  () => import('@/app/(views)/$element/image-slider/client.image-slider.main')
-);
-
-const CE_FlipCard = dynamic(
-  () => import('@/app/(views)/$element/flip-card/client.flip-card')
-);
-
-const SE_FormMain = dynamic(
-  () => import('@/app/(views)/$element/form/client.form.main')
-);
-
 const CE_KursMain = dynamic(
   () => import('@/app/(views)/$element/kurs/client.kurs.main')
 );
-
-const CE_BannerMain = dynamic(
-  () => import('@/app/(views)/$element/banner/client.banner.main')
+const SE_SubscriberContent = dynamic(
+  () => import('@/app/(views)/$element/server.subscriber.content')
 );
-
-const CE_CardVariant02 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant02')
+const ContactSection = dynamic(
+  () => import('@/app/(views)/$element/card/client.content.info')
 );
-
-const CE_SectionPromo = dynamic(
-  () => import('@/app/(views)/$element/promo/client.section-promo')
+const CE_ImageSliderMain = dynamic(
+  () => import('@/app/(views)/$element/image-slider/client.image-slider.main')
 );
-
-const CE_SectionPromoVariant01 = dynamic(
-  () => import('@/app/(views)/$element/promo/client.section-promo.variant01')
+const CE_FlipCard = dynamic(
+  () => import('@/app/(views)/$element/flip-card/client.flip-card')
 );
-
-const CE_SectionPromoVariant02 = dynamic(
-  () => import('@/app/(views)/$element/promo/client.section-promo.variant02')
+const SE_FormMain = dynamic(
+  () => import('@/app/(views)/$element/form/client.form.main')
 );
-
-const SE_WysiwygMain = dynamic(
-  () => import('@/app/(views)/$element/wysiwyg/server.wysiwyg.main')
-);
-
-const CE_CardVariant08 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant08')
-);
-
-const CE_CardVariant19 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant19')
-);
-
-const CE_CardVariant16 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant16')
-);
-
-const CE_CardVariant18 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant18')
-);
-const CE_LocationMain = dynamic(
-  () => import('@/app/(views)/$element/location/client.location.main')
-);
-
-const CE_FormQlola = dynamic(
-  () => import('@/app/(views)/$element/form/client.form.qlola')
-);
-
 const SE_Sitemap = dynamic(
   () => import('@/app/(views)/$element/server.sitemap')
-);
-
-const CE_SectionNews = dynamic(
-  () => import('@/app/(views)/$element/content-type/client.section-news')
-);
-
-const CE_SectionWaspadaModus = dynamic(
-  () =>
-    import('@/app/(views)/$element/content-type/client.section-waspada-modus')
-);
-
-const CE_SectionAnnouncement = dynamic(
-  () =>
-    import('@/app/(views)/$element/content-type/client.section-announcement')
-);
-
-const CE_SectionAuctions = dynamic(
-  () => import('@/app/(views)/$element/content-type/client.section-auctions')
 );
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
@@ -303,13 +280,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const propsData = props?.propsData;
       const title = props?.title;
       const subtitle = props?.subtitle;
+      const accordiontitle = props?.accordiontitle;
       const navigationLink = (props?.navigationLink || '').replace('/id', '');
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
+      const backgroundImg = backgroundImage ? `${API_BASE_URL}${backgroundImage}` : '';
       const listItems = (
         (props?.data as Array<{
           image?: string;
           title?: string;
+          position?: string;
           link?: string;
           filename?: string;
           description?: string;
@@ -345,7 +325,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const dataV2 = props?.data;
       const linkText = props?.linkText;
       const linkUrl = props?.linkUrl;
-      const elementRichText = props?.element;
+      const elementRichText = props?.elementRichtext;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -430,10 +410,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant23:
           return (
-            <CE_CarouselMain variant="03" data={listItems} title={title} />
+            <CE_CarouselMain
+              variant="03"
+              data={listItems}
+              title={title}
+              description={subtitle}
+              button={props?.button}
+            />
           );
         case WIDGET_VARIANT.variant24:
-          return <CE_CardVariant05 data={listItems} />;
+          return <CE_CardVariant05 data={listItems} title={title}/>;
         case WIDGET_VARIANT.variant27:
           return (
             <div className="container mx-auto my-6">
@@ -610,14 +596,68 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               </div>
             </div>
           );
+        case WIDGET_VARIANT.variant60:
+          return (
+            <div 
+              className="w-full mb-10"
+              style={{
+                backgroundImage: `url(${
+                  backgroundImage
+                    ? (backgroundImg ?? '')
+                    : ''
+                })`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+              }}
+            >
+              <div className="flex flex-col px-4 md:px-8 py-6 max-w-screen-2xl mx-auto">
+                {/* Title and Subtitle Section */}
+                <div className="w-full mb-8">
+                  {title && (
+                    <div className="text-xl font-semibold mb-2 mt-10">
+                      {parseHTMLToReact(title)}
+                    </div>
+                  )}
+                  {subtitle && (
+                    <div className="text-blue-700 mb-4 mt-10 text-xl">
+                      {parseHTMLToReact(subtitle)}
+                    </div>
+                  )}
+                </div>
+                {accordiontitle && (
+                  <h1 className="text-2xl font-bold mb-6">
+                    {accordiontitle}
+                  </h1>
+                )}
+                <div className="w-full flex flex-col space-y-4">
+                  {accordion?.map((item, key) => {
+                    return (
+                      <Accordion
+                        key={key}
+                        renderTitle={
+                          <p className="text-lg font-semibold text-left text-blue-700">
+                            {item?.title}
+                          </p>
+                        }
+                        variant="none"
+                        renderContent={parseHTMLToReact(item?.content || '')}
+                        content={''}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          );
         case WIDGET_VARIANT.variant39:
           return (
             <div>
               <ProfileCard
-                name={listItems?.[0].title as string}
-                description={listItems?.[0].description as string}
-                imageUrl={listItems?.[0]?.image as string}
-                backgroundUrl={backgroundImage as string}
+                title={listItems?.[0].title}
+                position={listItems?.[0].position}
+                description={listItems?.[0].description}
+                imageUrl={listItems?.[0]?.image}
+                backgroundUrl={backgroundImage}
               />
             </div>
           );
@@ -715,6 +755,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const subtitle = _component?.field_content?.[0]?.value;
       const subtitleNews =
         _component?.field_column?.[0]?.field_title?.[0]?.value;
+      const hrefLink =
+        _component?.field_column?.[0].field_primary_cta?.[0]?.full_url;
+      const hreftitle =
+        _component?.field_column?.[0].field_primary_cta?.[0]?.title;
+      const accordiontitle = _component?.field_column?.[0]?.field_title?.[0]?.value;
       const navigationLink =
         _component?.field_primary_cta?.[0]?.full_url ||
         _component?.field_primary_cta?.[0]?.uri;
@@ -853,7 +898,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
           button: {
             title: item?.field_primary_cta?.[0]?.title,
-            link: item?.field_primary_cta?.[0]?.full_url,
+            link: item?.field_primary_cta?.[0]?.full_url || '#',
             extern: false,
           },
         };
@@ -864,11 +909,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           description: item?.field_content?.[0]?.value,
         };
       });
-      const dataV58 = _component?.field_column?.map((item) => {
-        return {
-          element: item?.field_content?.[0]?.value,
-        };
-      });
+
       const dataV27 = _component?.field_column?.map((item) => {
         const downloadFile =
           item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
@@ -884,11 +925,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           iconDownload: iconDownload,
         };
       });
+
       const dataV28 = _component?.field_column?.map((item) => {
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
         return { image: image };
       });
+
       const dataV30 = _component?.field_column?.map((item) => {
         const title = item?.field_title?.[0]?.value;
         const subtitle = item?.field_subtitle?.[0]?.value;
@@ -904,6 +947,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           subtitle: subtitle,
         };
       });
+
       const dataV32 = _component?.field_column?.map((item) => {
         return {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
@@ -915,6 +959,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
+
       const dataV34 = _component?.field_column?.map((item) => {
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
@@ -934,6 +979,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
+
       const dataV37 = _component?.field_column?.[0]?.field_accordion_items?.map(
         (item) => {
           return {
@@ -943,6 +989,29 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         }
       );
+
+      const dataV39 = _component?.field_column?.map((item) => {
+        return {
+          image:
+            item?.field_content_list?.[0]?.field_pictures?.[0]
+              ?.field_media_image?.[0]?.uri?.[0]?.url &&
+            `${API_BASE_URL}${item?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+          title: item?.field_content_list?.[0]?.title?.[0]?.value,
+          description: item?.field_content_list?.[0]?.body?.[0]?.value,
+          position: item?.field_content_list?.[0]?.field_position?.[0]?.value,
+        };
+      });
+
+      const dataV60 = _component?.field_column?.[0]?.field_accordion_items?.map(
+        (item) => {
+          return {
+            title: item?.field_title?.[0]?.value,
+            content: item?.field_content?.[0]?.value,
+            children: item?.field_paragraphs?.[0]?.field_content?.[0]?.value,
+          };
+        }
+      );
+
       const dataV41 = _component?.field_column?.map((item) => {
         const title = item?.field_title?.[0]?.value;
         const description = item?.field_content?.[0]?.value;
@@ -963,6 +1032,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
+
       const dataV42 = _component?.field_column?.map((item) => {
         const title = item?.field_title?.[0]?.value;
         const isExternalLink =
@@ -997,6 +1067,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           backImage:
             item?.field_second_image?.[0]?.field_media_image?.[0]?.uri?.[0]
               ?.url,
+        };
+      });
+
+      const dataRichText = _component?.field_column?.map((item) => {
+        return {
+          element: item?.field_content?.[0]?.value.replace(
+            '/sites/default',
+            `${API_BASE_URL}/sites/default`
+          ),
         };
       });
 
@@ -1102,13 +1181,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant23:
           return {
             variant: findVariantStyle,
-            title: titleV02,
+            title: titleV02 || parseHTMLToReact(title || ''),
+            subtitle: parseHTMLToReact(subtitle || ''),
+            button: {
+              name: hreftitle,
+              link: hrefLink,
+            },
             data: dataV11,
           };
         case WIDGET_VARIANT.variant24:
           return {
             variant: findVariantStyle,
-            title: titleV02,
+            title: _component?.field_formatted_title?.[0]?.value,
             data: dataV24,
           };
         case WIDGET_VARIANT.variant27:
@@ -1162,11 +1246,20 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             accordion: dataV37,
           };
+        case WIDGET_VARIANT.variant60:
+          return {
+            title: title,
+            subtitle: subtitle,
+            accordiontitle: accordiontitle,
+            backgroundImage: backgroundImage,
+            variant: findVariantStyle,
+            accordion: dataV60,
+          };
         case WIDGET_VARIANT.variant39:
           return {
             variant: findVariantStyle,
             title: title,
-            data: dataV03,
+            data: dataV39,
             backgroundImage: backgroundImage,
           };
         case WIDGET_VARIANT.variant41:
@@ -1191,10 +1284,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: _component?.field_column?.[0]?.field_title?.[0]?.value,
             description:
               _component?.field_column?.[0]?.field_content?.[0]?.value,
-            textLink:
-              _component?.field_column?.[0].field_primary_cta?.[0]?.title,
-            hrefLink:
-              _component?.field_column?.[0].field_primary_cta?.[0]?.full_url,
+            textLink: hreftitle,
+            hrefLink: hrefLink,
             image:
               _component?.field_column?.[0]?.field_image?.[0]
                 .field_media_image?.[0]?.uri?.[0].url,
@@ -1232,12 +1323,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant58:
           return {
             variant: findVariantStyle,
-            element: dataV58?.[0]?.element,
+            elementRichText: dataRichText?.[0]?.element,
           };
         case WIDGET_VARIANT.variant59:
           return {
             variant: findVariantStyle,
-            element: dataV58?.[0]?.element,
+            elementRichText: dataRichText?.[0]?.element,
           };
         default:
           return null;
@@ -1269,8 +1360,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const buttonItem = _component?.field_primary_cta?.map((item) => {
         return {
           buttonText: item?.title,
-          buttonLink: item?.uri || (_component?.field_primary_cta?.[0]?.uri || '#'),
-          buttonCta: item?.full_url || (_component?.field_primary_cta?.[0]?.full_url || '#'),
+          buttonLink:
+            item?.uri || _component?.field_primary_cta?.[0]?.uri || '#',
+          buttonCta:
+            item?.full_url ||
+            _component?.field_primary_cta?.[0]?.full_url ||
+            '#',
         };
       });
       return {
@@ -1511,14 +1606,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 children: item.field_paragraphs?.map((paragraph) => {
                   return {
                     image:
-                      paragraph?.field_image?.[0]?.field_media_image?.[0]
-                        ?.uri?.[0]?.url,
-                    title: paragraph?.field_title?.[0]?.value,
-                    description: paragraph?.field_content?.[0]?.value,
-                    button: {
-                      title: paragraph?.field_primary_cta?.[0]?.title,
-                      link: paragraph?.field_primary_cta?.[0]?.full_url,
-                    },
+                      paragraph?.field_content_list?.[0]?.field_pictures?.[0]
+                        ?.field_media_image?.[0]?.uri?.[0]?.url &&
+                      `${API_BASE_URL}${paragraph?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+                    title:
+                      paragraph?.field_content_list?.[0]?.title?.[0]?.value,
+                    description:
+                      paragraph?.field_content_list?.[0]?.body?.[0]?.value,
+                    position:
+                      paragraph?.field_content_list?.[0]?.field_position?.[0]
+                        ?.value,
                   };
                 }),
               };
@@ -1949,7 +2046,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     ),
     props: (_component: { field_content?: Array<{ value: string }> }) => {
       return {
-        element: _component?.field_content?.[0]?.value,
+        element: _component?.field_content?.[0]?.value.replace(
+          /\/sites\/default/g,
+          `${API_BASE_URL}/sites/default`
+        ),
       };
     },
   },
@@ -2047,7 +2147,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const listAccordion: Array<any> = props?.listAccordion;
       const accordionStyle: String = props?.accordionStyle;
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
-
+      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
@@ -2058,7 +2158,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   description: item?.description?.replaceAll('_', ' '),
                   button: {
                     image: item?.iconDownload,
-                    link: `${API_BASE_URL}${item?.downloadFile}`,
+                    link: `${BASE_URL}${item?.downloadFile}`,
                     title: 'Download',
                     extern: true,
                   },
@@ -2071,7 +2171,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 data={(children || [])?.map((item) => {
                   return {
                     description: item?.description,
-                    image: item?.image,
+                    image: item?.image ? `${BASE_URL}${item?.image}` : item?.image,
                   };
                 })}
               />
@@ -2088,7 +2188,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           <div className="w-full h-[255px] mb-2">
                             <Image
                               extern={false}
-                              src={item?.image}
+                              src={`${BASE_URL}${item?.image}`}
                               alt="image"
                               width={400}
                               height={400}
