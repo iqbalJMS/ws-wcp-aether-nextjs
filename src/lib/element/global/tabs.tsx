@@ -68,6 +68,7 @@ type TabChildrenItem = {
   title?: string;
   image?: string;
   description?: string;
+  position?: string;
   description2?: string;
   imageUrl1?: string;
   imageUrl2?: string;
@@ -285,18 +286,16 @@ export function Tabs({
       case WIDGET_VARIANT.variant29:
         return (
           <CE_CardVariant12
-            data={list?.[menuActive]?.children?.map((item) => {
-              return {
-                image: item?.image,
-                title: item?.title,
-                description: item?.description,
-                button: {
-                  link: item?.button?.link,
-                  title: item?.button?.title,
-                  extern: true,
-                },
-              };
-            })}
+            data={
+              list?.[menuActive]?.children?.map((item) => {
+                return {
+                  image: item?.image,
+                  title: item?.title,
+                  description: item?.description,
+                  position: item?.position,
+                };
+              }) ?? []
+            }
           />
         );
       case WIDGET_VARIANT.variant31:

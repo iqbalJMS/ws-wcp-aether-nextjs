@@ -1,21 +1,19 @@
 'use client';
 
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import Image from 'next/image';
-import React from 'react';
+import React, { useRef } from 'react';
 
 interface ProfileModalProps {
   isOpen: boolean;
   onClose?: () => void;
   hasButtonClose?: boolean;
-  user?: {
-    username: string;
-    role: string;
-    list: Array<{
-      title: string;
-      subTitle: Array<{
-        title: string;
-      }>;
-    }>;
+  user: {
+    title?: string;
+    position?: string;
+    description?: string;
+    image?: string;
   };
 }
 
@@ -25,11 +23,17 @@ const CE_ModalProfile: React.FC<ProfileModalProps> = ({
   hasButtonClose,
   user,
 }) => {
+  const elementModal = useRef<HTMLDivElement>(null);
+  useOnClickOutside(elementModal, () => onClose?.());
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-2xl w-[60rem] p-8 relative">
+      <div
+        className="bg-white rounded-2xl w-[60rem] p-8 relative"
+        ref={elementModal}
+      >
         {hasButtonClose && (
           <button
             onClick={onClose}
@@ -41,35 +45,33 @@ const CE_ModalProfile: React.FC<ProfileModalProps> = ({
             Close
           </button>
         )}
-        <div className="flex items-center gap-6 py-8">
+        <div className="flex items-start gap-6 py-8">
           <div className="aspect-square rounded-lg w-full max-w-[22rem] shadow-lg relative">
             <Image
               fill
               alt="user-profile"
               className="rounded-xl"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH4dcYWVFHFsz8M3Rsjpy2Hg6gQAmgbCIwWA&s"
+              src={
+                user?.image ||
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH4dcYWVFHFsz8M3Rsjpy2Hg6gQAmgbCIwWA&s'
+              }
             />
           </div>
 
           <div className="text-left w-full">
-            {user?.username && (
-              <h2 className="text-2xl font-semibold mt-4">{user?.username}</h2>
+            {user?.title && (
+              <h2 className="text-2xl font-bold mt-4">{user?.title}</h2>
             )}
-            {user?.role && (
-              <p className="text-sm text-blue-900 mb-6 mt-2">{user?.role}</p>
+            {user?.position && (
+              <p className="text-sm text-blue-500 font-semibold mb-6 mt-2">
+                {user?.position}
+              </p>
             )}
-            {user?.list.map((item) => (
-              <div key={item.title} className="mb-6">
-                <h3 className="text-base font-semibold mb-4 text-blue-900">
-                  {item?.title}
-                </h3>
-                {item?.subTitle.map((sub, index) => (
-                  <p key={index} className="text-gray-700 text-sm mt-3">
-                    {sub?.title}
-                  </p>
-                ))}
+            {user?.description && (
+              <div className="mb-2 text-xl">
+                {parseHTMLToReact(user?.description)}
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>

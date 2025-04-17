@@ -1,3 +1,6 @@
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 import AboutSection from '@/app/(views)/$element/client.about.section';
@@ -5,13 +8,12 @@ import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
+
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
 import ImageViewer from '@/lib/element/global/image.viewer';
 import { Tabs } from '@/lib/element/global/tabs';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
+
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_News } from './types/widget/content_type';
@@ -26,168 +28,143 @@ import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
 
+/* Portlet Component */
+const SE_PortletMain = dynamic(
+  () => import('@/app/(views)/$element/portlet/server.portlet.main')
+);
+const CE_PortletVarian04 = dynamic(
+  () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
+);
+const CE_PortletVarian05 = dynamic(
+  () => import('@/app/(views)/$element/portlet/client.portlet.varian05')
+);
+
+/* Carousel Component */
+const CE_CarouselMain = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.main')
+);
+const CE_CarouselVariant06 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
+);
+const CE_CarouselVariant08 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
+);
+const CE_CarouselVariant09 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant09')
+);
+
+/* Card Component */
+const CE_CardVariant01 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant01')
+);
+const CE_CardVariant02 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant02')
+);
+const CE_CardVariant05 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant05')
+);
+const CE_CardVariant08 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant08')
+);
+const CE_CardVariant09 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant09')
+);
+const CE_CardVariant11 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant11')
+);
+const CE_CardVariant13 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant13')
+);
+const CE_CardVariant16 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant16')
+);
+const CE_CardVariant18 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant18')
+);
+const CE_CardVariant19 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant19')
+);
+
+/* Wysiwyg Component */
+const SE_WysiwygMain = dynamic(
+  () => import('@/app/(views)/$element/wysiwyg/server.wysiwyg.main')
+);
+
+/* Content Type Component */
+const CE_SectionPromo = dynamic(
+  () => import('@/app/(views)/$element/promo/client.section-promo')
+);
+const CE_SectionPromoVariant01 = dynamic(
+  () => import('@/app/(views)/$element/promo/client.section-promo.variant01')
+);
+const CE_SectionPromoVariant02 = dynamic(
+  () => import('@/app/(views)/$element/promo/client.section-promo.variant02')
+);
+const CE_LocationMain = dynamic(
+  () => import('@/app/(views)/$element/location/client.location.main')
+);
+const CE_SectionNews = dynamic(
+  () => import('@/app/(views)/$element/content-type/client.section-news')
+);
+const CE_SectionWaspadaModus = dynamic(
+  () =>
+    import('@/app/(views)/$element/content-type/client.section-waspada-modus')
+);
+const CE_SectionAnnouncement = dynamic(
+  () =>
+    import('@/app/(views)/$element/content-type/client.section-announcement')
+);
+const CE_SectionAuctions = dynamic(
+  () => import('@/app/(views)/$element/content-type/client.section-auctions')
+);
+const CE_FormQlola = dynamic(
+  () => import('@/app/(views)/$element/form/client.form.qlola')
+);
+
+/* Other */
+const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
+const CE_BannerMain = dynamic(
+  () => import('@/app/(views)/$element/banner/client.banner.main')
+);
+const SE_IconMain = dynamic(
+  () => import('@/app/(views)/$element/icon-menu/server.icon.main')
+);
 const CE_PromoSlider = dynamic(
   () => import('@/app/(views)/$element/promo/client.promo-slider')
 );
-
 const CE_SimulationMain = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.main')
 );
 const CE_SimulationDropdown = dynamic(
   () => import('@/app/(views)/$element/simulation/client.simulation.dropdown')
 );
-
-const ContactSection = dynamic(
-  () => import('@/app/(views)/$element/card/client.content.info')
-);
-
-const CE_CarouselVariant06 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
-);
-
-const CE_PortletVarian05 = dynamic(
-  () => import('@/app/(views)/$element/portlet/client.portlet.varian05')
-);
-
-const CE_CardVariant09 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant09')
-);
-
-const CE_CardVariant05 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant05')
-);
-
-const CE_CardVariant13 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant13')
-);
-
-const CE_CardVariant01 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant01')
-);
-
-const CE_PortletVarian04 = dynamic(
-  () => import('@/app/(views)/$element/portlet/client.portlet.variant04')
-);
-
-const CE_CardVariant11 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant11')
-);
-
-const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
-
-const SE_SubscriberContent = dynamic(
-  () => import('@/app/(views)/$element/server.subscriber.content')
-);
-
-const CE_CarouselMain = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.main')
-);
-
-const CE_CarouselVariant09 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant09')
-);
-
-const CE_CarouselVariant08 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
-);
-
-const SE_PortletMain = dynamic(
-  () => import('@/app/(views)/$element/portlet/server.portlet.main')
-);
-
-const SE_IconMain = dynamic(
-  () => import('@/app/(views)/$element/icon-menu/server.icon.main')
-);
-
 const CE_InfoSahamMain = dynamic(
   () => import('@/app/(views)/$element/client.info-saham.main')
 );
-
-const CE_ImageSliderMain = dynamic(
-  () => import('@/app/(views)/$element/image-slider/client.image-slider.main')
-);
-
-const CE_FlipCard = dynamic(
-  () => import('@/app/(views)/$element/flip-card/client.flip-card')
-);
-
-const SE_FormMain = dynamic(
-  () => import('@/app/(views)/$element/form/client.form.main')
-);
-
 const CE_KursMain = dynamic(
   () => import('@/app/(views)/$element/kurs/client.kurs.main')
 );
-
-const CE_BannerMain = dynamic(
-  () => import('@/app/(views)/$element/banner/client.banner.main')
+const SE_SubscriberContent = dynamic(
+  () => import('@/app/(views)/$element/server.subscriber.content')
 );
-
-const CE_CardVariant02 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant02')
+const ContactSection = dynamic(
+  () => import('@/app/(views)/$element/card/client.content.info')
 );
-
-const CE_SectionPromo = dynamic(
-  () => import('@/app/(views)/$element/promo/client.section-promo')
+const CE_ImageSliderMain = dynamic(
+  () => import('@/app/(views)/$element/image-slider/client.image-slider.main')
 );
-
-const CE_SectionPromoVariant01 = dynamic(
-  () => import('@/app/(views)/$element/promo/client.section-promo.variant01')
+const CE_FlipCard = dynamic(
+  () => import('@/app/(views)/$element/flip-card/client.flip-card')
 );
-
-const CE_SectionPromoVariant02 = dynamic(
-  () => import('@/app/(views)/$element/promo/client.section-promo.variant02')
+const SE_FormMain = dynamic(
+  () => import('@/app/(views)/$element/form/client.form.main')
 );
-
-const SE_WysiwygMain = dynamic(
-  () => import('@/app/(views)/$element/wysiwyg/server.wysiwyg.main')
-);
-
-const CE_CardVariant08 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant08')
-);
-
-const CE_CardVariant19 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant19')
-);
-
-const CE_CardVariant16 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant16')
-);
-
-const CE_CardVariant18 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant18')
-);
-const CE_LocationMain = dynamic(
-  () => import('@/app/(views)/$element/location/client.location.main')
-);
-
-const CE_FormQlola = dynamic(
-  () => import('@/app/(views)/$element/form/client.form.qlola')
-);
-
 const SE_Sitemap = dynamic(
   () => import('@/app/(views)/$element/server.sitemap')
-);
-
-const CE_SectionNews = dynamic(
-  () => import('@/app/(views)/$element/content-type/client.section-news')
-);
-
-const CE_SectionWaspadaModus = dynamic(
-  () =>
-    import('@/app/(views)/$element/content-type/client.section-waspada-modus')
-);
-
-const CE_SectionAnnouncement = dynamic(
-  () =>
-    import('@/app/(views)/$element/content-type/client.section-announcement')
-);
-
-const CE_SectionAuctions = dynamic(
-  () => import('@/app/(views)/$element/content-type/client.section-auctions')
 );
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
@@ -312,6 +289,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         (props?.data as Array<{
           image?: string;
           title?: string;
+          position?: string;
           link?: string;
           filename?: string;
           description?: string;
@@ -347,7 +325,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const dataV2 = props?.data;
       const linkText = props?.linkText;
       const linkUrl = props?.linkUrl;
-      const elementRichText = props?.element;
+      const elementRichText = props?.elementRichtext;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -675,10 +653,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return (
             <div>
               <ProfileCard
-                name={listItems?.[0].title as string}
-                description={listItems?.[0].description as string}
-                imageUrl={listItems?.[0]?.image as string}
-                backgroundUrl={backgroundImage as string}
+                title={listItems?.[0].title}
+                position={listItems?.[0].position}
+                description={listItems?.[0].description}
+                imageUrl={listItems?.[0]?.image}
+                backgroundUrl={backgroundImage}
               />
             </div>
           );
@@ -930,11 +909,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           description: item?.field_content?.[0]?.value,
         };
       });
-      const dataV58 = _component?.field_column?.map((item) => {
-        return {
-          element: item?.field_content?.[0]?.value,
-        };
-      });
+
       const dataV27 = _component?.field_column?.map((item) => {
         const downloadFile =
           item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
@@ -950,11 +925,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           iconDownload: iconDownload,
         };
       });
+
       const dataV28 = _component?.field_column?.map((item) => {
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
         return { image: image };
       });
+
       const dataV30 = _component?.field_column?.map((item) => {
         const title = item?.field_title?.[0]?.value;
         const subtitle = item?.field_subtitle?.[0]?.value;
@@ -970,6 +947,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           subtitle: subtitle,
         };
       });
+
       const dataV32 = _component?.field_column?.map((item) => {
         return {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
@@ -981,6 +959,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
+
       const dataV34 = _component?.field_column?.map((item) => {
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
@@ -1000,6 +979,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
+
       const dataV37 = _component?.field_column?.[0]?.field_accordion_items?.map(
         (item) => {
           return {
@@ -1009,6 +989,19 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         }
       );
+
+      const dataV39 = _component?.field_column?.map((item) => {
+        return {
+          image:
+            item?.field_content_list?.[0]?.field_pictures?.[0]
+              ?.field_media_image?.[0]?.uri?.[0]?.url &&
+            `${API_BASE_URL}${item?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+          title: item?.field_content_list?.[0]?.title?.[0]?.value,
+          description: item?.field_content_list?.[0]?.body?.[0]?.value,
+          position: item?.field_content_list?.[0]?.field_position?.[0]?.value,
+        };
+      });
+
       const dataV60 = _component?.field_column?.[0]?.field_accordion_items?.map(
         (item) => {
           return {
@@ -1018,6 +1011,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         }
       );
+
       const dataV41 = _component?.field_column?.map((item) => {
         const title = item?.field_title?.[0]?.value;
         const description = item?.field_content?.[0]?.value;
@@ -1038,6 +1032,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
+
       const dataV42 = _component?.field_column?.map((item) => {
         const title = item?.field_title?.[0]?.value;
         const isExternalLink =
@@ -1072,6 +1067,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           backImage:
             item?.field_second_image?.[0]?.field_media_image?.[0]?.uri?.[0]
               ?.url,
+        };
+      });
+
+      const dataRichText = _component?.field_column?.map((item) => {
+        return {
+          element: item?.field_content?.[0]?.value.replace(
+            '/sites/default',
+            `${API_BASE_URL}/sites/default`
+          ),
         };
       });
 
@@ -1255,7 +1259,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             title: title,
-            data: dataV03,
+            data: dataV39,
             backgroundImage: backgroundImage,
           };
         case WIDGET_VARIANT.variant41:
@@ -1319,12 +1323,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant58:
           return {
             variant: findVariantStyle,
-            element: dataV58?.[0]?.element,
+            elementRichText: dataRichText?.[0]?.element,
           };
         case WIDGET_VARIANT.variant59:
           return {
             variant: findVariantStyle,
-            element: dataV58?.[0]?.element,
+            elementRichText: dataRichText?.[0]?.element,
           };
         default:
           return null;
@@ -1356,8 +1360,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const buttonItem = _component?.field_primary_cta?.map((item) => {
         return {
           buttonText: item?.title,
-          buttonLink: item?.uri || '#',
-          buttonCta: item?.full_url || '#',
+          buttonLink:
+            item?.uri || _component?.field_primary_cta?.[0]?.uri || '#',
+          buttonCta:
+            item?.full_url ||
+            _component?.field_primary_cta?.[0]?.full_url ||
+            '#',
         };
       });
       return {
@@ -1598,14 +1606,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 children: item.field_paragraphs?.map((paragraph) => {
                   return {
                     image:
-                      paragraph?.field_image?.[0]?.field_media_image?.[0]
-                        ?.uri?.[0]?.url,
-                    title: paragraph?.field_title?.[0]?.value,
-                    description: paragraph?.field_content?.[0]?.value,
-                    button: {
-                      title: paragraph?.field_primary_cta?.[0]?.title,
-                      link: paragraph?.field_primary_cta?.[0]?.full_url,
-                    },
+                      paragraph?.field_content_list?.[0]?.field_pictures?.[0]
+                        ?.field_media_image?.[0]?.uri?.[0]?.url &&
+                      `${API_BASE_URL}${paragraph?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+                    title:
+                      paragraph?.field_content_list?.[0]?.title?.[0]?.value,
+                    description:
+                      paragraph?.field_content_list?.[0]?.body?.[0]?.value,
+                    position:
+                      paragraph?.field_content_list?.[0]?.field_position?.[0]
+                        ?.value,
                   };
                 }),
               };
@@ -2036,7 +2046,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     ),
     props: (_component: { field_content?: Array<{ value: string }> }) => {
       return {
-        element: _component?.field_content?.[0]?.value,
+        element: _component?.field_content?.[0]?.value.replace(
+          /\/sites\/default/g,
+          `${API_BASE_URL}/sites/default`
+        ),
       };
     },
   },
