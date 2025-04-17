@@ -16,7 +16,7 @@ export function CE_CarouselVariant03({
 }: Omit<T_CarouselMainProps, 'variant'>) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const screenWidth = useScreenWidth();
-  const slidesToShow = screenWidth > 768 ? 4 : 2;
+  const slidesToShow = screenWidth > 768 ? 3 : 1;
   const slidesToScroll = 1;
 
   const nextSlide = () => {
@@ -25,10 +25,14 @@ export function CE_CarouselVariant03({
     }
   };
 
-  const truncateText = (text: string, maxWords: number): string => {
+  const truncateText = (text: string, maxWords: number): { truncated: string; remaining: string } => {
     const words = text.split(' ');
-    if (words.length <= maxWords) return text;
-    return words.slice(0, maxWords).join(' ');
+    if (words.length <= maxWords) return { truncated: text, remaining: '' };
+    
+    const truncatedPart = words.slice(0, maxWords).join(' ');
+    const remainingPart = words.slice(maxWords).join(' ');
+    
+    return { truncated: truncatedPart, remaining: remainingPart };
   };
 
   const prevSlide = () => {
@@ -38,9 +42,9 @@ export function CE_CarouselVariant03({
   };
   return (
     <>
-      <div className="py-20 container">
+      <div className="py-24 container">
         <div className="flex items-center mdmax:flex-wrap">
-          <div className="w-[20%] mdmax:w-full flex-none">
+          <div className="w-[25%] mdmax:w-full flex-none">
             {title && (
               <div className="text-2xl font-semibold mb-4">{title}</div>
             )}
@@ -86,10 +90,10 @@ export function CE_CarouselVariant03({
               }}
             >
               {data.map((dataItem, index) => (
-                <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
+                <div key={index} className="w-1/3 mdmax:w-full flex-none px-2">
                   <Link href={handleurl(dataItem.button?.link)} target="_self">
                     <div className="shadow-lg relative rounded-md overflow-hidden group">
-                      <div className="w-full h-[18rem] ">
+                      <div className="w-full h-[28rem] ">
                         {dataItem.image && (
                           <Image
                             extern={false}
@@ -102,7 +106,7 @@ export function CE_CarouselVariant03({
                         )}
                       </div>
                       <div className="absolute z-10 top-0 left-0 bg-blue-950 bg-opacity-20 group-hover:bg-opacity-90 w-full h-full"></div>
-                      <div className="absolute z-20 bottom-0 left-0 p-4">
+                      <div className="absolute z-20 bottom-0 left-0 p-6">
                         {dataItem.title && (
                           <div className="text-white text-2xl font-semibold line-clamp-2">
                             {parseHTMLToReact(dataItem.title)}
@@ -110,11 +114,19 @@ export function CE_CarouselVariant03({
                         )}
                         {dataItem.desc && (
                           <div className="text-white hidden group-hover:block mt-6 mb-4">
-                            {parseHTMLToReact(
-                              truncateText(dataItem.desc, 17) +
-                                ' ...Selengkapnya'
-                            )}
-                          </div>
+                            <span>
+                              {parseHTMLToReact(truncateText(dataItem.desc, 17).truncated)}
+                              {truncateText(dataItem.desc, 17).remaining && (
+                                <span className="underline cursor-pointer relative inline-block">
+                                  {' '}
+                                  <span className="hover:text-blue-200 peer">...Selengkapnya</span>
+                                  <span className="absolute w-64 bg-black text-white text-sm p-2 rounded shadow-lg left-0 bottom-full mb-0 hidden peer-hover:block z-50">
+                                    {parseHTMLToReact(dataItem.desc)}
+                                  </span>
+                                </span>
+                             )}
+                            </span>
+                          </div>                   
                         )}
                       </div>
                     </div>

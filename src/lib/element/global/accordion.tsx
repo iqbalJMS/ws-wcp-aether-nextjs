@@ -41,9 +41,9 @@ export default function Accordion({
               onClick={() => setAccordionOpen(!accordionOpen)}
               className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' || variant == 'none' ? 'border-none' : 'border-b'} flex py-4 items-center w-full`}
             >
-              <div className="w-full">
+              <div className="flex items-center">
                 {imageTitle ? (
-                  <div className="flex items-center">
+                  <>
                     <div className="w-10 h-10 inline-flex items-center justify-center">
                       <Image
                         extern={true}
@@ -55,27 +55,31 @@ export default function Accordion({
                       />
                     </div>
                     {renderTitle}
-                  </div>
+                  </>
                 ) : (
-                  <>{renderTitle} </>
+                  <div className="flex items-center">
+                    {renderTitle}
+                    {/* Placing the icon directly next to the title with minimal margin */}
+                    <span className="ml-1">
+                      {accordionOpen ? (
+                        <ChevronDownIcon
+                          className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
+                          width={28}
+                          height={28}
+                          strokeWidth="2"
+                        />
+                      ) : (
+                        <ChevronRightIcon
+                          className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
+                          width={28}
+                          height={28}
+                          strokeWidth="2"
+                        />
+                      )}
+                    </span>
+                  </div>
                 )}
               </div>
-
-              {accordionOpen ? (
-                <ChevronDownIcon
-                  className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
-                  width={36}
-                  height={36}
-                  strokeWidth="2"
-                />
-              ) : (
-                <ChevronRightIcon
-                  className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
-                  width={36}
-                  height={36}
-                  strokeWidth="2"
-                />
-              )}
             </button>
           </div>
         </div>

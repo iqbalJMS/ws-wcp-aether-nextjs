@@ -203,6 +203,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   slider: {
     component: (props) => {
+      //const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const sliderVariant = props?.sliderVariant;
       const sliderData = props?.sliderData;
 
@@ -213,6 +214,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       }
     },
     props: (_component: T_Slider) => {
+      //const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const sliderVariant = _component?.field_slider_variant?.[0]?.value;
       const sliderData = _component?.field_slider_items?.map((item) => {
         const image =
@@ -223,7 +225,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const buttonLink = item?.field_primary_cta?.[0]?.full_url;
 
         return {
-          image: image,
+          image: image /*image ? `${BASE_URL}${image}` : image*/,
           title: title,
           desc: description,
           button: button,
@@ -283,8 +285,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const accordiontitle = props?.accordiontitle;
       const navigationLink = (props?.navigationLink || '').replace('/id', '');
       const navigationText = props?.navigationText;
+      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const backgroundImage = props?.backgroundImage;
-      const backgroundImg = backgroundImage ? `${API_BASE_URL}${backgroundImage}` : '';
+      const backgroundImg = backgroundImage ? `${BASE_URL}${backgroundImage}` : '';
       const listItems = (
         (props?.data as Array<{
           image?: string;
@@ -504,7 +507,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               data={listItems?.map((item) => {
                 return {
                   title: item?.title,
-                  image: item?.image,
+                  image: item?.image /*item?.image ? `${BASE_URL}${item?.image}` : item?.image*/,
                   description: item?.description,
                   subTitle: item?.subtitle,
                   // TODO called it from item if data ready
@@ -629,7 +632,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     {accordiontitle}
                   </h1>
                 )}
-                <div className="w-full flex flex-col space-y-4">
+                <div className="w-full max-w-[950px] flex flex-col space-y-4">
                   {accordion?.map((item, key) => {
                     return (
                       <Accordion
@@ -750,6 +753,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
     // @ts-expect-error
     props: (_component: T_Section) => {
+      //const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
       const subtitle = _component?.field_content?.[0]?.value;
@@ -802,7 +806,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
         return {
-          image: image,
+          image: image /*image ? `${BASE_URL}${image}` : image*/,
           title: title,
           description: description,
           imagePosition: imagePosition,
@@ -825,10 +829,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         };
       });
       const dataV09 = _component?.field_column?.map((item) => {
+        const image =item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
         return {
           title: item.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
-          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+          image: image /*image ? `${BASE_URL}${image}` : image*/,
           button: {
             link: item?.field_primary_cta?.[0]?.uri,
             title: item?.field_primary_cta?.[0]?.title,
@@ -844,7 +849,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
 
           return {
-            image: image,
+            image: image /*image ? `${BASE_URL}${image}` : image*/,
             title: title,
             desc: description,
           };
@@ -868,10 +873,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const dataV12 = _component?.field_column?.map((item) => {
         const isExternalLink =
           item?.field_primary_cta?.[0]?.options?.external || false;
+        const image = item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
-          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
+          image: image /*image ? `${BASE_URL}${image}` : image*/,
           button: {
             link: isExternalLink
               ? item?.field_primary_cta?.[0]?.uri
@@ -880,10 +886,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         };
       });
       const dataV16 = _component?.field_column?.map((item) => {
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
-          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url,
+          image: image /*image ? `${BASE_URL}${image}` : image*/,
           button: {
             link: item?.field_primary_cta?.[0]?.uri,
             title: item?.field_primary_cta?.[0]?.title,
@@ -1764,6 +1772,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     props: (_component: T_StaircaseCards) => {
       return {
         data: _component?.field_cards?.map((item) => {
+          //const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
           const title = item?.field_title?.[0]?.value;
           const description = item?.field_content?.[0]?.value;
           const image =
@@ -1774,7 +1783,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             title: title,
             description: description,
-            image: image,
+            image: image /*image ? `${BASE_URL}${image}` : image*/,
             button: {
               link: buttonLink,
               title: buttonTitle,
@@ -1884,9 +1893,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     props: (_component) => {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
-
+      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant19:
+          const image19 = _component?.field_second_column?.[0]?.field_image?.[0]
+          ?.field_media_image?.[0]?.uri?.[0]?.url;
           return {
             firstColumn: {
               title:
@@ -1904,8 +1915,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             },
             secondColumn: {
               image:
-                _component?.field_second_column?.[0]?.field_image?.[0]
-                  ?.field_media_image?.[0]?.uri?.[0]?.url,
+                image19 ? `${BASE_URL}${image19}` : image19,
             },
             variant: findVariantStyle,
           };
@@ -1962,11 +1972,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
           };
         case WIDGET_VARIANT.variant33:
+          const image33f =_component?.field_first_column?.[0]?.field_image?.[0]
+          ?.field_media_image?.[0]?.uri?.[0]?.url;
+          const image33s = _component?.field_second_column?.[0]?.field_image?.[0]
+          ?.field_media_image?.[0]?.uri?.[0]?.url;
           return {
             firstColumn: {
               image:
-                _component?.field_first_column?.[0]?.field_image?.[0]
-                  ?.field_media_image?.[0]?.uri?.[0]?.url,
+                image33f/*image33f ? `${BASE_URL}${image33f}` : image33f*/,
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
@@ -1982,8 +1995,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             },
             secondColumn: {
               image:
-                _component?.field_second_column?.[0]?.field_image?.[0]
-                  ?.field_media_image?.[0]?.uri?.[0]?.url,
+                image33s /*image33s ? `${BASE_URL}${image33s}` : */,
               title:
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
