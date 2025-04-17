@@ -3,7 +3,6 @@
 import Image from '@/lib/element/global/image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 export type T_CarouselVariant06Props = {
   data?: Array<{
@@ -92,7 +91,7 @@ export default function CE_CarouselVariant06({
                 <div className="md:w-1/4 w-full h-[600px] mb-8 mx-auto">
                   <Image
                     extern={true}
-                    src={API_BASE_URL + dataItem?.image}
+                    src={dataItem?.image}
                     alt="Image"
                     width={400}
                     height={400}

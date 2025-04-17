@@ -2134,7 +2134,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const listAccordion: Array<any> = props?.listAccordion;
       const accordionStyle: String = props?.accordionStyle;
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
-
+      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
@@ -2145,7 +2145,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   description: item?.description?.replaceAll('_', ' '),
                   button: {
                     image: item?.iconDownload,
-                    link: `${API_BASE_URL}${item?.downloadFile}`,
+                    link: `${BASE_URL}${item?.downloadFile}`,
                     title: 'Download',
                     extern: true,
                   },
@@ -2158,7 +2158,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 data={(children || [])?.map((item) => {
                   return {
                     description: item?.description,
-                    image: item?.image,
+                    image: item?.image ? `${BASE_URL}${item?.image}` : item?.image,
                   };
                 })}
               />
@@ -2175,7 +2175,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           <div className="w-full h-[255px] mb-2">
                             <Image
                               extern={false}
-                              src={item?.image}
+                              src={`${BASE_URL}${item?.image}`}
                               alt="image"
                               width={400}
                               height={400}
@@ -2243,6 +2243,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       field_accordion_items: any[];
       field_accordion_style: { value: any }[];
     }) => {
+      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const title =
         _component?.field_accordion_items?.[0]?.field_title?.[0]?.value;
       const accordionStyle = _component?.field_accordion_style?.[0]?.value;
