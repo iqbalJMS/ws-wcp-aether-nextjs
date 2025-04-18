@@ -286,7 +286,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const accordiontitle = props?.accordiontitle;
       const navigationLink = (props?.navigationLink || '').replace('/id', '');
       const navigationText = props?.navigationText;
-      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
+      //const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const backgroundImage = props?.backgroundImage;
       const backgroundImg = backgroundImage
         ? `${API_BASE_URL}${backgroundImage}`

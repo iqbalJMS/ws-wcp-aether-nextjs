@@ -120,7 +120,7 @@ export function CE_CarouselVariant03({
                                 <span className="underline cursor-pointer relative inline-block">
                                   {' '}
                                   <span className="hover:text-blue-200 peer">...Selengkapnya</span>
-                                  <span className="absolute w-64 bg-black text-white text-sm p-2 rounded shadow-lg left-0 bottom-full mb-0 hidden peer-hover:block z-50">
+                                  <span className="absolute w-64 bg-white text-black text-sm p-2 rounded shadow-lg left-0 bottom-full mb-0 hidden peer-hover:block z-50">
                                     {parseHTMLToReact(dataItem.desc)}
                                   </span>
                                 </span>
