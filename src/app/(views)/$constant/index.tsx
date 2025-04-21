@@ -286,7 +286,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const accordiontitle = props?.accordiontitle;
       const navigationLink = (props?.navigationLink || '').replace('/id', '');
       const navigationText = props?.navigationText;
-      //const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const backgroundImage = props?.backgroundImage;
       const backgroundImg = backgroundImage
         ? `${API_BASE_URL}${backgroundImage}`
@@ -751,7 +750,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
     // @ts-expect-error
     props: (_component: T_Section) => {
-      //const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
+      const BASE_URL = process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
       const subtitle = _component?.field_content?.[0]?.value;
@@ -846,9 +845,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const description = item?.field_content?.[0]?.value;
           const image =
             item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
-
           return {
-            image: image /*image ? `${BASE_URL}${image}` : image*/,
+            image: image ? `${BASE_URL}${image}` : image,
             title: title,
             desc: description,
           };
