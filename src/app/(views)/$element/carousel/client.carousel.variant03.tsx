@@ -25,13 +25,16 @@ export function CE_CarouselVariant03({
     }
   };
 
-  const truncateText = (text: string, maxWords: number): { truncated: string; remaining: string } => {
+  const truncateText = (
+    text: string,
+    maxWords: number
+  ): { truncated: string; remaining: string } => {
     const words = text.split(' ');
     if (words.length <= maxWords) return { truncated: text, remaining: '' };
-    
+
     const truncatedPart = words.slice(0, maxWords).join(' ');
     const remainingPart = words.slice(maxWords).join(' ');
-    
+
     return { truncated: truncatedPart, remaining: remainingPart };
   };
 
@@ -115,18 +118,22 @@ export function CE_CarouselVariant03({
                         {dataItem.desc && (
                           <div className="text-white hidden group-hover:block mt-6 mb-4">
                             <span>
-                              {parseHTMLToReact(truncateText(dataItem.desc, 17).truncated)}
+                              {parseHTMLToReact(
+                                truncateText(dataItem.desc, 17).truncated
+                              )}
                               {truncateText(dataItem.desc, 17).remaining && (
                                 <span className="underline cursor-pointer relative inline-block">
                                   {' '}
-                                  <span className="hover:text-blue-200 peer">...Selengkapnya</span>
+                                  <span className="hover:text-blue-200 peer">
+                                    ...Selengkapnya
+                                  </span>
                                   <span className="absolute w-64 bg-white text-black text-sm p-2 rounded shadow-lg left-0 bottom-full mb-0 hidden peer-hover:block z-50">
                                     {parseHTMLToReact(dataItem.desc)}
                                   </span>
                                 </span>
-                             )}
+                              )}
                             </span>
-                          </div>                   
+                          </div>
                         )}
                       </div>
                     </div>

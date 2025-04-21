@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 import { ImageLoader } from 'next/dist/client/image-component';
 import {
   OnLoadingComplete,
@@ -5,7 +6,6 @@ import {
   StaticImport,
 } from 'next/dist/shared/lib/get-img-props';
 import * as Imagex from 'next/image';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 type T_ImageProps = Omit<
   React.DetailedHTMLProps<
@@ -46,7 +46,7 @@ export default function Image(prop: T_ImageProps) {
     if (prop.extern) {
       newSrc = src;
     } else {
-      newSrc = `${API_BASE_URL}${src}`;
+      newSrc = src.startsWith(API_BASE_URL) ? src : `${API_BASE_URL}${src}`;
     }
   }
   return <Imagex.default {...{ ...prop, src: newSrc }} />;
