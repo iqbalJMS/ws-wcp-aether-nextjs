@@ -18,6 +18,7 @@ import { useRef, useState } from 'react';
 import { CloseIcon } from './icons/close-icon';
 import { Search } from './global.search';
 import Link from './link';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
 
@@ -268,7 +269,7 @@ export default function GlobalHeader({
               ) : (
                 <Image
                   alt="logo-default"
-                  src={defaultLogo}
+                  src={defaultLogo ? `${API_BASE_URL}${defaultLogo}` : defaultLogo}
                   width={128}
                   height={53}
                   className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -316,7 +317,7 @@ export default function GlobalHeader({
                 ) : (
                   <Image
                     alt="logo-default"
-                    src={defaultLogo}
+                    src={defaultLogo ? `${API_BASE_URL}${defaultLogo}` : defaultLogo}
                     width={128}
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
