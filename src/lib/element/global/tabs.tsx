@@ -63,6 +63,13 @@ type TabChildrenItem = {
     title?: string;
     field_title?: FieldValue[];
     field_content?: FieldValue[];
+    field_image?: {
+      field_media_image: {
+        uri: {
+          url: string;
+        }[];
+      }[];
+    }[];
   }[];
   description1?: string;
   title?: string;
@@ -73,6 +80,7 @@ type TabChildrenItem = {
   imageUrl1?: string;
   imageUrl2?: string;
   titleColumn?: string;
+  countColumn?: string;
   button?: ButtonProps;
   textLink?: string;
   urlLink?: string;
@@ -252,35 +260,58 @@ export function Tabs({
             <h4 className="text-center font-semibold mt-10 text-4xl">
               {parseHTMLToReact(item?.titleColumn ?? '')}
             </h4>
-            <div className="grid md:grid-cols-4 grid-cols-1 mt-10 gap-6">
+            <div
+              className={`grid md:grid-cols-${item?.countColumn} grid-cols-1 mt-10 gap-6`}
+            >
               {item?.listColumn?.map((childItem, idx: number) => {
                 const title = childItem?.field_title?.[0]?.value ?? '';
                 const description = childItem?.field_content?.[0]?.value ?? '';
+                const iconImage =
+                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                    ?.url ?? '';
                 return (
                   <div className="col-span-1" key={idx}>
-                    {title && (
-                      <div className="mb-2 font-semibold text-lg text-[#00539c]">
-                        {parseHTMLToReact(title)}
+                    <div className="flex gap-x-8">
+                      <div className="w-14 shrink-0 grow-0 basis-auto">
+                        {iconImage && (
+                          <Image
+                            width={100}
+                            height={100}
+                            src={iconImage}
+                            alt="icon"
+                            className="w-full max-w-full"
+                            extern={false}
+                          />
+                        )}
                       </div>
-                    )}
-                    {description && (
-                      <div className="text-gray-500 text-base">
-                        {parseHTMLToReact(description)}
+                      <div>
+                        {title && (
+                          <div className="mb-2 font-bold text-lg text-[#00539c]">
+                            {parseHTMLToReact(title)}
+                          </div>
+                        )}
+                        {description && (
+                          <div className="text-gray-500 text-base">
+                            {parseHTMLToReact(description)}
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}
             </div>
 
-            <div className="flex justify-center mt-12">
-              <Link
-                href={list?.[menuActive]?.linkShowMore ?? ''}
-                className="bg-orange-400 text-white px-8 py-3 rounded-full"
-              >
-                {list?.[menuActive]?.textShowMore}
-              </Link>
-            </div>
+            {list?.[menuActive]?.textShowMore && (
+              <div className="flex justify-center mt-12">
+                <Link
+                  href={list?.[menuActive]?.linkShowMore ?? ''}
+                  className="bg-orange-400 text-white px-8 py-3 rounded-full"
+                >
+                  {list?.[menuActive]?.textShowMore}
+                </Link>
+              </div>
+            )}
           </div>
         ));
       case WIDGET_VARIANT.variant29:
