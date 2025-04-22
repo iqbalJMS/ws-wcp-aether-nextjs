@@ -10,15 +10,18 @@ type T_CardVariant05Props = {
   }>;
 };
 
-export default function CE_CardVariant05({ data, title,}: T_CardVariant05Props) {
+export default function CE_CardVariant05({
+  data,
+  title,
+}: T_CardVariant05Props) {
   return (
     <>
       <div className="py-10 container overflow-hidden">
         {title && (
-            <div className="mb-8 text-2xl font-bold">
-              {parseHTMLToReact(title)}
-            </div>
-          )}
+          <div className="mb-8 text-2xl font-bold">
+            {parseHTMLToReact(title)}
+          </div>
+        )}
         <div className="flex flex-wrap -mx-5">
           {data?.map((item, index) => {
             return (
