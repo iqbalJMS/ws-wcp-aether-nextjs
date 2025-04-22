@@ -754,9 +754,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const subtitleNews =
         _component?.field_column?.[0]?.field_title?.[0]?.value;
       const hrefLink =
-        _component?.field_column?.[0].field_primary_cta?.[0]?.full_url;
+        _component?.field_column?.[0]?.field_primary_cta?.[0]?.full_url;
       const hreftitle =
-        _component?.field_column?.[0].field_primary_cta?.[0]?.title;
+        _component?.field_column?.[0]?.field_primary_cta?.[0]?.title;
       const accordiontitle =
         _component?.field_column?.[0]?.field_title?.[0]?.value;
       const navigationLink =
