@@ -65,9 +65,11 @@ type T_FieldParagraph = Array<{
   field_content_list: Array<{
     title: Array<{ value: string }>;
     body: Array<{ value: string }>;
-    field_pictures: Array<{ field_media_image: Array<{ uri: Array<{ url: string }> }> }>;
+    field_pictures: Array<{
+      field_media_image: Array<{ uri: Array<{ url: string }> }>;
+    }>;
     field_position: Array<{ value: string }>;
-  }>
+  }>;
   field_column: Array<any>;
   field_title_custom?: Array<{ value: string }>;
 }>;
