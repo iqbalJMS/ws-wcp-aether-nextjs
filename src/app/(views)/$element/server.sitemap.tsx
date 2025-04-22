@@ -25,7 +25,7 @@ export default async function SE_Sitemap() {
                 return (
                   <li key={index} className="my-4">
                     <Link
-                      target="_blank"
+                      target="_self"
                       href={listItem.relative || '#'}
                       className="text-blue-02 text-xl hover:underline"
                     >
@@ -44,7 +44,7 @@ export default async function SE_Sitemap() {
               return (
                 <li key={index} className="my-4">
                   <Link
-                    target="_blank"
+                    target="_self"
                     href={listItem.url || '#'}
                     extern={listItem.extern}
                     className="text-blue-02 text-xl hover:underline"
@@ -58,7 +58,7 @@ export default async function SE_Sitemap() {
               return (
                 <li key={index} className="my-4">
                   <Link
-                    target="_blank"
+                    target="_self"
                     href={listItem.url || '#'}
                     extern={listItem.extern}
                     className="text-blue-02 text-xl hover:underline"
@@ -106,7 +106,7 @@ const RecursiveList = ({
       {items.map((item, index) => (
         <li key={index} className={`ml-${level * 4} my-4`}>
           <Link
-            target="_blank"
+            target="_self"
             href={item.relative || '#'}
             className={`text-blue-02 hover:underline ${level === 0 ? 'text-xl font-bold' : 'text-lg'}`}
           >

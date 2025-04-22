@@ -87,7 +87,7 @@ const CE_ImageSliderMain = ({
               style={{ minWidth: `${100 / slidesToShow}%` }}
             >
               <div className="w-full h-40 mdmax:h-[5rem] border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
-                <Link href={slide?.link ?? ''} target="_blank">
+                <Link href={slide?.link ?? ''} target="_self">
                   <Image
                     extern={false}
                     src={slide?.image ?? ''}

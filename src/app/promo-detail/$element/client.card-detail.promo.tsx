@@ -99,7 +99,7 @@ export default function CE_CardDetailPromo({
                   <div className="flex items-center justify-center space-x-2">
                     <Link
                       href={`https://x.com/intent/tweet?text=${textShare}`}
-                      target="_blank"
+                      target="_self"
                       rel="noreferrer"
                     >
                       <TwitterIcon
@@ -111,7 +111,7 @@ export default function CE_CardDetailPromo({
 
                     <Link
                       href={`https://www.facebook.com/sharer/sharer.php?&quote=${textShare}`}
-                      target="_blank"
+                      target="_self"
                     >
                       <FacebookIcon
                         className="fill-orange-400"
@@ -122,7 +122,7 @@ export default function CE_CardDetailPromo({
 
                     <Link
                       href={`https://www.linkedin.com/sharing/share-offsite/?url=${textShare}`}
-                      target="_blank"
+                      target="_self"
                     >
                       <LinkedinIcon
                         className="fill-orange-400"
@@ -133,7 +133,7 @@ export default function CE_CardDetailPromo({
 
                     <Link
                       href={`https://web.whatsapp.com/send?text=${textShare}`}
-                      target="_blank"
+                      target="_self"
                     >
                       <WhatsappIcon
                         className="bg-orange-400 rounded-full p-[3px]"

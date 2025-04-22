@@ -94,6 +94,10 @@ export default function CE_InfoSahamMain({
                       href={url ?? '/'}
                       key={index}
                       className="text-white flex items-center gap-2 lg:text-sm text-sm justify-center lg:justify-start font-normal"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.open(url, '_blank', 'width=600,height=400');
+                      }}
                     >
                       {icon && (
                         <Image

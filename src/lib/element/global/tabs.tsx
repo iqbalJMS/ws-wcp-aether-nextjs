@@ -173,7 +173,7 @@ export function Tabs({
             {children?.map((item, index) => {
               return (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
-                  <Link href={'/'} target="_blank">
+                  <Link href={'/'} target="_self">
                     <div className="p-4 mdmax:p-2 shadow-lg">
                       {item?.image && (
                         <div className="w-full h-[12rem] mb-2">

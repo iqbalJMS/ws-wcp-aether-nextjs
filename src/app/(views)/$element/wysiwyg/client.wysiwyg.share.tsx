@@ -29,7 +29,7 @@ export default function CE_WysiwygShaxre({ text }: { text: string }) {
         <div className="flex items-center justify-center space-x-2">
           <Link
             href={`https://x.com/intent/tweet?text=${text}`}
-            target="_blank"
+            target="_self"
             rel="noreferrer"
           >
             <TwitterIcon className="fill-orange-400" height={35} width={35} />
@@ -37,21 +37,21 @@ export default function CE_WysiwygShaxre({ text }: { text: string }) {
 
           <Link
             href={`https://www.facebook.com/sharer/sharer.php?&quote=${text}`}
-            target="_blank"
+            target="_self"
           >
             <FacebookIcon className="fill-orange-400" height={35} width={35} />
           </Link>
 
           <Link
             href={`https://www.linkedin.com/sharing/share-offsite/?text=${text}`}
-            target="_blank"
+            target="_self"
           >
             <LinkedinIcon className="fill-orange-400" width={35} height={35} />
           </Link>
 
           <Link
             href={`https://web.whatsapp.com/send?text=${text}`}
-            target="_blank"
+            target="_self"
           >
             <WhatsappIcon
               className="bg-orange-400 rounded-full p-[3px]"

@@ -92,7 +92,7 @@ const CE_SimulationMain = ({
                   <Link
                     href={button.link.replace('/id', '')}
                     extern={button.extern}
-                    target={button.extern ? '_blank' : ''}
+                    target={button.extern ? '_self' : ''}
                   >
                     <div className="inline-block text-blue-01 text-base">
                       {button.title} &#10095;
@@ -133,7 +133,7 @@ const CE_SimulationMain = ({
                       <Link
                         href={action.button.link}
                         extern={action.button.extern}
-                        target={action.button.extern ? '_blank' : ''}
+                        target={action.button.extern ? '_self' : ''}
                       >
                         <div className="inline-block text-blue-01 text-base">
                           {action.button.title} &#10095;
@@ -185,7 +185,7 @@ const CE_SimulationMain = ({
                       <Link
                         href={action.button.link}
                         extern={action.button.extern}
-                        target={action.button.extern ? '_blank' : ''}
+                        target={action.button.extern ? '_self' : ''}
                       >
                         <div className="inline-block text-blue-01 text-base">
                           {action.button.title} &#10095;

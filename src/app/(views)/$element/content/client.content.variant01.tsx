@@ -18,7 +18,7 @@ export function CE_ContentVariant01({
         <div className="flex flex-wrap -mx-2">
           {data?.map((dataItem, index) => (
             <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4">
-              <Link href={dataItem.button?.link || ''} target="_blank">
+              <Link href={dataItem.button?.link || ''} target="_self">
                 <div className="flex items-center">
                   {dataItem.image && (
                     <div className="w-10 h-10 mr-5">

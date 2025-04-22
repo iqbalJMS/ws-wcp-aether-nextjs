@@ -31,6 +31,7 @@ import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
 
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
+import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
 
 /* Portlet Component */
 const SE_PortletMain = dynamic(
@@ -484,8 +485,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
                         <div className="">
                           <Link
-                            href={item?.button?.link ?? 'javascript:void(0)'}
-                            target={!item?.button?.extern ? '_blank' : ''}
+                            href={handleurl(item?.button?.link)}
+                            target={!item?.button?.extern ? '_self' : ''}
                           >
                             <div className="inline-block uppercase text-blue-01 text-xs">
                               {item?.button?.title} &#10095;
@@ -687,8 +688,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 {dataV2?.map((item: any, index: number) => (
                   <Link
                     key={index}
-                    href={item?.button?.link ?? 'javascript:void(0)'}
-                    target="_blank"
+                    href={handleurl(item?.button?.link)}
+                    target="_self"
                     className="col-span-1 rounded-[3.5rem] hover:bg-[#1553a3] text-center group shadow-md transition transform ease-in-out p-6 py-12 cursor-pointer"
                   >
                     <div className="flex w-full justify-center group-hover:filter group-hover:brightness-0 group-hover:invert">
@@ -2195,7 +2196,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
                 {(children || [])?.map((item, index) => (
                   <div key={index} className="lg:w-1/4 w-full flex-none px-2">
-                    <Link href={item?.button?.link || '#'} target="_blank">
+                    <Link href={item?.button?.link || '#'} target="_self">
                       <div className="lg:p-5 p-4 shadow-lg">
                         {item?.image && (
                           <div className="w-full h-[255px] mb-2">
