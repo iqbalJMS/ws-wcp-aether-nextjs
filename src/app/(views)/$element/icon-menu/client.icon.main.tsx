@@ -176,7 +176,7 @@ export function CE_IconMain({
                         : listItem.link
                     }
                     extern={listItem.externalLink}
-                    target={extractMatch(listItem.link) ? '' : '_blank'}
+                    target={extractMatch(listItem.link) ? '' : '_self'}
                   >
                     <CE_IconMenu
                       key={listIndex}

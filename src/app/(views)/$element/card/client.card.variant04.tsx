@@ -33,7 +33,7 @@ export function CE_CardVariant04({ data }: T_CardVariant04Props) {
                 <Link
                   href={item.button.link}
                   extern={item.button.extern}
-                  target={item.button.extern ? '_blank' : ''}
+                  target={item.button.extern ? '_self' : ''}
                 >
                   <div className="bg-white p-10 shadow-lg rounded-br-[5rem] hover:bg-blue-01 group">
                     <div>

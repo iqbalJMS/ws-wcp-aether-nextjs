@@ -18,6 +18,7 @@ import { useRef, useState } from 'react';
 import { CloseIcon } from './icons/close-icon';
 import { Search } from './global.search';
 import Link from './link';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
 
@@ -71,7 +72,7 @@ export function LoginButton({
                 key={index}
                 className="w-full bg-white mb-2 px-5 py-4 rounded-3xl"
               >
-                <Link href={loginItem?.uri} target="_blank">
+                <Link href={loginItem?.uri} target="_self">
                   <div
                     className={` flex items-center  ${loginItem?.field_theme_color?.[0]?.value == 'orange' ? 'text-orange-01' : 'text-green-500'}`}
                   >
@@ -184,7 +185,7 @@ export default function GlobalHeader({
                               onClick: () =>
                                 window.open(
                                   header.uri || header.relative,
-                                  '_blank'
+                                  '_self'
                                 ),
                             }
                         : { onClick: () => setActiveSearch(true) })}
@@ -268,7 +269,7 @@ export default function GlobalHeader({
               ) : (
                 <Image
                   alt="logo-default"
-                  src={defaultLogo}
+                  src={defaultLogo ? `${API_BASE_URL}${defaultLogo}` : defaultLogo}
                   width={128}
                   height={53}
                   className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -316,7 +317,7 @@ export default function GlobalHeader({
                 ) : (
                   <Image
                     alt="logo-default"
-                    src={defaultLogo}
+                    src={defaultLogo ? `${API_BASE_URL}${defaultLogo}` : defaultLogo}
                     width={128}
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -337,7 +338,7 @@ export default function GlobalHeader({
                     >
                       <Link
                         href={generateLinkBottom(item)}
-                        target={'_blank'}
+                        target={'_self'}
                         className={[
                           `text-sm font-normal cursor-pointer uppercase relative px-5`,
                           `${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white' : ''}`,
@@ -507,7 +508,7 @@ export default function GlobalHeader({
                             <Link
                               href={generateLinkBottom(item)}
                               extern={item.options?.external || false}
-                              target={'_blank'}
+                              target={'_self'}
                               className="relative text-sm font-light capitalize group"
                             >
                               <span className="uppercase">{item.title}</span>
@@ -620,7 +621,7 @@ export default function GlobalHeader({
                             ) : (
                               <Link
                                 target={
-                                  header.options?.external ? '_blank' : '_self'
+                                  header.options?.external ? '_self' : '_self'
                                 }
                                 href={`${header.options?.external ? header.uri || header.relative : `/${String(header?.alias) || header?.relative}?lang=${currentLanguage ?? 'en'}`}`}
                               >

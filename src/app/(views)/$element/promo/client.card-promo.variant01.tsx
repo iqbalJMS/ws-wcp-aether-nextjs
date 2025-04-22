@@ -25,7 +25,7 @@ export default function CE_CardPromoVariant01({
   };
 
   return (
-    <Link href={nid ? `/promo-detail/${nid}` : '#'} target="_blank">
+    <Link href={nid ? `/promo-detail/${nid}` : '#'} target="_self">
       <div className="h-[300px] mdmax:max-w-[300px] relative rounded-xl overflow-hidden group cursor-pointer">
         {image && (
           <Image

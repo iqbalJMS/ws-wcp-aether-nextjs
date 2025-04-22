@@ -54,7 +54,7 @@ export default function CE_CardVariant09({
                           <Link
                             href={item?.button?.link}
                             extern={item?.button?.extern}
-                            target={item?.button?.extern ? '_blank' : ''}
+                            target={item?.button?.extern ? '_self' : ''}
                           >
                             <div className="inline-flex absolute inset-y-0 transform transition-all ease-in-out right-0 bg-white text-blue-01 lg:hover:text-white items-center lg:text-base text-xs px-10 group">
                               <div className="absolute inset-0 -right-4 lg:bg-red-700 transition-all duration-300 ease-in-out transform translate-x-full group-hover:translate-x-0"></div>

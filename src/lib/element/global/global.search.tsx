@@ -246,7 +246,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                     key={index}
                     className="w-1/3 mdmax:w-full flex-none px-2 mb-4"
                   >
-                    <Link href={dataItem.service_url || ''} target="_blank">
+                    <Link href={dataItem.service_url || ''} target="_self">
                       <div className="shadow-lg relative rounded-md rounded-br-[3rem] overflow-hidden group p-4">
                         <div className="h-[10rem] ">
                           {dataItem.image.url && (
@@ -285,7 +285,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                           <div className="text-right">
                             <Link
                               href={dataItem.service_url || ''}
-                              target="_blank"
+                              target="_self"
                             >
                               <div className="w-10 h-10 rounded-full border border-blue-01 border-opacity-80 inline-flex items-center justify-center text-blue-01">
                                 &#10095;
@@ -306,7 +306,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                     key={index}
                     className="w-1/3 mdmax:w-full flex-none px-2 mb-4"
                   >
-                    <Link href={dataItem.service_url || ''} target="_blank">
+                    <Link href={dataItem.service_url || ''} target="_self">
                       <div className="shadow-lg relative rounded-md overflow-hidden group">
                         <div className="w-full h-[18rem] ">
                           {dataItem.image.url && (
@@ -356,7 +356,7 @@ export function Search({ active, setActive }: T_SearchProps) {
                     key={index}
                     className="w-1/3 mdmax:w-full flex-none px-2 mb-4"
                   >
-                    <Link href={dataItem.service_url || ''} target="_blank">
+                    <Link href={dataItem.service_url || ''} target="_self">
                       <div className="shadow-lg relative rounded-md overflow-hidden group p-4">
                         <div className="w-full h-[15rem] rounded-md overflow-hidden">
                           {dataItem.image.url && (
