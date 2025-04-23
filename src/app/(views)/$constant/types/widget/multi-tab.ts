@@ -40,6 +40,7 @@ type T_Content_Type_Multitab = Array<{
 }>;
 
 type T_FieldParagraph = Array<{
+  entity_bundle: Array<{ value: string }>;
   field_accordion_items: any;
   field_formatted_title: any;
   column_count: number;

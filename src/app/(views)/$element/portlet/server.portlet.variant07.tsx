@@ -2,9 +2,11 @@ import Link from '@/lib/element/global/link';
 import React from 'react';
 import { ChevronRightIcon } from '@/lib/element/global/icons/chevron-right-icon';
 import { Tooltip } from '@/lib/element/global/tooltip';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_PortletVariant07Props = {
   title?: string;
+  description?: string;
   cardContent?: Array<{
     title?: string;
     textContent?: string;
@@ -15,15 +17,21 @@ type T_PortletVariant07Props = {
 
 export default async function SE_PortletVariant07({
   title,
+  description,
   cardContent,
 }: T_PortletVariant07Props) {
   return (
     <section className="my-20 py-20 bg-[#fafafa]">
       <div className="container">
         {title && (
-          <h1 className="text-4xl font-semibold mb-8 mdmax:text-center">
-            {title}
+          <h1 className="text-4xl font-semibold mb-4 mdmax:text-center">
+            {parseHTMLToReact(title)}
           </h1>
+        )}
+        {description && (
+          <p className="text-lg mb-8 mdmax:text-center text-gray-500">
+            {parseHTMLToReact(description)}
+          </p>
         )}
         <div className="flex items-center mdmax:justify-center flex-col md:flex-row gap-8">
           {cardContent &&
@@ -37,10 +45,10 @@ export default async function SE_PortletVariant07({
                 {cc.textContent && (
                   <div>
                     <p className="line-clamp-4 text-gray-400 group-hover/card07:text-white">
-                      {cc.textContent}
+                      {parseHTMLToReact(cc.textContent)}
                     </p>
                     <Tooltip
-                      description={cc.textContent}
+                      description={parseHTMLToReact(cc.textContent)}
                       position="right"
                       variant="complex"
                     >

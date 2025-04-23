@@ -79,7 +79,7 @@ export type T_Section = {
     field_second_image: Array<FieldSecondImage>;
     field_image?: Array<FieldImageItem>;
     field_primary_cta?: FieldPrimaryCTA[];
-    field_content?: any;
+    field_content?: HtmlContent[];
     field_alignment?: Array<{ value: string }>;
     field_title_custom?: Array<{ value: string }>;
     field_carousel_items?: Array<any>;

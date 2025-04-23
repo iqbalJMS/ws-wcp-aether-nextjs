@@ -6,13 +6,14 @@ import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09'
 import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
 import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
 import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
-import CE_PromoCard from '@/app/(views)/$element/portlet/client.portlet.variant04';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useState } from 'react';
 import Accordion from './accordion';
 import Image from './image';
 import Link from './link';
 import { Tooltip } from './tooltip';
+import SE_PortletVariant07 from '@/app/(views)/$element/portlet/server.portlet.variant07';
+import CE_PortletVariant08 from '@/app/(views)/$element/portlet/client.portlet.variant08';
 
 type TChildren = {
   richText: string;
@@ -63,6 +64,7 @@ type TabChildrenItem = {
     title?: string;
     field_title?: FieldValue[];
     field_content?: FieldValue[];
+    field_primary_cta?: { title: string; full_url: string }[];
     field_image?: {
       field_media_image: {
         uri: {
@@ -85,6 +87,7 @@ type TabChildrenItem = {
   textLink?: string;
   urlLink?: string;
   variantChildren?: string;
+  widgetType?: string;
 };
 
 type TabItem = {
@@ -243,25 +246,70 @@ export function Tabs({
           />
         );
       case WIDGET_VARIANT.variant13:
-        return list?.[menuActive]?.children?.map((item, index) => (
-          <CE_PromoCard
-            key={index}
-            description1={item?.description1}
-            description2={item?.description2}
-            imageUrl1={item?.imageUrl1}
-            imageUrl2={item?.imageUrl2}
-            variant={''}
-            variantTwoColumn={item?.variantChildren}
-          />
-        ));
+        return list?.[menuActive]?.children?.map((item, index) => {
+          switch (item.widgetType) {
+            case 'rich_text':
+              return (
+                <div className="container mx-auto my-6 py-6 body">
+                  {parseHTMLToReact(item?.description ?? '')}
+                </div>
+              );
+            case 'section':
+              return (
+                <SE_PortletVariant07
+                  key={index}
+                  title={item.title}
+                  description={item.description}
+                  cardContent={item.listColumn?.map((childItem) => {
+                    const title = childItem?.field_title?.[0]?.value ?? '';
+                    const description =
+                      childItem?.field_content?.[0]?.value ?? '';
+                    const textLink =
+                      childItem?.field_primary_cta?.[0]?.title ?? '';
+                    const urlLink =
+                      childItem?.field_primary_cta?.[0]?.full_url ?? '';
+                    return {
+                      title: title,
+                      textContent: description,
+                      textLink: textLink,
+                      urlTextLink: urlLink,
+                    };
+                  })}
+                />
+              );
+            case 'two_column':
+              return (
+                <div className="container">
+                  <CE_PortletVariant08
+                    key={index}
+                    description1={item?.description1}
+                    description2={item?.description2}
+                    imageUrl1={item?.imageUrl1}
+                    imageUrl2={item?.imageUrl2}
+                    variant={''}
+                    variantTwoColumn={item?.variantChildren}
+                  />
+                </div>
+              );
+            default:
+              return <></>;
+          }
+        });
       case WIDGET_VARIANT.variant15:
         return list?.[menuActive]?.children?.map((item, index) => (
-          <div key={index}>
-            <h4 className="text-center font-semibold mt-10 text-4xl">
-              {parseHTMLToReact(item?.titleColumn ?? '')}
-            </h4>
+          <div key={index} className="container">
+            {item?.titleColumn && (
+              <h4 className="text-center font-medium mt-10 text-4xl">
+                {parseHTMLToReact(item.titleColumn)}
+              </h4>
+            )}
+            {item?.description && (
+              <p className="text-center mt-6 text-lg text-gray-500">
+                {parseHTMLToReact(item.description)}
+              </p>
+            )}
             <div
-              className={`grid md:grid-cols-${item?.countColumn} grid-cols-1 mt-10 gap-6`}
+              className={`grid md:grid-cols-${item?.countColumn} grid-cols-1 mt-16 gap-6`}
             >
               {item?.listColumn?.map((childItem, idx: number) => {
                 const title = childItem?.field_title?.[0]?.value ?? '';
@@ -427,7 +475,7 @@ export function Tabs({
   })();
 
   return (
-    <div className={`container ${margin ? margin : 'mt-12 mb-16'}`}>
+    <div className={`${margin ? margin : 'mt-12 mb-16'}`}>
       {title && (
         <div
           className={`${style === 'center' && 'text-center'} text-4xl mb-16`}
@@ -435,7 +483,7 @@ export function Tabs({
           {parseHTMLToReact(title)}
         </div>
       )}
-      <div className="flex mb-12">
+      <div className="flex mb-12 container">
         {list?.map((item, index) => {
           return (
             <div
