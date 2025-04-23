@@ -37,7 +37,7 @@ export function CE_CardVariant03({ data }: T_CardVariant03Props) {
                             <Link
                               href={buttonItem.link}
                               extern={buttonItem.extern}
-                              target={buttonItem.extern ? '_blank' : ''}
+                              target={buttonItem.extern ? '_self' : ''}
                             >
                               <ButtonSecondary
                                 className="bg-orange-01"

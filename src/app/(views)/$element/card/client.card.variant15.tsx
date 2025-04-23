@@ -33,7 +33,7 @@ export function CE_CardVariant15({
             <Link
               href={button.link}
               extern={button.extern}
-              target={button.extern ? '_blank' : ''}
+              target={button.extern ? '_self' : ''}
             >
               <ButtonSecondary rounded="full" color="orange-01">
                 {button.title}

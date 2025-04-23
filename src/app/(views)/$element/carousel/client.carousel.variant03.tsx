@@ -77,12 +77,20 @@ export function CE_CarouselVariant03({
               </button>
             </div>
             {button && (
-              <Link href={handleurl(button?.link)} target="_self">
-                <div className="inline-flex gap-2 items-center text-blue-01 mt-10">
-                  {parseHTMLToReact(button?.name || '')}{' '}
-                  <span className="text-xs">&#10095;</span>
-                </div>
-              </Link>
+              <>
+                {handleurl(button?.link) === 'javascript:void(0)' ? (
+                  <div className="inline-flex gap-2 items-center text-blue-01 mt-10 cursor-pointer">
+                    {parseHTMLToReact(button?.name || '')}
+                  </div>
+                ) : (
+                  <Link href={handleurl(button?.link)} target="_self">
+                    <div className="inline-flex gap-2 items-center text-blue-01 mt-10">
+                      {parseHTMLToReact(button?.name || '')}
+                      <span className="text-xs">&#10095;</span>
+                    </div>
+                  </Link>
+                )}
+              </>
             )}
           </div>
           <div className="overflow-hidden p-5 mdmax:p-2">

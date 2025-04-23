@@ -18,7 +18,7 @@ export function CE_ContentVariant03({
                 key={index}
                 className="w-1/4 mdmax:w-1/2 flex-none px-2 mb-4"
               >
-                <Link href={dataItem.button?.link || ''} target="_blank">
+                <Link href={dataItem.button?.link || ''} target="_self">
                   <div className="text-center bg-black bg-opacity-5 rounded-md py-2 pt-4">
                     <div className="w-10 h-10 inline-block">
                       <Image

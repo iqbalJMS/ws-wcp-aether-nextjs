@@ -76,7 +76,7 @@ export default function CE_CardVariant17({ data }: T_CardVariant17Props) {
                       <Link
                         href={item.button.link}
                         extern={item.button.extern}
-                        target={item.button.extern ? '_blank' : ''}
+                        target={item.button.extern ? '_self' : ''}
                       >
                         <div className="w-10 h-10 rounded-full border border-blue-01 border-opacity-80 inline-flex items-center justify-center text-blue-01">
                           &#10095;

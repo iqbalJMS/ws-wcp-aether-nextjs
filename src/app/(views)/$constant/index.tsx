@@ -31,6 +31,7 @@ import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
 
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
+import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
 
 /* Portlet Component */
 const SE_PortletMain = dynamic(
@@ -81,6 +82,9 @@ const CE_CardVariant13 = dynamic(
 );
 const CE_CardVariant16 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant16')
+);
+const CE_CardVariant20 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant20')
 );
 const CE_CardVariant18 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant18')
@@ -484,8 +488,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
                         <div className="">
                           <Link
-                            href={item?.button?.link ?? 'javascript:void(0)'}
-                            target={!item?.button?.extern ? '_blank' : ''}
+                            href={handleurl(item?.button?.link)}
+                            target={!item?.button?.extern ? '_self' : ''}
                           >
                             <div className="inline-block uppercase text-blue-01 text-xs">
                               {item?.button?.title} &#10095;
@@ -687,8 +691,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 {dataV2?.map((item: any, index: number) => (
                   <Link
                     key={index}
-                    href={item?.button?.link ?? 'javascript:void(0)'}
-                    target="_blank"
+                    href={handleurl(item?.button?.link)}
+                    target="_self"
                     className="col-span-1 rounded-[3.5rem] hover:bg-[#1553a3] text-center group shadow-md transition transform ease-in-out p-6 py-12 cursor-pointer"
                   >
                     <div className="flex w-full justify-center group-hover:filter group-hover:brightness-0 group-hover:invert">
@@ -1469,7 +1473,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 return {
                   id: id,
                   type: type,
-                  img: imageDefault || image,
+                  img: imageDefault ? `${API_BASE_URL}${imageDefault}` : imageDefault || image ? `${API_BASE_URL}${image}` : image,
                   title: title,
                   description: description,
                   downloadFile: downloadFile
@@ -1497,7 +1501,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             const title = item?.field_title?.[0]?.value;
             const description = item?.field_content?.[0]?.value;
             const buttonTitle = item?.field_primary_cta?.[0]?.title;
-            const buttonLink = item?.field_primary_cta?.[0]?.url;
+            const buttonLink = item?.field_primary_cta?.[0]?.full_url;
             const buttonExtern = false;
             const image =
               item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
@@ -1506,7 +1510,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               imagePosition: imagePosition,
               title: title,
               description: description,
-              image: image,
+              image: image ? `${API_BASE_URL}${image}` : image,
               button: {
                 title: buttonTitle,
                 link: buttonLink,
@@ -1576,8 +1580,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   return {
                     description1: description1,
                     description2: description2,
-                    imageUrl1: imageUrl1,
-                    imageUrl2: imageUrl2,
+                    imageUrl1: imageUrl1 ? `${API_BASE_URL}${imageUrl1}` : imageUrl1,
+                    imageUrl2: imageUrl2 ? `${API_BASE_URL}${imageUrl2}` : imageUrl2,
                     variantChildren: variantChildren,
                   };
                 }),
@@ -1640,8 +1644,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 children: item?.field_paragraphs?.map((child) => {
                   return {
                     image:
-                      child?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                        ?.url,
+                    child?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url
+                    ? `${API_BASE_URL}${child.field_image[0].field_media_image[0].uri[0].url}`
+                    : child?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
                     title: child?.field_title?.[0]?.value,
                     description: child?.field_content?.[0]?.value,
                     textLink: child?.field_primary_cta?.[0]?.title,
@@ -1769,29 +1774,88 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   staircase_cards: {
-    component: CE_CardVariant16,
+    component: (...props) => {
+      const findVariantStyle = props?.[0]?.variant;
+      const cardsData = props?.[0]?.data ?? [];
+      const title = props?.[0]?.title ?? '';
+      
+      switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant61:
+          return (
+            <CE_CardVariant20
+              title={title}
+              data={cardsData}
+            />
+          );
+        default:
+          return (
+            <CE_CardVariant16
+              title={title}
+              data={cardsData}
+            />
+          );
+      }
+    },
     props: (_component: T_StaircaseCards) => {
-      return {
-        data: _component?.field_cards?.map((item) => {
-          const title = item?.field_title?.[0]?.value;
-          const description = item?.field_content?.[0]?.value;
-          const image =
-            item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
-          const buttonLink = item?.field_primary_cta?.[0]?.full_url;
-          const buttonTitle = item?.field_primary_cta?.[0]?.title;
-          const buttonExtern = false;
+      const findVariantStyle =
+        _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+          
+      const defaultCardData = _component?.field_cards?.map((item: any) => {
+        const title = item?.field_title?.[0]?.value;
+        const description = item?.field_content?.[0]?.value;
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        const buttonLink = item?.field_primary_cta?.[0]?.full_url;
+        const buttonTitle = item?.field_primary_cta?.[0]?.title;
+        const buttonExtern = false;
+          
+        return {
+          title: title,
+          description: description,
+          image: image ? `${API_BASE_URL}${image}` : image,
+          button: {
+            link: buttonLink,
+            title: buttonTitle,
+            extern: buttonExtern,
+          },
+        };
+      });
+        
+      const variant61CardData = _component?.field_cards?.map((item: any) => {
+        const title = item?.field_title?.[0]?.value;
+        const description = item?.field_content?.[0]?.value;
+        const image =
+          item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+        const buttonLink = item?.field_primary_cta?.[0]?.full_url;
+        const buttonTitle = item?.field_primary_cta?.[0]?.title;
+        const buttonExtern = false;
+          
+        return {
+          title: title,
+          description: description,
+          image: image ? `${API_BASE_URL}${image}` : image,
+          button: {
+            link: buttonLink,
+            title: buttonTitle,
+            extern: buttonExtern,
+          },
+        };
+      });
+      
+      switch (findVariantStyle) {
+        case WIDGET_VARIANT.variant61:
           return {
-            title: title,
-            description: description,
-            image: image ? `${API_BASE_URL}${image}` : image,
-            button: {
-              link: buttonLink,
-              title: buttonTitle,
-              extern: buttonExtern,
-            },
+            title: _component?.field_title?.[0]?.value,
+            data: variant61CardData,
+            variant: findVariantStyle,
           };
-        }),
-      };
+        default:
+          return {
+            title: _component?.field_title?.[0]?.value,
+            data: defaultCardData,
+            variant: findVariantStyle,
+          };
+      }
     },
   },
   bbri_stock_market: {
@@ -2195,7 +2259,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
                 {(children || [])?.map((item, index) => (
                   <div key={index} className="lg:w-1/4 w-full flex-none px-2">
-                    <Link href={item?.button?.link || '#'} target="_blank">
+                    <Link href={item?.button?.link || '#'} target="_self">
                       <div className="lg:p-5 p-4 shadow-lg">
                         {item?.image && (
                           <div className="w-full h-[255px] mb-2">

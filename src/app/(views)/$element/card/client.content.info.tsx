@@ -143,7 +143,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                     {detail.link && (
                       <a
                         href={detail.link}
-                        target="_blank"
+                        target="_self"
                         rel="noopener noreferrer"
                         className="text-blue-500 text-sm underline"
                       >
@@ -158,7 +158,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                               extern={false}
                               key={item?.[0]}
                               href={item?.[1]}
-                              target="_blank"
+                              target="_self"
                               className="bg-[#014a94] flex items-center justify-center h-7 w-7 text-white p-2 rounded-full"
                               rel="noopener noreferrer"
                             >

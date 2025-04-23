@@ -95,7 +95,7 @@ export function CE_CarouselVariant05({
                     href={
                       dataItem.nid ? `/promo-news-detail/${dataItem.nid}` : '#'
                     }
-                    target="_blank"
+                    target="_self"
                   >
                     <div className="p-4 shadow-lg h-full">
                       {dataItem.image && (
@@ -140,7 +140,7 @@ export function CE_CarouselVariant05({
           </div>
           <div className="text-center">
             {button && (
-              <Link href={button?.link} target="_blank">
+              <Link href={button?.link} target="_self">
                 <div className="inline-flex gap-2 items-center text-blue-01">
                   {parseHTMLToReact(button?.name || '')}{' '}
                   <span className="text-xs">&#10095;</span>

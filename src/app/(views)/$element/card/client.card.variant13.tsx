@@ -119,7 +119,7 @@ export default function CE_CardVariant13({
                             <div className="text-sm text-blue-01 underline text-center">
                               <Link
                                 href={item.contactInformation.website}
-                                target="_blank"
+                                target="_self"
                               >
                                 {parseHTMLToReact(
                                   item.contactInformation.website

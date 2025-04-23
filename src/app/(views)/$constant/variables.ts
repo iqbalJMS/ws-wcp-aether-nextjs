@@ -59,6 +59,7 @@ export const WIDGET_VARIANT = {
   variant58: 'richtext_table_blue_header',
   variant59: 'richtext_table_full_border',
   variant60: 'section_accordion_card_3',
+  variant61: 'staircase_1',
 };
 
 export const API_BASE_URL =

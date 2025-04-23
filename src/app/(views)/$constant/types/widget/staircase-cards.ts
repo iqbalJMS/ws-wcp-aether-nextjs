@@ -5,6 +5,12 @@ export type T_FieldItem = {
   field_primary_cta: { title: string; full_url: string }[];
 };
 
+export type T_WebVariantStyle = {
+  field_key: { value: string }[];
+};
+
 export type T_StaircaseCards = {
   field_cards: Array<T_FieldItem>;
+  field_web_variant_styles: Array<T_WebVariantStyle>;
+  field_title: { value: string }[];
 };

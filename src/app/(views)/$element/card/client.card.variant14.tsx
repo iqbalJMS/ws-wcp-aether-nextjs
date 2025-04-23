@@ -58,7 +58,7 @@ export function CE_CardVariant14({ data }: T_CardVariant14Props) {
                         <Link
                           href={item.button.link}
                           extern={item.button.extern}
-                          target={item.button.extern ? '_blank' : ''}
+                          target={item.button.extern ? '_self' : ''}
                         >
                           <div className="inline-block text-white text-base">
                             {item.button.title} &#10095;

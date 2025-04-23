@@ -285,7 +285,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
                   <div>
                     <Link
                       href={dataItem.urlMaps ? dataItem.urlMaps : ''}
-                      target="_blank"
+                      target="_self"
                     >
                       <div className="flex items-center text-red-01 font-semibold mb-5">
                         <div className="mr-2">
