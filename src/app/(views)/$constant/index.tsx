@@ -1473,7 +1473,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 return {
                   id: id,
                   type: type,
-                  img: imageDefault ? `${API_BASE_URL}${imageDefault}` : imageDefault || image ? `${API_BASE_URL}${image}` : image,
+                  img: imageDefault
+                    ? `${API_BASE_URL}${imageDefault}`
+                    : imageDefault || image
+                      ? `${API_BASE_URL}${image}`
+                      : image,
                   title: title,
                   description: description,
                   downloadFile: downloadFile
@@ -1580,8 +1584,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   return {
                     description1: description1,
                     description2: description2,
-                    imageUrl1: imageUrl1 ? `${API_BASE_URL}${imageUrl1}` : imageUrl1,
-                    imageUrl2: imageUrl2 ? `${API_BASE_URL}${imageUrl2}` : imageUrl2,
+                    imageUrl1: imageUrl1
+                      ? `${API_BASE_URL}${imageUrl1}`
+                      : imageUrl1,
+                    imageUrl2: imageUrl2
+                      ? `${API_BASE_URL}${imageUrl2}`
+                      : imageUrl2,
                     variantChildren: variantChildren,
                   };
                 }),
@@ -1643,10 +1651,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 slug: item?.field_title?.[0]?.value,
                 children: item?.field_paragraphs?.map((child) => {
                   return {
-                    image:
-                    child?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url
-                    ? `${API_BASE_URL}${child.field_image[0].field_media_image[0].uri[0].url}`
-                    : child?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                    image: child?.field_image?.[0]?.field_media_image?.[0]
+                      ?.uri?.[0]?.url
+                      ? `${API_BASE_URL}${child.field_image[0].field_media_image[0].uri[0].url}`
+                      : child?.field_image?.[0]?.field_media_image?.[0]
+                          ?.uri?.[0]?.url,
                     title: child?.field_title?.[0]?.value,
                     description: child?.field_content?.[0]?.value,
                     textLink: child?.field_primary_cta?.[0]?.title,
@@ -1778,28 +1787,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const findVariantStyle = props?.[0]?.variant;
       const cardsData = props?.[0]?.data ?? [];
       const title = props?.[0]?.title ?? '';
-      
+
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant61:
-          return (
-            <CE_CardVariant20
-              title={title}
-              data={cardsData}
-            />
-          );
+          return <CE_CardVariant20 title={title} data={cardsData} />;
         default:
-          return (
-            <CE_CardVariant16
-              title={title}
-              data={cardsData}
-            />
-          );
+          return <CE_CardVariant16 title={title} data={cardsData} />;
       }
     },
     props: (_component: T_StaircaseCards) => {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
-          
+
       const defaultCardData = _component?.field_cards?.map((item: any) => {
         const title = item?.field_title?.[0]?.value;
         const description = item?.field_content?.[0]?.value;
@@ -1808,7 +1807,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const buttonLink = item?.field_primary_cta?.[0]?.full_url;
         const buttonTitle = item?.field_primary_cta?.[0]?.title;
         const buttonExtern = false;
-          
+
         return {
           title: title,
           description: description,
@@ -1820,7 +1819,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
-        
+
       const variant61CardData = _component?.field_cards?.map((item: any) => {
         const title = item?.field_title?.[0]?.value;
         const description = item?.field_content?.[0]?.value;
@@ -1829,7 +1828,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const buttonLink = item?.field_primary_cta?.[0]?.full_url;
         const buttonTitle = item?.field_primary_cta?.[0]?.title;
         const buttonExtern = false;
-          
+
         return {
           title: title,
           description: description,
@@ -1841,7 +1840,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           },
         };
       });
-      
+
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant61:
           return {
