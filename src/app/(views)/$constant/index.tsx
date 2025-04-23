@@ -1,6 +1,3 @@
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 import AboutSection from '@/app/(views)/$element/client.about.section';
@@ -8,13 +5,14 @@ import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
-
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
 import ImageViewer from '@/lib/element/global/image.viewer';
 import { Tabs } from '@/lib/element/global/tabs';
-
+import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_News } from './types/widget/content_type';
@@ -29,9 +27,7 @@ import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
-
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
-import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
 
 /* Portlet Component */
 const SE_PortletMain = dynamic(
