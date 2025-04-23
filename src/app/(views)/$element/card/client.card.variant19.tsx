@@ -3,6 +3,7 @@
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { handleurl } from '@/lib/functions/client/handle-url'; 
 
 type T_CardVariant19Props = {
   title: string;
@@ -68,9 +69,9 @@ export default function CE_CardVariant19({
                   {item?.button?.title && (
                     <div className="text-center">
                       <Link
-                        href={item?.button?.link ?? ''}
+                        href={handleurl(item?.button?.link)}
                         extern={item?.button?.extern}
-                        target={item?.button?.extern ? '_self' : ''}
+                        target={item?.button?.extern ? '_self' : '_self'}
                       >
                         <div className="inline-block text-blue-01 uppercase text-base">
                           {item?.button?.title} &#10095;

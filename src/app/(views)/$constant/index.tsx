@@ -326,8 +326,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         url: props?.btnSiapaSabrinaUrl,
       };
       const dataV2 = props?.data;
-      const linkText = props?.linkText;
-      const linkUrl = props?.linkUrl;
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -388,7 +386,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return <CE_CardVariant08 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant11:
           return (
-            <CE_CarouselMain variant="01" data={listItems} title={title} />
+            <CE_CarouselMain variant="01" data={listItems} title={title} description={subtitle} button={props?.button}/>
           );
         case WIDGET_VARIANT.variant47:
           return (
@@ -714,15 +712,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant44:
           return <CE_CardVariant19 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant45:
-          return <CE_CarouselVariant08 data={listItems} title={title} />;
+          return <CE_CarouselVariant08 data={listItems} title={title} description={subtitle} button={props?.button}/>;
         case WIDGET_VARIANT.variant48:
           return (
             <CE_CarouselVariant09
-              button={{
-                link: linkUrl,
-                name: linkText,
-              }}
+              button={props?.button}
               data={listItems}
+              description={subtitle}
               title={title}
             />
           );
@@ -835,7 +831,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           description: item?.field_content?.[0]?.value,
           image: image ? `${API_BASE_URL}${image}` : image,
           button: {
-            link: item?.field_primary_cta?.[0]?.uri,
+            link: item?.field_primary_cta?.[0]?.full_url,
             title: item?.field_primary_cta?.[0]?.title,
             extern: true,
           },
@@ -894,7 +890,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           description: item?.field_content?.[0]?.value,
           image: image ? `${API_BASE_URL}${image}` : image,
           button: {
-            link: item?.field_primary_cta?.[0]?.uri,
+            link: item?.field_primary_cta?.[0]?.full_url,
             title: item?.field_primary_cta?.[0]?.title,
             extern: true,
           },
@@ -1150,6 +1146,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             title: titleV02,
+            subtitle: parseHTMLToReact(subtitle || ''),
+            button: {
+              name: hreftitle,
+              link: hrefLink,
+            },
             data: dataV11,
           };
         case WIDGET_VARIANT.variant47:
@@ -1309,6 +1310,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             title: titleV02,
+            subtitle: parseHTMLToReact(subtitle || ''),
+            button: {
+              name: hreftitle,
+              link: hrefLink,
+            },
             data: dataV11,
           };
         case WIDGET_VARIANT.variant48:
@@ -1316,8 +1322,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             title: titleV02,
             data: dataV11,
-            linkText: _component?.field_primary_cta?.[0]?.title,
-            linkUrl: _component?.field_primary_cta?.[0]?.title,
+            button: {
+              name: hreftitle,
+              link: hrefLink,
+            },
           };
         case WIDGET_VARIANT.variant50:
           return {
