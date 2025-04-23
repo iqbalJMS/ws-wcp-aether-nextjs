@@ -1081,8 +1081,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
       const dataRichText = _component?.field_column?.map((item) => {
         return {
-          element: item?.field_content?.[0]?.value.replace(
-            '/sites/default',
+          element: item?.field_content?.[0]?.processed.replace(
+            /\/sites\/default/g,
             `${API_BASE_URL}/sites/default`
           ),
         };
@@ -1564,6 +1564,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 title: item?.field_title?.[0]?.value,
                 slug: rootSlug,
                 children: item?.field_paragraphs?.map((item) => {
+                  const title = item?.field_formatted_title?.[0]?.value;
+                  const description = item?.field_content?.[0]?.value;
                   const description1 =
                     item?.field_first_column?.[0]?.field_content?.[0]?.value;
                   const description2 =
@@ -1574,10 +1576,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   const imageUrl2 =
                     item.field_second_column?.[0]?.field_image?.[0]
                       ?.field_media_image?.[0]?.uri?.[0]?.url;
+                  const listColumn = item?.field_column;
 
                   const variantChildren =
                     item?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
+                  const widgetType = item?.entity_bundle?.[0]?.value;
                   return {
+                    listColumn: listColumn,
+                    widgetType: widgetType,
+                    title: title,
+                    description: description,
                     description1: description1,
                     description2: description2,
                     imageUrl1: imageUrl1
@@ -1606,6 +1614,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     titleColumn: paragraph?.field_formatted_title?.[0]?.value,
                     countColumn: paragraph?.column_count ?? 3,
                     listColumn: paragraph?.field_column ?? [],
+                    description: paragraph?.field_content?.[0]?.value,
                   };
                 }),
               };
@@ -1944,7 +1953,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               description2={description2}
               imageUrl1={imageUrl1}
               imageUrl2={imageUrl2}
-              variant={findVariantStyle}
+              variant={''}
             />
           );
       }

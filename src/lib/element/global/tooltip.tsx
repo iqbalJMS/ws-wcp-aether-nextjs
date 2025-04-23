@@ -3,7 +3,7 @@
 import React from 'react';
 
 type T_TooltipProps = {
-  description: string;
+  description: string | React.ReactNode;
   variant?: 'simple' | 'complex';
   position?: 'top' | 'bottom' | 'left' | 'right';
   children: React.ReactNode;
