@@ -6,7 +6,7 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useState } from 'react';
-import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 export function CE_CarouselVariant03({
   title,

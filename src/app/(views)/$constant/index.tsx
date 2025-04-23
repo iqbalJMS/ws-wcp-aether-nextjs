@@ -1,6 +1,3 @@
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 import AboutSection from '@/app/(views)/$element/client.about.section';
@@ -8,13 +5,14 @@ import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
-
 import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
 import ImageViewer from '@/lib/element/global/image.viewer';
 import { Tabs } from '@/lib/element/global/tabs';
-
+import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_News } from './types/widget/content_type';
@@ -29,9 +27,7 @@ import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
-
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
-import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
 
 /* Portlet Component */
 const SE_PortletMain = dynamic(
@@ -1380,17 +1376,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const variantLayout = _component?.field_header_style?.[0]?.value;
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
-      const buttonItem = _component?.field_primary_cta?.map((item) => {
-        return {
-          buttonText: item?.title,
-          buttonLink:
-            item?.uri || _component?.field_primary_cta?.[0]?.uri || '#',
-          buttonCta:
-            item?.full_url ||
-            _component?.field_primary_cta?.[0]?.full_url ||
-            '#',
-        };
-      });
+      const buttonItem = _component?.field_primary_cta?.map((item) => ({
+        buttonText: item?.title,
+        buttonLink: handleurl(
+          item?.uri || _component?.field_primary_cta?.[0]?.uri
+        ),
+        buttonCta: handleurl(
+          item?.full_url || _component?.field_primary_cta?.[0]?.full_url
+        ),
+      }));
+
       return {
         title: title,
         subtitle: subtitle,
@@ -2005,8 +2000,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 title:
                   _component.field_first_column?.[0]?.field_paragraphs?.[0]
                     ?.field_primary_cta?.[0]?.title,
-                link: _component?.field_first_column?.[0]?.field_paragraphs?.[0]
-                  ?.field_primary_cta?.[0]?.full_url,
+                link: handleurl(
+                  _component?.field_first_column?.[0]?.field_paragraphs?.[0]
+                    ?.field_primary_cta?.[0]?.full_url
+                ),
                 extern: false,
               },
             },

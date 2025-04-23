@@ -2,7 +2,7 @@
 
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
-import { handleurl } from '@/app/(views)/$function/cfn.handle-url';
+import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_CardVariant18Props = {
