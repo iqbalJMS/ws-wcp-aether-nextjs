@@ -1990,8 +1990,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 title:
                   _component.field_first_column?.[0]?.field_paragraphs?.[0]
                     ?.field_primary_cta?.[0]?.title,
-                link: _component?.field_first_column?.[0]?.field_paragraphs?.[0]
-                  ?.field_primary_cta?.[0]?.full_url,
+                link: handleurl(
+                  _component?.field_first_column?.[0]?.field_paragraphs?.[0]
+                    ?.field_primary_cta?.[0]?.full_url
+                ),
                 extern: false,
               },
             },
