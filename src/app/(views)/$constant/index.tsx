@@ -1366,17 +1366,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const variantLayout = _component?.field_header_style?.[0]?.value;
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
-      const buttonItem = _component?.field_primary_cta?.map((item) => {
-        return {
-          buttonText: item?.title,
-          buttonLink:
-            item?.uri || _component?.field_primary_cta?.[0]?.uri || '#',
-          buttonCta:
-            item?.full_url ||
-            _component?.field_primary_cta?.[0]?.full_url ||
-            '#',
-        };
-      });
+      const buttonItem = _component?.field_primary_cta?.map((item) => ({
+        buttonText: item?.title,
+        buttonLink: handleurl(
+          item?.uri || _component?.field_primary_cta?.[0]?.uri
+        ),
+        buttonCta: handleurl(
+          item?.full_url || _component?.field_primary_cta?.[0]?.full_url
+        ),
+      }));
+
       return {
         title: title,
         subtitle: subtitle,
