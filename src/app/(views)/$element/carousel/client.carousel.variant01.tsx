@@ -91,7 +91,7 @@ export function CE_CarouselVariant01({
               {data?.map((dataItem, index) => (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={handleurl(dataItem?.button?.link)} target="_self">
-                    <div className="p-4 mdmax:p-2 shadow-lg py-10 px-5 h-[30rem] mdmax:h-[25rem] flex flex-col">
+                    <div className="p-4 mdmax:p-2 shadow-lg py-10 px-5 h-[29rem] mdmax:h-[29rem] flex flex-col">
                       {dataItem?.image && (
                         <div className="w-full h-[15rem] mb-4 flex-shrink-0">
                           <Image
@@ -106,7 +106,7 @@ export function CE_CarouselVariant01({
                       )}
                       <div className="flex flex-col flex-grow">
                         {dataItem?.title && (
-                          <div className=" text-red-01 font-semibold mb-2">
+                          <div className=" text-red-01 font-semibold mb-6 mt-2">
                             {parseHTMLToReact(dataItem?.title)}
                           </div>
                         )}
