@@ -386,7 +386,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return <CE_CardVariant08 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant11:
           return (
-            <CE_CarouselMain variant="01" data={listItems} title={title} description={subtitle} button={props?.button}/>
+            <CE_CarouselMain
+              variant="01"
+              data={listItems}
+              title={title}
+              description={subtitle}
+              button={props?.button}
+            />
           );
         case WIDGET_VARIANT.variant47:
           return (
@@ -712,7 +718,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant44:
           return <CE_CardVariant19 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant45:
-          return <CE_CarouselVariant08 data={listItems} title={title} description={subtitle} button={props?.button}/>;
+          return (
+            <CE_CarouselVariant08
+              data={listItems}
+              title={title}
+              description={subtitle}
+              button={props?.button}
+            />
+          );
         case WIDGET_VARIANT.variant48:
           return (
             <CE_CarouselVariant09
