@@ -2534,6 +2534,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         extern: boolean;
         link: string;
       };
+      description: string;
+      title:string;
     }) => {
       const button = {
         title: props?.button.title,
@@ -2546,25 +2548,27 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         link: (props?.actionButton.link || '').replace('/id', ''),
       };
       const tabs = props?.tabs;
-
+      const description = props?.description;
+      const title = props?.title;
       return (
         <CE_SimulationMain
           type={props.tabs.length === 1 ? 'page' : 'tab'}
+          button={{
+            extern: button?.extern,
+            link: button?.link,
+            title: button?.title,
+          }}
           action={{
             button: {
               extern: actionButton?.extern,
               link: actionButton?.link,
               title: actionButton?.title,
             },
-            description: `Tertarik mengajukan Kredit? Kunjungi cabang terdekat kami.`,
-          }}
-          button={{
-            extern: button?.extern,
-            link: button?.link,
-            title: button?.title,
           }}
           variant={tabs.at(0)?.variant || 'kpr'}
           tabs={tabs}
+          title={title}
+          description={description}
         />
       );
     },
@@ -2574,6 +2578,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         field_simulation: Array<{ value: string }>;
         field_secondary_content: Array<{ value: string }>;
         field_primary_cta: { title: string; full_url: string }[];
+        field_content?: Array<{ value: string }>;
         field_image?: {
           field_media_image?: {
             uri?: {
@@ -2583,13 +2588,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         }[];
       }>;
       field_primary_cta: { title: string; full_url: string }[];
+      field_title?: Array<{ value: string }>;
     }) => {
       return {
         tabs: _component?.field_paragraphs?.map((item) => {
+          const image = item.field_image?.at(0)?.field_media_image?.at(0)?.uri?.at(0)
+          ?.url
           return {
             title: item?.field_title?.[0]?.value,
-            image: item.field_image?.at(0)?.field_media_image?.at(0)?.uri?.at(0)
-              ?.url,
+            image: image ? `${API_BASE_URL}${image}` : image,
             tnc: item?.field_secondary_content?.[0]?.value,
             variant: item?.field_simulation?.[0]?.value.toLowerCase(),
           };
@@ -2606,6 +2613,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           link: _component?.field_paragraphs?.[0]?.field_primary_cta?.[0]
             ?.full_url,
         },
+        title: _component?.field_title?.[0]?.value,
+        description: _component?.field_paragraphs?.[0]?.field_content?.[0]?.value,
       };
     },
   },

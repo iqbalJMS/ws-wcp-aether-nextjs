@@ -5,6 +5,7 @@ import Link from '@/lib/element/global/link';
 import { Tabs } from '@/lib/element/global/tabs';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useMemo, useState } from 'react';
+import { handleurl } from '@/lib/functions/client/handle-url';
 import CE_SimulationKPRMain from './client.simulation-kpr.main';
 import CE_SimulationKPRSMain from './client.simulation-kprs.main';
 import CE_SimulationDepositoMain from './client.simulation-deposito.main';
@@ -26,7 +27,6 @@ type T_SimulationMainProps = {
     extern: boolean;
   };
   action: {
-    description: string;
     button: {
       link: string;
       title: string;
@@ -40,6 +40,8 @@ type T_SimulationMainProps = {
     variant: string;
     tnc: string;
   }[];
+  title: string;
+  description?: string;
 };
 
 const CE_SimulationMain = ({
@@ -48,12 +50,14 @@ const CE_SimulationMain = ({
   button,
   action,
   type,
+  title,
+  description,
 }: T_SimulationMainProps) => {
   const [variant, setVariant] = useState(initialVariant);
   const simulation = useMemo(() => {
     return tabs?.find((item) => item.variant === variant);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variant]);
+
   return (
     <div className="relative overflow-hidden">
       <div className="w-[50%]  h-full absolute top-0 left-0">
@@ -90,7 +94,7 @@ const CE_SimulationMain = ({
               {type === 'tab' && (
                 <div className="text-right mb-10">
                   <Link
-                    href={button.link.replace('/id', '')}
+                    href={handleurl(button.link)}
                     extern={button.extern}
                     target={button.extern ? '_self' : ''}
                   >
@@ -116,22 +120,19 @@ const CE_SimulationMain = ({
               )}
 
               <div>
-                <div
-                  className={`text-3xl font-semibold ${type === 'tab' ? '' : ''}`}
-                >
-                  {simulation && simulation.title}
+                <div className={`text-3xl font-semibold ${type === 'tab' ? '' : ''}`}>
+                  {title || simulation?.title}
                 </div>
                 {type === 'page' && (
                   <div className="flex mdmax:flex-wrap items-center justify-between">
-                    <div className="flex-none mdmax:w-full">
-                      <div className="text-black text-opacity-50 font-medium text-lg">
-                        Tertarik mengajukan {simulation && simulation.title}?
-                        <br /> Kunjungi cabang terdekat kami.
+                    <div className="flex-none mdmax:w-full max-w-[70%]">
+                      <div className="text-black text-opacity-50 font-medium text-lg max-w-[80%]">
+                        {description ? parseHTMLToReact(description) : ''}
                       </div>
                     </div>
                     <div className="mdmax:w-full">
                       <Link
-                        href={action.button.link}
+                        href={handleurl(action.button.link)}
                         extern={action.button.extern}
                         target={action.button.extern ? '_self' : ''}
                       >
@@ -177,13 +178,12 @@ const CE_SimulationMain = ({
                   <div className="flex mdmax:flex-wrap items-center justify-between">
                     <div className="flex-none mdmax:w-full">
                       <div className="text-black text-opacity-50 font-medium text-lg">
-                        Tertarik mengajukan {simulation && simulation.title}?
-                        <br /> Kunjungi cabang terdekat kami.
+                        {title || simulation?.title}
                       </div>
                     </div>
                     <div>
                       <Link
-                        href={action.button.link}
+                        href={handleurl(action.button.link)}
                         extern={action.button.extern}
                         target={action.button.extern ? '_self' : ''}
                       >
