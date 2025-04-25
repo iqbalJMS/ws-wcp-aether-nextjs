@@ -18,7 +18,12 @@ export default function CE_CarouselMain({
   return (
     <>
       {variant === '01' && (
-        <CE_CarouselVariant01 data={data} title={title} button={button} description={description}/>
+        <CE_CarouselVariant01
+          data={data}
+          title={title}
+          button={button}
+          description={description}
+        />
       )}
       {variant === '02' && (
         <CE_CarouselVariant02 data={data} title={title} button={button} />
