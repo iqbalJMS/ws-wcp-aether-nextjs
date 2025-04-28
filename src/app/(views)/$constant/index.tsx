@@ -1,3 +1,6 @@
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 import AboutSection from '@/app/(views)/$element/client.about.section';
@@ -5,14 +8,14 @@ import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
-import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
+import Accordion from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
 import ImageViewer from '@/lib/element/global/image.viewer';
-import { Tabs } from '@/lib/element/global/tabs';
+import Tabs from '@/lib/element/global/tabs';
+
 import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
+
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_News } from './types/widget/content_type';
@@ -27,6 +30,7 @@ import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
+import { T_AccordionProps } from '@/lib/element/global/accordion';
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
 
 /* Portlet Component */
@@ -1419,8 +1423,22 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       switch (variant) {
         case WIDGET_VARIANT.variant49:
           return <CE_SectionPromo title={title} listTab={listTab} />;
-        case WIDGET_VARIANT.variant05:
         case WIDGET_VARIANT.variant10:
+          return (
+            <Tabs
+              title={title}
+              list={list}
+              style={style}
+              variant="border-arrow"
+              variantContent={variant}
+              drupalBase={API_BASE_URL}
+              defaultSelected={
+                ((list as any[]) || []).find(({ selected }) => selected > 0)
+                  ?.selected || 0
+              }
+            />
+          );
+        case WIDGET_VARIANT.variant05:
         case WIDGET_VARIANT.variant13:
         case WIDGET_VARIANT.variant15:
         case WIDGET_VARIANT.variant29:
@@ -2535,7 +2553,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         link: string;
       };
       description: string;
-      title:string;
+      title: string;
     }) => {
       const button = {
         title: props?.button.title,
@@ -2592,8 +2610,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     }) => {
       return {
         tabs: _component?.field_paragraphs?.map((item) => {
-          const image = item.field_image?.at(0)?.field_media_image?.at(0)?.uri?.at(0)
-          ?.url
+          const image = item.field_image
+            ?.at(0)
+            ?.field_media_image?.at(0)
+            ?.uri?.at(0)?.url;
           return {
             title: item?.field_title?.[0]?.value,
             image: image ? `${API_BASE_URL}${image}` : image,
@@ -2614,7 +2634,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             ?.full_url,
         },
         title: _component?.field_title?.[0]?.value,
-        description: _component?.field_paragraphs?.[0]?.field_content?.[0]?.value,
+        description:
+          _component?.field_paragraphs?.[0]?.field_content?.[0]?.value,
       };
     },
   },

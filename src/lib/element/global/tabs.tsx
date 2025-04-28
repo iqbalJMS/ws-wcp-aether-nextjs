@@ -122,7 +122,7 @@ type TRenderElemment = {
   type: string;
 };
 
-export function Tabs({
+export default function Tabs({
   list,
   value,
   onChange,
@@ -289,7 +289,6 @@ export function Tabs({
                     description2={item?.description2}
                     imageUrl1={item?.imageUrl1}
                     imageUrl2={item?.imageUrl2}
-                    variant={''}
                     variantTwoColumn={item?.variantChildren}
                   />
                 </div>
@@ -599,7 +598,8 @@ export function Tabs({
                   className={[
                     'absolute bottom-0 left-0',
                     'w-full h-[.2rem] bg-blue-01',
-                    item?.slug === value && list?.length > 1
+                    (item?.slug === value || menuActive === index) &&
+                    list?.length > 1
                       ? 'visible'
                       : 'invisible',
                     'group-hover/tab:visible',

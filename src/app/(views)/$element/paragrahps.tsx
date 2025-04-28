@@ -12,14 +12,14 @@ export default function CE_Paragraphs({
     <div className="grid mt-4">
       <div className="grid grid-cols-4 gap-6">
         {description && (
-          <div className="col-span-3">
+          <div className="col-span-3 body">
             {parseHTMLToReact(description ?? '')}
           </div>
         )}
 
         {notes && (
           <div className="cols-span-1">
-            <div className="border border-[#f59a22] p-4 rounded-lg">
+            <div className="border border-[#f59a22] p-4 rounded-lg body">
               {parseHTMLToReact(notes ?? '')}
             </div>
           </div>

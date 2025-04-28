@@ -2,7 +2,7 @@
 
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
-import { Tabs } from '@/lib/element/global/tabs';
+import Tabs from '@/lib/element/global/tabs';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useMemo, useState } from 'react';
 

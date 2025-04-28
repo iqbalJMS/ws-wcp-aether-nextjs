@@ -42,7 +42,7 @@ export default async function SE_PortletVariant01({
         backgroundSize: 'cover',
       }}
     >
-      <div className="container">
+      <div className="container py-20">
         {title && (
           <div className="font-medium md:text-4xl text-3xl mdmax:text-center mb-4">
             {parseHTMLToReact(title)}
