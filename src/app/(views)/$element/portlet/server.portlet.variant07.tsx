@@ -3,6 +3,7 @@ import React from 'react';
 import { ChevronRightIcon } from '@/lib/element/global/icons/chevron-right-icon';
 import { Tooltip } from '@/lib/element/global/tooltip';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 type T_PortletVariant07Props = {
   title?: string;
@@ -60,7 +61,7 @@ export default async function SE_PortletVariant07({
                 )}
                 {cc.textLink && (
                   <Link
-                    href={cc.urlTextLink ?? '#'}
+                    href={handleurl(cc.urlTextLink)}
                     className="text-blue-800 hover:underline flex gap-2 group-hover/card07:text-white items-center"
                   >
                     <p className="uppercase">{cc.textLink}</p>
