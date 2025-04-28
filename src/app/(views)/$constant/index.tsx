@@ -44,9 +44,8 @@ const CE_PortletVarian05 = dynamic(
 const CE_CarouselMain = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.main')
 );
-const CE_CarouselVariant06 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
-);
+const CE_CarouselVariant06 = dynamic(() => import('@/app/(views)/$element/carousel/client.carousel.variant06'), { ssr: false }); /* server-side rendering */
+
 const CE_CarouselVariant08 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
 );
@@ -166,7 +165,7 @@ const SE_FormMain = dynamic(
 const SE_Sitemap = dynamic(
   () => import('@/app/(views)/$element/server.sitemap')
 );
-
+const AccordionClient = dynamic(() => import('@/lib/element/global/accordion'), { ssr: false })
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -386,7 +385,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return <CE_CardVariant08 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant11:
           return (
-            <CE_CarouselMain variant="01" data={listItems} title={title} description={subtitle} button={props?.button}/>
+            <CE_CarouselMain
+              variant="01"
+              data={listItems}
+              title={title}
+              description={subtitle}
+              button={props?.button}
+            />
           );
         case WIDGET_VARIANT.variant47:
           return (
@@ -647,6 +652,62 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               </div>
             </div>
           );
+        case WIDGET_VARIANT.variant62:
+          const accordionStyle = 'capsule';
+          const isCapsule = accordionStyle === 'capsule' ? 'rounded' : '';
+
+          return (
+            <div className="container mx-auto py-6">
+              {title && (
+                <div className="mb-4 text-4xl">
+                  {parseHTMLToReact(title || '')}
+                </div>
+              )}
+
+              {subtitle && (
+                <div className="mb-6">
+                  {parseHTMLToReact(subtitle || '')}
+                </div>
+              )}
+
+              <div className="space-y-4">
+                {(accordion || []).map((item, key) => {
+                  const itemTitle = item?.title || '';
+                  const itemContent = item?.content || '';
+                  const children = Array.isArray(item?.children) ? item.children : [];
+                  const hasChildren = children.length > 0;
+
+                  return (
+                    <AccordionClient
+                      key={key}
+                      renderTitle={
+                        <div className="flex items-center pl-6">
+                          {backgroundImg && <img src={backgroundImg} alt="Accordion Image" className="w-10 h-10 mr-4" />}
+                          <p className="lg:text-base text-sm font-semibold pl-4 text-left">
+                            {itemTitle}
+                          </p>
+                        </div>
+                      }
+                      variant={isCapsule as T_AccordionProps['variant']}
+                      renderContent={
+                        hasChildren ? (
+                          <CE_CarouselVariant06
+                            data={children.map((child: any) => ({
+                              image: child?.image ? `${API_BASE_URL}${child.image}` : '',
+                              description: child?.title || ''
+                            }))}
+                          />
+                        ) : (
+                          parseHTMLToReact(itemContent)
+                        )
+                      }
+                      content={itemContent}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          );
         case WIDGET_VARIANT.variant39:
           return (
             <div>
@@ -712,7 +773,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant44:
           return <CE_CardVariant19 title={title} data={listItems} />;
         case WIDGET_VARIANT.variant45:
-          return <CE_CarouselVariant08 data={listItems} title={title} description={subtitle} button={props?.button}/>;
+          return (
+            <CE_CarouselVariant08
+              data={listItems}
+              title={title}
+              description={subtitle}
+              button={props?.button}
+            />
+          );
         case WIDGET_VARIANT.variant48:
           return (
             <CE_CarouselVariant09
@@ -1083,6 +1151,24 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           ),
         };
       });
+      const dataV62 = _component?.field_column?.[0]?.field_accordion_items?.map(
+        (item: any) => {
+          // Get all slider items from paragraphs (using any type to avoid TypeScript errors)
+          const sliderItems = item?.field_paragraphs?.map((paragraph: any) => {
+            // Since we're using 'any' type, we can safely access these properties
+            return {
+              title: paragraph?.field_content?.[0]?.value,
+              image: paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url
+            };
+          });
+          
+          return {
+            title: item?.field_title?.[0]?.value,
+            content: item?.field_content?.[0]?.value || '',
+            children: sliderItems || []
+          };
+        }
+      );
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -1264,6 +1350,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             backgroundImage: backgroundImage,
             variant: findVariantStyle,
             accordion: dataV60,
+          };
+        case WIDGET_VARIANT.variant62:
+          return {
+            title: title,
+            subtitle: subtitle,
+            variant: findVariantStyle,
+            backgroundImage: backgroundImage,
+            accordion: dataV62,
           };
         case WIDGET_VARIANT.variant39:
           return {
