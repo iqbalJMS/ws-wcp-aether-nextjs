@@ -28,9 +28,9 @@ const CE_PromoCard = ({
 
   return (
     <>
-      <div className="w-full relative hidden lg:flex mt-10 lg:mt-20 mb-10 lg:mb-20">
+      <div className="container w-full relative hidden lg:flex mt-10 lg:mt-20 mb-10 lg:mb-20">
         {description1 && (
-          <div className="flex-1 flex flex-col pl-[14.5rem] items-center z-10 md:max-w-[950px]">
+          <div className="flex-1 flex flex-col items-center z-10 md:max-w-[950px]">
             <div className="w-full flex justify-start">
               <div
                 className={`mb-2 flex text-center md:text-left w-full md:max-w-[650px] ${variantTwoColumnClass ? `${variantTwoColumnClass}` : 'pl-[200px]'}`}
@@ -97,6 +97,7 @@ const CE_PromoCard = ({
           </div>
         )}
       </div>
+
       <div className="relative flex flex-col lg:hidden my-10">
         {description1 && (
           <div className="flex-1 flex flex-col justify-center pl-6 items-center z-10 order-1">
@@ -137,7 +138,7 @@ const CE_PromoCard = ({
 
         {description2 && (
           <div className="flex-1 flex flex-col justify-center pl-6 items-center z-10 bg-white order-2">
-            <div className="w-full flex justify-end">
+            <div className="w-full flex">
               <div
                 className={`mb-2 w-full flex px-4 md:px-0 justify-center text-left leading-relaxed md:max-w-[650px] ${variantTwoColumnClass}`}
               >

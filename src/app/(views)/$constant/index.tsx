@@ -1,3 +1,6 @@
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 import AboutSection from '@/app/(views)/$element/client.about.section';
@@ -5,14 +8,14 @@ import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
-import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
+import Accordion from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
 import ImageViewer from '@/lib/element/global/image.viewer';
-import { Tabs } from '@/lib/element/global/tabs';
+import Tabs from '@/lib/element/global/tabs';
+
 import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
+
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_News } from './types/widget/content_type';
@@ -27,6 +30,7 @@ import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
+import { T_AccordionProps } from '@/lib/element/global/accordion';
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
 
 /* Portlet Component */
@@ -44,9 +48,8 @@ const CE_PortletVarian05 = dynamic(
 const CE_CarouselMain = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.main')
 );
-const CE_CarouselVariant06 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
-);
+const CE_CarouselVariant06 = dynamic(() => import('@/app/(views)/$element/carousel/client.carousel.variant06'), { ssr: false }); /* server-side rendering */
+
 const CE_CarouselVariant08 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
 );
@@ -166,7 +169,7 @@ const SE_FormMain = dynamic(
 const SE_Sitemap = dynamic(
   () => import('@/app/(views)/$element/server.sitemap')
 );
-
+const AccordionClient = dynamic(() => import('@/lib/element/global/accordion'), { ssr: false })
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -653,6 +656,62 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               </div>
             </div>
           );
+        case WIDGET_VARIANT.variant62:
+          const accordionStyle = 'capsule';
+          const isCapsule = accordionStyle === 'capsule' ? 'rounded' : '';
+
+          return (
+            <div className="container mx-auto py-6">
+              {title && (
+                <div className="mb-4 text-4xl">
+                  {parseHTMLToReact(title || '')}
+                </div>
+              )}
+
+              {subtitle && (
+                <div className="mb-6">
+                  {parseHTMLToReact(subtitle || '')}
+                </div>
+              )}
+
+              <div className="space-y-4">
+                {(accordion || []).map((item, key) => {
+                  const itemTitle = item?.title || '';
+                  const itemContent = item?.content || '';
+                  const children = Array.isArray(item?.children) ? item.children : [];
+                  const hasChildren = children.length > 0;
+
+                  return (
+                    <AccordionClient
+                      key={key}
+                      renderTitle={
+                        <div className="flex items-center pl-6">
+                          {backgroundImg && <img src={backgroundImg} alt="Accordion Image" className="w-10 h-10 mr-4" />}
+                          <p className="lg:text-base text-sm font-semibold pl-4 text-left">
+                            {itemTitle}
+                          </p>
+                        </div>
+                      }
+                      variant={isCapsule as T_AccordionProps['variant']}
+                      renderContent={
+                        hasChildren ? (
+                          <CE_CarouselVariant06
+                            data={children.map((child: any) => ({
+                              image: child?.image ? `${API_BASE_URL}${child.image}` : '',
+                              description: child?.title || ''
+                            }))}
+                          />
+                        ) : (
+                          parseHTMLToReact(itemContent)
+                        )
+                      }
+                      content={itemContent}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          );
         case WIDGET_VARIANT.variant39:
           return (
             <div>
@@ -1096,6 +1155,24 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           ),
         };
       });
+      const dataV62 = _component?.field_column?.[0]?.field_accordion_items?.map(
+        (item: any) => {
+          // Get all slider items from paragraphs (using any type to avoid TypeScript errors)
+          const sliderItems = item?.field_paragraphs?.map((paragraph: any) => {
+            // Since we're using 'any' type, we can safely access these properties
+            return {
+              title: paragraph?.field_content?.[0]?.value,
+              image: paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url
+            };
+          });
+          
+          return {
+            title: item?.field_title?.[0]?.value,
+            content: item?.field_content?.[0]?.value || '',
+            children: sliderItems || []
+          };
+        }
+      );
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -1278,6 +1355,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             accordion: dataV60,
           };
+        case WIDGET_VARIANT.variant62:
+          return {
+            title: title,
+            subtitle: subtitle,
+            variant: findVariantStyle,
+            backgroundImage: backgroundImage,
+            accordion: dataV62,
+          };
         case WIDGET_VARIANT.variant39:
           return {
             variant: findVariantStyle,
@@ -1419,8 +1504,22 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       switch (variant) {
         case WIDGET_VARIANT.variant49:
           return <CE_SectionPromo title={title} listTab={listTab} />;
-        case WIDGET_VARIANT.variant05:
         case WIDGET_VARIANT.variant10:
+          return (
+            <Tabs
+              title={title}
+              list={list}
+              style={style}
+              variant="border-arrow"
+              variantContent={variant}
+              drupalBase={API_BASE_URL}
+              defaultSelected={
+                ((list as any[]) || []).find(({ selected }) => selected > 0)
+                  ?.selected || 0
+              }
+            />
+          );
+        case WIDGET_VARIANT.variant05:
         case WIDGET_VARIANT.variant13:
         case WIDGET_VARIANT.variant15:
         case WIDGET_VARIANT.variant29:
@@ -2535,7 +2634,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         link: string;
       };
       description: string;
-      title:string;
+      title: string;
     }) => {
       const button = {
         title: props?.button.title,
@@ -2592,8 +2691,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     }) => {
       return {
         tabs: _component?.field_paragraphs?.map((item) => {
-          const image = item.field_image?.at(0)?.field_media_image?.at(0)?.uri?.at(0)
-          ?.url
+          const image = item.field_image
+            ?.at(0)
+            ?.field_media_image?.at(0)
+            ?.uri?.at(0)?.url;
           return {
             title: item?.field_title?.[0]?.value,
             image: image ? `${API_BASE_URL}${image}` : image,
@@ -2614,7 +2715,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             ?.full_url,
         },
         title: _component?.field_title?.[0]?.value,
-        description: _component?.field_paragraphs?.[0]?.field_content?.[0]?.value,
+        description:
+          _component?.field_paragraphs?.[0]?.field_content?.[0]?.value,
       };
     },
   },
