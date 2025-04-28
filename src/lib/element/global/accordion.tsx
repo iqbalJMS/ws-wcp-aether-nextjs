@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { ChevronDownIcon } from './icons/chevron-down-icon';
 import { ChevronRightIcon } from './icons/chevron-right-icon';
@@ -17,16 +17,12 @@ export type T_AccordionProps = {
 
 export default function Accordion({
   renderContent,
-  isOpen,
   renderTitle,
   imageTitle,
   variant,
   content,
 }: T_AccordionProps) {
   const [accordionOpen, setAccordionOpen] = useState(false);
-  useEffect(() => {
-    if (isOpen) setAccordionOpen(true);
-  }, [isOpen]);
 
   return (
     <>

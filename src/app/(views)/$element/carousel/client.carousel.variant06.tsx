@@ -2,7 +2,7 @@
 
 import Image from '@/lib/element/global/image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export type T_CarouselVariant06Props = {
   data?: Array<{
@@ -16,7 +16,6 @@ export default function CE_CarouselVariant06({
 }: T_CarouselVariant06Props) {
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<number | null>(null);
-  const interval = 3000;
 
   const nextSlide = useCallback(() => {
     setCurrent((prevIndex) =>
@@ -29,18 +28,6 @@ export default function CE_CarouselVariant06({
       prevIndex === 0 ? Number(data?.length) - 1 : prevIndex - 1
     );
   }, [data?.length]);
-
-  useEffect(() => {
-    intervalRef.current = window.setInterval(() => {
-      nextSlide();
-    }, interval);
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [nextSlide, interval]);
 
   const handleDotClick = (index: number) => {
     if (intervalRef.current) {
