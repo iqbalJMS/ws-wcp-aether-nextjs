@@ -14,6 +14,7 @@ import Link from './link';
 import { Tooltip } from './tooltip';
 import SE_PortletVariant07 from '@/app/(views)/$element/portlet/server.portlet.variant07';
 import CE_PortletVariant08 from '@/app/(views)/$element/portlet/client.portlet.variant08';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 type TChildren = {
   richText: string;
@@ -121,7 +122,7 @@ type TRenderElemment = {
   type: string;
 };
 
-export function Tabs({
+export default function Tabs({
   list,
   value,
   onChange,
@@ -239,11 +240,13 @@ export function Tabs({
         const description = list?.[menuActive]?.description ?? '';
         const notes = list?.[menuActive]?.notes ?? '';
         return (
-          <CE_Paragraphs
-            key={description}
-            description={description}
-            notes={notes}
-          />
+          <div className="container">
+            <CE_Paragraphs
+              key={description}
+              description={description}
+              notes={notes}
+            />
+          </div>
         );
       case WIDGET_VARIANT.variant13:
         return list?.[menuActive]?.children?.map((item, index) => {
@@ -286,7 +289,6 @@ export function Tabs({
                     description2={item?.description2}
                     imageUrl1={item?.imageUrl1}
                     imageUrl2={item?.imageUrl2}
-                    variant={''}
                     variantTwoColumn={item?.variantChildren}
                   />
                 </div>
@@ -353,7 +355,7 @@ export function Tabs({
             {list?.[menuActive]?.textShowMore && (
               <div className="flex justify-center mt-12">
                 <Link
-                  href={list?.[menuActive]?.linkShowMore ?? ''}
+                  href={handleurl(list?.[menuActive]?.linkShowMore)}
                   className="bg-orange-400 text-white px-8 py-3 rounded-full"
                 >
                   {list?.[menuActive]?.textShowMore}
@@ -428,46 +430,55 @@ export function Tabs({
         ));
       case WIDGET_VARIANT.variant38:
         return list?.[menuActive]?.children?.map((item, index) => {
-          return item?.listColumn?.map((listItem) => (
-            <Accordion
-              key={index}
-              renderTitle={
-                listItem?.title && (
-                  <p className="text-left font-normal text-2xl">
-                    {listItem?.title}
-                  </p>
-                )
-              }
-              isOpen={index === 0}
-              renderContent={renderElement({
-                type: 'download',
-                children: listItem?.children as Array<TChildren>,
-              })}
-              content={''}
-            />
-          ));
+          return (
+            <div key={index} className="container">
+              {item?.listColumn?.map((listItem, index) => (
+                <Accordion
+                  key={index}
+                  renderTitle={
+                    listItem?.title && (
+                      <p className="text-left font-normal text-2xl">
+                        {listItem?.title}
+                      </p>
+                    )
+                  }
+                  isOpen={index === 0}
+                  renderContent={renderElement({
+                    type: 'download',
+                    children: listItem?.children as Array<TChildren>,
+                  })}
+                  content={''}
+                />
+              ))}
+              ;
+            </div>
+          );
         });
       case WIDGET_VARIANT.variant40:
         return list?.[menuActive]?.children?.map((item, index) => {
-          return item?.listColumn?.map((listItem) => (
-            <Accordion
-              key={index}
-              renderTitle={
-                listItem?.title && (
-                  <p className="text-left font-normal text-2xl">
-                    {listItem?.title}
-                  </p>
-                )
-              }
-              isOpen={index === 0}
-              renderContent={renderElement({
-                type: 'rich-text',
-                // @ts-expect-error
-                children: listItem.children,
-              })}
-              content={''}
-            />
-          ));
+          return (
+            <div key={index} className="container">
+              {item?.listColumn?.map((listItem) => (
+                <Accordion
+                  key={index}
+                  renderTitle={
+                    listItem?.title && (
+                      <p className="text-left font-normal text-2xl">
+                        {listItem?.title}
+                      </p>
+                    )
+                  }
+                  isOpen={index === 0}
+                  renderContent={renderElement({
+                    type: 'rich-text',
+                    // @ts-expect-error
+                    children: listItem.children,
+                  })}
+                  content={''}
+                />
+              ))}
+            </div>
+          );
         });
       default:
         return null;
@@ -587,7 +598,8 @@ export function Tabs({
                   className={[
                     'absolute bottom-0 left-0',
                     'w-full h-[.2rem] bg-blue-01',
-                    item?.slug === value && list?.length > 1
+                    (item?.slug === value || menuActive === index) &&
+                    list?.length > 1
                       ? 'visible'
                       : 'invisible',
                     'group-hover/tab:visible',

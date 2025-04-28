@@ -15,7 +15,7 @@ import { useEffect, useRef, useState, useTransition } from 'react';
 import { CloseIcon } from './icons/close-icon';
 import Image from './image';
 import Link from './link';
-import { Tabs } from './tabs';
+import Tabs from './tabs';
 type T_SearchProps = {
   active: boolean;
   setActive: (_active: boolean) => void;
