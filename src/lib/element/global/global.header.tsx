@@ -182,12 +182,12 @@ export default function GlobalHeader({
                         ? !header.options?.external
                           ? { href: nextUrl }
                           : {
-                              onClick: () =>
-                                window.open(
-                                  header.uri || header.relative,
-                                  '_self'
-                                ),
-                            }
+                            onClick: () =>
+                              window.open(
+                                header.uri || header.relative,
+                                '_self'
+                              ),
+                          }
                         : { onClick: () => setActiveSearch(true) })}
                       className="flex items-center cursor-pointer"
                     >
@@ -242,10 +242,9 @@ export default function GlobalHeader({
                   className={[
                     `text-xs p-1 px-2 rounded-md`,
                     `${variant === 'transparent' ? 'text-white' : ''}`,
-                    `${
-                      (currentLanguage ?? 'id')?.includes(label.toLowerCase())
-                        ? 'border border-orange-01'
-                        : ''
+                    `${(currentLanguage ?? 'id')?.includes(label.toLowerCase())
+                      ? 'border border-orange-01'
+                      : ''
                     }`,
                   ].join(' ')}
                 >
@@ -311,7 +310,7 @@ export default function GlobalHeader({
                   ?.uri?.[0]?.url ? (
                   <Image
                     alt="logo-bri"
-                    src={ headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}` : ''}
+                    src={headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ? `${API_BASE_URL}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}` : ''}
                     width={128}
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -491,7 +490,7 @@ export default function GlobalHeader({
                         height={24}
                         style={{ rotate: '180deg' }}
                         className="filter brightness-0 invert"
-                        // extern
+                      // extern
                       />
                       <p className="uppercase">{isSelectedMenu?.title}</p>
                     </button>
@@ -590,7 +589,7 @@ export default function GlobalHeader({
                               >
                                 {header?.icon ? (
                                   <Image
-                                    src={header?.icon ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${header?.icon}` : header?.icon}
+                                    src={header?.icon ? `${API_BASE_URL}${header?.icon}` : header?.icon}
                                     width={18}
                                     height={18}
                                     alt={`icon-${header?.icon}`}
@@ -634,7 +633,7 @@ export default function GlobalHeader({
                                 <div className="flex items-center">
                                   {header?.icon ? (
                                     <Image
-                                      src={header?.icon ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${header?.icon}` : header?.icon}
+                                      src={header?.icon ? `${API_BASE_URL}${header?.icon}` : header?.icon}
                                       width={18}
                                       height={18}
                                       alt={`icon-${header?.icon}`}
@@ -684,14 +683,13 @@ export default function GlobalHeader({
                               onClick={() =>
                                 onSwitchLanguages(label.toLowerCase())
                               }
-                              className={`text-xs p-1 px-2 rounded-md ${
-                                (!currentLanguage || currentLanguage === 'id'
-                                  ? 'id'
-                                  : 'en'
-                                )?.includes(label.toLowerCase())
-                                  ? 'border border-orange-01'
-                                  : ''
-                              }`}
+                              className={`text-xs p-1 px-2 rounded-md ${(!currentLanguage || currentLanguage === 'id'
+                                ? 'id'
+                                : 'en'
+                              )?.includes(label.toLowerCase())
+                                ? 'border border-orange-01'
+                                : ''
+                                }`}
                             >
                               {label}
                             </button>
