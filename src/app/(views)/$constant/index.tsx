@@ -48,7 +48,10 @@ const CE_PortletVarian05 = dynamic(
 const CE_CarouselMain = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.main')
 );
-const CE_CarouselVariant06 = dynamic(() => import('@/app/(views)/$element/carousel/client.carousel.variant06'), { ssr: false }); /* server-side rendering */
+const CE_CarouselVariant06 = dynamic(
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant06'),
+  { ssr: false }
+); /* server-side rendering */
 
 const CE_CarouselVariant08 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
@@ -169,7 +172,10 @@ const SE_FormMain = dynamic(
 const SE_Sitemap = dynamic(
   () => import('@/app/(views)/$element/server.sitemap')
 );
-const AccordionClient = dynamic(() => import('@/lib/element/global/accordion'), { ssr: false })
+const AccordionClient = dynamic(
+  () => import('@/lib/element/global/accordion'),
+  { ssr: false }
+);
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -669,16 +675,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               )}
 
               {subtitle && (
-                <div className="mb-6">
-                  {parseHTMLToReact(subtitle || '')}
-                </div>
+                <div className="mb-6">{parseHTMLToReact(subtitle || '')}</div>
               )}
 
               <div className="space-y-4">
                 {(accordion || []).map((item, key) => {
                   const itemTitle = item?.title || '';
                   const itemContent = item?.content || '';
-                  const children = Array.isArray(item?.children) ? item.children : [];
+                  const children = Array.isArray(item?.children)
+                    ? item.children
+                    : [];
                   const hasChildren = children.length > 0;
 
                   return (
@@ -686,7 +692,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                       key={key}
                       renderTitle={
                         <div className="flex items-center pl-6">
-                          {backgroundImg && <img src={backgroundImg} alt="Accordion Image" className="w-10 h-10 mr-4" />}
+                          {backgroundImg && (
+                            <img
+                              src={backgroundImg}
+                              alt="Accordion Image"
+                              className="w-10 h-10 mr-4"
+                            />
+                          )}
                           <p className="lg:text-base text-sm font-semibold pl-4 text-left">
                             {itemTitle}
                           </p>
@@ -697,8 +709,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         hasChildren ? (
                           <CE_CarouselVariant06
                             data={children.map((child: any) => ({
-                              image: child?.image ? `${API_BASE_URL}${child.image}` : '',
-                              description: child?.title || ''
+                              image: child?.image
+                                ? `${API_BASE_URL}${child.image}`
+                                : '',
+                              description: child?.title || '',
                             }))}
                           />
                         ) : (
@@ -1162,14 +1176,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             // Since we're using 'any' type, we can safely access these properties
             return {
               title: paragraph?.field_content?.[0]?.value,
-              image: paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url
+              image:
+                paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                  ?.url,
             };
           });
-          
+
           return {
             title: item?.field_title?.[0]?.value,
             content: item?.field_content?.[0]?.value || '',
-            children: sliderItems || []
+            children: sliderItems || [],
           };
         }
       );
@@ -1505,6 +1521,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant49:
           return <CE_SectionPromo title={title} listTab={listTab} />;
         case WIDGET_VARIANT.variant10:
+        case WIDGET_VARIANT.variant13:
           return (
             <Tabs
               title={title}
@@ -1520,7 +1537,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             />
           );
         case WIDGET_VARIANT.variant05:
-        case WIDGET_VARIANT.variant13:
         case WIDGET_VARIANT.variant15:
         case WIDGET_VARIANT.variant29:
         case WIDGET_VARIANT.variant31:
@@ -2072,7 +2088,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               description2={description2}
               imageUrl1={imageUrl1}
               imageUrl2={imageUrl2}
-              variant={''}
+              variantTwoColumn={findVariantStyle}
             />
           );
       }
