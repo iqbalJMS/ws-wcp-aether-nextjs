@@ -3,6 +3,7 @@ import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 interface IProfileSabrina {
   name: string;
@@ -63,7 +64,7 @@ const CardSabrina: React.FC<IProfileSabrina> = ({
             {buttonSiapaSabrina?.text && (
               <Link
                 className="py-3 px-6 text-white bg-[#f59725] rounded-full"
-                href={buttonSiapaSabrina?.url ?? ''}
+                href={handleurl(buttonSiapaSabrina?.url) ?? ''}
               >
                 {buttonSiapaSabrina?.text}
               </Link>

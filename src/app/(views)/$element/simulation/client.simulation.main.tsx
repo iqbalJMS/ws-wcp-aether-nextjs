@@ -126,7 +126,7 @@ const CE_SimulationMain = ({
               {type === 'page' && (
                 <div className="flex mdmax:flex-wrap items-center justify-between">
                   <div className="flex-none mdmax:w-full max-w-[70%]">
-                    <div className="text-black text-opacity-50 font-medium text-lg max-w-[80%]">
+                    <div className="text-black text-opacity-50 font-medium text-lg max-w-[100%]">
                       {description ? parseHTMLToReact(description) : ''}
                     </div>
                   </div>

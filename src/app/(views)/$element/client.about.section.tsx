@@ -2,6 +2,7 @@ import Image from '@/lib/element/global/image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Link from 'next/link';
 import React from 'react';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 const AboutSection = ({
   bigTitle,
@@ -49,7 +50,7 @@ const AboutSection = ({
               </div>
             )}
             <Link
-              href={hrefLink}
+              href={handleurl(hrefLink)}
               className="mt-6 inline-flex items-center text-[#014a94] font-semibold transition duration-300"
             >
               {textLink}{' '}
