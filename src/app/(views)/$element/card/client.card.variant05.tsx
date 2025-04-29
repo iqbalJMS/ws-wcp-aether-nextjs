@@ -34,15 +34,14 @@ export default function CE_CardVariant05({
                     0{index + 1}
                   </div>
                   {item.title && (
-                    <div className="text-lg  font-semibold mb-1">
+                    <div className="text-lg font-semibold mb-1">
                       {parseHTMLToReact(item.title)}
                     </div>
                   )}
                   {item.description && (() => {
                     const words = item.description.trim().split(/\s+/);
-                    const isLong = words.length > 12;
-                    const firstPart = words.slice(0, 12).join(' ');
-                    const restPart = words.slice(12).join(' ');
+                    const isLong = words.length > 17;
+                    const firstPart = words.slice(0, 17).join(' ');
 
                     const stripPTags = (html: string) => html.replace(/<\/?p>/g, '');
 
@@ -55,14 +54,28 @@ export default function CE_CardVariant05({
                           }}
                         />
                         {isLong && (
-                          <span className="inline-block relative group ml-1 text-base text-black-600 underline cursor-pointer whitespace-nowrap align-baseline">
-                            ...selengkapnya
-                            <div className="absolute left-0 top-full z-10 w-64 p-2 mt-2 text-sm text-black bg-white rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                              <span
-                                dangerouslySetInnerHTML={{ __html: stripPTags(restPart) }}
+                          <div className="group inline-block relative ml-1">
+                            <span className="text-base text-black-600 underline cursor-pointer">
+                              ...selengkapnya
+                            </span>
+                            <div
+                              className="absolute bottom-full left-0 z-50 bg-white border border-gray-200 rounded shadow-lg p-4 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-150"
+                              style={{ 
+                                width: '350px',
+                                minHeight: '100px',
+                                maxHeight: '250px', 
+                                overflowY: 'auto',
+                                marginBottom: '8px',
+                                whiteSpace: 'normal',
+                                wordBreak: 'break-word'
+                              }}
+                            >
+                              <div
+                                className="text-base text-black w-full"
+                                dangerouslySetInnerHTML={{ __html: stripPTags(item.description) }}
                               />
                             </div>
-                          </span>
+                          </div>
                         )}
                       </div>
                     );
