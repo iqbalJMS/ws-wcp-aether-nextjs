@@ -666,6 +666,34 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const accordionStyle = 'capsule';
           const isCapsule = accordionStyle === 'capsule' ? 'rounded' : '';
 
+          const social_media = [
+            {
+              name: 'Facebook',
+              icon: 'facebook',
+              url: 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
+            },
+            {
+              name: 'Twitter',
+              icon: 'x',
+              url: 'https://x.com/share?url=https%3A%2F%2Fbri.co.id%2Finformasi-investor&text=BBRI%20Stock%20Info',
+            },
+            {
+              name: 'Google',
+              icon: 'google',
+              url: 'https://plus.google.com/share?url=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
+            },
+            {
+              name: 'WhatsApp',
+              icon: 'whatsapp',
+              url: 'whatsapp://send/?text=https%3A%2F%2Fbri.co.id%2Finformasi-investor%20BBRI%20Stock%20Info',
+            },
+          ];
+
+          const ShareIconClientComponent = dynamic(
+            () => import('@/lib/element/global/shareIconclient').then((mod) => mod.default),
+            { ssr: false }
+          );
+        
           return (
             <div className="container mx-auto py-6">
               {title && (
@@ -673,9 +701,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   {parseHTMLToReact(title || '')}
                 </div>
               )}
-
+        
               {subtitle && (
-                <div className="mb-6">{parseHTMLToReact(subtitle || '')}</div>
+                <div className="mb-6 flex items-center">
+                  <div className="flex-grow">
+                    {parseHTMLToReact(subtitle || '')}
+                  </div>
+                  <div className="relative share-icon-container">
+                    <ShareIconClientComponent socialMedia={social_media} />
+                  </div>
+                </div>
               )}
 
               <div className="space-y-4">
