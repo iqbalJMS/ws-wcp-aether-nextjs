@@ -34,22 +34,16 @@ const ShareIconClient: React.FC<ShareIconClientProps> = ({ socialMedia }) => {
   }, [isSosmedOpen]);
 
   return (
-    <>
-      <div
+    <div className="share-icon-container relative">
+      <button
         onClick={() => setIsSosmedOpen(prev => !prev)}
-        className="flex items-center text-xl cursor-pointer ml-3"
+        className="bg-orange-400 text-white font-bold py-2 px-4 rounded-full uppercase text-sm ml-3"
       >
-        <Image
-          src="/web/guest/images/icon-menu/share.svg"
-          width={24}
-          height={24}
-          extern={true}
-          alt="Share"
-        />
-      </div>
+        SHARE
+      </button>
       
       {isSosmedOpen && (
-        <div className="absolute right-0 top-8 bg-white shadow-md rounded-md p-3 z-50 flex space-x-4">
+        <div className="absolute right-0 top-10 bg-white shadow-md rounded-md p-3 z-50 flex space-x-4">
           {Array.isArray(socialMedia) && socialMedia.length > 0 ? (
             socialMedia.map((socialItem, index) => {
               const handleSocialClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
@@ -85,7 +79,7 @@ const ShareIconClient: React.FC<ShareIconClientProps> = ({ socialMedia }) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

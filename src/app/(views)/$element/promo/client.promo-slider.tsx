@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // import dummyImage from '@/../../public/images/dummy/banner.jpg';
 import Link from 'next/link';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
+import { handleurl } from '@/lib/functions/client/handle-url';
 // import ArrowRightIcon from '@/lib/element/global/arrow-right-icon';
 // import ArrowLeftIcon from '@/lib/element/global/arrow-left-icon';
 
@@ -84,7 +85,7 @@ export default function CE_PromoSlider({
               >
                 {data?.map((item, index) => (
                   <Link
-                    href={`promo-detail/${item?.nid ?? ''}`}
+                    href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                     key={index}
                     className="group relative overflow-hidden w-[25%] h-[400px] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
                   >
@@ -158,7 +159,7 @@ export default function CE_PromoSlider({
                 >
                   {data?.map((item, index) => (
                     <Link
-                      href={`promo-detail/${item?.nid ?? ''}`}
+                      href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                       key={index}
                       className="group relative overflow-hidden w-[48%] h-[500px] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
                     >
@@ -233,7 +234,7 @@ export default function CE_PromoSlider({
                 >
                   {data?.map((item, index) => (
                     <Link
-                      href={`promo-detail/${item?.nid ?? ''}`}
+                      href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                       key={index}
                       className="group relative overflow-hidden w-full h-[500px] flex-none flex flex-col justify-center bg-center cursor-pointer "
                     >
@@ -284,7 +285,7 @@ export default function CE_PromoSlider({
           </div>
         </div>
         <Link
-          href={`${linkPromo ?? ''}`}
+          href={`${handleurl(linkPromo ?? '')}`}
           className="uppercase w-full h-fit flex justify-center items-center text-[#79B0DF] hover:underline "
         >
           temukan promosi lainnya <span>&#10095;</span>

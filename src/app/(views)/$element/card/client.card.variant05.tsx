@@ -44,14 +44,23 @@ export default function CE_CardVariant05({
                     const firstPart = words.slice(0, 12).join(' ');
                     const restPart = words.slice(12).join(' ');
 
+                    const stripPTags = (html: string) => html.replace(/<\/?p>/g, '');
+
                     return (
-                      <div className="text-gray-700 relative inline">
-                        {parseHTMLToReact(isLong ? firstPart : item.description)}
+                      <div className="text-gray-700 text-base leading-relaxed">
+                        <span
+                          className="inline"
+                          dangerouslySetInnerHTML={{
+                            __html: isLong ? stripPTags(firstPart) : stripPTags(item.description),
+                          }}
+                        />
                         {isLong && (
-                          <span className="text-black-600 underline cursor-pointer ml-1 group relative">
+                          <span className="inline-block relative group ml-1 text-base text-black-600 underline cursor-pointer whitespace-nowrap align-baseline">
                             ...selengkapnya
-                            <div className="absolute z-10 w-64 p-2 mt-2 text-sm text-black bg-white rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                              {parseHTMLToReact(restPart)}
+                            <div className="absolute left-0 top-full z-10 w-64 p-2 mt-2 text-sm text-black bg-white rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <span
+                                dangerouslySetInnerHTML={{ __html: stripPTags(restPart) }}
+                              />
                             </div>
                           </span>
                         )}
