@@ -62,7 +62,7 @@ export const WIDGET_VARIANT = {
   variant61: 'staircase_1',
   variant62: 'section_accordion_card_4',
   variant63: 'two_column_no_margin',
-  variant64: 'section_card_grid'
+  variant64: 'section_card_grid',
 };
 
 export const API_BASE_URL =

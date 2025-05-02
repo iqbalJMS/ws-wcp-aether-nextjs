@@ -56,7 +56,7 @@ export default function Accordion({
                 ) : (
                   <div className="flex items-center justify-between w-full">
                     <div className="flex-grow">{renderTitle}</div>
-                    
+
                     <span className="ml-1">
                       {accordionOpen ? (
                         <ChevronDownIcon

@@ -13,7 +13,9 @@ export async function API_GetHeaderLogo({
   try {
     const response: T_ResponGetHeaderLogo = await get(
       '/config_pages/header?_format=json_recursive',
-      { Authorization: `Basic ${btoa(`${env.DRUPAL_AUTH}:${env.DRUPAL_PASSWORD}`)}` }
+      {
+        Authorization: `Basic ${btoa(`${env.DRUPAL_AUTH}:${env.DRUPAL_PASSWORD}`)}`,
+      }
     );
 
     return response;
