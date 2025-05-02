@@ -24,6 +24,7 @@ import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.locati
 import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
 import InputSelect from '@/lib/element/global/form/input.select';
 import debounce from '@/lib/functions/global/debounce';
+import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 type T_Props = {
   types: { id: string }[];
@@ -203,8 +204,9 @@ const CE_LocationMain = ({ types }: T_Props) => {
                           <Image
                             extern={false}
                             src={
-                              getLocationType(locationTypeItem.id)?.term_icon ||
-                              ''
+                              getLocationType(locationTypeItem.id)?.term_icon
+                                ? `${API_BASE_URL}${getLocationType(locationTypeItem.id)?.term_icon}`
+                                : ''
                             }
                             alt="background"
                             width={200}
