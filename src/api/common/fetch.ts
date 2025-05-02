@@ -2,9 +2,7 @@
 'use server';
 
 import { T_FetchOptions } from './fetch.type';
-
-const API_BASE_URL =
-  process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
+import { env } from '@/lib/functions/global/env';
 
 const DEFAULT_HEADERS: HeadersInit = {
   'Content-Type': 'application/json',
@@ -14,15 +12,15 @@ async function fetchData<T>(
   endpoint: string,
   options: T_FetchOptions = {}
 ): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${env.DRUPAL_ENDPOINT}${endpoint}`;
   const response = await fetch(url, {
     ...options,
     cache: 'no-store',
     next:
       options.method !== 'POST'
         ? {
-            revalidate: 0,
-          }
+          revalidate: 0,
+        }
         : {},
     headers: {
       ...(options.method !== 'POST' ? DEFAULT_HEADERS : {}),
@@ -48,8 +46,7 @@ async function fetchData<T>(
     }
 
     throw new Error(
-      `Ups something went wrong, status: ${response.status ?? ''} - ${
-        errorResponse.message ?? ''
+      `Ups something went wrong, status: ${response.status ?? ''} - ${errorResponse.message ?? ''
       }, please reload - ${url} ${options.method} ${JSON.stringify(options.body)}`
     );
   }

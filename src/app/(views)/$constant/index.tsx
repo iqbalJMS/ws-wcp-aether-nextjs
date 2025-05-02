@@ -43,6 +43,9 @@ const CE_PortletVarian04 = dynamic(
 const CE_PortletVarian05 = dynamic(
   () => import('@/app/(views)/$element/portlet/client.portlet.varian05')
 );
+const SE_PortletVarian07 = dynamic(
+  () => import('@/app/(views)/$element/portlet/server.portlet.variant07')
+);
 
 /* Carousel Component */
 const CE_CarouselMain = dynamic(
@@ -302,6 +305,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           image?: string;
           title?: string;
           position?: string;
+          textLink?: string;
           link?: string;
           filename?: string;
           description?: string;
@@ -690,10 +694,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           ];
 
           const ShareIconClientComponent = dynamic(
-            () => import('@/lib/element/global/shareIconclient').then((mod) => mod.default),
+            () =>
+              import('@/lib/element/global/shareIconclient').then(
+                (mod) => mod.default
+              ),
             { ssr: false }
           );
-        
+
           return (
             <div className="container mx-auto py-6">
               {title && (
@@ -701,7 +708,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   {parseHTMLToReact(title || '')}
                 </div>
               )}
-        
+
               {subtitle && (
                 <div className="mb-6 flex items-center">
                   <div className="flex-grow">
@@ -860,6 +867,25 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <div className="container mx-auto my-6 py-6 body table-full-border">
               {richTextData ? parseHTMLToReact(richTextData) : ''}
             </div>
+          );
+        case WIDGET_VARIANT.variant64:
+          return (
+            <SE_PortletVarian07
+              title={title}
+              description={subtitle}
+              cardContent={listItems?.map((childItem) => {
+                const title = childItem?.title;
+                const description = childItem?.subtitle;
+                const textLink = childItem?.textLink;
+                const urlLink = childItem?.link;
+                return {
+                  title: title,
+                  textContent: description,
+                  textLink: textLink,
+                  urlTextLink: urlLink,
+                };
+              })}
+            />
           );
         default:
           return null;
@@ -1225,6 +1251,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         }
       );
 
+      const dataV64 = _component?.field_column?.map((item) => {
+        return {
+          title: item?.field_title?.[0]?.value ?? '',
+          subtitle: item?.field_content?.[0]?.value ?? '',
+          textLink: item?.field_primary_cta?.[0]?.title ?? '',
+          link: item?.field_primary_cta?.[0]?.full_url ?? '',
+        };
+      });
+
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
           return {
@@ -1495,6 +1530,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             richText: dataRichText?.[0]?.element,
+          };
+        case WIDGET_VARIANT.variant64:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            subtitle: subtitle,
+            data: dataV64,
           };
         default:
           return null;
