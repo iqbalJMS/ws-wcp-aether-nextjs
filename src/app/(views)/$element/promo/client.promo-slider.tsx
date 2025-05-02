@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { handleurl } from '@/lib/functions/client/handle-url';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
+import { env } from '@/lib/functions/global/env';
 // import ArrowRightIcon from '@/lib/element/global/arrow-right-icon';
 // import ArrowLeftIcon from '@/lib/element/global/arrow-left-icon';
 
@@ -94,7 +94,7 @@ export default function CE_PromoSlider({
                       <div
                         className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100"
                         style={{
-                          backgroundImage: `url(${API_BASE_URL}${item?.image ?? ''})`,
+                          backgroundImage: `url(${env.DRUPAL_ENDPOINT}${item?.image ?? ''})`,
                           backgroundSize: 'cover',
                           backgroundRepeat: 'no-repeat',
                         }}
@@ -168,7 +168,7 @@ export default function CE_PromoSlider({
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `url(${API_BASE_URL}${item?.image ?? ''})`,
+                            backgroundImage: `url(${env.DRUPAL_ENDPOINT}${item?.image ?? ''})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}
@@ -243,7 +243,7 @@ export default function CE_PromoSlider({
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `url(${API_BASE_URL}${item?.image ?? ''})`,
+                            backgroundImage: `url(${env.DRUPAL_ENDPOINT}${item?.image ?? ''})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}
