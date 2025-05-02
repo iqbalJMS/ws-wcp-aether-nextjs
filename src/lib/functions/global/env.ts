@@ -12,7 +12,8 @@ const createEnv = (): ServerEnv => {
   const envVars = {
     PATH_URL: process.env.PATH_URL || process.env.NEXT_PUBLIC_PATH_URL,
     BASE_URL: process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL,
-    DRUPAL_ENDPOINT: process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT,
+    DRUPAL_ENDPOINT:
+      process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT,
     DRUPAL_AUTH: process.env.DRUPAL_AUTH || 'DEFAULT',
     DRUPAL_PASSWORD: process.env.DRUPAL_PASSWORD || 'DEFAULT',
   };
@@ -31,8 +32,8 @@ const createEnv = (): ServerEnv => {
       `Invalid environment variables provided.
 The following variables are missing or invalid:
 ${Object.entries(errors)
-        .map(([key, message]) => `- ${key}: ${message}`)
-        .join('\n')}
+  .map(([key, message]) => `- ${key}: ${message}`)
+  .join('\n')}
 `
     );
   }
@@ -42,7 +43,7 @@ ${Object.entries(errors)
     BASE_URL: envVars.BASE_URL as string,
     DRUPAL_ENDPOINT: envVars.DRUPAL_ENDPOINT as string,
     DRUPAL_AUTH: envVars.DRUPAL_AUTH as string,
-    DRUPAL_PASSWORD: envVars.DRUPAL_PASSWORD as string
+    DRUPAL_PASSWORD: envVars.DRUPAL_PASSWORD as string,
   };
 };
 

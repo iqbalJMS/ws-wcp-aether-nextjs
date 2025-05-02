@@ -20,13 +20,13 @@ type T_CardVariant02Props = {
   }>;
 };
 
-
 export default function CE_CardVariant02({
   data,
   title,
 }: T_CardVariant02Props) {
-  
-  const [imageDimensions, setImageDimensions] = useState<Record<number, { width: number, height: number, loaded: boolean }>>({});
+  const [imageDimensions, setImageDimensions] = useState<
+    Record<number, { width: number; height: number; loaded: boolean }>
+  >({});
 
   const getImageContainerClass = (index: number) => {
     if (!imageDimensions[index]?.loaded) {
@@ -43,15 +43,18 @@ export default function CE_CardVariant02({
     }
   };
 
-  const handleImageLoad = (index: number, event: React.SyntheticEvent<HTMLImageElement>) => {
+  const handleImageLoad = (
+    index: number,
+    event: React.SyntheticEvent<HTMLImageElement>
+  ) => {
     const img = event.currentTarget;
-    setImageDimensions(prev => ({
+    setImageDimensions((prev) => ({
       ...prev,
       [index]: {
         width: img.naturalWidth,
         height: img.naturalHeight,
-        loaded: true
-      }
+        loaded: true,
+      },
     }));
   };
 
@@ -77,7 +80,9 @@ export default function CE_CardVariant02({
                   className="block"
                 >
                   <div className="bg-white px-10 pb-10 pt-10 shadow-lg rounded-br-[5rem] hover:shadow-xl transition-all duration-300 group cursor-pointer">
-                    <div className={`mb-10 ${getImageContainerClass(index)} flex items-center justify-center`}>
+                    <div
+                      className={`mb-10 ${getImageContainerClass(index)} flex items-center justify-center`}
+                    >
                       <Image
                         extern={false}
                         src={item?.image ?? ''}

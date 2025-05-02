@@ -6,5 +6,5 @@ export const truncatedTextHtml = (text: string, limit: number) => {
   return {
     truncated: isLong ? `${firstPart}` : text,
     remaining: isLong ? words.slice(limit).join(' ') : '',
-  }
-}
+  };
+};
