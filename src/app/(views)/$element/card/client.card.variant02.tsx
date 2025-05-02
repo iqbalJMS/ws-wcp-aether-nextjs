@@ -4,11 +4,11 @@ import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { handleurl } from '@/lib/functions/client/handle-url';
+import { useState } from 'react';
 
 type T_CardVariant02Props = {
   title?: string;
   data: Array<{
-    imagePosition?: 'left' | string;
     title?: string;
     image?: string;
     description?: string;
@@ -25,6 +25,36 @@ export default function CE_CardVariant02({
   data,
   title,
 }: T_CardVariant02Props) {
+  
+  const [imageDimensions, setImageDimensions] = useState<Record<number, { width: number, height: number, loaded: boolean }>>({});
+
+  const getImageContainerClass = (index: number) => {
+    if (!imageDimensions[index]?.loaded) {
+      return 'w-full max-h-[7.5rem] overflow-hidden';
+    }
+
+    const { width, height } = imageDimensions[index];
+    const aspectRatio = width / height;
+
+    if (aspectRatio >= 0.9 && aspectRatio <= 1.1) {
+      return 'w-[6.25rem] h-[6.25rem] overflow-hidden';
+    } else {
+      return 'w-[12rem] h-[8.25rem] overflow-hidden';
+    }
+  };
+
+  const handleImageLoad = (index: number, event: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = event.currentTarget;
+    setImageDimensions(prev => ({
+      ...prev,
+      [index]: {
+        width: img.naturalWidth,
+        height: img.naturalHeight,
+        loaded: true
+      }
+    }));
+  };
+
   return (
     <>
       <div className="py-10 container">
@@ -46,42 +76,17 @@ export default function CE_CardVariant02({
                   target={item?.button?.extern ? '_self' : ''}
                   className="block"
                 >
-                  <div className="bg-white px-10 pb-10 pt-20 shadow-lg rounded-br-[5rem] hover:shadow-xl transition-all duration-300 group cursor-pointer">
-                    <div className="mb-10">
-                      {item?.imagePosition === 'left' ? (
-                          <div className="w-[9rem] h-[9rem] overflow-hidden">
-                            <Image
-                              extern={false}
-                              src={item?.image ?? ''}
-                              alt="image"
-                              width={1920}
-                              height={1080}
-                              className="object-contain w-full h-full"
-                            />
-                          </div>
-                        ) : item?.imagePosition === 'square' ? (
-                          <div className="w-[6.5rem] h-[6.5rem] overflow-hidden">
-                            <Image
-                              extern={false}
-                              src={item?.image ?? ''}
-                              alt="image"
-                              width={1920}
-                              height={1080}
-                              className="object-contain w-full h-full"
-                            />
-                          </div>
-                        ) : (
-                        <div className="max-w-[10rem] max-h-[7.5rem] overflow-hidden">
-                          <Image
-                            extern={false}
-                            src={item?.image ?? ''}
-                            alt="image"
-                            width={1920}
-                            height={1080}
-                            className="object-cover w-full"
-                          />
-                        </div>
-                      )}
+                  <div className="bg-white px-10 pb-10 pt-10 shadow-lg rounded-br-[5rem] hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                    <div className={`mb-10 ${getImageContainerClass(index)} flex items-center justify-center`}>
+                      <Image
+                        extern={false}
+                        src={item?.image ?? ''}
+                        alt="image"
+                        width={1920}
+                        height={1080}
+                        onLoad={(e) => handleImageLoad(index, e)}
+                        className="object-contain w-full h-full"
+                      />
                     </div>
                     <div>
                       {item?.title && (
