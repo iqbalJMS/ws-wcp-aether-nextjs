@@ -65,13 +65,13 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                           </div>
                         ))}
                         
-                        {/* Document button - placed in the same flex container */}
                         {item?.document && (
                           <div>
                             <Link
                               href={item.document}
                               extern={true}
                               target="_self"
+                              download
                             >
                               <ButtonSecondary
                                 className="bg-orange-01"
