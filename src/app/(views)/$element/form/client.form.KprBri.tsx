@@ -5,21 +5,17 @@ import InputError from '@/lib/element/global/form/input.error';
 import InputLabel from '@/lib/element/global/form/input.label';
 import InputText from '@/lib/element/global/form/input.text';
 import { useState, useTransition } from 'react';
+
+import { T_FormKprBriRequest } from '@/api/webform/api.post.webform.type';
 import useForm from '@/lib/hook/useForm';
-import { useRouter } from 'next/navigation';
 import {
-  CFN_MapToWebFormQlolaPayload,
-  CFN_ValidateCreateWebFormQlolaFields,
-} from '@/app/(views)/$function/cfn.post.webform-qlola';
-import { ACT_PostWebFormQlola } from '@/app/(views)/$action/action.post.webform-qlola';
-import { T_FormQlolaRequest } from '@/api/webform/api.post.webform-qlola.type';
-import DropDown from '@/lib/element/global/dropdown';
+  CFN_MapToWebFormPayload,
+  CFN_ValidateCreateWebFormFields,
+} from '@/app/(views)/$function/cfn.post.webform';
+import { useRouter } from 'next/navigation';
+import { ACT_PostWebForm } from '@/app/(views)/$action/action.post.webform';
 
-type Option = {
-  value: string;
-};
-
-export default function CE_FormQlola({
+export default function CE_FormKprBri({
   fieldForm,
   title,
   subTitle,
@@ -29,30 +25,25 @@ export default function CE_FormQlola({
   subTitle: string;
 }) {
   const [pending] = useTransition();
-  const SELECT_DATA_JASA = [
-    { value: 'B2B' },
-    { value: 'B2C' },
-    { value: 'SME' },
-  ];
-  const [selectedJasa, setSelectedJasa] = useState<Option | null>(null);
+  const INPUT_RADIO_DATA = [{ value: 'Ya' }, { value: 'Tidak' }];
+  type T_RadioType = 'Ya' | 'Tidak';
+  const [radioType, setradioType] = useState<T_RadioType>('Ya');
   const router = useRouter();
-
   const { form, formError, validateForm, onFieldChange } = useForm<
-    T_FormQlolaRequest,
-    T_FormQlolaRequest
+    T_FormKprBriRequest,
+    T_FormKprBriRequest
   >(
-    CFN_MapToWebFormQlolaPayload({
+    CFN_MapToWebFormPayload({
       webform_id: '',
       nama: '',
       email: '',
       nomor_telepon: '',
-      perusahaan: '',
       jabatan: '',
       kota_domisili: '',
-      lokasi_perusahaan: '',
-      pilihan_jenis_usaha: 'B2B',
+      perusahaan: '',
+      checklist_persetujuan_pemberian_data: 'Ya',
     }),
-    CFN_ValidateCreateWebFormQlolaFields
+    CFN_ValidateCreateWebFormFields
   );
   const handleSubmit = async () => {
     const validate = validateForm();
@@ -62,16 +53,16 @@ export default function CE_FormQlola({
     }
 
     try {
-      const result = await ACT_PostWebFormQlola({
-        webform_id: fieldForm ?? 'qlola',
+      const result = await ACT_PostWebForm({
+        webform_id: fieldForm ?? 'kprbri',
         nama: form.nama,
         email: form.email,
         nomor_telepon: form.nomor_telepon,
         jabatan: form.jabatan,
         kota_domisili: form.kota_domisili,
         perusahaan: form.perusahaan,
-        pilihan_jenis_usaha: form.pilihan_jenis_usaha,
-        lokasi_perusahaan: form.lokasi_perusahaan,
+        checklist_persetujuan_pemberian_data:
+          form.checklist_persetujuan_pemberian_data,
       });
 
       if (result?.sid) {
@@ -91,7 +82,7 @@ export default function CE_FormQlola({
           dangerouslySetInnerHTML={{ __html: subTitle ?? '' }}
         />
         <div className="w-full flex-none my-6">
-          <InputLabel label="nama">
+          <InputLabel label="Nama">
             <InputText
               type="text"
               value={form.nama}
@@ -168,37 +159,32 @@ export default function CE_FormQlola({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Lokasi Perusahaan">
-            <InputText
-              type="text"
-              value={form.lokasi_perusahaan}
-              onChange={(value) => onFieldChange('lokasi_perusahaan', value)}
-              state={'init'}
-            />
-            {formError.lokasi_perusahaan && (
-              <InputError message={formError.lokasi_perusahaan} />
-            )}
-          </InputLabel>
-        </div>
-        <div className="w-full flex-none mb-6">
           <InputLabel label="Pilihan Jenis Usaha">
             <span className="pt-2">
-              <DropDown
-                options={
-                  SELECT_DATA_JASA?.map((item) => ({
-                    value: item?.value,
-                  })) || []
-                }
-                selected={selectedJasa}
-                onSelectedChanges={(selected) => {
-                  setSelectedJasa(selected);
-                  onFieldChange('pilihan_jenis_usaha', selected.value);
-                }}
-                placeholder="Pilih opsi"
-              />
+              {INPUT_RADIO_DATA?.map((item, index) => (
+                <div className="flex" key={index}>
+                  <input
+                    className="text-black"
+                    type="radio"
+                    id={item.value}
+                    value={item.value}
+                    checked={radioType === item?.value}
+                    onChange={({ target }) => {
+                      setradioType(target.value as T_RadioType);
+                      onFieldChange(
+                        'checklist_persetujuan_pemberian_data',
+                        target.value
+                      );
+                    }}
+                  />
+                  <label className="pl-2">{item.value}</label>
+                </div>
+              ))}
             </span>
-            {formError.pilihan_jenis_usaha && (
-              <InputError message={formError.pilihan_jenis_usaha} />
+            {formError.checklist_persetujuan_pemberian_data && (
+              <InputError
+                message={formError.checklist_persetujuan_pemberian_data}
+              />
             )}
           </InputLabel>
         </div>

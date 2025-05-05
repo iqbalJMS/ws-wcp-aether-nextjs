@@ -60,6 +60,8 @@ export const WIDGET_VARIANT = {
   variant59: 'richtext_table_full_border',
   variant60: 'section_accordion_card_3',
   variant61: 'staircase_1',
+  variant62: 'div_form',
+  variant63: 'div_form_qlola',
 };
 
 export const API_BASE_URL =

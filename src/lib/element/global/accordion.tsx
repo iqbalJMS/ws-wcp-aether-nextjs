@@ -87,6 +87,14 @@ export default function Accordion({
           ) : (
             <div className="overflow-hidden">{renderContent}</div>
           )}
+          {/* <div className=" w-full flex justify-center pt-5">
+            <Link
+              href={linkCta ?? '#'}
+              className="bg-[#F59823] px-5 py-3 rounded-full text-base text-white font-semibold uppercase hover:bg-slate-400 focus:bg-slate-400 hover:text-black focus:text-black duration-200 hover:border-2 hover:border-slate-700"
+            >
+              {titleCta ?? ''}
+            </Link>
+          </div> */}
         </div>
       </section>
     </>
