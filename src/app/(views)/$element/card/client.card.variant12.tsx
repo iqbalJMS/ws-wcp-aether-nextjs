@@ -6,7 +6,7 @@ import Image from 'next/image';
 import ArrowRightIcon from '@/lib/element/global/icons/arrow-right-icon';
 import CE_ModalProfile from '@/lib/element/global/modal.profile';
 
-export function CE_CardVariant12({
+export default function CE_CardVariant12({
   data,
 }: {
   data: Array<{
