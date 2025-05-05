@@ -98,10 +98,9 @@ const CE_LocationMain = ({ types }: T_Props) => {
       const categories = response?.data.data || [];
       setLocationCategories(categories);
 
-      const firstCategoryId = categories.at(0)?.id || '';
       setForm((prevForm) => ({
         ...prevForm,
-        category: firstCategoryId,
+        category: '',
       }));
     } catch (error) {
       //eslint-disable-next-line no-console
@@ -223,16 +222,19 @@ const CE_LocationMain = ({ types }: T_Props) => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        {(Array.isArray(locationCategories) && locationCategories.length !== 0) ? (
+        {Array.isArray(locationCategories) && (
           <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
             <div className="text-left font-semibold mb-2">Layanan</div>
             <InputSelect
-              list={locationCategories?.map((locationCategoryItem) => {
-                return {
-                  title: locationCategoryItem.name,
-                  value: locationCategoryItem.id,
-                };
-              })}
+              list={[
+                { title: "Semua", value: "" },
+                ...(locationCategories?.map((locationCategoryItem) => {
+                  return {
+                    title: locationCategoryItem.name,
+                    value: locationCategoryItem.id,
+                  };
+                }))
+              ]}
               value={form.category || ''}
               onChange={(value) => {
                 form.skip = '0';
@@ -241,29 +243,6 @@ const CE_LocationMain = ({ types }: T_Props) => {
                   (Array.isArray(value)
                     ? value.at(0)?.value
                     : value?.value) || ''
-                );
-              }}
-            />
-          </div>
-        ) : (
-          // Hardcoded jika list kosong
-          <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
-            <div className="text-left font-semibold mb-2">Layanan</div>
-            <InputSelect
-              list={[
-                { title: 'BRI Unit', value: '1' },
-                { title: 'Kantor Cabang', value: '2' },
-                { title: 'Kantor Cabang Pembantu', value: '3' },
-                { title: 'Kantor Kas', value: '4' }
-              ]}
-              value={form.category || '1'} // Default to BRI Unit
-              onChange={(value) => {
-                form.skip = '0';
-                onFieldChange(
-                  'category',
-                  (Array.isArray(value)
-                    ? value.at(0)?.value
-                    : value?.value) || '1'
                 );
               }}
             />
