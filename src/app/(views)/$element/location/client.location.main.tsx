@@ -24,10 +24,12 @@ import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.locati
 import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
 import InputSelect from '@/lib/element/global/form/input.select';
 import debounce from '@/lib/functions/global/debounce';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 type T_Props = {
-  types: { id: string }[];
+  types: { 
+    id: string;
+    imageUrl?: string;
+  }[];
 };
 
 const CE_LocationMain = ({ types }: T_Props) => {
@@ -199,22 +201,15 @@ const CE_LocationMain = ({ types }: T_Props) => {
                   ></div>
                   <div>
                     <div className="text-center mb-2">
-                      <div className="w-20 h-20 mdmax:w-8 mdmax:h-8 inline-block">
-                        {getLocationType(locationTypeItem.id)?.term_icon && (
-                          <Image
-                            extern={false}
-                            src={
-                              getLocationType(locationTypeItem.id)?.term_icon
-                                ? `${API_BASE_URL}${getLocationType(locationTypeItem.id)?.term_icon}`
-                                : ''
-                            }
-                            alt="background"
-                            width={200}
-                            height={200}
-                            className="w-full h-full object-contain"
-                          />
-                        )}
-                      </div>
+                      {locationTypeItem.imageUrl && (
+                        <Image
+                          src={locationTypeItem.imageUrl}
+                          alt=""
+                          width={100}
+                          height={100}
+                          className="w-[5rem] h-[5rem] mdmax:w-[2rem] mdmax:h-[2rem] mx-auto"
+                        />
+                      )}
                     </div>
                     <div className="text-center font-semibold h-[5rem] mdmax:h-[2rem] mdmax:text-[0.5rem]">
                       {getLocationType(locationTypeItem.id)?.name}

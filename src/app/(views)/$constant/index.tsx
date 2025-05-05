@@ -188,6 +188,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           (locationTypeItem: any) => {
             return {
               id: locationTypeItem.id,
+              imageUrl: locationTypeItem.image_url ? 
+              `${API_BASE_URL}${locationTypeItem.image_url}` : 
+              locationTypeItem.image_url,
             };
           }
         ),
