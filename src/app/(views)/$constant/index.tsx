@@ -188,9 +188,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           (locationTypeItem: any) => {
             return {
               id: locationTypeItem.id,
-              imageUrl: locationTypeItem.image_url ? 
-              `${API_BASE_URL}${locationTypeItem.image_url}` : 
-              locationTypeItem.image_url,
+              imageUrl: `${API_BASE_URL}${locationTypeItem.image_url}` ,
             };
           }
         ),
@@ -2094,6 +2092,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const description2 = props?.secondColumn?.description ?? '';
       const imageUrl1 = firstColumn?.image ?? '';
       const imageUrl2 = secondColumn?.image ?? '';
+      const document1 = props?.firstColumn?.document ?? '';
+      const document2 = props?.secondColumn?.document ?? '';
+      const doctitle1 = props?.firstColumn?.documentTitle ?? '';
+      const doctitle2 = props?.secondColumn?.documentTitle ?? '';
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant19:
@@ -2132,9 +2134,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: firstColumn?.image,
                   title: firstColumn?.title,
                   description: firstColumn?.description,
-                  document:
-                    firstColumn?.document &&
-                    `${API_BASE_URL}${firstColumn.document}`,
+                  document: document1 || null,
+                  documentTitle: doctitle1,
                   buttons: [
                     {
                       link: (firstColumn?.button?.link || '').replace(
@@ -2150,9 +2151,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: secondColumn?.image,
                   title: secondColumn?.title,
                   description: secondColumn?.description,
-                  document:
-                    secondColumn?.document &&
-                    `${API_BASE_URL}${secondColumn.document}`,
+                  document: document2 || null,
+                  documentTitle: doctitle2,
                   buttons: [
                     {
                       link: (secondColumn?.button?.link || '').replace(
@@ -2269,6 +2269,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const image33s =
             _component?.field_second_column?.[0]?.field_image?.[0]
               ?.field_media_image?.[0]?.uri?.[0]?.url;
+          const document33f = 
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const document33s = 
+            _component?.field_second_column?.[0]?.field_cta_document?.[0]?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const documentTitle1 = 
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]?.field_title?.[0]?.value || "Download";
+          const documentTitle2 = 
+            _component?.field_second_column?.[0]?.field_cta_document?.[0]?.field_title?.[0]?.value || "Download";
           return {
             firstColumn: {
               image: image33f ? `${API_BASE_URL}${image33f}` : image33f,
@@ -2277,7 +2285,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
               document:
-                _component?.field_first_column?.[0]?.field_document?.[0].field_media_file?.[0].uri?.[0]?.url,
+                document33f ? `${API_BASE_URL}${document33f}` : document33f,
+              documentTitle: documentTitle1,
               button: {
                 title:
                   _component.field_first_column?.[0]?.field_primary_cta?.[0]
@@ -2294,7 +2303,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               description:
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
               document:
-                _component?.field_first_column?.[0]?.field_document?.[0].field_media_file?.[0].uri?.[0]?.url,
+                document33s ? `${API_BASE_URL}${document33s}` : document33s,
+              documentTitle: documentTitle2,
               button: {
                 title:
                   _component.field_second_column?.[0]?.field_primary_cta?.[0]

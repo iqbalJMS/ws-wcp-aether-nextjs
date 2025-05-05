@@ -24,6 +24,7 @@ import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.locati
 import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
 import InputSelect from '@/lib/element/global/form/input.select';
 import debounce from '@/lib/functions/global/debounce';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 type T_Props = {
   types: { 
@@ -222,32 +223,53 @@ const CE_LocationMain = ({ types }: T_Props) => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        {Array.isArray(locationCategories) &&
-          locationCategories.length !== 0 && (
-            <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
-              <div className="text-left font-semibold mb-2">Layanan</div>
-              <InputSelect
-                list={locationCategories?.map((locationCategoryItem) => {
-                  return {
-                    title: locationCategoryItem.name,
-                    value: locationCategoryItem.id,
-                  };
-                })}
-                value={form.category || 'default_category_id'}
-                onChange={(value) => {
-                  form.skip = '0';
-                  onFieldChange(
-                    'category',
-                    (Array.isArray(value)
-                      ? value.at(0)?.value
-                      : value?.value) || 'default_category_id'
-                  );
-                }}
-              />
-            </div>
-          )}
+        {(Array.isArray(locationCategories) && locationCategories.length !== 0) ? (
+          <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
+            <div className="text-left font-semibold mb-2">Layanan</div>
+            <InputSelect
+              list={locationCategories?.map((locationCategoryItem) => {
+                return {
+                  title: locationCategoryItem.name,
+                  value: locationCategoryItem.id,
+                };
+              })}
+              value={form.category || ''}
+              onChange={(value) => {
+                form.skip = '0';
+                onFieldChange(
+                  'category',
+                  (Array.isArray(value)
+                    ? value.at(0)?.value
+                    : value?.value) || ''
+                );
+              }}
+            />
+          </div>
+        ) : (
+          // Hardcoded jika list kosong
+          <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
+            <div className="text-left font-semibold mb-2">Layanan</div>
+            <InputSelect
+              list={[
+                { title: 'BRI Unit', value: '1' },
+                { title: 'Kantor Cabang', value: '2' },
+                { title: 'Kantor Cabang Pembantu', value: '3' },
+                { title: 'Kantor Kas', value: '4' }
+              ]}
+              value={form.category || '1'} // Default to BRI Unit
+              onChange={(value) => {
+                form.skip = '0';
+                onFieldChange(
+                  'category',
+                  (Array.isArray(value)
+                    ? value.at(0)?.value
+                    : value?.value) || '1'
+                );
+              }}
+            />
+          </div>
+        )}
       </div>
-
       <div className="py-5 container">
         <div className="flex flex-wrap mb-10 -mx-2">
           {location?.data.map((dataItem, index) => (
@@ -281,7 +303,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
                   </div>
                   <div>
                     <Link
-                      href={dataItem.urlMaps ? dataItem.urlMaps : ''}
+                      href={handleurl(dataItem.urlMaps)}
                       target="_self"
                     >
                       <div className="flex items-center text-red-01 font-semibold mb-5">
