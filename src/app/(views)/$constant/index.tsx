@@ -206,8 +206,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
+      const processedData = _component?.data?.map(item => ({
+        ...item,
+        image: `${API_BASE_URL}${item.image}`
+      }));
       return {
-        listTable: _component?.data,
+        listTable: processedData,
         listCurrency: _component?.field_currency,
         availableCurrency: _component?.available_currency,
         note: _component?.note,
