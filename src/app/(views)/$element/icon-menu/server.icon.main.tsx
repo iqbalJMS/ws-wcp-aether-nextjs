@@ -3,7 +3,6 @@
 import { ACT_GetPersonalizeMenu } from '@/app/(views)/$action/action.get.personalize-menu';
 import { T_IconList } from '@/app/(views)/$constant/types';
 import { CE_IconMain } from './client.icon.main';
-import { env } from '@/lib/functions/global/env';
 
 type T_IconMainProps = {
   maxListShow?: number;
@@ -22,7 +21,7 @@ export default async function SE_IconMain({
       externalLink: Array.isArray(iconItem.options)
         ? false
         : iconItem.options.external,
-      image: `${env.DRUPAL_ENDPOINT}${iconItem.icon}`,
+      image: `${process.env.DRUPAL_ENDPOINT}${iconItem.icon}`,
       active: index < maxListShow ? true : false,
       isFixed: iconItem.field_is_fixed?.[0]?.value || '0',
     };

@@ -2,7 +2,6 @@
 'use server';
 
 import { T_FetchOptions } from './fetch.type';
-import { env } from '@/lib/functions/global/env';
 
 const DEFAULT_HEADERS: HeadersInit = {
   'Content-Type': 'application/json',
@@ -12,7 +11,7 @@ async function fetchData<T>(
   endpoint: string,
   options: T_FetchOptions = {}
 ): Promise<T> {
-  const url = `${env.DRUPAL_ENDPOINT}${endpoint}`;
+  const url = `${process.env.DRUPAL_ENDPOINT}${endpoint}`;
   const response = await fetch(url, {
     ...options,
     cache: 'no-store',
