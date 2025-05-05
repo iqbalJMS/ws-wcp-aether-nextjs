@@ -233,14 +233,14 @@ const CE_LocationMain = ({ types }: T_Props) => {
                     value: locationCategoryItem.id,
                   };
                 })}
-                value={form.category}
+                value={form.category || 'default_category_id'}
                 onChange={(value) => {
                   form.skip = '0';
                   onFieldChange(
                     'category',
                     (Array.isArray(value)
                       ? value.at(0)?.value
-                      : value?.value) || ''
+                      : value?.value) || 'default_category_id'
                   );
                 }}
               />

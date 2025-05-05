@@ -2132,6 +2132,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: firstColumn?.image,
                   title: firstColumn?.title,
                   description: firstColumn?.description,
+                  document:
+                    firstColumn?.document &&
+                    `${API_BASE_URL}${firstColumn.document}`,
                   buttons: [
                     {
                       link: (firstColumn?.button?.link || '').replace(
@@ -2147,6 +2150,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: secondColumn?.image,
                   title: secondColumn?.title,
                   description: secondColumn?.description,
+                  document:
+                    secondColumn?.document &&
+                    `${API_BASE_URL}${secondColumn.document}`,
                   buttons: [
                     {
                       link: (secondColumn?.button?.link || '').replace(
@@ -2270,6 +2276,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
+              document:
+                _component?.field_first_column?.[0]?.field_document?.[0].field_media_file?.[0].uri?.[0]?.url,
               button: {
                 title:
                   _component.field_first_column?.[0]?.field_primary_cta?.[0]
@@ -2285,6 +2293,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
+              document:
+                _component?.field_first_column?.[0]?.field_document?.[0].field_media_file?.[0].uri?.[0]?.url,
               button: {
                 title:
                   _component.field_second_column?.[0]?.field_primary_cta?.[0]
