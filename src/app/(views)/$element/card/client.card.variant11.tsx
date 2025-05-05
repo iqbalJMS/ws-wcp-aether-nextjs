@@ -31,9 +31,9 @@ export default function CE_CardVariant11({
     if (itemCount === 1) {
       // Single card centered
       return {
-        containerClass: "justify-center",
+        containerClass: "flex justify-center w-full",
         itemClass: "flex-none mx-auto", 
-        cardClass: "w-96 sm:w-112 md:w-128 lg:w-160 xl:w-192",
+        cardClass: "w-1/2",
         spacing: "px-0"
       };
     } else if (itemCount === 2) {
@@ -63,8 +63,8 @@ export default function CE_CardVariant11({
     }
   };
 
-  const { itemClass} = getLayoutConfig();
-
+  const {itemClass} = getLayoutConfig();
+  
   return (
     <>
       <div className="py-10 container mx-auto overflow-hidden">
@@ -76,15 +76,46 @@ export default function CE_CardVariant11({
           </div>
         )}
         <div className="overflow-x-auto lg:overflow-visible">
-          <div className="flex flex-row w-full ${containerClass} items-center">
+          <div className="w-full ${containerClass} flex justify-center items-center">
             {data?.map((item, index) => {
               const isSingleCard = data.length === 1;
-
+            if (isSingleCard) {
+              return (
+                <div key={index} className="w-full flex justify-center">
+                  <Link href={handleurl(item?.button?.link)} className="w-full flex justify-center">
+                    <div className="w-1/2 h-72 flex flex-col items-center justify-center hover:-translate-y-4 hover:shadow-md duration-200 px-16 py-8 rounded-xl mx-auto">
+                      {item?.image && (
+                        <div className="w-32 h-32 flex justify-center items-center mb-4">
+                          <Image
+                            extern={false}
+                            src={item?.image ?? ''}
+                            alt="image"
+                            width={500}
+                            height={500}
+                            className="w-28 h-28 lg:w-32 lg:h-32 xl:w-36 xl:h-36 object-contain"
+                          />
+                        </div>
+                      )}
+                      {item?.title && (
+                        <div className="text-sm xl:text-base text-blue-01 font-semibold pt-5 text-center">
+                          {parseHTMLToReact(item?.title)}
+                        </div>
+                      )}
+                      {item?.description && (
+                        <div className="w-full text-sm lg:text-base text-black text-opacity-50 mt-3 text-center whitespace-normal break-words">
+                          {parseHTMLToReact(item?.description)}
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                </div>
+              );
+            }
               return (
                 <Link
                   href={handleurl(item?.button?.link)}
                   key={index}
-                  className={`${itemClass} ${isSingleCard ? 'flex justify-center' : ''}`}
+                  className={`${itemClass} ${isSingleCard ? 'flex justify-center w-full' : ''}`}
                 >
                   <div className="${cardClass} h-72 flex flex-col items-center justify-center hover:-translate-y-4 hover:shadow-md duration-200 px-16 py-8 rounded-xl mx-auto">
                     {item?.image && (
