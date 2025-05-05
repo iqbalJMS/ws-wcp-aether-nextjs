@@ -1,20 +1,24 @@
 'use client';
 
-import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
-import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
-import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
-import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
-import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
-import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useState } from 'react';
-import Accordion from './accordion';
 import Image from './image';
 import Link from './link';
-import { Tooltip } from './tooltip';
+
 import SE_PortletVariant07 from '@/app/(views)/$element/portlet/server.portlet.variant07';
 import CE_PortletVariant08 from '@/app/(views)/$element/portlet/client.portlet.variant08';
+import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
+import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
+import CE_CardVariant12 from '@/app/(views)/$element/card/client.card.variant12';
+import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
+import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
+import Tooltip from './tooltip';
+import Accordion from './accordion';
+
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { handleurl } from '@/lib/functions/client/handle-url';
+
+import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
+import { useEnv } from '@/lib/hook/useEnv';
 
 type TChildren = {
   richText: string;
@@ -135,6 +139,7 @@ export default function Tabs({
   drupalBase = '',
   defaultSelected = 0,
 }: TabsProps) {
+  const { drupalUrl } = useEnv();
   const [menuActive, setMenuActive] = useState(defaultSelected);
 
   const renderElement = ({ children, type }: TRenderElemment) => {
@@ -316,9 +321,12 @@ export default function Tabs({
               {item?.listColumn?.map((childItem, idx: number) => {
                 const title = childItem?.field_title?.[0]?.value ?? '';
                 const description = childItem?.field_content?.[0]?.value ?? '';
-                const iconImage =
-                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                    ?.url ?? '';
+                const iconImage = childItem?.field_image?.[0]
+                  ?.field_media_image?.[0]?.uri?.[0]?.url
+                  ? drupalUrl +
+                    childItem?.field_image?.[0]?.field_media_image?.[0]
+                      ?.uri?.[0]?.url
+                  : '';
                 return (
                   <div className="col-span-1" key={idx}>
                     <div className="flex gap-x-8">

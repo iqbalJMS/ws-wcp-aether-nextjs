@@ -179,6 +179,7 @@ const AccordionClient = dynamic(
   () => import('@/lib/element/global/accordion'),
   { ssr: false }
 );
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
