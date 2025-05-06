@@ -9,7 +9,6 @@ export type T_Widget =
   | 'slider'
   | 'dropdown_action'
   | 'personalized_shortcut'
-  | 'image_slider'
   | 'subscription'
   | 'header'
   | 'multi_tab'
@@ -23,7 +22,15 @@ export type T_Widget =
   | 'two_column'
   | 'rich_text'
   | 'bbri_stock_market'
-  | 'promo_widget';
+  | 'promo_widget'
+  | 'location'
+  | 'dropdown_simulation'
+  | 'video'
+  | 'download'
+  | 'accordion'
+  | 'form'
+  | 'simulation'
+  | 'content_type';
 
 export type T_IconList = {
   image: string;

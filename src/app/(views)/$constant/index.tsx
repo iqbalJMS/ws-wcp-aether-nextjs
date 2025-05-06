@@ -175,10 +175,14 @@ const SE_FormMain = dynamic(
 const SE_Sitemap = dynamic(
   () => import('@/app/(views)/$element/server.sitemap')
 );
+const CE_Form = dynamic(
+  () => import('@/app/(views)/$element/form/client.form')
+  
 const AccordionClient = dynamic(
   () => import('@/lib/element/global/accordion'),
   { ssr: false }
 );
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -188,6 +192,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           (locationTypeItem: any) => {
             return {
               id: locationTypeItem.id,
+              imageUrl: `${API_BASE_URL}${locationTypeItem.image_url}` ,
             };
           }
         ),
@@ -205,8 +210,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
+      const processedData = _component?.data?.map(item => ({
+        ...item,
+        image: `${API_BASE_URL}${item.image}`
+      }));
       return {
-        listTable: _component?.data,
+        listTable: processedData,
         listCurrency: _component?.field_currency,
         availableCurrency: _component?.available_currency,
         note: _component?.note,
@@ -281,6 +290,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   section: {
     component: (props) => {
       const findVariantStyle = props?.variant;
+      const componentForm = props?.componentForm;
       const richTextData = props?.richText;
       const tentangBRI = {
         bigTitle: props?.bigTitle,
@@ -297,6 +307,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const navigationLink = (props?.navigationLink || '').replace('/id', '');
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
+      const titleForm = props?.titleForm;
+      const subTitleForm = props?.subTitleForm;
       const backgroundImg = backgroundImage
         ? `${API_BASE_URL}${backgroundImage}`
         : '';
@@ -622,9 +634,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <div
               className="w-full mb-10"
               style={{
-                backgroundImage: `url(${
-                  backgroundImage ? (backgroundImg ?? '') : ''
-                })`,
+                backgroundImage: `url(${backgroundImage ? (backgroundImg ?? '') : ''})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
               }}
@@ -888,10 +898,19 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             />
           );
         default:
-          return null;
+          if (componentForm) {
+            return (
+              <CE_Form
+                title={titleForm}
+                subTitle={subTitleForm}
+                fieldForm={componentForm}
+              />
+            );
+          } else {
+            return null;
+          }
       }
     },
-    // @ts-expect-error
     props: (_component: T_Section) => {
       const findVariantStyle =
         _component?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
@@ -1230,6 +1249,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           ),
         };
       });
+      const fieldForm =
+        _component?.field_column?.[0]?.field_form?.[0]?.target_id;
+      
       const dataV62 = _component?.field_column?.[0]?.field_accordion_items?.map(
         (item: any) => {
           // Get all slider items from paragraphs (using any type to avoid TypeScript errors)
@@ -1539,7 +1561,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             data: dataV64,
           };
         default:
-          return null;
+          if (!fieldForm) {
+            return <></>;
+          } else
+            return {
+              titleForm: title,
+              componentForm: fieldForm,
+              subTitleForm: subtitle,
+            };
       }
     },
   },
@@ -2091,6 +2120,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const description2 = props?.secondColumn?.description ?? '';
       const imageUrl1 = firstColumn?.image ?? '';
       const imageUrl2 = secondColumn?.image ?? '';
+      const document1 = props?.firstColumn?.document ?? '';
+      const document2 = props?.secondColumn?.document ?? '';
+      const doctitle1 = props?.firstColumn?.documentTitle ?? '';
+      const doctitle2 = props?.secondColumn?.documentTitle ?? '';
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant19:
@@ -2129,6 +2162,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: firstColumn?.image,
                   title: firstColumn?.title,
                   description: firstColumn?.description,
+                  document: document1 || null,
+                  documentTitle: doctitle1,
                   buttons: [
                     {
                       link: (firstColumn?.button?.link || '').replace(
@@ -2144,6 +2179,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: secondColumn?.image,
                   title: secondColumn?.title,
                   description: secondColumn?.description,
+                  document: document2 || null,
+                  documentTitle: doctitle2,
                   buttons: [
                     {
                       link: (secondColumn?.button?.link || '').replace(
@@ -2260,6 +2297,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const image33s =
             _component?.field_second_column?.[0]?.field_image?.[0]
               ?.field_media_image?.[0]?.uri?.[0]?.url;
+          const document33f = 
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const document33s = 
+            _component?.field_second_column?.[0]?.field_cta_document?.[0]?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const documentTitle1 = 
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]?.field_title?.[0]?.value || "Download";
+          const documentTitle2 = 
+            _component?.field_second_column?.[0]?.field_cta_document?.[0]?.field_title?.[0]?.value || "Download";
           return {
             firstColumn: {
               image: image33f ? `${API_BASE_URL}${image33f}` : image33f,
@@ -2267,6 +2312,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
+              document:
+                document33f ? `${API_BASE_URL}${document33f}` : document33f,
+              documentTitle: documentTitle1,
               button: {
                 title:
                   _component.field_first_column?.[0]?.field_primary_cta?.[0]
@@ -2282,6 +2330,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
+              document:
+                document33s ? `${API_BASE_URL}${document33s}` : document33s,
+              documentTitle: documentTitle2,
               button: {
                 title:
                   _component.field_second_column?.[0]?.field_primary_cta?.[0]
@@ -2441,6 +2492,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const listAccordion: Array<any> = props?.listAccordion;
       const accordionStyle: String = props?.accordionStyle;
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
+      // const titleCtaProps = props?.titleCtaProps;
+      // const linkCtaProps = props?.linkCtaProps;
       const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
@@ -2471,6 +2524,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 })}
               />
             );
+          case 'default':
+            return <CE_AccordionDefault />;
           case 'card-section':
           default:
             return (
@@ -2503,8 +2558,30 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                             {item?.button?.title && (
                               <div className="flex items-center gap-1 text-sm">
                                 {parseHTMLToReact(item?.button?.title)}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path d="m9 18 6-6-6-6" />
+                                </svg>
                               </div>
                             )}
+                          </div>
+                          <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
+                            <Link
+                              href={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${item?.cardPdf?.[1]?.cardPdfloop ?? ''}`}
+                              className="flex items-center gap-1 text-sm"
+                              download
+                            >
+                              {item?.cardPdf?.[1]?.titlePdfloop ?? ''}
+                            </Link>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -2524,6 +2601,17 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     </Link>
                   </div>
                 ))}
+                <div className=" w-full flex justify-center pt-8">
+                  {listAccordion?.[0]?.linkCta &&
+                  listAccordion?.[0]?.titleCta ? (
+                    <Link
+                      href={listAccordion?.[0]?.linkCta ?? '#'}
+                      className="bg-[#F59823] px-5 py-3 rounded-full text-base text-white font-normal uppercase hover:bg-slate-200 focus:bg-slate-200 hover:text-black focus:text-black duration-200 hover:border-2 hover:border-slate-700"
+                    >
+                      {listAccordion?.[0]?.titleCta ?? ''}
+                    </Link>
+                  ) : null}
+                </div>
               </div>
             );
         }
@@ -2574,7 +2662,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 field_media_image: Array<{ uri: Array<{ url: string }> }>;
               }>;
               field_primary_cta: Array<{ title: string; full_url: string }>;
+              field_cta_document: Array<{
+                field_title: Array<{ value: string }>;
+                field_document: Array<{
+                  field_media_file: Array<{ uri: Array<{ url: string }> }>;
+                }>;
+              }>;
             }>;
+            field_primary_cta: Array<{ title: string; full_url: string }>;
           }>;
         }) => {
           return {
@@ -2586,7 +2681,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 const image =
                   childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
                     ?.url;
-
+                const pdf = childItem?.field_cta_document?.map((item) => {
+                  return {
+                    cardPdfloop:
+                      item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
+                        ?.url,
+                    titlePdfloop: item?.field_title?.[0]?.value,
+                  };
+                });
                 return {
                   image: image,
                   title: title,
@@ -2595,9 +2697,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     title: childItem?.field_primary_cta?.[0]?.title,
                     extern: true,
                   },
+                  cardPdf: pdf,
                 };
               }
             ),
+            linkCta:
+              item?.field_paragraphs?.[0]?.field_primary_cta?.[0]?.full_url,
+            titleCta:
+              item?.field_paragraphs?.[0]?.field_primary_cta?.[0]?.title,
           };
         }
       );
@@ -2697,7 +2804,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
       switch (findTypeForm) {
         case 'qlola':
-          return <CE_FormQlola />;
+          return (
+            <CE_FormQlola title={''} subTitle={''} fieldForm={findTypeForm} />
+          );
+        case 'kprbri':
+          return (
+            <CE_FormKprBri title={''} subTitle={''} fieldForm={findTypeForm} />
+          );
         default:
           return null;
       }
