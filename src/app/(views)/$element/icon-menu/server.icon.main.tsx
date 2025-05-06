@@ -21,7 +21,7 @@ export default async function SE_IconMain({
       externalLink: Array.isArray(iconItem.options)
         ? false
         : iconItem.options.external,
-      image: `${process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${iconItem.icon}`,
+      image: `${process.env.DRUPAL_ENDPOINT}${iconItem.icon}`,
       active: index < maxListShow ? true : false,
       isFixed: iconItem.field_is_fixed?.[0]?.value || '0',
     };

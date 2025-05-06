@@ -1,10 +1,11 @@
 'use client';
+
 import React, { useState } from 'react';
-// import dummyImage from '@/../../public/images/dummy/banner.jpg';
 import Link from 'next/link';
+
 import useScreenWidth from '@/lib/hook/useScreenWidth';
-// import ArrowRightIcon from '@/lib/element/global/arrow-right-icon';
-// import ArrowLeftIcon from '@/lib/element/global/arrow-left-icon';
+import { handleurl } from '@/lib/functions/client/handle-url';
+import { useEnv } from '@/lib/hook/useEnv';
 
 const getSlideToShow = (screenWidth: number) => {
   if (!screenWidth) return 3;
@@ -32,6 +33,7 @@ export default function CE_PromoSlider({
   }>;
   linkPromo: string;
 }) {
+  const { drupalUrl } = useEnv();
   const [currentSlide, setCurrentSlide] = useState(0);
   const screenWidth = useScreenWidth();
   const slidesToShow = getSlideToShow(screenWidth);
@@ -84,7 +86,7 @@ export default function CE_PromoSlider({
               >
                 {data?.map((item, index) => (
                   <Link
-                    href={`promo-detail/${item?.nid ?? ''}`}
+                    href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                     key={index}
                     className="group relative overflow-hidden w-[25%] h-[400px] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
                   >
@@ -92,7 +94,7 @@ export default function CE_PromoSlider({
                       <div
                         className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100"
                         style={{
-                          backgroundImage: `url(${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${item?.image ?? ''})`,
+                          backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
                           backgroundSize: 'cover',
                           backgroundRepeat: 'no-repeat',
                         }}
@@ -158,7 +160,7 @@ export default function CE_PromoSlider({
                 >
                   {data?.map((item, index) => (
                     <Link
-                      href={`promo-detail/${item?.nid ?? ''}`}
+                      href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                       key={index}
                       className="group relative overflow-hidden w-[48%] h-[500px] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
                     >
@@ -166,7 +168,7 @@ export default function CE_PromoSlider({
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `url(${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${item?.image ?? ''})`,
+                            backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}
@@ -233,7 +235,7 @@ export default function CE_PromoSlider({
                 >
                   {data?.map((item, index) => (
                     <Link
-                      href={`promo-detail/${item?.nid ?? ''}`}
+                      href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                       key={index}
                       className="group relative overflow-hidden w-full h-[500px] flex-none flex flex-col justify-center bg-center cursor-pointer "
                     >
@@ -241,7 +243,7 @@ export default function CE_PromoSlider({
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `url(${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${item?.image ?? ''})`,
+                            backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}
@@ -284,7 +286,7 @@ export default function CE_PromoSlider({
           </div>
         </div>
         <Link
-          href={`${linkPromo ?? ''}`}
+          href={`${handleurl(linkPromo ?? '')}`}
           className="uppercase w-full h-fit flex justify-center items-center text-[#79B0DF] hover:underline "
         >
           temukan promosi lainnya <span>&#10095;</span>

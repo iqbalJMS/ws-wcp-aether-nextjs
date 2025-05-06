@@ -1,19 +1,24 @@
 'use client';
 
-import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
-import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
-import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
-import { CE_CardVariant12 } from '@/app/(views)/$element/card/client.card.variant12';
-import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
-import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useState } from 'react';
-import Accordion from './accordion';
 import Image from './image';
 import Link from './link';
-import { Tooltip } from './tooltip';
+
 import SE_PortletVariant07 from '@/app/(views)/$element/portlet/server.portlet.variant07';
 import CE_PortletVariant08 from '@/app/(views)/$element/portlet/client.portlet.variant08';
+import CE_CardVariant02 from '@/app/(views)/$element/card/client.card.variant02';
+import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
+import CE_CardVariant12 from '@/app/(views)/$element/card/client.card.variant12';
+import CE_CarouselVariant06 from '@/app/(views)/$element/carousel/client.carousel.variant06';
+import CE_Paragraphs from '@/app/(views)/$element/paragrahps';
+import Tooltip from './tooltip';
+import Accordion from './accordion';
+
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { handleurl } from '@/lib/functions/client/handle-url';
+
+import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
+import { useEnv } from '@/lib/hook/useEnv';
 
 type TChildren = {
   richText: string;
@@ -121,7 +126,7 @@ type TRenderElemment = {
   type: string;
 };
 
-export function Tabs({
+export default function Tabs({
   list,
   value,
   onChange,
@@ -134,6 +139,7 @@ export function Tabs({
   drupalBase = '',
   defaultSelected = 0,
 }: TabsProps) {
+  const { drupalUrl } = useEnv();
   const [menuActive, setMenuActive] = useState(defaultSelected);
 
   const renderElement = ({ children, type }: TRenderElemment) => {
@@ -239,11 +245,13 @@ export function Tabs({
         const description = list?.[menuActive]?.description ?? '';
         const notes = list?.[menuActive]?.notes ?? '';
         return (
-          <CE_Paragraphs
-            key={description}
-            description={description}
-            notes={notes}
-          />
+          <div className="container">
+            <CE_Paragraphs
+              key={description}
+              description={description}
+              notes={notes}
+            />
+          </div>
         );
       case WIDGET_VARIANT.variant13:
         return list?.[menuActive]?.children?.map((item, index) => {
@@ -286,7 +294,6 @@ export function Tabs({
                     description2={item?.description2}
                     imageUrl1={item?.imageUrl1}
                     imageUrl2={item?.imageUrl2}
-                    variant={''}
                     variantTwoColumn={item?.variantChildren}
                   />
                 </div>
@@ -314,9 +321,12 @@ export function Tabs({
               {item?.listColumn?.map((childItem, idx: number) => {
                 const title = childItem?.field_title?.[0]?.value ?? '';
                 const description = childItem?.field_content?.[0]?.value ?? '';
-                const iconImage =
-                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                    ?.url ?? '';
+                const iconImage = childItem?.field_image?.[0]
+                  ?.field_media_image?.[0]?.uri?.[0]?.url
+                  ? drupalUrl +
+                    childItem?.field_image?.[0]?.field_media_image?.[0]
+                      ?.uri?.[0]?.url
+                  : '';
                 return (
                   <div className="col-span-1" key={idx}>
                     <div className="flex gap-x-8">
@@ -353,7 +363,7 @@ export function Tabs({
             {list?.[menuActive]?.textShowMore && (
               <div className="flex justify-center mt-12">
                 <Link
-                  href={list?.[menuActive]?.linkShowMore ?? ''}
+                  href={handleurl(list?.[menuActive]?.linkShowMore)}
                   className="bg-orange-400 text-white px-8 py-3 rounded-full"
                 >
                   {list?.[menuActive]?.textShowMore}
@@ -428,46 +438,55 @@ export function Tabs({
         ));
       case WIDGET_VARIANT.variant38:
         return list?.[menuActive]?.children?.map((item, index) => {
-          return item?.listColumn?.map((listItem) => (
-            <Accordion
-              key={index}
-              renderTitle={
-                listItem?.title && (
-                  <p className="text-left font-normal text-2xl">
-                    {listItem?.title}
-                  </p>
-                )
-              }
-              isOpen={index === 0}
-              renderContent={renderElement({
-                type: 'download',
-                children: listItem?.children as Array<TChildren>,
-              })}
-              content={''}
-            />
-          ));
+          return (
+            <div key={index} className="container">
+              {item?.listColumn?.map((listItem, index) => (
+                <Accordion
+                  key={index}
+                  renderTitle={
+                    listItem?.title && (
+                      <p className="text-left font-normal text-2xl">
+                        {listItem?.title}
+                      </p>
+                    )
+                  }
+                  isOpen={index === 0}
+                  renderContent={renderElement({
+                    type: 'download',
+                    children: listItem?.children as Array<TChildren>,
+                  })}
+                  content={''}
+                />
+              ))}
+              ;
+            </div>
+          );
         });
       case WIDGET_VARIANT.variant40:
         return list?.[menuActive]?.children?.map((item, index) => {
-          return item?.listColumn?.map((listItem) => (
-            <Accordion
-              key={index}
-              renderTitle={
-                listItem?.title && (
-                  <p className="text-left font-normal text-2xl">
-                    {listItem?.title}
-                  </p>
-                )
-              }
-              isOpen={index === 0}
-              renderContent={renderElement({
-                type: 'rich-text',
-                // @ts-expect-error
-                children: listItem.children,
-              })}
-              content={''}
-            />
-          ));
+          return (
+            <div key={index} className="container">
+              {item?.listColumn?.map((listItem) => (
+                <Accordion
+                  key={index}
+                  renderTitle={
+                    listItem?.title && (
+                      <p className="text-left font-normal text-2xl">
+                        {listItem?.title}
+                      </p>
+                    )
+                  }
+                  isOpen={index === 0}
+                  renderContent={renderElement({
+                    type: 'rich-text',
+                    // @ts-expect-error
+                    children: listItem.children,
+                  })}
+                  content={''}
+                />
+              ))}
+            </div>
+          );
         });
       default:
         return null;
@@ -587,7 +606,8 @@ export function Tabs({
                   className={[
                     'absolute bottom-0 left-0',
                     'w-full h-[.2rem] bg-blue-01',
-                    item?.slug === value && list?.length > 1
+                    (item?.slug === value || menuActive === index) &&
+                    list?.length > 1
                       ? 'visible'
                       : 'invisible',
                     'group-hover/tab:visible',

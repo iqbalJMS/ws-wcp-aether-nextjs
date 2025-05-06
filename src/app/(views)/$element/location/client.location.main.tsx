@@ -24,9 +24,13 @@ import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.locati
 import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
 import InputSelect from '@/lib/element/global/form/input.select';
 import debounce from '@/lib/functions/global/debounce';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 type T_Props = {
-  types: { id: string }[];
+  types: { 
+    id: string;
+    imageUrl?: string;
+  }[];
 };
 
 const CE_LocationMain = ({ types }: T_Props) => {
@@ -94,10 +98,9 @@ const CE_LocationMain = ({ types }: T_Props) => {
       const categories = response?.data.data || [];
       setLocationCategories(categories);
 
-      const firstCategoryId = categories.at(0)?.id || '';
       setForm((prevForm) => ({
         ...prevForm,
-        category: firstCategoryId,
+        category: '',
       }));
     } catch (error) {
       //eslint-disable-next-line no-console
@@ -198,21 +201,15 @@ const CE_LocationMain = ({ types }: T_Props) => {
                   ></div>
                   <div>
                     <div className="text-center mb-2">
-                      <div className="w-20 h-20 mdmax:w-8 mdmax:h-8 inline-block">
-                        {getLocationType(locationTypeItem.id)?.term_icon && (
-                          <Image
-                            extern={false}
-                            src={
-                              getLocationType(locationTypeItem.id)?.term_icon ||
-                              ''
-                            }
-                            alt="background"
-                            width={200}
-                            height={200}
-                            className="w-full h-full object-contain"
-                          />
-                        )}
-                      </div>
+                      {locationTypeItem.imageUrl && (
+                        <Image
+                          src={locationTypeItem.imageUrl}
+                          alt=""
+                          width={100}
+                          height={100}
+                          className="w-[5rem] h-[5rem] mdmax:w-[2rem] mdmax:h-[2rem] mx-auto"
+                        />
+                      )}
                     </div>
                     <div className="text-center font-semibold h-[5rem] mdmax:h-[2rem] mdmax:text-[0.5rem]">
                       {getLocationType(locationTypeItem.id)?.name}
@@ -225,32 +222,33 @@ const CE_LocationMain = ({ types }: T_Props) => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        {Array.isArray(locationCategories) &&
-          locationCategories.length !== 0 && (
-            <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
-              <div className="text-left font-semibold mb-2">Layanan</div>
-              <InputSelect
-                list={locationCategories?.map((locationCategoryItem) => {
+        {Array.isArray(locationCategories) && (
+          <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
+            <div className="text-left font-semibold mb-2">Layanan</div>
+            <InputSelect
+              list={[
+                { title: "Semua", value: "" },
+                ...(locationCategories?.map((locationCategoryItem) => {
                   return {
                     title: locationCategoryItem.name,
                     value: locationCategoryItem.id,
                   };
-                })}
-                value={form.category}
-                onChange={(value) => {
-                  form.skip = '0';
-                  onFieldChange(
-                    'category',
-                    (Array.isArray(value)
-                      ? value.at(0)?.value
-                      : value?.value) || ''
-                  );
-                }}
-              />
-            </div>
-          )}
+                }))
+              ]}
+              value={form.category || ''}
+              onChange={(value) => {
+                form.skip = '0';
+                onFieldChange(
+                  'category',
+                  (Array.isArray(value)
+                    ? value.at(0)?.value
+                    : value?.value) || ''
+                );
+              }}
+            />
+          </div>
+        )}
       </div>
-
       <div className="py-5 container">
         <div className="flex flex-wrap mb-10 -mx-2">
           {location?.data.map((dataItem, index) => (
@@ -284,7 +282,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
                   </div>
                   <div>
                     <Link
-                      href={dataItem.urlMaps ? dataItem.urlMaps : ''}
+                      href={handleurl(dataItem.urlMaps)}
                       target="_self"
                     >
                       <div className="flex items-center text-red-01 font-semibold mb-5">

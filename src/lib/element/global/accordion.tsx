@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 
 import { ChevronDownIcon } from './icons/chevron-down-icon';
@@ -32,14 +33,14 @@ export default function Accordion({
         <div
           className={`${variant == 'full-border' ? 'border-b' : variant == 'full' ? 'rounded-lg bg-blue-01 p-4 text-white' : ''}`}
         >
-          <div className={`${variant == 'full-border' ? 'container' : ''}`}>
+          <div className={`${variant == 'full-border' ? '' : ''}`}>
             <button
               onClick={() => setAccordionOpen(!accordionOpen)}
               className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' || variant == 'none' ? 'border-none' : 'border-b'} flex py-4 items-center w-full`}
             >
-              <div className="flex items-center">
+              <div className="flex items-center justify-between w-full">
                 {imageTitle ? (
-                  <>
+                  <div className="flex items-center">
                     <div className="w-10 h-10 inline-flex items-center justify-center">
                       <Image
                         extern={true}
@@ -51,11 +52,11 @@ export default function Accordion({
                       />
                     </div>
                     {renderTitle}
-                  </>
+                  </div>
                 ) : (
-                  <div className="flex items-center">
-                    {renderTitle}
-                    {/* Placing the icon directly next to the title with minimal margin */}
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex-grow">{renderTitle}</div>
+
                     <span className="ml-1">
                       {accordionOpen ? (
                         <ChevronDownIcon
@@ -82,19 +83,9 @@ export default function Accordion({
         <div
           className={`grid overflow-hidden transition-all duration-500 ease-in-out ${accordionOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
         >
-          {content ? (
-            <div className="overflow-hidden">{parseHTMLToReact(content)}</div>
-          ) : (
-            <div className="overflow-hidden">{renderContent}</div>
-          )}
-          {/* <div className=" w-full flex justify-center pt-5">
-            <Link
-              href={linkCta ?? '#'}
-              className="bg-[#F59823] px-5 py-3 rounded-full text-base text-white font-semibold uppercase hover:bg-slate-400 focus:bg-slate-400 hover:text-black focus:text-black duration-200 hover:border-2 hover:border-slate-700"
-            >
-              {titleCta ?? ''}
-            </Link>
-          </div> */}
+          <div className="overflow-hidden pl-0">
+            {content ? parseHTMLToReact(content) : renderContent}
+          </div>
         </div>
       </section>
     </>

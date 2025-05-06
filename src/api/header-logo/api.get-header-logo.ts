@@ -2,8 +2,6 @@
 import { get } from '@/api/common/fetch';
 import { T_ResponGetHeaderLogo } from './api.get-header-logo.type';
 
-const user = process.env.DRUPAL_AUTH || '';
-const pass = process.env.DRUPAL_PASSWORD || '';
 
 export async function API_GetHeaderLogo({
   // eslint-disable-next-line no-unused-vars
@@ -14,7 +12,7 @@ export async function API_GetHeaderLogo({
   try {
     const response: T_ResponGetHeaderLogo = await get(
       '/config_pages/header?_format=json_recursive',
-      { Authorization: `Basic ${btoa(`${user}:${pass}`)}` }
+      { Authorization: `Basic ${btoa(`${process.env.DRUPAL_AUTH}:${process.env.DRUPAL_PASSWORD}`)}` }
     );
 
     return response;

@@ -1,8 +1,10 @@
 import Link from '@/lib/element/global/link';
 import React from 'react';
 import { ChevronRightIcon } from '@/lib/element/global/icons/chevron-right-icon';
-import { Tooltip } from '@/lib/element/global/tooltip';
+import Tooltip from '@/lib/element/global/tooltip';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { handleurl } from '@/lib/functions/client/handle-url';
+import { truncatedTextHtml } from '@/lib/functions/client/truncated-text-html';
 
 type T_PortletVariant07Props = {
   title?: string;
@@ -42,25 +44,31 @@ export default async function SE_PortletVariant07({
                 className="bg-white rounded-md p-8 shadow-md hover:bg-blue-500 hover:text-white space-y-8 md:w-1/4 w-full group/card07"
               >
                 {cc.title && <h3 className="font-bold text-xl">{cc.title}</h3>}
-                {cc.textContent && (
-                  <div>
-                    <p className="line-clamp-4 text-gray-400 group-hover/card07:text-white">
-                      {parseHTMLToReact(cc.textContent)}
-                    </p>
-                    <Tooltip
-                      description={parseHTMLToReact(cc.textContent)}
-                      position="right"
-                      variant="complex"
-                    >
-                      <span className="text-blue-800 font-bold group-hover/card07:text-white">
-                        [...]
-                      </span>
-                    </Tooltip>
-                  </div>
-                )}
+                {cc.textContent &&
+                  (() => {
+                    const truncatedText = truncatedTextHtml(cc.textContent, 17);
+                    return (
+                      <div>
+                        <p className="line-clamp-4 text-gray-400 group-hover/card07:text-white">
+                          {parseHTMLToReact(truncatedText.truncated)}
+                        </p>
+                        {truncatedText.remaining && (
+                          <Tooltip
+                            description={parseHTMLToReact(cc.textContent)}
+                            position="right"
+                            variant="complex"
+                          >
+                            <span className="text-blue-800 font-bold group-hover/card07:text-white">
+                              [...]
+                            </span>
+                          </Tooltip>
+                        )}
+                      </div>
+                    );
+                  })()}
                 {cc.textLink && (
                   <Link
-                    href={cc.urlTextLink ?? '#'}
+                    href={handleurl(cc.urlTextLink)}
                     className="text-blue-800 hover:underline flex gap-2 group-hover/card07:text-white items-center"
                   >
                     <p className="uppercase">{cc.textLink}</p>

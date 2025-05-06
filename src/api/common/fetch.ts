@@ -3,9 +3,6 @@
 
 import { T_FetchOptions } from './fetch.type';
 
-const API_BASE_URL =
-  process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
-
 const DEFAULT_HEADERS: HeadersInit = {
   'Content-Type': 'application/json',
 };
@@ -14,7 +11,7 @@ async function fetchData<T>(
   endpoint: string,
   options: T_FetchOptions = {}
 ): Promise<T> {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const url = `${process.env.DRUPAL_ENDPOINT}${endpoint}`;
   const response = await fetch(url, {
     ...options,
     cache: 'no-store',

@@ -8,6 +8,7 @@ import {
 } from '@/api/navbar-menu/main-navbar/api.get-main-menu-navbar.type';
 import { T_ResponseGetMenuItemNavbar } from '@/api/navbar-menu/menu-items/api.get-menu-items-navbar.type';
 import { T_ResponseGetTopMenuNavbar } from '@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type';
+import { API_BASE_URL, PATH_URL } from '@/app/(views)/$constant/variables';
 import CE_DefaultIcon from '@/lib/element/global/default-icon';
 import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import useScrollActive from '@/lib/hook/useScroll';
@@ -15,10 +16,9 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
-import { CloseIcon } from './icons/close-icon';
 import { Search } from './global.search';
+import { CloseIcon } from './icons/close-icon';
 import Link from './link';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
 
@@ -170,7 +170,7 @@ export default function GlobalHeader({
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
                 var nextUrl =
-                  process.env.NEXT_PUBLIC_PATH_URL +
+                  PATH_URL +
                   '/' +
                   (header?.alias || header?.relative) +
                   '?lang=' +
@@ -193,7 +193,11 @@ export default function GlobalHeader({
                     >
                       {header?.icon ? (
                         <Image
-                          src={header?.icon ? `${API_BASE_URL}${header?.icon}` : header?.icon}
+                          src={
+                            header?.icon
+                              ? `${API_BASE_URL}${header?.icon}`
+                              : header?.icon
+                          }
                           width={18}
                           height={18}
                           alt={`icon-${header?.icon}`}
@@ -261,7 +265,12 @@ export default function GlobalHeader({
                 ?.url ? (
                 <Image
                   alt="logo-bri"
-                  src={headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ? `${API_BASE_URL}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}` : ''}
+                  src={
+                    headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]
+                      ?.uri?.[0]?.url
+                      ? `${API_BASE_URL}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`
+                      : ''
+                  }
                   width={128}
                   height={53}
                   className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -311,7 +320,12 @@ export default function GlobalHeader({
                   ?.uri?.[0]?.url ? (
                   <Image
                     alt="logo-bri"
-                    src={ headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}` : ''}
+                    src={
+                      headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]
+                        ?.uri?.[0]?.url
+                        ? `${API_BASE_URL}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`
+                        : ''
+                    }
                     width={128}
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -590,7 +604,11 @@ export default function GlobalHeader({
                               >
                                 {header?.icon ? (
                                   <Image
-                                    src={header?.icon ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${header?.icon}` : header?.icon}
+                                    src={
+                                      header?.icon
+                                        ? `${API_BASE_URL}${header?.icon}`
+                                        : header?.icon
+                                    }
                                     width={18}
                                     height={18}
                                     alt={`icon-${header?.icon}`}
@@ -634,7 +652,11 @@ export default function GlobalHeader({
                                 <div className="flex items-center">
                                   {header?.icon ? (
                                     <Image
-                                      src={header?.icon ? `${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${header?.icon}` : header?.icon}
+                                      src={
+                                        header?.icon
+                                          ? `${API_BASE_URL}${header?.icon}`
+                                          : header?.icon
+                                      }
                                       width={18}
                                       height={18}
                                       alt={`icon-${header?.icon}`}

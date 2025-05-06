@@ -9,7 +9,7 @@ type T_TooltipProps = {
   children: React.ReactNode;
 };
 
-export function Tooltip({
+export default function Tooltip({
   description,
   variant = 'simple',
   position = 'top',

@@ -1,3 +1,6 @@
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
 import ProfileCard from '@/app/(views)/$element/card/client.card.profile';
 import CardSabrina from '@/app/(views)/$element/card/client.card.sabrina';
 import AboutSection from '@/app/(views)/$element/client.about.section';
@@ -5,14 +8,14 @@ import {
   VideoPlayerVariant1,
   VideoPlayerVariant2,
 } from '@/app/(views)/$element/client.video.player';
-import Accordion, { T_AccordionProps } from '@/lib/element/global/accordion';
+import Accordion from '@/lib/element/global/accordion';
 import Image from '@/lib/element/global/image';
 import ImageViewer from '@/lib/element/global/image.viewer';
-import { Tabs } from '@/lib/element/global/tabs';
+import Tabs from '@/lib/element/global/tabs';
+
 import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
+
 import { T_ComponentMapWidget, T_Widget } from './types';
 import { T_DataBreadCrumb } from './types/widget/breadcrumb';
 import { T_News } from './types/widget/content_type';
@@ -27,6 +30,7 @@ import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
+import { T_AccordionProps } from '@/lib/element/global/accordion';
 import { API_BASE_URL, WIDGET_VARIANT } from './variables';
 
 /* Portlet Component */
@@ -39,14 +43,19 @@ const CE_PortletVarian04 = dynamic(
 const CE_PortletVarian05 = dynamic(
   () => import('@/app/(views)/$element/portlet/client.portlet.varian05')
 );
+const SE_PortletVarian07 = dynamic(
+  () => import('@/app/(views)/$element/portlet/server.portlet.variant07')
+);
 
 /* Carousel Component */
 const CE_CarouselMain = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.main')
 );
 const CE_CarouselVariant06 = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.variant06')
-);
+  () => import('@/app/(views)/$element/carousel/client.carousel.variant06'),
+  { ssr: false }
+); /* server-side rendering */
+
 const CE_CarouselVariant08 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant08')
 );
@@ -166,14 +175,12 @@ const SE_FormMain = dynamic(
 const SE_Sitemap = dynamic(
   () => import('@/app/(views)/$element/server.sitemap')
 );
-const CE_AccordionDefault = dynamic(
-  () => import('@/app/(views)/$element/accordion/client-accordion-default')
-);
-const CE_FormKprBri = dynamic(
-  () => import('@/app/(views)/$element/form/client.form.KprBri')
-);
 const CE_Form = dynamic(
   () => import('@/app/(views)/$element/form/client.form')
+  
+const AccordionClient = dynamic(
+  () => import('@/lib/element/global/accordion'),
+  { ssr: false }
 );
 
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
@@ -185,6 +192,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           (locationTypeItem: any) => {
             return {
               id: locationTypeItem.id,
+              imageUrl: `${API_BASE_URL}${locationTypeItem.image_url}` ,
             };
           }
         ),
@@ -202,8 +210,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
+      const processedData = _component?.data?.map(item => ({
+        ...item,
+        image: `${API_BASE_URL}${item.image}`
+      }));
       return {
-        listTable: _component?.data,
+        listTable: processedData,
         listCurrency: _component?.field_currency,
         availableCurrency: _component?.available_currency,
         note: _component?.note,
@@ -305,6 +317,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           image?: string;
           title?: string;
           position?: string;
+          textLink?: string;
           link?: string;
           filename?: string;
           description?: string;
@@ -663,6 +676,108 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               </div>
             </div>
           );
+        case WIDGET_VARIANT.variant62:
+          const accordionStyle = 'capsule';
+          const isCapsule = accordionStyle === 'capsule' ? 'rounded' : '';
+
+          const social_media = [
+            {
+              name: 'Facebook',
+              icon: 'facebook',
+              url: 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
+            },
+            {
+              name: 'Twitter',
+              icon: 'x',
+              url: 'https://x.com/share?url=https%3A%2F%2Fbri.co.id%2Finformasi-investor&text=BBRI%20Stock%20Info',
+            },
+            {
+              name: 'Google',
+              icon: 'google',
+              url: 'https://plus.google.com/share?url=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
+            },
+            {
+              name: 'WhatsApp',
+              icon: 'whatsapp',
+              url: 'whatsapp://send/?text=https%3A%2F%2Fbri.co.id%2Finformasi-investor%20BBRI%20Stock%20Info',
+            },
+          ];
+
+          const ShareIconClientComponent = dynamic(
+            () =>
+              import('@/lib/element/global/shareIconclient').then(
+                (mod) => mod.default
+              ),
+            { ssr: false }
+          );
+
+          return (
+            <div className="container mx-auto py-6">
+              {title && (
+                <div className="mb-4 text-4xl">
+                  {parseHTMLToReact(title || '')}
+                </div>
+              )}
+
+              {subtitle && (
+                <div className="mb-6 flex items-center">
+                  <div className="flex-grow">
+                    {parseHTMLToReact(subtitle || '')}
+                  </div>
+                  <div className="relative share-icon-container">
+                    <ShareIconClientComponent socialMedia={social_media} />
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-4">
+                {(accordion || []).map((item, key) => {
+                  const itemTitle = item?.title || '';
+                  const itemContent = item?.content || '';
+                  const children = Array.isArray(item?.children)
+                    ? item.children
+                    : [];
+                  const hasChildren = children.length > 0;
+
+                  return (
+                    <AccordionClient
+                      key={key}
+                      renderTitle={
+                        <div className="flex items-center pl-6">
+                          {backgroundImg && (
+                            <img
+                              src={backgroundImg}
+                              alt="Accordion Image"
+                              className="w-10 h-10 mr-4"
+                            />
+                          )}
+                          <p className="lg:text-base text-sm font-semibold pl-4 text-left">
+                            {itemTitle}
+                          </p>
+                        </div>
+                      }
+                      variant={isCapsule as T_AccordionProps['variant']}
+                      renderContent={
+                        hasChildren ? (
+                          <CE_CarouselVariant06
+                            data={children.map((child: any) => ({
+                              image: child?.image
+                                ? `${API_BASE_URL}${child.image}`
+                                : '',
+                              description: child?.title || '',
+                            }))}
+                          />
+                        ) : (
+                          parseHTMLToReact(itemContent)
+                        )
+                      }
+                      content={itemContent}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          );
         case WIDGET_VARIANT.variant39:
           return (
             <div>
@@ -762,6 +877,25 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <div className="container mx-auto my-6 py-6 body table-full-border">
               {richTextData ? parseHTMLToReact(richTextData) : ''}
             </div>
+          );
+        case WIDGET_VARIANT.variant64:
+          return (
+            <SE_PortletVarian07
+              title={title}
+              description={subtitle}
+              cardContent={listItems?.map((childItem) => {
+                const title = childItem?.title;
+                const description = childItem?.subtitle;
+                const textLink = childItem?.textLink;
+                const urlLink = childItem?.link;
+                return {
+                  title: title,
+                  textContent: description,
+                  textLink: textLink,
+                  urlTextLink: urlLink,
+                };
+              })}
+            />
           );
         default:
           if (componentForm) {
@@ -1117,6 +1251,36 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       });
       const fieldForm =
         _component?.field_column?.[0]?.field_form?.[0]?.target_id;
+      
+      const dataV62 = _component?.field_column?.[0]?.field_accordion_items?.map(
+        (item: any) => {
+          // Get all slider items from paragraphs (using any type to avoid TypeScript errors)
+          const sliderItems = item?.field_paragraphs?.map((paragraph: any) => {
+            // Since we're using 'any' type, we can safely access these properties
+            return {
+              title: paragraph?.field_content?.[0]?.value,
+              image:
+                paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                  ?.url,
+            };
+          });
+
+          return {
+            title: item?.field_title?.[0]?.value,
+            content: item?.field_content?.[0]?.value || '',
+            children: sliderItems || [],
+          };
+        }
+      );
+
+      const dataV64 = _component?.field_column?.map((item) => {
+        return {
+          title: item?.field_title?.[0]?.value ?? '',
+          subtitle: item?.field_content?.[0]?.value ?? '',
+          textLink: item?.field_primary_cta?.[0]?.title ?? '',
+          link: item?.field_primary_cta?.[0]?.full_url ?? '',
+        };
+      });
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
@@ -1299,6 +1463,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             accordion: dataV60,
           };
+        case WIDGET_VARIANT.variant62:
+          return {
+            title: title,
+            subtitle: subtitle,
+            variant: findVariantStyle,
+            backgroundImage: backgroundImage,
+            accordion: dataV62,
+          };
         case WIDGET_VARIANT.variant39:
           return {
             variant: findVariantStyle,
@@ -1381,7 +1553,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             richText: dataRichText?.[0]?.element,
           };
-
+        case WIDGET_VARIANT.variant64:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            subtitle: subtitle,
+            data: dataV64,
+          };
         default:
           if (!fieldForm) {
             return <></>;
@@ -1448,9 +1626,23 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       switch (variant) {
         case WIDGET_VARIANT.variant49:
           return <CE_SectionPromo title={title} listTab={listTab} />;
-        case WIDGET_VARIANT.variant05:
         case WIDGET_VARIANT.variant10:
         case WIDGET_VARIANT.variant13:
+          return (
+            <Tabs
+              title={title}
+              list={list}
+              style={style}
+              variant="border-arrow"
+              variantContent={variant}
+              drupalBase={API_BASE_URL}
+              defaultSelected={
+                ((list as any[]) || []).find(({ selected }) => selected > 0)
+                  ?.selected || 0
+              }
+            />
+          );
+        case WIDGET_VARIANT.variant05:
         case WIDGET_VARIANT.variant15:
         case WIDGET_VARIANT.variant29:
         case WIDGET_VARIANT.variant31:
@@ -1928,6 +2120,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const description2 = props?.secondColumn?.description ?? '';
       const imageUrl1 = firstColumn?.image ?? '';
       const imageUrl2 = secondColumn?.image ?? '';
+      const document1 = props?.firstColumn?.document ?? '';
+      const document2 = props?.secondColumn?.document ?? '';
+      const doctitle1 = props?.firstColumn?.documentTitle ?? '';
+      const doctitle2 = props?.secondColumn?.documentTitle ?? '';
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant19:
@@ -1966,6 +2162,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: firstColumn?.image,
                   title: firstColumn?.title,
                   description: firstColumn?.description,
+                  document: document1 || null,
+                  documentTitle: doctitle1,
                   buttons: [
                     {
                       link: (firstColumn?.button?.link || '').replace(
@@ -1981,6 +2179,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: secondColumn?.image,
                   title: secondColumn?.title,
                   description: secondColumn?.description,
+                  document: document2 || null,
+                  documentTitle: doctitle2,
                   buttons: [
                     {
                       link: (secondColumn?.button?.link || '').replace(
@@ -2002,7 +2202,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               description2={description2}
               imageUrl1={imageUrl1}
               imageUrl2={imageUrl2}
-              variant={''}
+              variantTwoColumn={findVariantStyle}
             />
           );
       }
@@ -2097,6 +2297,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const image33s =
             _component?.field_second_column?.[0]?.field_image?.[0]
               ?.field_media_image?.[0]?.uri?.[0]?.url;
+          const document33f = 
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const document33s = 
+            _component?.field_second_column?.[0]?.field_cta_document?.[0]?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const documentTitle1 = 
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]?.field_title?.[0]?.value || "Download";
+          const documentTitle2 = 
+            _component?.field_second_column?.[0]?.field_cta_document?.[0]?.field_title?.[0]?.value || "Download";
           return {
             firstColumn: {
               image: image33f ? `${API_BASE_URL}${image33f}` : image33f,
@@ -2104,6 +2312,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
+              document:
+                document33f ? `${API_BASE_URL}${document33f}` : document33f,
+              documentTitle: documentTitle1,
               button: {
                 title:
                   _component.field_first_column?.[0]?.field_primary_cta?.[0]
@@ -2119,6 +2330,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
+              document:
+                document33s ? `${API_BASE_URL}${document33s}` : document33s,
+              documentTitle: documentTitle2,
               button: {
                 title:
                   _component.field_second_column?.[0]?.field_primary_cta?.[0]

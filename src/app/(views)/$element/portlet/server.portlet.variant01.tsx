@@ -27,7 +27,9 @@ export default async function SE_PortletVariant01({
     variantWidget !== WIDGET_VARIANT.variant07 ? `md:grid-cols-${column}` : '';
 
   const widthClass =
-    variantWidget === WIDGET_VARIANT.variant57 ? 'w-full' : 'w-[1100px]';
+    variantWidget === WIDGET_VARIANT.variant57
+      ? 'w-full'
+      : 'md:w-[1100px] w-full';
 
   return (
     <section
@@ -42,7 +44,7 @@ export default async function SE_PortletVariant01({
         backgroundSize: 'cover',
       }}
     >
-      <div className="container">
+      <div className="container py-20">
         {title && (
           <div className="font-medium md:text-4xl text-3xl mdmax:text-center mb-4">
             {parseHTMLToReact(title)}

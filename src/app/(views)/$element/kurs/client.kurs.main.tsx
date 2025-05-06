@@ -12,7 +12,7 @@ import InputSelect from '@/lib/element/global/form/input.select';
 import InputText from '@/lib/element/global/form/input.text';
 import Link from '@/lib/element/global/link';
 import Table from '@/lib/element/global/table';
-import { Tabs } from '@/lib/element/global/tabs';
+import Tabs from '@/lib/element/global/tabs';
 import useForm from '@/lib/hook/useForm';
 import { useEffect, useMemo, useState, useTransition } from 'react';
 import PaginationKurs, { ShowingText } from './client.pagination.kurs';
