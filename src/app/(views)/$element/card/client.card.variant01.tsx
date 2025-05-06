@@ -11,6 +11,8 @@ type T_CardVariant01Props = {
     title?: string;
     image?: string;
     description?: string;
+    document?: string;
+    documentTitle?: string;
     buttons: {
       title: string;
       link: string;
@@ -25,6 +27,7 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
       <div className=" py-10">
         <div className="flex mdmax:flex-wrap">
           {data?.map((item, index) => {
+            const hasVisibleButtons = item?.buttons?.some(btn => btn?.link);
             return (
               <div key={index} className="w-1/2 mdmax:w-full flex-none">
                 <div className="h-[40rem] mdmax:h-[20rem] relative z-0">
@@ -42,23 +45,44 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                         </div>
                       )}
                       <div className="flex gap-2 flex-wrap">
-                        {item?.buttons?.map((buttonItem, buttonIndex) => (
+                        {hasVisibleButtons && item?.buttons?.map((buttonItem, buttonIndex) => (
                           <div key={buttonIndex}>
+                            {buttonItem?.link ? (
+                              <Link
+                                href={handleurl(buttonItem?.link)}
+                                extern={buttonItem?.extern}
+                                target={buttonItem?.extern ? '_self' : ''}
+                              >
+                                <ButtonSecondary
+                                  className="bg-orange-01"
+                                  rounded="full"
+                                  color="orange-01"
+                                >
+                                  {buttonItem?.title}
+                                </ButtonSecondary>
+                              </Link>
+                            ) : null}
+                          </div>
+                        ))}
+                        
+                        {item?.document && (
+                          <div>
                             <Link
-                              href={handleurl(buttonItem?.link)}
-                              extern={buttonItem?.extern}
-                              target={buttonItem?.extern ? '_self' : ''}
+                              href={item.document}
+                              extern={true}
+                              target="_self"
+                              download
                             >
                               <ButtonSecondary
                                 className="bg-orange-01"
                                 rounded="full"
                                 color="orange-01"
                               >
-                                {buttonItem?.title}
+                                {item.documentTitle || "Download PDF"}
                               </ButtonSecondary>
                             </Link>
                           </div>
-                        ))}
+                        )}
                       </div>
                     </div>
                   </div>
