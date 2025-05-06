@@ -130,9 +130,6 @@ const CE_SectionAnnouncement = dynamic(
 const CE_SectionAuctions = dynamic(
   () => import('@/app/(views)/$element/content-type/client.section-auctions')
 );
-const CE_FormQlola = dynamic(
-  () => import('@/app/(views)/$element/form/client.form.qlola')
-);
 
 /* Other */
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
@@ -177,7 +174,7 @@ const SE_Sitemap = dynamic(
 );
 const CE_Form = dynamic(
   () => import('@/app/(views)/$element/form/client.form')
-  
+);
 const AccordionClient = dynamic(
   () => import('@/lib/element/global/accordion'),
   { ssr: false }
@@ -192,7 +189,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           (locationTypeItem: any) => {
             return {
               id: locationTypeItem.id,
-              imageUrl: `${API_BASE_URL}${locationTypeItem.image_url}` ,
+              imageUrl: `${API_BASE_URL}${locationTypeItem.image_url}`,
             };
           }
         ),
@@ -210,9 +207,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
-      const processedData = _component?.data?.map(item => ({
+      const processedData = _component?.data?.map((item) => ({
         ...item,
-        image: `${API_BASE_URL}${item.image}`
+        image: `${API_BASE_URL}${item.image}`,
       }));
       return {
         listTable: processedData,
@@ -1251,7 +1248,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       });
       const fieldForm =
         _component?.field_column?.[0]?.field_form?.[0]?.target_id;
-      
+
       const dataV62 = _component?.field_column?.[0]?.field_accordion_items?.map(
         (item: any) => {
           // Get all slider items from paragraphs (using any type to avoid TypeScript errors)
@@ -2297,14 +2294,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const image33s =
             _component?.field_second_column?.[0]?.field_image?.[0]
               ?.field_media_image?.[0]?.uri?.[0]?.url;
-          const document33f = 
-            _component?.field_first_column?.[0]?.field_cta_document?.[0]?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
-          const document33s = 
-            _component?.field_second_column?.[0]?.field_cta_document?.[0]?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
-          const documentTitle1 = 
-            _component?.field_first_column?.[0]?.field_cta_document?.[0]?.field_title?.[0]?.value || "Download";
-          const documentTitle2 = 
-            _component?.field_second_column?.[0]?.field_cta_document?.[0]?.field_title?.[0]?.value || "Download";
+          const document33f =
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]
+              ?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const document33s =
+            _component?.field_second_column?.[0]?.field_cta_document?.[0]
+              ?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const documentTitle1 =
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]
+              ?.field_title?.[0]?.value || 'Download';
+          const documentTitle2 =
+            _component?.field_second_column?.[0]?.field_cta_document?.[0]
+              ?.field_title?.[0]?.value || 'Download';
           return {
             firstColumn: {
               image: image33f ? `${API_BASE_URL}${image33f}` : image33f,
@@ -2312,8 +2313,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
-              document:
-                document33f ? `${API_BASE_URL}${document33f}` : document33f,
+              document: document33f
+                ? `${API_BASE_URL}${document33f}`
+                : document33f,
               documentTitle: documentTitle1,
               button: {
                 title:
@@ -2330,8 +2332,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
-              document:
-                document33s ? `${API_BASE_URL}${document33s}` : document33s,
+              document: document33s
+                ? `${API_BASE_URL}${document33s}`
+                : document33s,
               documentTitle: documentTitle2,
               button: {
                 title:
@@ -2524,8 +2527,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 })}
               />
             );
-          case 'default':
-            return <CE_AccordionDefault />;
           case 'card-section':
           default:
             return (
@@ -2803,14 +2804,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const findTypeForm = props?.type_form ?? '';
 
       switch (findTypeForm) {
-        case 'qlola':
-          return (
-            <CE_FormQlola title={''} subTitle={''} fieldForm={findTypeForm} />
-          );
-        case 'kprbri':
-          return (
-            <CE_FormKprBri title={''} subTitle={''} fieldForm={findTypeForm} />
-          );
         default:
           return null;
       }
