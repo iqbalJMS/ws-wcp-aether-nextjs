@@ -664,7 +664,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </p>
                         }
                         variant="none"
-                        renderContent={parseHTMLToReact(item?.content || '')}
+                        renderContent={parseHTMLToReact(item?.content || '',true)}
                         content={''}
                       />
                     );
@@ -765,7 +765,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                             }))}
                           />
                         ) : (
-                          parseHTMLToReact(itemContent)
+                          parseHTMLToReact(itemContent, true)
                         )
                       }
                       content={itemContent}
@@ -866,13 +866,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant58:
           return (
             <div className="container mx-auto my-6 py-6 body table-blue-header">
-              {richTextData ? parseHTMLToReact(richTextData) : ''}
+              {richTextData ? parseHTMLToReact(richTextData,true) : ''}
             </div>
           );
         case WIDGET_VARIANT.variant59:
           return (
             <div className="container mx-auto my-6 py-6 body table-full-border">
-              {richTextData ? parseHTMLToReact(richTextData) : ''}
+              {richTextData ? parseHTMLToReact(richTextData,true) : ''}
             </div>
           );
         case WIDGET_VARIANT.variant64:
@@ -2389,7 +2389,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   rich_text: {
     component: ({ element }: { element: string }) => (
       <div className="container mx-auto my-6 py-6 container-rich-text">
-        {parseHTMLToReact(element)}
+        {parseHTMLToReact(element,true)}
       </div>
     ),
     props: (_component: { field_content?: Array<{ value: string }> }) => {

@@ -66,7 +66,7 @@ export const WIDGET_VARIANT = {
 };
 
 export const API_BASE_URL =
-  process.env.DRUPAL_ENDPOINT || process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT || '';
+  process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
 
 export const PATH_URL =
   process.env.PATH_URL || process.env.NEXT_PUBLIC_PATH_URL || '';
