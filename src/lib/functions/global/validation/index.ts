@@ -69,7 +69,7 @@ export const validateBoolean = (value: boolean, label: string): string => {
 export const validateName = (name: string, label: string = 'field'): string => {
   const emptyError = validateEmpty(name, label);
   if (emptyError) return emptyError;
-  if (!nameRegex.test(name)) return `${label} tidak valid`;
+  if (!nameRegex.test(name)) return `Harap masukkan karakter alfabet`;
   return '';
 };
 
@@ -89,7 +89,8 @@ export const validatePrimaryName = (
 export const validateEmail = (email: string): string => {
   const emptyError = validateEmpty(email, 'Email');
   if (emptyError) return emptyError;
-  if (!emailRegex.test(email)) return 'Email tidak valid';
+  if (!emailRegex.test(email))
+    return 'Silakan masukkan alamat email yang berlaku';
   return '';
 };
 
