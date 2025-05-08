@@ -45,6 +45,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'dummyimage.com',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
     ],
   },
 };
