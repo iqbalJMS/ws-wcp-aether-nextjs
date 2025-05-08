@@ -157,6 +157,16 @@ const CE_LocationMain = ({ types }: T_Props) => {
       return locationtypeItem.id === id;
     });
   };
+
+  const getTranslatedLabel = () => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      const lang = url.searchParams.get('lang');
+      return lang === 'en' ? 'Any' : 'Semua';
+    }
+    return 'Semua';
+  };
+
   return (
     <div className=" py-10">
       <div className="text-center text-2xl mb-5">
@@ -227,7 +237,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
             <div className="text-left font-semibold mb-2">Layanan</div>
             <InputSelect
               list={[
-                { title: "Semua", value: "" },
+                { title: getTranslatedLabel(), value: "" },
                 ...(locationCategories?.map((locationCategoryItem) => {
                   return {
                     title: locationCategoryItem.name,
