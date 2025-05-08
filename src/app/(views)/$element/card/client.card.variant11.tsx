@@ -85,7 +85,7 @@ export default function CE_CardVariant11({
                   <Link href={handleurl(item?.button?.link)} className="w-full flex justify-center">
                     <div className="w-1/2 h-72 flex flex-col items-center justify-center hover:-translate-y-4 hover:shadow-md duration-200 px-16 py-8 rounded-xl mx-auto">
                       {item?.image && (
-                        <div className="w-32 h-32 flex justify-center items-center mb-4">
+                        <div className="w-24 h-24 flex justify-center items-center mb-4">
                           <Image
                             extern={false}
                             src={item?.image ?? ''}
@@ -97,7 +97,7 @@ export default function CE_CardVariant11({
                         </div>
                       )}
                       {item?.title && (
-                        <div className="text-sm xl:text-base text-blue-01 font-semibold pt-5 text-center">
+                        <div className="text-sm xl:text-base text-blue-01 font-semibold pt-2 text-center">
                           {parseHTMLToReact(item?.title)}
                         </div>
                       )}
@@ -119,7 +119,7 @@ export default function CE_CardVariant11({
                 >
                   <div className="${cardClass} h-72 flex flex-col items-center justify-center hover:-translate-y-4 hover:shadow-md duration-200 px-16 py-8 rounded-xl mx-auto">
                     {item?.image && (
-                      <div className="w-32 h-32 flex justify-center items-center mb-4">
+                      <div className="w-24 h-24 flex justify-center items-center mb-4">
                         <Image
                           extern={false}
                           src={item?.image ?? ''}
@@ -131,7 +131,7 @@ export default function CE_CardVariant11({
                       </div>
                     )}
                     {item?.title && (
-                      <div className="text-sm xl:text-base text-blue-01 font-semibold pt-5 text-center">
+                      <div className="text-sm xl:text-base text-blue-01 font-semibold pt-2 text-center">
                         {parseHTMLToReact(item?.title)}
                       </div>
                     )}

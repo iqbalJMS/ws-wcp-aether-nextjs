@@ -34,15 +34,29 @@ export default function CE_CardVariant20({
 
         <div className="flex flex-wrap justify-center -mx-5">
           {data?.map((item, index) => {
+            const total = data.length;
+            let widthClass = 'basis-full max-w-full';
+            let imageHeight = 'h-[30rem]';
+
+            if (total <= 2) {
+              widthClass = 'w-[35%]';
+            } else if (total === 3) {
+              widthClass = 'w-1/3';
+              imageHeight = 'h-[25rem]';
+            } else if (total === 4) {
+              widthClass = 'basis-[23%] max-w-[23%] flex-shrink-0';
+              imageHeight = 'h-[18rem]';
+            }
+
             return (
               <div
                 key={index}
-                className="w-1/4 mdmax:w-full flex-none px-5 mb-10 mdmax:!mt-0"
-                style={{ marginTop: `${index * 5}rem` }}
+                className={`${widthClass} mdmax:w-full flex-none px-5 mb-10`}
+                style={{ marginTop: `${index * 3}rem` }}
               >
                 <div>
                   {item?.image && (
-                    <div className="h-[20rem] mb-5">
+                    <div className={`${imageHeight} mb-5`}>
                       <Image
                         extern={false}
                         src={item?.image}
@@ -54,17 +68,16 @@ export default function CE_CardVariant20({
                     </div>
                   )}
                   {item.title && (
-                    <div className="text-lg font-semibold mb-2 ">
+                    <div className="text-lg font-semibold mb-2 pl-7">
                       {parseHTMLToReact(item.title)}
                     </div>
                   )}
                   {item.description && (
-                    <div className="text-base text-black text-opacity-30 mb-10 ">
+                    <div className="text-base text-black text-opacity-30 mb-10 pl-7">
                       {parseHTMLToReact(item.description)}
                     </div>
                   )}
-
-                  <div className="">
+                  <div className="pl-7">
                     <Link
                       href={handleurl(item?.button?.link)}
                       extern={item?.button?.extern}
