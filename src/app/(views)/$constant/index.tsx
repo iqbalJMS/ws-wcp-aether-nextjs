@@ -765,9 +765,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         hasChildren ? (
                           <CE_CarouselVariant06
                             data={children.map((child: any) => ({
-                              image: child?.image
-                                ? `${API_BASE_URL}${child.image}`
-                                : '',
+                              image: `${API_BASE_URL}/api/files/?path=${child.image}`,
                               description: child?.title || '',
                             }))}
                           />
@@ -2520,7 +2518,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   description: item?.description?.replaceAll('_', ' '),
                   button: {
                     image: item?.iconDownload,
-                    link: `${API_BASE_URL}${item?.downloadFile}`,
+                    link: `${API_BASE_URL}/api/files/?path=${item?.downloadFile}`,
                     title: 'Download',
                     extern: true,
                   },
@@ -2533,9 +2531,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 data={(children || [])?.map((item) => {
                   return {
                     description: item?.description,
-                    image: item?.image
-                      ? `${API_BASE_URL}${item?.image}`
-                      : item?.image,
+                    image: `${API_BASE_URL}/api/files/?path=${item?.image}`,
                   };
                 })}
               />
