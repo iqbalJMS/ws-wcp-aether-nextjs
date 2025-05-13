@@ -1,4 +1,5 @@
 import Image from '@/lib/element/global/image';
+import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Link from 'next/link';
 import React from 'react';
@@ -15,6 +16,8 @@ export default function CE_PortletVarian05({
       link?: string;
       extern?: boolean;
     };
+    document?: string;
+    documentTitle?: string;
   };
   secondColumn: {
     description?: string;
@@ -35,19 +38,34 @@ export default function CE_PortletVarian05({
               {parseHTMLToReact(firstColumn?.description)}
             </div>
           )}
-          {firstColumn?.button?.title && (
-            <Link href={firstColumn?.button?.link ?? ''}>
-              <button className="bg-[#f59a22] rounded-full mt-8 text-white py-4 px-8">
-                {firstColumn?.button?.title}
-              </button>
-            </Link>
+          {(firstColumn?.button?.title || firstColumn?.document) && (
+            <div className="flex gap-4 mt-8 flex-wrap">
+              {firstColumn?.button?.title && firstColumn?.button?.link && (
+                <Link href={handleurl(firstColumn.button.link)}>
+                  <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
+                    {firstColumn.button.title}
+                  </button>
+                </Link>
+              )}
+              {firstColumn?.document && (
+                <a
+                  href={handleurl(firstColumn.document)}
+                  download
+                  target="_self"
+                >
+                  <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
+                    {firstColumn.documentTitle || 'Download PDF'}
+                  </button>
+                </a>
+              )}
+            </div>
           )}
         </div>
       </div>
       <div className="col-span-1 mt-4 lg:mt-0 md:order-2 order-1">
         {secondColumn?.description && (
           <div className="mt-6 text-gray-400 text-base">
-            {parseHTMLToReact(secondColumn?.description)}
+            {parseHTMLToReact(secondColumn?.description,true)}
           </div>
         )}
         {secondColumn?.image && (

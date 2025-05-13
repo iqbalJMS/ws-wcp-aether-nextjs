@@ -63,6 +63,7 @@ export const WIDGET_VARIANT = {
   variant62: 'section_accordion_card_4',
   variant63: 'two_column_no_margin',
   variant64: 'section_card_grid',
+  variant65: 'section_big_menu_center_blue',
 };
 
 export const API_BASE_URL =
