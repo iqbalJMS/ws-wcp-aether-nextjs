@@ -5,7 +5,6 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import React from 'react';
 import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
 import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 export default async function SE_PortletVariant02({
   title,
@@ -16,8 +15,6 @@ export default async function SE_PortletVariant02({
   variantLayout,
   bgExtern,
 }: Omit<T_PortletProps, 'variant'>) {
-  const background =
-    bgImage && !bgExtern ? `${API_BASE_URL}/${bgImage}` : `${bgImage}`;
 
   const hasCenterWidget = variantWidget === WIDGET_VARIANT.variant04;
   const hasLeftWidget = variantWidget === 'div_more_left';
@@ -27,7 +24,7 @@ export default async function SE_PortletVariant02({
       <div
         className={`relative w-full bg-cover bg-no-repeat ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem] overflow-hidden' : ''} ${variantLayout === 'large' ? 'md:h-[40rem] h-[20rem]' : 'h-[20rem]'}`}
         style={{
-          backgroundImage: `url(${background ?? '/web/guest/images/no-image.png'})`,
+          backgroundImage: bgExtern ? `url(${bgImage})` : `url(${bgImage ?? '/web/guest/images/why-us/bg-image.jpg'})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}

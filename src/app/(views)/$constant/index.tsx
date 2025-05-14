@@ -1616,7 +1616,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         title: title,
         subtitle: subtitle,
         buttonItems: buttonItem,
-        bgImage: `api/files/?path=${backgroundImage}`,
+        bgImage: `${API_BASE_URL}/api/files/?path=${backgroundImage}`,
         variant: '02',
         variantLayout: variantLayout,
         variantWidget: findVariantStyle,
