@@ -35,6 +35,10 @@ module.exports = {
       },
       {
         protocol: 'https',
+        hostname: 'website-bri.stg.service-kjt.id',
+      },
+      {
+        protocol: 'https',
         hostname: 'encrypted-tbn0.gstatic.com',
       },
       {
