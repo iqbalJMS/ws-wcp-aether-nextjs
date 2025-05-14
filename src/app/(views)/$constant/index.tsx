@@ -82,6 +82,9 @@ const CE_CardVariant09 = dynamic(
 const CE_CardVariant11 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant11')
 );
+const CE_CardVariant21 = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.variant21')
+);
 const CE_CardVariant13 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant13')
 );
@@ -429,6 +432,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return (
             <CE_CardVariant11 column={column} title={title} data={listItems} />
           );
+        case WIDGET_VARIANT.variant65:
+          return (
+            <CE_CardVariant21 column={column} title={title} data={listItems} />
+          );    
         case WIDGET_VARIANT.variant16:
         case WIDGET_VARIANT.variant17:
           return <CE_CardVariant08 title={title} data={listItems} />;
@@ -664,7 +671,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </p>
                         }
                         variant="none"
-                        renderContent={parseHTMLToReact(item?.content || '')}
+                        renderContent={parseHTMLToReact(item?.content || '',true)}
                         content={''}
                       />
                     );
@@ -758,14 +765,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         hasChildren ? (
                           <CE_CarouselVariant06
                             data={children.map((child: any) => ({
-                              image: child?.image
-                                ? `${API_BASE_URL}${child.image}`
-                                : '',
+                              image: `${API_BASE_URL}/api/files/?path=${child.image}`,
                               description: child?.title || '',
                             }))}
                           />
                         ) : (
-                          parseHTMLToReact(itemContent)
+                          parseHTMLToReact(itemContent, true)
                         )
                       }
                       content={itemContent}
@@ -866,13 +871,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant58:
           return (
             <div className="container mx-auto my-6 py-6 body table-blue-header">
-              {richTextData ? parseHTMLToReact(richTextData) : ''}
+              {richTextData ? parseHTMLToReact(richTextData,true) : ''}
             </div>
           );
         case WIDGET_VARIANT.variant59:
           return (
             <div className="container mx-auto my-6 py-6 body table-full-border">
-              {richTextData ? parseHTMLToReact(richTextData) : ''}
+              {richTextData ? parseHTMLToReact(richTextData,true) : ''}
             </div>
           );
         case WIDGET_VARIANT.variant64:
@@ -933,10 +938,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_column?.[0]?.field_title_custom?.[0]?.value;
       const dataV01 =
         _component?.field_column?.[0]?.field_image_slider_items?.map((item) => {
+           const image = item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
           return {
             link: item?.field_primary_cta?.[0]?.uri,
-            image:
-              item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+            image: `${API_BASE_URL}/api/files/?path=${image}`,
           };
         });
       const dataV02 = _component?.field_column?.map((item) => {
@@ -1008,7 +1013,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
 
           return {
-            image: image ? `${API_BASE_URL}${image}` : image,
+            image: `${API_BASE_URL}/api/files/?path=${image}`,
             title: title,
             desc: description,
           };
@@ -1037,7 +1042,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
-          image: image ? `${API_BASE_URL}${image}` : image,
+          image: `${API_BASE_URL}/api/files/?path=${image}`,
           button: {
             link: isExternalLink
               ? item?.field_primary_cta?.[0]?.uri
@@ -1356,6 +1361,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             data: dataNews,
           };
         case WIDGET_VARIANT.variant12:
+          return {
+            title: _component?.field_formatted_title?.[0]?.value,
+            variant: findVariantStyle,
+            column: 1,
+            data: dataV12,
+          };
+        case WIDGET_VARIANT.variant65:
           return {
             title: _component?.field_formatted_title?.[0]?.value,
             variant: findVariantStyle,
@@ -1707,16 +1719,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 return {
                   id: id,
                   type: type,
-                  img: imageDefault
-                    ? `${API_BASE_URL}${imageDefault}`
-                    : imageDefault || image
-                      ? `${API_BASE_URL}${image}`
-                      : image,
+                  img: `${API_BASE_URL}/api/files/?path=${imageDefault}`
+                    || `${API_BASE_URL}/api/files/?path=${image}`,
                   title: title,
                   description: description,
-                  downloadFile: downloadFile
-                    ? `${API_BASE_URL}${downloadFile}`
-                    : '',
+                  downloadFile: `${API_BASE_URL}/api/files/?path=${downloadFile}`,
                   startDate: start_date,
                   endDate: end_date,
                   date: date,
@@ -2213,12 +2220,20 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const image19 =
             _component?.field_second_column?.[0]?.field_image?.[0]
               ?.field_media_image?.[0]?.uri?.[0]?.url;
+          const document19f =
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]
+              ?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+          const documentTitle19f =
+            _component?.field_first_column?.[0]?.field_cta_document?.[0]
+              ?.field_title?.[0]?.value || 'Download';
           return {
             firstColumn: {
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
+              document: `${API_BASE_URL}/api/files/?path=${document19f}`,
+              documentTitle: documentTitle19f,
               button: {
                 title:
                   _component?.field_first_column?.[0]?.field_primary_cta?.[0]
@@ -2229,7 +2244,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               },
             },
             secondColumn: {
-              image: image19 ? `${API_BASE_URL}${image19}` : image19,
+              image: `${API_BASE_URL}/api/files/?path=${image19}`,
             },
             variant: findVariantStyle,
           };
@@ -2308,14 +2323,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               ?.field_title?.[0]?.value || 'Download';
           return {
             firstColumn: {
-              image: image33f ? `${API_BASE_URL}${image33f}` : image33f,
+              image: `${API_BASE_URL}/api/files/?path=${image33f}`,
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
-              document: document33f
-                ? `${API_BASE_URL}${document33f}`
-                : document33f,
+              document: `${API_BASE_URL}/api/files/?path=${document33f}`,
               documentTitle: documentTitle1,
               button: {
                 title:
@@ -2327,14 +2340,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               },
             },
             secondColumn: {
-              image: image33s ? `${API_BASE_URL}${image33s}` : image33s,
+              image: `${API_BASE_URL}/api/files/?path=${image33s}`,
               title:
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
-              document: document33s
-                ? `${API_BASE_URL}${document33s}`
-                : document33s,
+              document: `${API_BASE_URL}/api/files/?path=${document33s}`,
               documentTitle: documentTitle2,
               button: {
                 title:
@@ -2389,7 +2400,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   rich_text: {
     component: ({ element }: { element: string }) => (
       <div className="container mx-auto my-6 py-6 container-rich-text">
-        {parseHTMLToReact(element)}
+        {parseHTMLToReact(element,true)}
       </div>
     ),
     props: (_component: { field_content?: Array<{ value: string }> }) => {
@@ -2507,7 +2518,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   description: item?.description?.replaceAll('_', ' '),
                   button: {
                     image: item?.iconDownload,
-                    link: `${API_BASE_URL}${item?.downloadFile}`,
+                    link: `${API_BASE_URL}/api/files/?path=${item?.downloadFile}`,
                     title: 'Download',
                     extern: true,
                   },
@@ -2520,9 +2531,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 data={(children || [])?.map((item) => {
                   return {
                     description: item?.description,
-                    image: item?.image
-                      ? `${API_BASE_URL}${item?.image}`
-                      : item?.image,
+                    image: `${API_BASE_URL}/api/files/?path=${item?.image}`,
                   };
                 })}
               />
