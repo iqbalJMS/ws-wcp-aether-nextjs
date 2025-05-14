@@ -26,6 +26,28 @@ export default function CE_PortletVarian05({
 }) {
   const hasVisibleButton = firstColumn?.button?.title && firstColumn?.button?.link;
   const hasVisibleDocument = !firstColumn?.documentTitle && !firstColumn?.document;
+  const renderButton = () => {
+    if (!hasVisibleButton) return null;
+    return (
+      <Link href={handleurl(firstColumn.button!.link!)}>
+        <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
+          {firstColumn.button!.title}
+        </button>
+      </Link>
+    );
+  };
+
+  const renderDocument = () => {
+    if (!hasVisibleDocument) return null;
+    return (
+      <a href={handleurl(firstColumn.document)} download target="_self">
+        <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
+          {firstColumn.documentTitle}
+        </button>
+      </a>
+    );
+  };
+
   return (
     <div className="container mx-auto grid md:grid-cols-2 my-8 py-6">
       <div className="flex items-center col-span-1 md:order-1 order-2">
@@ -42,24 +64,8 @@ export default function CE_PortletVarian05({
           )}
           {(hasVisibleButton || hasVisibleDocument) && (
             <div className="flex gap-4 mt-8 flex-wrap">
-              {hasVisibleButton && (
-                <Link href={handleurl(firstColumn.button!.link!)}>
-                  <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
-                    {firstColumn.button!.title}
-                  </button>
-                </Link>
-              )}
-              {hasVisibleDocument && (
-                <a
-                  href={handleurl(firstColumn.document)}
-                  download
-                  target="_self"
-                >
-                  <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
-                    {firstColumn.documentTitle}
-                  </button>
-                </a>
-              )}
+              {renderButton()}
+              {renderDocument()}
             </div>
           )}
         </div>
