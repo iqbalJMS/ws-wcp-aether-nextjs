@@ -4,6 +4,7 @@ import ButtonSecondary from '@/lib/element/global/button.secondary';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useState } from 'react';
 import { handleurl } from '@/lib/functions/client/handle-url';
 
 type T_CardVariant01Props = {
@@ -22,16 +23,29 @@ type T_CardVariant01Props = {
 };
 
 export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   return (
     <>
       <div className=" py-10">
         <div className="flex mdmax:flex-wrap">
           {data?.map((item, index) => {
             const hasVisibleButtons = item?.buttons?.some(btn => btn?.link);
+            const isHovered = hoveredIndex === index;
             return (
-              <div key={index} className="w-1/2 mdmax:w-full flex-none">
-                <div className="h-[40rem] mdmax:h-[20rem] relative z-0">
-                  <div className="absolute top-0 left-0 bg-black bg-opacity-20 z-10 w-full h-full"></div>
+              <div 
+                key={index} 
+                className="w-1/2 mdmax:w-full flex-none"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <div className="h-[40rem] mdmax:h-[20rem] relative z-0 overflow-hidden">
+                  <div 
+                    className={`absolute top-0 left-0 z-10 w-full h-full transition-all duration-300 ease-in-out ${
+                      isHovered 
+                        ? 'bg-blue-800 bg-opacity-70' 
+                        : 'bg-black bg-opacity-20'
+                    }`}
+                  ></div>
                   <div className="absolute bottom-[40%] left-0  z-20 w-full ">
                     <div className="px-[5rem] mdmax:px-[1rem]">
                       {item?.title && (
@@ -94,7 +108,11 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                         alt="image"
                         width={1920}
                         height={1080}
-                        className="w-full h-full object-cover"
+                        className={`w-full h-full object-cover ${
+                          isHovered 
+                            ? 'scale-125 transition-transform duration-1000 ease-in-out' 
+                            : 'scale-100 transition-transform duration-300 ease-in-out'
+                        }`}
                       />
                     </div>
                   )}
