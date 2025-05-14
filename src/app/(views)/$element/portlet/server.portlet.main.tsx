@@ -47,6 +47,7 @@ export default async function SE_PortletMain({
           subtitle={subtitle}
           buttonItems={buttonItems}
           bgImage={bgImage}
+          headerAlignment={headerAlignment}
         />
       )}
       {variant === '03' && (
