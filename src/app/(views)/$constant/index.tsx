@@ -1612,12 +1612,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           item?.full_url || _component?.field_primary_cta?.[0]?.full_url
         ),
       }));
-
       return {
         title: title,
         subtitle: subtitle,
         buttonItems: buttonItem,
-        bgImage: backgroundImage,
+        bgImage: `api/files/?path=${backgroundImage}`,
         variant: '02',
         variantLayout: variantLayout,
         variantWidget: findVariantStyle,
@@ -1755,7 +1754,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               imagePosition: imagePosition,
               title: title,
               description: description,
-              image: image ? `${API_BASE_URL}${image}` : image,
+              image: image ? `${API_BASE_URL}/api/files/?path=${image}` : image,
               button: {
                 title: buttonTitle,
                 link: buttonLink,
@@ -1833,12 +1832,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     description: description,
                     description1: description1,
                     description2: description2,
-                    imageUrl1: imageUrl1
-                      ? `${API_BASE_URL}${imageUrl1}`
-                      : imageUrl1,
-                    imageUrl2: imageUrl2
-                      ? `${API_BASE_URL}${imageUrl2}`
-                      : imageUrl2,
+                    imageUrl1: `${API_BASE_URL}/api/files/?path=${imageUrl1}`,
+                    imageUrl2: `${API_BASE_URL}/api/files/?path=${imageUrl2}`,
                     variantChildren: variantChildren,
                   };
                 }),
@@ -1879,7 +1874,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     image:
                       paragraph?.field_content_list?.[0]?.field_pictures?.[0]
                         ?.field_media_image?.[0]?.uri?.[0]?.url &&
-                      `${API_BASE_URL}${paragraph?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+                      `${API_BASE_URL}/api/files/?path=${paragraph?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
                     title:
                       paragraph?.field_content_list?.[0]?.title?.[0]?.value,
                     description:
@@ -1900,12 +1895,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 title: item?.field_title?.[0]?.value,
                 slug: item?.field_title?.[0]?.value,
                 children: item?.field_paragraphs?.map((child) => {
+                  const imageUrl = `${API_BASE_URL}/api/files/?path=${child.field_image[0].field_media_image[0].uri[0].url}`;
                   return {
-                    image: child?.field_image?.[0]?.field_media_image?.[0]
-                      ?.uri?.[0]?.url
-                      ? `${API_BASE_URL}${child.field_image[0].field_media_image[0].uri[0].url}`
-                      : child?.field_image?.[0]?.field_media_image?.[0]
-                          ?.uri?.[0]?.url,
+                    image: imageUrl,
                     title: child?.field_title?.[0]?.value,
                     description: child?.field_content?.[0]?.value,
                     textLink: child?.field_primary_cta?.[0]?.title,
