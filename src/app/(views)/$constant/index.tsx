@@ -2482,12 +2482,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       description: any;
       iconDownload: any;
       downloadFile: any;
+      title: any;
     }) => {
       const filename = props?.filename;
       const description = props?.description;
       const iconDownload = props?.iconDownload;
-      const downloadFile = props?.downloadFile;
-
+      const downloadFile = `${API_BASE_URL}${props?.downloadFile}`;
+      const title = props?.title;
       return (
         <CE_CardVariant09
           data={[
@@ -2497,7 +2498,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               button: {
                 image: iconDownload,
                 link: downloadFile,
-                title: 'Download',
+                title: title,
                 extern: true,
               },
             },
@@ -2506,6 +2507,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       );
     },
     props: (_component: {
+      field_title: any;
       field_document: Array<{
         field_media_file: any;
         name: Array<{ value: string }>;
@@ -2519,12 +2521,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           ?.value;
       const filename = _component?.field_document?.[0]?.name?.[0]?.value;
       const iconDownload = _component?.field_media_image;
-
+      const title = _component?.field_title?.[0]?.value;
       return {
         filename: filename,
         description: description,
         downloadFile: downloadFile,
         iconDownload: iconDownload,
+        title: title,
       };
     },
   },
