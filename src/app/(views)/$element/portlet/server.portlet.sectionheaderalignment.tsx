@@ -53,77 +53,66 @@ export default async function SE_sectionheaderalignment({
             ? 'from-black to-[#94183d]'
             : 'from-black to-[#014a94]'
         } opacity-40`} />
-
         <div className="container flex flex-col justify-center h-full relative z-10">
-          <div
-            className={`w-full flex flex-col gap-4
+          {headerAlignment === 'right' ? (
+            <div className="w-full max-w-[700px] ml-auto mr-0">
+              <div className="flex flex-col gap-4 items-start text-left">
+                {title && (
+                  <div className="text-white font-semibold text-4xl">
+                    {parseHTMLToReact(title)}
+                  </div>
+                )}
+                {subtitle && (
+                  <div className="text-white font-normal text-xl leading-9">
+                    {parseHTMLToReact(subtitle)}
+                  </div>
+                )}
+                <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-start">
+                  {(shouldCombine ? combinedButtons : [...visibleHeaderButtonItems, ...visibleButtonItems]).map(
+                    ({ buttonText, buttonCta }, index) => (
+                      <Link key={`right-button-${index}`} href={handleurl(buttonCta!)} extern>
+                        <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
+                          {buttonText}
+                        </button>
+                      </Link>
+                    )
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className={`
+              w-full flex flex-col gap-4
               ${headerAlignment === 'center' ? 'items-center text-center' : ''}
-              ${headerAlignment === 'right' ? 'items-end text-right' : ''}
-              ${headerAlignment === 'justify' ? 'items-stretch text-justify' : ''}
               ${headerAlignment === 'left' ? 'items-start text-left' : ''}
-            `}
-          >
-            {title && (
-              <div className="text-white font-semibold text-4xl lg:w-1/2 w-full">
-                {parseHTMLToReact(title)}
-              </div>
-            )}
-
-            {subtitle && (
-              <div className="text-white font-normal text-xl leading-9">
-                {parseHTMLToReact(subtitle)}
-              </div>
-            )}
-            {shouldCombine ? (
+              ${headerAlignment === 'justify' ? 'items-stretch text-justify' : ''}
+            `}>
+              {title && (
+                <div className="text-white font-semibold text-4xl lg:w-1/2 w-full">
+                  {parseHTMLToReact(title)}
+                </div>
+              )}
+              {subtitle && (
+                <div className="text-white font-normal text-xl leading-9">
+                  {parseHTMLToReact(subtitle)}
+                </div>
+              )}
               <div className={`flex flex-col sm:flex-row flex-wrap gap-4
                 ${headerAlignment === 'center' ? 'justify-center' : ''}
-                ${headerAlignment === 'right' ? 'justify-end' : ''}
-                ${(headerAlignment === 'left' || headerAlignment === 'justify') ? 'justify-start' : ''}
+                ${headerAlignment === 'left' || headerAlignment === 'justify' ? 'justify-start' : ''}
               `}>
-                {combinedButtons.map(({ buttonText, buttonCta }, index) => (
-                  <Link key={`combined-button-${index}`} href={handleurl(buttonCta!)} extern>
-                    <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
-                      {buttonText}
-                    </button>
-                  </Link>
-                ))}
+                {(shouldCombine ? combinedButtons : [...visibleHeaderButtonItems, ...visibleButtonItems]).map(
+                  ({ buttonText, buttonCta }, index) => (
+                    <Link key={`button-${index}`} href={handleurl(buttonCta!)} extern>
+                      <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
+                        {buttonText}
+                      </button>
+                    </Link>
+                  )
+                )}
               </div>
-            ) : (
-              <>
-                {visibleHeaderButtonItems.length > 0 && (
-                  <div className={`flex flex-col sm:flex-row flex-wrap gap-4
-                    ${headerAlignment === 'center' ? 'justify-center' : ''}
-                    ${headerAlignment === 'right' ? 'justify-end' : ''}
-                    ${(headerAlignment === 'left' || headerAlignment === 'justify') ? 'justify-start' : ''}
-                  `}>
-                    {visibleHeaderButtonItems.map(({ buttonText, buttonCta }, index) => (
-                      <Link key={`header-button-${index}`} href={handleurl(buttonCta!)} extern>
-                        <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
-                          {buttonText}
-                        </button>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
-                {visibleButtonItems.length > 0 && (
-                  <div className={`flex flex-col sm:flex-row flex-wrap gap-4
-                    ${headerAlignment === 'center' ? 'justify-center' : ''}
-                    ${headerAlignment === 'right' ? 'justify-end' : ''}
-                    ${(headerAlignment === 'left' || headerAlignment === 'justify') ? 'justify-start' : ''}
-                  `}>
-                    {visibleButtonItems.map(({ buttonText, buttonCta }, index) => (
-                      <Link key={`button-${index}`} href={handleurl(buttonCta!)} extern>
-                        <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
-                          {buttonText}
-                        </button>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
