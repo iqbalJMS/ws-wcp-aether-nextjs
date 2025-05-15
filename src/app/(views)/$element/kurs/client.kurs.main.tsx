@@ -1,21 +1,24 @@
 'use client';
 
-import { T_Kurs } from '@/app/(views)/$constant/types/widget/kurs';
+import { useEffect, useMemo, useState, useTransition } from 'react';
+import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
+
 import {
   CFN_GetKurs,
   CFN_MapToKursPayload,
   CFN_ValidateGetKursFields,
   T_GetKurs,
 } from '@/app/(views)/$function/cfn.get.kurs';
-import Image from '@/lib/element/global/image';
 import InputSelect from '@/lib/element/global/form/input.select';
 import InputText from '@/lib/element/global/form/input.text';
-import Link from '@/lib/element/global/link';
 import Table from '@/lib/element/global/table';
 import Tabs from '@/lib/element/global/tabs';
-import useForm from '@/lib/hook/useForm';
-import { useEffect, useMemo, useState, useTransition } from 'react';
 import PaginationKurs, { ShowingText } from './client.pagination.kurs';
+
+import useForm from '@/lib/hook/useForm';
+import { useEnv } from '@/lib/hook/useEnv';
+import { T_Kurs } from '@/app/(views)/$constant/types/widget/kurs';
 
 type T_Props = {
   listTable: T_Kurs['data'];
@@ -32,6 +35,7 @@ function CE_KursValue({
   tabActive,
   forPage,
 }: T_Props) {
+  const { baseUrl } = useEnv();
   const [pending, transiting] = useTransition();
   const isERate = tabActive === 'e-rate';
   const [currentPage, setCurrentPage] = useState(1);
@@ -148,7 +152,7 @@ function CE_KursValue({
                   <div className="flex items-center gap-5">
                     <div className="w-10 flex-none">
                       <Image
-                        src={item.image}
+                        src={`${baseUrl}/api/files/?path=${item.image}`}
                         extern={false}
                         alt="background"
                         width={60}

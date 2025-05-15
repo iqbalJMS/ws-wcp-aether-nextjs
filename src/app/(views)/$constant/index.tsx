@@ -31,7 +31,7 @@ import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
 import { T_Subscription } from './types/widget/subscription';
 import { T_AccordionProps } from '@/lib/element/global/accordion';
-import { API_BASE_URL, WIDGET_VARIANT } from './variables';
+import { WIDGET_VARIANT } from './variables';
 
 /* Portlet Component */
 const SE_PortletMain = dynamic(
@@ -183,6 +183,9 @@ const AccordionClient = dynamic(
   { ssr: false }
 );
 
+export const BASE_URL =
+  process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -192,7 +195,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           (locationTypeItem: any) => {
             return {
               id: locationTypeItem.id,
-              imageUrl: `${API_BASE_URL}${locationTypeItem.image_url}`,
+              imageUrl: locationTypeItem.image_url,
             };
           }
         ),
@@ -210,12 +213,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   kurs: {
     component: CE_KursMain,
     props: (_component: T_Kurs) => {
-      const processedData = _component?.data?.map((item) => ({
-        ...item,
-        image: `${API_BASE_URL}${item.image}`,
-      }));
       return {
-        listTable: processedData,
+        listTable: _component?.data,
         listCurrency: _component?.field_currency,
         availableCurrency: _component?.available_currency,
         note: _component?.note,
@@ -244,7 +243,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const buttonLink = item?.field_primary_cta?.[0]?.full_url;
 
         return {
-          image: image ? `${API_BASE_URL}${image}` : image,
+          image: image,
           title: title,
           desc: description,
           button: button,
@@ -309,9 +308,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const backgroundImage = props?.backgroundImage;
       const titleForm = props?.titleForm;
       const subTitleForm = props?.subTitleForm;
-      const backgroundImg = backgroundImage
-        ? `${API_BASE_URL}${backgroundImage}`
-        : '';
+
       const listItems = (
         (props?.data as Array<{
           image?: string;
@@ -435,7 +432,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant65:
           return (
             <CE_CardVariant21 column={column} title={title} data={listItems} />
-          );    
+          );
         case WIDGET_VARIANT.variant16:
         case WIDGET_VARIANT.variant17:
           return <CE_CardVariant08 title={title} data={listItems} />;
@@ -539,9 +536,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               data={listItems?.map((item) => {
                 return {
                   title: item?.title,
-                  image: item?.image
-                    ? `${API_BASE_URL}${item?.image}`
-                    : item?.image,
+                  image: item?.image,
                   description: item?.description,
                   subTitle: item?.subtitle,
                   // TODO called it from item if data ready
@@ -638,7 +633,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <div
               className="w-full mb-10"
               style={{
-                backgroundImage: `url(${backgroundImage ? (backgroundImg ?? '') : ''})`,
+                backgroundImage: `url(${backgroundImage ? `${BASE_URL}/api/files/?path=${backgroundImage}` : ''})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
               }}
@@ -671,7 +666,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </p>
                         }
                         variant="none"
-                        renderContent={parseHTMLToReact(item?.content || '',true)}
+                        renderContent={parseHTMLToReact(
+                          item?.content || '',
+                          true
+                        )}
                         content={''}
                       />
                     );
@@ -748,9 +746,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                       key={key}
                       renderTitle={
                         <div className="flex items-center pl-6">
-                          {backgroundImg && (
-                            <img
-                              src={backgroundImg}
+                          {backgroundImage && (
+                            <Image
+                              extern={false}
+                              width={1920}
+                              height={1080}
+                              src={`${BASE_URL}/api/files/?path=${backgroundImage}`}
                               alt="Accordion Image"
                               className="w-10 h-10 mr-4"
                             />
@@ -765,7 +766,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         hasChildren ? (
                           <CE_CarouselVariant06
                             data={children.map((child: any) => ({
-                              image: `${API_BASE_URL}/api/files/?path=${child.image}`,
+                              image: `${BASE_URL}/api/files/?path=${child.image}`,
                               description: child?.title || '',
                             }))}
                           />
@@ -871,13 +872,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant58:
           return (
             <div className="container mx-auto my-6 py-6 body table-blue-header">
-              {richTextData ? parseHTMLToReact(richTextData,true) : ''}
+              {richTextData ? parseHTMLToReact(richTextData, true) : ''}
             </div>
           );
         case WIDGET_VARIANT.variant59:
           return (
             <div className="container mx-auto my-6 py-6 body table-full-border">
-              {richTextData ? parseHTMLToReact(richTextData,true) : ''}
+              {richTextData ? parseHTMLToReact(richTextData, true) : ''}
             </div>
           );
         case WIDGET_VARIANT.variant64:
@@ -938,10 +939,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_column?.[0]?.field_title_custom?.[0]?.value;
       const dataV01 =
         _component?.field_column?.[0]?.field_image_slider_items?.map((item) => {
-           const image = item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
+          const image =
+            item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
           return {
             link: item?.field_primary_cta?.[0]?.uri,
-            image: `${API_BASE_URL}/api/files/?path=${image}`,
+            image: `${BASE_URL}/api/files/?path=${image}`,
           };
         });
       const dataV02 = _component?.field_column?.map((item) => {
@@ -968,7 +970,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
 
         return {
-          image: image ? `${API_BASE_URL}${image}` : image,
+          image: image,
           title: title,
           description: description,
           imagePosition: imagePosition,
@@ -997,7 +999,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: item.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
-          image: image ? `${API_BASE_URL}${image}` : image,
+          image: image,
           button: {
             link: item?.field_primary_cta?.[0]?.full_url,
             title: item?.field_primary_cta?.[0]?.title,
@@ -1013,7 +1015,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
 
           return {
-            image: `${API_BASE_URL}/api/files/?path=${image}`,
+            image: `${BASE_URL}/api/files/?path=${image}`,
             title: title,
             desc: description,
           };
@@ -1042,7 +1044,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
-          image: `${API_BASE_URL}/api/files/?path=${image}`,
+          image: `${BASE_URL}/api/files/?path=${image}`,
           button: {
             link: isExternalLink
               ? item?.field_primary_cta?.[0]?.uri
@@ -1056,7 +1058,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
-          image: image ? `${API_BASE_URL}${image}` : image,
+          image: image,
           button: {
             link: item?.field_primary_cta?.[0]?.full_url,
             title: item?.field_primary_cta?.[0]?.title,
@@ -1167,8 +1169,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           image:
             item?.field_content_list?.[0]?.field_pictures?.[0]
-              ?.field_media_image?.[0]?.uri?.[0]?.url &&
-            `${API_BASE_URL}${item?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+              ?.field_media_image?.[0]?.uri?.[0]?.url,
+
           title: item?.field_content_list?.[0]?.title?.[0]?.value,
           description: item?.field_content_list?.[0]?.body?.[0]?.value,
           position: item?.field_content_list?.[0]?.field_position?.[0]?.value,
@@ -1245,12 +1247,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
       const dataRichText = _component?.field_column?.map((item) => {
         return {
-          element: item?.field_content?.[0]?.processed.replace(
-            /\/sites\/default/g,
-            `${API_BASE_URL}/sites/default`
-          ),
+          element: item?.field_content?.[0]?.processed,
         };
       });
+
       const fieldForm =
         _component?.field_column?.[0]?.field_form?.[0]?.target_id;
 
@@ -1644,7 +1644,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               style={style}
               variant="border-arrow"
               variantContent={variant}
-              drupalBase={API_BASE_URL}
               defaultSelected={
                 ((list as any[]) || []).find(({ selected }) => selected > 0)
                   ?.selected || 0
@@ -1663,7 +1662,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               list={list}
               style={style}
               variantContent={variant}
-              drupalBase={API_BASE_URL}
               defaultSelected={
                 ((list as any[]) || []).find(({ selected }) => selected > 0)
                   ?.selected || 0
@@ -1719,11 +1717,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 return {
                   id: id,
                   type: type,
-                  img: `${API_BASE_URL}/api/files/?path=${imageDefault}`
-                    || `${API_BASE_URL}/api/files/?path=${image}`,
+                  img:
+                    `${BASE_URL}/api/files/?path=${imageDefault}` ||
+                    `${BASE_URL}/api/files/?path=${image}`,
                   title: title,
                   description: description,
-                  downloadFile: `${API_BASE_URL}/api/files/?path=${downloadFile}`,
+                  downloadFile: `${BASE_URL}/api/files/?path=${downloadFile}`,
                   startDate: start_date,
                   endDate: end_date,
                   date: date,
@@ -1755,7 +1754,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               imagePosition: imagePosition,
               title: title,
               description: description,
-              image: image ? `${API_BASE_URL}${image}` : image,
+              image: image,
               button: {
                 title: buttonTitle,
                 link: buttonLink,
@@ -1833,12 +1832,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     description: description,
                     description1: description1,
                     description2: description2,
-                    imageUrl1: imageUrl1
-                      ? `${API_BASE_URL}${imageUrl1}`
-                      : imageUrl1,
-                    imageUrl2: imageUrl2
-                      ? `${API_BASE_URL}${imageUrl2}`
-                      : imageUrl2,
+                    imageUrl1: imageUrl1,
+                    imageUrl2: imageUrl2,
                     variantChildren: variantChildren,
                   };
                 }),
@@ -1878,8 +1873,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   return {
                     image:
                       paragraph?.field_content_list?.[0]?.field_pictures?.[0]
-                        ?.field_media_image?.[0]?.uri?.[0]?.url &&
-                      `${API_BASE_URL}${paragraph?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+                        ?.field_media_image?.[0]?.uri?.[0]?.url,
+
                     title:
                       paragraph?.field_content_list?.[0]?.title?.[0]?.value,
                     description:
@@ -1901,11 +1896,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 slug: item?.field_title?.[0]?.value,
                 children: item?.field_paragraphs?.map((child) => {
                   return {
-                    image: child?.field_image?.[0]?.field_media_image?.[0]
-                      ?.uri?.[0]?.url
-                      ? `${API_BASE_URL}${child.field_image[0].field_media_image[0].uri[0].url}`
-                      : child?.field_image?.[0]?.field_media_image?.[0]
-                          ?.uri?.[0]?.url,
+                    image:
+                      child?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                        ?.url,
                     title: child?.field_title?.[0]?.value,
                     description: child?.field_content?.[0]?.value,
                     textLink: child?.field_primary_cta?.[0]?.title,
@@ -2061,7 +2054,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: title,
           description: description,
-          image: image ? `${API_BASE_URL}${image}` : image,
+          image: image,
           button: {
             link: buttonLink,
             title: buttonTitle,
@@ -2082,7 +2075,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: title,
           description: description,
-          image: image ? `${API_BASE_URL}${image}` : image,
+          image: image,
           button: {
             link: buttonLink,
             title: buttonTitle,
@@ -2232,7 +2225,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
-              document: `${API_BASE_URL}/api/files/?path=${document19f}`,
+              document: `${BASE_URL}/api/files/?path=${document19f}`,
               documentTitle: documentTitle19f,
               button: {
                 title:
@@ -2244,7 +2237,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               },
             },
             secondColumn: {
-              image: `${API_BASE_URL}/api/files/?path=${image19}`,
+              image: `${BASE_URL}/api/files/?path=${image19}`,
             },
             variant: findVariantStyle,
           };
@@ -2323,12 +2316,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               ?.field_title?.[0]?.value || 'Download';
           return {
             firstColumn: {
-              image: `${API_BASE_URL}/api/files/?path=${image33f}`,
+              image: `${BASE_URL}/api/files/?path=${image33f}`,
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
-              document: `${API_BASE_URL}/api/files/?path=${document33f}`,
+              document: `${BASE_URL}/api/files/?path=${document33f}`,
               documentTitle: documentTitle1,
               button: {
                 title:
@@ -2340,12 +2333,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               },
             },
             secondColumn: {
-              image: `${API_BASE_URL}/api/files/?path=${image33s}`,
+              image: `${BASE_URL}/api/files/?path=${image33s}`,
               title:
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
-              document: `${API_BASE_URL}/api/files/?path=${document33s}`,
+              document: `${BASE_URL}/api/files/?path=${document33s}`,
               documentTitle: documentTitle2,
               button: {
                 title:
@@ -2400,15 +2393,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   rich_text: {
     component: ({ element }: { element: string }) => (
       <div className="container mx-auto my-6 py-6 container-rich-text">
-        {parseHTMLToReact(element,true)}
+        {parseHTMLToReact(element, true)}
       </div>
     ),
     props: (_component: { field_content?: Array<{ value: string }> }) => {
       return {
-        element: _component?.field_content?.[0]?.value.replace(
-          /\/sites\/default/g,
-          `${API_BASE_URL}/sites/default`
-        ),
+        element: _component?.field_content?.[0]?.value,
       };
     },
   },
@@ -2454,7 +2444,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const filename = props?.filename;
       const description = props?.description;
       const iconDownload = props?.iconDownload;
-      const downloadFile = `${API_BASE_URL}${props?.downloadFile}`;
+      const downloadFile = props?.downloadFile;
 
       return (
         <CE_CardVariant09
@@ -2518,7 +2508,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   description: item?.description?.replaceAll('_', ' '),
                   button: {
                     image: item?.iconDownload,
-                    link: `${API_BASE_URL}/api/files/?path=${item?.downloadFile}`,
+                    link: item?.downloadFile,
                     title: 'Download',
                     extern: true,
                   },
@@ -2531,7 +2521,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 data={(children || [])?.map((item) => {
                   return {
                     description: item?.description,
-                    image: `${API_BASE_URL}/api/files/?path=${item?.image}`,
+                    image: `${BASE_URL}/api/files/?path=${item?.image}`,
                   };
                 })}
               />
@@ -2586,7 +2576,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </div>
                           <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
                             <Link
-                              href={`${process.env.NEXT_PUBLIC_DRUPAL_ENDPOINT}${item?.cardPdf?.[1]?.cardPdfloop ?? ''}`}
+                              href={`${BASE_URL}/api/files/?path=${item?.cardPdf?.[1]?.cardPdfloop ?? ''}`}
                               className="flex items-center gap-1 text-sm"
                               download
                             >
@@ -2905,7 +2895,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             ?.uri?.at(0)?.url;
           return {
             title: item?.field_title?.[0]?.value,
-            image: image ? `${API_BASE_URL}${image}` : image,
+            image: image,
             tnc: item?.field_secondary_content?.[0]?.value,
             variant: item?.field_simulation?.[0]?.value.toLowerCase(),
           };
@@ -3160,10 +3150,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             image:
               item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
               imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-            downloadFile: item?.field_document?.[0]?.field_media_file?.[0]
-              ?.uri?.[0]?.url
-              ? `${API_BASE_URL}${item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url}`
-              : '',
+            downloadFile:
+              item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url,
             date:
               item?.type?.[0]?.type === 'info_lelang'
                 ? item?.body?.[0]?.value

@@ -1,6 +1,15 @@
 'use client';
 
-import defaultLogo from '@/../../public/images/bri-logo.png';
+import Link from './link';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import CE_DefaultIcon from '@/lib/element/global/default-icon';
+import { Search } from './global.search';
+import { CloseIcon } from './icons/close-icon';
+
 import { T_ResponGetHeaderLogo } from '@/api/header-logo/api.get-header-logo.type';
 import {
   T_Items,
@@ -8,17 +17,11 @@ import {
 } from '@/api/navbar-menu/main-navbar/api.get-main-menu-navbar.type';
 import { T_ResponseGetMenuItemNavbar } from '@/api/navbar-menu/menu-items/api.get-menu-items-navbar.type';
 import { T_ResponseGetTopMenuNavbar } from '@/api/navbar-menu/top-navbar/api.get-top-menu-navbar.type';
-import { API_BASE_URL, PATH_URL } from '@/app/(views)/$constant/variables';
-import CE_DefaultIcon from '@/lib/element/global/default-icon';
-import useOnClickOutside from '@/lib/hook/useOnClickOutside';
+
 import useScrollActive from '@/lib/hook/useScroll';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useRef, useState } from 'react';
-import { Search } from './global.search';
-import { CloseIcon } from './icons/close-icon';
-import Link from './link';
+import useOnClickOutside from '@/lib/hook/useOnClickOutside';
+import { useEnv } from '@/lib/hook/useEnv';
+import defaultLogo from '@/../../public/images/bri-logo.png';
 
 const LIST_LANGUAGES = ['ID', 'EN'];
 
@@ -115,6 +118,7 @@ export default function GlobalHeader({
   itemLogin: T_ResponseGetMenuItemNavbar;
   headerLogo?: T_ResponGetHeaderLogo;
 }) {
+  const { baseUrl, pathUrl } = useEnv();
   const pathname = usePathname();
   const currentLanguage = useSearchParams().get('lang');
   const router = useRouter();
@@ -170,7 +174,7 @@ export default function GlobalHeader({
             <div className="flex items-center gap-8">
               {headerTop?.map((header, index) => {
                 var nextUrl =
-                  PATH_URL +
+                  pathUrl +
                   '/' +
                   (header?.alias || header?.relative) +
                   '?lang=' +
@@ -195,7 +199,7 @@ export default function GlobalHeader({
                         <Image
                           src={
                             header?.icon
-                              ? `${API_BASE_URL}${header?.icon}`
+                              ? `${baseUrl}/api/files/?path=${header?.icon}`
                               : header?.icon
                           }
                           width={18}
@@ -268,7 +272,7 @@ export default function GlobalHeader({
                   src={
                     headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]
                       ?.uri?.[0]?.url
-                      ? `${API_BASE_URL}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`
+                      ? `${baseUrl}/api/files/?path=${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`
                       : ''
                   }
                   width={128}
@@ -279,7 +283,9 @@ export default function GlobalHeader({
                 <Image
                   alt="logo-default"
                   src={
-                    defaultLogo ? `${API_BASE_URL}${defaultLogo}` : defaultLogo
+                    defaultLogo
+                      ? `${baseUrl}/api/files/?path=${defaultLogo}`
+                      : defaultLogo
                   }
                   width={128}
                   height={53}
@@ -323,7 +329,7 @@ export default function GlobalHeader({
                     src={
                       headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]
                         ?.uri?.[0]?.url
-                        ? `${API_BASE_URL}${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`
+                        ? `${baseUrl}/api/files/?path=${headerLogo?.field_logo_alternative?.[0]?.thumbnail?.[0]?.uri?.[0]?.url}`
                         : ''
                     }
                     width={128}
@@ -335,7 +341,7 @@ export default function GlobalHeader({
                     alt="logo-default"
                     src={
                       defaultLogo
-                        ? `${API_BASE_URL}${defaultLogo}`
+                        ? `${baseUrl}/api/files/?path=${defaultLogo}`
                         : defaultLogo
                     }
                     width={128}
@@ -606,7 +612,7 @@ export default function GlobalHeader({
                                   <Image
                                     src={
                                       header?.icon
-                                        ? `${API_BASE_URL}${header?.icon}`
+                                        ? `${baseUrl}/api/files/?path=${header?.icon}`
                                         : header?.icon
                                     }
                                     width={18}
@@ -654,7 +660,7 @@ export default function GlobalHeader({
                                     <Image
                                       src={
                                         header?.icon
-                                          ? `${API_BASE_URL}${header?.icon}`
+                                          ? `${baseUrl}/api/files/?path=${header?.icon}`
                                           : header?.icon
                                       }
                                       width={18}

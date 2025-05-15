@@ -3,6 +3,7 @@
 // import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export type T_CardVariant09Props = {
   type?: 'search' | 'normal';
@@ -22,6 +23,7 @@ export default function CE_CardVariant09({
   data,
   type = 'normal',
 }: T_CardVariant09Props) {
+  const { baseUrl } = useEnv();
   return (
     <>
       <div
@@ -52,7 +54,7 @@ export default function CE_CardVariant09({
                       <div className="inset-y-0 absolute right-0 flex items-center justify-center">
                         {item?.button?.link && (
                           <Link
-                            href={item?.button?.link}
+                            href={`${baseUrl}/api/files/?path=${item?.button?.link}`}
                             extern={item?.button?.extern}
                             target={item?.button?.extern ? '_self' : ''}
                           >

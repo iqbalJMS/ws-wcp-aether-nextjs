@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import ArrowRightIcon from '@/lib/element/global/icons/arrow-right-icon';
 import CE_ModalProfile from '@/lib/element/global/modal.profile';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export default function CE_CardVariant12({
   data,
@@ -16,6 +17,7 @@ export default function CE_CardVariant12({
     image?: string;
   }>;
 }) {
+  const { baseUrl } = useEnv();
   const [dataProfile, setDataProfile] = useState({});
   const [openModalProfile, setOpenModalProfile] = useState<boolean>(false);
 
@@ -62,7 +64,7 @@ export default function CE_CardVariant12({
                   {item?.image && (
                     <div className="w-full h-[30rem] ">
                       <Image
-                        src={item?.image}
+                        src={`${baseUrl}/api/files/?path=${item.image}`}
                         alt="image"
                         width={1920}
                         height={1080}
@@ -101,6 +103,7 @@ export default function CE_CardVariant12({
         onClose={() => setOpenModalProfile(false)}
         user={dataProfile}
         hasButtonClose
+        baseUrl={baseUrl}
       />
     </div>
   );

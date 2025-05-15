@@ -18,6 +18,7 @@ import CE_SimulationDepositoBusinessMain from './client.simulation-deposito-busi
 import CE_SimulationDepositoValasMain from './client.simulation-deposito-valas.main';
 import CE_SimulationInvestmentMain from './client.simulation-investment.main';
 import CE_SimulationInitialInvestmentMain from './client.simulation-initial-investment.main';
+import { useEnv } from '@/lib/hook/useEnv';
 
 type T_SimulationMainProps = {
   type: 'tab' | 'page';
@@ -53,6 +54,7 @@ const CE_SimulationMain = ({
   title,
   description,
 }: T_SimulationMainProps) => {
+  const { baseUrl } = useEnv();
   const [variant, setVariant] = useState(initialVariant);
   const simulation = useMemo(() => {
     return tabs?.find((item) => item.variant === variant);
@@ -90,7 +92,7 @@ const CE_SimulationMain = ({
               {simulation && (
                 <Image
                   extern={false}
-                  src={simulation.image}
+                  src={`${baseUrl}/api/files/?path=${simulation.image}`}
                   alt="background"
                   width={1920}
                   height={980}

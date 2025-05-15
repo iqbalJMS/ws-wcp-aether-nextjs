@@ -3,6 +3,7 @@
 import Image from '@/lib/element/global/image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
+import { useEnv } from '@/lib/hook/useEnv';
 
 type T_PromoCardProps = {
   description1?: string;
@@ -19,6 +20,7 @@ const CE_PortletVariant08 = ({
   imageUrl2,
   variantTwoColumn,
 }: T_PromoCardProps) => {
+  const { baseUrl } = useEnv();
   const variantTwoColumnClass =
     variantTwoColumn === WIDGET_VARIANT.variant58
       ? 'table-blue-header'
@@ -47,7 +49,7 @@ const CE_PortletVariant08 = ({
           <div className="relative h-[600px] w-1/2">
             <div className="relative h-[600px] w-full">
               <Image
-                src={imageUrl1}
+                src={`${baseUrl}/api/files/?path=${imageUrl1}`}
                 alt={description1 ?? ''}
                 fill
                 className="object-contain w-full h-full"
@@ -60,7 +62,7 @@ const CE_PortletVariant08 = ({
           <div className="relative h-[600px] w-1/2">
             <div className="relative h-[600px] w-full">
               <Image
-                src={imageUrl2}
+                src={`${baseUrl}/api/files/?path=${imageUrl2}`}
                 alt={description2 ?? ''}
                 fill
                 className="object-contain w-full h-full"
@@ -101,7 +103,7 @@ const CE_PortletVariant08 = ({
           <div className="relative md:h-[450px] h-[250px] w-full">
             <div className="relative md:h-[450px] h-[250px] w-full">
               <Image
-                src={imageUrl1}
+                src={`${baseUrl}/api/files/?path=${imageUrl1}`}
                 alt={description1 ?? ''}
                 fill
                 className="object-contain w-full h-full"
@@ -114,7 +116,7 @@ const CE_PortletVariant08 = ({
           <div className="relative md:h-[450px] h-[250px] w-full">
             <div className="relative md:h-[450px] h-[250px] w-full">
               <Image
-                src={imageUrl2}
+                src={`${baseUrl}/api/files/?path=${imageUrl2}`}
                 alt={description2 ?? ''}
                 fill
                 className="object-contain w-full h-full"

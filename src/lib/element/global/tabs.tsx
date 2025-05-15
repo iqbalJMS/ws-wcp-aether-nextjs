@@ -117,7 +117,6 @@ type TabsProps = {
   onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
   variantColor?: 'red' | 'default';
-  drupalBase?: string | undefined | null;
   defaultSelected?: number;
 };
 
@@ -136,10 +135,9 @@ export default function Tabs({
   style = 'center',
   variant = 'border',
   variantColor = 'default',
-  drupalBase = '',
   defaultSelected = 0,
 }: TabsProps) {
-  const { drupalUrl } = useEnv();
+  const { baseUrl } = useEnv();
   const [menuActive, setMenuActive] = useState(defaultSelected);
 
   const renderElement = ({ children, type }: TRenderElemment) => {
@@ -152,7 +150,7 @@ export default function Tabs({
               description: childItem?.description?.replaceAll('_', ' '),
               button: {
                 image: '/',
-                link: `${drupalBase}${childItem?.downloadFile}`,
+                link: childItem?.downloadFile,
                 title: 'Download',
                 extern: true,
               },
@@ -323,7 +321,8 @@ export default function Tabs({
                 const description = childItem?.field_content?.[0]?.value ?? '';
                 const iconImage = childItem?.field_image?.[0]
                   ?.field_media_image?.[0]?.uri?.[0]?.url
-                  ? drupalUrl +
+                  ? baseUrl +
+                    '/api/files/?path=' +
                     childItem?.field_image?.[0]?.field_media_image?.[0]
                       ?.uri?.[0]?.url
                   : '';
@@ -395,7 +394,12 @@ export default function Tabs({
           >
             {item?.image && (
               <div className="relative max-h-[16rem] aspect-video w-[30rem] rounded-lg object-contain">
-                <Image alt="image card" src={item?.image} extern={false} fill />
+                <Image
+                  alt="image card"
+                  src={`${baseUrl}/api/files/?path=${item.image}`}
+                  extern={false}
+                  fill
+                />
               </div>
             )}
             <div className="ml-6">

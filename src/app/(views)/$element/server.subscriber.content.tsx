@@ -1,6 +1,6 @@
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import CE_SubscriberForm from './client.subscriber.form';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
+import { BASE_URL } from '@/app/(views)/$constant';
 
 type T_SubscriberContentProps = {
   bgImage?: string;
@@ -11,7 +11,7 @@ export default function SE_SubscriberContent({
   bgImage,
   description,
 }: T_SubscriberContentProps) {
-  const backgroundImg = bgImage ? `${API_BASE_URL}${bgImage}` : '';
+  const backgroundImg = bgImage ? `${BASE_URL}/api/files/?path=${bgImage}` : '';
   return (
     <section className="py-24">
       <div className="container md:flex items-center">

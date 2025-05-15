@@ -65,9 +65,3 @@ export const WIDGET_VARIANT = {
   variant64: 'section_card_grid',
   variant65: 'section_big_menu_center_blue',
 };
-
-export const API_BASE_URL =
-  process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
-
-export const PATH_URL =
-  process.env.PATH_URL || process.env.NEXT_PUBLIC_PATH_URL || '';

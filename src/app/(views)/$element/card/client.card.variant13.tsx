@@ -3,6 +3,7 @@
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 
 type T_CardVariant13Props = {
   title: string;
@@ -24,6 +25,7 @@ export default function CE_CardVariant13({
   title,
   data,
 }: T_CardVariant13Props) {
+  const { baseUrl } = useEnv();
   return (
     <>
       <div className="py-10 container overflow-hidden">
@@ -46,7 +48,7 @@ export default function CE_CardVariant13({
                     <div className="w-full h-[20rem] rounded-xl overflow-hidden mb-5 inline-block">
                       <Image
                         extern={false}
-                        src={item.image}
+                        src={`${baseUrl}/api/files/?path=${item.image}`}
                         alt="image"
                         width={1920}
                         height={1080}

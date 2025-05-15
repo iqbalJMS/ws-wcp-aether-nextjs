@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 
 interface ProfileProps {
   title?: string;
@@ -17,11 +19,12 @@ const ProfileCard: React.FC<ProfileProps> = ({
   imageUrl,
   backgroundUrl,
 }) => {
+  const { baseUrl } = useEnv();
   return (
     <div
       className="relative w-full h-auto text-white py-8 px-4 lg:px-16"
       style={{
-        backgroundImage: `url(${API_BASE_URL}${backgroundUrl})`,
+        backgroundImage: `url(${baseUrl}/api/files/?path=${backgroundUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -32,7 +35,7 @@ const ProfileCard: React.FC<ProfileProps> = ({
         <div
           className="flex-shrink-0 relative bg-top h-[480px] w-[400px] rounded-br-[4rem] overflow-hidden shadow-lg"
           style={{
-            backgroundImage: `url(${imageUrl})`,
+            backgroundImage: `url(${baseUrl}/api/files/?path=${imageUrl})`,
             backgroundSize: 'cover',
             backgroundPosition: 'top',
           }}

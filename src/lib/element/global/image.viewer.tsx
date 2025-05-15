@@ -1,11 +1,12 @@
 /* eslint-disable no-restricted-imports */
 'use client';
 
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
+import { useEnv } from '@/lib/hook/useEnv';
 import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 
 const DraggableZoomableImage = ({ image }: { image?: string }) => {
+  const { baseUrl } = useEnv();
   const imageRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
@@ -130,7 +131,7 @@ const DraggableZoomableImage = ({ image }: { image?: string }) => {
           ref={imageRef}
           onMouseDown={handleMouseDown}
           style={{
-            backgroundImage: `url(${API_BASE_URL}${image})`,
+            backgroundImage: `url(${baseUrl}/api/files/?path=${image})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
