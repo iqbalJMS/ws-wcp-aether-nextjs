@@ -2487,7 +2487,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const filename = props?.filename;
       const description = props?.description;
       const iconDownload = props?.iconDownload;
-      const downloadFile = `${API_BASE_URL}${props?.downloadFile}`;
+      const downloadFile = props?.downloadFile;
       const title = props?.title;
       return (
         <CE_CardVariant09
