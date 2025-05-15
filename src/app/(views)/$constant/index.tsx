@@ -46,6 +46,9 @@ const CE_PortletVarian05 = dynamic(
 const SE_PortletVarian07 = dynamic(
   () => import('@/app/(views)/$element/portlet/server.portlet.variant07')
 );
+const SE_PortletSectionHeaderAlign = dynamic(
+  () => import('@/app/(views)/$element/portlet/server.portlet.sectionheaderalignment')
+);
 
 /* Carousel Component */
 const CE_CarouselMain = dynamic(
@@ -899,6 +902,17 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               })}
             />
           );
+        case WIDGET_VARIANT.variant66:
+          return (
+            <SE_PortletSectionHeaderAlign
+              title={props?.title}
+              subtitle={props?.subtitle}
+              buttonItems={props?.buttonItems}
+              headerButtonItems={props?.headerButtonItems} 
+              bgImage={props?.backgroundImage}
+              headerAlignment={props?.headerAlignment ?? 'left'}
+            />
+          );
         default:
           if (componentForm) {
             return (
@@ -1291,6 +1305,25 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: titleV01,
             data: dataV01,
           };
+        case WIDGET_VARIANT.variant66:
+          const backgroundImg = _component?.field_column?.[0]?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url ?? '';
+          return {
+            variant: findVariantStyle,
+            title: _component?.field_column?.[0]?.field_title?.[0]?.value ?? '',
+            subtitle: _component?.field_column?.[0]?.field_content?.[0]?.value ?? '',
+            backgroundImage: `${API_BASE_URL}/api/files/?path=${backgroundImg}`,
+            headerAlignment: _component?.field_column?.[0]?.field_alignment_style?.[0]?.value ?? 'left',
+            headerButtonItems: _component?.field_column?.[0]?.field_primary_cta?.map((item) => ({
+              buttonText: item?.title,
+              buttonLink: item?.uri,
+              buttonCta: item?.full_url,
+            })) ?? [],
+            buttonItems: _component?.field_primary_cta?.map((item) => ({
+              buttonText: item?.title,
+              buttonLink: item?.uri,
+              buttonCta: item?.full_url,
+            })) ?? [],
+          };
         case WIDGET_VARIANT.variant02:
           return {
             title: title,
@@ -1612,15 +1645,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           item?.full_url || _component?.field_primary_cta?.[0]?.full_url
         ),
       }));
-
+      const headerAlignment = _component?.field_alignment_style?.[0]?.value;
       return {
         title: title,
         subtitle: subtitle,
         buttonItems: buttonItem,
-        bgImage: backgroundImage,
+        bgImage: `${API_BASE_URL}/api/files/?path=${backgroundImage}`,
         variant: '02',
         variantLayout: variantLayout,
         variantWidget: findVariantStyle,
+        headerAlignment: headerAlignment,
       };
     },
   },
@@ -1755,7 +1789,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               imagePosition: imagePosition,
               title: title,
               description: description,
-              image: image ? `${API_BASE_URL}${image}` : image,
+              image: image ? `${API_BASE_URL}/api/files/?path=${image}` : image,
               button: {
                 title: buttonTitle,
                 link: buttonLink,
@@ -1833,12 +1867,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     description: description,
                     description1: description1,
                     description2: description2,
-                    imageUrl1: imageUrl1
-                      ? `${API_BASE_URL}${imageUrl1}`
-                      : imageUrl1,
-                    imageUrl2: imageUrl2
-                      ? `${API_BASE_URL}${imageUrl2}`
-                      : imageUrl2,
+                    imageUrl1: `${API_BASE_URL}/api/files/?path=${imageUrl1}`,
+                    imageUrl2: `${API_BASE_URL}/api/files/?path=${imageUrl2}`,
                     variantChildren: variantChildren,
                   };
                 }),
@@ -1879,7 +1909,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     image:
                       paragraph?.field_content_list?.[0]?.field_pictures?.[0]
                         ?.field_media_image?.[0]?.uri?.[0]?.url &&
-                      `${API_BASE_URL}${paragraph?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+                      `${API_BASE_URL}/api/files/?path=${paragraph?.field_content_list?.[0]?.field_pictures?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
                     title:
                       paragraph?.field_content_list?.[0]?.title?.[0]?.value,
                     description:
@@ -1900,12 +1930,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 title: item?.field_title?.[0]?.value,
                 slug: item?.field_title?.[0]?.value,
                 children: item?.field_paragraphs?.map((child) => {
+                  const imageUrl = `${API_BASE_URL}/api/files/?path=${child.field_image[0].field_media_image[0].uri[0].url}`;
                   return {
-                    image: child?.field_image?.[0]?.field_media_image?.[0]
-                      ?.uri?.[0]?.url
-                      ? `${API_BASE_URL}${child.field_image[0].field_media_image[0].uri[0].url}`
-                      : child?.field_image?.[0]?.field_media_image?.[0]
-                          ?.uri?.[0]?.url,
+                    image: imageUrl,
                     title: child?.field_title?.[0]?.value,
                     description: child?.field_content?.[0]?.value,
                     textLink: child?.field_primary_cta?.[0]?.title,
@@ -2225,7 +2252,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               ?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
           const documentTitle19f =
             _component?.field_first_column?.[0]?.field_cta_document?.[0]
-              ?.field_title?.[0]?.value || 'Download';
+              ?.field_title?.[0]?.value;
           return {
             firstColumn: {
               title:
@@ -2317,10 +2344,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               ?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
           const documentTitle1 =
             _component?.field_first_column?.[0]?.field_cta_document?.[0]
-              ?.field_title?.[0]?.value || 'Download';
+              ?.field_title?.[0]?.value;
           const documentTitle2 =
             _component?.field_second_column?.[0]?.field_cta_document?.[0]
-              ?.field_title?.[0]?.value || 'Download';
+              ?.field_title?.[0]?.value;
           return {
             firstColumn: {
               image: `${API_BASE_URL}/api/files/?path=${image33f}`,

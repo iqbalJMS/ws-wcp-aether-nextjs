@@ -22,13 +22,15 @@ export type T_PortletProps = {
   textLink?: string;
   navigationLink?: string;
   buttonItems?: Array<ButtonItem>;
+  headerButtonItems?: Array<ButtonItem>;
   marginLeft?: 'medium' | string;
-  headerAlignment?: 'left' | 'center' | 'right';
+  headerAlignment?: 'left' | 'center' | 'right' | 'justify';
   imageContentAlignment?: 'left' | 'center' | 'right';
   variantWidget?: string;
   variant?: '01' | '02' | '03';
   variantLayout?: 'rounded_corneer' | 'square' | 'full' | 'large';
   listItems?: Array<ListItem> | string;
+  field_alignment_style?: { value: 'left' | 'center' | 'right' | 'justify' }[];
 };
 
 export type T_PortletItemProps = {
