@@ -56,6 +56,7 @@ export type T_Section = {
   field_note?: any[];
   field_primary_cta?: FieldPrimaryCTA[];
   field_column?: Array<{
+    field_alignment_style?: Array<{ value: 'left' | 'center' | 'right' }>;
     entity_bundle: Array<{ value: string }>;
     field_form: Array<{ target_id: string }>;
     field_content_list: Array<{

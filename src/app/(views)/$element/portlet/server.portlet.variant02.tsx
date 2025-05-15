@@ -6,13 +6,15 @@ import React from 'react';
 import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
 import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
 import { BASE_URL } from '@/app/(views)/$constant';
+import { handleurl } from '@/lib/functions/client/handle-url';
+
+type Alignment = 'left' | 'center' | 'right' | 'justify';
 
 export default async function SE_PortletVariant02({
   title,
   subtitle,
   buttonItems,
   bgImage,
-  variantWidget,
   variantLayout,
   bgExtern,
 }: Omit<T_PortletProps, 'variant'>) {
@@ -23,33 +25,78 @@ export default async function SE_PortletVariant02({
 
   const hasCenterWidget = variantWidget === WIDGET_VARIANT.variant04;
   const hasLeftWidget = variantWidget === 'div_more_left';
+  headerAlignment,
+}: Omit<T_PortletProps, 'variant'> & { headerAlignment?: Alignment }) {
+  const hasVisibleButtons = buttonItems?.some(item => item.buttonText && item.buttonCta);
 
   return (
     <section className="relative mb-6">
       <div
-        className={`relative w-full bg-cover bg-no-repeat ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem] overflow-hidden' : ''} ${variantLayout === 'large' ? 'md:h-[40rem] h-[20rem]' : 'h-[20rem]'}`}
+        className={`relative w-full bg-cover bg-no-repeat ${
+          variantLayout === 'rounded_corneer'
+            ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem] overflow-hidden'
+            : ''
+        } ${variantLayout === 'large' ? 'md:h-[40rem] h-[20rem]' : 'h-[20rem]'}`}
         style={{
-          backgroundImage: `url(${background ?? '/web/guest/images/no-image.png'})`,
+          backgroundImage: bgExtern
+            ? `url(${bgImage})`
+            : `url(${bgImage ?? '/web/guest/images/why-us/bg-image.jpg'})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <div
-          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b ${variantLayout === 'rounded_corneer' ? 'from-black to-[#94183d]' : 'from-black to-[#014a94]'} opacity-40`}
+          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b ${
+            variantLayout === 'rounded_corneer'
+              ? 'from-black to-[#94183d]'
+              : 'from-black to-[#014a94]'
+          } opacity-40`}
         ></div>
-        <div
-          className={`container flex flex-col justify-center h-full relative z-10 ${hasCenterWidget ? 'items-center' : ''}`}
-        >
-          <div
-            className={`${hasLeftWidget ? 'ml-auto md:pr-[200px] pr-0' : ''} ${hasCenterWidget ? 'ml:0 xl:ml-96 flex flex-col items-start' : ''}`}
-          >
+
+        <div className="container flex flex-col justify-center h-full relative z-10">
+          {headerAlignment === 'right' ? (
+            <div className="w-full max-w-[700px] ml-auto mr-0">
+              <div className="flex flex-col gap-4 items-start text-left">
+                {title && (
+                  <div className="text-white font-semibold text-4xl">
+                    {parseHTMLToReact(title)}
+                  </div>
+                )}
+                {subtitle && (
+                  <div className="text-white font-normal text-xl leading-9">
+                    {parseHTMLToReact(subtitle)}
+                  </div>
+                )}
+                {hasVisibleButtons && (
+                  <div className="flex flex-wrap gap-4 justify-start">
+                    {buttonItems?.map(({ buttonText, buttonCta }, index) =>
+                      buttonText && buttonCta ? (
+                        <Link
+                          href={handleurl(buttonCta)}
+                          extern
+                          key={index}
+                        >
+                          <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
+                            {buttonText}
+                          </button>
+                        </Link>
+                      ) : null
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
             <div
-              className={`${hasCenterWidget ? 'text-nowrap' : ''} ${hasLeftWidget ? 'mdmax:text-center' : ''} mb-3`}
+              className={`
+                w-full flex flex-col gap-4
+                ${headerAlignment === 'center' ? 'items-center text-center' : ''}
+                ${headerAlignment === 'left' ? 'items-start text-left' : ''}
+                ${headerAlignment === 'justify' ? 'items-stretch text-justify' : ''}
+              `}
             >
               {title && (
-                <div
-                  className={`text-white font-semibold lg:w-1/2 w-full mb-3 ${hasCenterWidget ? 'text-2xl' : 'text-4xl '}`}
-                >
+                <div className="text-white font-semibold text-4xl lg:w-1/2 w-full">
                   {parseHTMLToReact(title)}
                 </div>
               )}
@@ -58,31 +105,35 @@ export default async function SE_PortletVariant02({
                   {parseHTMLToReact(subtitle)}
                 </div>
               )}
+              {hasVisibleButtons && (
+                <div
+                  className={`flex flex-wrap gap-4
+                    ${headerAlignment === 'center' ? 'justify-center' : ''}
+                    ${headerAlignment === 'left' || headerAlignment === 'justify' ? 'justify-start' : ''}
+                  `}
+                >
+                  {buttonItems?.map(({ buttonText, buttonCta }, index) =>
+                    buttonText && buttonCta ? (
+                      <Link
+                        href={handleurl(buttonCta)}
+                        extern
+                        key={index}
+                      >
+                        <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
+                          {buttonText}
+                        </button>
+                      </Link>
+                    ) : null
+                  )}
+                </div>
+              )}
             </div>
-            {buttonItems && (
-              <div
-                className={`flex ${hasCenterWidget ? 'justify-center' : ''} ${hasLeftWidget ? 'mdmax:justify-center' : ''} items-center gap-4`}
-              >
-                {buttonItems.map(({ buttonText, buttonCta }, index) => (
-                  <Link
-                    href={buttonCta ?? 'javascript:void(0)'}
-                    extern
-                    key={index}
-                  >
-                    <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
-                      {buttonText}
-                    </button>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </div>
-      {variantLayout == 'rounded_corneer' && (
-        <div
-          className={`absolute left-0 top-0 w-full h-full bg-gray-300 mt-4 -z-10 ${variantLayout === 'rounded_corneer' ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem]' : ''}`}
-        ></div>
+
+      {variantLayout === 'rounded_corneer' && (
+        <div className="absolute left-0 top-0 w-full h-full bg-gray-300 mt-4 -z-10 rounded-br-[20rem] mdmax:rounded-br-[7rem]" />
       )}
     </section>
   );

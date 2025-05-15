@@ -22,11 +22,7 @@ export default async function SE_PortletVariant03({
     <section
       className="w-full bg-no-repeat pt-10 pb-20"
       style={{
-        backgroundImage: `url(${
-          bgImage
-            ? (backgroundImg ?? '/web/guest/images/why-us/bg-image.jpg')
-            : ''
-        })`,
+        backgroundImage: bgImage ?? '/web/guest/images/why-us/bg-image.jpg',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }}

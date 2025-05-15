@@ -14,6 +14,8 @@ type FieldImage = {
 };
 
 export type T_Header = {
+  field_alignment?: any;
+  field_alignment_style?: Array<{ value: 'left' | 'center' | 'right' | 'justify' }>;
   field_title: FieldTitle[];
   field_header_style: Array<{ value: string }>;
   field_content: FieldContent[];

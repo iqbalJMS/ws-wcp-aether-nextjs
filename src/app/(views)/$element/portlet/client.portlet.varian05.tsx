@@ -24,6 +24,9 @@ export default function CE_PortletVarian05({
     image?: string;
   };
 }) {
+  const hasVisibleButton = firstColumn?.button?.title && firstColumn?.button?.link;
+  const hasVisibleDocument = !firstColumn?.documentTitle && !firstColumn?.document;
+  
   return (
     <div className="container mx-auto grid md:grid-cols-2 my-8 py-6">
       <div className="flex items-center col-span-1 md:order-1 order-2">
@@ -38,23 +41,23 @@ export default function CE_PortletVarian05({
               {parseHTMLToReact(firstColumn?.description)}
             </div>
           )}
-          {(firstColumn?.button?.title || firstColumn?.document) && (
+          {(hasVisibleButton || hasVisibleDocument) && (
             <div className="flex gap-4 mt-8 flex-wrap">
-              {firstColumn?.button?.title && firstColumn?.button?.link && (
-                <Link href={handleurl(firstColumn.button.link)}>
+              {hasVisibleButton && (
+                <Link href={handleurl(firstColumn.button!.link!)}>
                   <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
-                    {firstColumn.button.title}
+                    {firstColumn.button!.title}
                   </button>
                 </Link>
               )}
-              {firstColumn?.document && (
+              {hasVisibleDocument && (
                 <a
                   href={handleurl(firstColumn.document)}
                   download
                   target="_self"
                 >
                   <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
-                    {firstColumn.documentTitle || 'Download PDF'}
+                    {firstColumn.documentTitle}
                   </button>
                 </a>
               )}

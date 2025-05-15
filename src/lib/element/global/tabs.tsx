@@ -151,6 +151,7 @@ export default function Tabs({
               button: {
                 image: '/',
                 link: childItem?.downloadFile,
+                link: `${drupalBase}/api/files/?path=${childItem?.downloadFile}`,
                 title: 'Download',
                 extern: true,
               },
