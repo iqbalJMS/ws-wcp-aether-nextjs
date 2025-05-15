@@ -6,6 +6,7 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useState } from 'react';
 import { handleurl } from '@/lib/functions/client/handle-url';
+import { useEnv } from '@/lib/hook/useEnv';
 
 type T_CardVariant01Props = {
   data: {
@@ -23,26 +24,27 @@ type T_CardVariant01Props = {
 };
 
 export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
+  const { baseUrl } = useEnv();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   return (
     <>
       <div className=" py-10">
         <div className="flex mdmax:flex-wrap">
           {data?.map((item, index) => {
-            const hasVisibleButtons = item?.buttons?.some(btn => btn?.link);
+            const hasVisibleButtons = item?.buttons?.some((btn) => btn?.link);
             const isHovered = hoveredIndex === index;
             return (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="w-1/2 mdmax:w-full flex-none"
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <div className="h-[40rem] mdmax:h-[20rem] relative z-0 overflow-hidden">
-                  <div 
+                  <div
                     className={`absolute top-0 left-0 z-10 w-full h-full transition-all duration-300 ease-in-out ${
-                      isHovered 
-                        ? 'bg-blue-800 bg-opacity-70' 
+                      isHovered
+                        ? 'bg-blue-800 bg-opacity-70'
                         : 'bg-black bg-opacity-20'
                     }`}
                   ></div>
@@ -59,30 +61,31 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                         </div>
                       )}
                       <div className="flex gap-2 flex-wrap">
-                        {hasVisibleButtons && item?.buttons?.map((buttonItem, buttonIndex) => (
-                          <div key={buttonIndex}>
-                            {buttonItem?.link ? (
-                              <Link
-                                href={handleurl(buttonItem?.link)}
-                                extern={buttonItem?.extern}
-                                target={buttonItem?.extern ? '_self' : ''}
-                              >
-                                <ButtonSecondary
-                                  className="bg-orange-01"
-                                  rounded="full"
-                                  color="orange-01"
+                        {hasVisibleButtons &&
+                          item?.buttons?.map((buttonItem, buttonIndex) => (
+                            <div key={buttonIndex}>
+                              {buttonItem?.link ? (
+                                <Link
+                                  href={handleurl(buttonItem?.link)}
+                                  extern={buttonItem?.extern}
+                                  target={buttonItem?.extern ? '_self' : ''}
                                 >
-                                  {buttonItem?.title}
-                                </ButtonSecondary>
-                              </Link>
-                            ) : null}
-                          </div>
-                        ))}
-                        
+                                  <ButtonSecondary
+                                    className="bg-orange-01"
+                                    rounded="full"
+                                    color="orange-01"
+                                  >
+                                    {buttonItem?.title}
+                                  </ButtonSecondary>
+                                </Link>
+                              ) : null}
+                            </div>
+                          ))}
+
                         {item?.document && (
                           <div>
                             <Link
-                              href={item.document}
+                              href={`${baseUrl}/api/files/?path=${item.document}`}
                               extern={true}
                               target="_self"
                               download
@@ -92,7 +95,7 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                                 rounded="full"
                                 color="orange-01"
                               >
-                                {item.documentTitle || "Download PDF"}
+                                {item.documentTitle || 'Download PDF'}
                               </ButtonSecondary>
                             </Link>
                           </div>
@@ -104,13 +107,13 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                     <div className="w-full h-full relative z-0">
                       <Image
                         extern={false}
-                        src={item?.image}
+                        src={`${baseUrl}/api/files/?path=${item.image}`}
                         alt="image"
                         width={1920}
                         height={1080}
                         className={`w-full h-full object-cover ${
-                          isHovered 
-                            ? 'scale-125 transition-transform duration-1000 ease-in-out' 
+                          isHovered
+                            ? 'scale-125 transition-transform duration-1000 ease-in-out'
                             : 'scale-100 transition-transform duration-300 ease-in-out'
                         }`}
                       />

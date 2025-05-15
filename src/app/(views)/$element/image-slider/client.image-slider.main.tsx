@@ -2,6 +2,7 @@
 
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { useEnv } from '@/lib/hook/useEnv';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useEffect, useRef, useState } from 'react';
 
@@ -15,6 +16,7 @@ const CE_ImageSliderMain = ({
   }>;
   title?: string;
 }) => {
+  const { baseUrl } = useEnv();
   const [currentIndex, setCurrentIndex] = useState<number>(data?.length ?? 0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
   const screenWidth = useScreenWidth();
@@ -88,14 +90,16 @@ const CE_ImageSliderMain = ({
             >
               <div className="w-full h-40 mdmax:h-[5rem] border-[.12rem] border-transparent hover:border-orange-01 overflow-hidden rounded-md">
                 <Link href={slide?.link ?? ''} target="_self">
-                  <Image
-                    extern={false}
-                    src={slide?.image ?? ''}
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-contain"
-                    alt={`slide-${index}`}
-                  />
+                  {slide?.image && (
+                    <Image
+                      extern={false}
+                      src={`${baseUrl}/api/files/?path=${slide.image}`}
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-contain"
+                      alt={`slide-${index}`}
+                    />
+                  )}
                 </Link>
               </div>
             </div>

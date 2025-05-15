@@ -772,7 +772,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         hasChildren ? (
                           <CE_CarouselVariant06
                             data={children.map((child: any) => ({
-                              image: `${BASE_URL}/api/files/?path=${child.image}`,
+                              image: child?.image,
                               description: child?.title || '',
                             }))}
                           />
@@ -960,7 +960,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
           return {
             link: item?.field_primary_cta?.[0]?.uri,
-            image: `${BASE_URL}/api/files/?path=${image}`,
+            image: image,
           };
         });
       const dataV02 = _component?.field_column?.map((item) => {
@@ -1032,7 +1032,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
 
           return {
-            image: `${BASE_URL}/api/files/?path=${image}`,
+            image: image,
             title: title,
             desc: description,
           };
@@ -1061,7 +1061,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
-          image: `${BASE_URL}/api/files/?path=${image}`,
+          image: image,
           button: {
             link: isExternalLink
               ? item?.field_primary_cta?.[0]?.uri
@@ -1317,7 +1317,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: _component?.field_column?.[0]?.field_title?.[0]?.value ?? '',
             subtitle:
               _component?.field_column?.[0]?.field_content?.[0]?.value ?? '',
-            backgroundImage: `${API_BASE_URL}/api/files/?path=${backgroundImg}`,
+            backgroundImage: backgroundImg,
             headerAlignment:
               _component?.field_column?.[0]?.field_alignment_style?.[0]
                 ?.value ?? 'left',
@@ -1660,7 +1660,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         title: title,
         subtitle: subtitle,
         buttonItems: buttonItem,
-        bgImage: `${API_BASE_URL}/api/files/?path=${backgroundImage}`,
+        bgImage: backgroundImage,
         variant: '02',
         variantLayout: variantLayout,
         variantWidget: findVariantStyle,
@@ -1761,12 +1761,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 return {
                   id: id,
                   type: type,
-                  img:
-                    `${BASE_URL}/api/files/?path=${imageDefault}` ||
-                    `${BASE_URL}/api/files/?path=${image}`,
+                  img: imageDefault || image,
                   title: title,
                   description: description,
-                  downloadFile: `${BASE_URL}/api/files/?path=${downloadFile}`,
+                  downloadFile: downloadFile,
                   startDate: start_date,
                   endDate: end_date,
                   date: date,
@@ -1939,7 +1937,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 title: item?.field_title?.[0]?.value,
                 slug: item?.field_title?.[0]?.value,
                 children: item?.field_paragraphs?.map((child) => {
-                  const imageUrl = `${API_BASE_URL}/api/files/?path=${child.field_image[0].field_media_image[0].uri[0].url}`;
                   return {
                     image:
                       child?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
@@ -2270,7 +2267,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
-              document: `${BASE_URL}/api/files/?path=${document19f}`,
+              document: document19f,
               documentTitle: documentTitle19f,
               button: {
                 title:
@@ -2282,7 +2279,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               },
             },
             secondColumn: {
-              image: `${BASE_URL}/api/files/?path=${image19}`,
+              image: image19,
             },
             variant: findVariantStyle,
           };
@@ -2361,12 +2358,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               ?.field_title?.[0]?.value;
           return {
             firstColumn: {
-              image: `${BASE_URL}/api/files/?path=${image33f}`,
+              image: image33f,
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
-              document: `${BASE_URL}/api/files/?path=${document33f}`,
+              document: document33f,
               documentTitle: documentTitle1,
               button: {
                 title:
@@ -2378,12 +2375,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               },
             },
             secondColumn: {
-              image: `${BASE_URL}/api/files/?path=${image33s}`,
+              image: image33s,
               title:
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
-              document: `${BASE_URL}/api/files/?path=${document33s}`,
+              document: document33s,
               documentTitle: documentTitle2,
               button: {
                 title:
@@ -2566,7 +2563,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 data={(children || [])?.map((item) => {
                   return {
                     description: item?.description,
-                    image: `${BASE_URL}/api/files/?path=${item?.image}`,
+                    image: item?.image,
                   };
                 })}
               />

@@ -1,6 +1,9 @@
+'use client';
+
 import Image from '@/lib/element/global/image';
 import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 import Link from 'next/link';
 import React from 'react';
 
@@ -24,9 +27,12 @@ export default function CE_PortletVarian05({
     image?: string;
   };
 }) {
-  const hasVisibleButton = firstColumn?.button?.title && firstColumn?.button?.link;
-  const hasVisibleDocument = !firstColumn?.documentTitle && !firstColumn?.document;
-  
+  const { baseUrl } = useEnv();
+  const hasVisibleButton =
+    firstColumn?.button?.title && firstColumn?.button?.link;
+  const hasVisibleDocument =
+    !firstColumn?.documentTitle && !firstColumn?.document;
+
   return (
     <div className="container mx-auto grid md:grid-cols-2 my-8 py-6">
       <div className="flex items-center col-span-1 md:order-1 order-2">
@@ -52,7 +58,9 @@ export default function CE_PortletVarian05({
               )}
               {hasVisibleDocument && (
                 <a
-                  href={handleurl(firstColumn.document)}
+                  href={handleurl(
+                    `${baseUrl}/api/files/?path=${firstColumn.document}`
+                  )}
                   download
                   target="_self"
                 >
@@ -68,14 +76,14 @@ export default function CE_PortletVarian05({
       <div className="col-span-1 mt-4 lg:mt-0 md:order-2 order-1">
         {secondColumn?.description && (
           <div className="mt-6 text-gray-400 text-base">
-            {parseHTMLToReact(secondColumn?.description,true)}
+            {parseHTMLToReact(secondColumn?.description, true)}
           </div>
         )}
         {secondColumn?.image && (
           <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
             <div className="md:flex-1 relative md:h-[450px] h-[250px] w-full">
               <Image
-                src={secondColumn?.image ?? ''}
+                src={`${baseUrl}/api/files/?path=${secondColumn.image}`}
                 alt={secondColumn.image}
                 fill
                 className="object-contain w-full h-full"

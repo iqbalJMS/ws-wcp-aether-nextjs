@@ -33,7 +33,8 @@ export default async function SE_PortletVariant01({
     <section
       className="component-portlet-01 w-full bg-no-repeat pt-0.5 pb-0.5 my-0"
       style={{
-        backgroundImage: bgImage ?? '/web/guest/images/why-us/bg-image.jpg',
+        backgroundImage:
+          backgroundImg ?? '/web/guest/images/why-us/bg-image.jpg',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }}

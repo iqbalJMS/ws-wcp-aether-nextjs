@@ -2,6 +2,7 @@
 
 import Image from '@/lib/element/global/image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 import { useCallback, useRef, useState } from 'react';
 
 export type T_CarouselVariant06Props = {
@@ -14,6 +15,7 @@ export type T_CarouselVariant06Props = {
 export default function CE_CarouselVariant06({
   data,
 }: T_CarouselVariant06Props) {
+  const { baseUrl } = useEnv();
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<number | null>(null);
 
@@ -78,7 +80,7 @@ export default function CE_CarouselVariant06({
                 <div className="md:w-1/4 w-full h-[600px] mb-8 mx-auto">
                   <Image
                     extern={true}
-                    src={dataItem?.image}
+                    src={`${baseUrl}/api/files/?path=${dataItem.image}`}
                     alt="Image"
                     width={400}
                     height={400}
