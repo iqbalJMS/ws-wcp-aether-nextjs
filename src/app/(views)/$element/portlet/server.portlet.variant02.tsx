@@ -1,10 +1,13 @@
 'use server';
 
-import Link from '@/lib/element/global/link';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import React from 'react';
+import Link from '@/lib/element/global/link';
+
 import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
+
 import { handleurl } from '@/lib/functions/client/handle-url';
+import { BASE_URL } from '@/app/(views)/$constant';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type Alignment = 'left' | 'center' | 'right' | 'justify';
 
@@ -17,7 +20,14 @@ export default async function SE_PortletVariant02({
   bgExtern,
   headerAlignment,
 }: Omit<T_PortletProps, 'variant'> & { headerAlignment?: Alignment }) {
-  const hasVisibleButtons = buttonItems?.some(item => item.buttonText && item.buttonCta);
+  const background =
+    bgImage && !bgExtern
+      ? `${BASE_URL}/api/files/?path=${bgImage}`
+      : `${bgImage}`;
+
+  const hasVisibleButtons = buttonItems?.some(
+    (item) => item.buttonText && item.buttonCta
+  );
 
   return (
     <section className="relative mb-6">
@@ -28,9 +38,7 @@ export default async function SE_PortletVariant02({
             : ''
         } ${variantLayout === 'large' ? 'md:h-[40rem] h-[20rem]' : 'h-[20rem]'}`}
         style={{
-          backgroundImage: bgExtern
-            ? `url(${bgImage})`
-            : `url(${bgImage ?? '/web/guest/images/why-us/bg-image.jpg'})`,
+          backgroundImage: `${background ? `url('${background}')` : '/web/guest/images/why-us/bg-image.jpg'}`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -61,11 +69,7 @@ export default async function SE_PortletVariant02({
                   <div className="flex flex-wrap gap-4 justify-start">
                     {buttonItems?.map(({ buttonText, buttonCta }, index) =>
                       buttonText && buttonCta ? (
-                        <Link
-                          href={handleurl(buttonCta)}
-                          extern
-                          key={index}
-                        >
+                        <Link href={handleurl(buttonCta)} extern key={index}>
                           <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
                             {buttonText}
                           </button>
@@ -104,11 +108,7 @@ export default async function SE_PortletVariant02({
                 >
                   {buttonItems?.map(({ buttonText, buttonCta }, index) =>
                     buttonText && buttonCta ? (
-                      <Link
-                        href={handleurl(buttonCta)}
-                        extern
-                        key={index}
-                      >
+                      <Link href={handleurl(buttonCta)} extern key={index}>
                         <button className="font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-fit bg-orange-400 hover:bg-orange-500">
                           {buttonText}
                         </button>

@@ -3,6 +3,7 @@
 // import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export type T_CardVariant09Props = {
   type?: 'search' | 'normal';
@@ -17,11 +18,27 @@ export type T_CardVariant09Props = {
     };
   }[];
 };
+const getFileDescription = (filename: string) => {
+  const ext = filename.split('.').pop()?.toLowerCase();
 
+  switch (ext) {
+    case 'pdf':
+      return 'PDF Document';
+    case 'doc':
+      return 'DOC Document';
+    case 'docx':
+      return 'DOCX Document';
+    case 'txt':
+      return 'TXT Document';
+    default:
+      return 'Unknown File';
+  }
+};
 export default function CE_CardVariant09({
   data,
   type = 'normal',
 }: T_CardVariant09Props) {
+  const { baseUrl } = useEnv();
   return (
     <>
       <div
@@ -44,19 +61,19 @@ export default function CE_CardVariant09({
                         )}
 
                         {item?.description && (
-                          <div className="text-black lg:text-sm text-sm text-opacity-70 lowercase">
-                            {parseHTMLToReact(item?.description)}
+                          <div className="text-black lg:text-sm text-sm text-opacity-70 capitalize">
+                            {getFileDescription(item.description)}
                           </div>
                         )}
                       </div>
-                      <div className="inset-y-0 absolute right-0 flex items-center justify-center">
+                      <div className="absolute right-0 flex items-center justify-center h-full">
                         {item?.button?.link && (
                           <Link
-                            href={item?.button?.link}
+                            href={`${baseUrl}/api/files/?path=${item?.button?.link}`}
                             extern={item?.button?.extern}
                             target={item?.button?.extern ? '_self' : ''}
                           >
-                            <div className="inline-flex absolute inset-y-0 transform transition-all ease-in-out right-0 bg-white text-blue-01 lg:hover:text-white items-center lg:text-base text-xs px-10 group">
+                            <div className="inline-flex bg-white text-blue-01 lg:hover:text-white items-center lg:text-base text-xs px-10 group">
                               <div className="absolute inset-0 -right-4 lg:bg-red-700 transition-all duration-300 ease-in-out transform translate-x-full group-hover:translate-x-0"></div>
                               <div className="relative z-10 flex items-center">
                                 <div className="w-5 h-5 mr-2 flex items-center">
@@ -77,7 +94,6 @@ export default function CE_CardVariant09({
                                     <path d="M19 21H5" />
                                   </svg>
                                 </div>
-
                                 {item?.button?.title}
                               </div>
                             </div>

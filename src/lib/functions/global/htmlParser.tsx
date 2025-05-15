@@ -1,31 +1,31 @@
-import { API_BASE_URL } from "@/app/(views)/$constant/variables";
-import React from "react";
+import React from 'react';
 
+const BASE_URL = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
 const possibleDomains =
-  process.env.DOMAINS || process.env.NEXT_PUBLIC_DOMAINS || "";
+  process.env.DOMAINS || process.env.NEXT_PUBLIC_DOMAINS || '';
 
 const bodyRender = (body: string) => {
   let rendered = body;
-  const domains = possibleDomains.split(",") || [];
+  const domains = possibleDomains.split(',') || [];
 
   domains.forEach((url) => {
     if (!url) {
       rendered = rendered.replaceAll(
-        "/sites/default/files/",
-        `${API_BASE_URL}/api/files/?path=/sites/default/files/`
+        '/sites/default/files/',
+        `${BASE_URL}/api/files/?path=/sites/default/files/`
       );
     } else {
       rendered = rendered.replaceAll(
         `${url}/sites/default/files/`,
-        `${API_BASE_URL}/api/files/?path=/sites/default/files/`
+        `${BASE_URL}/api/files/?path=/sites/default/files/`
       );
     }
   });
 
   if (domains.length === 0) {
     rendered = rendered.replaceAll(
-      "/sites/default/files/",
-      `${API_BASE_URL}/api/files/?path=/sites/default/files/`
+      '/sites/default/files/',
+      `${BASE_URL}/api/files/?path=/sites/default/files/`
     );
   }
 

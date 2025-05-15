@@ -15,6 +15,7 @@ interface ProfileModalProps {
     description?: string;
     image?: string;
   };
+  baseUrl?: string;
 }
 
 const CE_ModalProfile: React.FC<ProfileModalProps> = ({
@@ -22,6 +23,7 @@ const CE_ModalProfile: React.FC<ProfileModalProps> = ({
   onClose,
   hasButtonClose,
   user,
+  baseUrl = '',
 }) => {
   const elementModal = useRef<HTMLDivElement>(null);
   useOnClickOutside(elementModal, () => onClose?.());
@@ -52,8 +54,9 @@ const CE_ModalProfile: React.FC<ProfileModalProps> = ({
               alt="user-profile"
               className="rounded-xl"
               src={
-                user?.image ||
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH4dcYWVFHFsz8M3Rsjpy2Hg6gQAmgbCIwWA&s'
+                user?.image
+                  ? `${baseUrl}/api/files/?path=${user?.image}`
+                  : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH4dcYWVFHFsz8M3Rsjpy2Hg6gQAmgbCIwWA&s'
               }
             />
           </div>

@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
+import { BASE_URL } from '@/app/(views)/$constant';
 import { ImageLoader } from 'next/dist/client/image-component';
 import {
   OnLoadingComplete,
@@ -46,7 +46,9 @@ export default function Image(prop: T_ImageProps) {
     if (prop.extern) {
       newSrc = src;
     } else {
-      newSrc = src.startsWith(API_BASE_URL) ? src : `${API_BASE_URL}${src}`;
+      newSrc = src.startsWith(BASE_URL)
+        ? src
+        : `${BASE_URL}/api/files/?path=${src}`;
     }
   }
   return <Imagex.default {...{ ...prop, src: newSrc }} />;

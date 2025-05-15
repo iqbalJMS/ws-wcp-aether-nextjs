@@ -7,12 +7,14 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useState } from 'react';
 import { handleurl } from '@/lib/functions/client/handle-url';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export function CE_CarouselVariant01({
   title,
   button,
   data,
 }: Omit<T_CarouselMainProps, 'variant'>) {
+  const { baseUrl } = useEnv();
   const [currentSlide, setCurrentSlide] = useState(0);
   const screenWidth = useScreenWidth();
   const slidesToShow = screenWidth > 768 ? 4 : 2;
@@ -96,7 +98,11 @@ export function CE_CarouselVariant01({
                         <div className="w-full h-[15rem] mb-4 flex-shrink-0">
                           <Image
                             extern={false}
-                            src={dataItem?.image ?? '/'}
+                            src={
+                              dataItem?.image
+                                ? `${baseUrl}/api/files/?path=${dataItem.image}`
+                                : '/'
+                            }
                             alt="image"
                             width={400}
                             height={400}

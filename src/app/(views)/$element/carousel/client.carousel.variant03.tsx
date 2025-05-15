@@ -7,6 +7,7 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useState } from 'react';
 import { handleurl } from '@/lib/functions/client/handle-url';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export function CE_CarouselVariant03({
   title,
@@ -14,6 +15,7 @@ export function CE_CarouselVariant03({
   button,
   data,
 }: Omit<T_CarouselMainProps, 'variant'>) {
+  const { baseUrl } = useEnv();
   const [currentSlide, setCurrentSlide] = useState(0);
   const screenWidth = useScreenWidth();
   const slidesToShow = screenWidth > 768 ? 3 : 1;
@@ -100,15 +102,15 @@ export function CE_CarouselVariant03({
                 transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`,
               }}
             >
-              {data.map((dataItem, index) => (
+              {data?.map((dataItem, index) => (
                 <div key={index} className="w-1/3 mdmax:w-full flex-none px-2">
-                  <Link href={handleurl(dataItem.button?.link)} target="_self">
+                  <Link href={handleurl(dataItem?.button?.link)} target="_self">
                     <div className="shadow-lg relative rounded-md overflow-hidden group">
                       <div className="w-full h-[28rem] ">
-                        {dataItem.image && (
+                        {dataItem?.image && (
                           <Image
                             extern={false}
-                            src={dataItem.image}
+                            src={`${baseUrl}/api/files/?path=${dataItem.image}`}
                             alt="image"
                             width={400}
                             height={400}

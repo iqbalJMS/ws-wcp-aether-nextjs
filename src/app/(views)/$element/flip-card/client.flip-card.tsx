@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import CE_Card from './client.card';
+import { useEnv } from '@/lib/hook/useEnv';
 // import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 
 export default function CE_FlipCard({
   data,
@@ -17,6 +17,7 @@ export default function CE_FlipCard({
   }>;
   backgroundImage: string;
 }) {
+  const { baseUrl } = useEnv();
   return (
     <>
       <div className="w-full flex justify-center pb-10">
@@ -26,7 +27,7 @@ export default function CE_FlipCard({
             <div
               className="w-9/12 2xl:w-7/12 h-full"
               style={{
-                backgroundImage: `url(${API_BASE_URL}${backgroundImage ?? ''})`,
+                backgroundImage: `url(${baseUrl}/api/files/?path=${backgroundImage ?? ''})`,
                 backgroundAttachment: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '800px',
@@ -57,7 +58,7 @@ export default function CE_FlipCard({
             <div
               className="w-full h-80 flex justify-center"
               style={{
-                backgroundImage: `url(${API_BASE_URL}${backgroundImage ?? ''})`,
+                backgroundImage: `url(${baseUrl}/api/files/?path=${backgroundImage ?? ''})`,
                 backgroundAttachment: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 500,

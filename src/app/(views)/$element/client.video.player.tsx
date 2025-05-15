@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 
 interface VideoPlayerVariant1Props {
   videoId?: string;
@@ -15,13 +15,16 @@ const VideoPlayerVariant1: React.FC<VideoPlayerVariant1Props> = ({
   title,
   backgroundImage,
 }) => {
+  const { baseUrl } = useEnv();
   return (
     <div className="relative flex flex-col items-center py-8">
       <h2 className="text-2xl font-bold mb-6">{title}</h2>
       <div className="absolute inset-0 w-full h-full bg-no-repeat bg-center bg-cover opacity-30" />
 
       <div
-        style={{ backgroundImage: `url(${API_BASE_URL}${backgroundImage})` }}
+        style={{
+          backgroundImage: `url(${baseUrl}/api/files/?path=${backgroundImage})`,
+        }}
         className="relative flex justify-center py-6 w-full max-w-4xl overflow-hidden rounded-lg shadow-lg"
       >
         <iframe

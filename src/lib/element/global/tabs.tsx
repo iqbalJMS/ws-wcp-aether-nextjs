@@ -117,7 +117,6 @@ type TabsProps = {
   onChange?: (_value: string) => void;
   variant?: 'full' | 'border-arrow' | 'border';
   variantColor?: 'red' | 'default';
-  drupalBase?: string | undefined | null;
   defaultSelected?: number;
 };
 
@@ -136,10 +135,9 @@ export default function Tabs({
   style = 'center',
   variant = 'border',
   variantColor = 'default',
-  drupalBase = '',
   defaultSelected = 0,
 }: TabsProps) {
-  const { drupalUrl } = useEnv();
+  const { baseUrl } = useEnv();
   const [menuActive, setMenuActive] = useState(defaultSelected);
 
   const renderElement = ({ children, type }: TRenderElemment) => {
@@ -152,7 +150,7 @@ export default function Tabs({
               description: childItem?.description?.replaceAll('_', ' '),
               button: {
                 image: '/',
-                link: `${drupalBase}/api/files/?path=${childItem?.downloadFile}`,
+                link: childItem?.downloadFile,
                 title: 'Download',
                 extern: true,
               },
@@ -323,7 +321,8 @@ export default function Tabs({
                 const description = childItem?.field_content?.[0]?.value ?? '';
                 const iconImage = childItem?.field_image?.[0]
                   ?.field_media_image?.[0]?.uri?.[0]?.url
-                  ? drupalUrl +
+                  ? baseUrl +
+                    '/api/files/?path=' +
                     childItem?.field_image?.[0]?.field_media_image?.[0]
                       ?.uri?.[0]?.url
                   : '';
@@ -392,54 +391,58 @@ export default function Tabs({
           <div className="container mx-auto px-4">
             {list?.[menuActive]?.children?.map((item, index) => (
               <div
-                className="bg-white shadow-md rounded-lg overflow-hidden my-6 w-full flex flex-col md:flex-row min-h-[16rem]"
+                className="bg-white shadow-md rounded-lg overflow-hidden my-6 w-full"
                 key={index}
               >
-                {item?.image && (
-                  <div className="relative w-full md:w-[26rem] h-[12rem] md:h-auto">
-                    <Image
-                      alt="image card"
-                      src={item?.image}
-                      extern={false}
-                      fill
-                      className="object-cover"
-                    />
+                <div className="pt-10">
+                  <div className="flex flex-col md:flex-row">
+                    {item?.image && (
+                      <div className="relative w-full md:w-[26rem] h-[10rem] md:h-[10rem]">
+                        <Image
+                          alt="image card"
+                          src={`${baseUrl}/api/files/?path=${item.image}`}
+                          extern={false}
+                          fill
+                          className="object-cover object-top"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6 flex-1 flex flex-col justify-between">
+                      {item.title && (
+                        <div className="text-lg text-[#13539c] font-semibold mb-2">
+                          {parseHTMLToReact(item.title)}
+                        </div>
+                      )}
+                      {item?.description && (
+                        <div className="text-gray-600 mb-6">
+                          {parseHTMLToReact(item?.description)}
+                        </div>
+                      )}
+                      {item?.textLink && (
+                        <Link
+                          href={handleurl(item.urlLink)}
+                          extern={false}
+                          className="text-[#13539c] flex items-center gap-2 font-medium"
+                        >
+                          {item?.textLink}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-chevron-right"
+                          >
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                )}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  {item.title && (
-                    <div className="text-lg text-[#13539c] font-semibold mb-2">
-                      {parseHTMLToReact(item.title)}
-                    </div>
-                  )}
-                  {item?.description && (
-                    <div className="text-gray-600 mb-6">
-                      {parseHTMLToReact(item?.description)}
-                    </div>
-                  )}
-                  {item?.textLink && (
-                    <Link
-                      href={handleurl(item?.urlLink)}
-                      extern={false}
-                      className="text-[#13539c] flex items-center gap-2 font-medium"
-                    >
-                      {item?.textLink}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-chevron-right"
-                      >
-                        <path d="m9 18 6-6-6-6" />
-                      </svg>
-                    </Link>
-                  )}
                 </div>
               </div>
             ))}

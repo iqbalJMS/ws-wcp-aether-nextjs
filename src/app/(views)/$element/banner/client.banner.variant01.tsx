@@ -2,6 +2,7 @@ import ButtonSecondary from '@/lib/element/global/button.secondary';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 
 export function CE_BannerVariant01({
@@ -15,6 +16,7 @@ export function CE_BannerVariant01({
     buttonLink: string;
   }>;
 }) {
+  const { baseUrl } = useEnv();
   const [index, setIndex] = useState(0);
 
   const [isDragging, setIsDragging] = useState(false);
@@ -99,14 +101,16 @@ export function CE_BannerVariant01({
                   `}
               >
                 <div className="h-full relative">
-                  <Image
-                    extern={false}
-                    src={bannerItem.image}
-                    alt="image"
-                    width={1920}
-                    height={1080}
-                    className="w-full h-full object-cover"
-                  />
+                  {bannerItem?.image && (
+                    <Image
+                      extern={false}
+                      src={`${baseUrl}/api/files/?path=${bannerItem.image}`}
+                      alt="image"
+                      width={1920}
+                      height={1080}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                   <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30"></div>
                   <div className="absolute top-1/2 transform -translate-y-1/2 z-10 left-0 w-full">
                     <div className="container">

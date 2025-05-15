@@ -3,6 +3,7 @@
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 import { useMemo } from 'react';
 type T_CardVariant07Props = {
   title?: string;
@@ -20,6 +21,7 @@ export function CE_CardVariant07({
   nid,
   typeContent = 'promo',
 }: T_CardVariant07Props) {
+  const { baseUrl } = useEnv();
   const urlLink = useMemo(() => {
     switch (typeContent) {
       case 'promo':
@@ -44,7 +46,11 @@ export function CE_CardVariant07({
                 <div className="w-full h-[17rem] rounded-br-[5rem] overflow-hidden">
                   <Image
                     extern={image ? false : true}
-                    src={image || '/web/guest/images/no-image.png'}
+                    src={
+                      image
+                        ? `${baseUrl}/api/files/?path=${image}`
+                        : '/web/guest/images/no-image.png'
+                    }
                     alt="image"
                     width={1920}
                     height={1080}

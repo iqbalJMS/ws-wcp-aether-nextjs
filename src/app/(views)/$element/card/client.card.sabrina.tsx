@@ -1,9 +1,9 @@
 import React from 'react';
-import { API_BASE_URL } from '@/app/(views)/$constant/variables';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { handleurl } from '@/lib/functions/client/handle-url';
+import { BASE_URL } from '@/app/(views)/$constant';
 
 interface IProfileSabrina {
   name: string;
@@ -32,7 +32,7 @@ const CardSabrina: React.FC<IProfileSabrina> = ({
     <div
       className="relative w-full h-auto text-white"
       style={{
-        backgroundImage: `url(${API_BASE_URL}${backgroundUrl})`,
+        backgroundImage: `url(${BASE_URL}/api/files/?path=${backgroundUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -84,7 +84,7 @@ const CardSabrina: React.FC<IProfileSabrina> = ({
             <Image
               extern={false}
               alt="image"
-              src={imageUrl}
+              src={`${BASE_URL}/api/files/?path=${imageUrl}`}
               fill
               className="object-fill"
             />

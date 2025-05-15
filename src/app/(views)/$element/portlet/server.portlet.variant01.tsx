@@ -5,9 +5,8 @@ import { ArrowDownIcon } from '@/lib/element/global/icons/arrow-down-icon';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
 import Link from '@/lib/element/global/link';
-import {
-  WIDGET_VARIANT,
-} from '@/app/(views)/$constant/variables';
+import { WIDGET_VARIANT } from '@/app/(views)/$constant/variables';
+import { BASE_URL } from '@/app/(views)/$constant';
 
 export default async function SE_PortletVariant01({
   title,
@@ -20,6 +19,7 @@ export default async function SE_PortletVariant01({
   column,
   variantWidget,
 }: Omit<T_PortletProps, 'variant'>) {
+  const backgroundImg = bgImage ? `${BASE_URL}/api/files/?path=${bgImage}` : '';
 
   const gridClass =
     variantWidget !== WIDGET_VARIANT.variant07 ? `md:grid-cols-${column}` : '';
@@ -33,7 +33,8 @@ export default async function SE_PortletVariant01({
     <section
       className="component-portlet-01 w-full bg-no-repeat pt-0.5 pb-0.5 my-0"
       style={{
-        backgroundImage: bgImage ?? '/web/guest/images/why-us/bg-image.jpg',
+        backgroundImage:
+          backgroundImg ?? '/web/guest/images/why-us/bg-image.jpg',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
       }}

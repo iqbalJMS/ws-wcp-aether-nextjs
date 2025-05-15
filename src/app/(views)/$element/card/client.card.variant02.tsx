@@ -5,6 +5,7 @@ import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { handleurl } from '@/lib/functions/client/handle-url';
 import { useState } from 'react';
+import { useEnv } from '@/lib/hook/useEnv';
 
 type T_CardVariant02Props = {
   title?: string;
@@ -24,6 +25,7 @@ export default function CE_CardVariant02({
   data,
   title,
 }: T_CardVariant02Props) {
+  const { baseUrl } = useEnv();
   const [imageDimensions, setImageDimensions] = useState<
     Record<number, { width: number; height: number; loaded: boolean }>
   >({});
@@ -83,15 +85,17 @@ export default function CE_CardVariant02({
                     <div
                       className={`mb-10 ${getImageContainerClass(index)} flex items-center justify-center`}
                     >
-                      <Image
-                        extern={false}
-                        src={item?.image ?? ''}
-                        alt="image"
-                        width={1920}
-                        height={1080}
-                        onLoad={(e) => handleImageLoad(index, e)}
-                        className="object-contain w-full h-full"
-                      />
+                      {item?.image && (
+                        <Image
+                          extern={false}
+                          src={`${baseUrl}/api/files/?path=${item.image}`}
+                          alt="image"
+                          width={1920}
+                          height={1080}
+                          onLoad={(e) => handleImageLoad(index, e)}
+                          className="object-contain w-full h-full"
+                        />
+                      )}
                     </div>
                     <div>
                       {item?.title && (

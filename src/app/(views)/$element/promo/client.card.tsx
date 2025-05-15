@@ -7,8 +7,10 @@ import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useMemo } from 'react';
 import Link from '@/lib/element/global/link';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export default function CE_Card(props: T_CardProps) {
+  const { baseUrl } = useEnv();
   const { className, content, idx } = props;
 
   const formatDateTimestamp = (dateTimeStamp: number): string => {
@@ -32,9 +34,9 @@ export default function CE_Card(props: T_CardProps) {
       case 'alert_mode':
         return content?.id ? `/waspada-modus-detail/${content.id}` : '#';
       case 'info_lelang':
-        return content?.downloadFile || '#';
+        return `${baseUrl}/api/files/?path=${content?.downloadFile}` || '#';
       case 'pengumuman':
-        return content?.downloadFile || '#';
+        return `${baseUrl}/api/files/?path=${content?.downloadFile}` || '#';
       default:
         return '#';
     }
@@ -54,7 +56,12 @@ export default function CE_Card(props: T_CardProps) {
         <Link href={urlLink} draggable={false}>
           <div className="w-full aspect-square h-[14rem] relative isolate">
             <Image
-              src={content.img}
+              src={
+                content?.img
+                  ? `${baseUrl}/api/files/?path=${content.img}`
+                  : '/web/guest/images/no-image.png'
+              }
+              extern={content?.img ? false : true}
               alt={content?.title}
               className="object-cover z-0"
               sizes="100%"

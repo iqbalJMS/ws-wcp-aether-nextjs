@@ -4,6 +4,7 @@ import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { handleurl } from '@/lib/functions/client/handle-url';
+import { useEnv } from '@/lib/hook/useEnv';
 
 type T_CardVariant19Props = {
   title: string;
@@ -23,6 +24,7 @@ export default function CE_CardVariant19({
   title,
   data,
 }: T_CardVariant19Props) {
+  const { baseUrl } = useEnv();
   return (
     <>
       <div className="py-10 container overflow-hidden">
@@ -44,14 +46,16 @@ export default function CE_CardVariant19({
                 <div className="h-[750px] px-6 flex flex-col justify-between">
                   <div>
                     <div className="mb-5">
-                      <Image
-                        extern={false}
-                        src={item?.image ?? ''}
-                        alt="image"
-                        width={1920}
-                        height={1080}
-                        className="w-full h-[450px] object-cover"
-                      />
+                      {item?.image && (
+                        <Image
+                          extern={false}
+                          src={`${baseUrl}/api/files/?path=${item.image}`}
+                          alt="image"
+                          width={1920}
+                          height={1080}
+                          className="w-full h-[450px] object-cover"
+                        />
+                      )}
                     </div>
 
                     {item?.title && (

@@ -1,39 +1,44 @@
 'use client';
 
+import Image from '@/lib/element/global/image';
+import Link from '@/lib/element/global/link';
+import { useEffect, useState, useTransition } from 'react';
+import useForm from '@/lib/hook/useForm';
+
+import CE_FormVariant01 from '@/app/(views)/$element/form/client.form.variant01';
+import Pagination from '@/lib/element/global/pagination';
+import InputSelect from '@/lib/element/global/form/input.select';
+
+import { T_LocationType } from '@/api/location/api.get.location-type.type';
+import { T_InputSelectItem } from '@/lib/types/input';
+import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
 import {
   T_Location,
   T_LocationRequest,
 } from '@/api/location/api.get.location.type';
-import CE_FormVariant01 from '@/app/(views)/$element/form/client.form.variant01';
-import useForm from '@/lib/hook/useForm';
-import { useEffect, useState, useTransition } from 'react';
+
+import { ACT_GetLocationProvince } from '@/app/(views)/$action/action.get.location-province';
+import { ACT_GetLocationType } from '@/app/(views)/$action/action.get.location-type';
+import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.location-category';
 import {
   CFN_GetLocation,
   CFN_MapToLocationPayload,
   CFN_ValidateGetLocationFields,
 } from '@/app/(views)/$function/cfn.get.location';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import Link from '@/lib/element/global/link';
-import Pagination from '@/lib/element/global/pagination';
-import { ACT_GetLocationProvince } from '@/app/(views)/$action/action.get.location-province';
-import { T_InputSelectItem } from '@/lib/types/input';
-import { ACT_GetLocationType } from '@/app/(views)/$action/action.get.location-type';
-import { T_LocationType } from '@/api/location/api.get.location-type.type';
-import Image from '@/lib/element/global/image';
-import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.location-category';
-import { T_LocationCategory } from '@/api/location/api.get.location-category.type';
-import InputSelect from '@/lib/element/global/form/input.select';
+import { useEnv } from '@/lib/hook/useEnv';
 import debounce from '@/lib/functions/global/debounce';
 import { handleurl } from '@/lib/functions/client/handle-url';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_Props = {
-  types: { 
+  types: {
     id: string;
     imageUrl?: string;
   }[];
 };
 
 const CE_LocationMain = ({ types }: T_Props) => {
+  const { baseUrl } = useEnv();
   const [pending, transiting] = useTransition();
   const [location, setLocation] = useState<T_Location>();
   const [locationProvinces, setLocationProvinces] =
@@ -213,7 +218,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
                     <div className="text-center mb-2">
                       {locationTypeItem.imageUrl && (
                         <Image
-                          src={locationTypeItem.imageUrl}
+                          src={`${baseUrl}/api/files/?path=${locationTypeItem.imageUrl}`}
                           alt=""
                           width={100}
                           height={100}
@@ -237,22 +242,21 @@ const CE_LocationMain = ({ types }: T_Props) => {
             <div className="text-left font-semibold mb-2">Layanan</div>
             <InputSelect
               list={[
-                { title: getTranslatedLabel(), value: "" },
-                ...(locationCategories?.map((locationCategoryItem) => {
+                { title: getTranslatedLabel(), value: '' },
+                ...locationCategories?.map((locationCategoryItem) => {
                   return {
                     title: locationCategoryItem.name,
                     value: locationCategoryItem.id,
                   };
-                }))
+                }),
               ]}
               value={form.category || ''}
               onChange={(value) => {
                 form.skip = '0';
                 onFieldChange(
                   'category',
-                  (Array.isArray(value)
-                    ? value.at(0)?.value
-                    : value?.value) || ''
+                  (Array.isArray(value) ? value.at(0)?.value : value?.value) ||
+                    ''
                 );
               }}
             />
@@ -291,10 +295,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
                     </div>
                   </div>
                   <div>
-                    <Link
-                      href={handleurl(dataItem.urlMaps)}
-                      target="_self"
-                    >
+                    <Link href={handleurl(dataItem.urlMaps)} target="_self">
                       <div className="flex items-center text-red-01 font-semibold mb-5">
                         <div className="mr-2">
                           <svg
