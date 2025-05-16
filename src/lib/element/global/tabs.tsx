@@ -174,7 +174,7 @@ export default function Tabs({
             {children?.map((item, key) => {
               return (
                 <div className="w-7/12 p-4" key={key}>
-                  {parseHTMLToReact(item?.richText ?? '')}
+                  {parseHTMLToReact(item?.richText ?? '',true)}
                 </div>
               );
             })}
@@ -257,7 +257,7 @@ export default function Tabs({
             case 'rich_text':
               return (
                 <div className="container mx-auto my-6 py-6 body">
-                  {parseHTMLToReact(item?.description ?? '')}
+                  {parseHTMLToReact(item?.description ?? '',true)}
                 </div>
               );
             case 'section':
