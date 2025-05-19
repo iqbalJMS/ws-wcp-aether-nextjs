@@ -314,7 +314,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const backgroundImage = props?.backgroundImage;
       const titleForm = props?.titleForm;
       const subTitleForm = props?.subTitleForm;
-
       const listItems = (
         (props?.data as Array<{
           image?: string;
@@ -326,6 +325,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           description?: string;
           downloadFile?: string;
           subtitle?: string;
+          documents?: Array<{ path: string; title?: string }>
           icon?: string;
           button?: {
             link?: string;
@@ -354,7 +354,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         url: props?.btnSiapaSabrinaUrl,
       };
       const dataV2 = props?.data;
-
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
           return <CE_ImageSliderMain data={listItems} title={title} />;
@@ -545,7 +544,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: item?.image,
                   description: item?.description,
                   subTitle: item?.subtitle,
-                  // TODO called it from item if data ready
                   address: '',
                   contactInformation: {
                     fax: '',
@@ -913,9 +911,99 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               subtitle={props?.subtitle}
               buttonItems={props?.buttonItems}
               headerButtonItems={props?.headerButtonItems}
+              variantLayout={props?.variantLayout}
               bgImage={props?.backgroundImage}
               headerAlignment={props?.headerAlignment ?? 'left'}
             />
+          );
+        case WIDGET_VARIANT.variant67:
+          return (
+            <div className="container mx-auto py-6">
+              {title && (
+                <div className="mb-4 text-3xl font-bold text-center">
+                  {parseHTMLToReact(title)}
+                </div>
+              )}
+
+              {subtitle && (
+                <div className="mb-6 text-lg text-gray-600">
+                  {parseHTMLToReact(subtitle)}
+                </div>
+              )}
+
+              {Array.isArray(listItems) && listItems.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {listItems.map((item, index) => (
+                    <div key={index} className="flex flex-col h-full border rounded-lg shadow-lg overflow-hidden">
+                      {item?.image && (
+                        <div className="w-full h-48">
+                          <Image
+                            extern={false}
+                            src={item.image}
+                            alt={item.title || "Laporan Tahunan"}
+                            width={400}
+                            height={300}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex-1 p-4">
+                        {item?.title && (
+                          <div className="text-xl font-semibold mb-2">
+                            {parseHTMLToReact(item.title)}
+                          </div>
+                        )}
+                        {item?.description && (
+                          <div className="text-sm text-gray-700 mb-4">
+                            {parseHTMLToReact(item.description)}
+                          </div>
+                        )}
+
+                        {Array.isArray(item?.documents) && item.documents.length > 0 && (
+                          <div className="mt-auto">
+                            {item.documents.map((doc, idx) => (
+                              doc?.path ? (
+                                <a
+                                  key={idx}
+                                  href={handleurl(`${BASE_URL}/api/files/?path=${doc.path}`)}
+                                  className="flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-2"
+                                  download
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    width="16" 
+                                    height="16" 
+                                    viewBox="0 0 24 24" 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    strokeWidth="2" 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round"
+                                  >
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="12" y1="18" x2="12" y2="12"></line>
+                                    <line x1="9" y1="15" x2="15" y2="15"></line>
+                                  </svg>
+                                  <span>{doc.title || 'Download PDF'}</span>
+                                </a>
+                              ) : null
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-gray-500">
+                  Tidak ada data untuk ditampilkan.
+                </div>
+              )}
+            </div>
           );
         default:
           if (componentForm) {
@@ -1312,6 +1400,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const backgroundImg =
             _component?.field_column?.[0]?.field_image?.[0]
               ?.field_media_image?.[0]?.uri?.[0]?.url ?? '';
+          const variantLayout = _component?.field_column?.[0]?.field_header_style?.[0]?.value;
           return {
             variant: findVariantStyle,
             title: _component?.field_column?.[0]?.field_title?.[0]?.value ?? '',
@@ -1333,7 +1422,54 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 buttonLink: item?.uri,
                 buttonCta: item?.full_url,
               })) ?? [],
+            variantLayout: variantLayout,
           };
+        case WIDGET_VARIANT.variant67:
+          try {
+            const fieldColumn = (_component as any)?.field_column || [];
+                        
+            const listItems = Array.isArray(fieldColumn) && fieldColumn.length > 0
+              ? fieldColumn.map((item) => {
+                  if (!item) return null;
+                  
+                  const title = item?.field_title?.[0]?.value || '';
+                  const image = item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url || '';
+                  
+                  const documents = [];
+                  if (Array.isArray(item?.field_cta_document)) {
+                    for (const doc of item.field_cta_document) {
+                      const path = doc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+                      const title = doc?.field_title?.[0]?.value || 'Download PDF';
+                      
+                      if (path) {
+                        documents.push({ path, title });
+                      }
+                    }
+                  }
+                  
+                  return {
+                    title,
+                    description: item?.field_content?.[0]?.value || '',
+                    image,
+                    documents
+                  };
+                }).filter(item => item !== null)
+              : [];
+                        
+            return {
+              variant: findVariantStyle,
+              title: (_component as any)?.field_formatted_title?.[0]?.value || '',
+              subtitle: (_component as any)?.field_content?.[0]?.value || '',
+              listItems
+            };
+          } catch (error) {
+            return {
+              variant: findVariantStyle,
+              title: (_component as any)?.field_formatted_title?.[0]?.value || '',
+              subtitle: (_component as any)?.field_content?.[0]?.value || '',
+              listItems: []
+            };
+          }
         case WIDGET_VARIANT.variant02:
           return {
             title: title,

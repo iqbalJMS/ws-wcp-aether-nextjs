@@ -56,7 +56,7 @@ export default async function SE_PortletVariant02({
             <div className="w-full max-w-[700px] ml-auto mr-0">
               <div className="flex flex-col gap-4 items-start text-left">
                 {title && (
-                  <div className="text-white font-semibold text-4xl">
+                  <div className="text-white font-semibold text-3xl">
                     {parseHTMLToReact(title)}
                   </div>
                 )}
@@ -90,12 +90,12 @@ export default async function SE_PortletVariant02({
               `}
             >
               {title && (
-                <div className="text-white font-semibold text-4xl lg:w-1/2 w-full">
+                <div className={`text-white font-semibold text-3xl ${headerAlignment === 'left' ? 'max-w-[55%] break-words' : 'lg:w-1/2 w-full'}`}>
                   {parseHTMLToReact(title)}
                 </div>
               )}
               {subtitle && (
-                <div className="text-white font-normal text-xl leading-9">
+               <div className={`text-white font-normal text-xl leading-9 ${headerAlignment === 'left' ? 'max-w-[55%] break-words' : ''}`}>
                   {parseHTMLToReact(subtitle)}
                 </div>
               )}

@@ -45,7 +45,17 @@ type FieldSecondImage = {
   field_media_image: Array<{ uri: Array<{ url: string }> }>;
 };
 
+type FieldDocument = {
+  field_document?: Array<{
+    field_media_file?: Array<{
+      uri?: Array<{ url: string }>;
+    }>;
+  }>;
+  field_title?: Array<{ value: string }>;
+};
+
 export type T_Section = {
+  field_header_style: any;
   field_title_custom: any;
   field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
   field_content?: HtmlContent[];
@@ -56,9 +66,11 @@ export type T_Section = {
   field_note?: any[];
   field_primary_cta?: FieldPrimaryCTA[];
   field_column?: Array<{
+    field_header_style: any;
     field_alignment_style?: Array<{ value: 'left' | 'center' | 'right' }>;
     entity_bundle: Array<{ value: string }>;
     field_form: Array<{ target_id: string }>;
+    field_cta_document?: Array<FieldDocument>;
     field_content_list: Array<{
       title: Array<{ value: string }>;
       body: Array<{ value: string }>;
