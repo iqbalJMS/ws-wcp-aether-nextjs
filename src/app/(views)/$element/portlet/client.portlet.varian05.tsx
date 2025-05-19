@@ -13,7 +13,7 @@ export default function CE_PortletVarian05({
 }: {
   firstColumn: {
     title?: string;
-    description: string;
+    description?: string;
     button?: {
       title?: string;
       link?: string;
@@ -29,9 +29,14 @@ export default function CE_PortletVarian05({
 }) {
   const { baseUrl } = useEnv();
   const hasVisibleButton =
-    firstColumn?.button?.title && firstColumn?.button?.link;
+    firstColumn?.button && firstColumn?.button !== undefined;
   const hasVisibleDocument =
-    !firstColumn?.documentTitle && !firstColumn?.document;
+    firstColumn?.documentTitle && firstColumn?.document && firstColumn?.documentTitle != undefined && firstColumn?.document != undefined;
+
+  // console.log('button',firstColumn?.button);
+  // console.log('doc',firstColumn?.document, firstColumn?.documentTitle);
+  // console.log('hasVisibleButton', hasVisibleButton);
+  // console.log('hasVisibleDocument', hasVisibleDocument);
 
   return (
     <div className="container mx-auto grid md:grid-cols-2 my-8 py-6">

@@ -317,7 +317,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const backgroundImage = props?.backgroundImage;
       const titleForm = props?.titleForm;
       const subTitleForm = props?.subTitleForm;
-
       const listItems = (
         (props?.data as Array<{
           image?: string;
@@ -329,6 +328,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           description?: string;
           downloadFile?: string;
           subtitle?: string;
+          documents?: Array<{ path: string; title?: string }>
           icon?: string;
           button?: {
             link?: string;
@@ -357,7 +357,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         url: props?.btnSiapaSabrinaUrl,
       };
       const dataV2 = props?.data;
-
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant01:
           return <CE_ImageSliderMain data={listItems} title={title} />;
@@ -548,7 +547,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   image: item?.image,
                   description: item?.description,
                   subTitle: item?.subtitle,
-                  // TODO called it from item if data ready
                   address: '',
                   contactInformation: {
                     fax: '',
@@ -916,9 +914,100 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               subtitle={props?.subtitle}
               buttonItems={props?.buttonItems}
               headerButtonItems={props?.headerButtonItems}
+              variantLayout={props?.variantLayout}
               bgImage={props?.backgroundImage}
               headerAlignment={props?.headerAlignment ?? 'left'}
             />
+          );
+        case WIDGET_VARIANT.variant67:
+          return (
+            <div className="container mx-auto py-6">
+              {title && (
+                <div className="mb-4 text-3xl font-semibold text-center">
+                  {parseHTMLToReact(title)}
+                </div>
+              )}
+
+              {subtitle && (
+                <div className="mb-6 text-lg text-gray-600">
+                  {parseHTMLToReact(subtitle)}
+                </div>
+              )}
+
+              {Array.isArray(listItems) && listItems.length > 0 ? (
+                <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
+                  {listItems.map((item, index) => (
+                    <div key={index} className="lg:w-1/4 w-full flex-none px-2 mb-6">
+                      <div className="h-full">
+                        <div className="lg:p-5 p-4 shadow-lg h-full flex flex-col">
+                          {item?.image && (
+                            <div className="w-full h-[255px] mb-2">
+                              <Image
+                                extern={false}
+                                src={item.image}
+                                alt={item.title || "Laporan Tahunan"}
+                                width={400}
+                                height={400}
+                                className="w-full h-full object-cover object-top"
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1 mb-4">
+                            {item?.title && (
+                              <div className="text-red-01 font-semibold text-sm min-h-[40px] mt-6">
+                                {parseHTMLToReact(item.title)}
+                              </div>
+                            )}
+                            {item?.description && (
+                              <div className="text-sm text-gray-700">
+                                {parseHTMLToReact(item.description)}
+                              </div>
+                            )}
+                          </div>
+
+                          {Array.isArray(item?.documents) && item.documents.length > 0 && (
+                            <div>
+                              {item.documents.map((doc, idx) => (
+                                doc?.path ? (
+                                  <div key={idx} className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1">
+                                    <Link
+                                      href={handleurl(`${BASE_URL}/api/files/?path=${doc.path}`)}
+                                      className="flex items-center gap-1 text-sm"
+                                      download
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {doc.title || 'Download PDF'}
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      >
+                                        <path d="m9 18 6-6-6-6" />
+                                      </svg>
+                                    </Link>
+                                  </div>
+                                ) : null
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center text-gray-500">
+                  {parseHTMLToReact('No data available')}
+                </div>
+              )}
+            </div>
           );
         default:
           if (componentForm) {
@@ -1315,6 +1404,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const backgroundImg =
             _component?.field_column?.[0]?.field_image?.[0]
               ?.field_media_image?.[0]?.uri?.[0]?.url ?? '';
+          const variantLayout = _component?.field_column?.[0]?.field_header_style?.[0]?.value;
           return {
             variant: findVariantStyle,
             title: _component?.field_column?.[0]?.field_title?.[0]?.value ?? '',
@@ -1336,6 +1426,32 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 buttonLink: item?.uri,
                 buttonCta: item?.full_url,
               })) ?? [],
+            variantLayout: variantLayout,
+          };
+        case WIDGET_VARIANT.variant67:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            subtitle: subtitle,
+            column: column,
+            data: _component?.field_column?.map((item) => {
+              const documents = item?.field_cta_document?.map(ctaDoc => {
+                const pdfPath = ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+                const pdfTitle = ctaDoc?.field_title?.[0]?.value;
+                
+                return {
+                  path: pdfPath,
+                  title: pdfTitle
+                };
+              });
+              
+              return {
+                image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                title: item?.field_title?.[0]?.value,
+                description: item?.field_content?.[0]?.value,
+                documents: documents
+              };
+            })
           };
         case WIDGET_VARIANT.variant02:
           return {
@@ -2255,23 +2371,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant19:
-          const image19 =
-            _component?.field_second_column?.[0]?.field_image?.[0]
-              ?.field_media_image?.[0]?.uri?.[0]?.url;
-          const document19f =
-            _component?.field_first_column?.[0]?.field_cta_document?.[0]
-              ?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
-          const documentTitle19f =
-            _component?.field_first_column?.[0]?.field_cta_document?.[0]
-              ?.field_title?.[0]?.value;
           return {
             firstColumn: {
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
-              document: document19f,
-              documentTitle: documentTitle19f,
+              document: _component?.field_first_column?.[0]?.field_cta_document?.[0]
+              ?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url,
+              documentTitle: _component?.field_first_column?.[0]?.field_cta_document?.[0]
+              ?.field_title?.[0]?.value,
               button: {
                 title:
                   _component?.field_first_column?.[0]?.field_primary_cta?.[0]
@@ -2282,7 +2391,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               },
             },
             secondColumn: {
-              image: image19,
+              image: _component?.field_second_column?.[0]?.field_image?.[0]
+              ?.field_media_image?.[0]?.uri?.[0]?.url,
             },
             variant: findVariantStyle,
           };
@@ -2442,8 +2552,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       </div>
     ),
     props: (_component: { field_content?: Array<{ value: string }> }) => {
+      const content = _component?.field_content?.[0] as { value: string, processed?: string };
+      
       return {
-        element: _component?.field_content?.[0]?.value,
+        element: content?.processed || content?.value,
       };
     },
   },
@@ -2580,29 +2692,38 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
                 {(children || [])?.map((item, index) => (
                   <div key={index} className="lg:w-1/4 w-full flex-none px-2">
-                    <Link href={item?.button?.link || '#'} target="_self">
-                      <div className="lg:p-5 p-4 shadow-lg">
-                        {item?.image && (
-                          <div className="w-full h-[255px] mb-2">
-                            <Image
-                              extern={false}
-                              src={`${item?.image}`}
-                              alt="image"
-                              width={400}
-                              height={400}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        )}
-
-                        <div>
-                          {item?.title && (
-                            <div className=" text-red-01 font-semibold text-sm mb-8">
-                              {parseHTMLToReact(item?.title)}
+                    <div className="h-full">
+                      <Link href={handleurl(item?.button?.link)} target="_self" className="h-full">
+                        <div className="lg:p-5 p-4 shadow-lg h-full flex flex-col">
+                          {item?.image && (
+                            <div className="w-full h-[255px] mb-2">
+                              {Boolean(item?.image) && (
+                                <div className="w-full h-[255px] mb-2">
+                                  <Image
+                                    extern={false}
+                                    src={`${item?.image}`}
+                                    alt="image"
+                                    width={400}
+                                    height={400}
+                                    className="w-full h-full object-cover object-top"
+                                  />
+                                </div>
+                              )}
                             </div>
                           )}
-
-                          <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
+                          <div className="flex-1 mb-4">
+                            {item?.title && (
+                              <div className="text-red-01 font-semibold text-sm min-h-[40px] mt-6">
+                                {parseHTMLToReact(item?.title)}
+                              </div>
+                            )}
+                            {item?.fieldContent && (
+                              <div className="text-sm text-gray-700">
+                                {parseHTMLToReact(item.fieldContent)}
+                              </div>
+                            )}
+                          </div>
+                          <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1">
                             {item?.button?.title && (
                               <div className="flex items-center gap-1 text-sm">
                                 {parseHTMLToReact(item?.button?.title)}
@@ -2613,47 +2734,51 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                                   viewBox="0 0 24 24"
                                   fill="none"
                                   stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 >
                                   <path d="m9 18 6-6-6-6" />
                                 </svg>
                               </div>
                             )}
                           </div>
-                          <div className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94]">
-                            <Link
-                              href={`${BASE_URL}/api/files/?path=${item?.cardPdf?.[1]?.cardPdfloop ?? ''}`}
-                              className="flex items-center gap-1 text-sm"
-                              download
-                            >
-                              {item?.cardPdf?.[1]?.titlePdfloop ?? ''}
-                            </Link>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            >
-                              <path d="m9 18 6-6-6-6" />
-                            </svg>
-                          </div>
+
+                          {[0, 1].map((i) => (
+                            item?.cardPdf?.[i]?.cardPdfloop ? (
+                              <div key={i} className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1">
+                                <Link
+                                  href={handleurl(`${BASE_URL}/api/files/?path=${item?.cardPdf?.[i]?.cardPdfloop}`)}
+                                  className="flex items-center gap-1 text-sm"
+                                  download
+                                >
+                                  {item?.cardPdf?.[i]?.titlePdfloop ?? ''}
+                                </Link>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <path d="m9 18 6-6-6-6" />
+                                </svg>
+                              </div>
+                            ) : null
+                          ))}
                         </div>
-                      </div>
-                    </Link>
+                      </Link>
+                    </div>
                   </div>
                 ))}
-                <div className=" w-full flex justify-center pt-8">
-                  {listAccordion?.[0]?.linkCta &&
-                  listAccordion?.[0]?.titleCta ? (
+                <div className="w-full flex justify-center pt-8">
+                  {listAccordion?.[0]?.linkCta && listAccordion?.[0]?.titleCta ? (
                     <Link
-                      href={listAccordion?.[0]?.linkCta ?? '#'}
+                      href={handleurl(listAccordion?.[0]?.linkCta)}
                       className="bg-[#F59823] px-5 py-3 rounded-full text-base text-white font-normal uppercase hover:bg-slate-200 focus:bg-slate-200 hover:text-black focus:text-black duration-200 hover:border-2 hover:border-slate-700"
                     >
                       {listAccordion?.[0]?.titleCta ?? ''}
@@ -2694,7 +2819,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title =
         _component?.field_accordion_items?.[0]?.field_title?.[0]?.value;
       const accordionStyle = _component?.field_accordion_style?.[0]?.value;
-
+      
       const variantChildren =
         _component?.field_accordion_items?.[0]?.field_paragraphs?.[0]
           ?.field_web_variant_styles?.[0]?.field_key?.[0]?.value;
@@ -2705,6 +2830,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           field_content: Array<{ value: string }>;
           field_paragraphs: Array<{
             field_column: Array<{
+              field_content: any;
               field_title: Array<{ value: string }>;
               field_image: Array<{
                 field_media_image: Array<{ uri: Array<{ url: string }> }>;
@@ -2737,6 +2863,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     titlePdfloop: item?.field_title?.[0]?.value,
                   };
                 });
+                const fieldContent = childItem?.field_content?.[0]?.value;
                 return {
                   image: image,
                   title: title,
@@ -2746,6 +2873,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     extern: true,
                   },
                   cardPdf: pdf,
+                  fieldContent: fieldContent,
                 };
               }
             ),
