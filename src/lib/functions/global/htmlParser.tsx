@@ -1,4 +1,5 @@
 import React from 'react';
+import { applyTextAlignmentStylesTable } from './textAlignmentTable';
 
 const BASE_URL = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
 const possibleDomains =
@@ -28,6 +29,7 @@ const bodyRender = (body: string) => {
       `${BASE_URL}/api/files/?path=/sites/default/files/`
     );
   }
+  rendered = applyTextAlignmentStylesTable(rendered);
 
   return rendered;
 };
