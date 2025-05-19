@@ -6,7 +6,7 @@ export async function ACT_GetSinglePage({
   lang,
   alias = 'home',
 }: {
-  alias: string;
+  alias: string | string[] | undefined;
   lang: string;
 }): Promise<any> {
   const response = await API_GetSinglePage({ lang, alias });

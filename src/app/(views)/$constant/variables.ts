@@ -66,4 +66,5 @@ export const WIDGET_VARIANT = {
   variant65: 'section_big_menu_center_blue',
   variant66: 'section_header_alignment',
   variant67: 'section_card_1',
+  variant68: 'article'
 };
