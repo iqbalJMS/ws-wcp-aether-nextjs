@@ -44,11 +44,7 @@ export default async function SE_PortletVariant02({
         }}
       >
         <div
-          className={`absolute left-0 top-0 w-full h-full bg-gradient-to-b ${
-            variantLayout === 'rounded_corneer'
-              ? 'from-black to-[#94183d]'
-              : 'from-black to-[#014a94]'
-          } opacity-40`}
+          className="absolute left-0 top-0 w-full h-full bg-black opacity-30"
         ></div>
 
         <div className="container flex flex-col justify-center h-full relative z-10">

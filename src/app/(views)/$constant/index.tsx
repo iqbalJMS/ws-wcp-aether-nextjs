@@ -920,7 +920,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return (
             <div className="container mx-auto py-6">
               {title && (
-                <div className="mb-4 text-3xl font-bold text-center">
+                <div className="mb-4 text-3xl font-semibold text-center">
                   {parseHTMLToReact(title)}
                 </div>
               )}
@@ -932,75 +932,76 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               )}
 
               {Array.isArray(listItems) && listItems.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="flex flex-wrap my-4 lg:gap-0 gap-6">
                   {listItems.map((item, index) => (
-                    <div key={index} className="flex flex-col h-full border rounded-lg shadow-lg overflow-hidden">
-                      {item?.image && (
-                        <div className="w-full h-48">
-                          <Image
-                            extern={false}
-                            src={item.image}
-                            alt={item.title || "Laporan Tahunan"}
-                            width={400}
-                            height={300}
-                            className="w-full h-full object-cover"
-                          />
+                    <div key={index} className="lg:w-1/4 w-full flex-none px-2 mb-6">
+                      <div className="h-full">
+                        <div className="lg:p-5 p-4 shadow-lg h-full flex flex-col">
+                          {item?.image && (
+                            <div className="w-full h-[255px] mb-2">
+                              <Image
+                                extern={false}
+                                src={item.image}
+                                alt={item.title || "Laporan Tahunan"}
+                                width={400}
+                                height={400}
+                                className="w-full h-full object-cover object-top"
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1 mb-4">
+                            {item?.title && (
+                              <div className="text-red-01 font-semibold text-sm min-h-[40px] mt-6">
+                                {parseHTMLToReact(item.title)}
+                              </div>
+                            )}
+                            {item?.description && (
+                              <div className="text-sm text-gray-700">
+                                {parseHTMLToReact(item.description)}
+                              </div>
+                            )}
+                          </div>
+
+                          {Array.isArray(item?.documents) && item.documents.length > 0 && (
+                            <div>
+                              {item.documents.map((doc, idx) => (
+                                doc?.path ? (
+                                  <div key={idx} className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1">
+                                    <Link
+                                      href={handleurl(`${BASE_URL}/api/files/?path=${doc.path}`)}
+                                      className="flex items-center gap-1 text-sm"
+                                      download
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {doc.title || 'Download PDF'}
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                      >
+                                        <path d="m9 18 6-6-6-6" />
+                                      </svg>
+                                    </Link>
+                                  </div>
+                                ) : null
+                              ))}
+                            </div>
+                          )}
                         </div>
-                      )}
-
-                      <div className="flex-1 p-4">
-                        {item?.title && (
-                          <div className="text-xl font-semibold mb-2">
-                            {parseHTMLToReact(item.title)}
-                          </div>
-                        )}
-                        {item?.description && (
-                          <div className="text-sm text-gray-700 mb-4">
-                            {parseHTMLToReact(item.description)}
-                          </div>
-                        )}
-
-                        {Array.isArray(item?.documents) && item.documents.length > 0 && (
-                          <div className="mt-auto">
-                            {item.documents.map((doc, idx) => (
-                              doc?.path ? (
-                                <a
-                                  key={idx}
-                                  href={handleurl(`${BASE_URL}/api/files/?path=${doc.path}`)}
-                                  className="flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-2"
-                                  download
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  <svg 
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    width="16" 
-                                    height="16" 
-                                    viewBox="0 0 24 24" 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    strokeWidth="2" 
-                                    strokeLinecap="round" 
-                                    strokeLinejoin="round"
-                                  >
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                    <polyline points="14 2 14 8 20 8"></polyline>
-                                    <line x1="12" y1="18" x2="12" y2="12"></line>
-                                    <line x1="9" y1="15" x2="15" y2="15"></line>
-                                  </svg>
-                                  <span>{doc.title || 'Download PDF'}</span>
-                                </a>
-                              ) : null
-                            ))}
-                          </div>
-                        )}
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-500">
-                  Tidak ada data untuk ditampilkan.
+                <div className="text-center text-gray-500">
+                  {parseHTMLToReact('No data available')}
                 </div>
               )}
             </div>
@@ -1425,51 +1426,30 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variantLayout: variantLayout,
           };
         case WIDGET_VARIANT.variant67:
-          try {
-            const fieldColumn = (_component as any)?.field_column || [];
-                        
-            const listItems = Array.isArray(fieldColumn) && fieldColumn.length > 0
-              ? fieldColumn.map((item) => {
-                  if (!item) return null;
-                  
-                  const title = item?.field_title?.[0]?.value || '';
-                  const image = item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url || '';
-                  
-                  const documents = [];
-                  if (Array.isArray(item?.field_cta_document)) {
-                    for (const doc of item.field_cta_document) {
-                      const path = doc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
-                      const title = doc?.field_title?.[0]?.value || 'Download PDF';
-                      
-                      if (path) {
-                        documents.push({ path, title });
-                      }
-                    }
-                  }
-                  
-                  return {
-                    title,
-                    description: item?.field_content?.[0]?.value || '',
-                    image,
-                    documents
-                  };
-                }).filter(item => item !== null)
-              : [];
-                        
-            return {
-              variant: findVariantStyle,
-              title: (_component as any)?.field_formatted_title?.[0]?.value || '',
-              subtitle: (_component as any)?.field_content?.[0]?.value || '',
-              listItems
-            };
-          } catch (error) {
-            return {
-              variant: findVariantStyle,
-              title: (_component as any)?.field_formatted_title?.[0]?.value || '',
-              subtitle: (_component as any)?.field_content?.[0]?.value || '',
-              listItems: []
-            };
-          }
+          return {
+            variant: findVariantStyle,
+            title: title,
+            subtitle: subtitle,
+            column: column,
+            data: _component?.field_column?.map((item) => {
+              const documents = item?.field_cta_document?.map(ctaDoc => {
+                const pdfPath = ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+                const pdfTitle = ctaDoc?.field_title?.[0]?.value;
+                
+                return {
+                  path: pdfPath,
+                  title: pdfTitle
+                };
+              });
+              
+              return {
+                image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                title: item?.field_title?.[0]?.value,
+                description: item?.field_content?.[0]?.value,
+                documents: documents
+              };
+            })
+          };
         case WIDGET_VARIANT.variant02:
           return {
             title: title,
@@ -2569,8 +2549,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       </div>
     ),
     props: (_component: { field_content?: Array<{ value: string }> }) => {
+      const content = _component?.field_content?.[0] as { value: string, processed?: string };
+      
       return {
-        element: _component?.field_content?.[0]?.value,
+        element: content?.processed || content?.value,
       };
     },
   },
@@ -2712,14 +2694,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                         <div className="lg:p-5 p-4 shadow-lg h-full flex flex-col">
                           {item?.image && (
                             <div className="w-full h-[255px] mb-2">
-                              <Image
-                                extern={false}
-                                src={`${item?.image}`}
-                                alt="image"
-                                width={400}
-                                height={400}
-                                className="w-full h-full object-cover"
-                              />
+                              {Boolean(item?.image) && (
+                                <div className="w-full h-[255px] mb-2">
+                                  <Image
+                                    extern={false}
+                                    src={`${item?.image}`}
+                                    alt="image"
+                                    width={400}
+                                    height={400}
+                                    className="w-full h-full object-cover object-top"
+                                  />
+                                </div>
+                              )}
                             </div>
                           )}
                           <div className="flex-1 mb-4">
