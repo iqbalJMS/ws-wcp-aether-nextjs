@@ -11,7 +11,7 @@ type T_CardVariant07Props = {
   description?: string;
   image?: string;
   nid?: number;
-  typeContent?: 'promo' | 'news' | 'alert_mode';
+  typeContent?: 'promo' | 'news' | 'alert_mode' | 'article';
 };
 export function CE_CardVariant07({
   title,
@@ -30,6 +30,8 @@ export function CE_CardVariant07({
         return `/news-detail/${nid}`;
       case 'alert_mode':
         return `/waspada-modus-detail/${nid}`;
+      case 'article':
+        return `/article-detail/${nid}`;
       default:
         return '';
     }

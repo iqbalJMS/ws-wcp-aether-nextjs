@@ -28,7 +28,7 @@ export default async function PageAetherDetail({
     lang: Locale;
   };
 }) {
-  const getNodeId = slug?.[0];
+  const getNodeId = slug;
   const data = await ACT_GetSinglePage({
     lang: lang ?? 'id',
     alias: getNodeId ?? 'home',
@@ -62,6 +62,7 @@ export default async function PageAetherDetail({
     Component: React.ComponentType<any>;
     props: Record<string, any>;
   }>;
+
   return (
     <React.Fragment>
       <GlobalHeader

@@ -139,6 +139,9 @@ const CE_SectionAnnouncement = dynamic(
 const CE_SectionAuctions = dynamic(
   () => import('@/app/(views)/$element/content-type/client.section-auctions')
 );
+const CE_SectionArticle = dynamic(
+  () => import('@/app/(views)/$element/content-type/client.section-article')
+);
 
 /* Other */
 const Breadcrumb = dynamic(() => import('@/lib/element/global/breadcrumb'));
@@ -3178,6 +3181,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return <CE_SectionAuctions auctionsData={data} />;
         case WIDGET_VARIANT.variant54:
           return <CE_SectionAnnouncement announcementData={data} />;
+        case WIDGET_VARIANT.variant67:
+          return <CE_SectionArticle articleData={data} />;
         default:
           return <></>;
       }
@@ -3213,6 +3218,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant53:
           return { entity: entityBundle, data: dataContentType };
         case WIDGET_VARIANT.variant54:
+          return { entity: entityBundle, data: dataContentType };
+        case WIDGET_VARIANT.variant67:
           return { entity: entityBundle, data: dataContentType };
         default:
           return {};
