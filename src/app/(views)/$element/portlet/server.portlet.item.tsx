@@ -23,7 +23,10 @@ export default async function SE_PortletItem({
       )}
       <div className="w-full flex-col">
         {list_item?.title && (
-          <div className="text-3xl font-semibold text-[#000080] mb-4">
+          <div
+            className="font-semibold mb-4"
+            style={{ color: '#014a94', fontSize: '21px' }}
+          >
             {parseHTMLToReact(list_item?.title ?? '')}
           </div>
         )}

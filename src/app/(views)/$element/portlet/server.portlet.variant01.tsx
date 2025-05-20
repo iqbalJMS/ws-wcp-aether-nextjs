@@ -53,7 +53,10 @@ export default async function SE_PortletVariant01({
           </div>
         )}
         {subtitle && (
-          <div className="md:max-w-4xl space-y-5 max-w-[55%] break-word text-[#627d92]">
+          <div
+            className="md:max-w-4xl space-y-5 max-w-[55%] break-words text-[18.2px]"
+            style={{ color: '#627d92', lineHeight: '1.75', fontSize: '20px' }}
+          >
             {parseHTMLToReact(subtitle)}
           </div>
         )}

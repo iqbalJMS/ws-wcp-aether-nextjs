@@ -1072,9 +1072,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         };
       });
       const dataV07 = _component?.field_column?.map((item) => {
-        const text = item?.field_content?.[0]?.value;
         return {
-          text: text,
+          title: item?.field_title?.[0]?.value,
+          text: item?.field_content?.[0]?.value,
+          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
         };
       });
       const dataV03 = _component?.field_column?.map((item) => {
