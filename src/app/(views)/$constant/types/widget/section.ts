@@ -57,15 +57,18 @@ type FieldDocument = {
 export type T_Section = {
   field_header_style: any;
   field_title_custom: any;
+  field_title?: any;
   field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
   field_content?: HtmlContent[];
   column_count?: number;
   field_formatted_title?: HtmlContent[];
   field_image?: FieldImage[];
   field_margin_left?: { value: string }[];
-  field_note?: any[];
   field_primary_cta?: FieldPrimaryCTA[];
+  field_cta_document?: Array<FieldDocument>;
   field_column?: Array<{
+    field_column?: T_Section[];
+    field_formatted_title?: any;
     field_header_style: any;
     field_alignment_style?: Array<{ value: 'left' | 'center' | 'right' }>;
     entity_bundle: Array<{ value: string }>;

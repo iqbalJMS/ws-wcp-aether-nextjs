@@ -33,6 +33,7 @@ import { T_Subscription } from './types/widget/subscription';
 import { T_AccordionProps } from '@/lib/element/global/accordion';
 import { WIDGET_VARIANT } from './variables';
 
+
 /* Portlet Component */
 const SE_PortletMain = dynamic(
   () => import('@/app/(views)/$element/portlet/server.portlet.main')
@@ -51,6 +52,9 @@ const SE_PortletSectionHeaderAlign = dynamic(
     import(
       '@/app/(views)/$element/portlet/server.portlet.sectionheaderalignment'
     )
+);
+const CE_CardLaporan = dynamic(
+  () => import('@/app/(views)/$element/card/client.card.laporan')
 );
 
 /* Carousel Component */
@@ -385,6 +389,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               bgImage={backgroundImage}
               variant="01"
               variantWidget={findVariantStyle}
+              column={column}
             />
           );
         case WIDGET_VARIANT.variant08:
@@ -1018,6 +1023,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               )}
             </div>
           );
+        case WIDGET_VARIANT.variant69:
+          return (
+            <CE_CardLaporan
+              title={title}
+              subtitle={subtitle}
+              data={props.data}
+            />
+          );
         default:
           if (componentForm) {
             return (
@@ -1071,9 +1084,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         };
       });
       const dataV07 = _component?.field_column?.map((item) => {
-        const text = item?.field_content?.[0]?.value;
         return {
-          text: text,
+          title: item?.field_title?.[0]?.value,
+          text: item?.field_content?.[0]?.value,
+          image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
         };
       });
       const dataV03 = _component?.field_column?.map((item) => {
@@ -1466,6 +1480,39 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               };
             }),
           };
+        case WIDGET_VARIANT.variant69:
+          return {
+            variant: findVariantStyle,
+            title: title,
+            subtitle: subtitle,
+            column: column,
+            data: _component?.field_column?.map((subsection) => {
+              const yearTitle = subsection?.field_formatted_title?.[0]?.value;
+
+              const cards = subsection?.field_column?.map((card) => {
+                const documents = card?.field_cta_document?.map(ctaDoc => {
+                  const pdfPath = ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+                  const pdfTitle = ctaDoc?.field_title?.[0]?.value;
+                  return {
+                    path: pdfPath,
+                    title: pdfTitle
+                  };
+                });
+
+                return {
+                  image: card?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                  title: card?.field_title?.[0]?.value,
+                  description: card?.field_content?.[0]?.value,
+                  documents
+                };
+              });
+
+              return {
+                yearTitle: yearTitle,
+                cards: cards
+              };
+            })
+          };
         case WIDGET_VARIANT.variant02:
           return {
             title: title,
@@ -1490,6 +1537,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             navigationLink: navigationLink,
             data: dataV07,
             backgroundImage: backgroundImage,
+            column: column,
           };
         case WIDGET_VARIANT.variant08:
           return {
