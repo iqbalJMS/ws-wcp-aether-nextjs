@@ -1,20 +1,39 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { T_BreadcrumbProps } from '@/app/(views)/$constant/types/widget/breadcrumb';
 
-const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths }) => {
+const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths, pathsSecondary }) => {
+  const [pathsValue, setPathsValue] =
+    React.useState<T_BreadcrumbProps['paths']>(paths);
+  useEffect(() => {
+    const pathsPrev = sessionStorage.getItem('path-breadcrumb');
+    if (paths) {
+      sessionStorage.setItem('path-breadcrumb', JSON.stringify(paths));
+    } else if (pathsSecondary && pathsPrev) {
+      const pathsPrevValue = JSON.parse(pathsPrev);
+      setPathsValue(pathsPrevValue.concat(pathsSecondary));
+    } else if (pathsSecondary && !pathsPrev) {
+      setPathsValue(pathsSecondary);
+    } else {
+      sessionStorage.removeItem('path-breadcrumb');
+      setPathsValue([]);
+    }
+  }, [paths]);
+
   return (
     <nav
       className="flex justify-center flex-wrap items-center border-b border-gray-400 py-6"
       aria-label="Breadcrumb"
     >
       <ol className="inline-flex flex-wrap items-center justify-center gap-y-2 space-x-1 md:space-x-3 text-center">
-        {paths?.map((path, index) => (
+        {pathsValue?.map((path, index) => (
           <li
             key={index}
             className="inline-flex items-center justify-center space-x-2"
           >
-            {index !== paths?.length - 1 ? (
+            {index !== pathsValue?.length - 1 ? (
               <Link
                 href={path?.href ?? '/'}
                 className="inline-flex items-center uppercase font-light text-sm text-gray-700 hover:text-blue-700"
