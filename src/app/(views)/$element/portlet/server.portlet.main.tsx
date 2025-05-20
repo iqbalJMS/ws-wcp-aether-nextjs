@@ -22,7 +22,7 @@ export default async function SE_PortletMain({
   variant = '01',
   listItems,
   marginLeft,
-  column = '2',
+  column,
 }: T_PortletProps) {
   return (
     <>
