@@ -1011,7 +1011,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               )}
             </div>
           );
-        case WIDGET_VARIANT.variant68:
+        case WIDGET_VARIANT.variant69:
           return (
             <CE_CardLaporan
               title={title}
@@ -1463,7 +1463,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               };
             })
           };
-        case WIDGET_VARIANT.variant68:
+        case WIDGET_VARIANT.variant69:
           return {
             variant: findVariantStyle,
             title: title,
