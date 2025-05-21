@@ -33,7 +33,7 @@ export default function CE_PromoSlider({
   }>;
   linkPromo: string;
 }) {
-  const { drupalUrl } = useEnv();
+  const { baseUrl } = useEnv();
   const [currentSlide, setCurrentSlide] = useState(0);
   const screenWidth = useScreenWidth();
   const slidesToShow = getSlideToShow(screenWidth);
@@ -94,7 +94,7 @@ export default function CE_PromoSlider({
                       <div
                         className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100"
                         style={{
-                          backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
+                          backgroundImage: `url(${baseUrl}/api/files/?path=${item?.image})`,
                           backgroundSize: 'cover',
                           backgroundRepeat: 'no-repeat',
                         }}
@@ -168,7 +168,7 @@ export default function CE_PromoSlider({
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
+                            backgroundImage: `${baseUrl}/api/files/?path=${item?.image}`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}
@@ -243,7 +243,7 @@ export default function CE_PromoSlider({
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
+                            backgroundImage: `url(${baseUrl}/api/files/?path=${item?.image})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}

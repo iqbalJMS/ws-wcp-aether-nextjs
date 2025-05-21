@@ -199,6 +199,7 @@ const AccordionClient = dynamic(
 export const BASE_URL =
   process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
 
+//const {baseUrl} = useEnv();
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -651,7 +652,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               }}
             >
               <div className="flex flex-col px-4 md:px-8 py-6 max-w-screen-2xl mx-auto">
-                {/* Title and Subtitle Section */}
                 <div className="w-full mb-8">
                   {title && (
                     <div className="text-xl font-semibold mb-2 mt-10">
@@ -952,7 +952,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                             <div className="w-full h-[255px] mb-2">
                               <Image
                                 extern={false}
-                                src={item.image}
+                                src={`${BASE_URL}/api/files/?path={item.image}`}
                                 alt={item.title || 'Laporan Tahunan'}
                                 width={400}
                                 height={400}

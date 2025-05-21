@@ -5,8 +5,8 @@ import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import Link from '@/lib/element/global/link';
 import Image from '@/lib/element/global/image';
+import { useEnv } from '@/lib/hook/useEnv';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
 
 type Document = { title?: string; path?: string };
 type Card = { title?: string; description?: string; image?: string; documents?: Document[] };
@@ -20,6 +20,7 @@ type Props = {
 };
 
 export default function CE_CardLaporan({ title, subtitle, data }: Props) {
+  const { baseUrl } = useEnv();
   const [search, setSearch] = useState('');
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -110,7 +111,7 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
                       <div className="w-full h-[255px] mb-2">
                         <Image
                           extern={false}
-                          src={handleurl(`${BASE_URL}/api/files/?path=${item.image}`)}
+                          src={handleurl(`${baseUrl}/api/files/?path=${item.image}`)}
                           alt={item.title || 'Laporan'}
                           width={400}
                           height={400}
@@ -139,7 +140,7 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
                               className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1"
                             >
                               <Link
-                                href={handleurl(`${BASE_URL}/api/files/?path=${doc.path}`)}
+                                href={handleurl(`${baseUrl}/api/files/?path=${doc.path}`)}
                                 className="flex items-center gap-1 text-sm"
                                 download
                                 target="_blank"
