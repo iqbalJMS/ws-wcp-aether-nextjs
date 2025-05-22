@@ -40,17 +40,38 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
     );
   }, [allCards, search]);
 
-  const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
-  const paginatedCards = filteredCards.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
-  const groupedCards = useMemo(() => {
+  // Group filtered cards by year
+  const groupedFilteredCards = useMemo(() => {
     const grouped: Record<string, FlattenedCard[]> = {};
-    paginatedCards.forEach(card => {
+    filteredCards.forEach(card => {
       if (!grouped[card.year]) grouped[card.year] = [];
       grouped[card.year].push(card);
     });
     return grouped;
-  }, [paginatedCards]);
+  }, [filteredCards]);
+
+  // Get array of year groups for pagination
+  const yearGroups = Object.entries(groupedFilteredCards);
+  const totalPages = Math.ceil(yearGroups.length / itemsPerPage);
+  
+  // Get paginated year groups
+  const paginatedYearGroups = yearGroups.slice(
+    (currentPage - 1) * itemsPerPage, 
+    currentPage * itemsPerPage
+  );
+
+  // Convert back to grouped format for rendering
+  const paginatedGroupedCards = useMemo(() => {
+    const grouped: Record<string, FlattenedCard[]> = {};
+    paginatedYearGroups.forEach(([year, cards]) => {
+      grouped[year] = cards;
+    });
+    return grouped;
+  }, [paginatedYearGroups]);
+
+  // Calculate total cards for display info
+  const startEntry = (currentPage - 1) * itemsPerPage + 1;
+  const endEntry = Math.min(currentPage * itemsPerPage, yearGroups.length);
 
   return (
     <div className="container mx-auto py-6">
@@ -98,7 +119,7 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
         </div>
       </div>
 
-      {Object.entries(groupedCards).map(([year, cards]) => (
+      {Object.entries(paginatedGroupedCards).map(([year, cards]) => (
         <div key={year} className="mb-10">
           <h3 className="text-xl font-bold mb-4">{parseHTMLToReact(year)}</h3>
 
@@ -106,7 +127,7 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
             {cards.map((item, index) => (
               <div key={index} className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-2 mb-6">
                 <div className="h-full">
-                  <div className="p-4 shadow-lg h-full flex flex-col bg-white rounded-xl border border-gray-200">
+                  <div className="p-4 shadow-lg h-full flex flex-col bg-white border border-gray-200">
                     {item.image && (
                       <div className="w-full h-[255px] mb-2">
                         <Image
@@ -177,7 +198,7 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
       {totalPages > 1 && (
         <div className="flex justify-between items-center mt-6 flex-wrap gap-4">
           <p className="text-sm text-gray-600">
-            Menampilkan {(currentPage - 1) * itemsPerPage + 1} sampai {Math.min(currentPage * itemsPerPage, filteredCards.length)} dari {filteredCards.length} entri
+            Menampilkan {startEntry} sampai {endEntry} dari {yearGroups.length} entri
           </p>
           <div className="flex items-center gap-2">
             <button
