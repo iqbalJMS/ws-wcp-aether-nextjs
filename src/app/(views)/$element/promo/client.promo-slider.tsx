@@ -20,9 +20,13 @@ const getSlideToShow = (screenWidth: number) => {
 };
 
 export default function CE_PromoSlider({
+  title,
+  subtitle,
   data,
   linkPromo,
 }: {
+  title: string;
+  subtitle: string;
   data: Array<{
     image: string;
     nid: number;
@@ -33,7 +37,7 @@ export default function CE_PromoSlider({
   }>;
   linkPromo: string;
 }) {
-  const { drupalUrl } = useEnv();
+  const { baseUrl } = useEnv();
   const [currentSlide, setCurrentSlide] = useState(0);
   const screenWidth = useScreenWidth();
   const slidesToShow = getSlideToShow(screenWidth);
@@ -61,6 +65,10 @@ export default function CE_PromoSlider({
   return (
     <>
       <div>
+        <div className="text-center mb-8 px-5">
+          <h2 className="text-3xl font-bold text-[#C70740] mb-4">{title}</h2>
+          <p className="text-lg text-gray-600">{subtitle}</p>
+        </div>
         <div className="w-full flex justify-center px-5 my-10">
           {/* WEB section */}
           <div className="w-full h-[50vh] hidden 2xl:flex flex-row justify-center">
@@ -94,7 +102,7 @@ export default function CE_PromoSlider({
                       <div
                         className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100"
                         style={{
-                          backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
+                          backgroundImage: `url(${baseUrl}/api/files/?path=${item?.image})`,
                           backgroundSize: 'cover',
                           backgroundRepeat: 'no-repeat',
                         }}
@@ -168,7 +176,7 @@ export default function CE_PromoSlider({
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
+                            backgroundImage: `${baseUrl}/api/files/?path=${item?.image}`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}
@@ -243,7 +251,7 @@ export default function CE_PromoSlider({
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `url(${drupalUrl}${item?.image ?? ''})`,
+                            backgroundImage: `url(${baseUrl}/api/files/?path=${item?.image})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}

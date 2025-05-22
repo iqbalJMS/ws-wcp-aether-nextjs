@@ -33,7 +33,6 @@ import { T_Subscription } from './types/widget/subscription';
 import { T_AccordionProps } from '@/lib/element/global/accordion';
 import { WIDGET_VARIANT } from './variables';
 
-
 /* Portlet Component */
 const SE_PortletMain = dynamic(
   () => import('@/app/(views)/$element/portlet/server.portlet.main')
@@ -651,7 +650,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               }}
             >
               <div className="flex flex-col px-4 md:px-8 py-6 max-w-screen-2xl mx-auto">
-                {/* Title and Subtitle Section */}
                 <div className="w-full mb-8">
                   {title && (
                     <div className="text-xl font-semibold mb-2 mt-10">
@@ -952,7 +950,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                             <div className="w-full h-[255px] mb-2">
                               <Image
                                 extern={false}
-                                src={item.image}
+                                src={`${BASE_URL}/api/files/?path={item.image}`}
                                 alt={item.title || 'Laporan Tahunan'}
                                 width={400}
                                 height={400}
@@ -3239,6 +3237,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   promo_widget: {
     component: (...props) => {
+      const title = props?.[0]?.title;
+      const subtitle = props?.[0]?.subtitle;
       const titleProps = props?.[0]?.titleProps;
       const buttonTextProps = props?.[0]?.buttonTextProps;
       const buttonLinkProps = props?.[0]?.buttonLinkProps;
@@ -3261,7 +3261,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant55:
           return (
-            <CE_PromoSlider data={dataProps} linkPromo={buttonLinkProps} />
+            <CE_PromoSlider data={dataProps} linkPromo={buttonLinkProps} title={title} subtitle={subtitle}/>
           );
         default:
           return (
@@ -3353,6 +3353,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant55:
           return {
+            title: _component?.field_title?.[0]?.value,
+            subtitle: _component?.field_subtitle?.[0]?.value,
             dataProps: promoSliderData,
             variant: findVariantStyle,
             buttonLinkProps: promoSliderLink,

@@ -8,7 +8,9 @@ import TwitterIcon from '@/lib/element/global/icons/twitter-icon';
 import WhatsappIcon from '@/lib/element/global/icons/whatsapp-icon';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -33,11 +35,12 @@ export default function CE_CardDetailPromo({
   product: string;
   urlLink: string;
 }) {
+  const {baseUrl} = useEnv();
   const pathname = usePathname();
-  const textShare = `${urlLink || process.env.NEXT_PUBLIC_BASE_URL}/${pathname}`;
+  const rawUrl = `${urlLink || baseUrl}/${pathname}`;
+  const textShare = handleurl(rawUrl);
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [isShareOpen, setIsShareOpen] = useState<boolean>(false);
-
   const closeAlert = () => {
     setAlertOpen(false);
   };
@@ -67,7 +70,7 @@ export default function CE_CardDetailPromo({
           <section className="w-full grid grid-cols-1 place-items-start space-y-5 pb-12">
             <div className="w-full flex justify-center md:flex-none lg:w-8/12">
               <Image
-                src={`${image}`}
+                src={`${baseUrl}/api/files/?path=${image}`}
                 width={1000}
                 height={1000}
                 alt="image bri prioritas"
@@ -196,69 +199,76 @@ export default function CE_CardDetailPromo({
                 Periode Promo
               </h1>
               <p className="text-gray-500 text-sm px-5 py-3">
-                {formatDate(startDate)} - {formatDate(endDate)}
+                {formatDate(startDate)}-{formatDate(endDate)}
               </p>
             </div>
             <div className="hidden sm:flex border-b border-[#D6D6D6] py-4">
-              <div className="w-[260px]">
+              <div className="w-[260px] flex-shrink-0">
                 <h1 className="text-lg font-medium">Periode Promo</h1>
               </div>
               <div>
                 <p className="text-gray-500 text-sm">
-                  {formatDate(startDate)} - {formatDate(endDate)}
+                  {formatDate(startDate)}-{formatDate(endDate)}
                 </p>
               </div>
             </div>
-          </div>
-          <div className="sm:hidden">
-            <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
-              Promo menggunakan
-            </h1>
-            <p className="px-5 py-3 text-gray-500 text-sm">{product}</p>
-          </div>
-          <div className="hidden sm:flex border-y border-[#D6D6D6] py-4">
-            <div className="w-[260px]">
-              <h1 className="text-lg font-medium">Promo menggunakan</h1>
-            </div>
-            <p className="text-gray-500 text-sm">{product}</p>
-          </div>
 
-          <div className="sm:hidden">
-            <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
-              Info Merchant
-            </h1>
-            <p className="px-5 py-3 text-gray-500 text-sm">{merchant}</p>
-          </div>
-          <div className="hidden sm:flex border-y border-[#D6D6D6] py-4">
-            <div className="w-[260px]">
-              <h1 className="text-lg font-medium">Info Merchant</h1>
+            <div className="sm:hidden">
+              <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
+                Promo menggunakan
+              </h1>
+              <p className="px-5 py-3 text-gray-500 text-sm">{product}</p>
             </div>
-            <p className="text-gray-500 text-sm">{merchant}</p>
-          </div>
-
-          <div className="sm:hidden">
-            <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
-              Lokasi
-            </h1>
-            <p className="px-5 py-3 text-gray-500 text-sm">{lokasi}</p>
-          </div>
-          <div className="hidden sm:flex border-y border-[#D6D6D6] py-4">
-            <div className="w-[260px]">
-              <h1 className="text-lg font-medium">Lokasi</h1>
-            </div>
-            <p className="text-gray-500 text-sm">{lokasi}</p>
-          </div>
-
-          <section className="grid grid-cols-1">
-            <div className="md:py-4 mdmax:px-5 py-3">
-              <h1 className="font-medium text-lg">Terms & Condition</h1>
-            </div>
-            <div className="md:py-4 mdmax:px-5 py-3">
-              <div className="space-y-3 text-sm tracking-wide leading-6 text-gray-500">
-                {parseHTMLToReact(terms)}
+            <div className="hidden sm:flex border-b border-[#D6D6D6] py-4">
+              <div className="w-[260px] flex-shrink-0">
+                <h1 className="text-lg font-medium">Promo menggunakan</h1>
+              </div>
+              <div>
+                <p className="text-gray-500 text-sm">{product}</p>
               </div>
             </div>
-          </section>
+
+            <div className="sm:hidden">
+              <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
+                Info Merchant
+              </h1>
+              <p className="px-5 py-3 text-gray-500 text-sm">{merchant}</p>
+            </div>
+            <div className="hidden sm:flex border-b border-[#D6D6D6] py-4">
+              <div className="w-[260px] flex-shrink-0">
+                <h1 className="text-lg font-medium">Info Merchant</h1>
+              </div>
+              <div>
+                <p className="text-gray-500 text-sm">{merchant}</p>
+              </div>
+            </div>
+
+            <div className="sm:hidden">
+              <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
+                Lokasi
+              </h1>
+              <p className="px-5 py-3 text-gray-500 text-sm">{lokasi}</p>
+            </div>
+            <div className="hidden sm:flex border-b border-[#D6D6D6] py-4">
+              <div className="w-[260px] flex-shrink-0">
+                <h1 className="text-lg font-medium">Lokasi</h1>
+              </div>
+              <div>
+                <p className="text-gray-500 text-sm">{lokasi}</p>
+              </div>
+            </div>
+
+            <section className="grid grid-cols-1 border-t border-[#D6D6D6]">
+              <div className="md:py-4 mdmax:px-5 py-3">
+                <h1 className="font-medium text-lg">Terms & Condition</h1>
+              </div>
+              <div className="md:py-4 mdmax:px-5 py-3">
+                <div className="space-y-3 text-sm tracking-wide leading-6 text-gray-500">
+                  {parseHTMLToReact(terms)}
+                </div>
+              </div>
+            </section>
+          </div>
         </section>
       </div>
       <AlertCopy alertOpen={alertOpen} closeAlert={closeAlert} />
