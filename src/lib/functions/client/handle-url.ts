@@ -18,6 +18,7 @@ export const handleurl = (rawLink?: string): string => {
     }
 
     converted = rawLink!.replace('/id', '');
+    converted = converted.replace(/([^:])\/\/+/g, '$1/');
   } catch (_) {}
 
   return converted;

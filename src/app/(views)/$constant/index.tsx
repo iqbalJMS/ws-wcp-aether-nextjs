@@ -33,7 +33,6 @@ import { T_Subscription } from './types/widget/subscription';
 import { T_AccordionProps } from '@/lib/element/global/accordion';
 import { WIDGET_VARIANT } from './variables';
 
-
 /* Portlet Component */
 const SE_PortletMain = dynamic(
   () => import('@/app/(views)/$element/portlet/server.portlet.main')
@@ -199,7 +198,6 @@ const AccordionClient = dynamic(
 export const BASE_URL =
   process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
 
-//const {baseUrl} = useEnv();
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -3239,6 +3237,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   },
   promo_widget: {
     component: (...props) => {
+      const title = props?.[0]?.title;
+      const subtitle = props?.[0]?.subtitle;
       const titleProps = props?.[0]?.titleProps;
       const buttonTextProps = props?.[0]?.buttonTextProps;
       const buttonLinkProps = props?.[0]?.buttonLinkProps;
@@ -3261,7 +3261,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant55:
           return (
-            <CE_PromoSlider data={dataProps} linkPromo={buttonLinkProps} />
+            <CE_PromoSlider data={dataProps} linkPromo={buttonLinkProps} title={title} subtitle={subtitle}/>
           );
         default:
           return (
@@ -3353,6 +3353,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant55:
           return {
+            title: _component?.field_title?.[0]?.value,
+            subtitle: _component?.field_subtitle?.[0]?.value,
             dataProps: promoSliderData,
             variant: findVariantStyle,
             buttonLinkProps: promoSliderLink,

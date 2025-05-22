@@ -8,6 +8,7 @@ import TwitterIcon from '@/lib/element/global/icons/twitter-icon';
 import WhatsappIcon from '@/lib/element/global/icons/whatsapp-icon';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useEnv } from '@/lib/hook/useEnv';
 import { usePathname } from 'next/navigation';
@@ -36,10 +37,10 @@ export default function CE_CardDetailPromo({
 }) {
   const {baseUrl} = useEnv();
   const pathname = usePathname();
-  const textShare = `${urlLink || baseUrl}/${pathname}`;
+  const rawUrl = `${urlLink || baseUrl}/${pathname}`;
+  const textShare = handleurl(rawUrl);
   const [alertOpen, setAlertOpen] = useState<boolean>(false);
   const [isShareOpen, setIsShareOpen] = useState<boolean>(false);
-  const loremipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
   const closeAlert = () => {
     setAlertOpen(false);
   };
@@ -198,7 +199,7 @@ export default function CE_CardDetailPromo({
                 Periode Promo
               </h1>
               <p className="text-gray-500 text-sm px-5 py-3">
-                `${loremipsum}${formatDate(startDate)}${formatDate(endDate)}`
+                {formatDate(startDate)}-{formatDate(endDate)}
               </p>
             </div>
             <div className="hidden sm:flex border-b border-[#D6D6D6] py-4">
@@ -207,7 +208,7 @@ export default function CE_CardDetailPromo({
               </div>
               <div>
                 <p className="text-gray-500 text-sm">
-                  `${loremipsum}${formatDate(startDate)}${formatDate(endDate)}`
+                  {formatDate(startDate)}-{formatDate(endDate)}
                 </p>
               </div>
             </div>
@@ -216,14 +217,14 @@ export default function CE_CardDetailPromo({
               <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
                 Promo menggunakan
               </h1>
-              <p className="px-5 py-3 text-gray-500 text-sm">{`${loremipsum}${product}`}</p>
+              <p className="px-5 py-3 text-gray-500 text-sm">{product}</p>
             </div>
             <div className="hidden sm:flex border-b border-[#D6D6D6] py-4">
               <div className="w-[260px] flex-shrink-0">
                 <h1 className="text-lg font-medium">Promo menggunakan</h1>
               </div>
               <div>
-                <p className="text-gray-500 text-sm">{`${loremipsum}product`}</p>
+                <p className="text-gray-500 text-sm">{product}</p>
               </div>
             </div>
 
@@ -231,14 +232,14 @@ export default function CE_CardDetailPromo({
               <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
                 Info Merchant
               </h1>
-              <p className="px-5 py-3 text-gray-500 text-sm">{`${loremipsum}${merchant}`}</p>
+              <p className="px-5 py-3 text-gray-500 text-sm">{merchant}</p>
             </div>
             <div className="hidden sm:flex border-b border-[#D6D6D6] py-4">
               <div className="w-[260px] flex-shrink-0">
                 <h1 className="text-lg font-medium">Info Merchant</h1>
               </div>
               <div>
-                <p className="text-gray-500 text-sm">{`${loremipsum}${merchant}`}</p>
+                <p className="text-gray-500 text-sm">{merchant}</p>
               </div>
             </div>
 
@@ -246,14 +247,14 @@ export default function CE_CardDetailPromo({
               <h1 className="px-5 py-3 border-y border-[#D6D6D6] text-lg font-medium">
                 Lokasi
               </h1>
-              <p className="px-5 py-3 text-gray-500 text-sm">{`${loremipsum}${lokasi}`}</p>
+              <p className="px-5 py-3 text-gray-500 text-sm">{lokasi}</p>
             </div>
             <div className="hidden sm:flex border-b border-[#D6D6D6] py-4">
               <div className="w-[260px] flex-shrink-0">
                 <h1 className="text-lg font-medium">Lokasi</h1>
               </div>
               <div>
-                <p className="text-gray-500 text-sm">{`${loremipsum}${lokasi}`}</p>
+                <p className="text-gray-500 text-sm">{lokasi}</p>
               </div>
             </div>
 

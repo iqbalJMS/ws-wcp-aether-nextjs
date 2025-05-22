@@ -20,9 +20,13 @@ const getSlideToShow = (screenWidth: number) => {
 };
 
 export default function CE_PromoSlider({
+  title,
+  subtitle,
   data,
   linkPromo,
 }: {
+  title: string;
+  subtitle: string;
   data: Array<{
     image: string;
     nid: number;
@@ -61,6 +65,10 @@ export default function CE_PromoSlider({
   return (
     <>
       <div>
+        <div className="text-center mb-8 px-5">
+          <h2 className="text-3xl font-bold text-[#C70740] mb-4">{title}</h2>
+          <p className="text-lg text-gray-600">{subtitle}</p>
+        </div>
         <div className="w-full flex justify-center px-5 my-10">
           {/* WEB section */}
           <div className="w-full h-[50vh] hidden 2xl:flex flex-row justify-center">
