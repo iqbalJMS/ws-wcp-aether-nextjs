@@ -315,7 +315,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title = props?.title;
       const subtitle = props?.subtitle;
       const accordiontitle = props?.accordiontitle;
-      const navigationLink = (props?.navigationLink || '').replace('/id', '');
+      const textLink = props?.textLink;
+      const navigationLink = props?.navigationLink;
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
       const titleForm = props?.titleForm;
@@ -354,6 +355,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         title?: string;
         content?: string;
       }>;
+
       const column = String(props?.column);
       const buttonSiapaSabrina = {
         text: props?.btnSiapaSabrinaText,
@@ -408,6 +410,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <SE_PortletMain
               title={title}
               subtitle={subtitle}
+              textLink={textLink}
               navigationLink={navigationLink}
               listItems={listItems}
               bgImage={backgroundImage}
@@ -644,7 +647,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <div
               className="w-full mb-10"
               style={{
-                backgroundImage: `url(${backgroundImage ? `${BASE_URL}/api/files/?path=${backgroundImage}` : ''})`,
+                backgroundImage: backgroundImage,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
               }}
@@ -761,7 +764,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                               extern={false}
                               width={1920}
                               height={1080}
-                              src={`${BASE_URL}/api/files/?path=${backgroundImage}`}
+                              src={backgroundImage}
                               alt="Accordion Image"
                               className="w-10 h-10 mr-4"
                             />
@@ -950,7 +953,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                             <div className="w-full h-[255px] mb-2">
                               <Image
                                 extern={false}
-                                src={`${BASE_URL}/api/files/?path={item.image}`}
+                                src={item.image}
                                 alt={item.title || 'Laporan Tahunan'}
                                 width={400}
                                 height={400}
@@ -981,9 +984,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                                       className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1"
                                     >
                                       <Link
-                                        href={handleurl(
-                                          `${BASE_URL}/api/files/?path=${doc.path}`
-                                        )}
+                                        href={handleurl(doc.path)}
                                         className="flex items-center gap-1 text-sm"
                                         download
                                         target="_blank"
@@ -1055,10 +1056,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_column?.[0]?.field_primary_cta?.[0]?.title;
       const accordiontitle =
         _component?.field_column?.[0]?.field_title?.[0]?.value;
+      const textLink = _component?.field_primary_cta?.[0]?.title;
       const navigationLink =
         _component?.field_primary_cta?.[0]?.full_url ||
         _component?.field_primary_cta?.[0]?.uri;
-      const textLink = _component?.field_primary_cta?.[0]?.title;
       const column = _component?.column_count;
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
@@ -1075,6 +1076,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             image: image,
           };
         });
+
       const dataV02 = _component?.field_column?.map((item) => {
         return {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
@@ -1122,6 +1124,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           title: title,
         };
       });
+
       const dataV09 = _component?.field_column?.map((item) => {
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
@@ -1392,8 +1395,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             return {
               title: paragraph?.field_content?.[0]?.value,
               image:
-                paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                  ?.url,
+                `${BASE_URL}/api/files/?path=${paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                  ?.url}`,
             };
           });
 
@@ -1459,8 +1462,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             data: _component?.field_column?.map((item) => {
               const documents = item?.field_cta_document?.map((ctaDoc) => {
                 const pdfPath =
-                  ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
-                    ?.url;
+                  `${BASE_URL}/api/files/?path=${ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
+                    ?.url}`;
                 const pdfTitle = ctaDoc?.field_title?.[0]?.value;
 
                 return {
@@ -1471,7 +1474,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
               return {
                 image:
-                  item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                  `${BASE_URL}/api/files/?path=${item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
                 title: item?.field_title?.[0]?.value,
                 description: item?.field_content?.[0]?.value,
                 documents: documents,
@@ -1552,6 +1555,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             title: title,
             subtitle: subtitle,
+            textLink: textLink,
             navigationLink: navigationLink,
             data: dataV08,
             column: column,
@@ -1689,7 +1693,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: title,
             subtitle: subtitle,
             accordiontitle: accordiontitle,
-            backgroundImage: backgroundImage,
+            backgroundImage: `${BASE_URL}/api/files/?path=${backgroundImage}`,
             variant: findVariantStyle,
             accordion: dataV60,
           };
@@ -1698,7 +1702,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             title: title,
             subtitle: subtitle,
             variant: findVariantStyle,
-            backgroundImage: backgroundImage,
+            backgroundImage: `${BASE_URL}/api/files/?path=${backgroundImage}`,
             accordion: dataV62,
           };
         case WIDGET_VARIANT.variant39:
@@ -2820,9 +2824,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                                 className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1"
                               >
                                 <Link
-                                  href={handleurl(
-                                    `${BASE_URL}/api/files/?path=${item?.cardPdf?.[i]?.cardPdfloop}`
-                                  )}
+                                  href={handleurl(item?.cardPdf?.[i]?.cardPdfloop)}
                                   className="flex items-center gap-1 text-sm"
                                   download
                                 >
@@ -2928,13 +2930,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               (childItem) => {
                 const title = childItem?.field_title?.[0]?.value;
                 const image =
-                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                    ?.url;
+                  `${BASE_URL}/api/files/?path=${childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                    ?.url}`;
                 const pdf = childItem?.field_cta_document?.map((item) => {
                   return {
                     cardPdfloop:
-                      item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
-                        ?.url,
+                      `${BASE_URL}/api/files/?path=${item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
+                        ?.url}`,
                     titlePdfloop: item?.field_title?.[0]?.value,
                   };
                 });
