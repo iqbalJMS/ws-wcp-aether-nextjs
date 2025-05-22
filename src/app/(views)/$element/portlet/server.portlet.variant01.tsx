@@ -70,6 +70,7 @@ export default async function SE_PortletVariant01({
               <SE_PortletItem key={index} list_item={item} />
             ))}
         </div>
+
         {textLink && (
           <div className="w-full">
             <Link

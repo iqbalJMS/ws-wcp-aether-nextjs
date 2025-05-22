@@ -315,7 +315,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const title = props?.title;
       const subtitle = props?.subtitle;
       const accordiontitle = props?.accordiontitle;
-      const navigationLink = (props?.navigationLink || '').replace('/id', '');
+      const textLink = props?.textLink;
+      const navigationLink = props?.navigationLink;
       const navigationText = props?.navigationText;
       const backgroundImage = props?.backgroundImage;
       const titleForm = props?.titleForm;
@@ -354,6 +355,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         title?: string;
         content?: string;
       }>;
+
       const column = String(props?.column);
       const buttonSiapaSabrina = {
         text: props?.btnSiapaSabrinaText,
@@ -408,6 +410,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <SE_PortletMain
               title={title}
               subtitle={subtitle}
+              textLink={textLink}
               navigationLink={navigationLink}
               listItems={listItems}
               bgImage={backgroundImage}
@@ -1055,10 +1058,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         _component?.field_column?.[0]?.field_primary_cta?.[0]?.title;
       const accordiontitle =
         _component?.field_column?.[0]?.field_title?.[0]?.value;
+      const textLink = _component?.field_primary_cta?.[0]?.title;
       const navigationLink =
         _component?.field_primary_cta?.[0]?.full_url ||
         _component?.field_primary_cta?.[0]?.uri;
-      const textLink = _component?.field_primary_cta?.[0]?.title;
       const column = _component?.column_count;
       const backgroundImage =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri[0]?.url;
@@ -1075,6 +1078,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             image: image,
           };
         });
+
       const dataV02 = _component?.field_column?.map((item) => {
         return {
           image: item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
@@ -1122,6 +1126,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           title: title,
         };
       });
+
       const dataV09 = _component?.field_column?.map((item) => {
         const image =
           item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
@@ -1552,6 +1557,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             title: title,
             subtitle: subtitle,
+            textLink: textLink,
             navigationLink: navigationLink,
             data: dataV08,
             column: column,
