@@ -65,7 +65,7 @@ export default async function SE_PortletVariant01({
             {parseHTMLToReact(subtitle)}
           </div>
         )}
-        
+
         {hasListItems && (
           <div
             className={`${widthClass} grid grid-cols-1 ${gridClass} ${gapClass} py-12 ${
@@ -73,7 +73,7 @@ export default async function SE_PortletVariant01({
             }`}
           >
             {listItems.map((item, index) => (
-              <SE_PortletItem key={index} list_item={item} column={column}/>
+              <SE_PortletItem key={index} list_item={item} column={column} />
             ))}
           </div>
         )}

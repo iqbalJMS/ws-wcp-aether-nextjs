@@ -156,15 +156,15 @@ export default function GlobalHeader({
 
     const currentPath = pathname.split('?')[0];
     const itemLink = generateLinkBottom(item);
-    
+
     if (currentPath === '/' && itemLink === '/') {
       return true;
     }
-    
+
     if (itemLink !== '/' && currentPath.startsWith(itemLink)) {
       return true;
     }
-    
+
     if (item.alias) {
       const aliasPath = `/${item.alias.toLowerCase().replaceAll(' ', '-')}`;
       if (currentPath.startsWith(aliasPath)) {
@@ -175,41 +175,41 @@ export default function GlobalHeader({
     if (item.relative && currentPath.includes(item.relative)) {
       return true;
     }
-    
+
     const checkSubMenus = (menuItems: any[]): boolean => {
       if (!menuItems || menuItems.length === 0) return false;
-      
-      return menuItems.some(subItem => {
+
+      return menuItems.some((subItem) => {
         const subItemLink = generateLinkBottom(subItem);
         if (subItemLink !== '/' && currentPath.startsWith(subItemLink)) {
           return true;
         }
-        
+
         if (subItem.alias) {
           const subAliasPath = `/${subItem.alias.toLowerCase().replaceAll(' ', '-')}`;
           if (currentPath.startsWith(subAliasPath)) {
             return true;
           }
         }
-        
+
         if (subItem.relative && currentPath.includes(subItem.relative)) {
           return true;
         }
-        
+
         if (subItem.below && subItem.below.length > 0) {
           return checkSubMenus(subItem.below);
         }
-        
+
         return false;
       });
     };
-    
+
     if (item.below && item.below.length > 0) {
       if (checkSubMenus(item.below)) {
         return true;
       }
     }
-    
+
     return false;
   };
 
@@ -418,7 +418,9 @@ export default function GlobalHeader({
                       key={index}
                       className={[
                         'border-b-4 transition-all duration-300',
-                        isActive ? 'border-red-01' : 'border-transparent hover:border-red-01',
+                        isActive
+                          ? 'border-red-01'
+                          : 'border-transparent hover:border-red-01',
                         item.below?.length ? 'group' : '',
                       ].join(' ')}
                     >
@@ -442,7 +444,7 @@ export default function GlobalHeader({
                           ].join(' ')}
                         ></div>
                       </Link>
-                      
+
                       {/* Dropdown menu remains the same */}
                       <div className="absolute left-0 w-full invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-300 pt-10">
                         <div className="bg-white">
@@ -601,7 +603,9 @@ export default function GlobalHeader({
                                 target={'_self'}
                                 className="relative text-sm font-light capitalize group"
                               >
-                                <span className={`uppercase ${isActive ? 'font-reguler' : ''}`}>
+                                <span
+                                  className={`uppercase ${isActive ? 'font-reguler' : ''}`}
+                                >
                                   {item.title}
                                 </span>
 
@@ -640,7 +644,9 @@ export default function GlobalHeader({
                               extern={item.options?.external || false}
                               className="relative text-sm font-light capitalize group"
                             >
-                              <span className={`uppercase ${isActive ? 'font-reguler' : ''}`}>
+                              <span
+                                className={`uppercase ${isActive ? 'font-reguler' : ''}`}
+                              >
                                 {item.title}
                               </span>
 
