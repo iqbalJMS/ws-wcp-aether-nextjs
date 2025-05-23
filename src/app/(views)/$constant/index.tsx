@@ -3394,6 +3394,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: (...props: any) => {
       const findEntityBundle = props?.[0]?.entity;
       const data = props?.[0]?.data;
+      const siteContent = props?.[0]?.siteData;
+      const categoryContent = props?.[0]?.categoryData;
+      const isLoadMore = props?.[0]?.isLoadMore;
 
       switch (findEntityBundle) {
         case WIDGET_VARIANT.variant51:
@@ -3405,19 +3408,32 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant54:
           return <CE_SectionAnnouncement announcementData={data} />;
         case WIDGET_VARIANT.variant68:
-          return <CE_SectionArticle articleData={data} />;
+          return (
+            <CE_SectionArticle
+              articleData={data}
+              siteData={siteContent}
+              categoryData={categoryContent}
+              isLoadMore={isLoadMore ? isLoadMore > 0 : false}
+            />
+          );
         default:
           return <></>;
       }
     },
     props: (_component: T_News) => {
       const entityBundle = _component?.field_content_type?.[0]?.type?.[0]?.type;
+      const categoryData = _component?.field_category_product;
+      const siteData = _component?.field_site;
+      const isLoadMore = _component?.pager?.total_page;
+
       const dataContentType = {
         contents: _component?.field_content_type?.map((item) => {
           const imageV2 = item?.field_components?.find(
             (item) => item?.entity_bundle?.[0]?.value === 'image'
           );
           return {
+            site: item?.field_site_id?.[0]?.name,
+            category: item?.field_article_category?.[0]?.name,
             title: item?.title?.[0]?.value,
             nid: item?.nid?.[0]?.value,
             image:
@@ -3443,7 +3459,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         case WIDGET_VARIANT.variant54:
           return { entity: entityBundle, data: dataContentType };
         case WIDGET_VARIANT.variant68:
-          return { entity: entityBundle, data: dataContentType };
+          return {
+            entity: entityBundle,
+            siteData: siteData,
+            categoryData: categoryData,
+            data: dataContentType,
+            isLoadMore: isLoadMore,
+          };
         default:
           return {};
       }

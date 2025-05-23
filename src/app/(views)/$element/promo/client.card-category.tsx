@@ -1,5 +1,6 @@
 'use client';
 import Image from '@/lib/element/global/image';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export default function CE_CardCategoryPromo({
   label,
@@ -15,6 +16,7 @@ export default function CE_CardCategoryPromo({
   // eslint-disable-next-line no-unused-vars
   onChangeCategory: (nid: number) => void;
 }) {
+  const { baseUrl } = useEnv();
   function handleClick() {
     onChangeCategory(nid);
   }
@@ -29,7 +31,7 @@ export default function CE_CardCategoryPromo({
           className={`mb-4 ${isSelect ? 'filter brightness-0 invert' : 'group-hover:filter group-hover:brightness-0 group-hover:invert'}`}
         >
           <Image
-            src={image}
+            src={`${baseUrl}/api/files/?path=${image}`}
             alt={label ?? ''}
             width={100}
             height={100}
