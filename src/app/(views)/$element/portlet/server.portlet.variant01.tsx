@@ -24,8 +24,11 @@ export default async function SE_PortletVariant01({
     : `${bgImage}`;
 
   const gridClass = column ? `md:grid-cols-${column}` : '';
+  const gapClass = column === '1' ? 'gap-6' : 'gap-8';
 
   const widthClass = 'md:w-[1100px] w-full';
+
+  const hasListItems = Array.isArray(listItems) && listItems.length > 0;
 
   return (
     <section
@@ -46,7 +49,7 @@ export default async function SE_PortletVariant01({
           className="hidden"
         />
       )}
-      <div className="container py-20">
+      <div className="container pt-8 pb-8">
         {title && (
           <div className="font-medium md:text-4xl text-3xl mdmax:text-center mb-4">
             {parseHTMLToReact(title)}
@@ -54,25 +57,29 @@ export default async function SE_PortletVariant01({
         )}
         {subtitle && (
           <div
-            className="md:max-w-4xl space-y-5 max-w-[55%] break-words text-[18.2px]"
+            className={`md:max-w-4xl space-y-5 max-w-[55%] break-words text-[18.2px] ${
+              hasListItems ? 'mb-0' : 'mb-4'
+            }`}
             style={{ color: '#627d92', lineHeight: '1.75', fontSize: '20px' }}
           >
             {parseHTMLToReact(subtitle)}
           </div>
         )}
-        <div
-          className={`${widthClass} grid grid-cols-1 ${gridClass} gap-8 py-12 ${
-            marginLeft?.includes('medium') ? 'lg:ml-12' : ''
-          }`}
-        >
-          {Array.isArray(listItems) &&
-            listItems?.map((item, index) => (
-              <SE_PortletItem key={index} list_item={item} />
+        
+        {hasListItems && (
+          <div
+            className={`${widthClass} grid grid-cols-1 ${gridClass} ${gapClass} py-12 ${
+              marginLeft?.includes('medium') ? 'lg:ml-12' : ''
+            }`}
+          >
+            {listItems.map((item, index) => (
+              <SE_PortletItem key={index} list_item={item} column={column}/>
             ))}
-        </div>
+          </div>
+        )}
 
         {textLink && (
-          <div className="w-full">
+          <div className={`w-full ${hasListItems ? 'pb-12' : 'pt-4'}`}>
             <Link
               className="text-blue-02 mdmax:text-sm font-bold flex items-center"
               href={handleurl(navigationLink)}

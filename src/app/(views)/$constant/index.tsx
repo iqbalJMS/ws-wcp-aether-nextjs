@@ -386,6 +386,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               subtitle={subtitle}
               listItems={listItems}
               marginLeft="medium"
+              textLink={textLink}
               navigationLink={navigationLink}
               bgImage={backgroundImage}
               variant="01"
@@ -1540,6 +1541,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             title: title,
             subtitle: subtitle,
+            textLink: textLink,
             navigationLink: navigationLink,
             data: dataV07,
             backgroundImage: backgroundImage,

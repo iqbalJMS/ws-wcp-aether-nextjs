@@ -35,4 +35,5 @@ export type T_PortletProps = {
 
 export type T_PortletItemProps = {
   list_item: ListItem;
+  column?: string;
 };
