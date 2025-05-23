@@ -47,7 +47,7 @@ const CE_SimulationInvestmentMain = () => {
     try {
       CFN_GetSimulationInvestment(
         transiting,
-        { ...form, InterestRate: Number(form.installment) * 0.01 },
+        { ...form, InterestRate: Number(form.InterestRate) * 0.01 },
         (data) => {
           setResult(data?.data);
 
