@@ -151,8 +151,66 @@ export default function GlobalHeader({
     }
   };
 
-  const activeTab = (url: string) => {
-    return pathname.includes(url);
+  const activeTab = (item: T_ResponseGetMainMenuNavbar[number]) => {
+    if (!item) return false;
+
+    const currentPath = pathname.split('?')[0];
+    const itemLink = generateLinkBottom(item);
+    
+    if (currentPath === '/' && itemLink === '/') {
+      return true;
+    }
+    
+    if (itemLink !== '/' && currentPath.startsWith(itemLink)) {
+      return true;
+    }
+    
+    if (item.alias) {
+      const aliasPath = `/${item.alias.toLowerCase().replaceAll(' ', '-')}`;
+      if (currentPath.startsWith(aliasPath)) {
+        return true;
+      }
+    }
+
+    if (item.relative && currentPath.includes(item.relative)) {
+      return true;
+    }
+    
+    const checkSubMenus = (menuItems: any[]): boolean => {
+      if (!menuItems || menuItems.length === 0) return false;
+      
+      return menuItems.some(subItem => {
+        const subItemLink = generateLinkBottom(subItem);
+        if (subItemLink !== '/' && currentPath.startsWith(subItemLink)) {
+          return true;
+        }
+        
+        if (subItem.alias) {
+          const subAliasPath = `/${subItem.alias.toLowerCase().replaceAll(' ', '-')}`;
+          if (currentPath.startsWith(subAliasPath)) {
+            return true;
+          }
+        }
+        
+        if (subItem.relative && currentPath.includes(subItem.relative)) {
+          return true;
+        }
+        
+        if (subItem.below && subItem.below.length > 0) {
+          return checkSubMenus(subItem.below);
+        }
+        
+        return false;
+      });
+    };
+    
+    if (item.below && item.below.length > 0) {
+      if (checkSubMenus(item.below)) {
+        return true;
+      }
+    }
+    
+    return false;
   };
 
   return (
@@ -354,11 +412,13 @@ export default function GlobalHeader({
             <div className="flex-auto">
               <div className="flex flex-wrap items-center justify-end gap-y-5">
                 {headerBottom?.map((item, index) => {
+                  const isActive = activeTab(item);
                   return (
                     <div
                       key={index}
                       className={[
-                        'border-b-4 border-transparent hover:border-red-01 ',
+                        'border-b-4 transition-all duration-300',
+                        isActive ? 'border-red-01' : 'border-transparent hover:border-red-01',
                         item.below?.length ? 'group' : '',
                       ].join(' ')}
                     >
@@ -366,8 +426,9 @@ export default function GlobalHeader({
                         href={generateLinkBottom(item)}
                         target={'_self'}
                         className={[
-                          `text-sm font-normal cursor-pointer uppercase relative px-5`,
+                          `text-sm font-normal cursor-pointer uppercase relative px-5 py-2`,
                           `${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white' : ''}`,
+                          `${isActive ? 'font-reguler' : ''}`, // Make active item bold
                         ].join(' ')}
                       >
                         {item?.title}
@@ -381,6 +442,8 @@ export default function GlobalHeader({
                           ].join(' ')}
                         ></div>
                       </Link>
+                      
+                      {/* Dropdown menu remains the same */}
                       <div className="absolute left-0 w-full invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-300 pt-10">
                         <div className="bg-white">
                           <div className="container py-5">
@@ -421,7 +484,6 @@ export default function GlobalHeader({
                                                     src={`/web/guest/images/headers/arrow-right.svg`}
                                                     width={18}
                                                     height={18}
-                                                    // extern={true}
                                                     alt={`icon-arrow-right`}
                                                     className="w-3 h-3 ml-4"
                                                   />
@@ -524,22 +586,65 @@ export default function GlobalHeader({
                   </div>
                 ) : (
                   <>
-                    {headerBottom?.map((item) => (
-                      <div
-                        key={item.key}
-                        className="w-full flex py-2 justify-between items-center"
-                      >
-                        {item.below ? (
-                          <div className="flex justify-between items-center w-full">
+                    {headerBottom?.map((item) => {
+                      const isActive = activeTab(item);
+                      return (
+                        <div
+                          key={item.key}
+                          className="w-full flex py-2 justify-between items-center"
+                        >
+                          {item.below ? (
+                            <div className="flex justify-between items-center w-full">
+                              <Link
+                                href={generateLinkBottom(item)}
+                                extern={item.options?.external || false}
+                                target={'_self'}
+                                className="relative text-sm font-light capitalize group"
+                              >
+                                <span className={`uppercase ${isActive ? 'font-reguler' : ''}`}>
+                                  {item.title}
+                                </span>
+
+                                {isActive ? (
+                                  <motion.div
+                                    initial={{
+                                      scaleX: 0,
+                                    }}
+                                    animate={{
+                                      scaleX: 1,
+                                    }}
+                                    transition={{ duration: 0.5 }}
+                                    className="absolute left-0 -bottom-2 h-1 rounded-full w-full bg-red-01"
+                                  />
+                                ) : (
+                                  <motion.span
+                                    className="absolute left-0 bottom-0 w-0 h-[0.125rem] bg-red-01 transition-all group-hover:w-full"
+                                    layoutId="underline"
+                                    transition={{ duration: 0.3 }}
+                                  />
+                                )}
+                              </Link>
+                              <button onClick={() => setIsSelectedMenu(item)}>
+                                <Image
+                                  alt="icon-arrow-right"
+                                  src="/web/guest/images/headers/arrow-right.svg"
+                                  width={24}
+                                  height={24}
+                                  className="filter brightness-0 invert"
+                                />
+                              </button>
+                            </div>
+                          ) : (
                             <Link
-                              href={generateLinkBottom(item)}
+                              href={item.relative}
                               extern={item.options?.external || false}
-                              target={'_self'}
                               className="relative text-sm font-light capitalize group"
                             >
-                              <span className="uppercase">{item.title}</span>
+                              <span className={`uppercase ${isActive ? 'font-reguler' : ''}`}>
+                                {item.title}
+                              </span>
 
-                              {activeTab(item.relative) ? (
+                              {isActive ? (
                                 <motion.div
                                   initial={{
                                     scaleX: 0,
@@ -558,47 +663,10 @@ export default function GlobalHeader({
                                 />
                               )}
                             </Link>
-                            <button onClick={() => setIsSelectedMenu(item)}>
-                              <Image
-                                alt="icon-arrow-right"
-                                src="/web/guest/images/headers/arrow-right.svg"
-                                width={24}
-                                height={24}
-                                // extern
-                                className="filter brightness-0 invert"
-                              />
-                            </button>
-                          </div>
-                        ) : (
-                          <Link
-                            href={item.relative}
-                            extern={item.options?.external || false}
-                            className="relative text-sm font-light capitalize group"
-                          >
-                            <span className="uppercase">{item.title}</span>
-
-                            {activeTab(item.relative) ? (
-                              <motion.div
-                                initial={{
-                                  scaleX: 0,
-                                }}
-                                animate={{
-                                  scaleX: 1,
-                                }}
-                                transition={{ duration: 0.5 }}
-                                className="absolute left-0 -bottom-2 h-1 rounded-full w-full bg-red-01"
-                              />
-                            ) : (
-                              <motion.span
-                                className="absolute left-0 bottom-0 w-0 h-[0.125rem] bg-red-01 transition-all group-hover:w-full"
-                                layoutId="underline"
-                                transition={{ duration: 0.3 }}
-                              />
-                            )}
-                          </Link>
-                        )}
-                      </div>
-                    ))}
+                          )}
+                        </div>
+                      );
+                    })}
                     <div className="mt-10 w-full">
                       {headerTop?.map((header, index) => {
                         return (
