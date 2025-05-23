@@ -150,6 +150,8 @@ const CE_LocationMain = ({ types }: T_Props) => {
 
   useEffect(() => {
     const fetchCategories = async () => {
+      // Reset location data ketika tipe berubah
+      setLocation(undefined);
       await handleLocationCategoryList(form.tipe);
     };
 
