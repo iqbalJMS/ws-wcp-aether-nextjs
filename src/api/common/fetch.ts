@@ -18,8 +18,8 @@ async function fetchData<T>(
     next:
       options.method !== 'POST'
         ? {
-          revalidate: 0,
-        }
+            revalidate: 0,
+          }
         : {},
     headers: {
       ...(options.method !== 'POST' ? DEFAULT_HEADERS : {}),
@@ -45,7 +45,8 @@ async function fetchData<T>(
     }
 
     throw new Error(
-      `Ups something went wrong, status: ${response.status ?? ''} - ${errorResponse.message ?? ''
+      `Ups something went wrong, status: ${response.status ?? ''} - ${
+        errorResponse.message ?? ''
       }, please reload - ${url} ${options.method} ${JSON.stringify(options.body)}`
     );
   }

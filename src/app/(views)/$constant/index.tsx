@@ -1394,9 +1394,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             // Since we're using 'any' type, we can safely access these properties
             return {
               title: paragraph?.field_content?.[0]?.value,
-              image:
-                `${BASE_URL}/api/files/?path=${paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                  ?.url}`,
+              image: `${BASE_URL}/api/files/?path=${
+                paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                  ?.url
+              }`,
             };
           });
 
@@ -1461,9 +1462,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             column: column,
             data: _component?.field_column?.map((item) => {
               const documents = item?.field_cta_document?.map((ctaDoc) => {
-                const pdfPath =
-                  `${BASE_URL}/api/files/?path=${ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
-                    ?.url}`;
+                const pdfPath = `${BASE_URL}/api/files/?path=${
+                  ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
+                    ?.url
+                }`;
                 const pdfTitle = ctaDoc?.field_title?.[0]?.value;
 
                 return {
@@ -1473,8 +1475,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               });
 
               return {
-                image:
-                  `${BASE_URL}/api/files/?path=${item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
+                image: `${BASE_URL}/api/files/?path=${item?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url}`,
                 title: item?.field_title?.[0]?.value,
                 description: item?.field_content?.[0]?.value,
                 documents: documents,
@@ -1491,28 +1492,32 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               const yearTitle = subsection?.field_formatted_title?.[0]?.value;
 
               const cards = subsection?.field_column?.map((card) => {
-                const documents = card?.field_cta_document?.map(ctaDoc => {
-                  const pdfPath = ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url;
+                const documents = card?.field_cta_document?.map((ctaDoc) => {
+                  const pdfPath =
+                    ctaDoc?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
+                      ?.url;
                   const pdfTitle = ctaDoc?.field_title?.[0]?.value;
                   return {
                     path: pdfPath,
-                    title: pdfTitle
+                    title: pdfTitle,
                   };
                 });
 
                 return {
-                  image: card?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url,
+                  image:
+                    card?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                      ?.url,
                   title: card?.field_title?.[0]?.value,
                   description: card?.field_content?.[0]?.value,
-                  documents
+                  documents,
                 };
               });
 
               return {
                 yearTitle: yearTitle,
-                cards: cards
+                cards: cards,
               };
-            })
+            }),
           };
         case WIDGET_VARIANT.variant02:
           return {
@@ -2824,7 +2829,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                                 className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1"
                               >
                                 <Link
-                                  href={handleurl(item?.cardPdf?.[i]?.cardPdfloop)}
+                                  href={handleurl(
+                                    item?.cardPdf?.[i]?.cardPdfloop
+                                  )}
                                   className="flex items-center gap-1 text-sm"
                                   download
                                 >
@@ -2929,14 +2936,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             children: item?.field_paragraphs?.[0]?.field_column?.map(
               (childItem) => {
                 const title = childItem?.field_title?.[0]?.value;
-                const image =
-                  `${BASE_URL}/api/files/?path=${childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                    ?.url}`;
+                const image = `${BASE_URL}/api/files/?path=${
+                  childItem?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
+                    ?.url
+                }`;
                 const pdf = childItem?.field_cta_document?.map((item) => {
                   return {
-                    cardPdfloop:
-                      `${BASE_URL}/api/files/?path=${item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
-                        ?.url}`,
+                    cardPdfloop: `${BASE_URL}/api/files/?path=${
+                      item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
+                        ?.url
+                    }`,
                     titlePdfloop: item?.field_title?.[0]?.value,
                   };
                 });
@@ -3263,7 +3272,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           );
         case WIDGET_VARIANT.variant55:
           return (
-            <CE_PromoSlider data={dataProps} linkPromo={buttonLinkProps} title={title} subtitle={subtitle}/>
+            <CE_PromoSlider
+              data={dataProps}
+              linkPromo={buttonLinkProps}
+              title={title}
+              subtitle={subtitle}
+            />
           );
         default:
           return (

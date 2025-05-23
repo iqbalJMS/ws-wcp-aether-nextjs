@@ -43,9 +43,7 @@ export default async function SE_PortletVariant02({
           backgroundPosition: 'center',
         }}
       >
-        <div
-          className="absolute left-0 top-0 w-full h-full bg-black opacity-30"
-        ></div>
+        <div className="absolute left-0 top-0 w-full h-full bg-black opacity-30"></div>
 
         <div className="container flex flex-col justify-center h-full relative z-10">
           {headerAlignment === 'right' ? (
@@ -86,12 +84,16 @@ export default async function SE_PortletVariant02({
               `}
             >
               {title && (
-                <div className={`text-white font-semibold text-3xl ${headerAlignment === 'left' ? 'max-w-[55%] break-words' : 'lg:w-1/2 w-full'}`}>
+                <div
+                  className={`text-white font-semibold text-3xl ${headerAlignment === 'left' ? 'max-w-[55%] break-words' : 'lg:w-1/2 w-full'}`}
+                >
                   {parseHTMLToReact(title)}
                 </div>
               )}
               {subtitle && (
-               <div className={`text-white font-normal text-xl leading-9 ${headerAlignment === 'left' ? 'max-w-[55%] break-words' : ''}`}>
+                <div
+                  className={`text-white font-normal text-xl leading-9 ${headerAlignment === 'left' ? 'max-w-[55%] break-words' : ''}`}
+                >
                   {parseHTMLToReact(subtitle)}
                 </div>
               )}

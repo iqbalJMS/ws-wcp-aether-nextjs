@@ -31,7 +31,10 @@ export default function CE_PortletVarian05({
   const hasVisibleButton =
     firstColumn?.button && firstColumn?.button !== undefined;
   const hasVisibleDocument =
-    firstColumn?.documentTitle && firstColumn?.document && firstColumn?.documentTitle != undefined && firstColumn?.document != undefined;
+    firstColumn?.documentTitle &&
+    firstColumn?.document &&
+    firstColumn?.documentTitle != undefined &&
+    firstColumn?.document != undefined;
 
   // console.log('button',firstColumn?.button);
   // console.log('doc',firstColumn?.document, firstColumn?.documentTitle);

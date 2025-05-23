@@ -7,9 +7,13 @@ import Link from '@/lib/element/global/link';
 import Image from '@/lib/element/global/image';
 import { useEnv } from '@/lib/hook/useEnv';
 
-
 type Document = { title?: string; path?: string };
-type Card = { title?: string; description?: string; image?: string; documents?: Document[] };
+type Card = {
+  title?: string;
+  description?: string;
+  image?: string;
+  documents?: Document[];
+};
 type SectionGroup = { yearTitle?: string; cards?: Card[] };
 type FlattenedCard = Card & { year: string };
 
@@ -27,15 +31,15 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
 
   const allCards: FlattenedCard[] = useMemo(() => {
     return (
-      data?.flatMap(group => {
+      data?.flatMap((group) => {
         const year = group.yearTitle ?? 'Tanpa Tahun';
-        return (group.cards ?? []).map(card => ({ ...card, year }));
+        return (group.cards ?? []).map((card) => ({ ...card, year }));
       }) ?? []
     );
   }, [data]);
 
   const filteredCards = useMemo(() => {
-    return allCards.filter(card =>
+    return allCards.filter((card) =>
       (card.title ?? '').toLowerCase().includes(search.toLowerCase())
     );
   }, [allCards, search]);
@@ -43,7 +47,7 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
   // Group filtered cards by year
   const groupedFilteredCards = useMemo(() => {
     const grouped: Record<string, FlattenedCard[]> = {};
-    filteredCards.forEach(card => {
+    filteredCards.forEach((card) => {
       if (!grouped[card.year]) grouped[card.year] = [];
       grouped[card.year].push(card);
     });
@@ -53,10 +57,10 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
   // Get array of year groups for pagination
   const yearGroups = Object.entries(groupedFilteredCards);
   const totalPages = Math.ceil(yearGroups.length / itemsPerPage);
-  
+
   // Get paginated year groups
   const paginatedYearGroups = yearGroups.slice(
-    (currentPage - 1) * itemsPerPage, 
+    (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
@@ -98,8 +102,10 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
               setCurrentPage(1);
             }}
           >
-            {[10, 25, 50, 100].map(n => (
-              <option key={n} value={n}>{n}</option>
+            {[10, 25, 50, 100].map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
             ))}
           </select>
           <span className="text-sm">entri</span>
@@ -125,14 +131,19 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
 
           <div className="flex flex-wrap -mx-2">
             {cards.map((item, index) => (
-              <div key={index} className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-2 mb-6">
+              <div
+                key={index}
+                className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-2 mb-6"
+              >
                 <div className="h-full">
                   <div className="p-4 shadow-lg h-full flex flex-col bg-white border border-gray-200">
                     {item.image && (
                       <div className="w-full h-[255px] mb-2">
                         <Image
                           extern={false}
-                          src={handleurl(`${baseUrl}/api/files/?path=${item.image}`)}
+                          src={handleurl(
+                            `${baseUrl}/api/files/?path=${item.image}`
+                          )}
                           alt={item.title || 'Laporan'}
                           width={400}
                           height={400}
@@ -161,7 +172,9 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
                               className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1"
                             >
                               <Link
-                                href={handleurl(`${baseUrl}/api/files/?path=${doc.path}`)}
+                                href={handleurl(
+                                  `${baseUrl}/api/files/?path=${doc.path}`
+                                )}
                                 className="flex items-center gap-1 text-sm"
                                 download
                                 target="_blank"
@@ -198,17 +211,18 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
       {totalPages > 1 && (
         <div className="flex justify-between items-center mt-6 flex-wrap gap-4">
           <p className="text-sm text-gray-600">
-            Menampilkan {startEntry} sampai {endEntry} dari {yearGroups.length} entri
+            Menampilkan {startEntry} sampai {endEntry} dari {yearGroups.length}{' '}
+            entri
           </p>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setCurrentPage(p => p - 1)}
+              onClick={() => setCurrentPage((p) => p - 1)}
               disabled={currentPage === 1}
               className="text-sm text-blue-700 disabled:text-gray-400"
             >
               Sebelumnya
             </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
@@ -220,7 +234,7 @@ export default function CE_CardLaporan({ title, subtitle, data }: Props) {
               </button>
             ))}
             <button
-              onClick={() => setCurrentPage(p => p + 1)}
+              onClick={() => setCurrentPage((p) => p + 1)}
               disabled={currentPage === totalPages}
               className="text-sm text-blue-700 disabled:text-gray-400"
             >

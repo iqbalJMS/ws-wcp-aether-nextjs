@@ -35,7 +35,7 @@ export default function CE_CardDetailPromo({
   product: string;
   urlLink: string;
 }) {
-  const {baseUrl} = useEnv();
+  const { baseUrl } = useEnv();
   const pathname = usePathname();
   const rawUrl = `${urlLink || baseUrl}/${pathname}`;
   const textShare = handleurl(rawUrl);

@@ -30,7 +30,9 @@ export default async function SE_PortletItem({
             {parseHTMLToReact(list_item?.title ?? '')}
           </div>
         )}
-        <div className="text-[#627d92]">{list_item?.text && parseHTMLToReact(list_item?.text ?? '')}</div>
+        <div className="text-[#627d92]">
+          {list_item?.text && parseHTMLToReact(list_item?.text ?? '')}
+        </div>
       </div>
     </div>
   );
