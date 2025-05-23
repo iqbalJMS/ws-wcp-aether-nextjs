@@ -51,6 +51,8 @@ export type T_Content_Type = {
   body: Array<{ value: string }>;
   field_components?: any[];
   field_document?: any[];
+  field_article_category?: any[];
+  field_site_id?: any[];
 };
 
 export type T_News = {
@@ -65,4 +67,12 @@ export type T_News = {
   content_translation_outdated: Array<{ value: boolean }>;
   content_translation_changed: Array<{ value: string; format: string }>;
   field_content_type: Array<T_Content_Type>;
+  field_site: Array<{ value: string }>;
+  field_category_product: Array<{ value: string }>;
+  pager: {
+    total: number;
+    limit: number;
+    page: number;
+    total_page: number
+  }
 };

@@ -38,8 +38,8 @@ export default function CE_SectionNews({
     CFN_ValidateGetContentTypeFields
   );
 
-  const formatDate = (dateTimeStamp: number): string => {
-    const now = new Date(dateTimeStamp * 1000);
+  const formatDate = (date: string): string => {
+    const now = new Date(date);
     const formattedDate = now.toLocaleString('id-ID', {
       day: '2-digit',
       month: 'short',
@@ -115,7 +115,7 @@ export default function CE_SectionNews({
           key={item.nid}
           title={item.title}
           nid={item.nid}
-          subTitle={formatDate(Number(item.date))}
+          subTitle={formatDate(item.date)}
           image={item.image}
           typeContent="news"
         />

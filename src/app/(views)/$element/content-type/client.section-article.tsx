@@ -9,23 +9,53 @@ import {
   CFN_MapToContentTypePayload,
   CFN_ValidateGetContentTypeFields,
 } from '@/app/(views)/$function/cfn.get-content-type';
+import slugify from 'slugify';
 
+interface I_Article {
+  contents: Array<{
+    nid: number;
+    title: string;
+    date: string;
+    image: string;
+    site: Array<{ value: string }>;
+    category: Array<{ value: string }>;
+  }>;
+}
 export default function CE_SectionArticle({
   articleData,
+  siteData,
+  categoryData,
+  isLoadMore,
 }: {
-  articleData: {
-    contents: Array<{
-      nid: number;
-      title: string;
-      date: string;
-      image: string;
-    }>;
-  };
+  siteData: Array<{ value: string }>;
+  categoryData: Array<{ value: string }>;
+  isLoadMore: boolean;
+  articleData: I_Article;
 }) {
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [articleList, setArticleList] = useState(articleData);
+  const [articleList, setArticleList] = useState(
+    articleData?.contents?.filter(
+      (item) =>
+        item.site?.some(({ value }) => {
+          const slugifiedValue = slugify(value, {
+            lower: true,
+            replacement: '_',
+          });
+          return siteData.some((site) => site.value === slugifiedValue);
+        }) &&
+        item.category?.some(({ value }) => {
+          const slugifiedValue = slugify(value, {
+            lower: true,
+            replacement: '_',
+          });
+          return categoryData.some(
+            (category) => category.value === slugifiedValue
+          );
+        })
+    )
+  );
 
   const { form, validateForm, setForm } = useForm<
     T_ContentTypeRequest,
@@ -38,8 +68,8 @@ export default function CE_SectionArticle({
     CFN_ValidateGetContentTypeFields
   );
 
-  const formatDate = (dateTimeStamp: number): string => {
-    const now = new Date(dateTimeStamp * 1000);
+  const formatDate = (date: string): string => {
+    const now = new Date(date);
     const formattedDate = now.toLocaleString('id-ID', {
       day: '2-digit',
       month: 'short',
@@ -60,16 +90,38 @@ export default function CE_SectionArticle({
           (item: any) => item?.entity_bundle?.[0]?.value === 'content_type'
         );
 
-        const dataContentType = {
+        const dataContentType: I_Article = {
           contents: _component?.field_content_type?.map((item: any) => {
             return {
               title: item?.title?.[0]?.value,
               nid: item?.nid?.[0]?.value,
               image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
               date: formatDate(item?.created?.[0]?.value),
+              site: item?.field_site_id,
+              category: item?.field_article_category,
             };
           }),
         };
+
+        const listDataContentType = dataContentType.contents?.filter(
+          (item) =>
+            item.site?.some(({ value }) => {
+              const slugifiedValue = slugify(value, {
+                lower: true,
+                replacement: '_',
+              });
+              return siteData.some((site) => site.value === slugifiedValue);
+            }) &&
+            item.category?.some(({ value }) => {
+              const slugifiedValue = slugify(value, {
+                lower: true,
+                replacement: '_',
+              });
+              return categoryData.some(
+                (category) => category.value === slugifiedValue
+              );
+            })
+        );
 
         if (!dataContentType.contents?.length) {
           setIsLastPage(true);
@@ -77,12 +129,9 @@ export default function CE_SectionArticle({
         }
 
         if (form.page === '0') {
-          setArticleList(dataContentType);
+          setArticleList(listDataContentType);
         } else {
-          setArticleList((prev) => ({
-            contents: [...prev.contents, ...dataContentType.contents],
-          }));
-
+          setArticleList((prev) => [...prev, ...listDataContentType]);
           if (dataContentType.contents.length < Number(form.limit)) {
             setIsLastPage(true);
           }
@@ -110,17 +159,17 @@ export default function CE_SectionArticle({
 
   return (
     <section className="container py-10">
-      {articleList?.contents?.map((item) => (
+      {articleList?.map((item) => (
         <CE_CardVariant07
           key={item.nid}
           title={item.title}
           nid={item.nid}
-          subTitle={formatDate(Number(item.date))}
+          subTitle={formatDate(item.date)}
           image={item.image}
           typeContent="article"
         />
       ))}
-      {!isLastPage ? (
+      {!isLastPage && isLoadMore ? (
         <section className="hidden xl:inline-flex items-center justify-center w-full pt-5">
           <hr className="w-20 md:w-40 h-px mx-5 my-8 bg-black border-0 dark:bg-black" />
 

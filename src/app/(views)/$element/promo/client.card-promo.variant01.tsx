@@ -1,5 +1,6 @@
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export default function CE_CardPromoVariant01({
   image,
@@ -14,6 +15,8 @@ export default function CE_CardPromoVariant01({
   endDate?: string;
   nid?: number;
 }) {
+  const { baseUrl } = useEnv();
+
   const formatDate = (date: string) => {
     const now = new Date(date);
     const formattedDate = now.toLocaleString('id-ID', {
@@ -29,7 +32,7 @@ export default function CE_CardPromoVariant01({
       <div className="h-[300px] mdmax:max-w-[300px] relative rounded-xl overflow-hidden group cursor-pointer">
         {image && (
           <Image
-            src={image}
+            src={`${baseUrl}/api/files/?path=${image}`}
             width={0}
             height={0}
             alt=""
