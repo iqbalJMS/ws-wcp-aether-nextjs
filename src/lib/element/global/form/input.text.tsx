@@ -100,7 +100,7 @@ export default function InputText({
         <input
           ref={inputRef}
           value={formatModelValue()}
-          className="w-full h-full text-base mdmax:text-sm placeholder-black placeholder-opacity-40 focus:outline-none flex-1 bg-transparent "
+          className={`w-full h-full text-base mdmax:text-sm placeholder-black placeholder-opacity-40 focus:outline-none flex-1 bg-transparent ${disabled && 'cursor-not-allowed'}`}
           disabled={disabled}
           type={type === 'password' ? 'password' : 'text'}
           placeholder={placeholder}

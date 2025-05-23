@@ -45,13 +45,17 @@ const CE_SimulationInvestmentMain = () => {
       return;
     }
     try {
-      CFN_GetSimulationInvestment(transiting, form, (data) => {
-        setResult(data?.data);
+      CFN_GetSimulationInvestment(
+        transiting,
+        { ...form, InterestRate: Number(form.installment) * 0.01 },
+        (data) => {
+          setResult(data?.data);
 
-        if (button) {
-          setIsResult(true);
+          if (button) {
+            setIsResult(true);
+          }
         }
-      });
+      );
     } catch (error) {}
   };
   useEffect(() => {
@@ -133,7 +137,15 @@ const CE_SimulationInvestmentMain = () => {
                       rightText="%"
                       value={form.InterestRate}
                       type="number"
-                      onChange={(value) => onFieldChange('InterestRate', value)}
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('InterestRate', strToInt);
+                      }}
                     />
                   </div>
                   <div>
@@ -167,9 +179,15 @@ const CE_SimulationInvestmentMain = () => {
                       disabled={formDisabled.installmentTerm}
                       rightText="Bulan"
                       value={form.installmentTerm}
-                      onChange={(value) =>
-                        onFieldChange('installmentTerm', value)
-                      }
+                      onChange={(value) => {
+                        let strToInt = 0;
+
+                        try {
+                          strToInt = Number(value);
+                        } catch (_) {}
+
+                        onFieldChange('installmentTerm', strToInt);
+                      }}
                       type="number"
                     />
                   </div>

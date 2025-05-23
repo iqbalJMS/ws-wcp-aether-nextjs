@@ -3,22 +3,22 @@
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import Tabs from '@/lib/element/global/tabs';
-import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import { useMemo, useState } from 'react';
 import { handleurl } from '@/lib/functions/client/handle-url';
-import CE_SimulationKPRMain from './client.simulation-kpr.main';
-import CE_SimulationKPRSMain from './client.simulation-kprs.main';
-import CE_SimulationDepositoMain from './client.simulation-deposito.main';
-import CE_SimulationCarMain from './client.simulation-car.main';
-import CE_SimulationBRIGunaMain from './client.simulation-briguna.main';
-import CE_SimulationBritamaRencanaMain from './client.simulation-britama-rencana.main';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useEnv } from '@/lib/hook/useEnv';
+import { useMemo, useState } from 'react';
 import CE_SimulationBRIGunaKaryaMain from './client.simulation-briguna-karya.main';
 import CE_SimulationBRIGunaPurnaMain from './client.simulation-briguna-purna.main';
+import CE_SimulationBRIGunaMain from './client.simulation-briguna.main';
+import CE_SimulationBritamaRencanaMain from './client.simulation-britama-rencana.main';
+import CE_SimulationCarMain from './client.simulation-car.main';
 import CE_SimulationDepositoBusinessMain from './client.simulation-deposito-business.main';
 import CE_SimulationDepositoValasMain from './client.simulation-deposito-valas.main';
-import CE_SimulationInvestmentMain from './client.simulation-investment.main';
+import CE_SimulationDepositoMain from './client.simulation-deposito.main';
 import CE_SimulationInitialInvestmentMain from './client.simulation-initial-investment.main';
-import { useEnv } from '@/lib/hook/useEnv';
+import CE_SimulationInvestmentMain from './client.simulation-investment.main';
+import CE_SimulationKPRMain from './client.simulation-kpr.main';
+import CE_SimulationKPRSMain from './client.simulation-kprs.main';
 
 type T_SimulationMainProps = {
   type: 'tab' | 'page';
@@ -58,7 +58,7 @@ const CE_SimulationMain = ({
   const [variant, setVariant] = useState(initialVariant);
   const simulation = useMemo(() => {
     return tabs?.find((item) => item.variant === variant);
-  }, [variant]);
+  }, [tabs, variant]);
 
   return (
     <div className="relative overflow-hidden">

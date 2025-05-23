@@ -1,13 +1,13 @@
 'use client';
 
 import { T_PostResponse } from '@/api/common/fetch.type';
-import { validateMaxMin } from '@/lib/functions/global/validation';
-import { Call } from '@strix/client';
 import {
   T_SimulationBriguna,
   T_SimulationBrigunaRequest,
 } from '@/api/simulation/briguna/api.get.briguna.type';
 import { ACT_GetSimulationBriguna } from '@/app/(views)/$action/action.get.simulation';
+import { validateMaxMin } from '@/lib/functions/global/validation';
+import { Call } from '@strix/client';
 
 export function CFN_GetSimulationBriguna(
   transit: Call,
@@ -56,7 +56,7 @@ export function CFN_ValidateCreateSimulationBrigunaFields(
       return validateMaxMin(
         value,
         'Nilai harus lebih besar dari 0% atau Nilai tidak boleh lebih besar dari 25%',
-        0.1,
+        0.01,
         25
       );
     default:

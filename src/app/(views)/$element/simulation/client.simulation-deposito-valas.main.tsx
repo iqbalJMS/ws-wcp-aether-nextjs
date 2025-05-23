@@ -21,7 +21,6 @@ import CE_SimulationLabel from './client.simulation.label';
 const CE_SimulationDepositoValasMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
-  const [resetCount, setResetCount] = useState(0);
   const [valSBE, setValSBE] = useState(0);
   const [formDisabled, setFormDisabled] = useState({
     depositAmount: true,
@@ -72,7 +71,7 @@ const CE_SimulationDepositoValasMain = () => {
   const depositSBE = (at: number) => {
     let sbe = 0;
 
-    if ([1, 3, 12, 14].includes(at)) {
+    if ([1, 3, 12, 24].includes(at)) {
       sbe = 2;
     } else if (at === 6) {
       sbe = 2.25;
@@ -89,7 +88,8 @@ const CE_SimulationDepositoValasMain = () => {
 
   useEffect(() => {
     handleResetForm();
-  }, [resetCount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -311,7 +311,7 @@ const CE_SimulationDepositoValasMain = () => {
           </div>
           <div className="w-full flex-none px-5 space-x-4">
             <ButtonSecondary
-              onClick={() => setResetCount((prev) => prev + 1)}
+              onClick={() => handleResetForm()}
               rounded="full"
               size="md"
               color="blue-01"

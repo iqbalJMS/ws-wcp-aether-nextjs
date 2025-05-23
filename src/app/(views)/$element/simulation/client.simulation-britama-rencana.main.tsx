@@ -21,7 +21,6 @@ import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 const CE_SimulationBritamaRencanaMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
-  const [resetCount, setResetCount] = useState(0);
 
   const [formDisabled, setFormDisabled] = useState({
     monthlyDeposit: true,
@@ -34,7 +33,7 @@ const CE_SimulationBritamaRencanaMain = () => {
   >(
     CFN_MapToSimulationBritamaRencanaPayload({
       monthlyDeposit: 0,
-      durationInMonths: 1,
+      durationInMonths: 0,
       insurancePremium: 'ZERO_PERCENT',
     }),
     CFN_ValidateCreateSimulationBritamaRencanaFields
@@ -80,7 +79,8 @@ const CE_SimulationBritamaRencanaMain = () => {
 
   useEffect(() => {
     handleResetForm();
-  }, [resetCount]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -187,7 +187,7 @@ const CE_SimulationBritamaRencanaMain = () => {
               editable={false}
               slot={
                 <div>
-                  <div className=" w-80 ">
+                  <div className=" w-80 cursor-not-allowed ">
                     <InputText
                       disabled
                       rightText="%"
@@ -271,7 +271,7 @@ const CE_SimulationBritamaRencanaMain = () => {
           </div>
           <div className="w-full flex-none pt-10 px-5 space-x-4">
             <ButtonSecondary
-              onClick={() => setResetCount((prev) => prev + 1)}
+              onClick={() => handleResetForm()}
               rounded="full"
               size="md"
               color="blue-01"

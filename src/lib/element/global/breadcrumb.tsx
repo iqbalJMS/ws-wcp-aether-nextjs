@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import Link from 'next/link';
 import { T_BreadcrumbProps } from '@/app/(views)/$constant/types/widget/breadcrumb';
+import Link from 'next/link';
+import React, { useEffect } from 'react';
 
 const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths, pathsSecondary }) => {
   const [pathsValue, setPathsValue] =
     React.useState<T_BreadcrumbProps['paths']>(paths);
+
   useEffect(() => {
     const pathsPrev = sessionStorage.getItem('path-breadcrumb');
+
     if (paths) {
       sessionStorage.setItem('path-breadcrumb', JSON.stringify(paths));
     } else if (pathsSecondary && pathsPrev) {
@@ -20,7 +22,7 @@ const Breadcrumb: React.FC<T_BreadcrumbProps> = ({ paths, pathsSecondary }) => {
       sessionStorage.removeItem('path-breadcrumb');
       setPathsValue([]);
     }
-  }, [paths]);
+  }, [paths, pathsSecondary]);
 
   return (
     <nav

@@ -1683,7 +1683,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             column: 3,
             navigationText: textLink,
-            navigationLink: navigationLink,
+            navigationLink: handleurl(navigationLink),
             data: dataV16,
           };
         case WIDGET_VARIANT.variant37:

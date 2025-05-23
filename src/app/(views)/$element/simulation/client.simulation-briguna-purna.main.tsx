@@ -19,19 +19,18 @@ import CE_SimulationLabel from './client.simulation.label';
 const CE_SimulationBRIGunaPurnaMain = () => {
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
-  const [resetCount, setResetCount] = useState(0);
   const [formDisabled, setFormDisabled] = useState({
     installmentTerm: true,
     interestRate: true,
     salary: true,
   });
-  const { form, formError, onFieldChange, validateForm, resetForm } = useForm<
+  const { form, formError, onFieldChange, validateForm, setForm } = useForm<
     T_SimulationBrigunaPurnaRequest,
     T_SimulationBrigunaPurnaRequest
   >(
     CFN_MapToSimulationBrigunaPurnaPayload({
       installmentTerm: 1,
-      interestRate: 0.1,
+      interestRate: 0,
       salary: 0,
     }),
     CFN_ValidateCreateSimulationBrigunaPurnaFields
@@ -73,14 +72,21 @@ const CE_SimulationBRIGunaPurnaMain = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
 
-  const handleResetForm = () => {
+  const handleResetForm = (manual = true) => {
     setIsResult(false);
-    resetForm();
+    setForm(
+      CFN_MapToSimulationBrigunaPurnaPayload({
+        installmentTerm: 1,
+        interestRate: manual ? 0.01 : 0, // ? when reset default value different from init state :D
+        salary: 0,
+      })
+    );
   };
 
   useEffect(() => {
-    handleResetForm();
-  }, [resetCount]);
+    handleResetForm(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -230,7 +236,7 @@ const CE_SimulationBRIGunaPurnaMain = () => {
 
           <div className="w-full flex-none px-5 space-x-4">
             <ButtonSecondary
-              onClick={() => setResetCount((prev) => prev + 1)}
+              onClick={() => handleResetForm()}
               rounded="full"
               size="md"
               color="blue-01"
