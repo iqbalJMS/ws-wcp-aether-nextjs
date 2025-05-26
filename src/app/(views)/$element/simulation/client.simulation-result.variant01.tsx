@@ -6,12 +6,15 @@ import CE_SimulationResultMain from './client.simulation-result.main';
 type T_SimulationresultVariant01Props = {
   values: {
     label: string;
-    value: string;
+    value?: string;
     width?: string;
     col?: boolean;
     percentage?: boolean;
     active?: boolean;
     currency?: string;
+    valueInterest?: string;
+    valueInstallmentTerm?: string;
+    valuePeriodic?: string;
   }[];
   onClose: () => void;
   type?: 'center' | 'row-col';
@@ -33,13 +36,25 @@ const CE_SimulationResultVariant01 = ({
                   <div className="text-xl text-center uppercase">
                     {valueItem.label}
                   </div>
-                  <div className="text-[3rem] text-center text-blue-01 font-semibold">
-                    <span>{valueItem?.currency || 'Rp'}</span>.{' '}
-                    {new Intl.NumberFormat('en-US', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    }).format(parseFloat(valueItem.value))}
-                  </div>
+                  {valueItem?.value && (
+                    <div className="text-[3rem] text-center text-blue-01 font-semibold">
+                      <span>{valueItem?.currency || 'Rp'}</span>.{' '}
+                      {new Intl.NumberFormat('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(parseFloat(valueItem?.value || ''))}
+                    </div>
+                  )}
+                  {valueItem?.valueInterest && (
+                    <div className="text-[3rem] text-center text-blue-01 font-semibold">
+                      {valueItem.valueInterest} %
+                    </div>
+                  )}
+                  {valueItem?.valueInstallmentTerm && (
+                    <div className="text-[3rem] text-center text-blue-01 font-semibold">
+                      {valueItem?.valueInstallmentTerm} Month
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -67,14 +82,38 @@ const CE_SimulationResultVariant01 = ({
                         <div className="uppercase  mdmax:w-full mdmax:flex-none font-medium text-black text-opacity-50">
                           {valueItem.label}
                         </div>
-                        <div className="text-lg text-blue-01 font-semibold mdmax:w-full mdmax:flex-none">
-                          {!valueItem.percentage && 'Rp. '}
-                          {new Intl.NumberFormat('en-US', {
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 2,
-                          }).format(parseFloat(valueItem.value))}
-                          {valueItem.percentage && '%'}
-                        </div>
+                        {valueItem?.value && (
+                          <div className="text-lg text-blue-01 font-semibold mdmax:w-full mdmax:flex-none">
+                            {!valueItem.percentage && 'Rp. '}
+                            {new Intl.NumberFormat('en-US', {
+                              minimumFractionDigits: 0,
+                              maximumFractionDigits: 2,
+                            }).format(parseFloat(valueItem.value || '0'))}
+                            {valueItem.percentage && '%'}
+                          </div>
+                        )}
+                        {valueItem?.valueInterest && (
+                          <div className="text-lg text-blue-01 font-semibold mdmax:w-full">
+                            {valueItem?.valueInterest} %
+                          </div>
+                        )}
+                        {valueItem?.valueInstallmentTerm && (
+                          <div className="text-lg text-blue-01 font-semibold mdmax:w-full">
+                            {valueItem?.valueInstallmentTerm} Month
+                          </div>
+                        )}
+                        {valueItem?.valuePeriodic && (
+                          <div className="text-lg text-blue-01 font-semibold mdmax:w-full mdmax:flex-none">
+                            {!valueItem.percentage && 'Rp. '}
+                            {new Intl.NumberFormat('en-US', {
+                              minimumFractionDigits: 0,
+                              maximumFractionDigits: 2,
+                            }).format(
+                              parseFloat(valueItem.valuePeriodic || '0')
+                            )}
+                            {valueItem.percentage && '%'} / month
+                          </div>
+                        )}
                       </div>
                     </div>
                   );

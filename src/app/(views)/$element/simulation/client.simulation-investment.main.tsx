@@ -76,14 +76,23 @@ const CE_SimulationInvestmentMain = () => {
     <div>
       {isResult && (
         <CE_SimulationResultVariant01
+          type="row-col"
           values={[
             {
-              label: 'One Month Investment',
-              value: result?.monthlyPrincipalInstallment.toString() || '0',
+              label: 'Plafond Kredit',
+              value: form.installment.toString() || '0',
+            },
+            {
+              label: 'Suku Bunga Efektif',
+              valueInterest: form?.InterestRate.toString(),
+            },
+            {
+              label: 'Jangka Waktu',
+              valueInstallmentTerm: form?.installmentTerm.toString(),
             },
             {
               label: 'Periodic Investment',
-              value: result?.interest.toString() || '0',
+              valuePeriodic: result?.interest.toString() || '0',
             },
           ]}
           onClose={() => setIsResult(false)}
