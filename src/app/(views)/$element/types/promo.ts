@@ -87,6 +87,13 @@ export type T_ImageProps = {
   alt?: string;
 } & Omit<ImageProps, 'src' | 'alt'>;
 
+type T_SidebarPromoProps = {
+  label: string;
+  value: number;
+  count?: number;
+  below?: Array<T_SidebarPromoProps>
+}
+
 export type T_PromoProps = {
   title?: string;
   subtitle?: string;
@@ -111,17 +118,8 @@ export type T_PromoProps = {
     total_page: number;
   };
   sidebarData?: {
-    categoryData?: Array<{
-      label: string;
-      value: number;
-    }>;
-    productData?: Array<{
-      label: string;
-      value: number;
-    }>;
-    locationData?: Array<{
-      label: string;
-      value: number;
-    }>;
+    categoryData?: Array<T_SidebarPromoProps>;
+    productData?: Array<T_SidebarPromoProps>;
+    locationData?: Array<T_SidebarPromoProps>;
   };
 };
