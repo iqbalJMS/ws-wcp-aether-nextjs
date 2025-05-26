@@ -102,9 +102,9 @@ export default function CE_InfoSahamMain({
                       {icon && (
                         <Image
                           src={`/web/guest/images/footers/${icon}.svg`}
-                          width={18}
+                          width={28}
                           extern={true}
-                          height={18}
+                          height={28}
                           alt={`icon-${icon}`}
                         />
                       )}
