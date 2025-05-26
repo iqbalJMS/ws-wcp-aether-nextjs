@@ -45,6 +45,7 @@ export default function CE_SubscriberForm() {
     }),
     CFN_ValidateCreateWebFormSubscriptionFields
   );
+
   const handleSubmit = async () => {
     const validate = validateForm();
 
@@ -56,7 +57,7 @@ export default function CE_SubscriberForm() {
       const result = await ACT_PostWebFormSubscription({
         webform_id: 'subscription',
         email: form.email,
-        type: form.type,
+        type: checkList,
       });
 
       if (result?.sid) {
