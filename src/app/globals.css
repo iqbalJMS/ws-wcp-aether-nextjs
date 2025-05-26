@@ -151,11 +151,17 @@ h6 {
 ol {
   list-style-type: decimal;
   font-weight: 500;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 ul {
   list-style-type: circle;
   list-style: disc;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 li {

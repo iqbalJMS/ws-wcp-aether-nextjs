@@ -171,13 +171,9 @@ export default function Tabs({
       case 'rich-text':
         return (
           <div>
-            {children?.map((item, key) => {
-              return (
-                <div className="w-7/12 p-4" key={key}>
-                  {parseHTMLToReact(item?.richText ?? '', true)}
-                </div>
-              );
-            })}
+            <div className="w-7/12 p-4 text-[#627d92]">
+              {parseHTMLToReact(children?.[0]?.richText ?? '', true)}
+            </div>
           </div>
         );
       case 'card-section':
@@ -478,7 +474,7 @@ export default function Tabs({
         return list?.[menuActive]?.children?.map((item, index) => {
           return (
             <div key={index} className="container">
-              {item?.listColumn?.map((listItem) => (
+              {item?.listColumn?.map((listItem, indexItem) => (
                 <Accordion
                   key={index}
                   renderTitle={
@@ -488,7 +484,7 @@ export default function Tabs({
                       </p>
                     )
                   }
-                  isOpen={index === 0}
+                  isOpen={indexItem === 0}
                   renderContent={renderElement({
                     type: 'rich-text',
                     // @ts-expect-error

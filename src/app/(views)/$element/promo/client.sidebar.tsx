@@ -3,20 +3,27 @@ import { ChevronDownIcon } from '@/lib/element/global/icons/chevron-down-icon';
 import { ChevronUpIcon } from '@/lib/element/global/icons/chevron-up-icon';
 import { useCallback, useEffect, useState } from 'react';
 
-interface CategoryListProps {
-  listData: { label: string; value: number }[];
-  // eslint-disable-next-line no-unused-vars
-  onSelectionChange?: (selectedItems: string[]) => void;
+interface I_ListData {
+  label: string;
+  value: number;
+  count?: number;
+  below?: I_ListData[];
+}
+
+interface I_SidebarPromoProps {
   title: string;
+
+  listData: I_ListData[];
+  /* eslint-disable-next-line no-unused-vars */
+  onSelectionChange?: (selectedItems: string[]) => void;
 }
 
 export function CE_SidebarPromo({
+  title,
   listData,
   onSelectionChange,
-  title,
-}: CategoryListProps) {
+}: I_SidebarPromoProps) {
   const [accordionOpen, setAccordionOpen] = useState(false);
-  // State untuk menyimpan item yang dipilih, bertipe array string
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [isSelectAll, setIsSelectAll] = useState<boolean>(false);
 
@@ -93,7 +100,7 @@ export function CE_SidebarPromo({
           {title && <h1 className="font-bold md:text-xl text-lg">{title}</h1>}
         </button>
         <div
-          className="text-blue-02 flex-none"
+          className="text-blue-02 flex-none cursor-pointer"
           onClick={() => setIsSelectAll(!isSelectAll)}
         >
           <p className="md:text-md text-sm">
@@ -108,23 +115,74 @@ export function CE_SidebarPromo({
           {listData && listData.length > 0 && (
             <div className="grid grid-cols-1 gap-3">
               {listData.map((list, index) => (
-                <div
+                <SidebarPromoItem
                   key={index}
-                  className="flex items-center gap-2 cursor-pointer"
-                  onClick={() => toggleSelection(list.value.toString())}
-                >
-                  <div
-                    className={`${selectedItems.includes(list.value.toString()) ? '' : 'invisible'}`}
-                  >
-                    <CheckIcon className="text-blue-02" />
-                  </div>
-                  <div className="md:text-md text-sm">{list.label}</div>
-                </div>
+                  list={list}
+                  selectedItems={selectedItems}
+                  toggleSelection={toggleSelection}
+                />
               ))}
             </div>
           )}
         </div>
       </div>
     </div>
+  );
+}
+
+export function SidebarPromoItem({
+  list,
+  level = 0,
+  selectedItems,
+  toggleSelection,
+}: {
+  list: I_ListData;
+  level?: number;
+  selectedItems: string[];
+  /* eslint-disable-next-line no-unused-vars */
+  toggleSelection: (value: string) => void;
+}) {
+  const paddingLeft = level * 20;
+
+  return (
+    <>
+      <button
+        onClick={() => toggleSelection(list.value.toString())}
+        disabled={list.below && list.below.length > 0}
+      >
+        <div
+          className={`flex items-center gap-2 mb-1`}
+          style={{ paddingLeft: `${paddingLeft}px` }}
+        >
+          <div
+            className={`${selectedItems.includes(list.value.toString()) ? '' : 'invisible'}`}
+          >
+            <CheckIcon className="text-blue-02" />
+          </div>
+          <div
+            className={`md:text-md text-sm ${list.below && list.below.length > 0 ? 'text-gray-500' : ''} flex items-center`}
+          >
+            {list.label}
+            <span className="ml-2">
+              {list.count && list.count > 0 && `(${list.count})`}
+            </span>
+          </div>
+        </div>
+      </button>
+
+      {list.below && list.below.length > 0 && (
+        <>
+          {list.below.map((subItem, index) => (
+            <SidebarPromoItem
+              key={index}
+              list={subItem}
+              selectedItems={selectedItems}
+              toggleSelection={toggleSelection}
+              level={level + 1}
+            />
+          ))}
+        </>
+      )}
+    </>
   );
 }

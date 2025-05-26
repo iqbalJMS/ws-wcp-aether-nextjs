@@ -25,7 +25,7 @@ import { T_Image } from './types/widget/image';
 import { T_InfoSaham } from './types/widget/info-saham';
 import { T_Kurs } from './types/widget/kurs';
 import { T_MultiTab } from './types/widget/multi-tab';
-import { T_PromoWidget } from './types/widget/promo';
+import { T_PromoWidget, T_SidebarProductPromo } from './types/widget/promo';
 import { T_Section } from './types/widget/section';
 import { T_Slider } from './types/widget/slider';
 import { T_StaircaseCards } from './types/widget/staircase-cards';
@@ -2205,24 +2205,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     listColumn: item?.field_accordion_items?.map(
                       (item: {
                         field_title: Array<{ value: string }>;
-                        field_paragraphs: Array<{
-                          field_content: Array<{ value: string }>;
-                          field_document: Array<{
-                            field_media_file: Array<{
-                              filename: Array<{ value: string }>;
-                              uri: Array<{ url: string }>;
-                            }>;
-                            name: Array<{ value: string }>;
-                          }>;
-                        }>;
+                        field_content: Array<{ value: string }>;
                       }) => {
                         return {
                           title: item?.field_title?.[0]?.value,
-                          children: item?.field_paragraphs?.map((childItem) => {
-                            return {
-                              richText: childItem?.field_content?.[0]?.value,
-                            };
-                          }),
+                          children: [
+                            {
+                              richText: item?.field_content?.[0]?.value,
+                            },
+                          ],
                         };
                       }
                     ),
@@ -3322,17 +3313,38 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             label: item?.title?.[0]?.value,
             value: item?.nid?.[0]?.value,
+            count: item?.count,
           };
         });
 
-      const sidebarProductPromo = _component?.promo_data?.sidebar?.product?.map(
-        (item) => {
-          return {
-            label: item?.name?.[0]?.value,
-            value: item?.tid?.[0]?.value,
-          };
-        }
-      );
+      /* SIDEBAR PROMO */
+      const mappedData = (
+        items: Array<T_SidebarProductPromo>
+      ): Array<{
+        label: string;
+        value: number;
+        below: Array<{
+          label: string;
+          value: number;
+        }>;
+      }> => {
+        if (!items || items.length === 0) return [];
+
+        return items.map((item) => ({
+          label: item?.name?.[0]?.value,
+          value: item?.tid?.[0]?.value,
+          below:
+            item?.field_product_child && item?.field_product_child.length > 0
+              ? mappedData(item?.field_product_child)
+              : [],
+        }));
+      };
+
+      const sidebarProductPromo =
+        _component?.promo_data?.sidebar?.product &&
+        _component?.promo_data?.sidebar?.product.length > 0
+          ? mappedData(_component?.promo_data?.sidebar?.product)
+          : [];
 
       const sidebarLocationPromo =
         _component?.promo_data?.sidebar?.location?.map((item) => {
