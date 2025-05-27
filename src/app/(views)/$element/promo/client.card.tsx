@@ -13,8 +13,8 @@ export default function CE_Card(props: T_CardProps) {
   const { baseUrl } = useEnv();
   const { className, content, idx } = props;
 
-  const formatDateTimestamp = (dateTimeStamp: number): string => {
-    const now = new Date(dateTimeStamp * 1000);
+  const formatDate = (date: string): string => {
+    const now = new Date(date);
     const formattedDate = now.toLocaleString('id-ID', {
       day: '2-digit',
       month: 'short',
@@ -79,7 +79,7 @@ export default function CE_Card(props: T_CardProps) {
               </p>
             ) : (
               <p className="line-clamp-1 text-sm">
-                {formatDateTimestamp(content?.date)}
+                {formatDate(content?.date)}
               </p>
             )}
             {content?.description && (

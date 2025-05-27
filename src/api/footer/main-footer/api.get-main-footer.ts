@@ -55,7 +55,7 @@ const ABSTRACTION_RESPONSE_DATA = {
         },
         {
           name: '',
-          icon: 'twitter',
+          icon: 'x-twitter',
           url: 'https://x.com/kontakbri',
           className: 'text-blue-01 ',
         },

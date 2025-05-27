@@ -66,7 +66,7 @@ export default function CE_SectionNews({
               title: item?.title?.[0]?.value,
               nid: item?.nid?.[0]?.value,
               image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-              date: formatDate(item?.created?.[0]?.value),
+              date: item?.created?.[0]?.value,
             };
           }),
         };
