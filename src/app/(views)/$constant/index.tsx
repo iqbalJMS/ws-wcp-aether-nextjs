@@ -33,6 +33,10 @@ import { T_Subscription } from './types/widget/subscription';
 import { T_AccordionProps } from '@/lib/element/global/accordion';
 import { WIDGET_VARIANT } from './variables';
 
+const ShareComponent = dynamic(() => import('@/app/(views)/$element/sharecomponent'), { 
+  ssr: false 
+});
+
 /* Portlet Component */
 const SE_PortletMain = dynamic(
   () => import('@/app/(views)/$element/portlet/server.portlet.main')
@@ -696,36 +700,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const accordionStyle = 'capsule';
           const isCapsule = accordionStyle === 'capsule' ? 'rounded' : '';
 
-          const social_media = [
-            {
-              name: 'Facebook',
-              icon: 'facebook',
-              url: 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
-            },
-            {
-              name: 'Twitter',
-              icon: 'x',
-              url: 'https://x.com/share?url=https%3A%2F%2Fbri.co.id%2Finformasi-investor&text=BBRI%20Stock%20Info',
-            },
-            {
-              name: 'Google',
-              icon: 'google',
-              url: 'https://plus.google.com/share?url=https%3A%2F%2Fbri.co.id%2Finformasi-investor',
-            },
-            {
-              name: 'WhatsApp',
-              icon: 'whatsapp',
-              url: 'whatsapp://send/?text=https%3A%2F%2Fbri.co.id%2Finformasi-investor%20BBRI%20Stock%20Info',
-            },
-          ];
-
-          const ShareIconClientComponent = dynamic(
-            () =>
-              import('@/lib/element/global/shareIconclient').then(
-                (mod) => mod.default
-              ),
-            { ssr: false }
-          );
+          const textShare = 'BBRI Stock Info - https://bri.co.id/informasi-investor';
 
           return (
             <div className="container mx-auto py-6">
@@ -740,9 +715,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   <div className="flex-grow">
                     {parseHTMLToReact(subtitle || '')}
                   </div>
-                  <div className="relative share-icon-container">
-                    <ShareIconClientComponent socialMedia={social_media} />
-                  </div>
+                  
+                  <ShareComponent textShare={textShare} />
                 </div>
               )}
 
