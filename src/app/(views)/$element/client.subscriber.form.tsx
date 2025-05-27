@@ -8,10 +8,11 @@ import {
 import { ACT_PostWebFormSubscription } from '@/app/(views)/$action/action.post.webform-subscription';
 import useForm from '@/lib/hook/useForm';
 import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
 import InputError from '@/lib/element/global/form/input.error';
 
 export default function CE_SubscriberForm() {
+  const [checkList, setChecklist] = useState<string[]>([]);
   const [pending] = useTransition();
   const router = useRouter();
   const SELECT_DATA_JASA = [
@@ -19,6 +20,20 @@ export default function CE_SubscriberForm() {
     { value: 'Berita' },
     { value: 'Produk' },
   ];
+
+  const handleSelect = (event: any) => {
+    const value = event.target.value;
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      setChecklist([...checkList, value]);
+      onFieldChange('type', String([...checkList, value]));
+    } else {
+      const filteredList = checkList.filter((item) => item !== value);
+      setChecklist(filteredList);
+      onFieldChange('type', String(filteredList));
+    }
+  };
+
   const { form, formError, validateForm, onFieldChange } = useForm<
     T_FormSubscriptionRequest,
     T_FormSubscriptionRequest
@@ -26,10 +41,11 @@ export default function CE_SubscriberForm() {
     CFN_MapToWebFormSubscriptionPayload({
       webform_id: '',
       email: '',
-      type: '',
+      type: [],
     }),
     CFN_ValidateCreateWebFormSubscriptionFields
   );
+
   const handleSubmit = async () => {
     const validate = validateForm();
 
@@ -41,7 +57,7 @@ export default function CE_SubscriberForm() {
       const result = await ACT_PostWebFormSubscription({
         webform_id: 'subscription',
         email: form.email,
-        type: form.type,
+        type: checkList,
       });
 
       if (result?.sid) {
@@ -83,40 +99,11 @@ export default function CE_SubscriberForm() {
                     type="checkbox"
                     id={item.value}
                     value={item.value}
-                    onChange={({ target }) => {
-                      onFieldChange('type', target.value);
-                    }}
+                    onChange={handleSelect}
                   />
                   <label className="pl-2">{item.value}</label>
                 </div>
               ))}
-              {/* <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="promo"
-                  id="promo"
-                  className="w-4 h-4 checked:accent-orange-01"
-                />
-                <label htmlFor="promo">Promo</label>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="berita"
-                  id="berita"
-                  className="w-4 h-4 rounded-lg checked:accent-orange-01"
-                />
-                <label htmlFor="berita">Berita</label>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="produk"
-                  id="produk"
-                  className="w-4 h-4 rounded-lg checked:accent-orange-01"
-                />
-                <label htmlFor="produk">Produk</label>
-              </div> */}
             </div>
           </div>
           <div className="flex-none">
