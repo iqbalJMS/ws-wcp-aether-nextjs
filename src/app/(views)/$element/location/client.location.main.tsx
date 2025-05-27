@@ -37,6 +37,12 @@ type T_Props = {
   }[];
 };
 
+// Konstanta untuk tipe yang tidak memerlukan kategori
+const TYPES_WITHOUT_CATEGORY = [
+  '67779f07066040986c754d47', // BRILink
+  '6777a1b6066040986c754d5c'  // Weekend Banking
+];
+
 const CE_LocationMain = ({ types }: T_Props) => {
   const { baseUrl } = useEnv();
   const [pending, transiting] = useTransition();
@@ -96,9 +102,18 @@ const CE_LocationMain = ({ types }: T_Props) => {
       console.error('Error fetching provinces:', error);
     }
   };
-
+  
   const handleLocationCategoryList = async (typeId: string) => {
     try {
+      if (TYPES_WITHOUT_CATEGORY.includes(typeId)) {
+        setLocationCategories([]);
+        setForm((prevForm) => ({
+          ...prevForm,
+          category: '',
+        }));
+        return;
+      }
+
       const response = await ACT_GetLocationCategory({ tipe_id: typeId });
       const categories = response?.data.data || [];
       setLocationCategories(categories);
@@ -110,6 +125,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
     } catch (error) {
       //eslint-disable-next-line no-console
       console.error('Error fetching categories:', error);
+      setLocationCategories([]);
     }
   };
 
@@ -142,7 +158,8 @@ const CE_LocationMain = ({ types }: T_Props) => {
   }, []);
 
   useEffect(() => {
-    if (form.tipe !== '' && form.category !== '') {
+    // Ubah kondisi - cek tipe saja, karena category bisa kosong (Any/semua)
+    if (form.tipe !== '') {
       debouncedHandleLocationList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -239,18 +256,19 @@ const CE_LocationMain = ({ types }: T_Props) => {
         </div>
       </div>
       <div className="flex justify-center mb-10">
-        {Array.isArray(locationCategories) && (
+        {!TYPES_WITHOUT_CATEGORY.includes(form.tipe) && (
           <div className="w-[30%] mdmax:w-full mdmax:px-5 inline-block">
             <div className="text-left font-semibold mb-2">Layanan</div>
             <InputSelect
               list={[
                 { title: getTranslatedLabel(), value: '' },
-                ...locationCategories?.map((locationCategoryItem) => {
-                  return {
-                    title: locationCategoryItem.name,
-                    value: locationCategoryItem.id,
-                  };
-                }),
+                ...(Array.isArray(locationCategories) && locationCategories.length > 0
+                  ? locationCategories.map((locationCategoryItem) => ({
+                      title: locationCategoryItem.name,
+                      value: locationCategoryItem.id,
+                    }))
+                  : []
+                ),
               ]}
               value={form.category || ''}
               onChange={(value) => {

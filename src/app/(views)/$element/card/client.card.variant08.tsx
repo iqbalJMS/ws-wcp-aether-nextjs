@@ -43,8 +43,8 @@ export default function CE_CardVariant08({
                 key={index}
                 className="w-1/4 mdmax:w-full flex-none px-5 mb-10"
               >
-                <div className="px-10">
-                  <div className="h-[18rem] mb-5">
+                <div className="px-10 h-full flex flex-col group cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-2 bg-white rounded-lg hover:shadow-xl">
+                  <div className="h-[18rem] mb-5 overflow-hidden">
                     {item?.image && (
                       <Image
                         extern={false}
@@ -52,7 +52,7 @@ export default function CE_CardVariant08({
                         alt="image"
                         width={1920}
                         height={1080}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     )}
                   </div>
@@ -61,20 +61,23 @@ export default function CE_CardVariant08({
                       {parseHTMLToReact(item?.title)}
                     </div>
                   )}
-                  {item?.description && (
-                    <div className="text-base mb-10 text-center">
-                      {parseHTMLToReact(item?.description)}
-                    </div>
-                  )}
+                  
+                  <div className="flex-grow mb-10">
+                    {item?.description && (
+                      <div className="text-base text-center">
+                        {parseHTMLToReact(item?.description)}
+                      </div>
+                    )}
+                  </div>
 
                   {item?.button?.title && (
-                    <div className="text-center mt-10">
+                    <div className="text-center mt- pb-10">
                       <Link
                         href={handleurl(item?.button?.link)}
                         extern={item?.button?.extern}
                         target={item?.button?.extern ? '_self' : ''}
                       >
-                        <div className="inline-block text-blue-01 text-base">
+                        <div className="inline-block text-semibold text-blue-01 text-base group-hover:text-blue-600 transition-colors duration-300 hover:underline">
                           {item?.button?.title} &#10095;
                         </div>
                       </Link>
