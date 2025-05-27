@@ -39,6 +39,18 @@ export default function CE_SectionAuctions({
     CFN_ValidateGetContentTypeFields
   );
 
+  const formatDate = (date: string): string => {
+    const now = new Date(date);
+    const formattedDate = now.toLocaleString('id-ID', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+    return formattedDate;
+  };
+
   const handleAuctionsList = () => {
     if (isPending) return;
 
@@ -55,7 +67,7 @@ export default function CE_SectionAuctions({
               title: item?.title?.[0]?.value,
               nid: item?.nid?.[0]?.value,
               image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-              date: item?.body?.[0]?.value,
+              date: item?.created?.[0]?.value,
             };
           }),
         };
@@ -105,12 +117,13 @@ export default function CE_SectionAuctions({
           data={[
             {
               title: item.title,
-              description: item.date,
+              description: formatDate(item.date),
               button: {
                 link: item?.downloadFile || '#',
                 title: 'Download',
                 extern: true,
               },
+              isDescDate: true,
             },
           ]}
         />

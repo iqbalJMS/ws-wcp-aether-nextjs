@@ -39,8 +39,8 @@ export default function CE_SectionAnnouncement({
     CFN_ValidateGetContentTypeFields
   );
 
-  const formatDate = (dateTimeStamp: number): string => {
-    const now = new Date(dateTimeStamp * 1000);
+  const formatDate = (date: string): string => {
+    const now = new Date(date);
     const formattedDate = now.toLocaleString('id-ID', {
       day: '2-digit',
       month: 'short',
@@ -67,7 +67,7 @@ export default function CE_SectionAnnouncement({
               title: item?.title?.[0]?.value,
               nid: item?.nid?.[0]?.value,
               image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-              date: formatDate(item?.created?.[0]?.value),
+              date: item?.created?.[0]?.value,
             };
           }),
         };
@@ -117,12 +117,13 @@ export default function CE_SectionAnnouncement({
           data={[
             {
               title: item.title,
-              description: formatDate(Number(item.date)),
+              description: formatDate(item.date),
               button: {
                 link: item?.downloadFile || '#',
                 title: 'Unduh',
                 extern: true,
               },
+              isDescDate: true,
             },
           ]}
         />

@@ -3455,10 +3455,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
             downloadFile:
               item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]?.url,
-            date:
-              item?.type?.[0]?.type === 'info_lelang'
-                ? item?.body?.[0]?.value
-                : item?.created?.[0]?.value,
+            date: item?.created?.[0]?.value,
           };
         }),
       };

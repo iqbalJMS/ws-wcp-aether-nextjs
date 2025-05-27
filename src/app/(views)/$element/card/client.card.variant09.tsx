@@ -16,6 +16,7 @@ export type T_CardVariant09Props = {
       image?: string;
       extern?: boolean;
     };
+    isDescDate?: boolean;
   }[];
 };
 const getFileDescription = (filename: string) => {
@@ -62,7 +63,9 @@ export default function CE_CardVariant09({
 
                         {item?.description && (
                           <div className="text-black lg:text-sm text-sm text-opacity-70 capitalize">
-                            {getFileDescription(item.description)}
+                            {item?.isDescDate && item?.isDescDate === true
+                              ? item.description
+                              : getFileDescription(item.description)}
                           </div>
                         )}
                       </div>

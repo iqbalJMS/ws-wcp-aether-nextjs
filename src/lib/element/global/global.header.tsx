@@ -4,7 +4,7 @@ import Link from './link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import CE_DefaultIcon from '@/lib/element/global/default-icon';
 import { Search } from './global.search';
@@ -121,7 +121,6 @@ export default function GlobalHeader({
   const { baseUrl, pathUrl } = useEnv();
   const pathname = usePathname();
   const currentLanguage = useSearchParams().get('lang');
-  const router = useRouter();
   const isScrolling = useScrollActive();
 
   const [activeSearch, setActiveSearch] = useState(false);
@@ -134,8 +133,7 @@ export default function GlobalHeader({
         lang: language,
       }).toString();
 
-      router.push(`${pathname}?${queryParams}`);
-      router.refresh();
+      window.open(`${pathname}?${queryParams}`, '_self');
     }
   };
 
@@ -428,21 +426,20 @@ export default function GlobalHeader({
                         href={generateLinkBottom(item)}
                         target={'_self'}
                         className={[
-                          `text-sm font-normal cursor-pointer uppercase relative px-5 py-2`,
+                          `text-sm font-normal cursor-pointer uppercase px-5 py-2 relative`,
                           `${isScrolling ? 'text-black' : variant === 'transparent' ? 'text-white' : ''}`,
                           `${isActive ? 'font-reguler' : ''}`, // Make active item bold
                         ].join(' ')}
                       >
-                        {item?.title}
                         <div
                           className={[
-                            `invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-100`,
-                            `absolute top-[210%] left-1/2 transform -translate-x-1/2 rotate-180`,
-                            `border-l-[0.7rem] border-r-[0.7rem] border-t-[0.7rem] `,
-                            `border-l-transparent border-r-transparent border-white`,
-                            `h-5 w-5`,
+                            `${isScrolling ? 'invisible' : `invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-in-out duration-100`}`,
+                            `absolute -bottom-[35px] left-1/2 transform -translate-x-1/2`,
+                            `border-l-[15px] border-r-[15px] border-b-[15px] `,
+                            `border-l-transparent border-r-transparent border-white z-30`,
                           ].join(' ')}
                         ></div>
+                        {item?.title}
                       </Link>
 
                       {/* Dropdown menu remains the same */}
