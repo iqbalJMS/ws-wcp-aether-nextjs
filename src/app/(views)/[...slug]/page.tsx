@@ -36,8 +36,11 @@ export default async function PageAetherDetail({
 
   const theme = data?.field_main_menu?.[0]?.target_id;
   const isLoginDropdown = data?.field_login_dropdown?.[0]?.value;
-  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
-  const listHeaderBottom = await ACT_GetMainMenuNavbar({ lang: 'en', theme });
+  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: lang ?? 'id' });
+  const listHeaderBottom = await ACT_GetMainMenuNavbar({
+    lang: lang ?? 'id',
+    theme,
+  });
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
   const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
   const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });

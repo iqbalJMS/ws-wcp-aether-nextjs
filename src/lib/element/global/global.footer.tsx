@@ -6,6 +6,7 @@ import Link from './link';
 import { T_ResponseGetMainFooterMenu } from '@/api/footer/main-footer/api.get-main-footer.type';
 import { T_ResponseGetBottomFooterMenu } from '@/api/footer/bottom-footer/api.get-bottom-footer.type';
 import MobileFooter from './accordion.footer';
+import { BASE_URL } from '@/app/(views)/$constant';
 
 type T_FooterProps = {
   main_footer: T_ResponseGetMainFooterMenu;
@@ -60,7 +61,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
             >
               {icon && (
                 <Image
-                  src={`/web/guest/images/footers/${icon}.svg`}
+                  src={`${BASE_URL}/api/files/?path=${icon}`}
                   width={18}
                   extern={true}
                   height={18}

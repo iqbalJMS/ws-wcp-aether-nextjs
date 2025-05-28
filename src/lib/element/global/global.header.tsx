@@ -133,7 +133,7 @@ export default function GlobalHeader({
         lang: language,
       }).toString();
 
-      window.open(`${pathname}?${queryParams}`, '_self');
+      window.open(`${pathUrl}/${pathname}?${queryParams}`, '_self');
     }
   };
 

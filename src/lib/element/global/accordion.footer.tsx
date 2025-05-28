@@ -7,6 +7,7 @@ import Link from './link';
 import { T_ResponseGetMainFooterMenu } from '@/api/footer/main-footer/api.get-main-footer.type';
 import { ChevronRightIcon } from './icons/chevron-right-icon';
 import { ChevronDownIcon } from './icons/chevron-down-icon';
+import { useEnv } from '@/lib/hook/useEnv';
 
 export type T_AccordionProps = {
   renderContent: React.ReactNode;
@@ -80,6 +81,7 @@ const RowElement = ({ description }: T_RowElementProps) => (
 );
 
 export default function MobileFooter({ data }: T_FooterProps) {
+  const { baseUrl } = useEnv();
   return (
     <section className="lg:hidden">
       <AccordionMobile
@@ -117,7 +119,7 @@ export default function MobileFooter({ data }: T_FooterProps) {
               >
                 {icon && (
                   <Image
-                    src={`/web/guest/images/footers/${icon}.svg`}
+                    src={`${baseUrl}/api/files/?path=${icon}`}
                     width={20}
                     extern={true}
                     height={20}
