@@ -14,13 +14,10 @@ export default function CE_PortletVarian05({
   firstColumn: {
     title?: string;
     description?: string;
-    button?: {
-      title?: string;
-      link?: string;
-      extern?: boolean;
-    };
     document?: string;
     documentTitle?: string;
+    buttontitle?: string;
+    buttonlink?: string;
   };
   secondColumn: {
     description?: string;
@@ -28,18 +25,18 @@ export default function CE_PortletVarian05({
   };
 }) {
   const { baseUrl } = useEnv();
+  
   const hasVisibleButton =
-    firstColumn?.button && firstColumn?.button !== undefined;
+    firstColumn?.buttontitle && 
+    firstColumn?.buttonlink && 
+    firstColumn?.buttontitle !== undefined &&
+    firstColumn?.buttonlink !== undefined;
+    
   const hasVisibleDocument =
     firstColumn?.documentTitle &&
     firstColumn?.document &&
-    firstColumn?.documentTitle != undefined &&
-    firstColumn?.document != undefined;
-
-  // console.log('button',firstColumn?.button);
-  // console.log('doc',firstColumn?.document, firstColumn?.documentTitle);
-  // console.log('hasVisibleButton', hasVisibleButton);
-  // console.log('hasVisibleDocument', hasVisibleDocument);
+    firstColumn?.documentTitle !== undefined &&
+    firstColumn?.document !== undefined;
 
   return (
     <div className="container mx-auto grid md:grid-cols-2 my-8 py-6">
@@ -58,9 +55,9 @@ export default function CE_PortletVarian05({
           {(hasVisibleButton || hasVisibleDocument) && (
             <div className="flex gap-4 mt-8 flex-wrap">
               {hasVisibleButton && (
-                <Link href={handleurl(firstColumn.button!.link!)}>
+                <Link href={handleurl(firstColumn.buttonlink!)}>
                   <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
-                    {firstColumn.button!.title}
+                    {firstColumn.buttontitle}
                   </button>
                 </Link>
               )}
