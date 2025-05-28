@@ -9,9 +9,10 @@ export async function API_GetTopMenuNavbar({
 }: {
   lang: string;
 }): Promise<T_ResponseGetTopMenuNavbar> {
+  const isEnglish = !lang || lang === 'id' ? '/id' : '';
   try {
     const response: T_ResponseGetTopMenuNavbar = await get(
-      '/bricc-api/menu-items/top-navigation?_format=json'
+      `${isEnglish}/bricc-api/menu-items/top-navigation?_format=json`
     );
 
     return response;

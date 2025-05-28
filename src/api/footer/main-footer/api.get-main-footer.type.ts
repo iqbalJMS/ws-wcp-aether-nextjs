@@ -23,3 +23,9 @@ export type T_ResponseAPIItemMainFooterMenu = Array<{
     external: boolean;
   };
 }>;
+
+export type T_ResponseAPIItemSocialMediaMenu = Array<{
+  icon: string;
+  relative: string;
+  title: string;
+}>;
