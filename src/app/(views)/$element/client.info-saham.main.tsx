@@ -78,8 +78,11 @@ export default function CE_InfoSahamMain({
               >
                 {data.stockId}
                 <Image
-                  className="ml-2"
-                  src="/web/guest/images/icon-menu/share.svg"
+                  className="ml-2 transition-opacity duration-200"
+                  src={isSosmedOpen 
+                    ? "/web/guest/images/footers/Share.svg" 
+                    : "/web/guest/images/icon-menu/share.svg"
+                  }
                   width={20}
                   height={20}
                   extern={true}

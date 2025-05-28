@@ -202,6 +202,9 @@ const AccordionClient = dynamic(
 export const BASE_URL =
   process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
 
+//cari accordion pertama
+let globalAccordionCounter = 0;
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -2317,7 +2320,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const document2 = props?.secondColumn?.document ?? '';
       const doctitle1 = props?.firstColumn?.documentTitle ?? '';
       const doctitle2 = props?.secondColumn?.documentTitle ?? '';
-
       switch (findVariantStyle) {
         case WIDGET_VARIANT.variant19:
           return (
@@ -2418,14 +2420,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               documentTitle:
                 _component?.field_first_column?.[0]?.field_cta_document?.[0]
                   ?.field_title?.[0]?.value,
-              button: {
-                title:
-                  _component?.field_first_column?.[0]?.field_primary_cta?.[0]
+              buttontitle:
+                _component?.field_first_column?.[0]?.field_primary_cta?.[0]
                     ?.title,
-                link: _component?.field_first_column?.[0]
-                  ?.field_primary_cta?.[0]?.full_url,
-                extern: false,
-              },
+              buttonlink:
+                _component?.field_first_column?.[0]?.field_primary_cta?.[0]?.full_url,
             },
             secondColumn: {
               image:
@@ -2699,6 +2698,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
       // const titleCtaProps = props?.titleCtaProps;
       // const linkCtaProps = props?.linkCtaProps;
+      const isFirstGlobalAccordion = globalAccordionCounter === 0;
+      globalAccordionCounter++;
+
       const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
@@ -2844,9 +2846,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       return (
         <div className="container mx-auto my-8">
           {listAccordion?.map((item, key) => {
+            const shouldBeOpen = (listAccordion.length === 1 ? isFirstGlobalAccordion : key === 0) 
+                                && (variant === 'card-section' || !variant);
+            
             return (
               <Accordion
-                key={key}
+                key={`accordion-${key}-${item?.title?.replace(/\s+/g, '-') || key}`}
                 renderTitle={
                   <p
                     className={`${accordionStyle === 'capsule' ? 'lg:text-base text-sm font-semibold pl-4' : 'lg:text-2xl text-base'} text-left font-normal`}
@@ -2857,6 +2862,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 variant={isCapsule as T_AccordionProps['variant']}
                 renderContent={renderElement(item?.children ?? null)}
                 content={item?.content ?? null}
+                isOpen={shouldBeOpen}
               />
             );
           })}
