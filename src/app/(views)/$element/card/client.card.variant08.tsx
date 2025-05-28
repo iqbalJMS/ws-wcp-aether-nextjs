@@ -61,7 +61,7 @@ export default function CE_CardVariant08({
                       {parseHTMLToReact(item?.title)}
                     </div>
                   )}
-                  
+
                   <div className="flex-grow mb-10">
                     {item?.description && (
                       <div className="text-base text-center">

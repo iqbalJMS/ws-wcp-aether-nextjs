@@ -25,13 +25,13 @@ export default function CE_PortletVarian05({
   };
 }) {
   const { baseUrl } = useEnv();
-  
+
   const hasVisibleButton =
-    firstColumn?.buttontitle && 
-    firstColumn?.buttonlink && 
+    firstColumn?.buttontitle &&
+    firstColumn?.buttonlink &&
     firstColumn?.buttontitle !== undefined &&
     firstColumn?.buttonlink !== undefined;
-    
+
   const hasVisibleDocument =
     firstColumn?.documentTitle &&
     firstColumn?.document &&
