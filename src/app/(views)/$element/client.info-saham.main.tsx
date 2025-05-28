@@ -5,20 +5,19 @@ import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import React from 'react';
 import { T_Data } from '@/app/(views)/$constant/types/widget/info-saham';
+import { useSearchParams } from 'next/navigation';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
 
 type T_InfoSahamMainProps = {
-  title?: string;
-  textLink?: string;
-  navigationLink?: string;
   data: T_Data;
 };
 
-export default function CE_InfoSahamMain({
-  title,
-  textLink,
-  navigationLink,
-  data,
-}: T_InfoSahamMainProps) {
+export default function CE_InfoSahamMain({ data }: T_InfoSahamMainProps) {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
+
   const social_media = [
     {
       name: '',
@@ -52,16 +51,17 @@ export default function CE_InfoSahamMain({
         <div className="flex md:flex-row flex-col justify-between items-center mdmax:text-center gap-4">
           <div>
             <h2 className="text-3xl font-bold mb-3">
-              {title ?? 'Info Saham BRI'}
+              {dictionary?.info_saham?.title ?? 'Info Saham BRI'}
             </h2>
-            <p className="text-m-medium text-gray-500">{`Pembaharuan terakhir ${data.lastUpdated.substring(0, 4)}/${data.lastUpdated.substring(4, 6)}/${data.lastUpdated.substring(6, 8)} ${data.lastUpdated.substring(9)} WIB Untuk transaksi kurang dari eq. USD 2.500`}</p>
+            <p className="text-m-medium text-gray-500">{`${dictionary?.info_saham?.descriptionDate ?? 'Terakhir diperbarui'} ${data.lastUpdated.substring(0, 4)}/${data.lastUpdated.substring(4, 6)}/${data.lastUpdated.substring(6, 8)} ${data.lastUpdated.substring(9)} ${dictionary?.info_saham?.descriptionTransaction} USD 2.500`}</p>
           </div>
           <Link
             className="flex items-center text-blue-01 font-medium text-sm"
-            href={navigationLink ?? 'http://ir-bri.com/'}
+            href={'http://ir-bri.com/'}
             extern
           >
-            {textLink ?? 'Lebih Lanjut'.toUpperCase()}
+            {dictionary?.info_saham?.textNavigateMore ??
+              'Lebih Lanjut'.toUpperCase()}
             <ChevronRightIcon
               width={20}
               height={20}
@@ -79,9 +79,10 @@ export default function CE_InfoSahamMain({
                 {data.stockId}
                 <Image
                   className="ml-2 transition-opacity duration-200"
-                  src={isSosmedOpen 
-                    ? "/web/guest/images/footers/Share.svg" 
-                    : "/web/guest/images/icon-menu/share.svg"
+                  src={
+                    isSosmedOpen
+                      ? '/web/guest/images/footers/Share.svg'
+                      : '/web/guest/images/icon-menu/share.svg'
                   }
                   width={20}
                   height={20}

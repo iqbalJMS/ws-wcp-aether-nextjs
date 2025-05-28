@@ -1,0 +1,21 @@
+{
+  "info_saham": {
+    "title": "Stock Info BRI",
+    "descriptionDate": "Last update",
+    "descriptionTransaction": "For transactions less than eq.",
+    "textNavigateMore": "View More"
+  },
+  "kurs": {
+    "title": "Kurs BRI",
+    "descriptionDate": "Last update",
+    "descriptionTransaction": "For transactions less than eq.",
+    "textNavigateMore": "View More",
+    "textBuy": "Buy",
+    "textSell": "Sell",
+    "textTooltipBuy": "You will sell foreign currency to BRI",
+    "textTooltipSell": "You will buy foreign currency from BRI",
+    "textTooltipERate": "BRI e-Rate is a special exchange rate that can be enjoyed by BRI e-Banking users when making transfer transactions.",
+    "textTooltipKursTTCounter": "BRI TT Counter is a foreign exchange rate service that is carried out directly at the bank counter.",
+    "textCalculate": "Calculator"
+  }
+}
