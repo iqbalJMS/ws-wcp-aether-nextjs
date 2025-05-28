@@ -1,0 +1,21 @@
+{
+  "info_saham": {
+    "title": "Info Saham BRI",
+    "descriptionDate": "Terakhir diperbarui",
+    "descriptionTransaction": "Untuk transaksi kurang dari eq.",
+    "textNavigateMore": "Lebih Lanjut"
+  },
+  "kurs": {
+    "title": "Kurs BRI",
+    "descriptionDate": "Terakhir diperbarui",
+    "descriptionTransaction": "Untuk transaksi kurang dari eq.",
+    "textNavigateMore": "Lihat Selengkapnya",
+    "textBuy": "Beli",
+    "textSell": "Jual",
+    "textTooltipBuy": "Kamu akan menjual valas ke BRI",
+    "textTooltipSell": "Kamu akan membeli valas dari BRI",
+    "textTooltipERate": "e-Rate BRI adalah kurs khusus yang dapat dinikmati oleh pengguna e-Banking BRI ketika melakukan transaksi transfer.",
+    "textTooltipKursTTCounter": "TT Counter BRI merupakan layanan nilai tukar valuta asing (valas) yang dilakukan langsung di counter bank.",
+    "textCalculate": "Kalkulator"
+  }
+}

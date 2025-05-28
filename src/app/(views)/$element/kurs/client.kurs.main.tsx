@@ -18,7 +18,10 @@ import PaginationKurs, { ShowingText } from './client.pagination.kurs';
 
 import useForm from '@/lib/hook/useForm';
 import { useEnv } from '@/lib/hook/useEnv';
+import { useDictionary } from '@/get-dictionary';
 import { T_Kurs } from '@/app/(views)/$constant/types/widget/kurs';
+import { useSearchParams } from 'next/navigation';
+import { Locale } from '@/i18n-config';
 
 type T_Props = {
   listTable: T_Kurs['data'];
@@ -27,6 +30,7 @@ type T_Props = {
   note?: T_Kurs['note'];
   tabActive?: string;
   forPage?: string;
+  dictionary?: ReturnType<typeof useDictionary>;
 };
 
 function CE_KursValue({
@@ -34,6 +38,7 @@ function CE_KursValue({
   availableCurrency,
   tabActive,
   forPage,
+  dictionary,
 }: T_Props) {
   const { baseUrl } = useEnv();
   const [pending, transiting] = useTransition();
@@ -71,13 +76,15 @@ function CE_KursValue({
 
   const tabs = [
     {
-      title: 'BELI',
-      information: 'Kamu akan menjual valas ke BRI',
+      title: dictionary?.kurs?.textBuy ?? 'BELI',
+      information:
+        dictionary?.kurs?.textTooltipSell ?? 'Kamu akan menjual valas ke BRI',
       slug: 'Beli',
     },
     {
-      title: 'JUAL',
-      information: 'Kamu akan membeli valas dari BRI',
+      title: dictionary?.kurs?.textSell ?? 'JUAL',
+      information:
+        dictionary?.kurs?.textTooltipBuy ?? 'Kamu akan membeli valas ke BRI',
       slug: 'Jual',
     },
   ];
@@ -166,7 +173,7 @@ function CE_KursValue({
               },
             },
             {
-              title: 'Beli',
+              title: dictionary?.kurs?.textBuy ?? 'Beli',
               field: 'buy',
               callback: (item) => {
                 return (
@@ -180,7 +187,7 @@ function CE_KursValue({
               },
             },
             {
-              title: 'Jual',
+              title: dictionary?.kurs?.textSell ?? 'Jual',
               field: 'sell',
               callback: (item) => {
                 return (
@@ -217,7 +224,7 @@ function CE_KursValue({
       >
         <div>
           <div className="text-lg uppercase text-blue-01 font-semibold border-b-2 border-blue-01 pb-2">
-            Kalkulator
+            {dictionary?.kurs?.textCalculate ?? 'Kalkulator'}
           </div>
           <Tabs
             list={tabs}
@@ -287,16 +294,21 @@ const CE_KursMain = ({
   note,
   forPage = 'home',
 }: T_Props) => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const tabs = [
     {
       title: 'E-RATE',
       information:
-        'e-Rate BRI adalah kurs khusus yang dapat dinikmati oleh pengguna e-Banking BRI ketika melakukan transaksi transfer.',
+        dictionary?.kurs?.textTooltipERate ??
+        'E-Rate BRI merupakan layanan nilai tukar valuta asing (valas) yang dilakukan langsung oleh BRI.',
       slug: 'e-rate',
     },
     {
       title: 'KURS TT COUNTER',
       information:
+        dictionary?.kurs?.textTooltipKursTTCounter ??
         'TT Counter BRI merupakan layanan nilai tukar valuta asing (valas) yang dilakukan langsung di counter bank.',
       slug: 'kurs-tt',
     },
@@ -321,17 +333,20 @@ const CE_KursMain = ({
         <div className="mdmax:mb-5">
           <div className="text-2xl font-semibold mb-2">Kurs BRI</div>
           <div className=" text-black mdmax:text-sm  font-medium text-opacity-30">
-            * Terakhir diperbarui {formatDate(note?.timeUpdated || '')} Untuk
-            transaksi kurang dari eq. {note?.value}
+            * {dictionary?.kurs?.descriptionDate ?? 'Terakhir diperbarui'}{' '}
+            {formatDate(note?.timeUpdated || '')}{' '}
+            {dictionary?.kurs?.descriptionTransaction ??
+              'Untuk transaksi kurang dari eq.'}{' '}
+            {note?.value}
           </div>
         </div>
         {listTable.length < 10 && (
           <div>
             <Link
-              className="text-blue-01 flex items-center"
+              className="text-blue-01 flex items-center uppercase"
               href={'/kurs-detail'}
             >
-              LIHAT SELENGKAPNYA{' '}
+              {dictionary?.kurs?.textNavigateMore ?? 'LIHAT SELENGKAPNYA'}{' '}
               <span className="text-xl inline-block ml-2">{'  >'}</span>
             </Link>
           </div>
@@ -352,6 +367,7 @@ const CE_KursMain = ({
           listCurrency={listCurrency}
           availableCurrency={availableCurrency}
           forPage={forPage}
+          dictionary={dictionary}
         />
       </div>
     </div>
