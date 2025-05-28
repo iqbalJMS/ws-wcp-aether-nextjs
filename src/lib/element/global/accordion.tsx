@@ -83,7 +83,7 @@ export default function Accordion({
         <div
           className={`grid overflow-hidden transition-all duration-500 ease-in-out ${accordionOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
         >
-          <div className="overflow-hidden pl-0">
+          <div className="overflow-hidden pl-0" style={{ color: '#627d92' }}>
             {content ? parseHTMLToReact(content) : renderContent}
           </div>
         </div>
