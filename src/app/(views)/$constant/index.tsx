@@ -202,6 +202,9 @@ const AccordionClient = dynamic(
 export const BASE_URL =
   process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
 
+//cari accordion pertama
+let globalAccordionCounter = 0;
+
 export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
   location: {
     component: CE_LocationMain,
@@ -2699,6 +2702,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
       // const titleCtaProps = props?.titleCtaProps;
       // const linkCtaProps = props?.linkCtaProps;
+      const isFirstGlobalAccordion = globalAccordionCounter === 0;
+      globalAccordionCounter++;
+
       const renderElement = (children: Array<any>) => {
         switch (variant) {
           case 'download':
@@ -2844,9 +2850,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       return (
         <div className="container mx-auto my-8">
           {listAccordion?.map((item, key) => {
+            // For single-item arrays, use global counter instead of local key
+            const shouldBeOpen = (listAccordion.length === 1 ? isFirstGlobalAccordion : key === 0) 
+                                && (variant === 'card-section' || !variant);
+            
             return (
               <Accordion
-                key={key}
+                key={`accordion-${key}-${item?.title?.replace(/\s+/g, '-') || key}`}
                 renderTitle={
                   <p
                     className={`${accordionStyle === 'capsule' ? 'lg:text-base text-sm font-semibold pl-4' : 'lg:text-2xl text-base'} text-left font-normal`}
@@ -2857,6 +2867,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 variant={isCapsule as T_AccordionProps['variant']}
                 renderContent={renderElement(item?.children ?? null)}
                 content={item?.content ?? null}
+                // Use global logic for single-item arrays
+                isOpen={shouldBeOpen}
               />
             );
           })}

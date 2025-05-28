@@ -22,10 +22,9 @@ export default function Accordion({
   imageTitle,
   variant,
   content,
-  isOpen = false,
+  isOpen,
 }: T_AccordionProps) {
-  const [accordionOpen, setAccordionOpen] = useState(isOpen);
-
+  const [accordionOpen, setAccordionOpen] = useState(Boolean(isOpen));
   return (
     <>
       <section
