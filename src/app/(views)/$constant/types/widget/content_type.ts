@@ -73,6 +73,6 @@ export type T_News = {
     total: number;
     limit: number;
     page: number;
-    total_page: number
-  }
+    total_page: number;
+  };
 };

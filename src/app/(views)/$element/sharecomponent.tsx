@@ -13,7 +13,9 @@ interface ShareComponentProps {
   textShare?: string;
 }
 
-export default function ShareComponent({ textShare = 'BBRI Stock Info - https://bri.co.id/informasi-investor' }: ShareComponentProps) {
+export default function ShareComponent({
+  textShare = 'BBRI Stock Info - https://bri.co.id/informasi-investor',
+}: ShareComponentProps) {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
 
@@ -88,7 +90,7 @@ export default function ShareComponent({ textShare = 'BBRI Stock Info - https://
                   height={35}
                 />
               </Link>
-              
+
               <div
                 onClick={async () => {
                   await navigator.clipboard.writeText(textShare);
@@ -142,7 +144,7 @@ export default function ShareComponent({ textShare = 'BBRI Stock Info - https://
       {alertOpen && (
         <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50">
           Link copied to clipboard!
-          <button 
+          <button
             onClick={() => setAlertOpen(false)}
             className="ml-2 font-bold"
           >

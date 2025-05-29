@@ -13,11 +13,13 @@ const STATIC_FOOTER_DATA = {
     list: [
       {
         name: 'PT. Bank Rakyat Indonesia (Persero) Tbk',
-        className: 'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
+        className:
+          'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
       },
       {
         name: 'Gedung BRI Jl. Jenderal Sudirman Kav.44-46. Jakarta 10210 Indonesia',
-        className: 'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
+        className:
+          'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
       },
     ],
   },
@@ -54,22 +56,28 @@ const STATIC_FOOTER_DATA = {
   },
 };
 
-const transformSocialMediaData = (socialMediaData: T_ResponseAPIItemSocialMediaMenu) => {
-  return socialMediaData?.map((item) => ({
-    name: item.title,
-    icon: item.icon,
-    url: item.relative,
-    className: 'text-blue-01',
-  })) || [];
+const transformSocialMediaData = (
+  socialMediaData: T_ResponseAPIItemSocialMediaMenu
+) => {
+  return (
+    socialMediaData?.map((item) => ({
+      name: item.title,
+      icon: item.icon,
+      url: item.relative,
+      className: 'text-blue-01',
+    })) || []
+  );
 };
 
 const transformTautanData = (tautanData: T_ResponseAPIItemMainFooterMenu) => {
-  return tautanData?.map((item) => ({
-    name: item.title,
-    url: item.relative,
-    extern: item.options?.external || false,
-    className: 'text-blue-01',
-  })) || [];
+  return (
+    tautanData?.map((item) => ({
+      name: item.title,
+      url: item.relative,
+      extern: item.options?.external || false,
+      className: 'text-blue-01',
+    })) || []
+  );
 };
 
 const fetchSocialMediaData = async ({ isEnglish }: { isEnglish: string }): Promise<T_ResponseAPIItemSocialMediaMenu> => {

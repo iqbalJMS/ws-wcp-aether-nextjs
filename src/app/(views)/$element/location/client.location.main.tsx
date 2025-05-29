@@ -40,7 +40,7 @@ type T_Props = {
 // Konstanta untuk tipe yang tidak memerlukan kategori
 const TYPES_WITHOUT_CATEGORY = [
   '67779f07066040986c754d47', // BRILink
-  '6777a1b6066040986c754d5c'  // Weekend Banking
+  '6777a1b6066040986c754d5c', // Weekend Banking
 ];
 
 const CE_LocationMain = ({ types }: T_Props) => {
@@ -102,7 +102,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
       console.error('Error fetching provinces:', error);
     }
   };
-  
+
   const handleLocationCategoryList = async (typeId: string) => {
     try {
       if (TYPES_WITHOUT_CATEGORY.includes(typeId)) {
@@ -262,13 +262,13 @@ const CE_LocationMain = ({ types }: T_Props) => {
             <InputSelect
               list={[
                 { title: getTranslatedLabel(), value: '' },
-                ...(Array.isArray(locationCategories) && locationCategories.length > 0
+                ...(Array.isArray(locationCategories) &&
+                locationCategories.length > 0
                   ? locationCategories.map((locationCategoryItem) => ({
                       title: locationCategoryItem.name,
                       value: locationCategoryItem.id,
                     }))
-                  : []
-                ),
+                  : []),
               ]}
               value={form.category || ''}
               onChange={(value) => {

@@ -33,9 +33,12 @@ import { T_Subscription } from './types/widget/subscription';
 import { T_AccordionProps } from '@/lib/element/global/accordion';
 import { WIDGET_VARIANT } from './variables';
 
-const ShareComponent = dynamic(() => import('@/app/(views)/$element/sharecomponent'), { 
-  ssr: false 
-});
+const ShareComponent = dynamic(
+  () => import('@/app/(views)/$element/sharecomponent'),
+  {
+    ssr: false,
+  }
+);
 
 /* Portlet Component */
 const SE_PortletMain = dynamic(
@@ -703,7 +706,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           const accordionStyle = 'capsule';
           const isCapsule = accordionStyle === 'capsule' ? 'rounded' : '';
 
-          const textShare = 'BBRI Stock Info - https://bri.co.id/informasi-investor';
+          const textShare =
+            'BBRI Stock Info - https://bri.co.id/informasi-investor';
 
           return (
             <div className="container mx-auto py-6">
@@ -718,7 +722,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   <div className="flex-grow">
                     {parseHTMLToReact(subtitle || '')}
                   </div>
-                  
+
                   <ShareComponent textShare={textShare} />
                 </div>
               )}
@@ -2422,9 +2426,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   ?.field_title?.[0]?.value,
               buttontitle:
                 _component?.field_first_column?.[0]?.field_primary_cta?.[0]
-                    ?.title,
+                  ?.title,
               buttonlink:
-                _component?.field_first_column?.[0]?.field_primary_cta?.[0]?.full_url,
+                _component?.field_first_column?.[0]?.field_primary_cta?.[0]
+                  ?.full_url,
             },
             secondColumn: {
               image:
@@ -2846,9 +2851,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       return (
         <div className="container mx-auto my-8">
           {listAccordion?.map((item, key) => {
-            const shouldBeOpen = (listAccordion.length === 1 ? isFirstGlobalAccordion : key === 0) 
-                                && (variant === 'card-section' || !variant);
-            
+            const shouldBeOpen =
+              (listAccordion.length === 1
+                ? isFirstGlobalAccordion
+                : key === 0) &&
+              (variant === 'card-section' || !variant);
+
             return (
               <Accordion
                 key={`accordion-${key}-${item?.title?.replace(/\s+/g, '-') || key}`}

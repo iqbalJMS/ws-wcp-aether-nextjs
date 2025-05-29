@@ -61,8 +61,8 @@ type T_FieldIcon = {
 export type T_SidebarProductPromo = {
   name: Array<{ value: string }>;
   tid: Array<{ value: number }>;
-  field_product_child: Array<T_SidebarProductPromo>
-}
+  field_product_child: Array<T_SidebarProductPromo>;
+};
 
 export type T_PromoWidget = {
   entity_type: Array<{ value: string }>;
@@ -101,9 +101,9 @@ export type T_PromoWidget = {
       category: Array<{
         title: Array<{ value: string }>;
         nid: Array<{ value: number }>;
-        count: number
+        count: number;
       }>;
-      product: Array<T_SidebarProductPromo>
+      product: Array<T_SidebarProductPromo>;
       location: Array<{
         title: Array<{ value: string }>;
         nid: Array<{ value: number }>;

@@ -91,8 +91,8 @@ type T_SidebarPromoProps = {
   label: string;
   value: number;
   count?: number;
-  below?: Array<T_SidebarPromoProps>
-}
+  below?: Array<T_SidebarPromoProps>;
+};
 
 export type T_PromoProps = {
   title?: string;
