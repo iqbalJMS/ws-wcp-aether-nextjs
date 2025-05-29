@@ -72,18 +72,19 @@ const transformTautanData = (tautanData: T_ResponseAPIItemMainFooterMenu) => {
   })) || [];
 };
 
-const fetchSocialMediaData = async (): Promise<T_ResponseAPIItemSocialMediaMenu> => {
-  return await get('/bricc-api/menu-items/social-media?_format=json_recursive');
+const fetchSocialMediaData = async ({ isEnglish }: { isEnglish: string }): Promise<T_ResponseAPIItemSocialMediaMenu> => {
+  return await get(`${isEnglish}/bricc-api/menu-items/social-media?_format=json_recursive`);
 };
 
-const fetchTautanData = async (): Promise<T_ResponseAPIItemMainFooterMenu> => {
-  return await get('/bricc-api/menu-items/footer?_format=json_recursive');
+const fetchTautanData = async ({ isEnglish }: { isEnglish: string }): Promise<T_ResponseAPIItemMainFooterMenu> => {
+  return await get(`${isEnglish}/bricc-api/menu-items/footer?_format=json_recursive`);
 };
 
 const combineFooterData = (
   socialMediaData: T_ResponseAPIItemSocialMediaMenu,
   tautanData: T_ResponseAPIItemMainFooterMenu
 ): T_ResponseGetMainFooterMenu => {
+
   return {
     data: [
       STATIC_FOOTER_DATA.headOffice,
@@ -101,16 +102,15 @@ const combineFooterData = (
 };
 
 export async function API_GetMainFooterMenu({
-  // TODO: used as a param - integration API
-  // eslint-disable-next-line no-unused-vars
   lang,
 }: {
   lang: string;
 }): Promise<T_ResponseGetMainFooterMenu> {
+  const isEnglish = !lang || lang === 'id' ? '/id' : '';
   try {
     const [socialMediaData, tautanData] = await Promise.all([
-      fetchSocialMediaData(),
-      fetchTautanData(),
+      fetchSocialMediaData({ isEnglish }),
+      fetchTautanData({ isEnglish }),
     ]);
 
     return combineFooterData(socialMediaData, tautanData);

@@ -27,14 +27,22 @@ export default async function PageAether({
   });
 
   const theme = data?.field_main_menu?.[0]?.target_id;
-  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
+  const listHeaderTop = await ACT_GetTopMenuNavbar({
+    lang: searchParams?.lang ?? 'id',
+  });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({
     lang: searchParams?.lang ?? 'id',
     theme,
   });
-  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
-  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
-  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const listMainFooter = await ACT_GetMainMenuFooter({
+    lang: searchParams?.lang ?? 'id',
+  });
+  const listBottomFooter = await ACT_GetBottomMenuFooter({
+    lang: searchParams?.lang ?? 'id',
+  });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({
+    lang: searchParams?.lang ?? 'id',
+  });
   const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
   const components = data?.field_components
