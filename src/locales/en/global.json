@@ -17,5 +17,8 @@
     "textTooltipERate": "BRI e-Rate is a special exchange rate that can be enjoyed by BRI e-Banking users when making transfer transactions.",
     "textTooltipKursTTCounter": "BRI TT Counter is a foreign exchange rate service that is carried out directly at the bank counter.",
     "textCalculate": "Calculator"
+  },
+  "location":{
+    "dropdown": "Any"
   }
 }

@@ -17,5 +17,8 @@
     "textTooltipERate": "e-Rate BRI adalah kurs khusus yang dapat dinikmati oleh pengguna e-Banking BRI ketika melakukan transaksi transfer.",
     "textTooltipKursTTCounter": "TT Counter BRI merupakan layanan nilai tukar valuta asing (valas) yang dilakukan langsung di counter bank.",
     "textCalculate": "Kalkulator"
+  },
+  "location":{
+    "dropdown": "Semua"
   }
 }

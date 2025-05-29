@@ -287,6 +287,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: SE_FormMain,
     props: (_component: T_DropdownAction) => {
       const title = _component?.field_title?.[0]?.value;
+      const buttontext = _component?.field_content?.[0]?.value;
       const data = _component?.field_menu_list?.[0]?.field_links?.map(
         (item) => {
           return {
@@ -299,6 +300,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         title: title,
         listItems: data,
         variant: '01',
+        buttonText: buttontext,
       };
     },
   },
@@ -1376,10 +1378,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             // Since we're using 'any' type, we can safely access these properties
             return {
               title: paragraph?.field_content?.[0]?.value,
-              image: `${BASE_URL}/api/files/?path=${
+              image: 
                 paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                  ?.url
-              }`,
+                  ?.url,
             };
           });
 
@@ -2844,10 +2845,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   ) : null}
                 </div>
               </div>
+
             );
         }
       };
-
       return (
         <div className="container mx-auto my-8">
           {listAccordion?.map((item, key) => {
@@ -2859,7 +2860,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
             return (
               <Accordion
-                key={`accordion-${key}-${item?.title?.replace(/\s+/g, '-') || key}`}
+                key={`${item?.title?.replace(/\s+/g, '-') || key}`}
                 renderTitle={
                   <p
                     className={`${accordionStyle === 'capsule' ? 'lg:text-base text-sm font-semibold pl-4' : 'lg:text-2xl text-base'} text-left font-normal`}
