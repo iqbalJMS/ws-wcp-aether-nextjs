@@ -12,8 +12,10 @@ import {
   CFN_MapToWebFormPayload,
   CFN_ValidateCreateWebFormFields,
 } from '@/app/(views)/$function/cfn.post.webform';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ACT_PostWebForm } from '@/app/(views)/$action/action.post.webform';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
 
 export default function CE_FormKprBri({
   fieldForm,
@@ -24,6 +26,9 @@ export default function CE_FormKprBri({
   title: string;
   subTitle: string;
 }) {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [pending] = useTransition();
   const INPUT_RADIO_DATA = [{ value: 'Ya' }, { value: 'Tidak' }];
   type T_RadioType = 'Ya' | 'Tidak';
@@ -73,16 +78,20 @@ export default function CE_FormKprBri({
   return (
     <section className="container max-w-[1280px] py-20">
       <h1
-        className="text-2xl font-medium uppercase"
-        dangerouslySetInnerHTML={{ __html: title ?? '' }}
+        className="text-xl"
+        dangerouslySetInnerHTML={{
+          __html: dictionary?.kpr_form?.label ?? title,
+        }}
       />
       <div className="px-8 py-6">
         <h2
           className="text-base"
-          dangerouslySetInnerHTML={{ __html: subTitle ?? '' }}
+          dangerouslySetInnerHTML={{
+            __html: dictionary?.kpr_form?.subLabel ?? subTitle,
+          }}
         />
         <div className="w-full flex-none my-6">
-          <InputLabel label="Nama">
+          <InputLabel label={`${dictionary?.kpr_form?.formName ?? 'Nama'} `}>
             <InputText
               type="text"
               value={form.nama}
@@ -93,7 +102,24 @@ export default function CE_FormKprBri({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Nomor Telepon">
+          <InputLabel
+            label={`${dictionary?.kpr_form?.formCity ?? 'Kota Domisili'}`}
+          >
+            <InputText
+              type="text"
+              value={form.kota_domisili}
+              onChange={(value) => onFieldChange('kota_domisili', value)}
+              state={'init'}
+            />
+            {formError.kota_domisili && (
+              <InputError message={formError.kota_domisili} />
+            )}
+          </InputLabel>
+        </div>
+        <div className="w-full flex-none mb-6">
+          <InputLabel
+            label={`${dictionary?.kpr_form?.formPhone ?? 'Nomor Telepon'}`}
+          >
             <div className="w-full">
               <input
                 className="w-full border-black border-opacity-10 border-[1px] py-2 px-5 rounded-md focus:border-blue-01 focus:outline-none"
@@ -111,7 +137,7 @@ export default function CE_FormKprBri({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Email">
+          <InputLabel label={`${dictionary?.kpr_form?.formEmail ?? 'Email'}`}>
             <InputText
               type="text"
               value={form.email}
@@ -122,7 +148,9 @@ export default function CE_FormKprBri({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Perusahaan">
+          <InputLabel
+            label={`${dictionary?.kpr_form?.formCluster ?? 'Nama/kawasan/cluster perumahan yang diinginkan'}`}
+          >
             <InputText
               type="text"
               value={form.perusahaan}
@@ -135,7 +163,9 @@ export default function CE_FormKprBri({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Jabatan">
+          <InputLabel
+            label={`${dictionary?.kpr_form?.formInformation ?? 'Informasi apa yang anda perlukan untuk pengajuan KPR BRI?'}`}
+          >
             <InputText
               type="text"
               value={form.jabatan}
@@ -145,21 +175,11 @@ export default function CE_FormKprBri({
             {formError.jabatan && <InputError message={formError.jabatan} />}
           </InputLabel>
         </div>
+
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Kota Domisili">
-            <InputText
-              type="text"
-              value={form.kota_domisili}
-              onChange={(value) => onFieldChange('kota_domisili', value)}
-              state={'init'}
-            />
-            {formError.kota_domisili && (
-              <InputError message={formError.kota_domisili} />
-            )}
-          </InputLabel>
-        </div>
-        <div className="w-full flex-none mb-6">
-          <InputLabel label="Pilihan Jenis Usaha">
+          <InputLabel
+            label={`${dictionary?.kpr_form?.formPersetujuan ?? 'Checklist Persetujuan Pemberian Data'}`}
+          >
             <span className="pt-2">
               {INPUT_RADIO_DATA?.map((item, index) => (
                 <div className="flex" key={index}>
@@ -197,7 +217,7 @@ export default function CE_FormKprBri({
             size="md"
             color="blue-02"
           >
-            Mengirim
+            {dictionary?.kpr_form?.button ?? 'Mengirim'}
           </ButtonSecondary>
         </div>
       </div>

@@ -6,7 +6,7 @@ import InputLabel from '@/lib/element/global/form/input.label';
 import InputText from '@/lib/element/global/form/input.text';
 import { useState, useTransition } from 'react';
 import useForm from '@/lib/hook/useForm';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   CFN_MapToWebFormQlolaPayload,
   CFN_ValidateCreateWebFormQlolaFields,
@@ -14,6 +14,8 @@ import {
 import { ACT_PostWebFormQlola } from '@/app/(views)/$action/action.post.webform-qlola';
 import { T_FormQlolaRequest } from '@/api/webform/api.post.webform-qlola.type';
 import DropDown from '@/lib/element/global/dropdown';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
 
 type Option = {
   value: string;
@@ -28,6 +30,9 @@ export default function CE_FormQlola({
   title: string;
   subTitle: string;
 }) {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [pending] = useTransition();
   const SELECT_DATA_JASA = [
     { value: 'B2B' },
@@ -82,16 +87,20 @@ export default function CE_FormQlola({
   return (
     <section className="container max-w-[1280px] py-20">
       <h1
-        className="text-2xl font-medium uppercase"
-        dangerouslySetInnerHTML={{ __html: title ?? '' }}
+        className="text-xl"
+        dangerouslySetInnerHTML={{
+          __html: dictionary?.qlola_form?.label ?? title,
+        }}
       />
       <div className="px-8 py-6">
         <h2
           className="text-base"
-          dangerouslySetInnerHTML={{ __html: subTitle ?? '' }}
+          dangerouslySetInnerHTML={{
+            __html: dictionary?.qlola_form?.subLabel ?? subTitle,
+          }}
         />
         <div className="w-full flex-none my-6">
-          <InputLabel label="nama">
+          <InputLabel label={`${dictionary?.qlola_form?.formName ?? 'Nama'} `}>
             <InputText
               type="text"
               value={form.nama}
@@ -102,7 +111,9 @@ export default function CE_FormQlola({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Nomor Telepon">
+          <InputLabel
+            label={`${dictionary?.qlola_form?.formPhone ?? 'Nomor Telepon'} `}
+          >
             <div className="w-full">
               <input
                 className="w-full border-black border-opacity-10 border-[1px] py-2 px-5 rounded-md focus:border-blue-01 focus:outline-none"
@@ -120,7 +131,9 @@ export default function CE_FormQlola({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Email">
+          <InputLabel
+            label={`${dictionary?.qlola_form?.formEmail ?? 'Email'} `}
+          >
             <InputText
               type="text"
               value={form.email}
@@ -131,7 +144,9 @@ export default function CE_FormQlola({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Perusahaan">
+          <InputLabel
+            label={`${dictionary?.qlola_form?.formPerusahaan ?? 'Perusahaan'} `}
+          >
             <InputText
               type="text"
               value={form.perusahaan}
@@ -144,7 +159,9 @@ export default function CE_FormQlola({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Jabatan">
+          <InputLabel
+            label={`${dictionary?.qlola_form?.formJabatan ?? 'Jabatan'} `}
+          >
             <InputText
               type="text"
               value={form.jabatan}
@@ -155,7 +172,9 @@ export default function CE_FormQlola({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Kota Domisili">
+          <InputLabel
+            label={`${dictionary?.qlola_form?.formCity ?? 'Kota Domisili'} `}
+          >
             <InputText
               type="text"
               value={form.kota_domisili}
@@ -168,7 +187,9 @@ export default function CE_FormQlola({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Lokasi Perusahaan">
+          <InputLabel
+            label={`${dictionary?.qlola_form?.formLokasiPerusahaan ?? 'Lokasi Perusahaan'} `}
+          >
             <InputText
               type="text"
               value={form.lokasi_perusahaan}
@@ -181,7 +202,9 @@ export default function CE_FormQlola({
           </InputLabel>
         </div>
         <div className="w-full flex-none mb-6">
-          <InputLabel label="Pilihan Jenis Usaha">
+          <InputLabel
+            label={`${dictionary?.qlola_form?.formJenisUsaha ?? 'Pilihan Jenis Usaha'} `}
+          >
             <span className="pt-2">
               <DropDown
                 options={
@@ -194,7 +217,9 @@ export default function CE_FormQlola({
                   setSelectedJasa(selected);
                   onFieldChange('pilihan_jenis_usaha', selected.value);
                 }}
-                placeholder="Pilih opsi"
+                placeholder={
+                  dictionary?.qlola_form?.optionPlaceholder ?? 'Pilih opsi'
+                }
               />
             </span>
             {formError.pilihan_jenis_usaha && (
@@ -211,7 +236,7 @@ export default function CE_FormQlola({
             size="md"
             color="blue-02"
           >
-            Mengirim
+            {dictionary?.qlola_form?.button ?? 'Mengirim'}
           </ButtonSecondary>
         </div>
       </div>
