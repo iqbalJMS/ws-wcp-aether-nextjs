@@ -180,7 +180,7 @@ const CE_SimulationMain = ({
                 <div className="flex mdmax:flex-wrap items-center justify-between">
                   <div className="flex-none mdmax:w-full">
                     <div className="text-black text-opacity-50 font-medium text-lg">
-                      {title || simulation?.title}
+                      {description ? parseHTMLToReact(description) : ''}
                     </div>
                   </div>
                   <div>
