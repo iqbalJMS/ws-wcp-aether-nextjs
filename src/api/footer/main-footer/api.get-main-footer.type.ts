@@ -29,3 +29,20 @@ export type T_ResponseAPIItemSocialMediaMenu = Array<{
   relative: string;
   title: string;
 }>;
+
+export type T_ResponseAPIItemContactUsMenu = Array<{
+  key: string;
+  title: string;
+  uri: string;
+  alias: string | null;
+  relative: string;
+  weight: string;
+  expanded: boolean;
+  enabled: boolean;
+  uuid: string | null;
+  options: {
+    external: boolean;
+  };
+  field_image: any;
+  icon: string;
+}>;

@@ -29,6 +29,7 @@ import { useEnv } from '@/lib/hook/useEnv';
 import debounce from '@/lib/functions/global/debounce';
 import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useSearchParams } from 'next/navigation';
 import { Locale } from '@/i18n-config';
 import { useDictionary } from '@/get-dictionary';
 
@@ -46,8 +47,10 @@ const TYPES_WITHOUT_CATEGORY = [
   '6777a1b6066040986c754d5c', // Weekend Banking
 ];
 
-const CE_LocationMain = ({ types, locale }: T_Props) => {
-  const dictionary = useDictionary(locale);
+const CE_LocationMain = ({ types }: T_Props) => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const { baseUrl } = useEnv();
   const [pending, transiting] = useTransition();
   const [location, setLocation] = useState<T_Location>();

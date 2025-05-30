@@ -20,5 +20,14 @@
   },
   "location":{
     "dropdown": "Semua"
+  },
+  "footer": {
+    "headOfficeTitle": "BRI Kantor Pusat",
+    "contactUsTitle": "Hubungi Kami",
+    "linksTitle": "Tautan", 
+    "companyName": "PT. Bank Rakyat Indonesia (Persero) Tbk",
+    "address": "Gedung BRI Jl. Jenderal Sudirman Kav.44-46. Jakarta 10210 Indonesia",
+    "legalOjk": "BRI terdaftar dan diawasi oleh Otoritas Jasa Keuangan",
+    "legalLps": "BRI merupakan peserta penjamin LPS"
   }
 }

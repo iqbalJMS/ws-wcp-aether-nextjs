@@ -20,5 +20,14 @@
   },
   "location":{
     "dropdown": "Any"
+  },
+  "footer": {
+    "headOfficeTitle": "BRI Headquarters",
+    "contactUsTitle": "Contact Us", 
+    "linksTitle": "Links",
+    "companyName": "PT. Bank Rakyat Indonesia (Persero) Tbk",
+    "address": "BRI Building Jl. Jenderal Sudirman Kav.44-46. Jakarta 10210 Indonesia",
+    "legalOjk": "BRI is registered and supervised by the Financial Services Authority",
+    "legalLps": "BRI is a participant in LPS guarantee"
   }
 }

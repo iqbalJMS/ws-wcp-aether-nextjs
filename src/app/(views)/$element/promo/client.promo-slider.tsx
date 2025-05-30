@@ -8,14 +8,14 @@ import { handleurl } from '@/lib/functions/client/handle-url';
 import { useEnv } from '@/lib/hook/useEnv';
 
 const getSlideToShow = (screenWidth: number) => {
-  if (!screenWidth) return 3;
+  if (!screenWidth) return 4;
 
-  if (screenWidth > 1200) {
-    return 2;
-  } else if (screenWidth <= 1200 && screenWidth >= 768) {
+  if (screenWidth >= 1536) { // 2xl breakpoint
+    return 4;
+  } else if (screenWidth >= 768 && screenWidth < 1536) { // md to xl
     return 2;
   } else {
-    return 2;
+    return 1; // mobile
   }
 };
 
@@ -89,16 +89,16 @@ export default function CE_PromoSlider({
               <div
                 className="w-full py-10 flex justify-start items-center space-x-5 transition-all ease-in-out duration-300 "
                 style={{
-                  transform: `translateX(-${currentSlide * (53 / slidesToShow)}%)`,
+                  transform: `translateX(-${currentSlide * 25}%)`,
                 }}
               >
                 {data?.map((item, index) => (
                   <Link
                     href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                     key={index}
-                    className="group relative overflow-hidden w-[25%] h-[400px] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
+                    className="group relative overflow-hidden w-[25%] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
                   >
-                    <div className="min-w-80 h-[450px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
+                    <div className="w-full h-[450px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
                       <div
                         className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100"
                         style={{
@@ -109,16 +109,16 @@ export default function CE_PromoSlider({
                       ></div>
                       <div className="w-full bg-white h-52 mt-3 relative overflow-hidden">
                         <div className="">
-                          <h1 className="text-lg text-[#C70740] line-clamp-2 ">
+                          <h1 className="text-lg text-[#C70740] line-clamp-2 leading-tight break-words hyphens-auto">
                             {item?.title}
                           </h1>
                         </div>
                         <div className="pt-2">
-                          <h1 className={` text-black text-base font-light`}>
+                          <h1 className="text-black text-base font-light leading-tight break-words">
                             {formatDate(item?.startDate ?? '')} -{' '}
                             {formatDate(item?.endDate ?? '')}
                           </h1>
-                          <h1 className={` text-black text-base font-light`}>
+                          <h1 className="text-black text-base font-light leading-tight break-words line-clamp-2">
                             {item?.label}
                           </h1>
                         </div>
@@ -163,36 +163,36 @@ export default function CE_PromoSlider({
                 <div
                   className="w-full flex justify-start items-center space-x-5 transition-all ease-in-out duration-300 "
                   style={{
-                    transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`,
+                    transform: `translateX(-${currentSlide * 50}%)`,
                   }}
                 >
                   {data?.map((item, index) => (
                     <Link
                       href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                       key={index}
-                      className="group relative overflow-hidden w-[48%] h-[500px] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
+                      className="group relative overflow-hidden w-[48%] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
                     >
-                      <div className="min-w-80 h-[350px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
+                      <div className="w-full h-[350px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
-                            backgroundImage: `${baseUrl}/api/files/?path=${item?.image}`,
+                            backgroundImage: `url(${baseUrl}/api/files/?path=${item?.image})`,
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                           }}
                         ></div>
                         <div className="w-full h-full mt-10 relative overflow-hidden">
                           <div className="">
-                            <h1 className="text-base text-[#C70740] line-clamp-1 ">
+                            <h1 className="text-base text-[#C70740] line-clamp-2 leading-tight break-words hyphens-auto">
                               {item?.title}
                             </h1>
                           </div>
                           <div className="">
-                            <h1 className={` text-black text-base font-light`}>
+                            <h1 className="text-black text-base font-light leading-tight break-words">
                               {formatDate(item?.startDate ?? '')} -{' '}
                               {formatDate(item?.endDate ?? '')}
                             </h1>
-                            <h1 className={` text-black text-base font-light`}>
+                            <h1 className="text-black text-base font-light leading-tight break-words line-clamp-2">
                               {item?.label}
                             </h1>
                           </div>
@@ -238,7 +238,7 @@ export default function CE_PromoSlider({
                 <div
                   className="w-full flex justify-start transition-all ease-in-out duration-300 "
                   style={{
-                    transform: `translateX(-${currentSlide * (200 / slidesToShow)}%)`,
+                    transform: `translateX(-${currentSlide * 100}%)`,
                   }}
                 >
                   {data?.map((item, index) => (
@@ -247,7 +247,7 @@ export default function CE_PromoSlider({
                       key={index}
                       className="group relative overflow-hidden w-full h-[500px] flex-none flex flex-col justify-center bg-center cursor-pointer "
                     >
-                      <div className="min-w-80 h-[500px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
+                      <div className="w-full h-[500px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
@@ -258,16 +258,16 @@ export default function CE_PromoSlider({
                         ></div>
                         <div className="w-full h-full mt-10 relative overflow-hidden px-2">
                           <div className="w-11/12">
-                            <h1 className="text-base text-[#C70740] line-clamp-1">
+                            <h1 className="text-base text-[#C70740] line-clamp-2 leading-tight break-words hyphens-auto">
                               {item?.title}
                             </h1>
                           </div>
                           <div className="">
-                            <h1 className={` text-black text-base font-light`}>
+                            <h1 className="text-black text-base font-light leading-tight break-words">
                               {formatDate(item?.startDate ?? '')} -{' '}
                               {formatDate(item?.endDate ?? '')}
                             </h1>
-                            <h1 className={` text-black text-base font-light`}>
+                            <h1 className="text-black text-base font-light leading-tight break-words line-clamp-2">
                               {item?.label}
                             </h1>
                           </div>
