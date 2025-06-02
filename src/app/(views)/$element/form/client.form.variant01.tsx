@@ -129,7 +129,8 @@ export default function CE_FormVariant01({
                   buttonAction ? buttonAction(selectedItem?.value) : false
                 }
               >
-                {parseHTMLToReact(buttonText?.toUpperCase() ?? 'BANTUAN') ?? 'BANTUAN'}
+                {parseHTMLToReact(buttonText?.toUpperCase() ?? 'BANTUAN') ??
+                  'BANTUAN'}
               </button>
             </Link>
           </div>

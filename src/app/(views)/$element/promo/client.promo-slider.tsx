@@ -10,9 +10,11 @@ import { useEnv } from '@/lib/hook/useEnv';
 const getSlideToShow = (screenWidth: number) => {
   if (!screenWidth) return 4;
 
-  if (screenWidth >= 1536) { // 2xl breakpoint
+  if (screenWidth >= 1536) {
+    // 2xl breakpoint
     return 4;
-  } else if (screenWidth >= 768 && screenWidth < 1536) { // md to xl
+  } else if (screenWidth >= 768 && screenWidth < 1536) {
+    // md to xl
     return 2;
   } else {
     return 1; // mobile

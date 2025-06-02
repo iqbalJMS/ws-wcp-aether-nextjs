@@ -13,13 +13,13 @@ import idDictionary from '@/locales/id/global.json';
 
 const getDictionary = (locale: Locale) => {
   let dictionary;
-  
+
   if (locale === 'en') {
     dictionary = enDictionary;
   } else {
     dictionary = idDictionary;
   }
-  
+
   return dictionary;
 };
 
@@ -28,12 +28,18 @@ const createStaticFooterData = (dictionary: any) => ({
     title: dictionary?.footer?.headOfficeTitle || 'Kantor Pusat',
     list: [
       {
-        name: dictionary?.footer?.companyName || 'PT Bank Rakyat Indonesia (Persero) Tbk',
-        className: 'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
+        name:
+          dictionary?.footer?.companyName ||
+          'PT Bank Rakyat Indonesia (Persero) Tbk',
+        className:
+          'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
       },
       {
-        name: dictionary?.footer?.address || 'Jl. Jenderal Sudirman Kav. 44-46, Jakarta 10210',
-        className: 'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
+        name:
+          dictionary?.footer?.address ||
+          'Jl. Jenderal Sudirman Kav. 44-46, Jakarta 10210',
+        className:
+          'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
       },
     ],
   },
@@ -41,17 +47,22 @@ const createStaticFooterData = (dictionary: any) => ({
     list: [
       {
         className: 'lg:px-0 px-16 cursor-default text-blue-01',
-        name: dictionary?.footer?.legalOjk || 'BRI terdaftar dan diawasi oleh Otoritas Jasa Keuangan',
+        name:
+          dictionary?.footer?.legalOjk ||
+          'BRI terdaftar dan diawasi oleh Otoritas Jasa Keuangan',
       },
       {
         className: 'cursor-default text-blue-01',
-        name: dictionary?.footer?.legalLps || 'BRI merupakan peserta penjamin LPS',
+        name:
+          dictionary?.footer?.legalLps || 'BRI merupakan peserta penjamin LPS',
       },
     ],
   },
 });
 
-const transformContactUsData = (contactUsData: T_ResponseAPIItemContactUsMenu) => {
+const transformContactUsData = (
+  contactUsData: T_ResponseAPIItemContactUsMenu
+) => {
   return (
     contactUsData?.map((item) => ({
       name: item.title,
@@ -87,13 +98,17 @@ const transformTautanData = (tautanData: T_ResponseAPIItemMainFooterMenu) => {
   );
 };
 
-const fetchContactUsData = async (): Promise<T_ResponseAPIItemContactUsMenu> => {
-  return await get('/bricc-api/menu-items/contact-us?_format=json_recursive');
-};
+const fetchContactUsData =
+  async (): Promise<T_ResponseAPIItemContactUsMenu> => {
+    return await get('/bricc-api/menu-items/contact-us?_format=json_recursive');
+  };
 
-const fetchSocialMediaData = async (): Promise<T_ResponseAPIItemSocialMediaMenu> => {
-  return await get('/bricc-api/menu-items/social-media?_format=json_recursive');
-};
+const fetchSocialMediaData =
+  async (): Promise<T_ResponseAPIItemSocialMediaMenu> => {
+    return await get(
+      '/bricc-api/menu-items/social-media?_format=json_recursive'
+    );
+  };
 
 const fetchTautanData = async (): Promise<T_ResponseAPIItemMainFooterMenu> => {
   return await get('/bricc-api/menu-items/footer?_format=json_recursive');
@@ -106,7 +121,7 @@ const combineFooterData = (
   dictionary: any
 ): T_ResponseGetMainFooterMenu => {
   const staticData = createStaticFooterData(dictionary);
-  
+
   return {
     data: [
       staticData.headOffice,
@@ -114,12 +129,12 @@ const combineFooterData = (
         title: dictionary?.footer?.contactUsTitle || 'Hubungi Kami',
         list: transformContactUsData(contactUsData),
         social_media: transformSocialMediaData(socialMediaData),
-      },      
+      },
       {
         title: dictionary?.footer?.linksTitle || 'Tautan',
         list: transformTautanData(tautanData),
       },
-      
+
       staticData.legalInfo,
     ],
   };
@@ -130,11 +145,11 @@ export async function API_GetMainFooterMenu({
   lang,
 }: {
   lang: string;
-}): Promise<T_ResponseGetMainFooterMenu> {  
+}): Promise<T_ResponseGetMainFooterMenu> {
   try {
     // Get dictionary based on language
     const dictionary = getDictionary(lang as Locale);
-    
+
     // Fetch all dynamic data from APIs
     const [socialMediaData, contactUsData, tautanData] = await Promise.all([
       fetchSocialMediaData(),
@@ -143,8 +158,13 @@ export async function API_GetMainFooterMenu({
     ]);
 
     // Combine all data
-    const result = combineFooterData(socialMediaData, contactUsData, tautanData, dictionary);
-    
+    const result = combineFooterData(
+      socialMediaData,
+      contactUsData,
+      tautanData,
+      dictionary
+    );
+
     return result;
   } catch (error) {
     // eslint-disable-next-line no-console

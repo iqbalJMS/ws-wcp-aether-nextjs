@@ -40,7 +40,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
         >
           {icon && (
             <Image
-              src={ `${BASE_URL}/api/files/?path=${icon}`}
+              src={`${BASE_URL}/api/files/?path=${icon}`}
               width={18}
               extern
               height={18}

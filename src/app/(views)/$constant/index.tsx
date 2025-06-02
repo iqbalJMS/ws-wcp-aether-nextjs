@@ -1378,7 +1378,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             // Since we're using 'any' type, we can safely access these properties
             return {
               title: paragraph?.field_content?.[0]?.value,
-              image: 
+              image:
                 paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
                   ?.url,
             };
@@ -2798,32 +2798,38 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </div>
 
                           {[0, 1].map((i) =>
-                            item?.cardPdf?.[i]?.titlePdfloop &&  item?.cardPdf?.[i]?.cardPdfloop? (
+                            item?.cardPdf?.[i]?.titlePdfloop &&
+                            item?.cardPdf?.[i]?.cardPdfloop ? (
                               <div
                                 key={i}
                                 className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1"
                               >
                                 <Link
-                                  href={item?.cardPdf?.[i]?.cardPdfloop ? `${BASE_URL}/api/files/?path=${item?.cardPdf?.[i]?.cardPdfloop}`
-                                        : handleurl(item?.cardPdf?.[i]?.cardPdfloop)}
+                                  href={
+                                    item?.cardPdf?.[i]?.cardPdfloop
+                                      ? `${BASE_URL}/api/files/?path=${item?.cardPdf?.[i]?.cardPdfloop}`
+                                      : handleurl(
+                                          item?.cardPdf?.[i]?.cardPdfloop
+                                        )
+                                  }
                                   className="flex items-center gap-1 text-sm"
                                   download
                                 >
                                   {item?.cardPdf?.[i]?.titlePdfloop}
                                 </Link>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  >
-                                    <path d="m9 18 6-6-6-6" />
-                                  </svg>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <path d="m9 18 6-6-6-6" />
+                                </svg>
                               </div>
                             ) : null
                           )}
@@ -2844,7 +2850,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   ) : null}
                 </div>
               </div>
-
             );
         }
       };
@@ -2923,10 +2928,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 }`;
                 const pdf = childItem?.field_cta_document?.map((item) => {
                   return {
-                    cardPdfloop: 
+                    cardPdfloop:
                       item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
-                        ?.url
-                    ,
+                        ?.url,
                     titlePdfloop: item?.field_title?.[0]?.value,
                   };
                 });

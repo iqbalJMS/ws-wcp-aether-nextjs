@@ -18,12 +18,12 @@
     "textTooltipKursTTCounter": "BRI TT Counter is a foreign exchange rate service that is carried out directly at the bank counter.",
     "textCalculate": "Calculator"
   },
-  "location":{
+  "location": {
     "dropdown": "Any"
   },
   "footer": {
     "headOfficeTitle": "BRI Headquarters",
-    "contactUsTitle": "Contact Us", 
+    "contactUsTitle": "Contact Us",
     "linksTitle": "Links",
     "companyName": "PT. Bank Rakyat Indonesia (Persero) Tbk",
     "address": "BRI Building Jl. Jenderal Sudirman Kav.44-46. Jakarta 10210 Indonesia",

@@ -259,7 +259,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
             <div className="text-left font-semibold mb-2">Layanan</div>
             <InputSelect
               list={[
-                { title: dictionary?.location?.dropdown || "Semua", value: '' },
+                { title: dictionary?.location?.dropdown || 'Semua', value: '' },
                 ...(Array.isArray(locationCategories) &&
                 locationCategories.length > 0
                   ? locationCategories.map((locationCategoryItem) => ({

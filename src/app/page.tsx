@@ -27,7 +27,7 @@ export default async function PageAether({
   });
 
   const theme = data?.field_main_menu?.[0]?.target_id;
-  const currentLang = searchParams?.lang ?? 'id'; 
+  const currentLang = searchParams?.lang ?? 'id';
   const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({
     lang: searchParams?.lang ?? 'id',
