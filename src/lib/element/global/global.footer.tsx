@@ -7,6 +7,7 @@ import { T_ResponseGetMainFooterMenu } from '@/api/footer/main-footer/api.get-ma
 import { T_ResponseGetBottomFooterMenu } from '@/api/footer/bottom-footer/api.get-bottom-footer.type';
 import MobileFooter from './accordion.footer';
 import { BASE_URL } from '@/app/(views)/$constant';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_FooterProps = {
   main_footer: T_ResponseGetMainFooterMenu;
@@ -47,7 +48,7 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
               alt={`icon-${icon}`}
             />
           )}
-          {name}
+          {parseHTMLToReact(name, true)}
         </Link>
       ))}
       {socialMedia?.length !== 0 && (
@@ -88,10 +89,6 @@ function TermsAllReservedElement({ list }: T_PropsTermsAllReservedElement) {
   return (
     <div className="bg-blue-01 lg:py-[1.375rem] py-4">
       <div className="text-center flex items-center lg:flex-row flex-col lg:container justify-between lg:px-0 px-4 lg:items-center lg:justify-between">
-        <p className="text-white boxiner inline lg:font-normal font-light text-sm !text-center">
-          © 2024 PT.Bank Rakyat Indonesia (Persero) Tbk. | All Rights Reserved.
-        </p>
-
         <div className="items-center mt-6 lg:mt-0">
           <div className="flex flex-wrap justify-center items-center">
             {list?.map(({ extern, url, value }, index) => (
