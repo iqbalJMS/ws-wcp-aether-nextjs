@@ -63,13 +63,24 @@
     "button": "Submit",
     "optionPlaceholder": "Chose an option"
   },
+  "simulasi_main": {
+    "temukanCabang": "FIND A BRANCH",
+    "lihatLebihBanyak": "VIEW MORE",
+    "description": "Calculate your financial needs with BRI's simulation feature.",
+    "buttonSimulasiDepositoBisnis": "Business Deposit Simulation",
+    "buttonSimulasiKPR": "KPR Simulation",
+    "buttonSimulasiInvestasi": "Investment Simulation",
+    "buttonSimulasiBriguna": "BRIGuna Simulation",
+    "buttonSimulasiBritama": "BritAma Simulation",
+    "buttonSimulasiKendaraan": "Vehicle Simulation"
+  },
   "simulasi_deposito_bisnis": {
     "deposito": "Total Deposits",
     "jangkaWaktu": "Time Period",
     "sukuBunga": "Effective Interest Rate",
     "placeholder": "Choose a Plan",
     "buttonAturUlang": "Reset",
-    "buttonHitung": "Count",
+    "buttonHitung": "Calculate",
     "resultSaldoDeposito": "Interest + Deposit Balance",
     "resultSaldoTanpaBunga": "INTEREST-FREE BALANCE",
     "resultSaldoBunga": "Interest",
@@ -81,7 +92,7 @@
     "jangkaWaktu": "Time Period",
     "rightText": "Years",
     "sukuBunga": "Effective Interest Rate",
-    "buttonHitung": "Count",
+    "buttonHitung": "Calculate",
     "resultAngsuran": "Estimated Monthly Installments"
   },
   "simulasi_investasi": {
@@ -106,5 +117,23 @@
     "nominalPremi": "Premium Amount of BritAma Insurance Plan per Year",
     "resultBritama": "INTEREST + BRITAMA PLAN BALANCE",
     "grandTotal": "TOTAL INVESTMENT BRITAMA PLAN + BRITAMA"
+  },
+  "vehicle_simulation": {
+    "statusKendaraan": "Vehicle Status",
+    "placeholder": "Select Package",
+    "hargaOtr": "OTR Price",
+    "uangMuka": "Down Payment",
+    "pokokHutang": "Debt Principal",
+    "jangkaWaktu": "Term",
+    "rightText": "Years",
+    "bunga": "Interest",
+    "vehicleStatusNew": "New",
+    "vehicleStatusUsed": "Used",
+    "angsuranPokok": "Principal Installments",
+    "angsuranBunga": "Interest Installments/Month",
+    "angsuranBulanan": "Installments/Month",
+    "provisi": "Provisions",
+    "administration": "Administration",
+    "TDPAdminitration": "TDP (DP + ADMINISTRATION FEE + PROVISION)"
   }
 }
