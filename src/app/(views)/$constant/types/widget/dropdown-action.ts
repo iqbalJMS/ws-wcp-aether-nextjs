@@ -16,4 +16,5 @@ export type T_DropdownAction = {
   field_menu_list: FieldMenuList[];
   field_primary_cta: any[];
   field_title: { value: string }[];
+  field_content: { value: string; format: string; processed: string }[];
 };

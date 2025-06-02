@@ -17,5 +17,17 @@
     "textTooltipERate": "e-Rate BRI adalah kurs khusus yang dapat dinikmati oleh pengguna e-Banking BRI ketika melakukan transaksi transfer.",
     "textTooltipKursTTCounter": "TT Counter BRI merupakan layanan nilai tukar valuta asing (valas) yang dilakukan langsung di counter bank.",
     "textCalculate": "Kalkulator"
+  },
+  "location":{
+    "dropdown": "Semua"
+  },
+  "footer": {
+    "headOfficeTitle": "BRI Kantor Pusat",
+    "contactUsTitle": "Hubungi Kami",
+    "linksTitle": "Tautan", 
+    "companyName": "PT. Bank Rakyat Indonesia (Persero) Tbk",
+    "address": "Gedung BRI Jl. Jenderal Sudirman Kav.44-46. Jakarta 10210 Indonesia",
+    "legalOjk": "BRI terdaftar dan diawasi oleh Otoritas Jasa Keuangan",
+    "legalLps": "BRI merupakan peserta penjamin LPS"
   }
 }

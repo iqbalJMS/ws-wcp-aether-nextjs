@@ -5,6 +5,7 @@ import useOnClickOutside from '@/lib/hook/useOnClickOutside';
 import { T_InputSelectItem } from '@/lib/types/input';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 
 type T_FormVariant01Props = {
   className?: string;
@@ -121,14 +122,14 @@ export default function CE_FormVariant01({
             >
               <button
                 disabled={isOpen}
-                className={`font-normal text-sm text-white rounded-full md:py-4 py-2 px-6 w-full ${
+                className={`font-semibold text-sm text-white rounded-full md:py-4 py-2 px-6 w-full whitespace-nowrap ${
                   isOpen ? 'bg-gray-400' : 'bg-orange-400 hover:bg-orange-500'
                 }`}
                 onClick={() =>
                   buttonAction ? buttonAction(selectedItem?.value) : false
                 }
               >
-                {buttonText?.toUpperCase() ?? 'BANTUAN'}
+                {parseHTMLToReact(buttonText?.toUpperCase() ?? 'BANTUAN') ?? 'BANTUAN'}
               </button>
             </Link>
           </div>
