@@ -17,8 +17,14 @@ import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 import CE_SimulationLabel from './client.simulation.label';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 
 const CE_SimulationDepositoMain = () => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
   const [valSBE, setValSBE] = useState(0);
@@ -100,15 +106,21 @@ const CE_SimulationDepositoMain = () => {
         <CE_SimulationResultVariant01
           values={[
             {
-              label: 'Bunga + Saldo Deposito',
+              label:
+                dictionary?.simulasi_deposito_bisnis?.resultSaldoDeposito ??
+                'Bunga + Saldo Deposito',
               value: result?.totalDepositWithInterest.toString() || '0',
             },
             {
-              label: 'Saldo Tanpa Bunga',
+              label:
+                dictionary?.simulasi_deposito_bisnis?.resultSaldoTanpaBunga ??
+                'Saldo Tanpa Bunga',
               value: result?.totalDeposit.toString() || '0',
             },
             {
-              label: 'Bunga',
+              label:
+                dictionary?.simulasi_deposito_bisnis?.resultSaldoBunga ??
+                'Bunga',
               value: result?.totalInterest.toString() || '0',
             },
           ]}
@@ -119,7 +131,7 @@ const CE_SimulationDepositoMain = () => {
         <div className="flex flex-wrap -mx-5">
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Jumlah Deposito"
+              label={`${dictionary?.simulasi_deposito_bisnis?.deposito ?? 'Jumlah Deposito'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[50%]">
@@ -176,12 +188,12 @@ const CE_SimulationDepositoMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationBrigunaLabel
-              label="Jangka Waktu"
+              label={`${dictionary?.simulasi_deposito_bisnis?.jangkaWaktu ?? 'Jangka Waktu'}`}
               slot={
                 <div>
                   <div>
                     <InputSelect
-                      placeholder="Pilih Paket"
+                      placeholder={`${dictionary?.simulasi_deposito_bisnis?.pilihPaket ?? 'Pilih Paket'}`}
                       list={[
                         {
                           title: '1 Bulan',
@@ -236,7 +248,7 @@ const CE_SimulationDepositoMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Suku Bunga Efektif"
+              label={`${dictionary?.simulasi_deposito_bisnis?.sukuBunga ?? 'Suku Bunga Efektif'}`}
               editable={false}
               slot={
                 <div>
@@ -260,7 +272,7 @@ const CE_SimulationDepositoMain = () => {
               color="blue-01"
               className="uppercase"
             >
-              Atur ulang
+              {`${dictionary?.simulasi_deposito_bisnis?.buttonAturUlang ?? 'Atur ulang'}`}
             </ButtonSecondary>
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
@@ -268,7 +280,7 @@ const CE_SimulationDepositoMain = () => {
               size="md"
               color="orange-01"
             >
-              Hitung
+              {`${dictionary?.simulasi_deposito_bisnis?.buttonHitung ?? 'Hitung'}`}
             </ButtonSecondary>
           </div>
         </div>

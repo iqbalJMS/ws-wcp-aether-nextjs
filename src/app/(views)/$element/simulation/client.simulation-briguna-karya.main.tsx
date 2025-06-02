@@ -15,8 +15,14 @@ import useForm from '@/lib/hook/useForm';
 import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 import CE_SimulationLabel from './client.simulation.label';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 
 const CE_SimulationBRIGunaKaryaMain = () => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
   const [formDisabled, setFormDisabled] = useState({
@@ -96,7 +102,9 @@ const CE_SimulationBRIGunaKaryaMain = () => {
         <CE_SimulationResultVariant01
           values={[
             {
-              label: 'Estimasi Angsuran Bulanan',
+              label:
+                dictionary?.simulasi_kprs?.resultAngsuran ??
+                'Estimasi Angsuran Bulanan',
               value: result?.monthlyInstallment.toString() || '0',
             },
           ]}
@@ -107,7 +115,7 @@ const CE_SimulationBRIGunaKaryaMain = () => {
         <div className="flex flex-wrap -mx-5">
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Jumlah Gaji"
+              label={`${dictionary?.simulasi_investasi?.jumlahGaji ?? 'Jumlah Gaji'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[50%]">
@@ -142,13 +150,13 @@ const CE_SimulationBRIGunaKaryaMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Jangka Waktu"
+              label={`${dictionary?.simulasi_kprs?.jangkaWaktu ?? 'Jangka Waktu'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
                       disabled={formDisabled.installmentTerm}
-                      rightText="Tahun"
+                      rightText={`${dictionary?.simulasi_kprs?.rightText ?? 'Tahun'}`}
                       value={form.installmentTerm}
                       type="number"
                       onChange={(value) => {
@@ -186,7 +194,7 @@ const CE_SimulationBRIGunaKaryaMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Suku Bunga Efektif"
+              label={`${dictionary?.simulasi_kprs?.sukuBunga ?? 'Suku Bunga Efektif'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[70%]">
@@ -244,7 +252,7 @@ const CE_SimulationBRIGunaKaryaMain = () => {
               color="blue-01"
               className=" uppercase"
             >
-              Atur ulang
+              {`${dictionary?.simulasi_deposito_bisnis?.buttonAturUlang ?? 'Atur ulang'}`}
             </ButtonSecondary>
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
@@ -252,7 +260,7 @@ const CE_SimulationBRIGunaKaryaMain = () => {
               size="md"
               color="orange-01"
             >
-              Hitung
+              {`${dictionary?.simulasi_deposito_bisnis?.buttonHitung ?? 'Hitung'}`}
             </ButtonSecondary>
           </div>
         </div>

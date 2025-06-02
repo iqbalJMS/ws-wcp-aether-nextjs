@@ -2,6 +2,9 @@
 
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import CE_SimulationResultMain from './client.simulation-result.main';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 
 type T_SimulationresultVariant01Props = {
   values: {
@@ -25,6 +28,9 @@ const CE_SimulationResultVariant01 = ({
   onClose,
   type = 'center',
 }: T_SimulationresultVariant01Props) => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   return (
     <CE_SimulationResultMain onClose={onClose}>
       <div>
@@ -128,7 +134,7 @@ const CE_SimulationResultVariant01 = ({
             size="lg"
             color="orange-01"
           >
-            HITUNG ULANG
+            {`${dictionary?.simulasi_deposito_bisnis?.buttonAturUlang ?? 'Hitung ulang'}`}
           </ButtonSecondary>
         </div>
       </div>
