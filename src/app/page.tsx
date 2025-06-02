@@ -31,7 +31,6 @@ export default async function PageAether({
   const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: currentLang });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({
     lang: currentLang,
-    lang: currentLang,
     theme,
   });
   const listMainFooter = await ACT_GetMainMenuFooter({ lang: currentLang });
