@@ -238,7 +238,8 @@ export default function GlobalHeader({
                 return (
                   <div key={index}>
                     <a
-                      {...(header.title.toLowerCase() !== 'cari'
+                      {...(header.title.toLowerCase() !== 'cari' ||
+                      header.title.toLowerCase() !== 'search'
                         ? !header.options?.external
                           ? { href: nextUrl }
                           : {
@@ -666,7 +667,8 @@ export default function GlobalHeader({
                       {headerTop?.map((header, index) => {
                         return (
                           <div key={index} className="mb-2">
-                            {header.title.toLowerCase() === 'cari' ? (
+                            {header.title.toLowerCase() === 'cari' ||
+                            header.title.toLowerCase() === 'search' ? (
                               <div
                                 className="flex items-center cursor-pointer"
                                 onClick={() => setActiveSearch(true)}
