@@ -4,15 +4,14 @@ import { T_ResponseAPIItemMainFooterMenu } from '@/api/footer/main-footer/api.ge
 import { T_ResponseGetBottomFooterMenu } from './api.get-bottom-footer.type';
 
 export async function API_GetBottomFooterMenu({
-  // TODO: used as a param - integration API
-  // eslint-disable-next-line no-unused-vars
   lang,
 }: {
   lang: string;
 }): Promise<T_ResponseGetBottomFooterMenu> {
+  const isEnglish = !lang || lang === 'id' ? '/id' : '';
   try {
     const response: T_ResponseAPIItemMainFooterMenu = await get(
-      '/bricc-api/menu-items/footer-secondary?_format=json_recursive'
+      `${isEnglish}/bricc-api/menu-items/footer-secondary?_format=json_recursive`
     );
 
     return {

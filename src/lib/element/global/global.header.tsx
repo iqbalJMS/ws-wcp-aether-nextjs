@@ -338,11 +338,7 @@ export default function GlobalHeader({
               ) : (
                 <Image
                   alt="logo-default"
-                  src={
-                    defaultLogo
-                      ? `${baseUrl}/api/files/?path=${defaultLogo}`
-                      : defaultLogo
-                  }
+                  src={defaultLogo}
                   width={128}
                   height={53}
                   className={`w-full object-contain ${isScrolling || variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}
@@ -395,11 +391,7 @@ export default function GlobalHeader({
                 ) : (
                   <Image
                     alt="logo-default"
-                    src={
-                      defaultLogo
-                        ? `${baseUrl}/api/files/?path=${defaultLogo}`
-                        : defaultLogo
-                    }
+                    src={defaultLogo}
                     width={128}
                     height={53}
                     className={`${isScrolling ? '' : variant === 'no-transparent' ? '' : 'filter brightness-0 invert'} `}

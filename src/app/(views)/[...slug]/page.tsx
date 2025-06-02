@@ -41,9 +41,11 @@ export default async function PageAetherDetail({
     lang: lang ?? 'id',
     theme,
   });
-  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
-  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
-  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const listMainFooter = await ACT_GetMainMenuFooter({ lang: lang ?? 'id' });
+  const listBottomFooter = await ACT_GetBottomMenuFooter({
+    lang: lang ?? 'id',
+  });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: lang ?? 'id' });
   const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
   const components = data?.field_components
