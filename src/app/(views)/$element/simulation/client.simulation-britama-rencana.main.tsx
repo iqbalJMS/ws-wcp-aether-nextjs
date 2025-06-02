@@ -17,8 +17,14 @@ import useForm from '@/lib/hook/useForm';
 import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationBrigunaLabel from './client.simulation-briguna.label';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 
 const CE_SimulationBritamaRencanaMain = () => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
 
@@ -88,19 +94,27 @@ const CE_SimulationBritamaRencanaMain = () => {
         <CE_SimulationResultVariant01
           values={[
             {
-              label: 'Bunga + Saldo BritAma Rencana',
+              label:
+                dictionary?.simulasi_britama?.resultBritama ??
+                'Bunga + Saldo BritAma Rencana',
               value: result?.interestEarnings.toString() || '0',
             },
             {
-              label: 'Saldo Tanpa Bunga',
+              label:
+                dictionary?.simulasi_deposito_bisnis?.resultSaldoTanpaBunga ??
+                'Saldo Tanpa Bunga',
               value: result?.balanceWithoutInterest.toString() || '0',
             },
             {
-              label: 'Bunga',
+              label:
+                dictionary?.simulasi_deposito_bisnis?.resultSaldoBunga ??
+                'Bunga',
               value: result?.interest.toString() || '0',
             },
             {
-              label: 'Total Investasi BritAma Rencana + BritAma',
+              label:
+                dictionary?.simulasi_britama?.grandTotal ??
+                'Total Investasi BritAma Rencana + BritAma',
               value: result?.totalBritamaPlanInvestment.toString() || '0',
             },
           ]}
@@ -110,8 +124,8 @@ const CE_SimulationBritamaRencanaMain = () => {
       {!isResult && (
         <div className="">
           <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 ">
-            <h1 className="text-lg lg:text-xl font-medium  text-[#4A4A4A]">
-              Jumlah Bulan
+            <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
+              {`${dictionary?.simulasi_britama?.jumlahBulan ?? 'Jumlah Bulan'}`}
             </h1>
             <CE_SimulationBrigunaLabel
               label=""
@@ -145,7 +159,7 @@ const CE_SimulationBritamaRencanaMain = () => {
           </div>
           <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 space-x-2">
             <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
-              Setoran Bulan BritAma Rencana
+              {`${dictionary?.simulasi_britama?.setoranBulanBritama ?? 'Setoran Bulan BritAma Rencana'}`}
             </h1>
             <CE_SimulationBrigunaLabel
               label=""
@@ -180,7 +194,7 @@ const CE_SimulationBritamaRencanaMain = () => {
           </div>
           <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 space-x-2">
             <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
-              Rate Bunga BritAma Rencana (p.a)
+              {`${dictionary?.simulasi_britama?.ratebunga ?? 'Rate Bunga BritAma Rencana (p.a)'}`}
             </h1>
             <CE_SimulationBrigunaLabel
               label=""
@@ -203,7 +217,7 @@ const CE_SimulationBritamaRencanaMain = () => {
           </div>
           <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 space-x-2">
             <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
-              % Premi Asuransi BritAma Rencana Perbulan
+              {`${dictionary?.simulasi_britama?.premiAsuransi ?? '% Premi Asuransi BritAma Rencana Perbulan'}`}
             </h1>
             <CE_SimulationBrigunaLabel
               editable={false}
@@ -248,7 +262,7 @@ const CE_SimulationBritamaRencanaMain = () => {
 
           <div className="w-1/2 lg:w-full flex items-center justify-between mb-5 px-5 space-x-2">
             <h1 className="text-lg lg:text-xl font-medium text-[#4A4A4A]">
-              Nominal Premi Asuransi BritAma Rencana Pertahun
+              {`${dictionary?.simulasi_britama?.nominalPremi ?? 'Nominal Premi Asuransi BritAma Rencana Pertahun'}`}
             </h1>
             <CE_SimulationBrigunaLabel
               label=""
@@ -277,7 +291,7 @@ const CE_SimulationBritamaRencanaMain = () => {
               color="blue-01"
               className=" uppercase"
             >
-              Atur ulang
+              {`${dictionary?.simulasi_deposito_bisnis?.buttonAturUlang ?? 'Atur ulang'}`}
             </ButtonSecondary>
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
@@ -285,7 +299,7 @@ const CE_SimulationBritamaRencanaMain = () => {
               size="md"
               color="orange-01 uppercase"
             >
-              Hitung
+              {`${dictionary?.simulasi_deposito_bisnis?.buttonHitung ?? 'Hitung'}`}
             </ButtonSecondary>
           </div>
         </div>

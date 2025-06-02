@@ -62,5 +62,49 @@
     "formJenisUsaha": "Pilihan Jenis Usaha",
     "button": "Mengirim",
     "optionPlaceholder": "Pilih opsi"
+  },
+  "simulasi_deposito_bisnis": {
+    "deposito": "Jumlah Deposito",
+    "jangkaWaktu": "Jangka Waktu",
+    "sukuBunga": "Suku Bunga Efektif",
+    "placeholder": "Pilih Paket",
+    "buttonAturUlang": "Atur Ulang",
+    "buttonHitung": "Hitung",
+    "resultSaldoDeposito": "Bunga + Saldo Deposito",
+    "resultSaldoTanpaBunga": "Saldo Tanpa Bunga",
+    "resultSaldoBunga": "Bunga",
+    "mataUang": "Mata Uang",
+    "pilihPaket": "Pilih Paket"
+  },
+  "simulasi_kprs": {
+    "pinjaman": "Jumlah Deposito",
+    "jangkaWaktu": "Jangka Waktu",
+    "rightText": "Tahun",
+    "sukuBunga": "Suku Bunga Efektif",
+    "buttonHitung": "Hitung",
+    "resultAngsuran": "Estimasi Angsuran Bulanan"
+  },
+  "simulasi_investasi": {
+    "investasi": "Plafond Kredit",
+    "jangkaWaktu": "Jangka Waktu",
+    "rightText": "Bulan",
+    "sukuBunga": "Suku Bunga Efektif",
+    "resultPeriodic": "Periodic Investment",
+    "uangPensiun": "Jumlah Uang Pensiun",
+    "jumlahGaji": "Jumlah Gaji"
+  },
+  "simulasi_briguna": {
+    "resultBrigunaKarya": "Hasil BRIGunaSALDO TANPA BUNGA Karya",
+    "resultBrigunaPurna": "Hasil BRIGuna Purna",
+    "grandResultBriguna": "Hasil BRIGuna Umum (BRIGuna Karya + BRIGuna Umum)"
+  },
+  "simulasi_britama": {
+    "jumlahBulan": "Jumlah Bulan",
+    "setoranBulanBritama": "Setoran Bulan BritAma Rencana",
+    "ratebunga": "Rate Bunga BritAma Rencana (p.a)",
+    "premiAsuransi": "% Premi Asuransi BritAma Rencana Perbulan",
+    "nominalPremi": "Nominal Premi Asuransi BritAma Rencana Pertahun",
+    "resultBritama": "BUNGA + SALDO BRITAMA RENCANA",
+    "grandTotal": "TOTAL INVESTASI BRITAMA RENCANA + BRITAMA"
   }
 }
