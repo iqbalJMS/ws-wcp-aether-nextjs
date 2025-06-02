@@ -73,7 +73,7 @@ export default function CE_PromoSlider({
         </div>
         <div className="w-full flex justify-center px-5 my-10">
           {/* WEB section */}
-          <div className="w-full h-[50vh] hidden 2xl:flex flex-row justify-center">
+          <div className="w-full h-[45vh] hidden 2xl:flex flex-row justify-center">
             <div className="basis-20 flex justify-center items-center">
               <button
                 className={[
@@ -89,18 +89,18 @@ export default function CE_PromoSlider({
             </div>
             <div className="overflow-hidden basis-9/12 flex justify-center">
               <div
-                className="w-full py-10 flex justify-start items-center space-x-5 transition-all ease-in-out duration-300 "
+                className="w-full py-10 flex justify-start items-center space-x-2 transition-all ease-in-out duration-300 "
                 style={{
-                  transform: `translateX(-${currentSlide * 25}%)`,
+                  transform: `translateX(-${currentSlide * 25.5}%)`,
                 }}
               >
                 {data?.map((item, index) => (
                   <Link
                     href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                     key={index}
-                    className="group relative overflow-hidden w-[25%] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
+                    className="group relative overflow-hidden w-[24.5%] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
                   >
-                    <div className="w-full h-[450px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
+                    <div className="w-full h-[350px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
                       <div
                         className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100"
                         style={{
@@ -109,14 +109,14 @@ export default function CE_PromoSlider({
                           backgroundRepeat: 'no-repeat',
                         }}
                       ></div>
-                      <div className="w-full bg-white h-52 mt-3 relative overflow-hidden">
+                      <div className="w-full bg-white h-36 mt-3 relative overflow-hidden">
                         <div className="">
-                          <h1 className="text-lg text-[#C70740] line-clamp-2 leading-tight break-words hyphens-auto">
+                          <h1 className="text-base text-[#C70740] line-clamp-2 leading-tight break-words hyphens-auto">
                             {item?.title}
                           </h1>
                         </div>
                         <div className="pt-2">
-                          <h1 className="text-black text-base font-light leading-tight break-words">
+                          <h1 className="text-sm font-light leading-tight break-words">
                             {formatDate(item?.startDate ?? '')} -{' '}
                             {formatDate(item?.endDate ?? '')}
                           </h1>
@@ -134,7 +134,7 @@ export default function CE_PromoSlider({
               <button
                 className={[
                   'w-12 h-12 mdmax:w-8 mdmax:h-8 text-white bg-[#B8043A]',
-                  currentSlide >= data?.length - 1 - slidesToShow
+                  currentSlide >= data?.length - slidesToShow
                     ? 'cursor-default text-opacity-10 '
                     : ' cursor-pointer',
                 ].join(' ')}
@@ -147,7 +147,7 @@ export default function CE_PromoSlider({
 
           {/* TAB section */}
           <div className="w-full hidden md:flex 2xl:hidden justify-center px-5">
-            <div className="w-full h-[50vh] flex flex-row justify-center">
+            <div className="w-full h-[40vh] flex flex-row justify-center">
               <div className="basis-20 flex justify-center items-center">
                 <button
                   className={[
@@ -174,7 +174,7 @@ export default function CE_PromoSlider({
                       key={index}
                       className="group relative overflow-hidden w-[48%] flex-none flex flex-col justify-center items-center bg-center cursor-pointer"
                     >
-                      <div className="w-full h-[350px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
+                      <div className="w-full h-[280px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
@@ -190,7 +190,7 @@ export default function CE_PromoSlider({
                             </h1>
                           </div>
                           <div className="">
-                            <h1 className="text-black text-base font-light leading-tight break-words">
+                            <h1 className="text-black text-sm font-light leading-tight break-words">
                               {formatDate(item?.startDate ?? '')} -{' '}
                               {formatDate(item?.endDate ?? '')}
                             </h1>
@@ -222,7 +222,7 @@ export default function CE_PromoSlider({
 
           {/* Mobile section */}
           <div className="w-full flex md:hidden justify-center px-5">
-            <div className="w-full h-[50vh] flex flex-row justify-center">
+            <div className="w-full h-[45vh] flex flex-row justify-center">
               <div className="basis-20 flex justify-center items-center">
                 <button
                   className={[
@@ -247,9 +247,9 @@ export default function CE_PromoSlider({
                     <Link
                       href={handleurl(`promo-detail/${item?.nid ?? ''}`)}
                       key={index}
-                      className="group relative overflow-hidden w-full h-[500px] flex-none flex flex-col justify-center bg-center cursor-pointer "
+                      className="group relative overflow-hidden w-full h-[400px] flex-none flex flex-col justify-center bg-center cursor-pointer "
                     >
-                      <div className="w-full h-[500px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
+                      <div className="w-full h-[400px] flex-none flex flex-col justify-end items-center relative overflow-hidden">
                         <div
                           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
                           style={{
@@ -265,7 +265,7 @@ export default function CE_PromoSlider({
                             </h1>
                           </div>
                           <div className="">
-                            <h1 className="text-black text-base font-light leading-tight break-words">
+                            <h1 className="text-black text-sm font-light leading-tight break-words">
                               {formatDate(item?.startDate ?? '')} -{' '}
                               {formatDate(item?.endDate ?? '')}
                             </h1>
