@@ -99,8 +99,8 @@ const transformTautanData = (tautanData: T_ResponseAPIItemMainFooterMenu) => {
 };
 
 const fetchContactUsData =
-  async (): Promise<T_ResponseAPIItemContactUsMenu> => {
-    return await get('/bricc-api/menu-items/contact-us?_format=json_recursive');
+  async ({ isEnglish }: { isEnglish: string }): Promise<T_ResponseAPIItemContactUsMenu> => {
+    return await get(`${isEnglish}/bricc-api/menu-items/contact-us?_format=json_recursive`);
   };
 
 const fetchSocialMediaData = async ({ isEnglish }: { isEnglish: string }): Promise<T_ResponseAPIItemSocialMediaMenu> => {
@@ -146,17 +146,14 @@ export async function API_GetMainFooterMenu({
 }): Promise<T_ResponseGetMainFooterMenu> {
   const isEnglish = !lang || lang === 'id' ? '/id' : '';
   try {
-    const [socialMediaData, tautanData] = await Promise.all([
-      fetchSocialMediaData({ isEnglish }),
-      fetchTautanData({ isEnglish }),
     // Get dictionary based on language
     const dictionary = getDictionary(lang as Locale);
 
     // Fetch all dynamic data from APIs
     const [socialMediaData, contactUsData, tautanData] = await Promise.all([
-      fetchSocialMediaData(),
-      fetchContactUsData(),
-      fetchTautanData(),
+      fetchSocialMediaData({ isEnglish }),
+      fetchContactUsData({ isEnglish }),
+      fetchTautanData({ isEnglish }),
     ]);
 
     // Combine all data
