@@ -1,45 +1,44 @@
+'use server';
 import { get } from '@/api/common/fetch';
 import {
   T_ResponseAPIItemMainFooterMenu,
   T_ResponseAPIItemSocialMediaMenu,
-  T_ResponseAPIItemContactUsMenu,
   T_ResponseGetMainFooterMenu,
-} from '@/api/footer/main-footer/api.get-main-footer.type';
-import { Locale } from '@/i18n-config';
+} from './api.get-main-footer.type';
 
-// Import dictionaries statically
-import enDictionary from '@/locales/en/global.json';
-import idDictionary from '@/locales/id/global.json';
-
-const getDictionary = (locale: Locale) => {
-  let dictionary;
-
-  if (locale === 'en') {
-    dictionary = enDictionary;
-  } else {
-    dictionary = idDictionary;
-  }
-
-  return dictionary;
-};
-
-const createStaticFooterData = (dictionary: any) => ({
+// Static/dummy data sections
+const STATIC_FOOTER_DATA = {
   headOffice: {
-    title: dictionary?.footer?.headOfficeTitle || 'Kantor Pusat',
+    title: 'Head Office BRI',
     list: [
       {
-        name:
-          dictionary?.footer?.companyName ||
-          'PT Bank Rakyat Indonesia (Persero) Tbk',
+        name: 'PT. Bank Rakyat Indonesia (Persero) Tbk',
         className:
           'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
       },
       {
-        name:
-          dictionary?.footer?.address ||
-          'Jl. Jenderal Sudirman Kav. 44-46, Jakarta 10210',
+        name: 'Gedung BRI Jl. Jenderal Sudirman Kav.44-46. Jakarta 10210 Indonesia',
         className:
           'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
+      },
+    ],
+  },
+  contactUs: {
+    title: 'Hubungi Kami',
+    list: [
+      {
+        name: '1500017',
+        icon: 'call',
+        extern: true,
+        url: 'tel:1500017',
+        className: 'text-blue-01',
+      },
+      {
+        name: 'callbri@bri.co.id',
+        icon: 'email',
+        extern: true,
+        url: 'mailto:callbri@bri.co.id',
+        className: 'text-blue-01',
       },
     ],
   },
@@ -47,31 +46,14 @@ const createStaticFooterData = (dictionary: any) => ({
     list: [
       {
         className: 'lg:px-0 px-16 cursor-default text-blue-01',
-        name:
-          dictionary?.footer?.legalOjk ||
-          'BRI terdaftar dan diawasi oleh Otoritas Jasa Keuangan',
+        name: 'BRI terdaftar dan diawasi oleh Otoritas Jasa Keuangan',
       },
       {
         className: 'cursor-default text-blue-01',
-        name:
-          dictionary?.footer?.legalLps || 'BRI merupakan peserta penjamin LPS',
+        name: 'BRI merupakan peserta penjamin LPS',
       },
     ],
   },
-});
-
-const transformContactUsData = (
-  contactUsData: T_ResponseAPIItemContactUsMenu
-) => {
-  return (
-    contactUsData?.map((item) => ({
-      name: item.title,
-      icon: item.icon,
-      url: item.relative || item.uri,
-      extern: item.options?.external || false,
-      className: 'text-blue-01',
-    })) || []
-  );
 };
 
 const transformSocialMediaData = (
@@ -113,32 +95,27 @@ const fetchTautanData = async ({ isEnglish }: { isEnglish: string }): Promise<T_
 
 const combineFooterData = (
   socialMediaData: T_ResponseAPIItemSocialMediaMenu,
-  contactUsData: T_ResponseAPIItemContactUsMenu,
-  tautanData: T_ResponseAPIItemMainFooterMenu,
-  dictionary: any
+  tautanData: T_ResponseAPIItemMainFooterMenu
 ): T_ResponseGetMainFooterMenu => {
 
   const staticData = createStaticFooterData(dictionary);
 
   return {
     data: [
-      staticData.headOffice,
+      STATIC_FOOTER_DATA.headOffice,
       {
-        title: dictionary?.footer?.contactUsTitle || 'Hubungi Kami',
-        list: transformContactUsData(contactUsData),
+        ...STATIC_FOOTER_DATA.contactUs,
         social_media: transformSocialMediaData(socialMediaData),
       },
       {
-        title: dictionary?.footer?.linksTitle || 'Tautan',
+        title: 'Tautan',
         list: transformTautanData(tautanData),
       },
-
-      staticData.legalInfo,
+      STATIC_FOOTER_DATA.legalInfo,
     ],
   };
 };
 
-// Main API function
 export async function API_GetMainFooterMenu({
   lang,
 }: {
@@ -167,8 +144,7 @@ export async function API_GetMainFooterMenu({
     return result;
   } catch (error) {
     // eslint-disable-next-line no-console
-    // Return fallback data with default dictionary
-    const fallbackDictionary = getDictionary('id');
-    return combineFooterData([], [], [], fallbackDictionary);
+    console.error('An error occurred during Get Main Footer Menu:', error);
+    return { data: [] };
   }
 }
