@@ -17,8 +17,14 @@ import {
 import InputError from '@/lib/element/global/form/input.error';
 import InputSelect from '@/lib/element/global/form/input.select';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 
 const CE_SimulationCarMain = () => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
 
@@ -81,53 +87,64 @@ const CE_SimulationCarMain = () => {
           type="row-col"
           values={[
             {
-              label: 'Harga OTR',
+              label: dictionary?.vehicle_simulation?.hargaOtr ?? 'Harga OTR',
               value: form.vehiclePrice.toString(),
             },
             {
-              label: 'Uang Muka',
+              label: dictionary?.vehicle_simulation?.uangMuka ?? 'Uang Muka',
               value: result?.downPaymentAmount.toString() || '',
               width: '50',
             },
             {
-              label: 'Pokok Hutang',
+              label:
+                dictionary?.vehicle_simulation?.pokokHutang ?? 'Pokok Hutang',
               value: result?.principalDebt.toString() || '',
               width: '50',
             },
             {
-              label: 'Bunga',
+              label: dictionary?.vehicle_simulation?.bunga ?? 'Bunga',
               value: ((result?.interestRate || 0) * 100).toString() || '',
               col: true,
               percentage: true,
             },
             {
-              label: 'Angsuran Pokok',
+              label:
+                dictionary?.vehicle_simulation?.angsuranPokok ??
+                'Angsuran Pokok',
               value: result?.principalInstallment.toString() || '',
               col: true,
             },
             {
-              label: 'Angsuran Bunga/ Bulan',
+              label:
+                dictionary?.vehicle_simulation?.angsuranBunga ??
+                'Angsuran Bunga/ Bulan',
               value: result?.interestInstallmentPerMonth.toString() || '',
               col: true,
             },
             {
-              label: 'Angsuran/ Bulan',
+              label:
+                dictionary?.vehicle_simulation?.angsuranBulanan ??
+                'Angsuran/ Bulan',
               value: result?.totalInstallmentPerMonth.toString() || '',
               col: true,
             },
             {
-              label: 'Provisi',
+              label: dictionary?.vehicle_simulation?.provisi ?? 'Provisi',
               value: result?.provisionFee?.toString() || '',
               col: true,
               active: form.vehicleStatus === 'NEW' ? true : false,
             },
             {
-              label: 'Administrasi',
+              label:
+                dictionary?.vehicle_simulation?.administration ??
+                'Administrasi',
               value: result?.administrationFee.toString() || '',
               col: true,
             },
             {
-              label: 'TDP (DP + Biaya Administrasi + Provisi)',
+              label:
+                dictionary?.vehicle_simulation?.TDPAdminitration ??
+                'TDP (DP + Biaya Administrasi + Provisi)',
               value: result?.totalPayment.toString() || '',
               col: true,
             },
@@ -139,7 +156,7 @@ const CE_SimulationCarMain = () => {
         <div className="flex flex-wrap -mx-5">
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Status Kendaraan"
+              label={`${dictionary?.vehicle_simulation?.statusKendaraan ?? 'Status Kendaraan'}`}
               editable={false}
               slot={
                 <div>
@@ -147,14 +164,19 @@ const CE_SimulationCarMain = () => {
                     <InputSelect
                       list={[
                         {
-                          title: 'Baru',
+                          title:
+                            dictionary?.vehicle_simulation?.vehicleStatusNew ??
+                            'Baru',
                           value: 'NEW',
                         },
                         {
-                          title: 'Bekas',
+                          title:
+                            dictionary?.vehicle_simulation?.vehicleStatusUsed ??
+                            'Bekas',
                           value: 'USED',
                         },
                       ]}
+                      placeholder={`${dictionary?.vehicle_simulation?.placeholder ?? 'Pilih Status'}`}
                       value={form.vehicleStatus}
                       onChange={(value) => {
                         onFieldChange(
@@ -183,7 +205,7 @@ const CE_SimulationCarMain = () => {
           </div>
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Harga OTR"
+              label={`${dictionary?.vehicle_simulation?.hargaOtr ?? 'Harga OTR'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[50%]">
@@ -222,7 +244,7 @@ const CE_SimulationCarMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Uang Muka"
+              label={`${dictionary?.vehicle_simulation?.uangMuka ?? 'Uang Muka'}`}
               editable={false}
               slot={
                 <div>
@@ -250,7 +272,7 @@ const CE_SimulationCarMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Pokok Hutang"
+              label={`${dictionary?.vehicle_simulation?.pokokHutang ?? 'Pokok Hutang'}`}
               editable={false}
               slot={
                 <div>
@@ -268,13 +290,13 @@ const CE_SimulationCarMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Jangka Waktu"
+              label={`${dictionary?.vehicle_simulation?.jangkaWaktu ?? 'Jangka Waktu'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
                       disabled={formDisabled.installmentTerm}
-                      rightText="Tahun"
+                      rightText={`${dictionary?.vehicle_simulation?.rightText ?? 'Tahun'}`}
                       value={form.installmentTerm}
                       onChange={(value) => {
                         let strToInt = 0;
@@ -312,7 +334,7 @@ const CE_SimulationCarMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Bunga"
+              label={`${dictionary?.vehicle_simulation?.bunga ?? 'Bunga'}`}
               editable={false}
               slot={
                 <div>
@@ -340,7 +362,7 @@ const CE_SimulationCarMain = () => {
               size="md"
               color="orange-01"
             >
-              Hitung
+              {dictionary?.simulasi_deposito_bisnis?.buttonHitung ?? 'Hitung'}
             </ButtonSecondary>
           </div>
         </div>
