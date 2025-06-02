@@ -13,7 +13,7 @@ type T_Props = {
 };
 
 const CE_SimulationDropdown = ({ dropdown }: T_Props) => {
-  let listItems: T_InputSelectItem[] = dropdown.map((dropdownItem) => {
+  let listItems: T_InputSelectItem[] = dropdown?.map((dropdownItem) => {
     return {
       title: dropdownItem.title,
       value: dropdownItem.url.replace('/id', ''),

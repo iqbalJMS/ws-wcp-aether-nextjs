@@ -238,7 +238,7 @@ export default function GlobalHeader({
                 return (
                   <div key={index}>
                     <a
-                      {...(header.title.toLowerCase() !== 'cari' ||
+                      {...(header.title.toLowerCase() !== 'cari' &&
                       header.title.toLowerCase() !== 'search'
                         ? !header.options?.external
                           ? { href: nextUrl }
