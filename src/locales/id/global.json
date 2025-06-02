@@ -29,5 +29,38 @@
     "address": "Gedung BRI Jl. Jenderal Sudirman Kav.44-46. Jakarta 10210 Indonesia",
     "legalOjk": "BRI terdaftar dan diawasi oleh Otoritas Jasa Keuangan",
     "legalLps": "BRI merupakan peserta penjamin LPS"
+  },
+  "subcriber_form": {
+    "placeholder": "Masukkan alamat email",
+    "button": "Berlangganan",
+    "checkboxTextPromo": "Promo",
+    "checkboxTextNews": "Berita",
+    "checkboxTextProduct": "Produk"
+  },
+  "kpr_form": {
+    "label": "AJUKAN KPR BRI",
+    "subLabel": "Data Pribadi",
+    "formName": "Nama",
+    "formPhone": "No Hanphone",
+    "formCity": "Kota Domisili",
+    "formEmail": "Email",
+    "formCluster": "Nama/kawasan/cluster perumahan yang diinginkan?",
+    "formInformation": "Informasi apa yang anda perlukan untuk pengajuan KPR BRI?",
+    "formPersetujuan": "Checklist Persetujuan Pemberian Data",
+    "button": "Mengirim"
+  },
+  "qlola_form": {
+    "label": "Field Form QLola by BRI",
+    "subLabel": "Data Pribadi",
+    "formName": "Nama",
+    "formPhone": "Nomor Telepon",
+    "formEmail": "Email",
+    "formPerusahaan": "Perusahaan",
+    "formJabatan": "Jabatan",
+    "formCity": "Kota Domisili",
+    "formLokasiPerusahaan": "Lokasi Perusahaan",
+    "formJenisUsaha": "Pilihan Jenis Usaha",
+    "button": "Mengirim",
+    "optionPlaceholder": "Pilih opsi"
   }
 }
