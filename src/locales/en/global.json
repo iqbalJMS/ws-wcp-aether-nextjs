@@ -17,5 +17,50 @@
     "textTooltipERate": "BRI e-Rate is a special exchange rate that can be enjoyed by BRI e-Banking users when making transfer transactions.",
     "textTooltipKursTTCounter": "BRI TT Counter is a foreign exchange rate service that is carried out directly at the bank counter.",
     "textCalculate": "Calculator"
+  },
+  "location": {
+    "dropdown": "Any"
+  },
+  "footer": {
+    "headOfficeTitle": "BRI Headquarters",
+    "contactUsTitle": "Contact Us",
+    "linksTitle": "Links",
+    "companyName": "PT. Bank Rakyat Indonesia (Persero) Tbk",
+    "address": "BRI Building Jl. Jenderal Sudirman Kav.44-46. Jakarta 10210 Indonesia",
+    "legalOjk": "BRI is registered and supervised by the Financial Services Authority",
+    "legalLps": "BRI is a participant in LPS guarantee"
+  },
+  "subcriber_form": {
+    "placeholder": "Enter your email address",
+    "button": "Subscribe",
+    "checkboxTextPromo": "Promo",
+    "checkboxTextNews": "News",
+    "checkboxTextProduct": "Product"
+  },
+  "kpr_form": {
+    "label": "Apply For KPR BRI",
+    "subLabel": "Personal Data",
+    "formName": "Name",
+    "formPhone": "Number Phone",
+    "formCity": "City of Domicile",
+    "formEmail": "Email",
+    "formCluster": "Name/area/cluster of desired housing",
+    "formInformation": "What information do you need to apply for KPR BRI?",
+    "formPersetujuan": "Data Sharing Consent Checklist",
+    "button": "Submit"
+  },
+  "qlola_form": {
+    "label": "Field Form QLola by BRI",
+    "subLabel": "Personal Data",
+    "formName": "Name",
+    "formPhone": "Number Phone",
+    "formEmail": "Email",
+    "formPerusahaan": "Company",
+    "formJabatan": "Position",
+    "formCity": "City of Domicile",
+    "formLokasiPerusahaan": "Company location",
+    "formJenisUsaha": "Choice of business type",
+    "button": "Submit",
+    "optionPlaceholder": "Chose an option"
   }
 }

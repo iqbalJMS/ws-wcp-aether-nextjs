@@ -6,6 +6,10 @@ const possibleDomains =
   process.env.DOMAINS || process.env.NEXT_PUBLIC_DOMAINS || '';
 
 const bodyRender = (body: string) => {
+  if (!body) {
+    return '';
+  }
+
   let rendered = body;
   const domains = possibleDomains.split(',') || [];
 

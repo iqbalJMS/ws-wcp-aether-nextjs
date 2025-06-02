@@ -287,6 +287,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: SE_FormMain,
     props: (_component: T_DropdownAction) => {
       const title = _component?.field_title?.[0]?.value;
+      const buttontext = _component?.field_content?.[0]?.value;
       const data = _component?.field_menu_list?.[0]?.field_links?.map(
         (item) => {
           return {
@@ -299,6 +300,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         title: title,
         listItems: data,
         variant: '01',
+        buttonText: buttontext,
       };
     },
   },
@@ -1376,10 +1378,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             // Since we're using 'any' type, we can safely access these properties
             return {
               title: paragraph?.field_content?.[0]?.value,
-              image: `${BASE_URL}/api/files/?path=${
+              image:
                 paragraph?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]
-                  ?.url
-              }`,
+                  ?.url,
             };
           });
 
@@ -2797,19 +2798,24 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                           </div>
 
                           {[0, 1].map((i) =>
+                            item?.cardPdf?.[i]?.titlePdfloop &&
                             item?.cardPdf?.[i]?.cardPdfloop ? (
                               <div
                                 key={i}
                                 className="text-base font-semibold flex gap-3 items-center hover:underline overflow-auto text-[#014A94] mb-1"
                               >
                                 <Link
-                                  href={handleurl(
+                                  href={
                                     item?.cardPdf?.[i]?.cardPdfloop
-                                  )}
+                                      ? `${BASE_URL}/api/files/?path=${item?.cardPdf?.[i]?.cardPdfloop}`
+                                      : handleurl(
+                                          item?.cardPdf?.[i]?.cardPdfloop
+                                        )
+                                  }
                                   className="flex items-center gap-1 text-sm"
                                   download
                                 >
-                                  {item?.cardPdf?.[i]?.titlePdfloop ?? ''}
+                                  {item?.cardPdf?.[i]?.titlePdfloop}
                                 </Link>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -2847,7 +2853,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             );
         }
       };
-
       return (
         <div className="container mx-auto my-8">
           {listAccordion?.map((item, key) => {
@@ -2859,7 +2864,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
 
             return (
               <Accordion
-                key={`accordion-${key}-${item?.title?.replace(/\s+/g, '-') || key}`}
+                key={`${item?.title?.replace(/\s+/g, '-') || key}`}
                 renderTitle={
                   <p
                     className={`${accordionStyle === 'capsule' ? 'lg:text-base text-sm font-semibold pl-4' : 'lg:text-2xl text-base'} text-left font-normal`}
@@ -2923,10 +2928,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 }`;
                 const pdf = childItem?.field_cta_document?.map((item) => {
                   return {
-                    cardPdfloop: `${BASE_URL}/api/files/?path=${
+                    cardPdfloop:
                       item?.field_document?.[0]?.field_media_file?.[0]?.uri?.[0]
-                        ?.url
-                    }`,
+                        ?.url,
                     titlePdfloop: item?.field_title?.[0]?.value,
                   };
                 });

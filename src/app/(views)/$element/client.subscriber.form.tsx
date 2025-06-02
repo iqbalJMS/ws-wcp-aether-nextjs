@@ -7,18 +7,23 @@ import {
 } from '@/app/(views)/$function/cfn.post.webform-subscription';
 import { ACT_PostWebFormSubscription } from '@/app/(views)/$action/action.post.webform-subscription';
 import useForm from '@/lib/hook/useForm';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import InputError from '@/lib/element/global/form/input.error';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
 
 export default function CE_SubscriberForm() {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [checkList, setChecklist] = useState<string[]>([]);
   const [pending] = useTransition();
   const router = useRouter();
   const SELECT_DATA_JASA = [
-    { value: 'Promo' },
-    { value: 'Berita' },
-    { value: 'Produk' },
+    { value: dictionary?.subcriber_form?.checkboxTextPromo ?? 'Promo' },
+    { value: dictionary?.subcriber_form?.checkboxTextNews ?? 'Berita' },
+    { value: dictionary?.subcriber_form?.checkboxTextProduct ?? 'Produk' },
   ];
 
   const handleSelect = (event: any) => {
@@ -82,7 +87,10 @@ export default function CE_SubscriberForm() {
               name="email"
               id="email"
               value={form.email}
-              placeholder="Masukkan alamat email"
+              placeholder={
+                dictionary?.subcriber_form?.placeholder ??
+                'Masukkan alamat email'
+              }
               className="w-full h-12 px-4 mb-4 bg-[#f59a22]/30 placeholder:text-orange-01 placeholder:font-light placeholder:text-sm"
               onChange={({ target }) => onFieldChange('email', target.value)}
             />
@@ -112,7 +120,7 @@ export default function CE_SubscriberForm() {
               type="submit"
               className="bg-[#f59a22] uppercase text-white h-12 px-4 text-sm"
             >
-              Berlangganan
+              {dictionary?.subcriber_form?.button ?? 'Berlangganan'}
             </button>
           </div>
         </div>

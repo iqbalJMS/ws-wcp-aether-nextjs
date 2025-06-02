@@ -16,8 +16,8 @@ import {
   T_Location,
   T_LocationRequest,
 } from '@/api/location/api.get.location.type';
-
 import { ACT_GetLocationProvince } from '@/app/(views)/$action/action.get.location-province';
+
 import { ACT_GetLocationType } from '@/app/(views)/$action/action.get.location-type';
 import { ACT_GetLocationCategory } from '@/app/(views)/$action/action.get.location-category';
 import {
@@ -29,12 +29,16 @@ import { useEnv } from '@/lib/hook/useEnv';
 import debounce from '@/lib/functions/global/debounce';
 import { handleurl } from '@/lib/functions/client/handle-url';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { useSearchParams } from 'next/navigation';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
 
 type T_Props = {
   types: {
     id: string;
     imageUrl?: string;
   }[];
+  locale: Locale;
 };
 
 // Konstanta untuk tipe yang tidak memerlukan kategori
@@ -44,6 +48,9 @@ const TYPES_WITHOUT_CATEGORY = [
 ];
 
 const CE_LocationMain = ({ types }: T_Props) => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const { baseUrl } = useEnv();
   const [pending, transiting] = useTransition();
   const [location, setLocation] = useState<T_Location>();
@@ -182,15 +189,6 @@ const CE_LocationMain = ({ types }: T_Props) => {
     });
   };
 
-  const getTranslatedLabel = () => {
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      const lang = url.searchParams.get('lang');
-      return lang === 'en' ? 'Any' : 'Semua';
-    }
-    return 'Semua';
-  };
-
   return (
     <div className=" py-10">
       <div className="text-center text-2xl mb-5">
@@ -261,7 +259,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
             <div className="text-left font-semibold mb-2">Layanan</div>
             <InputSelect
               list={[
-                { title: getTranslatedLabel(), value: '' },
+                { title: dictionary?.location?.dropdown || 'Semua', value: '' },
                 ...(Array.isArray(locationCategories) &&
                 locationCategories.length > 0
                   ? locationCategories.map((locationCategoryItem) => ({
