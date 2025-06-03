@@ -135,5 +135,8 @@
     "provisi": "Provisi",
     "administration": "Administrasi",
     "TDPAdminitration": "TDP (DP + Biaya Administrasi + Provisi)"
+  },
+  "content_type": {
+    "buttonDownloadText": "Unduh"
   }
 }

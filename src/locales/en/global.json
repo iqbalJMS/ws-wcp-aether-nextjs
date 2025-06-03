@@ -135,5 +135,8 @@
     "provisi": "Provisions",
     "administration": "Administration",
     "TDPAdminitration": "TDP (DP + ADMINISTRATION FEE + PROVISION)"
+  },
+  "content_type": {
+    "buttonDownloadText": "Download"
   }
 }

@@ -8,10 +8,17 @@ import { useMemo } from 'react';
 import Link from '@/lib/element/global/link';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import { useEnv } from '@/lib/hook/useEnv';
+import { useSearchParams } from 'next/navigation';
+import { useDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 
 export default function CE_Card(props: T_CardProps) {
   const { baseUrl } = useEnv();
   const { className, content, idx } = props;
+  const searchParams = useSearchParams();
+  const dictionary = useDictionary(
+    (searchParams?.get('lang') as Locale) ?? 'id'
+  );
 
   const formatDate = (date: string): string => {
     const now = new Date(date);
@@ -94,7 +101,7 @@ export default function CE_Card(props: T_CardProps) {
                 color="orange-01"
                 size="md"
               >
-                Unduh
+                {dictionary?.content_type?.buttonDownloadText || 'Unduh'}
               </ButtonSecondary>
             )}
           </div>
