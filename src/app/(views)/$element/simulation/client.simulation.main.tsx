@@ -19,9 +19,6 @@ import CE_SimulationInitialInvestmentMain from './client.simulation-initial-inve
 import CE_SimulationInvestmentMain from './client.simulation-investment.main';
 import CE_SimulationKPRMain from './client.simulation-kpr.main';
 import CE_SimulationKPRSMain from './client.simulation-kprs.main';
-import { Locale } from '@/i18n-config';
-import { useDictionary } from '@/get-dictionary';
-import { useSearchParams } from 'next/navigation';
 
 type T_SimulationMainProps = {
   type: 'tab' | 'page';
@@ -57,9 +54,6 @@ const CE_SimulationMain = ({
   title,
   description,
 }: T_SimulationMainProps) => {
-  const params = useSearchParams();
-  const locales = params.get('lang') as Locale;
-  const dictionary = useDictionary(locales ?? 'id');
   const { baseUrl } = useEnv();
   const [variant, setVariant] = useState(initialVariant);
   const simulation = useMemo(() => {
@@ -87,8 +81,7 @@ const CE_SimulationMain = ({
               target={button.extern ? '_self' : ''}
             >
               <div className="inline-block text-blue-01 text-base">
-                {dictionary?.simulasi_main?.lihatLebihBanyak ?? button.title}{' '}
-                &#10095;
+                {button.title} &#10095;
               </div>
             </Link>
           </div>
@@ -146,9 +139,7 @@ const CE_SimulationMain = ({
                       target={action.button.extern ? '_self' : ''}
                     >
                       <div className="inline-block text-blue-01 text-base">
-                        {dictionary?.simulasi_main?.temukanCabang ??
-                          action.button.title}{' '}
-                        &#10095;
+                        {action.button.title} &#10095;
                       </div>
                     </Link>
                   </div>

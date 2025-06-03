@@ -238,7 +238,12 @@ const CE_SimulationDepositoValasMain = () => {
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.depositAmount} />
+                    <InputError
+                      message={
+                        dictionary?.reminder_text_kpr
+                          ?.validateMaxMinInstallment ?? formError.depositAmount
+                      }
+                    />
                   </div>
                 </div>
               }
@@ -249,7 +254,7 @@ const CE_SimulationDepositoValasMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationBrigunaLabel
-              label={`${dictionary?.simulasi_deposito_bisnis?.jangkaWaktu ?? 'Jangka Waktu'}`}
+              label={`${dictionary?.simulasi_deposito_bisnis?.tenor ?? 'Jangka Waktu'}`}
               slot={
                 <div>
                   <div>
@@ -294,7 +299,12 @@ const CE_SimulationDepositoValasMain = () => {
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.termInMonths} />
+                    <InputError
+                      message={
+                        dictionary?.reminder_text_brigunaKarya
+                          ?.validateMaxTermMonth ?? formError.termInMonths
+                      }
+                    />
                   </div>
                 </div>
               }
