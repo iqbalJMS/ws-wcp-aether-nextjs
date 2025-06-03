@@ -5,6 +5,9 @@ import Link from '@/lib/element/global/link';
 import Modal from '@/lib/element/global/modal';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 
 type T_IconMainProps = {
   maxListShow?: number;
@@ -78,6 +81,9 @@ export function CE_IconMain({
   list: initialList,
   cookiesName,
 }: T_IconMainProps) {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [iconStorage, setIconStorage] = useState<string | null>(null);
   const [list, setList] = useState<T_IconList[]>(initialList);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -201,11 +207,14 @@ export function CE_IconMain({
       <Modal open={showModal} setOpen={setShowModal}>
         <div>
           <div className="text-center font-semibold text-xl mdmax:text-lg mb-2">
-            Personalisasi Link Cepat
+            {`${dictionary?.personalized_shortcut?.title ?? 'Personalisasi Link Cepat'} `}
           </div>
           <div className="text-center mdmax:text-xs mb-4">
-            Silakan dan pilih hingga {maxListShow} link cepat rutin perbankan
-            favorit Anda.
+            {`${
+              dictionary?.personalized_shortcut?.description ??
+              `Silakan dan pilih hingga ${maxListShow} link cepat rutin perbankan
+            favorit Anda.`
+            }`}
           </div>
           <div className="flex justify-center flex-wrap max-h-[450px] overflow-y-auto p-4">
             {list.map((listItem, listIndex) => {
