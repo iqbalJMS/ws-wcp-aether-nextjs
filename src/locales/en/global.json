@@ -63,6 +63,79 @@
     "button": "Submit",
     "optionPlaceholder": "Chose an option"
   },
+  "simulasi_main": {
+    "temukanCabang": "FIND A BRANCH",
+    "lihatLebihBanyak": "VIEW MORE",
+    "description": "Calculate your financial needs with BRI's simulation feature.",
+    "buttonSimulasiDepositoBisnis": "Business Deposit Simulation",
+    "buttonSimulasiKPR": "KPR Simulation",
+    "buttonSimulasiInvestasi": "Investment Simulation",
+    "buttonSimulasiBriguna": "BRIGuna Simulation",
+    "buttonSimulasiBritama": "BritAma Simulation",
+    "buttonSimulasiKendaraan": "Vehicle Simulation"
+  },
+  "simulasi_deposito_bisnis": {
+    "deposito": "Total Deposits",
+    "jangkaWaktu": "Time Period",
+    "sukuBunga": "Effective Interest Rate",
+    "placeholder": "Choose a Plan",
+    "buttonAturUlang": "Reset",
+    "buttonHitung": "Calculate",
+    "resultSaldoDeposito": "Interest + Deposit Balance",
+    "resultSaldoTanpaBunga": "INTEREST-FREE BALANCE",
+    "resultSaldoBunga": "Interest",
+    "mataUang": "Currency",
+    "pilihPaket": "Select Package"
+  },
+  "simulasi_kprs": {
+    "pinjaman": "Total Deposits",
+    "jangkaWaktu": "Time Period",
+    "rightText": "Years",
+    "sukuBunga": "Effective Interest Rate",
+    "buttonHitung": "Calculate",
+    "resultAngsuran": "Estimated Monthly Installments"
+  },
+  "simulasi_investasi": {
+    "investasi": "Credit ceiling",
+    "jangkaWaktu": "Time Period",
+    "rightText": "Months",
+    "sukuBunga": "Effective Interest Rate",
+    "resultPeriodic": "Periodic Investment",
+    "uangPensiun": "Pension Amount",
+    "jumlahGaji": "Total Salary"
+  },
+  "simulasi_briguna": {
+    "resultBrigunaKarya": "BRIGuna Karya Results",
+    "resultBrigunaPurna": "BRIGuna Purna Results",
+    "grandResultBriguna": "BRIGuna Umum result (BRIGuna Karya + BRIGuna Umum)"
+  },
+  "simulasi_britama": {
+    "jumlahBulan": "Number of Months",
+    "setoranBulanBritama": "BritAma Monthly Deposit Plan",
+    "ratebunga": "BritAma Interest Rate Plan (p.a)",
+    "premiAsuransi": "% Monthly BritAma Plan Insurance Premium",
+    "nominalPremi": "Premium Amount of BritAma Insurance Plan per Year",
+    "resultBritama": "INTEREST + BRITAMA PLAN BALANCE",
+    "grandTotal": "TOTAL INVESTMENT BRITAMA PLAN + BRITAMA"
+  },
+  "vehicle_simulation": {
+    "statusKendaraan": "Vehicle Status",
+    "placeholder": "Select Package",
+    "hargaOtr": "OTR Price",
+    "uangMuka": "Down Payment",
+    "pokokHutang": "Debt Principal",
+    "jangkaWaktu": "Term",
+    "rightText": "Years",
+    "bunga": "Interest",
+    "vehicleStatusNew": "New",
+    "vehicleStatusUsed": "Used",
+    "angsuranPokok": "Principal Installments",
+    "angsuranBunga": "Interest Installments/Month",
+    "angsuranBulanan": "Installments/Month",
+    "provisi": "Provisions",
+    "administration": "Administration",
+    "TDPAdminitration": "TDP (DP + ADMINISTRATION FEE + PROVISION)"
+  },
   "content_type": {
     "buttonDownloadText": "Download"
   }

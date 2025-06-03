@@ -46,3 +46,56 @@ export type T_ResponseAPIItemContactUsMenu = Array<{
   field_image: any;
   icon: string;
 }>;
+
+export type T_ResponseAPIConfigFooter = {
+  entity_type: Array<{ value: string }>;
+  entity_bundle: Array<{ value: string }>;
+  id: Array<{ value: number }>;
+  uuid: Array<{ value: string }>;
+  label: Array<{ value: string }>;
+  type: Array<{
+    uuid: string;
+    langcode: string;
+    status: boolean;
+    dependencies: any[];
+    id: string;
+    label: string;
+    context: any;
+    menu: any;
+    token: boolean;
+  }>;
+  context: Array<{ value: string }>;
+  changed: Array<{ value: string; format: string }>;
+  field_address: Array<{
+    value: string;
+    format: string;
+    processed: string;
+    summary: string;
+  }>;
+  field_notes: Array<{
+    value: string;
+    format: string;
+    processed: string;
+    summary: string;
+  }>;
+  field_main_navigation?: Array<{
+    uuid: string;
+    langcode: string;
+    status: boolean;
+    dependencies: any[];
+    id: string;
+    label: string;
+    description: string;
+    locked: boolean;
+  }>;
+  field_top_navigation?: Array<{
+    uuid: string;
+    langcode: string;
+    status: boolean;
+    dependencies: any[];
+    id: string;
+    label: string;
+    description: string;
+    locked: boolean;
+  }>;
+};

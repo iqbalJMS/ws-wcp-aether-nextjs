@@ -16,8 +16,14 @@ import {
 } from '@/app/(views)/$function/cfn.get.simulation-investment';
 import InputError from '@/lib/element/global/form/input.error';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 
 const CE_SimulationInvestmentMain = () => {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const [pending, transiting] = useTransition();
   const [isResult, setIsResult] = useState(false);
 
@@ -79,19 +85,25 @@ const CE_SimulationInvestmentMain = () => {
           type="row-col"
           values={[
             {
-              label: 'Plafond Kredit',
+              label:
+                dictionary?.simulasi_investasi?.investasi ?? 'Plafond Kredit',
               value: form.installment.toString() || '0',
             },
             {
-              label: 'Suku Bunga Efektif',
+              label:
+                dictionary?.simulasi_investasi?.sukuBunga ??
+                'Suku Bunga Efektif',
               valueInterest: form?.InterestRate.toString(),
             },
             {
-              label: 'Jangka Waktu',
+              label:
+                dictionary?.simulasi_investasi?.jangkaWaktu ?? 'Jangka Waktu',
               valueInstallmentTerm: form?.installmentTerm.toString(),
             },
             {
-              label: 'Periodic Investment',
+              label:
+                dictionary?.simulasi_investasi?.resultPeriodic ??
+                'Periodic Investment',
               valuePeriodic: result?.interest.toString() || '0',
             },
           ]}
@@ -102,7 +114,7 @@ const CE_SimulationInvestmentMain = () => {
         <div className="flex flex-wrap -mx-5">
           <div className="w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Plafond Kredit"
+              label={`${dictionary?.simulasi_investasi?.investasi ?? 'Plafond Kredit'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[50%]">
@@ -137,7 +149,7 @@ const CE_SimulationInvestmentMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Suku Bunga Efektif"
+              label={`${dictionary?.simulasi_investasi?.sukuBunga ?? 'Suku Bunga Efektif'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[70%]">
@@ -180,13 +192,13 @@ const CE_SimulationInvestmentMain = () => {
           </div>
           <div className="w-1/2 mdmax:w-full flex-none mb-10 px-5">
             <CE_SimulationLabel
-              label="Jangka Waktu"
+              label={`${dictionary?.simulasi_investasi?.jangkaWaktu ?? 'Jangka Waktu'}`}
               slot={
                 <div>
                   <div className="mb-5 w-[70%]">
                     <InputText
                       disabled={formDisabled.installmentTerm}
-                      rightText="Bulan"
+                      rightText={`${dictionary?.simulasi_investasi?.rightText ?? 'Bulan'}`}
                       value={form.installmentTerm}
                       onChange={(value) => {
                         let strToInt = 0;
@@ -230,7 +242,7 @@ const CE_SimulationInvestmentMain = () => {
               size="md"
               color="orange-01"
             >
-              Hitung
+              {`${dictionary?.simulasi_deposito_bisnis?.buttonHitung ?? 'Hitung'}`}
             </ButtonSecondary>
           </div>
         </div>

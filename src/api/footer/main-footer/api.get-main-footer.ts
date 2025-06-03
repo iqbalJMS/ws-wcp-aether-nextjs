@@ -5,6 +5,7 @@ import {
   T_ResponseAPIItemMainFooterMenu,
   T_ResponseAPIItemSocialMediaMenu,
   T_ResponseGetMainFooterMenu,
+  T_ResponseAPIConfigFooter,
 } from './api.get-main-footer.type';
 import { Locale } from '@/i18n-config';
 
@@ -88,6 +89,44 @@ const transformTautanData = (tautanData: T_ResponseAPIItemMainFooterMenu) => {
   );
 };
 
+//ganti <p> menjadi <p class="mb-4"> untuk menambahkan jarak antar kalimat
+const addParagraphSpacing = (htmlString: string) => {
+  if (!htmlString) return '';
+  
+  let result = htmlString.replace(/<p>/g, '<p class="mb-4">');
+   
+  return result;
+};
+
+const transformConfigFooter = (configFooter: T_ResponseAPIConfigFooter) => {
+  if (!configFooter || typeof configFooter !== 'object') {
+    return null;
+  }
+  
+  const addressField = configFooter.field_address?.[0];
+  const notesField = configFooter.field_notes?.[0];
+  
+  const result = {
+    address: addParagraphSpacing(addressField?.processed || addressField?.value || ''),
+    notes: addParagraphSpacing(notesField?.processed || notesField?.value || ''),
+  };
+    
+  return result;
+};
+
+const fetchConfigFooterData =
+  async ({ isEnglish }: { isEnglish: string }): Promise<T_ResponseAPIConfigFooter> => {
+    try {
+      return await get(`${isEnglish}/config_pages/footer?_format=json_recursive`, {
+        Authorization: `Basic ${btoa(`${process.env.DRUPAL_AUTH}:${process.env.DRUPAL_PASSWORD}`)}`,
+      });
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error fetching config footer data:', error);
+      return {} as T_ResponseAPIConfigFooter;
+    }
+  };
+
 const fetchContactUsData =
   async ({ isEnglish }: { isEnglish: string }): Promise<T_ResponseAPIItemContactUsMenu> => {
     return await get(`${isEnglish}/bricc-api/menu-items/contact-us?_format=json_recursive`);
@@ -105,9 +144,30 @@ const combineFooterData = (
   socialMediaData: T_ResponseAPIItemSocialMediaMenu,
   contactUsData: T_ResponseAPIItemContactUsMenu,
   tautanData: T_ResponseAPIItemMainFooterMenu,
+  configFooter: T_ResponseAPIConfigFooter,
   dictionary: any
 ): T_ResponseGetMainFooterMenu => {
   const staticData = createStaticFooterData(dictionary);
+  const configData = transformConfigFooter(configFooter);
+  
+  //ganti nilai dari dictionary ke response API
+  if (configData?.address) {
+    staticData.headOffice.list = [
+      {
+        name: configData.address,
+        className: 'lg:max-w-[11.563rem] px-24 lg:px-0 cursor-default text-black',
+      }
+    ];
+  }
+  //ganti nilai dari dictionary ke response API
+  if (configData?.notes) {
+    staticData.legalInfo.list = [
+      {
+        className: 'lg:px-0 px-16 cursor-default text-blue-01',
+        name: configData.notes,
+      }
+    ];
+  }
 
   return {
     data: [
@@ -121,7 +181,7 @@ const combineFooterData = (
         title: dictionary?.footer?.linksTitle || 'Tautan',
         list: transformTautanData(tautanData),
       },
-      staticData.legalInfo
+      staticData.legalInfo,
     ]
   }
 }
@@ -132,31 +192,31 @@ export async function API_GetMainFooterMenu({
   lang: string;
 }): Promise<T_ResponseGetMainFooterMenu> {
   const isEnglish = !lang || lang === 'id' ? '/id' : '';
+  
   try {
     // Get dictionary based on language
     const dictionary = getDictionary(lang as Locale);
-
-    // Fetch all dynamic data from APIs
-    const [socialMediaData, contactUsData, tautanData] = await Promise.all([
+    
+    const [socialMediaData, contactUsData, tautanData, configFooter] = await Promise.all([
       fetchSocialMediaData({ isEnglish }),
       fetchContactUsData({ isEnglish }),
       fetchTautanData({ isEnglish }),
+      fetchConfigFooterData({ isEnglish }),
     ]);
-
-    // Combine all data
+    
     const result = combineFooterData(
       socialMediaData,
       contactUsData,
       tautanData,
-      dictionary
+      configFooter,
+      dictionary,
     );
 
     return result;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('An error occurred during Get Main Footer Menu:', error);
-
     const fallbackDictionary = getDictionary('id');
-    return combineFooterData([], [], [], fallbackDictionary);
+    // Pass empty object for configFooter in fallback
+    return combineFooterData([], [], [], {} as T_ResponseAPIConfigFooter, fallbackDictionary);
   }
 }

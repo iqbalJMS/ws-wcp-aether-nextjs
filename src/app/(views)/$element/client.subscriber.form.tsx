@@ -21,9 +21,18 @@ export default function CE_SubscriberForm() {
   const [pending] = useTransition();
   const router = useRouter();
   const SELECT_DATA_JASA = [
-    { value: dictionary?.subcriber_form?.checkboxTextPromo ?? 'Promo' },
-    { value: dictionary?.subcriber_form?.checkboxTextNews ?? 'Berita' },
-    { value: dictionary?.subcriber_form?.checkboxTextProduct ?? 'Produk' },
+    {
+      title: dictionary?.subcriber_form?.checkboxTextPromo ?? 'Promo',
+      value: 'Promo',
+    },
+    {
+      title: dictionary?.subcriber_form?.checkboxTextNews ?? ' Berita',
+      value: 'Berita',
+    },
+    {
+      title: dictionary?.subcriber_form?.checkboxTextProduct ?? 'Produk',
+      value: 'Produk',
+    },
   ];
 
   const handleSelect = (event: any) => {
@@ -50,7 +59,6 @@ export default function CE_SubscriberForm() {
     }),
     CFN_ValidateCreateWebFormSubscriptionFields
   );
-
   const handleSubmit = async () => {
     const validate = validateForm();
 
@@ -79,7 +87,7 @@ export default function CE_SubscriberForm() {
         }}
         className="bg-no-repeat md:w-20 md:h-36 w-11 h-20 absolute mdmax:right-0 mdmax:-top-24 md:-mt-8"
       ></div>
-      <form action="" className="w-full">
+      <form method="post" className="w-full">
         <div className="flex items-start md:pl-28">
           <div className="flex-auto mdmax:w-24 w-full">
             <input
@@ -109,7 +117,7 @@ export default function CE_SubscriberForm() {
                     value={item.value}
                     onChange={handleSelect}
                   />
-                  <label className="pl-2">{item.value}</label>
+                  <label className="pl-2">{item.title}</label>
                 </div>
               ))}
             </div>
