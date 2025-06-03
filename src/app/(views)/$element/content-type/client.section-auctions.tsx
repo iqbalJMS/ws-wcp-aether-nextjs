@@ -9,6 +9,9 @@ import {
   CFN_ValidateGetContentTypeFields,
 } from '@/app/(views)/$function/cfn.get-content-type';
 import CE_CardVariant09 from '@/app/(views)/$element/card/client.card.variant09';
+import { useSearchParams } from 'next/navigation';
+import { useDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 
 export default function CE_SectionAuctions({
   auctionsData,
@@ -27,6 +30,10 @@ export default function CE_SectionAuctions({
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [auctionsList, setAuctionsList] = useState(auctionsData);
+  const searchParams = useSearchParams();
+  const dictionary = useDictionary(
+    (searchParams?.get('lang') as Locale) ?? 'id'
+  );
 
   const { form, validateForm, setForm } = useForm<
     T_ContentTypeRequest,
@@ -120,7 +127,7 @@ export default function CE_SectionAuctions({
               description: formatDate(item.date),
               button: {
                 link: item?.downloadFile || '#',
-                title: 'Download',
+                title: dictionary?.content_type?.buttonDownloadText || 'Unduh',
                 extern: true,
               },
               isDescDate: true,
