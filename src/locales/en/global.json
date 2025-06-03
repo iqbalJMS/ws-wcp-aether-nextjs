@@ -62,5 +62,8 @@
     "formJenisUsaha": "Choice of business type",
     "button": "Submit",
     "optionPlaceholder": "Chose an option"
+  },
+  "content_type": {
+    "buttonDownloadText": "Download"
   }
 }
