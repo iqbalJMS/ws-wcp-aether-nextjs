@@ -135,5 +135,9 @@
     "provisi": "Provisi",
     "administration": "Administrasi",
     "TDPAdminitration": "TDP (DP + Biaya Administrasi + Provisi)"
+  },
+  "personalized_shortcut": {
+    "title": "Personalisasi Link Cepat",
+    "description": "Silakan dan pilih hingga 6 link cepat rutin perbankan favorit Anda."
   }
 }

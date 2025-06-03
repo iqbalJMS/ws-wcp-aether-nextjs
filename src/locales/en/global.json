@@ -135,5 +135,9 @@
     "provisi": "Provisions",
     "administration": "Administration",
     "TDPAdminitration": "TDP (DP + ADMINISTRATION FEE + PROVISION)"
+  },
+  "personalized_shortcut": {
+    "title": "Personalize My Quick Links",
+    "description": "Go ahead and select up to 6 quick links of your favourite banking routine."
   }
 }
