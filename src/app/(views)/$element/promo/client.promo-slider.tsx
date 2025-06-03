@@ -45,17 +45,20 @@ export default function CE_PromoSlider({
   const slidesToShow = getSlideToShow(screenWidth);
   const slidesToScroll = 1;
 
+  const maxSlide = Math.max(0, data.length - slidesToShow);
+
   const nextSlide = () => {
-    if (currentSlide < data.length - slidesToShow) {
-      setCurrentSlide(currentSlide + slidesToScroll);
+    if (currentSlide < maxSlide) {
+      setCurrentSlide(Math.min(currentSlide + slidesToScroll, maxSlide));
     }
   };
 
   const prevSlide = () => {
     if (currentSlide > 0) {
-      setCurrentSlide(currentSlide - slidesToScroll);
+      setCurrentSlide(Math.max(currentSlide - slidesToScroll, 0));
     }
   };
+
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-GB', {
@@ -64,6 +67,17 @@ export default function CE_PromoSlider({
       year: 'numeric',
     });
   };
+
+  const getTransformPercentage = (screenWidth: number, currentSlide: number) => {
+    if (screenWidth >= 1536) {
+      return currentSlide * 25;
+    } else if (screenWidth >= 768) {
+      return currentSlide * 50;
+    } else {
+      return currentSlide * 100;
+    }
+  };
+
   return (
     <>
       <div>
@@ -91,7 +105,7 @@ export default function CE_PromoSlider({
               <div
                 className="w-full py-10 flex justify-start items-center space-x-2 transition-all ease-in-out duration-300 "
                 style={{
-                  transform: `translateX(-${currentSlide * 25.5}%)`,
+                  transform: `translateX(-${getTransformPercentage(screenWidth, currentSlide)}%)`,
                 }}
               >
                 {data?.map((item, index) => (
@@ -134,7 +148,7 @@ export default function CE_PromoSlider({
               <button
                 className={[
                   'w-12 h-12 mdmax:w-8 mdmax:h-8 text-white bg-[#B8043A]',
-                  currentSlide >= data?.length - slidesToShow
+                  currentSlide >= maxSlide
                     ? 'cursor-default text-opacity-10 '
                     : ' cursor-pointer',
                 ].join(' ')}
@@ -165,7 +179,7 @@ export default function CE_PromoSlider({
                 <div
                   className="w-full flex justify-start items-center space-x-5 transition-all ease-in-out duration-300 "
                   style={{
-                    transform: `translateX(-${currentSlide * 50}%)`,
+                    transform: `translateX(-${getTransformPercentage(screenWidth, currentSlide)}%)`,
                   }}
                 >
                   {data?.map((item, index) => (
@@ -208,7 +222,7 @@ export default function CE_PromoSlider({
                 <button
                   className={[
                     'w-12 h-12 mdmax:w-8 mdmax:h-8 text-white bg-[#B8043A]',
-                    currentSlide >= data?.length - 1 - slidesToShow
+                    currentSlide >= maxSlide
                       ? 'cursor-default text-opacity-10 '
                       : ' cursor-pointer',
                   ].join(' ')}
@@ -240,7 +254,7 @@ export default function CE_PromoSlider({
                 <div
                   className="w-full flex justify-start transition-all ease-in-out duration-300 "
                   style={{
-                    transform: `translateX(-${currentSlide * 100}%)`,
+                    transform: `translateX(-${getTransformPercentage(screenWidth, currentSlide)}%)`,
                   }}
                 >
                   {data?.map((item, index) => (
@@ -283,7 +297,7 @@ export default function CE_PromoSlider({
                 <button
                   className={[
                     'w-12 h-12 mdmax:w-8 mdmax:h-8 text-white bg-[#B8043A]',
-                    currentSlide >= data?.length - 1 - slidesToShow
+                    currentSlide >= maxSlide
                       ? 'cursor-default text-opacity-10 '
                       : ' cursor-pointer',
                   ].join(' ')}
