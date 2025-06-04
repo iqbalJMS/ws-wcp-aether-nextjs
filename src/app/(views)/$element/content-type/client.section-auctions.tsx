@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import useForm from '@/lib/hook/useForm';
 import { T_ContentTypeRequest } from '@/api/content-type/api.get-content-type.type';
 import {
@@ -13,27 +13,44 @@ import { useSearchParams } from 'next/navigation';
 import { useDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 
+interface AuctionItem {
+  nid: number;
+  title: string;
+  date: string;
+  image: string;
+  downloadFile?: string;
+}
+
+interface AuctionsData {
+  contents: AuctionItem[];
+}
+
 export default function CE_SectionAuctions({
   auctionsData,
 }: {
-  auctionsData: {
-    contents: Array<{
-      nid: number;
-      title: string;
-      date: string;
-      image: string;
-      downloadFile?: string;
-    }>;
-  };
+  auctionsData: AuctionsData;
 }) {
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [auctionsList, setAuctionsList] = useState(auctionsData);
+  const [additionalAuctions, setAdditionalAuctions] = useState<AuctionItem[]>([]);
   const searchParams = useSearchParams();
   const dictionary = useDictionary(
     (searchParams?.get('lang') as Locale) ?? 'id'
   );
+
+  // Reset state when props change
+  useEffect(() => {
+    setAdditionalAuctions([]);
+    setIsFirst(true);
+    setIsLastPage(false);
+  }, [auctionsData]);
+
+  // Combine original data with additional loaded items
+  const allAuctionItems = [
+    ...(auctionsData?.contents || []),
+    ...additionalAuctions
+  ];
 
   const { form, validateForm, setForm } = useForm<
     T_ContentTypeRequest,
@@ -68,57 +85,45 @@ export default function CE_SectionAuctions({
           (item: any) => item?.entity_bundle?.[0]?.value === 'content_type'
         );
 
-        const dataContentType = {
-          contents: _component?.field_content_type?.map((item: any) => {
-            return {
-              title: item?.title?.[0]?.value,
-              nid: item?.nid?.[0]?.value,
-              image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-              date: item?.created?.[0]?.value,
-            };
-          }),
-        };
+        const newAuctions = _component?.field_content_type?.map((item: any) => {
+          return {
+            title: item?.title?.[0]?.value,
+            nid: item?.nid?.[0]?.value,
+            image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+            date: item?.created?.[0]?.value,
+          };
+        }) || [];
 
-        if (!dataContentType.contents?.length) {
+        if (!newAuctions.length) {
           setIsLastPage(true);
           return;
         }
 
-        if (form.page === '0') {
-          setAuctionsList(dataContentType);
-        } else {
-          setAuctionsList((prev) => ({
-            contents: [...prev.contents, ...dataContentType.contents],
-          }));
-
-          if (dataContentType.contents.length < Number(form.limit)) {
-            setIsLastPage(true);
-          }
+        setAdditionalAuctions(prev => [...prev, ...newAuctions]);
+        
+        if (newAuctions.length < Number(form.limit)) {
+          setIsLastPage(true);
         }
       });
     }
   };
 
   const handleLoadMore = () => {
+    setForm({
+      ...form,
+      page: String(Number(form.page) + 1),
+    });
+    
     if (isFirst) {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
       setIsFirst(false);
-      handleAuctionsList();
-    } else {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
-      handleAuctionsList();
     }
+    
+    handleAuctionsList();
   };
 
   return (
     <section className="container py-10">
-      {auctionsList?.contents?.map((item) => (
+      {allAuctionItems.map((item) => (
         <CE_CardVariant09
           key={item.nid}
           data={[

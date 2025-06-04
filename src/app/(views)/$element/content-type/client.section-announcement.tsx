@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import useForm from '@/lib/hook/useForm';
 import { T_ContentTypeRequest } from '@/api/content-type/api.get-content-type.type';
 import {
@@ -13,23 +13,29 @@ import { useSearchParams } from 'next/navigation';
 import { useDictionary } from '@/get-dictionary';
 import { Locale } from '@/i18n-config';
 
+type AnnouncementItem = {
+  nid: number;
+  title: string;
+  date: string;
+  image: string;
+  downloadFile?: string;
+};
+
+type AnnouncementData = {
+  contents: AnnouncementItem[];
+};
+
 export default function CE_SectionAnnouncement({
   announcementData,
 }: {
-  announcementData: {
-    contents: Array<{
-      nid: number;
-      title: string;
-      date: string;
-      image: string;
-      downloadFile?: string;
-    }>;
-  };
+  announcementData: AnnouncementData;
 }) {
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [announcementList, setAnnouncementList] = useState(announcementData);
+  // Instead of duplicating props into state, we'll maintain additional items separately
+  const [additionalItems, setAdditionalItems] = useState<AnnouncementItem[]>([]);
+  
   const searchParams = useSearchParams();
   const dictionary = useDictionary(
     (searchParams?.get('lang') as Locale) ?? 'id'
@@ -45,6 +51,20 @@ export default function CE_SectionAnnouncement({
     }),
     CFN_ValidateGetContentTypeFields
   );
+
+  // Reset additional items when announcementData changes
+  useEffect(() => {
+    setAdditionalItems([]);
+    setIsLastPage(false);
+    setIsFirst(true);
+    setForm(CFN_MapToContentTypePayload({
+      limit: '8',
+      page: '0',
+    }));
+  }, [announcementData, setForm]);
+
+  // Combine the original data with additional items
+  const allAnnouncementItems = [...announcementData.contents, ...additionalItems];
 
   const formatDate = (date: string): string => {
     const now = new Date(date);
@@ -68,57 +88,45 @@ export default function CE_SectionAnnouncement({
           (item: any) => item?.entity_bundle?.[0]?.value === 'content_type'
         );
 
-        const dataContentType = {
-          contents: _component?.field_content_type?.map((item: any) => {
-            return {
-              title: item?.title?.[0]?.value,
-              nid: item?.nid?.[0]?.value,
-              image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-              date: item?.created?.[0]?.value,
-            };
-          }),
-        };
+        const newItems = _component?.field_content_type?.map((item: any) => {
+          return {
+            title: item?.title?.[0]?.value,
+            nid: item?.nid?.[0]?.value,
+            image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+            date: item?.created?.[0]?.value,
+          };
+        }) || [];
 
-        if (!dataContentType.contents?.length) {
+        if (!newItems.length) {
           setIsLastPage(true);
           return;
         }
 
-        if (form.page === '0') {
-          setAnnouncementList(dataContentType);
-        } else {
-          setAnnouncementList((prev) => ({
-            contents: [...prev.contents, ...dataContentType.contents],
-          }));
+        setAdditionalItems(prev => [...prev, ...newItems]);
 
-          if (dataContentType.contents.length < Number(form.limit)) {
-            setIsLastPage(true);
-          }
+        if (newItems.length < Number(form.limit)) {
+          setIsLastPage(true);
         }
       });
     }
   };
 
   const handleLoadMore = () => {
+    setForm({
+      ...form,
+      page: String(Number(form.page) + 1),
+    });
+    
     if (isFirst) {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
       setIsFirst(false);
-      handleAnnouncementList();
-    } else {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
-      handleAnnouncementList();
     }
+    
+    handleAnnouncementList();
   };
 
   return (
     <section className="container py-10">
-      {announcementList?.contents?.map((item) => (
+      {allAnnouncementItems.map((item) => (
         <CE_CardVariant09
           key={item.nid}
           data={[

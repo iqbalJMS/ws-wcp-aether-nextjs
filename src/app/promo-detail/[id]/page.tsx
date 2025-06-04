@@ -16,24 +16,37 @@ import SE_PortletVariant02 from '@/app/(views)/$element/portlet/server.portlet.v
 import CE_CardDetailPromo from '@/app/promo-detail/$element/client.card-detail.promo';
 import Breadcrumb from '@/lib/element/global/breadcrumb';
 import GlobalHeader from '@/lib/element/global/global.header';
+import { Locale } from '@/i18n-config';
 
-export default async function page({ params }: { params: { id: string } }) {
+export default async function page({
+  params,
+  searchParams: { lang },
+}: {
+  params: {
+    id: string;
+  };
+  searchParams: {
+    lang: Locale;
+  };
+}) {
   const urlLink =
     process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
   const getOurstoryData = await ACT_GetDetailPage({
-    lang: 'en',
+    lang: lang ?? 'id',
     alias: 'node',
     nid: +params.id,
   });
 
-  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
+  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: lang ?? 'id' });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({
-    lang: 'en',
+    lang: lang ?? 'id',
     theme: 'promo-main-navigation',
   });
-  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
-  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
-  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const listMainFooter = await ACT_GetMainMenuFooter({ lang: lang ?? 'id' });
+  const listBottomFooter = await ACT_GetBottomMenuFooter({
+    lang: lang ?? 'id',
+  });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: lang ?? 'id' });
   const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
   const dataRelatedContent = await ACT_GetRelatedContentType({

@@ -17,21 +17,34 @@ import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo'
 import { ACT_GetRelatedContentType } from '@/app/(views)/$action/action.get-related-content-type';
 import SE_RelatedContent from '@/app/(views)/$element/content-type/server.related-content-type';
 import { T_Response_Content_Type } from '@/api/content-type/api.get-content-type.type';
+import { Locale } from '@/i18n-config';
 
-export default async function page({ params }: { params: { id: string } }) {
+export default async function page({
+  params,
+  searchParams: { lang },
+}: {
+  params: {
+    id: string;
+  };
+  searchParams: {
+    lang: Locale;
+  };
+}) {
   const getOurstoryData = await ACT_GetDetailPage({
-    lang: 'en',
+    lang: lang ?? 'id',
     alias: 'node',
     nid: +params.id,
   });
 
-  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
+  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: lang ?? 'id' });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({
-    lang: 'en',
+    lang: lang ?? 'id',
   });
-  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
-  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
-  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const listMainFooter = await ACT_GetMainMenuFooter({ lang: lang ?? 'id' });
+  const listBottomFooter = await ACT_GetBottomMenuFooter({
+    lang: lang ?? 'id',
+  });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: lang ?? 'id' });
   const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
   const dataRelatedContent = await ACT_GetRelatedContentType({
     nid: +params.id,

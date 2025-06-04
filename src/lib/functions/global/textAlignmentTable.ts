@@ -1,3 +1,14 @@
+function escapeHtml(str: any) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+const allowedAlignments = new Set(['right', 'center', 'left']);
+
 export const applyTextAlignmentStylesTable = (rendered: string): string => {
   rendered = rendered.replace(
     /<p class="text-align-right"([^>]*)>/g,
@@ -52,7 +63,9 @@ export const applyTextAlignmentStylesTable = (rendered: string): string => {
   rendered = rendered.replace(
     /<thead[^>]*class="([^"]*text-align-(right|center|left)[^"]*)"([^>]*)>/g,
     (match, classList, alignment) => {
-      return `<thead class="${classList}" style="text-align: ${alignment} !important;" ${match.slice(match.indexOf('">') + 2)}`;
+      const safeClassList = escapeHtml(classList);
+      const safeAlignment = escapeHtml(alignment);
+      return `<thead class="${safeClassList}" style="text-align: ${safeAlignment} !important;" ${match.slice(match.indexOf('">') + 2)}`;
     }
   );
 
@@ -79,14 +92,18 @@ export const applyTextAlignmentStylesTable = (rendered: string): string => {
   rendered = rendered.replace(
     /<th([^>]*)rowspan="([^"]+)"([^>]*)>\s*<p class="text-align-(right|center|left)"/g,
     (match, before, rowspan, after, alignment) => {
-      return `<th${before}rowspan="${rowspan}"${after} style="text-align: ${alignment} !important;"><p class="text-align-${alignment}"`;
+      const safeRowspan = /^[0-9]+$/.test(rowspan) ? rowspan : '1';
+      const safeAlignment = allowedAlignments.has(alignment) ? alignment : 'left';
+      return `<th${before}rowspan="${safeRowspan}"${after} style="text-align: ${safeAlignment} !important;"><p class="text-align-${alignment}"`;
     }
   );
 
   rendered = rendered.replace(
     /<th([^>]*)colspan="([^"]+)"([^>]*)>\s*<p class="text-align-(right|center|left)"/g,
     (match, before, colspan, after, alignment) => {
-      return `<th${before}colspan="${colspan}"${after} style="text-align: ${alignment} !important;"><p class="text-align-${alignment}"`;
+      const safeColspan = /^[0-9]+$/.test(colspan) ? colspan : '1';
+      const safeAlignment = allowedAlignments.has(alignment) ? alignment : 'left';
+      return `<th${before}colspan="${safeColspan}"${after} style="text-align: ${safeAlignment} !important;"><p class="text-align-${alignment}"`;
     }
   );
 

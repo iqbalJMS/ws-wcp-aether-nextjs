@@ -4,7 +4,7 @@ import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import Tabs from '@/lib/element/global/tabs';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type T_CardVariant17Props = {
   data: {
@@ -23,11 +23,16 @@ type T_CardVariant17Props = {
 };
 
 export default function CE_CardVariant17({ data }: T_CardVariant17Props) {
-  const [tab, setTab] = useState(data.at(0)?.title);
+  const [tab, setTab] = useState(data.at(0)?.title ?? '');
   const list = useMemo(() => {
     return data.find((item) => item.title === tab);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
+
+  useEffect(() => {
+    setTab(data.at(0)?.title ?? '');
+  }, [data]);
+
   return (
     <>
       <div className=" py-10 container">
