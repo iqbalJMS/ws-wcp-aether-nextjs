@@ -305,9 +305,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     },
   },
   personalized_shortcut: {
-    component: SE_IconMain,
+    component: (props) => {
+      return <SE_IconMain lang={props?.lang || 'id'} />;
+    },
     props: (_component) => {
-      return {};
+      return { lang: _component?.langcode?.[0]?.value || '' };
     },
   },
   section: {

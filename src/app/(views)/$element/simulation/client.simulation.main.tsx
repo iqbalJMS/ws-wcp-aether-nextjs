@@ -123,9 +123,7 @@ const CE_SimulationMain = ({
               {/* <div
                 className={`text-3xl font-semibold ${type === 'tab' ? '' : ''}`}
               > pengecekan type tidak kepakai karena true atau false sama aja '' */}
-              <div
-                className={`text-3xl font-semibold`}
-              >
+              <div className={`text-3xl font-semibold`}>
                 {title || simulation?.title}
               </div>
               {type === 'page' && (

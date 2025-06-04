@@ -78,7 +78,11 @@ export default function CE_PromoSlider({
     }
   };
 
-  const NavigationButton = ({ direction, onClick, disabled }: { 
+  const NavigationButton = ({
+    direction,
+    onClick,
+    disabled,
+  }: {
     direction: 'prev' | 'next';
     onClick: () => void;
     disabled: boolean;
@@ -94,9 +98,13 @@ export default function CE_PromoSlider({
     </button>
   );
 
-  const SlideItem = ({ item, index, className }: { 
-    item: any; 
-    index: number; 
+  const SlideItem = ({
+    item,
+    index,
+    className,
+  }: {
+    item: any;
+    index: number;
     className: string;
   }) => (
     <Link
@@ -104,7 +112,9 @@ export default function CE_PromoSlider({
       key={index}
       className={`group relative overflow-hidden ${className} flex-none flex flex-col justify-center items-center bg-center cursor-pointer`}
     >
-      <div className={`w-full ${screenWidth < 768 ? 'h-[400px]' : screenWidth >= 1536 ? 'h-[350px]' : 'h-[280px]'} flex-none flex flex-col justify-end items-center relative overflow-hidden`}>
+      <div
+        className={`w-full ${screenWidth < 768 ? 'h-[400px]' : screenWidth >= 1536 ? 'h-[350px]' : 'h-[280px]'} flex-none flex flex-col justify-end items-center relative overflow-hidden`}
+      >
         <div
           className="w-full h-full hover:scale-150 duration-300 bg-center transition-all ease-in-out transform-gpu delay-100 mb-2"
           style={{
@@ -113,7 +123,9 @@ export default function CE_PromoSlider({
             backgroundRepeat: 'no-repeat',
           }}
         ></div>
-        <div className={`w-full ${screenWidth >= 1536 ? 'bg-white h-36 mt-3' : 'h-full mt-10'} relative overflow-hidden ${screenWidth < 768 ? 'px-2' : ''}`}>
+        <div
+          className={`w-full ${screenWidth >= 1536 ? 'bg-white h-36 mt-3' : 'h-full mt-10'} relative overflow-hidden ${screenWidth < 768 ? 'px-2' : ''}`}
+        >
           <div className={screenWidth < 768 ? 'w-11/12' : ''}>
             <h1 className="text-base text-[#C70740] line-clamp-2 leading-tight break-words hyphens-auto">
               {item?.title}
@@ -136,24 +148,27 @@ export default function CE_PromoSlider({
   const getContainerClasses = () => {
     if (screenWidth >= 1536) {
       return {
-        container: "w-full h-[45vh] flex flex-row justify-center",
-        wrapper: "overflow-hidden basis-9/12 flex justify-center",
-        slides: "w-full py-10 flex justify-start items-center space-x-2 transition-all ease-in-out duration-300",
-        itemWidth: "w-[24.5%]"
+        container: 'w-full h-[45vh] flex flex-row justify-center',
+        wrapper: 'overflow-hidden basis-9/12 flex justify-center',
+        slides:
+          'w-full py-10 flex justify-start items-center space-x-2 transition-all ease-in-out duration-300',
+        itemWidth: 'w-[24.5%]',
       };
     } else if (screenWidth >= 768) {
       return {
-        container: "w-full h-[40vh] flex flex-row justify-center",
-        wrapper: "overflow-hidden basis-full flex justify-center",
-        slides: "w-full flex justify-start items-center space-x-5 transition-all ease-in-out duration-300",
-        itemWidth: "w-[48%]"
+        container: 'w-full h-[40vh] flex flex-row justify-center',
+        wrapper: 'overflow-hidden basis-full flex justify-center',
+        slides:
+          'w-full flex justify-start items-center space-x-5 transition-all ease-in-out duration-300',
+        itemWidth: 'w-[48%]',
       };
     } else {
       return {
-        container: "w-full h-[45vh] flex flex-row justify-center",
-        wrapper: "overflow-hidden basis-full flex justify-center",
-        slides: "w-full flex justify-start transition-all ease-in-out duration-300",
-        itemWidth: "w-full"
+        container: 'w-full h-[45vh] flex flex-row justify-center',
+        wrapper: 'overflow-hidden basis-full flex justify-center',
+        slides:
+          'w-full flex justify-start transition-all ease-in-out duration-300',
+        itemWidth: 'w-full',
       };
     }
   };
@@ -167,7 +182,7 @@ export default function CE_PromoSlider({
           <h2 className="text-3xl font-bold text-[#C70740] mb-4">{title}</h2>
           <p className="text-lg text-gray-600">{subtitle}</p>
         </div>
-        
+
         <div className="w-full flex justify-center px-5 my-10">
           <div className={classes.container}>
             <div className="basis-20 flex justify-center items-center">

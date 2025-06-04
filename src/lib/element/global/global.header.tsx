@@ -715,9 +715,7 @@ export default function GlobalHeader({
                               </div>
                             ) : (
                               <Link
-                                target={
-                                  "_self"
-                                }
+                                target={'_self'}
                                 href={`${header.options?.external ? header.uri || header.relative : `/${String(header?.alias) || header?.relative}?lang=${currentLanguage ?? 'en'}`}`}
                               >
                                 <div className="flex items-center">
