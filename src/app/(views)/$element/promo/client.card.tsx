@@ -41,9 +41,13 @@ export default function CE_Card(props: T_CardProps) {
       case 'alert_mode':
         return content?.id ? `/waspada-modus-detail/${content.id}` : '#';
       case 'info_lelang':
-        return `${baseUrl}/api/files/?path=${content?.downloadFile}` || '#';
+        return content?.downloadFile
+          ? `${baseUrl}/api/files/?path=${content.downloadFile}` 
+          : '#';
       case 'pengumuman':
-        return `${baseUrl}/api/files/?path=${content?.downloadFile}` || '#';
+        return content?.downloadFile 
+        ? `${baseUrl}/api/files/?path=${content.downloadFile}` 
+        : '#';
       default:
         return '#';
     }
