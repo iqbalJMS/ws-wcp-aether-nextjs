@@ -117,9 +117,10 @@ const CE_SimulationKPRSMain = () => {
                   <div className="mt-5">
                     <InputError
                       message={
-                        dictionary?.reminder_text_brigunaKarya
-                          ?.validateMaxMinInstallment ??
                         formError.installmentAmount
+                          ? dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxMinInstallment
+                          : ''
                       }
                     />
                   </div>
@@ -165,8 +166,10 @@ const CE_SimulationKPRSMain = () => {
                   <div className="mt-5">
                     <InputError
                       message={
-                        dictionary?.reminder_text_brigunaKarya
-                          ?.validateMaxMinTerm ?? formError.installmentTerm
+                        formError.installmentTerm
+                          ? dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxMinTerm
+                          : ''
                       }
                     />
                   </div>

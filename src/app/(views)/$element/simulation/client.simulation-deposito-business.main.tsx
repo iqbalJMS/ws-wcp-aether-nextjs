@@ -174,8 +174,10 @@ const CE_SimulationDepositoBusinessMain = () => {
                   <div className="mt-5">
                     <InputError
                       message={
-                        dictionary?.reminder_text_brigunaKarya
-                          ?.validateMaxMinInstallment ?? formError.depositAmount
+                        formError.depositAmount
+                          ? dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxMinInstallment
+                          : ''
                       }
                     />
                   </div>
@@ -239,8 +241,10 @@ const CE_SimulationDepositoBusinessMain = () => {
                   <div className="mt-5">
                     <InputError
                       message={
-                        dictionary?.reminder_text_brigunaKarya
-                          ?.validateMaxMinTermMonth ?? formError.termInMonths
+                        formError.termInMonths
+                          ? dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxMinTermMonth
+                          : ''
                       }
                     />
                   </div>

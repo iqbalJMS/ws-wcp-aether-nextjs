@@ -234,9 +234,10 @@ const CE_SimulationCarMain = () => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_brigunaKarya
-                            ?.validateMaxMinInstallment ??
                           formError.vehiclePrice
+                            ? dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinInstallment
+                            : ''
                         }
                       />
                     </div>
@@ -332,9 +333,10 @@ const CE_SimulationCarMain = () => {
                         <div className="mt-5">
                           <InputError
                             message={
-                              dictionary?.reminder_text_brigunaKarya
-                                ?.validateMaxMinCarNew ??
                               formError.installmentTerm
+                                ? dictionary?.reminder_text_brigunaKarya
+                                    ?.validateMaxMinCarNew
+                                : ''
                             }
                           />
                         </div>
@@ -346,9 +348,10 @@ const CE_SimulationCarMain = () => {
                         <div className="mt-5">
                           <InputError
                             message={
-                              dictionary?.reminder_text_brigunaKarya
-                                ?.validateMaxMinCarUsed ??
                               formError.installmentTerm
+                                ? dictionary?.reminder_text_brigunaKarya
+                                    ?.validateMaxMinCarUsed
+                                : ''
                             }
                           />
                         </div>

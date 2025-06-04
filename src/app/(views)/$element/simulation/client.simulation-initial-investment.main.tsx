@@ -155,26 +155,6 @@ const CE_SimulationInitialInvestmentMain = () => {
               }
             />
           </div>
-          {/* <div className="w-1/2 flex-none mb-10 px-5">
-            <CE_SimulationLabel
-              label="Suku Bunga Efektif"
-              editable={false}
-              slot={
-                <div>
-                  <div className="w-[70%]">
-                    <InputText
-                      disabled
-                      rightText="%"
-                      value={
-                        ((result?. || 0) * 100).toString() || '5'
-                      }
-                      type="number"
-                    />
-                  </div>
-                </div>
-              }
-            />
-          </div> */}
           <div className="w-full flex-none px-5">
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
