@@ -144,6 +144,8 @@ export function SidebarPromoItem({
 }) {
   const paddingLeft = level * 20;
 
+  if (!list.label || !list.value) return <></>;
+
   return (
     <>
       <button

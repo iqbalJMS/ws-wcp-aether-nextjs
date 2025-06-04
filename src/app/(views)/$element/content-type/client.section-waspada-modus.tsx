@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { CE_CardVariant07 } from '@/app/(views)/$element/card/client.card.variant07';
 import useForm from '@/lib/hook/useForm';
 import {
@@ -10,23 +10,47 @@ import {
 } from '@/app/(views)/$function/cfn.get-content-type';
 import { T_ContentTypeRequest } from '@/api/content-type/api.get-content-type.type';
 
+interface WaspadaModusItem {
+  nid: number;
+  title: string;
+  date: string;
+  image: string;
+}
+
+interface WaspadaModusData {
+  contents: WaspadaModusItem[];
+}
+
 export default function CE_WaspadaModus({
   waspadaModusData,
 }: {
-  waspadaModusData: {
-    contents: Array<{
-      nid: number;
-      title: string;
-      date: string;
-      image: string;
-    }>;
-  };
+  waspadaModusData: WaspadaModusData;
 }) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [dataList, setDataList] = useState(waspadaModusData);
+  const [additionalItems, setAdditionalItems] = useState<WaspadaModusItem[]>([]);
+
+  // Reset state when props change
+  useEffect(() => {
+    setAdditionalItems([]);
+    setIsFirst(true);
+    setIsLastPage(false);
+  }, [waspadaModusData]);
+
+  // Combine original data with additional loaded items
+  const allItems = [
+    ...(waspadaModusData?.contents || []),
+    ...additionalItems
+  ];
+
+  // Filter items based on search value if needed
+  const filteredItems = searchValue.trim() !== '' 
+    ? allItems.filter(item => 
+        item.title.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    : allItems;
 
   const { form, validateForm, setForm } = useForm<
     T_ContentTypeRequest,
@@ -61,61 +85,52 @@ export default function CE_WaspadaModus({
           (item: any) => item?.entity_bundle?.[0]?.value === 'content_type'
         );
 
-        const dataContentType = {
-          contents: _component?.field_content_type?.map((item: any) => {
-            const imageV2 = item?.field_components?.find(
-              (item: any) => item?.entity_bundle?.[0]?.value === 'image'
-            );
+        const newItems = _component?.field_content_type?.map((item: any) => {
+          const imageV2 = item?.field_components?.find(
+            (item: any) => item?.entity_bundle?.[0]?.value === 'image'
+          );
 
-            return {
-              title: item?.title?.[0]?.value,
-              nid: item?.nid?.[0]?.value,
-              image:
-                item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
-                imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-              date: item?.created?.[0]?.value,
-            };
-          }),
-        };
+          return {
+            title: item?.title?.[0]?.value,
+            nid: item?.nid?.[0]?.value,
+            image:
+              item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
+              imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+            date: item?.created?.[0]?.value,
+          };
+        }) || [];
 
-        if (!dataContentType.contents?.length) {
+        if (!newItems.length) {
           setIsLastPage(true);
           return;
         }
 
-        if (form.page === '0') {
-          setDataList(dataContentType);
-        } else {
-          setDataList((prev) => ({
-            contents: [...prev.contents, ...dataContentType.contents],
-          }));
-
-          if (dataContentType.contents.length < Number(form.limit)) {
-            setIsLastPage(true);
-          }
+        setAdditionalItems(prev => [...prev, ...newItems]);
+        
+        if (newItems.length < Number(form.limit)) {
+          setIsLastPage(true);
         }
       });
     }
   };
 
   const handleLoadMore = () => {
+    setForm({
+      ...form,
+      page: String(Number(form.page) + 1),
+    });
+    
     if (isFirst) {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
       setIsFirst(false);
-      handleNewsList();
-    } else {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
-      handleNewsList();
     }
+    
+    handleNewsList();
   };
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    // The search is now handled through the filteredItems variable
+    // which filters the combined list based on the search value
+  };
 
   return (
     <section className="container py-10">
@@ -165,7 +180,7 @@ export default function CE_WaspadaModus({
           </div>
         </form>
       </div>
-      {dataList?.contents?.map((item) => (
+      {filteredItems.map((item) => (
         <CE_CardVariant07
           key={item.nid}
           title={item.title}
@@ -175,7 +190,7 @@ export default function CE_WaspadaModus({
           typeContent="alert_mode"
         />
       ))}
-      {!isLastPage ? (
+      {!isLastPage && filteredItems.length === allItems.length ? (
         <section className="hidden xl:inline-flex items-center justify-center w-full pt-5">
           <hr className="w-20 md:w-40 h-px mx-5 my-8 bg-black border-0 dark:bg-black" />
 

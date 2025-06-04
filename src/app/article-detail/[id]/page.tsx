@@ -14,21 +14,34 @@ import SE_PortletVariant02 from '@/app/(views)/$element/portlet/server.portlet.v
 import SE_WysiwygMain from '@/app/(views)/$element/wysiwyg/server.wysiwyg.main';
 import { ACT_GetMenuItemNavbar } from '@/app/(views)/$action/action.get-menu-items-navbar';
 import { ACT_GetHeaderLogo } from '@/app/(views)/$action/action.get-header-logo';
+import { Locale } from '@/i18n-config';
 
-export default async function page({ params }: { params: { id: string } }) {
+export default async function page({
+  params,
+  searchParams: { lang },
+}: {
+  params: {
+    id: string;
+  };
+  searchParams: {
+    lang: Locale;
+  };
+}) {
   const getOurstoryData = await ACT_GetDetailPage({
-    lang: 'en',
+    lang: lang ?? 'id',
     alias: 'node',
     nid: +params.id,
   });
 
-  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: 'en' });
+  const listHeaderTop = await ACT_GetTopMenuNavbar({ lang: lang ?? 'id' });
   const listHeaderBottom = await ACT_GetMainMenuNavbar({
-    lang: 'en',
+    lang: lang ?? 'id',
   });
-  const listMainFooter = await ACT_GetMainMenuFooter({ lang: 'en' });
-  const listBottomFooter = await ACT_GetBottomMenuFooter({ lang: 'en' });
-  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: 'en' });
+  const listMainFooter = await ACT_GetMainMenuFooter({ lang: lang ?? 'id' });
+  const listBottomFooter = await ACT_GetBottomMenuFooter({
+    lang: lang ?? 'id',
+  });
+  const itemMenuLogin = await ACT_GetMenuItemNavbar({ lang: lang ?? 'id' });
   const itemHeaderLogo = await ACT_GetHeaderLogo({ lang: 'en' });
 
   const categoryArticle =

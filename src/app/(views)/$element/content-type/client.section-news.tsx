@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { CE_CardVariant07 } from '@/app/(views)/$element/card/client.card.variant07';
 import useForm from '@/lib/hook/useForm';
 import { T_ContentTypeRequest } from '@/api/content-type/api.get-content-type.type';
@@ -10,22 +10,39 @@ import {
   CFN_ValidateGetContentTypeFields,
 } from '@/app/(views)/$function/cfn.get-content-type';
 
+interface NewsItem {
+  nid: number;
+  title: string;
+  date: string;
+  image: string;
+}
+
+interface NewsData {
+  contents: NewsItem[];
+}
+
 export default function CE_SectionNews({
   newsData,
 }: {
-  newsData: {
-    contents: Array<{
-      nid: number;
-      title: string;
-      date: string;
-      image: string;
-    }>;
-  };
+  newsData: NewsData;
 }) {
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [newsList, setNewsList] = useState(newsData);
+  const [additionalNews, setAdditionalNews] = useState<NewsItem[]>([]);
+
+  // Reset state when props change
+  useEffect(() => {
+    setAdditionalNews([]);
+    setIsFirst(true);
+    setIsLastPage(false);
+  }, [newsData]);
+
+  // Combine original data with additional loaded items
+  const allNewsItems = [
+    ...(newsData?.contents || []),
+    ...additionalNews
+  ];
 
   const { form, validateForm, setForm } = useForm<
     T_ContentTypeRequest,
@@ -60,57 +77,45 @@ export default function CE_SectionNews({
           (item: any) => item?.entity_bundle?.[0]?.value === 'content_type'
         );
 
-        const dataContentType = {
-          contents: _component?.field_content_type?.map((item: any) => {
-            return {
-              title: item?.title?.[0]?.value,
-              nid: item?.nid?.[0]?.value,
-              image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-              date: item?.created?.[0]?.value,
-            };
-          }),
-        };
+        const newNewsItems = _component?.field_content_type?.map((item: any) => {
+          return {
+            title: item?.title?.[0]?.value,
+            nid: item?.nid?.[0]?.value,
+            image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+            date: item?.created?.[0]?.value,
+          };
+        }) || [];
 
-        if (!dataContentType.contents?.length) {
+        if (!newNewsItems.length) {
           setIsLastPage(true);
           return;
         }
 
-        if (form.page === '0') {
-          setNewsList(dataContentType);
-        } else {
-          setNewsList((prev) => ({
-            contents: [...prev.contents, ...dataContentType.contents],
-          }));
-
-          if (dataContentType.contents.length < Number(form.limit)) {
-            setIsLastPage(true);
-          }
+        setAdditionalNews(prev => [...prev, ...newNewsItems]);
+        
+        if (newNewsItems.length < Number(form.limit)) {
+          setIsLastPage(true);
         }
       });
     }
   };
 
   const handleLoadMore = () => {
+    setForm({
+      ...form,
+      page: String(Number(form.page) + 1),
+    });
+    
     if (isFirst) {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
       setIsFirst(false);
-      handleNewsList();
-    } else {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
-      handleNewsList();
     }
+    
+    handleNewsList();
   };
 
   return (
     <section className="container py-10">
-      {newsList?.contents?.map((item) => (
+      {allNewsItems.map((item) => (
         <CE_CardVariant07
           key={item.nid}
           title={item.title}

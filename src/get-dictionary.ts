@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { Locale } from './i18n-config';
 import type global from './locales/en/global.json';
 
+const ALLOWED_LOCALES = ['en', 'fr', 'es', 'de', 'id'];
 const dictionaries = {
   en: () => import('./locales/en/global.json').then((module) => module.default),
   id: () => import('./locales/id/global.json').then((module) => module.default),
@@ -14,7 +15,8 @@ export const useDictionary = (locale: Locale) => {
 
   useEffect(() => {
     const loadDictionary = async () => {
-      const dict = await (dictionaries[locale]?.() ?? dictionaries.en());
+      const safeLocale = ALLOWED_LOCALES.includes(locale) ? locale : 'en';
+      const dict = await (dictionaries[safeLocale]?.() ?? dictionaries.en());
       setDictionary(dict as T_Dictionary);
     };
 

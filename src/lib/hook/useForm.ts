@@ -10,6 +10,8 @@ type T_Validator<T> = (
   value: string | boolean | number
 ) => string;
 
+const DANGEROUS_KEYS = ['__proto__', 'constructor', 'prototype'];
+
 const updateNestedField = <T>(obj: T, path: (keyof T)[], value: any): T => {
   if (path.length === 0) return obj;
   const [first, ...rest] = path;
@@ -29,6 +31,11 @@ function getObjectValue<T>(obj: T_NestedObject, path: string): T | undefined {
   let result: any = obj;
 
   for (const key of keys) {
+    //Prevent prototype pollution by blocking dangerous keys
+    if (DANGEROUS_KEYS.includes(key)) {
+      return undefined;
+    }
+
     if (result && typeof result === 'object' && key in result) {
       result = result[key];
     } else {

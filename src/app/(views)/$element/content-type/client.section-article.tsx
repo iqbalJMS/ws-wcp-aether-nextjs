@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { CE_CardVariant07 } from '@/app/(views)/$element/card/client.card.variant07';
 import useForm from '@/lib/hook/useForm';
 import { T_ContentTypeRequest } from '@/api/content-type/api.get-content-type.type';
@@ -11,16 +11,19 @@ import {
 } from '@/app/(views)/$function/cfn.get-content-type';
 import slugify from 'slugify';
 
-interface I_Article {
-  contents: Array<{
-    nid: number;
-    title: string;
-    date: string;
-    image: string;
-    site: Array<{ value: string }>;
-    category: Array<{ value: string }>;
-  }>;
+interface I_ArticleItem {
+  nid: number;
+  title: string;
+  date: string;
+  image: string;
+  site: Array<{ value: string }>;
+  category: Array<{ value: string }>;
 }
+
+interface I_Article {
+  contents: I_ArticleItem[];
+}
+
 export default function CE_SectionArticle({
   articleData,
   siteData,
@@ -35,8 +38,11 @@ export default function CE_SectionArticle({
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [articleList, setArticleList] = useState(
-    articleData?.contents?.filter(
+  const [additionalArticles, setAdditionalArticles] = useState<I_ArticleItem[]>([]);
+
+  // Filter function to apply site and category filters
+  const filterArticleItems = (items: I_ArticleItem[]) => {
+    return items?.filter(
       (item) =>
         item.site?.some(({ value }) => {
           const slugifiedValue = slugify(value, {
@@ -54,8 +60,21 @@ export default function CE_SectionArticle({
             (category) => category.value === slugifiedValue
           );
         })
-    )
-  );
+    );
+  };
+
+  // Reset additional articles when props change
+  useEffect(() => {
+    setAdditionalArticles([]);
+    setIsFirst(true);
+    setIsLastPage(false);
+  }, [articleData, siteData, categoryData]);
+
+  // Combine original filtered articles with additional loaded articles
+  const allArticleItems = [
+    ...filterArticleItems(articleData?.contents || []),
+    ...additionalArticles
+  ];
 
   const { form, validateForm, setForm } = useForm<
     T_ContentTypeRequest,
@@ -103,63 +122,38 @@ export default function CE_SectionArticle({
           }),
         };
 
-        const listDataContentType = dataContentType.contents?.filter(
-          (item) =>
-            item.site?.some(({ value }) => {
-              const slugifiedValue = slugify(value, {
-                lower: true,
-                replacement: '_',
-              });
-              return siteData.some((site) => site.value === slugifiedValue);
-            }) &&
-            item.category?.some(({ value }) => {
-              const slugifiedValue = slugify(value, {
-                lower: true,
-                replacement: '_',
-              });
-              return categoryData.some(
-                (category) => category.value === slugifiedValue
-              );
-            })
-        );
+        const listDataContentType = filterArticleItems(dataContentType.contents || []);
 
         if (!dataContentType.contents?.length) {
           setIsLastPage(true);
           return;
         }
 
-        if (form.page === '0') {
-          setArticleList(listDataContentType);
-        } else {
-          setArticleList((prev) => [...prev, ...listDataContentType]);
-          if (dataContentType.contents.length < Number(form.limit)) {
-            setIsLastPage(true);
-          }
+        setAdditionalArticles((prev) => [...prev, ...listDataContentType]);
+        
+        if (dataContentType.contents.length < Number(form.limit)) {
+          setIsLastPage(true);
         }
       });
     }
   };
 
   const handleLoadMore = () => {
+    setForm({
+      ...form,
+      page: String(Number(form.page) + 1),
+    });
+    
     if (isFirst) {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
       setIsFirst(false);
-      handleArticleList();
-    } else {
-      setForm({
-        ...form,
-        page: String(Number(form.page) + 1),
-      });
-      handleArticleList();
     }
+    
+    handleArticleList();
   };
 
   return (
     <section className="container py-10">
-      {articleList?.map((item) => (
+      {allArticleItems?.map((item) => (
         <CE_CardVariant07
           key={item.nid}
           title={item.title}

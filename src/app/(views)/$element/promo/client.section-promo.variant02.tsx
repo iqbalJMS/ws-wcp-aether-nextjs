@@ -23,8 +23,14 @@ export default function CE_SectionPromoVariant01({
   const [searchValue, setSearchValue] = useState<string>('');
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
-  const [promo, setPromo] = useState(promoData);
-  const [pagination, setPagination] = useState(paginationData);
+
+  // Store only additional loaded items, not duplicating props
+  const [additionalPromoItems, setAdditionalPromoItems] = useState<
+    T_PromoProps['promoData']
+  >([]);
+  const [currentPagination, setCurrentPagination] = useState<
+    T_PromoProps['paginationData'] | undefined
+  >(undefined);
 
   const { slug } = useParams();
   const alias = slug?.[0];
@@ -44,6 +50,12 @@ export default function CE_SectionPromoVariant01({
     }),
     CFN_ValidateGetPromoFields
   );
+
+  // Reset state when props change
+  useEffect(() => {
+    setAdditionalPromoItems(promoData);
+    setCurrentPagination(paginationData);
+  }, [promoData, paginationData]);
 
   const handlePageChange = (page: number) => {
     setForm((prevForm) => ({
@@ -97,7 +109,6 @@ export default function CE_SectionPromoVariant01({
           if (!data?.field_components) {
             // eslint-disable-next-line no-console
             console.error('Invalid data from API:', data);
-            setPromo([]);
             return;
           }
 
@@ -108,25 +119,23 @@ export default function CE_SectionPromoVariant01({
           if (!dataPromoWidget?.[0]?.promo_data?.items) {
             // eslint-disable-next-line no-console
             console.error('Promo data missing:', dataPromoWidget);
-            setPromo([]);
             return;
           }
 
-          const mappedPromo = dataPromoWidget?.[0]?.promo_data?.items?.map(
-            (item: any) => ({
+          const mappedPromo =
+            dataPromoWidget?.[0]?.promo_data?.items?.map((item: any) => ({
               title: item?.title?.[0]?.value,
               image:
                 item?.field_promo_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
               nid: item?.nid?.[0]?.value,
               startDate: item?.field_promo_start_date?.[0]?.value,
               endDate: item?.field_promo_end_date?.[0]?.value,
-            })
-          );
+            })) || [];
 
           const mappedPagination = dataPromoWidget?.[0]?.promo_data?.pager;
 
-          setPromo(mappedPromo || []);
-          setPagination(mappedPagination || paginationData);
+          setAdditionalPromoItems(mappedPromo);
+          setCurrentPagination(mappedPagination);
         }
       );
     }
@@ -250,11 +259,11 @@ export default function CE_SectionPromoVariant01({
             </div>
           )}
 
-          {promo && promo?.length > 0 ? (
+          {additionalPromoItems && additionalPromoItems.length > 0 ? (
             <div className="w-full">
-              {promo.map((promoItem, index) => (
+              {additionalPromoItems.map((promoItem, index) => (
                 <CE_CardVariant07
-                  key={index}
+                  key={promoItem.nid || index}
                   title={promoItem?.title}
                   image={promoItem?.image}
                   subTitle={`${formatDate(promoItem?.startDate)} - ${formatDate(promoItem?.endDate)}`}
@@ -277,8 +286,8 @@ export default function CE_SectionPromoVariant01({
 
         <div className="flex md:justify-end justify-center">
           <Pagination
-            currentPage={pagination?.page || 1}
-            totalPages={pagination?.total_page || 0}
+            currentPage={currentPagination?.page || 1}
+            totalPages={currentPagination?.total_page || 0}
             variant="simple"
             onPageChange={(e) => {
               handlePageChange(e);
