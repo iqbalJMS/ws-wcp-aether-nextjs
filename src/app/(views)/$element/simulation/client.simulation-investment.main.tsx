@@ -104,7 +104,8 @@ const CE_SimulationInvestmentMain = () => {
               label:
                 dictionary?.simulasi_investasi?.resultPeriodic ??
                 'Periodic Investment',
-              valuePeriodic: result?.interest.toString() || '0',
+              valuePeriodic:
+                result?.monthlyPrincipalInstallment.toString() || '0',
             },
           ]}
           onClose={() => setIsResult(false)}
@@ -120,7 +121,7 @@ const CE_SimulationInvestmentMain = () => {
                   <div className="mb-5 w-[50%]">
                     <InputText
                       disabled={formDisabled.installment}
-                      leftText="Rp."
+                      leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                       value={form.installment}
                       onChange={(value) => onFieldChange('installment', value)}
                       type="number"
@@ -137,7 +138,12 @@ const CE_SimulationInvestmentMain = () => {
                   </div>
                   {formError.installment && (
                     <div className="mt-5">
-                      <InputError message={formError.installment} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_kpr
+                            ?.validateMaxMinInstallment ?? formError.installment
+                        }
+                      />
                     </div>
                   )}
                 </div>
@@ -180,7 +186,12 @@ const CE_SimulationInvestmentMain = () => {
                   </div>
                   {formError.InterestRate && (
                     <div className="mt-5">
-                      <InputError message={formError.InterestRate} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_kpr
+                            ?.validateMaxMinInterest ?? formError.InterestRate
+                        }
+                      />
                     </div>
                   )}
                 </div>
@@ -224,7 +235,12 @@ const CE_SimulationInvestmentMain = () => {
                   </div>
                   {formError.installmentTerm && (
                     <div className="mt-5">
-                      <InputError message={formError.installmentTerm} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_kpr?.validateMaxMinTerm ??
+                          formError.installmentTerm
+                        }
+                      />
                     </div>
                   )}
                 </div>

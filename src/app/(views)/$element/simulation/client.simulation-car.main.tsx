@@ -211,7 +211,7 @@ const CE_SimulationCarMain = () => {
                   <div className="mb-5 w-[50%]">
                     <InputText
                       disabled={formDisabled.vehiclePrice}
-                      leftText="Rp."
+                      leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                       value={form.vehiclePrice}
                       onChange={(value) => {
                         onFieldChange('vehiclePrice', value);
@@ -232,7 +232,13 @@ const CE_SimulationCarMain = () => {
                   </div>
                   {formError.vehiclePrice && (
                     <div className="mt-5">
-                      <InputError message={formError.vehiclePrice} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_brigunaKarya
+                            ?.validateMaxMinInstallment ??
+                          formError.vehiclePrice
+                        }
+                      />
                     </div>
                   )}
                 </div>
@@ -260,7 +266,7 @@ const CE_SimulationCarMain = () => {
                     <div className="w-[75%]  flex-none">
                       <InputText
                         disabled
-                        leftText="Rp."
+                        leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                         value={result?.downPaymentAmount}
                         type="number"
                       />
@@ -279,7 +285,7 @@ const CE_SimulationCarMain = () => {
                   <div className="">
                     <InputText
                       disabled
-                      leftText="Rp."
+                      leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                       value={result?.principalDebt}
                       type="number"
                     />
@@ -320,9 +326,33 @@ const CE_SimulationCarMain = () => {
                       }
                     />
                   </div>
-                  {formError.installmentTerm && (
-                    <div className="mt-5">
-                      <InputError message={formError.installmentTerm} />
+                  {form.vehicleStatus === 'NEW' ? (
+                    <div>
+                      {formError.installmentTerm && (
+                        <div className="mt-5">
+                          <InputError
+                            message={
+                              dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinCarNew ??
+                              formError.installmentTerm
+                            }
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div>
+                      {formError.installmentTerm && (
+                        <div className="mt-5">
+                          <InputError
+                            message={
+                              dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinCarUsed ??
+                              formError.installmentTerm
+                            }
+                          />
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>

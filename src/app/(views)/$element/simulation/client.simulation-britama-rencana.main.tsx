@@ -148,7 +148,12 @@ const CE_SimulationBritamaRencanaMain = () => {
                     />
                   </div>
                   <div className="w-full pt-2">
-                    <InputError message={formError.durationInMonths} />
+                    <InputError
+                      message={
+                        dictionary?.reminder_text_brigunaKarya
+                          ?.validateMaxMinMonths ?? formError.durationInMonths
+                      }
+                    />
                   </div>
                 </div>
               }
@@ -183,7 +188,13 @@ const CE_SimulationBritamaRencanaMain = () => {
                     />
                   </div>
                   <div className=" w-full mt-5">
-                    <InputError message={formError.monthlyDeposit} />
+                    <InputError
+                      message={
+                        dictionary?.reminder_text_brigunaKarya
+                          ?.validateMaxMinInstallment ??
+                        formError.monthlyDeposit
+                      }
+                    />
                   </div>
                 </div>
               }
