@@ -75,7 +75,7 @@ export default function CE_CardVariant19({
                       <Link
                         href={handleurl(item?.button?.link)}
                         extern={item?.button?.extern}
-                        target={item?.button?.extern ? '_self' : '_self'}
+                        target="_self"
                       >
                         <div className="inline-block text-blue-01 uppercase text-base">
                           {item?.button?.title} &#10095;

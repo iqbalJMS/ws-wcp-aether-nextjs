@@ -7,14 +7,16 @@ import { BASE_URL } from '@/app/(views)/$constant';
 
 type T_IconMainProps = {
   maxListShow?: number;
-  cookiesName: string;
+  cookiesName?: string;
+  lang: string;
 };
 
 export default async function SE_IconMain({
   maxListShow = 6,
   cookiesName = '__persolized-menu',
+  lang,
 }: T_IconMainProps) {
-  const initialIcon = await ACT_GetPersonalizeMenu();
+  const initialIcon = await ACT_GetPersonalizeMenu({ lang });
   const icons: T_IconList[] = initialIcon.map((iconItem, index) => {
     return {
       title: iconItem.title,

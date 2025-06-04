@@ -75,8 +75,8 @@
     "buttonSimulasiKendaraan": "Vehicle Simulation"
   },
   "simulasi_deposito_bisnis": {
-    "deposito": "Total Deposits",
-    "jangkaWaktu": "Time Period",
+    "deposito": "Deposit Amount",
+    "jangkaWaktu": "Term",
     "sukuBunga": "Effective Interest Rate",
     "placeholder": "Choose a Plan",
     "buttonAturUlang": "Reset",
@@ -85,24 +85,26 @@
     "resultSaldoTanpaBunga": "INTEREST-FREE BALANCE",
     "resultSaldoBunga": "Interest",
     "mataUang": "Currency",
-    "pilihPaket": "Select Package"
+    "pilihPaket": "Select Package",
+    "tenor": "Tenor"
   },
   "simulasi_kprs": {
-    "pinjaman": "Total Deposits",
-    "jangkaWaktu": "Time Period",
-    "rightText": "Years",
+    "pinjaman": "Loan Amount",
+    "jangkaWaktu": "Term",
+    "rightText": "year",
+    "leftText": "IDR",
     "sukuBunga": "Effective Interest Rate",
     "buttonHitung": "Calculate",
     "resultAngsuran": "Estimated Monthly Installments"
   },
   "simulasi_investasi": {
-    "investasi": "Credit ceiling",
-    "jangkaWaktu": "Time Period",
-    "rightText": "Months",
-    "sukuBunga": "Effective Interest Rate",
+    "investasi": "Credit Plafond",
+    "jangkaWaktu": "Tenor",
+    "rightText": "Month",
+    "sukuBunga": "Loan Rate",
     "resultPeriodic": "Periodic Investment",
-    "uangPensiun": "Pension Amount",
-    "jumlahGaji": "Total Salary"
+    "uangPensiun": "Pension Fund Amount",
+    "jumlahGaji": "Salary"
   },
   "simulasi_briguna": {
     "resultBrigunaKarya": "BRIGuna Karya Results",
@@ -111,10 +113,10 @@
   },
   "simulasi_britama": {
     "jumlahBulan": "Number of Months",
-    "setoranBulanBritama": "BritAma Monthly Deposit Plan",
-    "ratebunga": "BritAma Interest Rate Plan (p.a)",
-    "premiAsuransi": "% Monthly BritAma Plan Insurance Premium",
-    "nominalPremi": "Premium Amount of BritAma Insurance Plan per Year",
+    "setoranBulanBritama": "Monthly Deposit BritAma Plan",
+    "ratebunga": "Rate BritAma Plan (p.a)",
+    "premiAsuransi": "% Monthly Insurance Premi BritAma Plan",
+    "nominalPremi": "Nominal Insurance Premi BritAma Plan Per year",
     "resultBritama": "INTEREST + BRITAMA PLAN BALANCE",
     "grandTotal": "TOTAL INVESTMENT BRITAMA PLAN + BRITAMA"
   },
@@ -125,7 +127,7 @@
     "uangMuka": "Down Payment",
     "pokokHutang": "Debt Principal",
     "jangkaWaktu": "Term",
-    "rightText": "Years",
+    "rightText": "year",
     "bunga": "Interest",
     "vehicleStatusNew": "New",
     "vehicleStatusUsed": "Used",
@@ -136,7 +138,27 @@
     "administration": "Administration",
     "TDPAdminitration": "TDP (DP + ADMINISTRATION FEE + PROVISION)"
   },
+  "personalized_shortcut": {
+    "title": "Personalize My Quick Links",
+    "description": "Go ahead and select up to 6 quick links of your favourite banking routine."
+  },
   "content_type": {
     "buttonDownloadText": "Download"
+  },
+  "reminder_text_kpr": {
+    "validateMaxMinInstallment": "Value must be greater than 0 or Value cannot be greater than 100,000,000",
+    "validateMaxMinTerm": "Value must be greater than 0 or Value cannot be greater than 120",
+    "validateMaxMinInterest": "Value must be greater than 0 or Value cannot be greater than 100",
+    "validateMaxTermMonth": "Value must be greater than 0 or Value cannot be greater than 20"
+  },
+  "reminder_text_brigunaKarya": {
+    "validateMaxMinInstallment": "Value must be greater than 0 or Value cannot be greater than 10.000.000.000",
+    "validateMaxMinTerm": "Value must be greater than 0 or Value cannot be greater than 15",
+    "validateMaxMinMonths": "Value must be greater than 0 or Value cannot be greater than 240",
+    "validateMaxMinInterest": "Value must be greater than 0% or Value cannot be greater than 25%",
+    "validateMaxMinCarNew": "Value must be greater than 0 or Value cannot be greater than 6",
+    "validateMaxMinCarUsed": "Value must be greater than 0 or Value cannot be greater than 4",
+    "validateMaxMinTermMonth": "Value must be greater than 0 or Value cannot be greater than 36",
+    "validateMaxTermMonth": "Value must be greater than 0 or Value cannot be greater than 24"
   }
 }

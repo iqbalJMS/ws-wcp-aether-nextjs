@@ -28,7 +28,7 @@ const CE_SimulationBrigunaLabel = ({
               if (onChange) onChange(hasEdit);
             }}
           >
-            {!hasEdit ? <></> : <></>}
+            {<></>}
           </div>
         )}
       </div>

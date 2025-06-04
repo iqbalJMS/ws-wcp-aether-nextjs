@@ -95,7 +95,7 @@ const CE_SimulationKPRMain = () => {
                   <div className="mb-5 w-[50%]">
                     <InputText
                       disabled={formDisabled.installmentAmount}
-                      leftText="Rp."
+                      leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                       value={form.installmentAmount}
                       type="number"
                       onChange={(value) =>
@@ -115,7 +115,13 @@ const CE_SimulationKPRMain = () => {
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.installmentAmount} />
+                    <InputError
+                      message={
+                        dictionary?.reminder_text_brigunaKarya
+                          ?.validateMaxMinInstallment ??
+                        formError.installmentAmount
+                      }
+                    />
                   </div>
                 </div>
               }
@@ -157,7 +163,12 @@ const CE_SimulationKPRMain = () => {
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.installmentTerm} />
+                    <InputError
+                      message={
+                        dictionary?.reminder_text_kpr?.validateMaxTermMonth ??
+                        formError.installmentTerm
+                      }
+                    />
                   </div>
                 </div>
               }

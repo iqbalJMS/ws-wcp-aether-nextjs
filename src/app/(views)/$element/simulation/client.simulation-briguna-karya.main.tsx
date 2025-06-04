@@ -121,7 +121,7 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                   <div className="mb-5 w-[50%]">
                     <InputText
                       disabled={formDisabled.salary}
-                      leftText="Rp."
+                      leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                       value={form.salary}
                       type="number"
                       onChange={(value) => onFieldChange('salary', value)}
@@ -138,7 +138,12 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                   </div>
                   {formError.salary && (
                     <div className="mt-5">
-                      <InputError message={formError.salary} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_brigunaKarya
+                            ?.validateMaxMinInstallment ?? formError.salary
+                        }
+                      />
                     </div>
                   )}
                 </div>
@@ -182,7 +187,12 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                   </div>
                   {formError.installmentTerm && (
                     <div className="mt-5">
-                      <InputError message={formError.installmentTerm} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_brigunaKarya
+                            ?.validateMaxMinTerm ?? formError.installmentTerm
+                        }
+                      />
                     </div>
                   )}
                 </div>
@@ -233,7 +243,12 @@ const CE_SimulationBRIGunaKaryaMain = () => {
                   </div>
                   {formError.interestRate && (
                     <div className="mt-5">
-                      <InputError message={formError.interestRate} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_brigunaKarya
+                            ?.validateMaxMinInterest ?? formError.interestRate
+                        }
+                      />
                     </div>
                   )}
                 </div>

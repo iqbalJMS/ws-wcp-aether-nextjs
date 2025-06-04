@@ -134,7 +134,7 @@ const CE_SimulationDepositoBusinessMain = () => {
                   <div className="mb-5 w-[50%]">
                     <InputText
                       disabled={formDisabled.depositAmount}
-                      leftText="Rp."
+                      leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                       value={form.depositAmount}
                       type="number"
                       onChange={(value) => {
@@ -172,7 +172,12 @@ const CE_SimulationDepositoBusinessMain = () => {
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.depositAmount} />
+                    <InputError
+                      message={
+                        dictionary?.reminder_text_brigunaKarya
+                          ?.validateMaxMinInstallment ?? formError.depositAmount
+                      }
+                    />
                   </div>
                 </div>
               }
@@ -232,7 +237,12 @@ const CE_SimulationDepositoBusinessMain = () => {
                     />
                   </div>
                   <div className="mt-5">
-                    <InputError message={formError.termInMonths} />
+                    <InputError
+                      message={
+                        dictionary?.reminder_text_brigunaKarya
+                          ?.validateMaxMinTermMonth ?? formError.termInMonths
+                      }
+                    />
                   </div>
                 </div>
               }

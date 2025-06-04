@@ -222,7 +222,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                     <div className="mb-5 w-[50%]">
                       <InputText
                         disabled={formDisabled.karyaSalary}
-                        leftText="Rp."
+                        leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                         value={karyaForm.salary}
                         type="number"
                         onChange={(value) => {
@@ -243,7 +243,13 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                     </div>
                     {karyaFormError.salary && (
                       <div className="mt-5">
-                        <InputError message={karyaFormError.salary} />
+                        <InputError
+                          message={
+                            dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxMinInstallment ??
+                            karyaFormError.salary
+                          }
+                        />
                       </div>
                     )}
                   </div>
@@ -260,7 +266,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                     <div className="mb-5 w-[50%]">
                       <InputText
                         disabled={formDisabled.karyaSalary}
-                        leftText="Rp."
+                        leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                         value={karyaForm.salary}
                         type="number"
                         onChange={(value) => {
@@ -281,7 +287,13 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                     </div>
                     {karyaFormError.salary && (
                       <div className="mt-5">
-                        <InputError message={karyaFormError.salary} />
+                        <InputError
+                          message={
+                            dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxMinInstallment ??
+                            karyaFormError.salary
+                          }
+                        />
                       </div>
                     )}
                   </div>
@@ -326,7 +338,13 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                   </div>
                   {karyaFormError.installmentTerm && (
                     <div className="mt-5">
-                      <InputError message={karyaFormError.installmentTerm} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_brigunaKarya
+                            ?.validateMaxMinTerm ??
+                          karyaFormError.installmentTerm
+                        }
+                      />
                     </div>
                   )}
                 </div>
@@ -377,7 +395,13 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                   </div>
                   {karyaFormError.interestRate && (
                     <div className="mt-5">
-                      <InputError message={karyaFormError.interestRate} />
+                      <InputError
+                        message={
+                          dictionary?.reminder_text_brigunaKarya
+                            ?.validateMaxMinInterest ??
+                          karyaFormError.interestRate
+                        }
+                      />
                     </div>
                   )}
                 </div>
@@ -403,7 +427,7 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       <div className="mb-5 w-[50%]">
                         <InputText
                           disabled={formDisabled.purnaSalary}
-                          leftText="Rp."
+                          leftText={`${dictionary?.simulasi_kprs?.leftText ?? 'Rp.'}`}
                           value={purnaForm.salary}
                           type="number"
                           onChange={(value) =>
@@ -424,7 +448,13 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       </div>
                       {purnaFormError.salary && (
                         <div className="mt-5">
-                          <InputError message={purnaFormError.salary} />
+                          <InputError
+                            message={
+                              dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinInstallment ??
+                              purnaFormError.salary
+                            }
+                          />
                         </div>
                       )}
                     </div>
@@ -469,7 +499,11 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       {purnaFormError.installmentTerm && (
                         <div className="mt-5">
                           <InputError
-                            message={purnaFormError.installmentTerm}
+                            message={
+                              dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinTerm ??
+                              purnaFormError.installmentTerm
+                            }
                           />
                         </div>
                       )}
@@ -524,7 +558,13 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       </div>
                       {purnaFormError.interestRate && (
                         <div className="mt-5">
-                          <InputError message={purnaFormError.interestRate} />
+                          <InputError
+                            message={
+                              dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinInterest ??
+                              purnaFormError.interestRate
+                            }
+                          />
                         </div>
                       )}
                     </div>
@@ -542,15 +582,19 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
             <></>
           )}
           <div className="w-full flex-none px-5 space-x-4">
-            <ButtonSecondary
-              onClick={() => handleResetForm()}
-              rounded="full"
-              size="md"
-              color="blue-01"
-              className=" uppercase"
-            >
-              {`${dictionary?.simulasi_deposito_bisnis?.buttonAturUlang ?? 'Atur ulang'}`}
-            </ButtonSecondary>
+            {pathname == '/simulasi-briguna' ? (
+              <ButtonSecondary
+                onClick={() => handleResetForm()}
+                rounded="full"
+                size="md"
+                color="blue-01"
+                className=" uppercase"
+              >
+                {`${dictionary?.simulasi_deposito_bisnis?.buttonAturUlang ?? 'Atur ulang'}`}
+              </ButtonSecondary>
+            ) : (
+              <></>
+            )}
             <ButtonSecondary
               onClick={() => handleSubmit(true)}
               rounded="full"

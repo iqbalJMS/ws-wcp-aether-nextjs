@@ -38,7 +38,8 @@ export default function Accordion({
         <div
           className={`${variant == 'full-border' ? 'border-b' : variant == 'full' ? 'rounded-lg bg-blue-01 p-4 text-white' : ''}`}
         >
-          <div className={`${variant == 'full-border' ? '' : ''}`}>
+          {/*<div className={`${variant == 'full-border' ? '' : ''}`}>*/}
+          <div>
             <button
               onClick={() => setAccordionOpen(!accordionOpen)}
               className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' || variant == 'none' ? 'border-none' : 'border-b'} flex py-4 items-center w-full`}

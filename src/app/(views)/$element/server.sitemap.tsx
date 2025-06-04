@@ -70,8 +70,8 @@ export default async function SE_Sitemap() {
             })}
           </ul>
         </div>
-        {listHeaderBottom &&
-          listHeaderBottom.length &&
+        {!!listHeaderBottom &&
+          !!listHeaderBottom.length &&
           listHeaderBottom.map((listItem, index) => {
             return (
               <div key={index} className="bg-white p-5 shadow-md rounded-md">
