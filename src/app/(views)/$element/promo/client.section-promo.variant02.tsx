@@ -109,9 +109,6 @@ export default function CE_SectionPromoVariant01({
           if (!data?.field_components) {
             // eslint-disable-next-line no-console
             console.error('Invalid data from API:', data);
-            if (form.page === '1') {
-              setAdditionalPromoItems([]);
-            }
             return;
           }
 
@@ -122,9 +119,6 @@ export default function CE_SectionPromoVariant01({
           if (!dataPromoWidget?.[0]?.promo_data?.items) {
             // eslint-disable-next-line no-console
             console.error('Promo data missing:', dataPromoWidget);
-            if (form.page === '1') {
-              setAdditionalPromoItems([]);
-            }
             return;
           }
 
