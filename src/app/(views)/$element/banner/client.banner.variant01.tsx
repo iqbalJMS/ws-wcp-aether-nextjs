@@ -156,17 +156,16 @@ export function CE_BannerVariant01({
             <div className="container text-right">
               <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2 inline-block">
                 {data?.map((_: any, bannerIndex: number) => (
-                  <div
+                  <button
                     key={bannerIndex}
+                    type="button"
                     className={[
                       'w-5 h-5 rounded-full bg-red-01 mb-3 ',
                       'mdmax:w-4 mdmax:h-4',
                       `${bannerIndex === index ? '' : 'bg-opacity-50'}`,
-                      'cursor-pointer',
+                      'cursor-pointer border-0 p-0', // Add border-0 and p-0 to remove default button styles
                     ].join(' ')}
-                    onClick={() => {
-                      setIndex(bannerIndex);
-                    }}
+                    onClick={() => setIndex(bannerIndex)}
                   />
                 ))}
               </div>
