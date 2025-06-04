@@ -716,7 +716,7 @@ export default function GlobalHeader({
                             ) : (
                               <Link
                                 target={
-                                  header.options?.external ? '_self' : '_self'
+                                  "_self"
                                 }
                                 href={`${header.options?.external ? header.uri || header.relative : `/${String(header?.alias) || header?.relative}?lang=${currentLanguage ?? 'en'}`}`}
                               >
