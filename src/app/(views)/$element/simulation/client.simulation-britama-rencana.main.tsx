@@ -101,7 +101,7 @@ const CE_SimulationBritamaRencanaMain = () => {
             },
             {
               label:
-                dictionary?.simulasi_deposito_bisnis?.resultSaldoTanpaBunga ??
+                dictionary?.simulasi_deposito_bisnis?.resultBalance ??
                 'Saldo Tanpa Bunga',
               value: result?.balanceWithoutInterest.toString() || '0',
             },
