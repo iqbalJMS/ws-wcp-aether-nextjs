@@ -8,6 +8,19 @@ import { T_ResponseGetMainFooterMenu } from '@/api/footer/main-footer/api.get-ma
 import { ChevronRightIcon } from './icons/chevron-right-icon';
 import { ChevronDownIcon } from './icons/chevron-down-icon';
 import { useEnv } from '@/lib/hook/useEnv';
+import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { BASE_URL } from '@/app/(views)/$constant';
+import { handleurl } from '@/lib/functions/client/handle-url';
+
+type T_RowElementProps = {
+  description: Array<{
+    className?: string;
+    name: string;
+    icon?: string;
+    url?: string;
+    extern?: boolean;
+  }>;
+};
 
 export type T_AccordionProps = {
   renderContent: React.ReactNode;
@@ -67,14 +80,14 @@ const RowElement = ({ description }: T_RowElementProps) => (
       >
         {icon && (
           <Image
-            src={`/web/guest/images/footers/${icon}.svg`}
+            src={`${BASE_URL}/api/files/?path=${icon}`}
             width={18}
             extern
             height={18}
             alt={`icon-${icon}`}
           />
         )}
-        {name}
+        {parseHTMLToReact(name, true)}
       </Link>
     ))}
   </>
@@ -82,10 +95,11 @@ const RowElement = ({ description }: T_RowElementProps) => (
 
 export default function MobileFooter({ data }: T_FooterProps) {
   const { baseUrl } = useEnv();
+  
   return (
     <section className="lg:hidden">
       <AccordionMobile
-        renderTitle="BRI Kantor Pusat"
+        renderTitle={data?.data?.[0]?.title ?? "BRI Kantor Pusat"}
         renderContent={
           data?.data?.map((list_item, index) => (
             <div className="w-9/12" key={`kantor-pusat-${index}`}>
@@ -95,7 +109,7 @@ export default function MobileFooter({ data }: T_FooterProps) {
         }
       />
       <AccordionMobile
-        renderTitle="Hubungi Kami"
+        renderTitle={data?.data?.[1]?.title ?? "Hubungi Kami"}
         renderContent={
           data?.data?.map((list_item, index) => (
             <div className="" key={`hubungi-kami-${index}`}>
@@ -113,7 +127,7 @@ export default function MobileFooter({ data }: T_FooterProps) {
             item.social_media?.map(({ url, icon }, index) => (
               <Link
                 extern={false}
-                href={url ?? '/'}
+                href={handleurl(url)}
                 key={`link-${index}`}
                 className="text-blue-02 text-sm justify-center font-normal"
               >
@@ -132,7 +146,7 @@ export default function MobileFooter({ data }: T_FooterProps) {
       ))}
       <hr />
       <AccordionMobile
-        renderTitle="Tautan"
+        renderTitle={data?.data?.[2]?.title ?? "Tautan"}
         renderContent={
           data?.data?.map((list_item, index) => (
             <div className="" key={`tautan-${index}`}>
@@ -144,13 +158,3 @@ export default function MobileFooter({ data }: T_FooterProps) {
     </section>
   );
 }
-
-type T_RowElementProps = {
-  description: Array<{
-    className?: string;
-    name: string;
-    icon?: string;
-    url?: string;
-    extern?: boolean;
-  }>;
-};
