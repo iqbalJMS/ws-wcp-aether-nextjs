@@ -245,9 +245,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       <div className="mt-5">
                         <InputError
                           message={
-                            dictionary?.reminder_text_brigunaKarya
-                              ?.validateMaxMinInstallment ??
                             karyaFormError.salary
+                              ? dictionary?.reminder_text_brigunaKarya
+                                  ?.validateMaxMinInstallment
+                              : ''
                           }
                         />
                       </div>
@@ -289,9 +290,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                       <div className="mt-5">
                         <InputError
                           message={
-                            dictionary?.reminder_text_brigunaKarya
-                              ?.validateMaxMinInstallment ??
                             karyaFormError.salary
+                              ? dictionary?.reminder_text_brigunaKarya
+                                  ?.validateMaxMinInstallment
+                              : ''
                           }
                         />
                       </div>
@@ -340,9 +342,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_brigunaKarya
-                            ?.validateMaxMinTerm ??
                           karyaFormError.installmentTerm
+                            ? dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinTerm
+                            : ''
                         }
                       />
                     </div>
@@ -397,9 +400,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_brigunaKarya
-                            ?.validateMaxMinInterest ??
                           karyaFormError.interestRate
+                            ? dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinInterest
+                            : ''
                         }
                       />
                     </div>
@@ -450,9 +454,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                         <div className="mt-5">
                           <InputError
                             message={
-                              dictionary?.reminder_text_brigunaKarya
-                                ?.validateMaxMinInstallment ??
-                              purnaFormError.salary
+                              karyaFormError.salary
+                                ? dictionary?.reminder_text_brigunaKarya
+                                    ?.validateMaxMinInstallment
+                                : ''
                             }
                           />
                         </div>
@@ -500,9 +505,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                         <div className="mt-5">
                           <InputError
                             message={
-                              dictionary?.reminder_text_brigunaKarya
-                                ?.validateMaxMinTerm ??
-                              purnaFormError.installmentTerm
+                              karyaFormError.installmentTerm
+                                ? dictionary?.reminder_text_brigunaKarya
+                                    ?.validateMaxMinTerm
+                                : ''
                             }
                           />
                         </div>
@@ -560,9 +566,10 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
                         <div className="mt-5">
                           <InputError
                             message={
-                              dictionary?.reminder_text_brigunaKarya
-                                ?.validateMaxMinInterest ??
-                              purnaFormError.interestRate
+                              karyaFormError.interestRate
+                                ? dictionary?.reminder_text_brigunaKarya
+                                    ?.validateMaxMinInterest
+                                : ''
                             }
                           />
                         </div>

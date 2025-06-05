@@ -150,8 +150,10 @@ const CE_SimulationBritamaRencanaMain = () => {
                   <div className="w-full pt-2">
                     <InputError
                       message={
-                        dictionary?.reminder_text_brigunaKarya
-                          ?.validateMaxMinMonths ?? formError.durationInMonths
+                        formError.durationInMonths
+                          ? dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxMinMonths
+                          : ''
                       }
                     />
                   </div>
@@ -190,9 +192,10 @@ const CE_SimulationBritamaRencanaMain = () => {
                   <div className=" w-full mt-5">
                     <InputError
                       message={
-                        dictionary?.reminder_text_brigunaKarya
-                          ?.validateMaxMinInstallment ??
                         formError.monthlyDeposit
+                          ? dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxMinInstallment
+                          : ''
                       }
                     />
                   </div>

@@ -138,8 +138,10 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_brigunaKarya
-                            ?.validateMaxMinInstallment ?? formError.salary
+                          formError.salary
+                            ? dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinInstallment
+                            : ''
                         }
                       />
                     </div>
@@ -187,8 +189,10 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_brigunaKarya
-                            ?.validateMaxMinTerm ?? formError.installmentTerm
+                          formError.installmentTerm
+                            ? dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinTerm
+                            : ''
                         }
                       />
                     </div>
@@ -243,8 +247,10 @@ const CE_SimulationBRIGunaPurnaMain = () => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_brigunaKarya
-                            ?.validateMaxMinInterest ?? formError.interestRate
+                          formError.interestRate
+                            ? dictionary?.reminder_text_brigunaKarya
+                                ?.validateMaxMinInterest
+                            : ''
                         }
                       />
                     </div>

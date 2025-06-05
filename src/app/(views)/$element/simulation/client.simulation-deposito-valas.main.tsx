@@ -240,8 +240,10 @@ const CE_SimulationDepositoValasMain = () => {
                   <div className="mt-5">
                     <InputError
                       message={
-                        dictionary?.reminder_text_kpr
-                          ?.validateMaxMinInstallment ?? formError.depositAmount
+                        formError.depositAmount
+                          ? dictionary?.reminder_text_kpr
+                              ?.validateMaxMinInstallment
+                          : ''
                       }
                     />
                   </div>
@@ -301,8 +303,10 @@ const CE_SimulationDepositoValasMain = () => {
                   <div className="mt-5">
                     <InputError
                       message={
-                        dictionary?.reminder_text_brigunaKarya
-                          ?.validateMaxTermMonth ?? formError.termInMonths
+                        formError.termInMonths
+                          ? dictionary?.reminder_text_brigunaKarya
+                              ?.validateMaxTermMonth
+                          : ''
                       }
                     />
                   </div>

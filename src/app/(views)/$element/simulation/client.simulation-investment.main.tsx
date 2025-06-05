@@ -140,8 +140,10 @@ const CE_SimulationInvestmentMain = () => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_kpr
-                            ?.validateMaxMinInstallment ?? formError.installment
+                          formError.installment
+                            ? dictionary?.reminder_text_kpr
+                                ?.validateMaxMinInstallment
+                            : ''
                         }
                       />
                     </div>
@@ -188,8 +190,10 @@ const CE_SimulationInvestmentMain = () => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_kpr
-                            ?.validateMaxMinInterest ?? formError.InterestRate
+                          formError.InterestRate
+                            ? dictionary?.reminder_text_kpr
+                                ?.validateMaxMinInterest
+                            : ''
                         }
                       />
                     </div>
@@ -237,8 +241,9 @@ const CE_SimulationInvestmentMain = () => {
                     <div className="mt-5">
                       <InputError
                         message={
-                          dictionary?.reminder_text_kpr?.validateMaxMinTerm ??
                           formError.installmentTerm
+                            ? dictionary?.reminder_text_kpr?.validateMaxMinTerm
+                            : ''
                         }
                       />
                     </div>
