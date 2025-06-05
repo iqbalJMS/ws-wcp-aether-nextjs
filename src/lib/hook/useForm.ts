@@ -31,14 +31,13 @@ function getObjectValue<T>(obj: T_NestedObject, path: string): T | undefined {
   let result: any = obj;
 
   for (const key of keys) {
-    //Prevent prototype pollution by blocking dangerous keys
-    const isAllowed = !DANGEROUS_KEYS.includes(key);
-
+    if (DANGEROUS_KEYS.includes(key)) {
+      return undefined;
+    }
     if (result && typeof result === 'object' && key in result) {
-      if (isAllowed) {
-        result = result[key];
-      } else {
-        return undefined;
+      const descriptor = Object.getOwnPropertyDescriptor(result, key);
+      if (descriptor && descriptor.value !== undefined) {
+        result = descriptor.value
       }
     } else {
       return undefined;
