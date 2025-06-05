@@ -91,14 +91,4 @@ const ButtonSecondary: FC<T_ButtonProps> = ({
   );
 };
 
-// const Icon: React.FC<{ name: string; className: string }> = ({ name, className }) => {
-//   // Replace with your icon logic
-//   return <i className={className}></i>;
-// };
-
-// const IconCustom: React.FC<{ name: string; className: string }> = ({ name, className }) => {
-//   // Replace with your custom icon logic
-//   return <i className={className}></i>;
-// };
-
 export default ButtonSecondary;

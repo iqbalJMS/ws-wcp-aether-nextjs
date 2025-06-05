@@ -79,7 +79,7 @@
     "jangkaWaktu": "Term",
     "sukuBunga": "Effective Interest Rate",
     "placeholder": "Choose a Plan",
-    "buttonAturUlang": "Reset",
+    "buttonAturUlang": "Re-Calculate",
     "buttonHitung": "Calculate",
     "resultSaldoDeposito": "Interest + Deposit Balance",
     "resultSaldoTanpaBunga": "INTEREST-FREE BALANCE",
@@ -104,7 +104,9 @@
     "sukuBunga": "Loan Rate",
     "resultPeriodic": "Total Installment",
     "uangPensiun": "Pension Fund Amount",
-    "jumlahGaji": "Salary"
+    "jumlahGaji": "Salary",
+    "resultInvestasi": "Interest Rate / Year",
+    "resultJangkaWaktu": "Time Period"
   },
   "simulasi_briguna": {
     "resultBrigunaKarya": "BRIGuna Karya Results",
