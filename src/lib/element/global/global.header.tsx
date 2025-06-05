@@ -104,6 +104,18 @@ export function LoginButton({
   );
 }
 
+const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
+  if (!item) {
+    return '#';
+  }
+
+  if (item?.options?.external) {
+    return item.uri || item.relative;
+  } else {
+    return `/${item.alias ? item.alias.toLowerCase().replaceAll(' ', '-') : item.relative}`;
+  }
+};
+
 export default function GlobalHeader({
   headerTop,
   headerBottom,
@@ -135,18 +147,6 @@ export default function GlobalHeader({
       }).toString();
 
       window.open(`${pathUrl}/${pathname}?${queryParams}`, '_self');
-    }
-  };
-
-  const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
-    if (!item) {
-      return '#';
-    }
-
-    if (item?.options?.external) {
-      return item.uri || item.relative;
-    } else {
-      return `/${item.alias ? item.alias.toLowerCase().replaceAll(' ', '-') : item.relative}`;
     }
   };
 
@@ -822,18 +822,6 @@ const NavigationItem = ({
   };
 
   const isOpenMenuItem = openedSubItems[menuItem.relative];
-
-  const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
-    if (!item) {
-      return '#';
-    }
-
-    if (item?.options?.external) {
-      return item.uri || item.relative;
-    } else {
-      return `/${item.alias ? item.alias.toLowerCase().replaceAll(' ', '-') : item.relative}`;
-    }
-  };
 
   const paddingLeft = level * 20;
   const fontSize = 14 - level * 0.5;
