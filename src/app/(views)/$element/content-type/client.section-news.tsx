@@ -21,11 +21,7 @@ interface NewsData {
   contents: NewsItem[];
 }
 
-export default function CE_SectionNews({
-  newsData,
-}: {
-  newsData: NewsData;
-}) {
+export default function CE_SectionNews({ newsData }: { newsData: NewsData }) {
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
@@ -39,10 +35,7 @@ export default function CE_SectionNews({
   }, [newsData]);
 
   // Combine original data with additional loaded items
-  const allNewsItems = [
-    ...(newsData?.contents || []),
-    ...additionalNews
-  ];
+  const allNewsItems = [...(newsData?.contents || []), ...additionalNews];
 
   const { form, validateForm, setForm } = useForm<
     T_ContentTypeRequest,
@@ -77,22 +70,23 @@ export default function CE_SectionNews({
           (item: any) => item?.entity_bundle?.[0]?.value === 'content_type'
         );
 
-        const newNewsItems = _component?.field_content_type?.map((item: any) => {
-          return {
-            title: item?.title?.[0]?.value,
-            nid: item?.nid?.[0]?.value,
-            image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-            date: item?.created?.[0]?.value,
-          };
-        }) || [];
+        const newNewsItems =
+          _component?.field_content_type?.map((item: any) => {
+            return {
+              title: item?.title?.[0]?.value,
+              nid: item?.nid?.[0]?.value,
+              image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+              date: item?.created?.[0]?.value,
+            };
+          }) || [];
 
         if (!newNewsItems.length) {
           setIsLastPage(true);
           return;
         }
 
-        setAdditionalNews(prev => [...prev, ...newNewsItems]);
-        
+        setAdditionalNews((prev) => [...prev, ...newNewsItems]);
+
         if (newNewsItems.length < Number(form.limit)) {
           setIsLastPage(true);
         }
@@ -105,11 +99,11 @@ export default function CE_SectionNews({
       ...form,
       page: String(Number(form.page) + 1),
     });
-    
+
     if (isFirst) {
       setIsFirst(false);
     }
-    
+
     handleNewsList();
   };
 

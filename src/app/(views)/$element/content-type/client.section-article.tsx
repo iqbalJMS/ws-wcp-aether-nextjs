@@ -38,7 +38,9 @@ export default function CE_SectionArticle({
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [additionalArticles, setAdditionalArticles] = useState<I_ArticleItem[]>([]);
+  const [additionalArticles, setAdditionalArticles] = useState<I_ArticleItem[]>(
+    []
+  );
 
   // Filter function to apply site and category filters
   const filterArticleItems = (items: I_ArticleItem[]) => {
@@ -73,7 +75,7 @@ export default function CE_SectionArticle({
   // Combine original filtered articles with additional loaded articles
   const allArticleItems = [
     ...filterArticleItems(articleData?.contents || []),
-    ...additionalArticles
+    ...additionalArticles,
   ];
 
   const { form, validateForm, setForm } = useForm<
@@ -122,7 +124,9 @@ export default function CE_SectionArticle({
           }),
         };
 
-        const listDataContentType = filterArticleItems(dataContentType.contents || []);
+        const listDataContentType = filterArticleItems(
+          dataContentType.contents || []
+        );
 
         if (!dataContentType.contents?.length) {
           setIsLastPage(true);
@@ -130,7 +134,7 @@ export default function CE_SectionArticle({
         }
 
         setAdditionalArticles((prev) => [...prev, ...listDataContentType]);
-        
+
         if (dataContentType.contents.length < Number(form.limit)) {
           setIsLastPage(true);
         }
@@ -143,11 +147,11 @@ export default function CE_SectionArticle({
       ...form,
       page: String(Number(form.page) + 1),
     });
-    
+
     if (isFirst) {
       setIsFirst(false);
     }
-    
+
     handleArticleList();
   };
 

@@ -33,7 +33,9 @@ export default function CE_SectionAuctions({
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [additionalAuctions, setAdditionalAuctions] = useState<AuctionItem[]>([]);
+  const [additionalAuctions, setAdditionalAuctions] = useState<AuctionItem[]>(
+    []
+  );
   const searchParams = useSearchParams();
   const dictionary = useDictionary(
     (searchParams?.get('lang') as Locale) ?? 'id'
@@ -49,7 +51,7 @@ export default function CE_SectionAuctions({
   // Combine original data with additional loaded items
   const allAuctionItems = [
     ...(auctionsData?.contents || []),
-    ...additionalAuctions
+    ...additionalAuctions,
   ];
 
   const { form, validateForm, setForm } = useForm<
@@ -85,22 +87,23 @@ export default function CE_SectionAuctions({
           (item: any) => item?.entity_bundle?.[0]?.value === 'content_type'
         );
 
-        const newAuctions = _component?.field_content_type?.map((item: any) => {
-          return {
-            title: item?.title?.[0]?.value,
-            nid: item?.nid?.[0]?.value,
-            image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-            date: item?.created?.[0]?.value,
-          };
-        }) || [];
+        const newAuctions =
+          _component?.field_content_type?.map((item: any) => {
+            return {
+              title: item?.title?.[0]?.value,
+              nid: item?.nid?.[0]?.value,
+              image: item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+              date: item?.created?.[0]?.value,
+            };
+          }) || [];
 
         if (!newAuctions.length) {
           setIsLastPage(true);
           return;
         }
 
-        setAdditionalAuctions(prev => [...prev, ...newAuctions]);
-        
+        setAdditionalAuctions((prev) => [...prev, ...newAuctions]);
+
         if (newAuctions.length < Number(form.limit)) {
           setIsLastPage(true);
         }
@@ -113,11 +116,11 @@ export default function CE_SectionAuctions({
       ...form,
       page: String(Number(form.page) + 1),
     });
-    
+
     if (isFirst) {
       setIsFirst(false);
     }
-    
+
     handleAuctionsList();
   };
 
