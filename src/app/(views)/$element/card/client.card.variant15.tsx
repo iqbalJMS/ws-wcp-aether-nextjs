@@ -4,6 +4,7 @@ import ButtonSecondary from '@/lib/element/global/button.secondary';
 import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import DOMPurify from 'isomorphic-dompurify';
 
 type T_CardVariant15Props = {
   title: string;
@@ -31,7 +32,7 @@ export function CE_CardVariant15({
           </div>
           <div>
             <Link
-              href={button.link}
+              href={DOMPurify.sanitize(button.link)}
               extern={button.extern}
               target={button.extern ? '_self' : ''}
             >

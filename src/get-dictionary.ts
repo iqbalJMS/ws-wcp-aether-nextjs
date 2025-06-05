@@ -15,9 +15,14 @@ export const useDictionary = (locale: Locale) => {
 
   useEffect(() => {
     const loadDictionary = async () => {
-      const safeLocale = ALLOWED_LOCALES.includes(locale) ? locale : 'en';
-      const dict = await (dictionaries[safeLocale]?.() ?? dictionaries.en());
-      setDictionary(dict as T_Dictionary);
+      let dict: T_Dictionary;
+      if (ALLOWED_LOCALES.includes(locale)) {
+        dict = await dictionaries[locale]?.();
+        setDictionary(dict as T_Dictionary);
+      } else {
+        dict = await dictionaries['en']?.();
+        setDictionary(dict as T_Dictionary);
+      }
     };
 
     loadDictionary();
