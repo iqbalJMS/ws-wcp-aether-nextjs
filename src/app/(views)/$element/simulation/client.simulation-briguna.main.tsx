@@ -7,18 +7,17 @@ import {
   CFN_MapToSimulationBrigunaPayload,
   CFN_ValidateCreateSimulationBrigunaFields,
 } from '@/app/(views)/$function/cfn.get.simulation-briguna';
+import { useDictionary } from '@/get-dictionary';
+import { Locale } from '@/i18n-config';
 import ButtonSecondary from '@/lib/element/global/button.secondary';
 import InputError from '@/lib/element/global/form/input.error';
 import InputSlider from '@/lib/element/global/form/input.slider';
 import InputText from '@/lib/element/global/form/input.text';
 import useForm from '@/lib/hook/useForm';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import CE_SimulationResultVariant01 from './client.simulation-result.variant01';
 import CE_SimulationLabel from './client.simulation.label';
-import { Locale } from '@/i18n-config';
-import { useDictionary } from '@/get-dictionary';
-import { useSearchParams } from 'next/navigation';
 
 const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
   const params = useSearchParams();
@@ -89,20 +88,12 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
     }
 
     try {
-      CFN_GetSimulationBriguna(
-        transiting,
-        { ...karyaForm, interestRate: Number(karyaForm.interestRate) * 0.01 },
-        (data) => {
-          setResultKarya(data?.data);
-        }
-      );
-      CFN_GetSimulationBriguna(
-        transiting,
-        { ...purnaForm, interestRate: Number(purnaForm.interestRate) * 0.01 },
-        (data) => {
-          setResultPurna(data?.data);
-        }
-      );
+      CFN_GetSimulationBriguna(transiting, karyaForm, (data) => {
+        setResultKarya(data?.data);
+      });
+      CFN_GetSimulationBriguna(transiting, purnaForm, (data) => {
+        setResultPurna(data?.data);
+      });
     } catch (error) {
     } finally {
       if (button) {

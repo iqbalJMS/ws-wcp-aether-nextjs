@@ -30,7 +30,9 @@ export default function CE_WaspadaModus({
   const [isPending, transiting] = useTransition();
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [additionalItems, setAdditionalItems] = useState<WaspadaModusItem[]>([]);
+  const [additionalItems, setAdditionalItems] = useState<WaspadaModusItem[]>(
+    []
+  );
 
   // Reset state when props change
   useEffect(() => {
@@ -40,17 +42,15 @@ export default function CE_WaspadaModus({
   }, [waspadaModusData]);
 
   // Combine original data with additional loaded items
-  const allItems = [
-    ...(waspadaModusData?.contents || []),
-    ...additionalItems
-  ];
+  const allItems = [...(waspadaModusData?.contents || []), ...additionalItems];
 
   // Filter items based on search value if needed
-  const filteredItems = searchValue.trim() !== '' 
-    ? allItems.filter(item => 
-        item.title.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    : allItems;
+  const filteredItems =
+    searchValue.trim() !== ''
+      ? allItems.filter((item) =>
+          item.title.toLowerCase().includes(searchValue.toLowerCase())
+        )
+      : allItems;
 
   const { form, validateForm, setForm } = useForm<
     T_ContentTypeRequest,
@@ -85,28 +85,29 @@ export default function CE_WaspadaModus({
           (item: any) => item?.entity_bundle?.[0]?.value === 'content_type'
         );
 
-        const newItems = _component?.field_content_type?.map((item: any) => {
-          const imageV2 = item?.field_components?.find(
-            (item: any) => item?.entity_bundle?.[0]?.value === 'image'
-          );
+        const newItems =
+          _component?.field_content_type?.map((item: any) => {
+            const imageV2 = item?.field_components?.find(
+              (item: any) => item?.entity_bundle?.[0]?.value === 'image'
+            );
 
-          return {
-            title: item?.title?.[0]?.value,
-            nid: item?.nid?.[0]?.value,
-            image:
-              item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
-              imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
-            date: item?.created?.[0]?.value,
-          };
-        }) || [];
+            return {
+              title: item?.title?.[0]?.value,
+              nid: item?.nid?.[0]?.value,
+              image:
+                item?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url ||
+                imageV2?.field_image?.[0]?.thumbnail?.[0]?.uri?.[0]?.url,
+              date: item?.created?.[0]?.value,
+            };
+          }) || [];
 
         if (!newItems.length) {
           setIsLastPage(true);
           return;
         }
 
-        setAdditionalItems(prev => [...prev, ...newItems]);
-        
+        setAdditionalItems((prev) => [...prev, ...newItems]);
+
         if (newItems.length < Number(form.limit)) {
           setIsLastPage(true);
         }
@@ -119,11 +120,11 @@ export default function CE_WaspadaModus({
       ...form,
       page: String(Number(form.page) + 1),
     });
-    
+
     if (isFirst) {
       setIsFirst(false);
     }
-    
+
     handleNewsList();
   };
 
