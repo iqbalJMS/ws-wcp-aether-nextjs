@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, isValidElement } from 'react';
 import Link from 'next/link';
 import ButtonSecondary from './button.secondary';
+import DOMPurify from 'isomorphic-dompurify';
 
 type T_TableHeader<T> = {
   title: string;
@@ -55,7 +56,9 @@ export default function Table<T>({
     }
 
     // Otherwise, return it as a string and use it as inner HTML
-    return <span dangerouslySetInnerHTML={{ __html: value }} />;
+    return (
+      <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(value) }} />
+    );
   };
 
   useEffect(() => {
