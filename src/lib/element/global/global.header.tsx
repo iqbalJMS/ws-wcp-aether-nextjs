@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import DOMPurify from 'isomorphic-dompurify';
 
 import CE_DefaultIcon from '@/lib/element/global/default-icon';
 import { Search } from './global.search';
@@ -103,6 +104,18 @@ export function LoginButton({
   );
 }
 
+const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
+  if (!item) {
+    return '#';
+  }
+
+  if (item?.options?.external) {
+    return item.uri || item.relative;
+  } else {
+    return `/${item.alias ? item.alias.toLowerCase().replaceAll(' ', '-') : item.relative}`;
+  }
+};
+
 export default function GlobalHeader({
   headerTop,
   headerBottom,
@@ -134,18 +147,6 @@ export default function GlobalHeader({
       }).toString();
 
       window.open(`${pathUrl}/${pathname}?${queryParams}`, '_self');
-    }
-  };
-
-  const generateLinkBottom = (item: T_ResponseGetMainMenuNavbar[number]) => {
-    if (!item) {
-      return '#';
-    }
-
-    if (item?.options?.external) {
-      return item.uri || item.relative;
-    } else {
-      return `/${item.alias ? item.alias.toLowerCase().replaceAll(' ', '-') : item.relative}`;
     }
   };
 
@@ -716,7 +717,7 @@ export default function GlobalHeader({
                             ) : (
                               <Link
                                 target={'_self'}
-                                href={`${header.options?.external ? header.uri || header.relative : `/${String(header?.alias) || header?.relative}?lang=${currentLanguage ?? 'en'}`}`}
+                                href={`${header.options?.external ? header.uri || header.relative : `/${header?.alias || header?.relative}`}`}
                               >
                                 <div className="flex items-center">
                                   {header?.icon ? (
@@ -837,7 +838,7 @@ const NavigationItem = ({
         <div className="flex justify-between items-center w-full">
           <Link
             className="py-1 font-normal flex items-center justify-between w-full"
-            href={menuItem.relative}
+            href={DOMPurify.sanitize(generateLinkBottom(menuItem))}
             style={{ fontSize: `${fontSize}px` }}
             extern={menuItem.options?.external || false}
           >

@@ -16,6 +16,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ACT_PostWebForm } from '@/app/(views)/$action/action.post.webform';
 import { Locale } from '@/i18n-config';
 import { useDictionary } from '@/get-dictionary';
+import DOMPurify from 'isomorphic-dompurify';
 
 export default function CE_FormKprBri({
   fieldForm,
@@ -80,14 +81,16 @@ export default function CE_FormKprBri({
       <h1
         className="text-xl"
         dangerouslySetInnerHTML={{
-          __html: dictionary?.kpr_form?.label ?? title,
+          __html: DOMPurify.sanitize(dictionary?.kpr_form?.label ?? title),
         }}
       />
       <div className="px-8 py-6">
         <h2
           className="text-base"
           dangerouslySetInnerHTML={{
-            __html: dictionary?.kpr_form?.subLabel ?? subTitle,
+            __html: DOMPurify.sanitize(
+              dictionary?.kpr_form?.subLabel ?? subTitle
+            ),
           }}
         />
         <div className="w-full flex-none my-6">

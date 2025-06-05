@@ -16,6 +16,7 @@ import { T_FormQlolaRequest } from '@/api/webform/api.post.webform-qlola.type';
 import DropDown from '@/lib/element/global/dropdown';
 import { Locale } from '@/i18n-config';
 import { useDictionary } from '@/get-dictionary';
+import DOMPurify from 'isomorphic-dompurify';
 
 type Option = {
   value: string;
@@ -89,14 +90,16 @@ export default function CE_FormQlola({
       <h1
         className="text-xl"
         dangerouslySetInnerHTML={{
-          __html: dictionary?.qlola_form?.label ?? title,
+          __html: DOMPurify.sanitize(dictionary?.qlola_form?.label ?? title),
         }}
       />
       <div className="px-8 py-6">
         <h2
           className="text-base"
           dangerouslySetInnerHTML={{
-            __html: dictionary?.qlola_form?.subLabel ?? subTitle,
+            __html: DOMPurify.sanitize(
+              dictionary?.qlola_form?.subLabel ?? subTitle
+            ),
           }}
         />
         <div className="w-full flex-none my-6">

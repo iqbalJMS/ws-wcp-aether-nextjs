@@ -23,7 +23,7 @@ type T_CardVariant17Props = {
 };
 
 export default function CE_CardVariant17({ data }: T_CardVariant17Props) {
-  const [tab, setTab] = useState(data.at(0)?.title ?? '');
+  const [tab, setTab] = useState('');
   const list = useMemo(() => {
     return data.find((item) => item.title === tab);
     // eslint-disable-next-line react-hooks/exhaustive-deps

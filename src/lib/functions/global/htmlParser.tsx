@@ -1,5 +1,6 @@
 import React from 'react';
 import { applyTextAlignmentStylesTable } from './textAlignmentTable';
+import DOMPurify from 'isomorphic-dompurify';
 
 const BASE_URL = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || '';
 const possibleDomains =
@@ -45,7 +46,9 @@ export function parseHTMLToReact(
   return (
     <div
       dangerouslySetInnerHTML={{
-        __html: !hasBaseUrl ? htmlString : bodyRender(htmlString),
+        __html: DOMPurify.sanitize(
+          !hasBaseUrl ? htmlString : bodyRender(htmlString)
+        ),
       }}
     />
   );

@@ -32,12 +32,14 @@ function getObjectValue<T>(obj: T_NestedObject, path: string): T | undefined {
 
   for (const key of keys) {
     //Prevent prototype pollution by blocking dangerous keys
-    if (DANGEROUS_KEYS.includes(key)) {
-      return undefined;
-    }
+    const isAllowed = !DANGEROUS_KEYS.includes(key);
 
     if (result && typeof result === 'object' && key in result) {
-      result = result[key];
+      if (isAllowed) {
+        result = result[key];
+      } else {
+        return undefined;
+      }
     } else {
       return undefined;
     }

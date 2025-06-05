@@ -10,6 +10,7 @@ function escapeHtml(str: any) {
 const allowedAlignments = new Set(['right', 'center', 'left']);
 
 export const applyTextAlignmentStylesTable = (rendered: string): string => {
+  // These replacements don't need modification as they use fixed strings
   rendered = rendered.replace(
     /<p class="text-align-right"([^>]*)>/g,
     '<p class="text-align-right"$1 style="text-align: right !important;">'
@@ -60,12 +61,11 @@ export const applyTextAlignmentStylesTable = (rendered: string): string => {
     '<th$1 style="text-align: left !important;">'
   );
 
+  // Fix the thead class regex replacement with proper escaping
   rendered = rendered.replace(
     /<thead[^>]*class="([^"]*text-align-(right|center|left)[^"]*)"([^>]*)>/g,
     (match, classList, alignment) => {
-      const safeClassList = escapeHtml(classList);
-      const safeAlignment = escapeHtml(alignment);
-      return `<thead class="${safeClassList}" style="text-align: ${safeAlignment} !important;" ${match.slice(match.indexOf('">') + 2)}`;
+      return `<thead class="${escapeHtml(classList)}" style="text-align: ${escapeHtml(alignment)} !important;"${match.slice(match.indexOf('">')).replace(/^"/, '')}>`;
     }
   );
 
@@ -89,36 +89,40 @@ export const applyTextAlignmentStylesTable = (rendered: string): string => {
     '<thead$1><tr$3><th$5 style="text-align: left !important;">'
   );
 
+  // Fix the rowspan regex replacement with proper escaping
   rendered = rendered.replace(
     /<th([^>]*)rowspan="([^"]+)"([^>]*)>\s*<p class="text-align-(right|center|left)"/g,
     (match, before, rowspan, after, alignment) => {
       const safeRowspan = /^[0-9]+$/.test(rowspan) ? rowspan : '1';
-      const safeAlignment = allowedAlignments.has(alignment)
-        ? alignment
-        : 'left';
-      return `<th${before}rowspan="${safeRowspan}"${after} style="text-align: ${safeAlignment} !important;"><p class="text-align-${alignment}"`;
+      const safeAlignment = allowedAlignments.has(alignment) ? alignment : 'left';
+      return `<th${before}rowspan="${escapeHtml(safeRowspan)}"${after} style="text-align: ${escapeHtml(safeAlignment)} !important;"><p class="text-align-${escapeHtml(alignment)}"`;
     }
   );
 
+  // Fix the colspan regex replacement with proper escaping
   rendered = rendered.replace(
     /<th([^>]*)colspan="([^"]+)"([^>]*)>\s*<p class="text-align-(right|center|left)"/g,
     (match, before, colspan, after, alignment) => {
       const safeColspan = /^[0-9]+$/.test(colspan) ? colspan : '1';
-      const safeAlignment = allowedAlignments.has(alignment)
-        ? alignment
-        : 'left';
-      return `<th${before}colspan="${safeColspan}"${after} style="text-align: ${safeAlignment} !important;"><p class="text-align-${alignment}"`;
+      const safeAlignment = allowedAlignments.has(alignment) ? alignment : 'left';
+      return `<th${before}colspan="${escapeHtml(safeColspan)}"${after} style="text-align: ${escapeHtml(safeAlignment)} !important;"><p class="text-align-${escapeHtml(alignment)}"`;
     }
   );
 
+  // Fix the rowspan regex replacement without p tag
   rendered = rendered.replace(
     /<th([^>]*)rowspan="([^"]+)"([^>]*)>\s*(?!<p class="text-align)/g,
-    '<th$1rowspan="$2"$3 style="text-align: left !important;">'
+    (match, before, rowspan, after) => {
+      return `<th${before}rowspan="${escapeHtml(rowspan)}"${after} style="text-align: left !important;">`;
+    }
   );
 
+  // Fix the colspan regex replacement without p tag
   rendered = rendered.replace(
     /<th([^>]*)colspan="([^"]+)"([^>]*)>\s*(?!<p class="text-align)/g,
-    '<th$1colspan="$2"$3 style="text-align: left !important;">'
+    (match, before, colspan, after) => {
+      return `<th${before}colspan="${escapeHtml(colspan)}"${after} style="text-align: left !important;">`;
+    }
   );
 
   return rendered;
