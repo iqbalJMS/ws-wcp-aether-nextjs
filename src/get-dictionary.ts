@@ -17,13 +17,11 @@ export const useDictionary = (locale: Locale) => {
   useEffect(() => {
     const loadDictionary = async () => {
       try {
-        const safeLocale = ALLOWED_LOCALES.includes(locale)
-          ? locale
-          : 'en';
+        const safeLocale = ALLOWED_LOCALES.includes(locale) ? locale : 'en';
 
         const loader = dictionaries[safeLocale] || dictionaries.en;
 
-        const dict = await loader()
+        const dict = await loader();
 
         setDictionary(dict as T_Dictionary);
       } catch (error) {

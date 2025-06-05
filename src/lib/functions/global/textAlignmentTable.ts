@@ -94,7 +94,9 @@ export const applyTextAlignmentStylesTable = (rendered: string): string => {
     /<th([^>]*)rowspan="([^"]+)"([^>]*)>\s*<p class="text-align-(right|center|left)"/g,
     (match, before, rowspan, after, alignment) => {
       const safeRowspan = /^[0-9]+$/.test(rowspan) ? rowspan : '1';
-      const safeAlignment = allowedAlignments.has(alignment) ? alignment : 'left';
+      const safeAlignment = allowedAlignments.has(alignment)
+        ? alignment
+        : 'left';
       return `<th${before}rowspan="${escapeHtml(safeRowspan)}"${after} style="text-align: ${escapeHtml(safeAlignment)} !important;"><p class="text-align-${escapeHtml(alignment)}"`;
     }
   );
@@ -104,7 +106,9 @@ export const applyTextAlignmentStylesTable = (rendered: string): string => {
     /<th([^>]*)colspan="([^"]+)"([^>]*)>\s*<p class="text-align-(right|center|left)"/g,
     (match, before, colspan, after, alignment) => {
       const safeColspan = /^[0-9]+$/.test(colspan) ? colspan : '1';
-      const safeAlignment = allowedAlignments.has(alignment) ? alignment : 'left';
+      const safeAlignment = allowedAlignments.has(alignment)
+        ? alignment
+        : 'left';
       return `<th${before}colspan="${escapeHtml(safeColspan)}"${after} style="text-align: ${escapeHtml(safeAlignment)} !important;"><p class="text-align-${escapeHtml(alignment)}"`;
     }
   );

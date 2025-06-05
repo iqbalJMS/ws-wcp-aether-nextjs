@@ -37,7 +37,7 @@ function getObjectValue<T>(obj: T_NestedObject, path: string): T | undefined {
     if (result && typeof result === 'object' && key in result) {
       const descriptor = Object.getOwnPropertyDescriptor(result, key);
       if (descriptor && descriptor.value !== undefined) {
-        result = descriptor.value
+        result = descriptor.value;
       }
     } else {
       return undefined;
