@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { ChevronDownIcon } from './icons/chevron-down-icon';
 import { ChevronRightIcon } from './icons/chevron-right-icon';
@@ -24,11 +24,7 @@ export default function Accordion({
   content,
   isOpen = false,
 }: T_AccordionProps) {
-  const [accordionOpen, setAccordionOpen] = useState(Boolean(isOpen));
-
-  useEffect(() => {
-    setAccordionOpen(Boolean(isOpen));
-  }, [isOpen]);
+  const [accordionOpen, setAccordionOpen] = useState<boolean | null>(null);
 
   return (
     <>
@@ -41,7 +37,11 @@ export default function Accordion({
           {/*<div className={`${variant == 'full-border' ? '' : ''}`}>*/}
           <div>
             <button
-              onClick={() => setAccordionOpen(!accordionOpen)}
+              onClick={() =>
+                setAccordionOpen(
+                  accordionOpen !== null ? !accordionOpen : !isOpen
+                )
+              }
               className={`${variant == 'full-border' || variant == 'rounded' || variant == 'full' || variant == 'none' ? 'border-none' : 'border-b'} flex py-4 items-center w-full`}
             >
               <div className="flex items-center justify-between w-full">
@@ -64,7 +64,7 @@ export default function Accordion({
                     <div className="flex-grow">{renderTitle}</div>
 
                     <span className="ml-1">
-                      {accordionOpen ? (
+                      {(accordionOpen ?? isOpen) ? (
                         <ChevronDownIcon
                           className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
                           width={28}
@@ -87,7 +87,7 @@ export default function Accordion({
           </div>
         </div>
         <div
-          className={`grid overflow-hidden transition-all duration-500 ease-in-out ${accordionOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+          className={`grid overflow-hidden transition-all duration-500 ease-in-out ${(accordionOpen ?? isOpen) ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
         >
           <div className="overflow-hidden pl-0" style={{ color: '#627d92' }}>
             {content ? parseHTMLToReact(content) : renderContent}
