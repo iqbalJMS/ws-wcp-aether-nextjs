@@ -86,7 +86,8 @@
     "resultSaldoBunga": "Bunga",
     "mataUang": "Mata Uang",
     "pilihPaket": "Pilih Paket",
-    "tenor": "Tenor"
+    "tenor": "Tenor",
+    "resultBalance": "Saldo Tanpa Bunga"
   },
   "simulasi_kprs": {
     "pinjaman": "Jumlah Deposito",
