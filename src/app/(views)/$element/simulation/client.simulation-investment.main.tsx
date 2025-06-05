@@ -91,13 +91,14 @@ const CE_SimulationInvestmentMain = () => {
             },
             {
               label:
-                dictionary?.simulasi_investasi?.sukuBunga ??
+                dictionary?.simulasi_investasi?.resultInvestasi ??
                 'Suku Bunga Efektif',
               valueInterest: form?.InterestRate.toString(),
             },
             {
               label:
-                dictionary?.simulasi_investasi?.jangkaWaktu ?? 'Jangka Waktu',
+                dictionary?.simulasi_investasi?.resultJangkaWaktu ??
+                'Jangka Waktu',
               valueInstallmentTerm: form?.installmentTerm.toString(),
             },
             {

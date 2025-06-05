@@ -58,7 +58,8 @@ const CE_SimulationResultVariant01 = ({
                   )}
                   {valueItem?.valueInstallmentTerm && (
                     <div className="text-[3rem] text-center text-blue-01 font-semibold">
-                      {valueItem?.valueInstallmentTerm} Month
+                      {valueItem?.valueInstallmentTerm}{' '}
+                      {dictionary?.simulasi_investasi?.rightText ?? 'Month'}
                     </div>
                   )}
                 </div>
@@ -105,7 +106,9 @@ const CE_SimulationResultVariant01 = ({
                         )}
                         {valueItem?.valueInstallmentTerm && (
                           <div className="text-lg text-blue-01 font-semibold mdmax:w-full">
-                            {valueItem?.valueInstallmentTerm} Month
+                            {valueItem?.valueInstallmentTerm}{' '}
+                            {dictionary?.simulasi_investasi?.rightText ??
+                              'Month'}
                           </div>
                         )}
                         {valueItem?.valuePeriodic && (
@@ -117,7 +120,9 @@ const CE_SimulationResultVariant01 = ({
                             }).format(
                               parseFloat(valueItem.valuePeriodic || '0')
                             )}
-                            {valueItem.percentage && '%'} / month
+                            {valueItem.percentage && '%'} /{' '}
+                            {dictionary?.simulasi_investasi?.rightText ??
+                              'Month'}
                           </div>
                         )}
                       </div>

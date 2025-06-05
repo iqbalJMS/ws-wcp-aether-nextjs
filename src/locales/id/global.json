@@ -79,7 +79,7 @@
     "jangkaWaktu": "Jangka Waktu",
     "sukuBunga": "Suku Bunga Efektif",
     "placeholder": "Pilih Paket",
-    "buttonAturUlang": "Atur Ulang",
+    "buttonAturUlang": "Hitung ulang",
     "buttonHitung": "Hitung",
     "resultSaldoDeposito": "Bunga + Saldo Deposito",
     "resultSaldoTanpaBunga": "Saldo Tanpa Bunga",
@@ -102,9 +102,11 @@
     "jangkaWaktu": "Jangka Waktu",
     "rightText": "Bulan",
     "sukuBunga": "Suku Bunga Efektif",
-    "resultPeriodic": "Total Installment",
+    "resultPeriodic": "Jumlah Angsuran",
     "uangPensiun": "Jumlah Uang Pensiun",
-    "jumlahGaji": "Jumlah Gaji"
+    "jumlahGaji": "Jumlah Gaji",
+    "resultInvestasi": "Suku Bunga Efektif / Tahun",
+    "resultJangkaWaktu": "Jangka Waktu"
   },
   "simulasi_briguna": {
     "resultBrigunaKarya": "Hasil BRIGunaSALDO TANPA BUNGA Karya",
