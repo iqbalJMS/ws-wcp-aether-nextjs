@@ -631,7 +631,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     </div>
                   )}
                   {subtitle && (
-                    <div className="text-gray-500">
+                    <div className="text-gray-500 body">
                       {parseHTMLToReact(subtitle)}
                     </div>
                   )}
@@ -2024,10 +2024,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 slug: rootSlug,
                 children: item?.field_paragraphs?.map((item) => {
                   const title = item?.field_formatted_title?.[0]?.value;
-                  const description = item?.field_content?.[0]?.value;
+                  const description =
+                    item?.field_content?.[0]?.processed ||
+                    item?.field_content?.[0]?.value;
                   const description1 =
+                    item?.field_first_column?.[0]?.field_content?.[0]
+                      ?.processed ||
                     item?.field_first_column?.[0]?.field_content?.[0]?.value;
                   const description2 =
+                    item?.field_second_column?.[0]?.field_content?.[0]
+                      ?.processed ||
                     item?.field_second_column?.[0]?.field_content?.[0]?.value;
                   const imageUrl1 =
                     item.field_first_column?.[0]?.field_image?.[0]
@@ -2189,13 +2195,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     listColumn: item?.field_accordion_items?.map(
                       (item: {
                         field_title: Array<{ value: string }>;
-                        field_content: Array<{ value: string }>;
+                        field_content: Array<{
+                          value: string;
+                          processed: string;
+                        }>;
                       }) => {
                         return {
                           title: item?.field_title?.[0]?.value,
                           children: [
                             {
-                              richText: item?.field_content?.[0]?.value,
+                              richText:
+                                item?.field_content?.[0]?.processed ||
+                                item?.field_content?.[0]?.value,
                             },
                           ],
                         };
@@ -2553,8 +2564,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         default:
           const description1 =
+            _component?.field_first_column?.[0]?.field_content?.[0]
+              ?.processed ||
             _component?.field_first_column?.[0]?.field_content?.[0]?.value;
           const description2 =
+            _component?.field_second_column?.[0]?.field_content?.[0]
+              ?.processed ||
             _component?.field_second_column?.[0]?.field_content?.[0]?.value;
           const imageUrl1 =
             _component?.field_first_column?.[0]?.field_image?.[0]
