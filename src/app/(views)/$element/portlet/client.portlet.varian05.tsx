@@ -56,7 +56,7 @@ export default function CE_PortletVarian05({
             <div className="flex gap-4 mt-8 flex-wrap">
               {hasVisibleButton && (
                 <Link href={handleurl(firstColumn.buttonlink!)}>
-                  <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
+                  <button className="bg-[#f59a22] rounded-full text-white py-4 px-6 text-sm">
                     {firstColumn.buttontitle}
                   </button>
                 </Link>
@@ -69,7 +69,7 @@ export default function CE_PortletVarian05({
                   download
                   target="_self"
                 >
-                  <button className="bg-[#f59a22] rounded-full text-white py-4 px-8">
+                  <button className="bg-[#f59a22] rounded-full text-white py-4 px-6 text-sm">
                     {firstColumn.documentTitle}
                   </button>
                 </a>
