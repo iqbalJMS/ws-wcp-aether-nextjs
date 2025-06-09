@@ -44,7 +44,7 @@ const CE_PromoCard = ({
               <div
                 className={`mb-2 text-center md:text-left w-full ${variantTwoColumnClass}`}
               >
-                {parseHTMLToReact(description1)}
+                {parseHTMLToReact(description1, true)}
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@ const CE_PromoCard = ({
               <div
                 className={`mb-2 text-center md:text-left w-full ${variantTwoColumnClass}`}
               >
-                {parseHTMLToReact(description2)}
+                {parseHTMLToReact(description2, true)}
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ const CE_PromoCard = ({
                   ${variantTwoColumnClass}
                   ${isNoMargin ? 'text-center' : 'text-left '}`}
               >
-                {parseHTMLToReact(description1)}
+                {parseHTMLToReact(description1, true)}
               </div>
             </div>
           </div>
@@ -143,7 +143,7 @@ const CE_PromoCard = ({
                   ${variantTwoColumnClass}
                   ${isNoMargin ? 'text-center' : 'text-left '}`}
               >
-                {parseHTMLToReact(description2)}
+                {parseHTMLToReact(description2, true)}
               </div>
             </div>
           </div>
