@@ -79,14 +79,15 @@
     "jangkaWaktu": "Term",
     "sukuBunga": "Effective Interest Rate",
     "placeholder": "Choose a Plan",
-    "buttonAturUlang": "Reset",
+    "buttonAturUlang": "Re-Calculate",
     "buttonHitung": "Calculate",
-    "resultSaldoDeposito": "Interest + Deposit Balance",
-    "resultSaldoTanpaBunga": "INTEREST-FREE BALANCE",
-    "resultSaldoBunga": "Interest",
+    "resultSaldoDeposito": "RATE + BALANCE DEPOSIT",
+    "resultSaldoTanpaBunga": "BALANCE WITHOUT INTEREST",
+    "resultSaldoBunga": "Rate",
     "mataUang": "Currency",
     "pilihPaket": "Select Package",
-    "tenor": "Tenor"
+    "tenor": "Tenor",
+    "resultBalance": "BALANCE WITHOUT INTEREST"
   },
   "simulasi_kprs": {
     "pinjaman": "Loan Amount",
@@ -104,12 +105,14 @@
     "sukuBunga": "Loan Rate",
     "resultPeriodic": "Total Installment",
     "uangPensiun": "Pension Fund Amount",
-    "jumlahGaji": "Salary"
+    "jumlahGaji": "Salary",
+    "resultInvestasi": "Interest Rate / Year",
+    "resultJangkaWaktu": "Time Period"
   },
   "simulasi_briguna": {
-    "resultBrigunaKarya": "BRIGuna Karya Results",
-    "resultBrigunaPurna": "BRIGuna Purna Results",
-    "grandResultBriguna": "BRIGuna Umum result (BRIGuna Karya + BRIGuna Umum)"
+    "resultBrigunaKarya": "RESULT OF BRIGUNA KARYA",
+    "resultBrigunaPurna": "RESULT OF BRIGUNA PURNA",
+    "grandResultBriguna": "BRRESULT OF BRIGUNA UMUM (BRIGUNA KARYA + BRIGUNA UMUM)"
   },
   "simulasi_britama": {
     "jumlahBulan": "Number of Months",
@@ -117,7 +120,7 @@
     "ratebunga": "Rate BritAma Plan (p.a)",
     "premiAsuransi": "% Monthly Insurance Premi BritAma Plan",
     "nominalPremi": "Nominal Insurance Premi BritAma Plan Per year",
-    "resultBritama": "INTEREST + BRITAMA PLAN BALANCE",
+    "resultBritama": "RATE + BALANCE BRITAMA PLAN",
     "grandTotal": "TOTAL INVESTMENT BRITAMA PLAN + BRITAMA"
   },
   "vehicle_simulation": {
