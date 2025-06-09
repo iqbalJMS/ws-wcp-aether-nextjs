@@ -413,6 +413,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <SE_PortletMain
               title={title}
               subtitle={subtitle}
+              textLink={textLink}
               navigationLink={navigationLink}
               listItems={listItems}
               bgImage={backgroundImage}
@@ -662,7 +663,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <div
               className="w-full mb-10"
               style={{
-                backgroundImage: backgroundImage,
+                backgroundImage: `url('${backgroundImage}')`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
               }}
@@ -675,7 +676,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     </div>
                   )}
                   {subtitle && (
-                    <div className="text-blue-700 mb-4 mt-10 text-xl">
+                    <div className="text-blue-700 mb-4 mt-10 text-xl" style={{ color: '#014a94' }}>
                       {parseHTMLToReact(subtitle)}
                     </div>
                   )}
@@ -689,7 +690,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                       <Accordion
                         key={key}
                         renderTitle={
-                          <p className="text-lg font-semibold text-left text-blue-700">
+                          <p className="text-lg font-semibold text-left" style={{ color: '#014a94' }}>
                             {item?.title}
                           </p>
                         }
@@ -1536,6 +1537,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             title: title,
             subtitle: subtitle,
+            textLink: textLink,
             navigationLink: navigationLink,
             data: dataV08,
             column: column,
