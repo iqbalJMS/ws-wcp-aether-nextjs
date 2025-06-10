@@ -74,7 +74,7 @@ const VideoPlayerVariant2: React.FC<CompanyProfileProps> = ({
             </div>
           )}
           {description && (
-            <p className="text-gray-700 mb-6">
+            <p className="text-gray-700 mb-6 body">
               {parseHTMLToReact(description)}
             </p>
           )}
