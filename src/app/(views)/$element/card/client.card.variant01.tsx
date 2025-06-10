@@ -56,7 +56,7 @@ export default function CE_CardVariant01({ data }: T_CardVariant01Props) {
                         </div>
                       )}
                       {item?.description && (
-                        <div className="text-white text-base font-normal mb-6">
+                        <div className="text-white text-base font-normal mb-6 body">
                           {parseHTMLToReact(item?.description)}
                         </div>
                       )}

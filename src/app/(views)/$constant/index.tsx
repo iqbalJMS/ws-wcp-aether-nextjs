@@ -2433,6 +2433,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
+                _component?.field_first_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
               document:
                 _component?.field_first_column?.[0]?.field_cta_document?.[0]
@@ -2462,6 +2464,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   ?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_paragraphs?.[0]
+                  .field_content?.[0]?.processed ||
+                _component?.field_first_column?.[0]?.field_paragraphs?.[0]
                   .field_content?.[0]?.value,
               button: {
                 title:
@@ -2485,10 +2489,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             firstColumn: {
               description:
+                _component?.field_first_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
             },
             secondColumn: {
               description:
+                _component?.field_second_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
             },
             variant: findVariantStyle,
@@ -2504,6 +2512,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             },
             secondColumn: {
               description:
+                _component?.field_second_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
             },
             variant: findVariantStyle,
@@ -2533,6 +2543,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
+                _component?.field_first_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
               document: document33f,
               documentTitle: documentTitle1,
@@ -2550,6 +2562,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title:
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
+                _component?.field_second_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
               document: document33s,
               documentTitle: documentTitle2,
