@@ -6,6 +6,7 @@ import { ChevronDownIcon } from './icons/chevron-down-icon';
 import { ChevronRightIcon } from './icons/chevron-right-icon';
 import Image from './image';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { usePathname } from 'next/navigation';
 
 export type T_AccordionProps = {
   renderContent: React.ReactNode;
@@ -25,6 +26,7 @@ export default function Accordion({
   isOpen = false,
 }: T_AccordionProps) {
   const [accordionOpen, setAccordionOpen] = useState<boolean | null>(null);
+  const pathname = usePathname();
 
   return (
     <>
@@ -60,20 +62,26 @@ export default function Accordion({
                     {renderTitle}
                   </div>
                 ) : (
-                  <div className="flex items-center justify-between w-full">
+                  <div
+                    className={
+                      pathname === '/info-perusahaan'
+                        ? 'flex items-center'
+                        : 'flex items-center justify-between w-full'
+                    }
+                  >
                     <div className="flex-grow">{renderTitle}</div>
 
                     <span className="ml-1">
                       {(accordionOpen ?? isOpen) ? (
                         <ChevronDownIcon
-                          className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
+                          className={`${variant == 'full' ? 'stroke-white' : 'stroke-blue-01'}`}
                           width={28}
                           height={28}
                           strokeWidth="2"
                         />
                       ) : (
                         <ChevronRightIcon
-                          className={`${variant == 'full' ? 'stroke-white' : 'stroke-gray-700'}`}
+                          className={`${variant == 'full' ? 'stroke-white' : 'stroke-blue-01'}`}
                           width={28}
                           height={28}
                           strokeWidth="2"

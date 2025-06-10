@@ -671,9 +671,9 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               <div className="flex flex-col px-4 md:px-8 py-6 max-w-screen-2xl mx-auto">
                 <div className="w-full mb-8">
                   {title && (
-                    <div className="text-xl font-semibold mb-2 mt-10">
+                    <h1 className="text-xl font-semibold mb-2 mt-10">
                       {parseHTMLToReact(title)}
-                    </div>
+                    </h1>
                   )}
                   {subtitle && (
                     <div
@@ -685,7 +685,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   )}
                 </div>
                 {accordiontitle && (
-                  <h1 className="text-2xl font-bold mb-6">{accordiontitle}</h1>
+                  <h1 className="text-3xl font-bold mb-6">{accordiontitle}</h1>
                 )}
                 <div className="w-full max-w-[950px] flex flex-col space-y-4">
                   {accordion?.map((item, key) => {
@@ -700,6 +700,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                             {item?.title}
                           </p>
                         }
+                        isOpen={key === 0}
                         variant="none"
                         renderContent={parseHTMLToReact(
                           item?.content || '',
