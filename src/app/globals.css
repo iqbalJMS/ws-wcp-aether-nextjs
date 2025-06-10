@@ -142,10 +142,6 @@ h6 {
   font-weight: bold;
 }
 
-a {
-  @apply text-blue-01;
-}
-
 .body p {
   @apply text-sm mb-3 leading-relaxed;
 }
