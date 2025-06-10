@@ -19,7 +19,8 @@
     "textCalculate": "Kalkulator"
   },
   "location": {
-    "dropdown": "Semua"
+    "dropdown": "Semua",
+    "Title": "TEMUKAN KAMI"
   },
   "footer": {
     "headOfficeTitle": "BRI Kantor Pusat",
