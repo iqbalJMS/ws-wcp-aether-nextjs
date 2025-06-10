@@ -95,11 +95,11 @@ const RowElement = ({ description }: T_RowElementProps) => (
 
 export default function MobileFooter({ data }: T_FooterProps) {
   const { baseUrl } = useEnv();
-  
+
   return (
     <section className="lg:hidden">
       <AccordionMobile
-        renderTitle={data?.data?.[0]?.title ?? "BRI Kantor Pusat"}
+        renderTitle={data?.data?.[0]?.title ?? 'BRI Kantor Pusat'}
         renderContent={
           data?.data?.map((list_item, index) => (
             <div className="w-9/12" key={`kantor-pusat-${index}`}>
@@ -109,7 +109,7 @@ export default function MobileFooter({ data }: T_FooterProps) {
         }
       />
       <AccordionMobile
-        renderTitle={data?.data?.[1]?.title ?? "Hubungi Kami"}
+        renderTitle={data?.data?.[1]?.title ?? 'Hubungi Kami'}
         renderContent={
           data?.data?.map((list_item, index) => (
             <div className="" key={`hubungi-kami-${index}`}>
@@ -146,7 +146,7 @@ export default function MobileFooter({ data }: T_FooterProps) {
       ))}
       <hr />
       <AccordionMobile
-        renderTitle={data?.data?.[2]?.title ?? "Tautan"}
+        renderTitle={data?.data?.[2]?.title ?? 'Tautan'}
         renderContent={
           data?.data?.map((list_item, index) => (
             <div className="" key={`tautan-${index}`}>

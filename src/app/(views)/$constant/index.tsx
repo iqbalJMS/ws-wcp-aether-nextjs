@@ -676,7 +676,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     </div>
                   )}
                   {subtitle && (
-                    <div className="text-blue-700 mb-4 mt-10 text-xl" style={{ color: '#014a94' }}>
+                    <div
+                      className="text-blue-700 mb-4 mt-10 text-xl"
+                      style={{ color: '#014a94' }}
+                    >
                       {parseHTMLToReact(subtitle)}
                     </div>
                   )}
@@ -690,7 +693,10 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                       <Accordion
                         key={key}
                         renderTitle={
-                          <p className="text-lg font-semibold text-left" style={{ color: '#014a94' }}>
+                          <p
+                            className="text-lg font-semibold text-left"
+                            style={{ color: '#014a94' }}
+                          >
                             {item?.title}
                           </p>
                         }
