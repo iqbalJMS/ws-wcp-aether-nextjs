@@ -163,5 +163,8 @@
     "validateMaxMinCarUsed": "Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 4",
     "validateMaxMinTermMonth": "Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 36",
     "validateMaxTermMonth": "Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 24"
+  },
+  "company_info": {
+    "richText": "Selengkapnya"
   }
 }

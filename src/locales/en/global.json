@@ -163,5 +163,8 @@
     "validateMaxMinCarUsed": "Value must be greater than 0 or Value cannot be greater than 4",
     "validateMaxMinTermMonth": "Value must be greater than 0 or Value cannot be greater than 36",
     "validateMaxTermMonth": "Value must be greater than 0 or Value cannot be greater than 24"
+  },
+  "company_info": {
+    "richText": "Read more"
   }
 }
