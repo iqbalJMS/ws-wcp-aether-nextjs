@@ -90,7 +90,7 @@
     "resultBalance": "Saldo Tanpa Bunga"
   },
   "simulasi_kprs": {
-    "pinjaman": "Jumlah Deposito",
+    "pinjaman": "Jumlah Pinjaman",
     "jangkaWaktu": "Jangka Waktu",
     "rightText": "Tahun",
     "leftText": "Rp",
