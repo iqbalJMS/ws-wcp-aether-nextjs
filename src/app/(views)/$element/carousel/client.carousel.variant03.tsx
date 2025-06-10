@@ -8,13 +8,18 @@ import useScreenWidth from '@/lib/hook/useScreenWidth';
 import { useState } from 'react';
 import { handleurl } from '@/lib/functions/client/handle-url';
 import { useEnv } from '@/lib/hook/useEnv';
-
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 export function CE_CarouselVariant03({
   title,
   description,
   button,
   data,
 }: Omit<T_CarouselMainProps, 'variant'>) {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   const { baseUrl } = useEnv();
   const [currentSlide, setCurrentSlide] = useState(0);
   const screenWidth = useScreenWidth();
@@ -135,7 +140,9 @@ export function CE_CarouselVariant03({
                                 <span className="underline cursor-pointer relative inline-block">
                                   {' '}
                                   <span className="hover:text-blue-200 peer">
-                                    ...Selengkapnya
+                                    ...
+                                    {dictionary?.company_info?.richText ??
+                                      'Selengkapnya'}
                                   </span>
                                   <span className="absolute w-64 bg-white text-black text-sm p-2 rounded shadow-lg left-0 bottom-full mb-0 hidden peer-hover:block z-50">
                                     {parseHTMLToReact(dataItem.desc)}
