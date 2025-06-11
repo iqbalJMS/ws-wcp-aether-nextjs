@@ -1209,6 +1209,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
+          color: item?.field_card_style?.[0]?.value,
         };
       });
 
