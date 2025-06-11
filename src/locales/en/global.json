@@ -19,7 +19,8 @@
     "textCalculate": "Calculator"
   },
   "location": {
-    "dropdown": "Any"
+    "dropdown": "Any",
+    "Title": "FIND US"
   },
   "footer": {
     "headOfficeTitle": "BRI Headquarters",
