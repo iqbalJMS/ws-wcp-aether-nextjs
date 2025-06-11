@@ -8,6 +8,7 @@ import { T_ResponseGetBottomFooterMenu } from '@/api/footer/bottom-footer/api.ge
 import MobileFooter from './accordion.footer';
 import { BASE_URL } from '@/app/(views)/$constant';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 type T_FooterProps = {
   main_footer: T_ResponseGetMainFooterMenu;
@@ -35,9 +36,9 @@ const RowElement = ({ description, label, socialMedia }: T_RowElementProps) => {
       {description?.map(({ className, name, icon, url, extern }) => (
         <Link
           extern={extern}
-          href={url ?? '/'}
+          href={handleurl(url) ?? '/'}
           key={name}
-          className={`px-0 flex items-center gap-2 lg:mb-3 mb-2 lg:text-sm text-sm justify-start font-normal ${className}`}
+          className={`px-0 flex items-center gap-2 lg:mb-3 mb-2 lg:text-sm text-sm justify-start font-normal ${className} `}
         >
           {icon && (
             <Image
@@ -94,7 +95,7 @@ function TermsAllReservedElement({ list }: T_PropsTermsAllReservedElement) {
             {list?.map(({ extern, url, value }, index) => (
               <div key={index}>
                 <Link
-                  href={url}
+                  href={handleurl(url)}
                   extern={extern}
                   className="text-sm lg:font-normal font-light text-white"
                 >
