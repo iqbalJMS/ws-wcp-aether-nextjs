@@ -89,6 +89,11 @@ function TermsAllReservedElement({ list }: T_PropsTermsAllReservedElement) {
   return (
     <div className="bg-blue-01 lg:py-[1.375rem] py-4">
       <div className="text-center flex items-center lg:flex-row flex-col lg:container justify-between lg:px-0 px-4 lg:items-center lg:justify-between">
+        <p className="text-white boxiner inline font-light text-sm !text-center">
+          © {new Date().getFullYear()} PT.Bank Rakyat Indonesia (Persero) Tbk.
+          | All Rights Reserved.
+        </p>
+
         <div className="items-center mt-6 lg:mt-0">
           <div className="flex flex-wrap justify-center items-center">
             {list?.map(({ extern, url, value }, index) => (
