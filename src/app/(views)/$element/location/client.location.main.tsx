@@ -192,7 +192,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
   return (
     <div className=" py-10">
       <div className="text-center text-2xl mb-5">
-        {dictionary?.location?.Title}
+        {parseHTMLToReact(dictionary?.location?.Title ?? '')}
       </div>
 
       <div className="py-5 pb-10 border-b-2 border-black border-opacity-10">
