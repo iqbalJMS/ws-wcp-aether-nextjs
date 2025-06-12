@@ -43,7 +43,7 @@ export default function CE_CardVariant05({
                     0{index + 1}
                   </div>
                   {item.title && (
-                    <div className="text-lg font-semibold mb-1">
+                    <div className="text-lg font-semibold mb-1 text-[#014A94]">
                       {parseHTMLToReact(item.title)}
                     </div>
                   )}
