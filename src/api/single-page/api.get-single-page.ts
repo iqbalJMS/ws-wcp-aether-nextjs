@@ -43,7 +43,6 @@ export async function API_GetSinglePage({
     }
 
     redirectPath = '/404';
-    return;
   } catch (error) {
     /* eslint-disable-next-line no-console */
     console.error('An error occurred during Get Single Page:', error);
