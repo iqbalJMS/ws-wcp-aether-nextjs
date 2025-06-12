@@ -2759,7 +2759,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   button: {
                     image: item?.iconDownload,
                     link: item?.downloadFile,
-                    title: 'Download',
+                    title: item?.downloadTitle,
                     extern: true,
                   },
                 }))}
@@ -3008,6 +3008,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               }>;
               name: Array<{ value: string }>;
             }>;
+            field_title: Array<{ value: string }>;
           }>;
         }) => {
           return {
@@ -3020,11 +3021,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 childItem?.field_document?.[0]?.field_media_file?.[0]
                   ?.filename?.[0]?.value;
               const filename = childItem?.field_document?.[0]?.name?.[0]?.value;
-
+              const downloadTitle = childItem?.field_title?.[0]?.value;
               return {
                 downloadFile: downloadFile,
                 description: description,
                 filename: filename,
+                downloadTitle: downloadTitle,
               };
             }),
           };
