@@ -50,7 +50,7 @@ type T_FieldParagraph = Array<{
   field_second_column: any;
   field_first_column: any;
   field_web_variant_styles: Array<{ field_key: Array<{ value: string }> }>;
-  field_content: Array<{ value: string }>;
+  field_content: Array<{ value: string; processed: string }>;
   field_note: Array<{ value: string }>;
   field_carousel_items: Array<{
     field_image: Array<{
@@ -58,7 +58,7 @@ type T_FieldParagraph = Array<{
     }>;
     field_title: Array<{ value: string }>;
     field_datetime: Array<{ value: string; end_value: string }>;
-    field_content: Array<{ value: string }>;
+    field_content: Array<{ value: string; processed: string }>;
     field_simple_text: Array<{ value: string }>;
     field_primary_cta: Array<{ full_url: string }>;
     field_content_type: T_Content_Type_Multitab;

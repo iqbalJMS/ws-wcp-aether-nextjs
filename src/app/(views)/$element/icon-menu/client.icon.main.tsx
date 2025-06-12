@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Locale } from '@/i18n-config';
 import { useDictionary } from '@/get-dictionary';
 import { useSearchParams } from 'next/navigation';
+import { handleurl } from '@/lib/functions/client/handle-url';
 
 type T_IconMainProps = {
   maxListShow?: number;
@@ -176,11 +177,11 @@ export function CE_IconMain({
                   className="w-1/5 mdmax:w-1/3 mdmax:flex-none"
                 >
                   <Link
-                    href={
+                    href={handleurl(
                       extractMatch(listItem.link)
                         ? '#' + extractMatch(listItem.link)
                         : listItem.link
-                    }
+                    )}
                     extern={listItem.externalLink}
                     target={extractMatch(listItem.link) ? '' : '_self'}
                   >

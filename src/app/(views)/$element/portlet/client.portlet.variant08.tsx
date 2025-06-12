@@ -39,7 +39,7 @@ const CE_PortletVariant08 = ({
               <div
                 className={`mb-2 text-center md:text-left w-full ${variantTwoColumnClass ? `${variantTwoColumnClass}` : 'pl-[200px]'}`}
               >
-                {parseHTMLToReact(description1)}
+                {parseHTMLToReact(description1, true)}
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ const CE_PortletVariant08 = ({
               <div
                 className={`mb-2 text-center md:text-left w-full ${variantTwoColumnClass}`}
               >
-                {parseHTMLToReact(description2)}
+                {parseHTMLToReact(description2, true)}
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ const CE_PortletVariant08 = ({
               <div
                 className={`mb-2 w-full px-4 md:px-0 justify-center text-left leading-relaxed ${variantTwoColumnClass}`}
               >
-                {parseHTMLToReact(description1)}
+                {parseHTMLToReact(description1, true)}
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@ const CE_PortletVariant08 = ({
               <div
                 className={`mb-2 w-full px-4 md:px-0 justify-center text-left leading-relaxed ${variantTwoColumnClass}`}
               >
-                {parseHTMLToReact(description2)}
+                {parseHTMLToReact(description2, true)}
               </div>
             </div>
           </div>

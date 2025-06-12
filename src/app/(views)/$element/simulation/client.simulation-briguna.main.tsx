@@ -88,12 +88,20 @@ const CE_SimulationBRIGunaMain = ({ type }: { type: 'tab' | 'page' }) => {
     }
 
     try {
-      CFN_GetSimulationBriguna(transiting, karyaForm, (data) => {
-        setResultKarya(data?.data);
-      });
-      CFN_GetSimulationBriguna(transiting, purnaForm, (data) => {
-        setResultPurna(data?.data);
-      });
+      CFN_GetSimulationBriguna(
+        transiting,
+        { ...karyaForm, interestRate: Number(karyaForm.interestRate) * 0.01 },
+        (data) => {
+          setResultKarya(data?.data);
+        }
+      );
+      CFN_GetSimulationBriguna(
+        transiting,
+        { ...purnaForm, interestRate: Number(purnaForm.interestRate) * 0.01 },
+        (data) => {
+          setResultPurna(data?.data);
+        }
+      );
     } catch (error) {
     } finally {
       if (button) {

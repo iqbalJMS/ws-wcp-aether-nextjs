@@ -19,7 +19,8 @@
     "textCalculate": "Kalkulator"
   },
   "location": {
-    "dropdown": "Semua"
+    "dropdown": "Semua",
+    "Title": "TEMUKAN <strong>KAMI</strong>"
   },
   "footer": {
     "headOfficeTitle": "BRI Kantor Pusat",
@@ -90,7 +91,7 @@
     "resultBalance": "Saldo Tanpa Bunga"
   },
   "simulasi_kprs": {
-    "pinjaman": "Jumlah Deposito",
+    "pinjaman": "Jumlah Pinjaman",
     "jangkaWaktu": "Jangka Waktu",
     "rightText": "Tahun",
     "leftText": "Rp",
@@ -163,5 +164,8 @@
     "validateMaxMinCarUsed": "Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 4",
     "validateMaxMinTermMonth": "Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 36",
     "validateMaxTermMonth": "Nilai harus lebih besar dari 0 atau Nilai tidak boleh lebih besar dari 24"
+  },
+  "company_info": {
+    "richText": "Selengkapnya"
   }
 }

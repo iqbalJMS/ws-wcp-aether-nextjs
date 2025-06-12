@@ -413,6 +413,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <SE_PortletMain
               title={title}
               subtitle={subtitle}
+              textLink={textLink}
               navigationLink={navigationLink}
               listItems={listItems}
               bgImage={backgroundImage}
@@ -631,7 +632,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     </div>
                   )}
                   {subtitle && (
-                    <div className="text-gray-500">
+                    <div className="text-gray-500 body">
                       {parseHTMLToReact(subtitle)}
                     </div>
                   )}
@@ -662,7 +663,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             <div
               className="w-full mb-10"
               style={{
-                backgroundImage: backgroundImage,
+                backgroundImage: `url('${backgroundImage}')`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
               }}
@@ -670,18 +671,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               <div className="flex flex-col px-4 md:px-8 py-6 max-w-screen-2xl mx-auto">
                 <div className="w-full mb-8">
                   {title && (
-                    <div className="text-xl font-semibold mb-2 mt-10">
+                    <h1 className="text-xl font-semibold mb-2 mt-10">
                       {parseHTMLToReact(title)}
-                    </div>
+                    </h1>
                   )}
                   {subtitle && (
-                    <div className="text-blue-700 mb-4 mt-10 text-xl">
+                    <div
+                      className="text-blue-700 mb-4 mt-10 text-xl"
+                      style={{ color: '#014a94' }}
+                    >
                       {parseHTMLToReact(subtitle)}
                     </div>
                   )}
                 </div>
                 {accordiontitle && (
-                  <h1 className="text-2xl font-bold mb-6">{accordiontitle}</h1>
+                  <h1 className="text-3xl font-bold mb-6">{accordiontitle}</h1>
                 )}
                 <div className="w-full max-w-[950px] flex flex-col space-y-4">
                   {accordion?.map((item, key) => {
@@ -689,10 +693,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                       <Accordion
                         key={key}
                         renderTitle={
-                          <p className="text-lg font-semibold text-left text-blue-700">
+                          <p
+                            className="text-lg font-semibold text-left"
+                            style={{ color: '#014a94' }}
+                          >
                             {item?.title}
                           </p>
                         }
+                        isOpen={key === 0}
                         variant="none"
                         renderContent={parseHTMLToReact(
                           item?.content || '',
@@ -1201,6 +1209,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         return {
           title: item?.field_title?.[0]?.value,
           description: item?.field_content?.[0]?.value,
+          color: item?.field_card_style?.[0]?.value,
         };
       });
 
@@ -1536,6 +1545,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             variant: findVariantStyle,
             title: title,
             subtitle: subtitle,
+            textLink: textLink,
             navigationLink: navigationLink,
             data: dataV08,
             column: column,
@@ -2024,10 +2034,16 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 slug: rootSlug,
                 children: item?.field_paragraphs?.map((item) => {
                   const title = item?.field_formatted_title?.[0]?.value;
-                  const description = item?.field_content?.[0]?.value;
+                  const description =
+                    item?.field_content?.[0]?.processed ||
+                    item?.field_content?.[0]?.value;
                   const description1 =
+                    item?.field_first_column?.[0]?.field_content?.[0]
+                      ?.processed ||
                     item?.field_first_column?.[0]?.field_content?.[0]?.value;
                   const description2 =
+                    item?.field_second_column?.[0]?.field_content?.[0]
+                      ?.processed ||
                     item?.field_second_column?.[0]?.field_content?.[0]?.value;
                   const imageUrl1 =
                     item.field_first_column?.[0]?.field_image?.[0]
@@ -2189,13 +2205,18 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                     listColumn: item?.field_accordion_items?.map(
                       (item: {
                         field_title: Array<{ value: string }>;
-                        field_content: Array<{ value: string }>;
+                        field_content: Array<{
+                          value: string;
+                          processed: string;
+                        }>;
                       }) => {
                         return {
                           title: item?.field_title?.[0]?.value,
                           children: [
                             {
-                              richText: item?.field_content?.[0]?.value,
+                              richText:
+                                item?.field_content?.[0]?.processed ||
+                                item?.field_content?.[0]?.value,
                             },
                           ],
                         };
@@ -2420,6 +2441,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
+                _component?.field_first_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
               document:
                 _component?.field_first_column?.[0]?.field_cta_document?.[0]
@@ -2449,6 +2472,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   ?.field_title?.[0]?.value,
               description:
                 _component?.field_first_column?.[0]?.field_paragraphs?.[0]
+                  .field_content?.[0]?.processed ||
+                _component?.field_first_column?.[0]?.field_paragraphs?.[0]
                   .field_content?.[0]?.value,
               button: {
                 title:
@@ -2472,10 +2497,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             firstColumn: {
               description:
+                _component?.field_first_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
             },
             secondColumn: {
               description:
+                _component?.field_second_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
             },
             variant: findVariantStyle,
@@ -2491,6 +2520,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             },
             secondColumn: {
               description:
+                _component?.field_second_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
             },
             variant: findVariantStyle,
@@ -2520,6 +2551,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title:
                 _component?.field_first_column?.[0]?.field_title?.[0]?.value,
               description:
+                _component?.field_first_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_first_column?.[0]?.field_content?.[0]?.value,
               document: document33f,
               documentTitle: documentTitle1,
@@ -2537,6 +2570,8 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title:
                 _component?.field_second_column?.[0]?.field_title?.[0]?.value,
               description:
+                _component?.field_second_column?.[0]?.field_content?.[0]
+                  ?.processed ||
                 _component?.field_second_column?.[0]?.field_content?.[0]?.value,
               document: document33s,
               documentTitle: documentTitle2,
@@ -2553,8 +2588,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           };
         default:
           const description1 =
+            _component?.field_first_column?.[0]?.field_content?.[0]
+              ?.processed ||
             _component?.field_first_column?.[0]?.field_content?.[0]?.value;
           const description2 =
+            _component?.field_second_column?.[0]?.field_content?.[0]
+              ?.processed ||
             _component?.field_second_column?.[0]?.field_content?.[0]?.value;
           const imageUrl1 =
             _component?.field_first_column?.[0]?.field_image?.[0]
@@ -2720,7 +2759,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                   button: {
                     image: item?.iconDownload,
                     link: item?.downloadFile,
-                    title: 'Download',
+                    title: item?.downloadTitle,
                     extern: true,
                   },
                 }))}
@@ -2969,6 +3008,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               }>;
               name: Array<{ value: string }>;
             }>;
+            field_title: Array<{ value: string }>;
           }>;
         }) => {
           return {
@@ -2981,11 +3021,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                 childItem?.field_document?.[0]?.field_media_file?.[0]
                   ?.filename?.[0]?.value;
               const filename = childItem?.field_document?.[0]?.name?.[0]?.value;
-
+              const downloadTitle = childItem?.field_title?.[0]?.value;
               return {
                 downloadFile: downloadFile,
                 description: description,
                 filename: filename,
+                downloadTitle: downloadTitle,
               };
             }),
           };

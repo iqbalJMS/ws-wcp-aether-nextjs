@@ -26,7 +26,8 @@ export default async function SE_PortletVariant01({
   const gridClass = column ? `md:grid-cols-${column}` : '';
   const gapClass = column === '1' ? 'gap-6' : 'gap-8';
 
-  const widthClass = 'md:w-[1100px] w-full';
+  const widthClass =
+    column === '3' || column === '4' ? 'w-full' : 'md:w-[1100px] w-full';
 
   const hasListItems = Array.isArray(listItems) && listItems.length > 0;
 

@@ -1,12 +1,16 @@
 'use client';
 
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
+import { Locale } from '@/i18n-config';
+import { useDictionary } from '@/get-dictionary';
+import { useSearchParams } from 'next/navigation';
 
 type T_CardVariant05Props = {
   title: string;
   data: Array<{
     title?: string;
     description?: string;
+    color?: string;
   }>;
 };
 
@@ -14,6 +18,9 @@ export default function CE_CardVariant05({
   data,
   title,
 }: T_CardVariant05Props) {
+  const params = useSearchParams();
+  const locales = params.get('lang') as Locale;
+  const dictionary = useDictionary(locales ?? 'id');
   return (
     <>
       <div className="py-10 container overflow-hidden">
@@ -30,11 +37,13 @@ export default function CE_CardVariant05({
                 className="w-1/4 mdmax:w-full flex-none px-5 mb-10"
               >
                 <div>
-                  <div className="text-[3rem] leading-[3rem] text-orange-01 font-semibold mb-4">
+                  <div
+                    className={`text-[3rem] leading-[3rem] text-${item?.color}-01 font-semibold mb-4`}
+                  >
                     0{index + 1}
                   </div>
                   {item.title && (
-                    <div className="text-lg font-semibold mb-1">
+                    <div className="text-lg font-semibold mb-1 text-[#014A94]">
                       {parseHTMLToReact(item.title)}
                     </div>
                   )}
@@ -60,7 +69,9 @@ export default function CE_CardVariant05({
                           {isLong && (
                             <div className="group inline-block relative ml-1">
                               <span className="text-base text-black-600 underline cursor-pointer">
-                                ...selengkapnya
+                                ...
+                                {dictionary?.company_info?.richText ??
+                                  'Selengkapnya'}
                               </span>
                               <div
                                 className="absolute bottom-full left-0 z-50 bg-white border border-gray-200 rounded shadow-lg p-4 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-150"

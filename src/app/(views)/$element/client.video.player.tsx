@@ -62,7 +62,7 @@ const VideoPlayerVariant2: React.FC<CompanyProfileProps> = ({
             className="w-full aspect-video h-64 sm:h-96"
             src={`https://www.youtube.com/embed/${videoUrl}?autoplay=1`}
             title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
         </div>
@@ -74,7 +74,7 @@ const VideoPlayerVariant2: React.FC<CompanyProfileProps> = ({
             </div>
           )}
           {description && (
-            <p className="text-gray-700 mb-6">
+            <p className="text-gray-700 mb-6 body">
               {parseHTMLToReact(description)}
             </p>
           )}
