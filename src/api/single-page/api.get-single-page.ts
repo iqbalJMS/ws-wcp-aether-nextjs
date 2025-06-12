@@ -17,7 +17,7 @@ export async function API_GetSinglePage({
     const aliasLink = Array.isArray(alias) ? alias.join('/') : alias;
     const response = await get<any>(
       `${isEnglish}/${aliasLink}?_format=json_recursive`
-    )
+    );
 
     if (!response) {
       redirectPath = '/404';
@@ -33,11 +33,11 @@ export async function API_GetSinglePage({
       return;
     }
 
-    if (entityBundle === 'page' && site === "Main Website") {
+    if (entityBundle === 'page' && site === 'Main Website') {
       return response;
     }
 
-    if (entityBundle !== 'page' && site === "Main Website") {
+    if (entityBundle !== 'page' && site === 'Main Website') {
       redirectPath = `/${entityBundle}-detail/${nid}?lang=${lang}`;
       return;
     }
