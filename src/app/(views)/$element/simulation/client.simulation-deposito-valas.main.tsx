@@ -264,23 +264,23 @@ const CE_SimulationDepositoValasMain = () => {
                       placeholder={`${dictionary?.simulasi_deposito_bisnis?.pilihPaket ?? 'SELECT PACKAGE'}`}
                       list={[
                         {
-                          title: '1 Bulan',
+                          title: `1 ${dictionary?.simulasi_investasi?.rightText}`,
                           value: '1',
                         },
                         {
-                          title: '3 Bulan',
+                          title: `3 ${dictionary?.simulasi_investasi?.rightText}`,
                           value: '3',
                         },
                         {
-                          title: '6 Bulan',
+                          title: `6 ${dictionary?.simulasi_investasi?.rightText}`,
                           value: '6',
                         },
                         {
-                          title: '12 Bulan',
+                          title: `12 ${dictionary?.simulasi_investasi?.rightText}`,
                           value: '12',
                         },
                         {
-                          title: '24 Bulan',
+                          title: `24 ${dictionary?.simulasi_investasi?.rightText}`,
                           value: '24',
                         },
                       ]}
