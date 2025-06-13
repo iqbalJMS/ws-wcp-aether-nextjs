@@ -3,10 +3,12 @@ import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useEnv } from '@/lib/hook/useEnv';
+import { handleurl } from '@/lib/functions/client/handle-url';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 
 export function CE_BannerVariant01({
   data,
+  slider_variant,
 }: {
   data: Array<{
     image: string;
@@ -14,7 +16,9 @@ export function CE_BannerVariant01({
     desc: string;
     button: string;
     buttonLink: string;
+    alignment: 'left' | 'center' | 'right' | 'justify';
   }>;
+  slider_variant?: string;
 }) {
   const { baseUrl } = useEnv();
   const [index, setIndex] = useState(0);
@@ -88,9 +92,14 @@ export function CE_BannerVariant01({
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
           ref={sliderRef}
-          className="overflow-hidden relative rounded-br-[14rem] h-[50rem] mdmax:h-[30rem] mdmax:rounded-br-[7rem] z-10"
+          className={`overflow-hidden relative h-[50rem] mdmax:h-[30rem] z-10 ${
+            slider_variant === 'header_curved' 
+              ? 'rounded-br-[14rem] mdmax:rounded-br-[7rem]' 
+              : ''
+          }`}
         >
           {data?.map((bannerItem, bannerIndex: number) => {
+            const { alignment } = bannerItem;
             return (
               <div
                 key={bannerIndex}
@@ -114,27 +123,79 @@ export function CE_BannerVariant01({
                   <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-30"></div>
                   <div className="absolute top-1/2 transform -translate-y-1/2 z-10 left-0 w-full">
                     <div className="container">
-                      {bannerItem?.title && (
-                        <div className="text-[4rem] mdmax:text-3xl font-semibold text-white">
-                          {parseHTMLToReact(bannerItem?.title)}
+                      {alignment === 'right' ? (
+                        <div className="w-full max-w-[700px] ml-auto mr-0">
+                          <div className="flex flex-col gap-4 items-start text-left">
+                            {bannerItem?.title && (
+                              <div className="text-[4rem] mdmax:text-3xl font-semibold text-white">
+                                {parseHTMLToReact(bannerItem?.title)}
+                              </div>
+                            )}
+                            {bannerItem?.desc && (
+                              <div className="text-[1rem] mdmax:text-sm font-medium text-white mb-10">
+                                {parseHTMLToReact(bannerItem?.desc)}
+                              </div>
+                            )}
+                            {bannerItem?.button && (
+                              <Link href={handleurl(bannerItem?.buttonLink)}>
+                                <ButtonSecondary
+                                  size="lg"
+                                  rounded="full"
+                                  style={{ 
+                                    backgroundColor: '#f59823',
+                                    border: 'none' 
+                                  }}
+                                  className="px-20"
+                                >
+                                  {bannerItem?.button}
+                                </ButtonSecondary>
+                              </Link>
+                            )}
+                          </div>
                         </div>
-                      )}
-                      {bannerItem?.desc && (
-                        <div className="text-[1rem] mdmax:text-sm font-medium text-white mb-10">
-                          {parseHTMLToReact(bannerItem?.desc)}
+                      ) : (
+                        <div
+                          className={`
+                            flex flex-col
+                            ${alignment === 'left' ? 'items-start text-left' : ''}
+                            ${
+                              alignment === 'center'
+                                ? 'items-center text-center'
+                                : ''
+                            }
+                            ${
+                              alignment === 'justify'
+                                ? 'items-stretch text-justify'
+                                : ''
+                            }
+                          `}
+                        >
+                          {bannerItem?.title && (
+                            <div className="text-[4rem] mdmax:text-3xl font-semibold text-white max-w-4xl">
+                              {parseHTMLToReact(bannerItem?.title)}
+                            </div>
+                          )}
+                          {bannerItem?.desc && (
+                            <div className="text-[1rem] mdmax:text-sm font-medium text-white mb-10 max-w-4xl">
+                              {parseHTMLToReact(bannerItem?.desc)}
+                            </div>
+                          )}
+                          {bannerItem?.button && (
+                            <Link href={handleurl(bannerItem?.buttonLink)}>
+                              <ButtonSecondary
+                                size="lg"
+                                rounded="full"
+                                style={{ 
+                                  backgroundColor: '#f59823',
+                                  border: 'none' 
+                                }}
+                                className="px-20"
+                              >
+                                {bannerItem?.button}
+                              </ButtonSecondary>
+                            </Link>
+                          )}
                         </div>
-                      )}
-                      {bannerItem?.button && (
-                        <Link href={bannerItem?.buttonLink ?? '#'}>
-                          <ButtonSecondary
-                            size="lg"
-                            color="red-01"
-                            rounded="full"
-                            className="px-20"
-                          >
-                            {bannerItem?.button}
-                          </ButtonSecondary>
-                        </Link>
                       )}
                     </div>
                   </div>
@@ -143,36 +204,42 @@ export function CE_BannerVariant01({
             );
           })}
           <div
-            className={`absolute left-0 bottom-0 w-full h-[30%] bg-gradient-to-t from-[#94183d] to-[rgba(148,24,61,0)] opacity-60 rounded-br-[14rem] z-10`}
+            className={`absolute left-0 bottom-0 w-full h-[30%] bg-gradient-to-t from-[#94183d] to-[rgba(148,24,61,0)] opacity-60 z-10 ${
+              slider_variant === 'header_curved' 
+                ? 'rounded-br-[14rem]' 
+                : ''
+            }`}
           ></div>
         </div>
         {data?.length > 1 && (
           <div
             className={[
-              'absolute top-1/2 z-30 right-0 w-full',
+              'absolute top-1/2 -translate-y-1/2 z-30 right-40',
               'mdmax:top-[initial] mdmax:bottom-32 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2 mdmax:w-[initial]',
             ].join(' ')}
           >
-            <div className="container text-right">
-              <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2 inline-block">
-                {data?.map((_: any, bannerIndex: number) => (
-                  <button
-                    key={bannerIndex}
-                    type="button"
-                    className={[
-                      'w-5 h-5 rounded-full bg-red-01 mb-3 ',
-                      'mdmax:w-4 mdmax:h-4',
-                      `${bannerIndex === index ? '' : 'bg-opacity-50'}`,
-                      'cursor-pointer border-0 p-0', // Add border-0 and p-0 to remove default button styles
-                    ].join(' ')}
-                    onClick={() => setIndex(bannerIndex)}
-                  />
-                ))}
-              </div>
+            <div className="flex flex-col">
+              {data?.map((_: any, bannerIndex: number) => (
+                <button
+                  key={bannerIndex}
+                  type="button"
+                  className={[
+                    'w-5 h-5 rounded-full bg-red-01 mb-3',
+                    'mdmax:w-4 mdmax:h-4',
+                    `${bannerIndex === index ? '' : 'bg-opacity-50'}`,
+                    'cursor-pointer border-0 p-0',
+                  ].join(' ')}
+                  onClick={() => setIndex(bannerIndex)}
+                />
+              ))}
             </div>
           </div>
         )}
-        <div className="w-full h-[50rem] mdmax:h-[30rem] absolute top-4 left-0 bg-black rounded-br-[14rem] mdmax:rounded-br-[7rem] overflow-hidden bg-opacity-10 z-0"></div>
+        <div className={`w-full h-[50rem] mdmax:h-[30rem] absolute top-4 left-0 bg-black overflow-hidden bg-opacity-10 z-0 ${
+          slider_variant === 'header_curved' 
+            ? 'rounded-br-[14rem] mdmax:rounded-br-[7rem]' 
+            : ''
+        }`}></div>
       </div>
     </section>
   );

@@ -251,7 +251,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       switch (sliderVariant) {
         case 'header_curved':
         default:
-          return <CE_BannerMain variant="01" data={sliderData} />;
+          return <CE_BannerMain variant="01" data={sliderData} slider_variant={sliderVariant}/>;
       }
     },
     props: (_component: T_Slider) => {
@@ -263,13 +263,14 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
         const description = item?.field_content?.[0]?.value;
         const button = item?.field_primary_cta?.[0]?.title;
         const buttonLink = item?.field_primary_cta?.[0]?.full_url;
-
+        const field_alignment = item?.field_alignment?.[0]?.value;
         return {
           image: image,
           title: title,
           desc: description,
           button: button,
           buttonLink: buttonLink,
+          alignment: field_alignment,
         };
       });
 
