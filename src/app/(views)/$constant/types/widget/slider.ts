@@ -13,6 +13,7 @@ type T_EntityData = {
   field_image: any[];
   field_primary_cta: any[];
   field_title: any[];
+  field_alignment: any[];
 };
 
 export type T_Slider = {
