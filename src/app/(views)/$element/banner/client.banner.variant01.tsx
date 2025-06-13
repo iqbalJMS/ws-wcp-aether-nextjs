@@ -3,6 +3,7 @@ import Image from '@/lib/element/global/image';
 import Link from '@/lib/element/global/link';
 import { parseHTMLToReact } from '@/lib/functions/global/htmlParser';
 import { useEnv } from '@/lib/hook/useEnv';
+import { handleurl } from '@/lib/functions/client/handle-url';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 
 export function CE_BannerVariant01({
@@ -136,11 +137,14 @@ export function CE_BannerVariant01({
                               </div>
                             )}
                             {bannerItem?.button && (
-                              <Link href={bannerItem?.buttonLink ?? '#'}>
+                              <Link href={handleurl(bannerItem?.buttonLink)}>
                                 <ButtonSecondary
                                   size="lg"
-                                  color="red-01"
                                   rounded="full"
+                                  style={{ 
+                                    backgroundColor: '#f59823',
+                                    border: 'none' 
+                                  }}
                                   className="px-20"
                                 >
                                   {bannerItem?.button}
@@ -177,11 +181,14 @@ export function CE_BannerVariant01({
                             </div>
                           )}
                           {bannerItem?.button && (
-                            <Link href={bannerItem?.buttonLink ?? '#'}>
+                            <Link href={handleurl(bannerItem?.buttonLink)}>
                               <ButtonSecondary
                                 size="lg"
-                                color="red-01"
                                 rounded="full"
+                                style={{ 
+                                  backgroundColor: '#f59823',
+                                  border: 'none' 
+                                }}
                                 className="px-20"
                               >
                                 {bannerItem?.button}
@@ -207,26 +214,24 @@ export function CE_BannerVariant01({
         {data?.length > 1 && (
           <div
             className={[
-              'absolute top-1/2 z-30 right-0 w-full',
+              'absolute top-1/2 -translate-y-1/2 z-30 right-40',
               'mdmax:top-[initial] mdmax:bottom-32 mdmax:right-[initial] mdmax:left-1/2 mdmax:-translate-x-1/2 mdmax:w-[initial]',
             ].join(' ')}
           >
-            <div className="container text-right">
-              <div className="-mt-10 mdmax:m-0 mdmax:flex mdmax:gap-2 inline-block">
-                {data?.map((_: any, bannerIndex: number) => (
-                  <button
-                    key={bannerIndex}
-                    type="button"
-                    className={[
-                      'w-5 h-5 rounded-full bg-red-01 mb-3 ',
-                      'mdmax:w-4 mdmax:h-4',
-                      `${bannerIndex === index ? '' : 'bg-opacity-50'}`,
-                      'cursor-pointer border-0 p-0', // Add border-0 and p-0 to remove default button styles
-                    ].join(' ')}
-                    onClick={() => setIndex(bannerIndex)}
-                  />
-                ))}
-              </div>
+            <div className="flex flex-col">
+              {data?.map((_: any, bannerIndex: number) => (
+                <button
+                  key={bannerIndex}
+                  type="button"
+                  className={[
+                    'w-5 h-5 rounded-full bg-red-01 mb-3',
+                    'mdmax:w-4 mdmax:h-4',
+                    `${bannerIndex === index ? '' : 'bg-opacity-50'}`,
+                    'cursor-pointer border-0 p-0',
+                  ].join(' ')}
+                  onClick={() => setIndex(bannerIndex)}
+                />
+              ))}
             </div>
           </div>
         )}
