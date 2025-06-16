@@ -83,19 +83,21 @@ export default function CE_CardVariant02({
                 >
                   <div className="bg-white px-10 pb-10 pt-10 shadow-lg rounded-br-[5rem] hover:shadow-xl transition-all duration-300 group cursor-pointer min-h-[28rem] flex flex-col justify-between">
                     <div
-                      className={`mb-10 ${getImageContainerClass(index)} flex items-center justify-center`}
+                      className={`mb-10 ${getImageContainerClass(index)} flex items-center justify-start w-full`}
                     >
-                      {item?.image && (
-                        <Image
-                          extern={false}
-                          src={`${baseUrl}/api/files/?path=${item.image}`}
-                          alt="image"
-                          width={1920}
-                          height={1080}
-                          onLoad={(e) => handleImageLoad(index, e)}
-                          className="object-contain w-full h-full"
-                        />
-                      )}
+                      <div className="flex justify-start h-full">
+                        {item?.image && (
+                          <Image
+                            extern={false}
+                            src={`${baseUrl}/api/files/?path=${item.image}`}
+                            alt="image"
+                            width={1920}
+                            height={1080}
+                            onLoad={(e) => handleImageLoad(index, e)}
+                            className="object-contain w-10/12 h-full"
+                          />
+                        )}
+                      </div>
                     </div>
                     <div>
                       {item?.title && (
