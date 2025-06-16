@@ -251,7 +251,13 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       switch (sliderVariant) {
         case 'header_curved':
         default:
-          return <CE_BannerMain variant="01" data={sliderData} slider_variant={sliderVariant}/>;
+          return (
+            <CE_BannerMain
+              variant="01"
+              data={sliderData}
+              slider_variant={sliderVariant}
+            />
+          );
       }
     },
     props: (_component: T_Slider) => {
@@ -2162,6 +2168,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                             }>;
                             name: Array<{ value: string }>;
                           }>;
+                          field_title: Array<{ value: string }>;
                         }>;
                       }) => {
                         return {
@@ -2175,8 +2182,11 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
                                 ?.field_media_file?.[0]?.filename?.[0]?.value;
                             const filename =
                               childItem?.field_document?.[0]?.name?.[0]?.value;
+                            const titleDownload =
+                              childItem?.field_title?.[0]?.value;
 
                             return {
+                              titleDownload: titleDownload,
                               downloadFile: downloadFile,
                               description: description,
                               filename: filename,
@@ -2725,6 +2735,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const filename = _component?.field_document?.[0]?.name?.[0]?.value;
       const iconDownload = _component?.field_media_image;
       const title = _component?.field_title?.[0]?.value;
+
       return {
         filename: filename,
         description: description,
@@ -2744,8 +2755,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const listAccordion: Array<any> = props?.listAccordion;
       const accordionStyle: String = props?.accordionStyle;
       const isCapsule: String = accordionStyle === 'capsule' ? 'rounded' : '';
-      // const titleCtaProps = props?.titleCtaProps;
-      // const linkCtaProps = props?.linkCtaProps;
       const isFirstGlobalAccordion = globalAccordionCounter === 0;
       globalAccordionCounter++;
 

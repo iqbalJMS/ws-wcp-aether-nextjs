@@ -81,9 +81,9 @@ export default function CE_CardVariant02({
                   target={item?.button?.extern ? '_self' : ''}
                   className="block"
                 >
-                  <div className="bg-white px-10 pb-10 pt-10 shadow-lg rounded-br-[5rem] hover:shadow-xl transition-all duration-300 group cursor-pointer min-h-[28rem] flex flex-col justify-between">
+                  <div className="bg-white px-10 pb-10 pt-10 shadow-lg rounded-br-[5rem] hover:shadow-xl transition-all duration-300 group cursor-pointer min-h-[20rem] flex flex-col justify-between">
                     <div
-                      className={`mb-10 ${getImageContainerClass(index)} flex items-center justify-start w-full`}
+                      className={`mb-5 ${getImageContainerClass(index)} flex items-center justify-start w-full`}
                     >
                       <div className="flex justify-start h-full">
                         {item?.image && (

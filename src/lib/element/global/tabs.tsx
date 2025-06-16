@@ -33,6 +33,7 @@ type TChildren = {
   filename?: string;
   iconDownload?: string;
   downloadFile: string;
+  titleDownload: string;
   field_title?: Array<{ value: string }>;
   field_content?: Array<{ value: string }>;
 };
@@ -59,7 +60,7 @@ type ListColumnChild = {
   image?: string;
   description?: string;
   children?: DownloadItemChild[];
-  field_title?: FieldValue[];
+  field_title?: Array<{ value: string }>;
   field_content?: FieldValue[];
 };
 
@@ -151,7 +152,7 @@ export default function Tabs({
               button: {
                 image: '/',
                 link: childItem?.downloadFile,
-                title: 'Download',
+                title: childItem?.titleDownload,
                 extern: true,
               },
             }))}
