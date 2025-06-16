@@ -65,7 +65,7 @@ const CE_CardLaporan = dynamic(
 
 /* Carousel Component */
 const CE_CarouselMain = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.main'), {ssr: false}
+  () => import('@/app/(views)/$element/carousel/client.carousel.main')
 );
 const CE_CarouselVariant06 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant06'),
@@ -93,7 +93,7 @@ const CE_CardVariant08 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant08')
 );
 const CE_CardVariant09 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant09'), { ssr: false }
+  () => import('@/app/(views)/$element/card/client.card.variant09')
 );
 const CE_CardVariant11 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant11')
