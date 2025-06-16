@@ -7,7 +7,6 @@ import { T_PortletProps } from '@/app/(views)/$element/types/portlet';
 import Link from '@/lib/element/global/link';
 import { BASE_URL } from '@/app/(views)/$constant';
 import { handleurl } from '@/lib/functions/client/handle-url';
-import Image from '@/lib/element/global/image';
 
 export default async function SE_PortletVariant01({
   title,
@@ -23,13 +22,36 @@ export default async function SE_PortletVariant01({
     ? `${BASE_URL}/api/files/?path=${bgImage}`
     : `${bgImage}`;
 
-  const gridClass = column ? `md:grid-cols-${column}` : '';
-  const gapClass = column === '1' ? 'gap-6' : 'gap-8';
+  let parsedListItems: any[] = [];
+  if (typeof listItems === 'string') {
+    try {
+      parsedListItems = JSON.parse(listItems);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('Gagal mem-parsing JSON dari listItems:', e);
+      parsedListItems = [];
+    }
+  } else if (Array.isArray(listItems)) {
+    parsedListItems = listItems;
+  }
 
+  const gridClass = column === '3' ? 'md:grid-cols-4' : (column ? `md:grid-cols-${column}`: '');
+  const gapClass = column === '1' ? 'gap-6' : 'gap-8';
   const widthClass =
     column === '3' || column === '4' ? 'w-full' : 'md:w-[1100px] w-full';
 
-  const hasListItems = Array.isArray(listItems) && listItems.length > 0;
+  let itemsToRender: (any | null)[] = parsedListItems;
+  if (column === '3' && Array.isArray(parsedListItems)) {
+    itemsToRender = parsedListItems.reduce((acc: (any | null)[], item: any, index: number) => {
+      acc.push(item);
+      if ((index + 1) % 3 === 0) {
+        acc.push(null);
+      }
+      return acc;
+    }, [] as (any | null)[]);
+  }
+
+  const hasListItems = Array.isArray(itemsToRender) && itemsToRender.length > 0;
 
   return (
     <section
@@ -40,16 +62,6 @@ export default async function SE_PortletVariant01({
         backgroundSize: 'cover',
       }}
     >
-      {backgroundImg && (
-        <Image
-          src={backgroundImg}
-          alt="Background"
-          width={1920}
-          height={1080}
-          priority={true}
-          className="hidden"
-        />
-      )}
       <div className="container pt-8 pb-8">
         {title && (
           <div className="font-medium md:text-4xl text-3xl mdmax:text-center mb-4">
@@ -73,9 +85,18 @@ export default async function SE_PortletVariant01({
               marginLeft?.includes('medium') ? 'lg:ml-12' : ''
             }`}
           >
-            {listItems.map((item, index) => (
-              <SE_PortletItem key={index} list_item={item} column={column} />
-            ))}
+            {itemsToRender.map((item: any | null, index: number) => {
+              if (item === null) {
+                return <div key={`placeholder-${index}`} aria-hidden="true"></div>;
+              }
+              return (
+                <SE_PortletItem
+                  key={item.id || index}
+                  list_item={item}
+                  column={column}
+                />
+              );
+            })}
           </div>
         )}
 
