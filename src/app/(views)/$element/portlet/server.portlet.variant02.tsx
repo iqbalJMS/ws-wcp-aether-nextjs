@@ -55,7 +55,7 @@ export default async function SE_PortletVariant02({
                   </div>
                 )}
                 {subtitle && (
-                  <div className="text-white font-normal text-lg leading-6 pt-5">
+                  <div className="text-white font-normal text-lg leading-6 pt-3">
                     {parseHTMLToReact(subtitle)}
                   </div>
                 )}
@@ -92,7 +92,7 @@ export default async function SE_PortletVariant02({
               )}
               {subtitle && (
                 <div
-                  className={`text-white font-normal text-lg leading-6 pt-5 ${headerAlignment === 'left' ? 'max-w-[55%] break-words' : ''}`}
+                  className={`text-white font-normal text-lg leading-6 pt-3 ${headerAlignment === 'left' ? 'max-w-[55%] break-words' : ''}`}
                 >
                   {parseHTMLToReact(subtitle)}
                 </div>
