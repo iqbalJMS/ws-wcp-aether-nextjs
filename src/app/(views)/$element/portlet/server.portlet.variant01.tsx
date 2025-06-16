@@ -35,20 +35,24 @@ export default async function SE_PortletVariant01({
     parsedListItems = listItems;
   }
 
-  const gridClass = column === '3' ? 'md:grid-cols-4' : (column ? `md:grid-cols-${column}`: '');
+  const gridClass =
+    column === '3' ? 'md:grid-cols-4' : column ? `md:grid-cols-${column}` : '';
   const gapClass = column === '1' ? 'gap-6' : 'gap-8';
   const widthClass =
     column === '3' || column === '4' ? 'w-full' : 'md:w-[1100px] w-full';
 
   let itemsToRender: (any | null)[] = parsedListItems;
   if (column === '3' && Array.isArray(parsedListItems)) {
-    itemsToRender = parsedListItems.reduce((acc: (any | null)[], item: any, index: number) => {
-      acc.push(item);
-      if ((index + 1) % 3 === 0) {
-        acc.push(null);
-      }
-      return acc;
-    }, [] as (any | null)[]);
+    itemsToRender = parsedListItems.reduce(
+      (acc: (any | null)[], item: any, index: number) => {
+        acc.push(item);
+        if ((index + 1) % 3 === 0) {
+          acc.push(null);
+        }
+        return acc;
+      },
+      [] as (any | null)[]
+    );
   }
 
   const hasListItems = Array.isArray(itemsToRender) && itemsToRender.length > 0;
@@ -87,7 +91,9 @@ export default async function SE_PortletVariant01({
           >
             {itemsToRender.map((item: any | null, index: number) => {
               if (item === null) {
-                return <div key={`placeholder-${index}`} aria-hidden="true"></div>;
+                return (
+                  <div key={`placeholder-${index}`} aria-hidden="true"></div>
+                );
               }
               return (
                 <SE_PortletItem
