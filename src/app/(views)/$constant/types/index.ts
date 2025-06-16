@@ -44,6 +44,7 @@ export type T_IconList = {
 export type T_CarouselMainProps = {
   title?: string;
   description?: string;
+  subtitle?: string;
   button?: {
     name: string;
     link: string;

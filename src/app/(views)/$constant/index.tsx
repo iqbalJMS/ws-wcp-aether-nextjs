@@ -448,6 +448,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               button={props?.button}
             />
           );
+        case WIDGET_VARIANT.variant48:
+          return (
+            <CE_CarouselVariant09
+              button={props?.button}
+              data={listItems}
+              description={subtitle}
+              title={title}
+            />
+          );
         case WIDGET_VARIANT.variant47:
           return (
             <CE_CarouselMain
@@ -860,15 +869,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title={title}
               description={subtitle}
               button={props?.button}
-            />
-          );
-        case WIDGET_VARIANT.variant48:
-          return (
-            <CE_CarouselVariant09
-              button={props?.button}
-              data={listItems}
-              description={subtitle}
-              title={title}
             />
           );
         case WIDGET_VARIANT.variant50:
@@ -1573,12 +1573,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             title: titleV02,
-            subtitle: parseHTMLToReact(subtitle || ''),
             button: {
               name: hreftitle,
               link: hrefLink,
             },
             data: dataV11,
+          };
+        case WIDGET_VARIANT.variant48:
+          return {
+            variant: findVariantStyle,
+            title: titleV02,
+            data: dataV11,
+            button: {
+              name: hreftitle,
+              link: hrefLink,
+            },
           };
         case WIDGET_VARIANT.variant47:
           return {
@@ -1759,16 +1768,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             },
             data: dataV11,
           };
-        case WIDGET_VARIANT.variant48:
-          return {
-            variant: findVariantStyle,
-            title: titleV02,
-            data: dataV11,
-            button: {
-              name: hreftitle,
-              link: hrefLink,
-            },
-          };
+
         case WIDGET_VARIANT.variant50:
           return {
             variant: findVariantStyle,

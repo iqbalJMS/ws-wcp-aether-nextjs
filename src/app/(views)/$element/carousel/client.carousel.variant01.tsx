@@ -38,7 +38,7 @@ export function CE_CarouselVariant01({
         <div className="flex mdmax:flex-wrap items-center">
           <div className="w-[20%] mdmax:w-full flex-none">
             {title && (
-              <div className="text-2xl font-semibold mb-4">
+              <div className="text-[42px] font-semibold leading-[3rem] mb-5">
                 {parseHTMLToReact(title)}
               </div>
             )}
@@ -93,9 +93,9 @@ export function CE_CarouselVariant01({
               {data?.map((dataItem, index) => (
                 <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={handleurl(dataItem?.button?.link)} target="_self">
-                    <div className="p-4 mdmax:p-2 shadow-lg py-10 px-5 h-[29rem] mdmax:h-[29rem] flex flex-col">
+                    <div className="p-4 shadow-lg py-10 px-5 h-full flex flex-col">
                       {dataItem?.image && (
-                        <div className="w-full h-[15rem] mb-4 flex-shrink-0">
+                        <div className="w-full h-[15rem] mb-4">
                           <Image
                             extern={false}
                             src={
@@ -110,14 +110,14 @@ export function CE_CarouselVariant01({
                           />
                         </div>
                       )}
-                      <div className="flex flex-col flex-grow">
+                      <div className="flex flex-col flex-grow justify-between">
                         {dataItem?.title && (
-                          <div className=" text-red-01 font-semibold mb-6 mt-2">
+                          <div className="text-red-01 font-semibold mb-5">
                             {parseHTMLToReact(dataItem?.title)}
                           </div>
                         )}
                         {dataItem?.desc && (
-                          <div className="text-xs h-[4rem] overflow-auto">
+                          <div className="text-sm font-regular font-poppins h-[4rem] overflow-auto">
                             {parseHTMLToReact(dataItem?.desc)}
                           </div>
                         )}
