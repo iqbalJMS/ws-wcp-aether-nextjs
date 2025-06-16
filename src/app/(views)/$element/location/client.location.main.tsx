@@ -190,7 +190,7 @@ const CE_LocationMain = ({ types }: T_Props) => {
   };
 
   return (
-    <div className=" py-10">
+    <div className="py-10">
       <div className="text-center text-2xl mb-5">
         {parseHTMLToReact(dictionary?.location?.Title ?? '')}
       </div>
@@ -209,16 +209,16 @@ const CE_LocationMain = ({ types }: T_Props) => {
           }}
         />
       </div>
-      <div className="py-10 pb-0 border-b-2 border-black border-opacity-10 text-center mb-5">
+      <div className="py-7 pb-0 border-b-2 border-black border-opacity-10 text-center mb-2">
         <div className="inline-flex -mx-5 mdmax:-mx-2">
           {types?.map((locationTypeItem) => {
             return (
               <div
                 key={locationTypeItem.id}
-                className="w-[15rem] mdmax:w-[5.5rem] group px-5 mdmax:px-2"
+                className="w-[180px] mdmax:w-[5.5rem] group px-5 mdmax:px-2"
               >
                 <div
-                  className="relative cursor-pointer"
+                  className="relative cursor-pointer h-full"
                   onClick={() => {
                     form.skip = '0';
                     form.category = '';
@@ -239,11 +239,11 @@ const CE_LocationMain = ({ types }: T_Props) => {
                           alt=""
                           width={100}
                           height={100}
-                          className="w-[5rem] h-[5rem] mdmax:w-[2rem] mdmax:h-[2rem] mx-auto"
+                          className="w-12 h-12 mdmax:w-8 mdmax:h-8 mx-auto"
                         />
                       )}
                     </div>
-                    <div className="text-center font-semibold h-[5rem] mdmax:h-[2rem] mdmax:text-[0.5rem]">
+                    <div className="text-center font-semibold text-sm pb-[10px] h-auto mdmax:h-[2rem] mdmax:text-[0.5rem]">
                       {getLocationType(locationTypeItem.id)?.name}
                     </div>
                   </div>

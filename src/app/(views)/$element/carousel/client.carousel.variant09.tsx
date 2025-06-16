@@ -110,7 +110,7 @@ export default function CE_CarouselVariant09({
               }}
             >
               {data?.map((dataItem, index) => (
-                <div key={index} className="w-1/3 mdmax:w-full flex-none px-2">
+                <div key={index} className="w-1/4 mdmax:w-1/2 flex-none px-2">
                   <Link href={handleurl(dataItem?.button?.link)} target="_self">
                     <div className="p-4 shadow-lg py-10 px-5 h-full flex flex-col">
                       {dataItem?.image && (
@@ -127,12 +127,12 @@ export default function CE_CarouselVariant09({
                       )}
                       <div className="flex flex-col flex-grow">
                         {dataItem?.title && (
-                          <div className=" text-red-01 font-semibold mb-8">
+                          <div className="text-red-01 font-semibold mb-5">
                             {parseHTMLToReact(dataItem?.title)}
                           </div>
                         )}
                         {dataItem?.desc && (
-                          <div className="text-xs">
+                          <div className="text-sm font-regular font-poppins">
                             <span>
                               {parseHTMLToReact(
                                 truncateText(dataItem.desc, 17).truncated
@@ -140,12 +140,12 @@ export default function CE_CarouselVariant09({
                               {truncateText(dataItem.desc, 17).remaining && (
                                 <span className="underline cursor-pointer relative inline-block">
                                   {' '}
-                                  <span className="text-blue-500 hover:text-blue-700 peer">
+                                  <span className="text-[#014A94] hover:text-blue-700 font-semibold text-[14px] font-poppins peer">
                                     ...
                                     {dictionary?.company_info?.richText ??
                                       'Selengkapnya'}
                                   </span>
-                                  <span className="absolute w-64 bg-white text-black text-xs p-2 rounded shadow-lg left-0 bottom-full mb-1 hidden peer-hover:block z-50">
+                                  <span className="absolute w-64 bg-white text-black text-sm p-2 rounded shadow-lg left-0 bottom-full mb-1 hidden peer-hover:block z-50"> {/* Ukuran font di tooltip juga disesuaikan */}
                                     {parseHTMLToReact(dataItem.desc)}
                                   </span>
                                 </span>

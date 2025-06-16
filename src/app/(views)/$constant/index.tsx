@@ -65,7 +65,7 @@ const CE_CardLaporan = dynamic(
 
 /* Carousel Component */
 const CE_CarouselMain = dynamic(
-  () => import('@/app/(views)/$element/carousel/client.carousel.main')
+  () => import('@/app/(views)/$element/carousel/client.carousel.main'), {ssr: false}
 );
 const CE_CarouselVariant06 = dynamic(
   () => import('@/app/(views)/$element/carousel/client.carousel.variant06'),
@@ -93,7 +93,7 @@ const CE_CardVariant08 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant08')
 );
 const CE_CardVariant09 = dynamic(
-  () => import('@/app/(views)/$element/card/client.card.variant09')
+  () => import('@/app/(views)/$element/card/client.card.variant09'), { ssr: false }
 );
 const CE_CardVariant11 = dynamic(
   () => import('@/app/(views)/$element/card/client.card.variant11')
@@ -177,7 +177,7 @@ const CE_KursMain = dynamic(
   () => import('@/app/(views)/$element/kurs/client.kurs.main')
 );
 const SE_SubscriberContent = dynamic(
-  () => import('@/app/(views)/$element/server.subscriber.content')
+  () => import('@/app/(views)/$element/server.subscriber.content'), { ssr: false }
 );
 const ContactSection = dynamic(
   () => import('@/app/(views)/$element/card/client.content.info')
@@ -446,6 +446,15 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title={title}
               description={subtitle}
               button={props?.button}
+            />
+          );
+        case WIDGET_VARIANT.variant48:
+          return (
+            <CE_CarouselVariant09
+              button={props?.button}
+              data={listItems}
+              description={subtitle}
+              title={title}
             />
           );
         case WIDGET_VARIANT.variant47:
@@ -860,15 +869,6 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
               title={title}
               description={subtitle}
               button={props?.button}
-            />
-          );
-        case WIDGET_VARIANT.variant48:
-          return (
-            <CE_CarouselVariant09
-              button={props?.button}
-              data={listItems}
-              description={subtitle}
-              title={title}
             />
           );
         case WIDGET_VARIANT.variant50:
@@ -1573,12 +1573,21 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           return {
             variant: findVariantStyle,
             title: titleV02,
-            subtitle: parseHTMLToReact(subtitle || ''),
             button: {
               name: hreftitle,
               link: hrefLink,
             },
             data: dataV11,
+          };
+        case WIDGET_VARIANT.variant48:
+          return {
+            variant: findVariantStyle,
+            title: titleV02,
+            data: dataV11,
+            button: {
+              name: hreftitle,
+              link: hrefLink,
+            },
           };
         case WIDGET_VARIANT.variant47:
           return {
@@ -1759,16 +1768,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
             },
             data: dataV11,
           };
-        case WIDGET_VARIANT.variant48:
-          return {
-            variant: findVariantStyle,
-            title: titleV02,
-            data: dataV11,
-            button: {
-              name: hreftitle,
-              link: hrefLink,
-            },
-          };
+
         case WIDGET_VARIANT.variant50:
           return {
             variant: findVariantStyle,
