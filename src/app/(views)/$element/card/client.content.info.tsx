@@ -108,69 +108,68 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   return (
     <div className="bg-gray-50">
       <div className="container">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 px-6 py-12">
-          <div className="flex-1">
-            {title && (
-              <div className="mb-4 text-3xl">{parseHTMLToReact(title)}</div>
-            )}
+        <div className="flex flex-col py-12 px-6">
+          {title && (
+            <div className="mb-4 text-3xl">{parseHTMLToReact(title)}</div>
+          )}
+
+          <div className="flex md:flex-row flex-col gap-6">
             {description && (
-              <p className="text-lg font-light lg:w-1/2 w-full">
-                {parseHTMLToReact(description)}
-              </p>
+              <div className="md:basis-[380px] max-w-[380px]">
+                <div className="text-lg font-light md:max-w-[80%] w-full">
+                  {parseHTMLToReact(description)}
+                </div>
+              </div>
             )}
-          </div>
-
-          <div className="flex-[2] flex flex-wrap gap-6">
             {cards.map((card, index) => (
-              <div
-                key={index}
-                className="bg-white w-[380px] shadow-md rounded-lg p-7 flex flex-col gap-4"
-              >
-                <h3 className="text-xl font-semibold">{card.bigTitle}</h3>
+              <div key={index} className="md:basis-[380px] max-w-[380px]">
+                <div className="bg-white shadow-md rounded-lg p-7 w-full h-full flex flex-col gap-4">
+                  <h3 className="text-xl font-semibold">{card.bigTitle}</h3>
 
-                {card?.details?.map((detail, idx) => (
-                  <div key={idx} className="flex flex-col gap-1">
-                    {detail.title && (
-                      <div className="text-gray-500 text-sm font-medium">
-                        {parseHTMLToReact(detail.title)}
-                      </div>
-                    )}
-                    {detail.description && (
-                      <div className="text-black text-sm text-poppins font-">
-                        {parseHTMLToReact(detail.description)}
-                      </div>
-                    )}
-                    {detail.link && (
-                      <a
-                        href={detail.link}
-                        target="_self"
-                        rel="noopener noreferrer"
-                        className="text-blue-500 text-sm underline"
-                      >
-                        {parseHTMLToReact(detail.link)}
-                      </a>
-                    )}
-                    {detail?.icon && (
-                      <div className="flex items-center gap-2">
-                        {Object.entries(detail?.icon)?.map((item) => {
-                          return (
-                            <Link
-                              extern={false}
-                              key={item?.[0]}
-                              href={item?.[1]}
-                              target="_self"
-                              className="bg-[#014a94] flex items-center justify-center h-7 w-7 text-white p-2 rounded-full"
-                              rel="noopener noreferrer"
-                            >
-                              {/* @ts-ignored */}
-                              {iconComponents?.[item[0]]}
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  {card?.details?.map((detail, idx) => (
+                    <div key={idx} className="flex flex-col gap-1">
+                      {detail.title && (
+                        <div className="text-gray-500 text-sm font-medium">
+                          {parseHTMLToReact(detail.title)}
+                        </div>
+                      )}
+                      {detail.description && (
+                        <div className="text-black text-sm text-poppins font-">
+                          {parseHTMLToReact(detail.description)}
+                        </div>
+                      )}
+                      {detail.link && (
+                        <a
+                          href={detail.link}
+                          target="_self"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 text-sm underline"
+                        >
+                          {parseHTMLToReact(detail.link)}
+                        </a>
+                      )}
+                      {detail?.icon && (
+                        <div className="flex items-center gap-2">
+                          {Object.entries(detail?.icon)?.map((item) => {
+                            return (
+                              <Link
+                                extern={false}
+                                key={item?.[0]}
+                                href={item?.[1]}
+                                target="_self"
+                                className="bg-[#014a94] flex items-center justify-center h-7 w-7 text-white p-2 rounded-full"
+                                rel="noopener noreferrer"
+                              >
+                                {/* @ts-ignored */}
+                                {iconComponents?.[item[0]]}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
