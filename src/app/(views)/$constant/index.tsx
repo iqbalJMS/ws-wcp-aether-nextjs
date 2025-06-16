@@ -177,7 +177,7 @@ const CE_KursMain = dynamic(
   () => import('@/app/(views)/$element/kurs/client.kurs.main')
 );
 const SE_SubscriberContent = dynamic(
-  () => import('@/app/(views)/$element/server.subscriber.content'), { ssr: false }
+  () => import('@/app/(views)/$element/server.subscriber.content')
 );
 const ContactSection = dynamic(
   () => import('@/app/(views)/$element/card/client.content.info')
