@@ -145,7 +145,9 @@ export default function CE_CarouselVariant09({
                                     {dictionary?.company_info?.richText ??
                                       'Selengkapnya'}
                                   </span>
-                                  <span className="absolute w-64 bg-white text-black text-sm p-2 rounded shadow-lg left-0 bottom-full mb-1 hidden peer-hover:block z-50"> {/* Ukuran font di tooltip juga disesuaikan */}
+                                  <span className="absolute w-64 bg-white text-black text-sm p-2 rounded shadow-lg left-0 bottom-full mb-1 hidden peer-hover:block z-50">
+                                    {' '}
+                                    {/* Ukuran font di tooltip juga disesuaikan */}
                                     {parseHTMLToReact(dataItem.desc)}
                                   </span>
                                 </span>

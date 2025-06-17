@@ -9,7 +9,6 @@ const CE_BannerMain = ({
   data,
   slider_variant,
   variant = '01',
-
 }: {
   data: Array<{
     image: string;
@@ -24,7 +23,9 @@ const CE_BannerMain = ({
 }) => {
   return (
     <>
-      {variant === '01' && <CE_BannerVariant01 data={data} slider_variant={slider_variant}/>}
+      {variant === '01' && (
+        <CE_BannerVariant01 data={data} slider_variant={slider_variant} />
+      )}
       {variant === '02' && <CE_BannerVariant02 data={data} />}
       {variant === '03' && <CE_BannerVariant03 data={data} />}
       {variant === '04' && <CE_BannerVariant04 data={data} />}

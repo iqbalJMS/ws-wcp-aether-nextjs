@@ -93,8 +93,8 @@ export function CE_BannerVariant01({
           onMouseLeave={handleMouseLeave}
           ref={sliderRef}
           className={`overflow-hidden relative h-[50rem] mdmax:h-[30rem] z-10 ${
-            slider_variant === 'header_curved' 
-              ? 'rounded-br-[14rem] mdmax:rounded-br-[7rem]' 
+            slider_variant === 'header_curved'
+              ? 'rounded-br-[14rem] mdmax:rounded-br-[7rem]'
               : ''
           }`}
         >
@@ -141,9 +141,9 @@ export function CE_BannerVariant01({
                                 <ButtonSecondary
                                   size="lg"
                                   rounded="full"
-                                  style={{ 
+                                  style={{
                                     backgroundColor: '#f59823',
-                                    border: 'none' 
+                                    border: 'none',
                                   }}
                                   className="px-20"
                                 >
@@ -185,9 +185,9 @@ export function CE_BannerVariant01({
                               <ButtonSecondary
                                 size="lg"
                                 rounded="full"
-                                style={{ 
+                                style={{
                                   backgroundColor: '#f59823',
-                                  border: 'none' 
+                                  border: 'none',
                                 }}
                                 className="px-20"
                               >
@@ -205,9 +205,7 @@ export function CE_BannerVariant01({
           })}
           <div
             className={`absolute left-0 bottom-0 w-full h-[30%] bg-gradient-to-t from-[#94183d] to-[rgba(148,24,61,0)] opacity-60 z-10 ${
-              slider_variant === 'header_curved' 
-                ? 'rounded-br-[14rem]' 
-                : ''
+              slider_variant === 'header_curved' ? 'rounded-br-[14rem]' : ''
             }`}
           ></div>
         </div>
@@ -235,11 +233,13 @@ export function CE_BannerVariant01({
             </div>
           </div>
         )}
-        <div className={`w-full h-[50rem] mdmax:h-[30rem] absolute top-4 left-0 bg-black overflow-hidden bg-opacity-10 z-0 ${
-          slider_variant === 'header_curved' 
-            ? 'rounded-br-[14rem] mdmax:rounded-br-[7rem]' 
-            : ''
-        }`}></div>
+        <div
+          className={`w-full h-[50rem] mdmax:h-[30rem] absolute top-4 left-0 bg-black overflow-hidden bg-opacity-10 z-0 ${
+            slider_variant === 'header_curved'
+              ? 'rounded-br-[14rem] mdmax:rounded-br-[7rem]'
+              : ''
+          }`}
+        ></div>
       </div>
     </section>
   );
