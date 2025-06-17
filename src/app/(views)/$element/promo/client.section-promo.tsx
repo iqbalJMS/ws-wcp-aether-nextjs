@@ -46,7 +46,7 @@ export default function CE_SectionPromo({
       data-range-length={listTab?.[0]?.contents?.length}
       id="section-multitab-carousel"
       className={[
-        'flex flex-col justify-between gap-7 1025:flex-row 1025:gap-10 items-start',
+        'flex flex-col justify-between gap-7 1025:flex-row 1025:gap-10 1025:items-start items-center',
         'group/section-multitab-carousel lg:py-12 py-8',
       ].join(' ')}
     >
