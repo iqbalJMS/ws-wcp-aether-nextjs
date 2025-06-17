@@ -239,11 +239,11 @@ const CE_LocationMain = ({ types }: T_Props) => {
                           alt=""
                           width={100}
                           height={100}
-                          className="w-12 h-12 mdmax:w-8 mdmax:h-8 mx-auto"
+                          className="w-10 h-10 mdmax:w-8 mdmax:h-8 mx-auto"
                         />
                       )}
                     </div>
-                    <div className="text-center font-semibold text-sm pb-[10px] h-auto mdmax:h-[2rem] mdmax:text-[0.5rem]">
+                    <div className="text-center font-semibold text-sm h-auto mdmax:h-[2rem] mdmax:text-[0.5rem] text-[#4f616d] py-3">
                       {getLocationType(locationTypeItem.id)?.name}
                     </div>
                   </div>
@@ -287,9 +287,13 @@ const CE_LocationMain = ({ types }: T_Props) => {
             <div key={index} className="w-1/3 mdmax:w-full flex-none px-2 mb-4">
               <div className="shadow-lg relative rounded-md rounded-br-[3rem] overflow-hidden group p-4">
                 <div className="mt-2">
-                  {dataItem.tipe && (
+                  {!locationCategories ? (
                     <div className=" text-blue-02  mb-2">
-                      {parseHTMLToReact(dataItem.tipe)}
+                      {dataItem.typeName}
+                    </div>
+                  ) : (
+                    <div className=" text-blue-02  mb-2">
+                      {dataItem.categoryName ?? dataItem?.typeName}
                     </div>
                   )}
                   {dataItem.name && (

@@ -5,6 +5,7 @@ export type T_Location = {
     address: string;
     phone: string;
     category: string;
+    categoryName: string;
     tipe: string;
     lat: number;
     long: number;
@@ -12,6 +13,7 @@ export type T_Location = {
     province: string;
     city: string;
     kodeAgen?: string;
+    typeName: string;
   }[];
   pagination: {
     total: number;
