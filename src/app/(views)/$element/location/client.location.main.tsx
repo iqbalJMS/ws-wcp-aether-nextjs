@@ -287,9 +287,13 @@ const CE_LocationMain = ({ types }: T_Props) => {
             <div key={index} className="w-1/3 mdmax:w-full flex-none px-2 mb-4">
               <div className="shadow-lg relative rounded-md rounded-br-[3rem] overflow-hidden group p-4">
                 <div className="mt-2">
-                  {dataItem.typeName && (
+                  {!locationCategories ? (
                     <div className=" text-blue-02  mb-2">
-                      {parseHTMLToReact(dataItem.typeName)}
+                      {dataItem.typeName}
+                    </div>
+                  ) : (
+                    <div className=" text-blue-02  mb-2">
+                      {dataItem.categoryName ?? dataItem?.typeName}
                     </div>
                   )}
                   {dataItem.name && (

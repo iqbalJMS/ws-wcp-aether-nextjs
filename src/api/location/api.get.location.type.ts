@@ -5,6 +5,7 @@ export type T_Location = {
     address: string;
     phone: string;
     category: string;
+    categoryName: string;
     tipe: string;
     lat: number;
     long: number;
