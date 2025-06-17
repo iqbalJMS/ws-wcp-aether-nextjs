@@ -12,6 +12,7 @@ export type T_Location = {
     province: string;
     city: string;
     kodeAgen?: string;
+    typeName: string;
   }[];
   pagination: {
     total: number;
