@@ -30,12 +30,12 @@ export default async function SE_PortletVariant02({
   );
 
   return (
-    <section className="relative mb-6">
+    <section className="relative ">
       <div
         className={`relative w-full bg-cover bg-no-repeat ${
           variantLayout === 'rounded_corneer'
-            ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem] overflow-hidden'
-            : ''
+            ? 'rounded-br-[20rem] mdmax:rounded-br-[7rem] overflow-hidden mb-6'
+            : 'mb-2'
         } ${variantLayout === 'large' ? 'md:h-[40rem] h-[20rem]' : 'h-[20rem]'}`}
         style={{
           backgroundImage: `${background ? `url('${background}')` : '/web/guest/images/why-us/bg-image.jpg'}`,

@@ -2661,6 +2661,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
     component: (props: {
       video: string | undefined;
       title: string | undefined;
+      description: string | undefined;
       background: string | undefined;
     }) => {
       return (
@@ -2668,6 +2669,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
           videoId={props.video}
           title={props.title}
           backgroundImage={props.background}
+          description={props.description}
         />
       );
     },
@@ -2675,6 +2677,7 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       field_video: { field_media_oembed_video: { value: any }[] }[];
       field_image: { field_media_image: { uri: { url: any }[] }[] }[];
       field_title: { value: any }[];
+      field_content: { value: any }[];
     }) => {
       const video =
         _component?.field_video?.[0]?.field_media_oembed_video?.[0]?.value;
@@ -2682,10 +2685,12 @@ export const COMPONENT_MAP_WIDGET: Record<T_Widget, T_ComponentMapWidget> = {
       const background =
         _component?.field_image?.[0]?.field_media_image?.[0]?.uri?.[0]?.url;
       const title = _component?.field_title?.[0]?.value;
+      const description = _component?.field_content?.[0]?.value;
       return {
         background: background,
         title: title,
         video: videoId,
+        description: description,
       };
     },
   },

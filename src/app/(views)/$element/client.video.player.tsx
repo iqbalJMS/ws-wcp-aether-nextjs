@@ -8,17 +8,24 @@ interface VideoPlayerVariant1Props {
   videoId?: string;
   title?: string;
   backgroundImage?: string;
+  description?: string;
 }
 
 const VideoPlayerVariant1: React.FC<VideoPlayerVariant1Props> = ({
   videoId,
   title,
   backgroundImage,
+  description,
 }) => {
   const { baseUrl } = useEnv();
   return (
-    <div className="relative flex flex-col items-center py-8">
-      <h2 className="text-2xl font-bold mb-6">{title}</h2>
+    <div className="relative flex flex-col items-center py-16 space-y-4">
+      {title && <h2 className="text-4xl font-semibold">{title}</h2>}
+      {description && (
+        <h3 className="text-lg font-normal text-[#8A8CA0]">
+          {parseHTMLToReact(description)}
+        </h3>
+      )}
       <div className="absolute inset-0 w-full h-full bg-no-repeat bg-center bg-cover opacity-30" />
 
       <div
